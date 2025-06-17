@@ -1,0 +1,1 @@
+# doc-collector-ai-insights
