@@ -1,0 +1,3855 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Getting started        
+
+
+
+
+
+
+
+
+
+        Installation        
+
+
+
+
+
+
+
+
+
+        Imports        
+
+
+
+
+
+
+
+
+
+        Using with vanilla JS        
+
+
+
+
+
+
+
+
+
+        Using with React        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Timer        
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onLoop        
+
+
+
+
+
+
+
+
+
+        onPause        
+
+
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animation        
+
+
+
+
+
+
+
+
+
+        Targets        
+
+
+
+
+
+
+
+
+
+        CSS Selector        
+
+
+
+
+
+
+
+
+
+        DOM Elements        
+
+
+
+
+
+
+
+
+
+        JavaScript Objects        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Array of targets        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animatable properties        
+
+
+
+
+
+
+
+
+
+        CSS Properties        
+
+
+
+
+
+
+
+
+
+        CSS transforms        
+
+
+
+
+
+
+
+
+
+        CSS Variables        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        JS Object properties        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        HTML Attributes        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        SVG Attributes        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Tween value types        
+
+
+
+
+
+
+
+
+
+        Numerical        
+
+
+
+
+
+
+
+
+
+        Unit conversion        
+
+
+
+
+
+
+
+
+
+        Relative        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Color        
+
+
+
+
+
+
+
+
+
+        Color function        
+
+
+WAAPI
+ 
+
+
+
+
+
+
+
+        CSS variable        
+
+
+WAAPI
+ 
+
+
+
+
+
+
+
+        Function based        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Tween parameters        
+
+
+
+
+
+
+
+
+
+        to        
+
+
+
+
+
+
+
+
+
+        from        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        composition        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        modifier        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Keyframes        
+
+
+
+
+
+
+
+
+
+        Tween values        
+
+
+
+
+
+
+
+
+
+        Tween parameters        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Duration based        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Percentage based        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+        playbackEase        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onBeforeUpdate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onUpdate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onRender        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onLoop        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onPause        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        refresh()        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Timeline        
+
+
+
+
+
+
+
+
+
+        Add timers        
+
+
+
+
+
+
+
+
+
+        Add animations        
+
+
+
+
+
+
+
+
+
+        Sync WAAPI animations        
+
+
+
+
+
+
+
+
+
+        Sync timelines        
+
+
+
+
+
+
+
+
+
+        Call functions        
+
+
+
+
+
+
+
+
+
+        Time position        
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        defaults        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+        playbackEase        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onBeforeUpdate        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onRender        
+
+
+
+
+
+
+
+
+
+        onLoop        
+
+
+
+
+
+
+
+
+
+        onPause        
+
+
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        add()        
+
+
+
+
+
+
+
+
+
+        set()        
+
+
+
+
+
+
+
+
+
+        sync()        
+
+
+
+
+
+
+
+
+
+        label()        
+
+
+
+
+
+
+
+
+
+        remove()        
+
+
+
+
+
+
+
+
+
+        call()        
+
+
+
+
+
+
+
+
+
+        init()        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animatable        
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        unit        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        Getters        
+
+
+
+
+
+
+
+
+
+        Setters        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Draggable        
+
+
+
+
+
+
+
+
+
+        Axes parameters        
+
+
+
+
+
+
+
+
+
+        x        
+
+
+
+
+
+
+
+
+
+        y        
+
+
+
+
+
+
+
+
+
+        snap        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+        mapTo        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        trigger        
+
+
+
+
+
+
+
+
+
+        container        
+
+
+
+
+
+
+
+
+
+        containerPadding        
+
+
+
+
+
+
+
+
+
+        containerFriction        
+
+
+
+
+
+
+
+
+
+        releaseContainerFriction        
+
+
+
+
+
+
+
+
+
+        releaseMass        
+
+
+
+
+
+
+
+
+
+        releaseStiffness        
+
+
+
+
+
+
+
+
+
+        releaseDamping        
+
+
+
+
+
+
+
+
+
+        velocityMultiplier        
+
+
+
+
+
+
+
+
+
+        minVelocity        
+
+
+
+
+
+
+
+
+
+        maxVelocity        
+
+
+
+
+
+
+
+
+
+        releaseEase        
+
+
+
+
+
+
+
+
+
+        dragSpeed        
+
+
+
+
+
+
+
+
+
+        scrollThreshold        
+
+
+
+
+
+
+
+
+
+        scrollSpeed        
+
+
+
+
+
+
+
+
+
+        cursor        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onGrab        
+
+
+
+
+
+
+
+
+
+        onDrag        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onRelease        
+
+
+
+
+
+
+
+
+
+        onSnap        
+
+
+
+
+
+
+
+
+
+        onSettle        
+
+
+
+
+
+
+
+
+
+        onResize        
+
+
+
+
+
+
+
+
+
+        onAfterResize        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        disable()        
+
+
+
+
+
+
+
+
+
+        enable()        
+
+
+
+
+
+
+
+
+
+        setX()        
+
+
+
+
+
+
+
+
+
+        setY()        
+
+
+
+
+
+
+
+
+
+        animateInView()        
+
+
+
+
+
+
+
+
+
+        scrollInView()        
+
+
+
+
+
+
+
+
+
+        stop()        
+
+
+
+
+
+
+
+
+
+        reset()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ScrollObserver        
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        container        
+
+
+
+
+
+
+
+
+
+        target        
+
+
+
+
+
+
+
+
+
+        debug        
+
+
+
+
+
+
+
+
+
+        axis        
+
+
+
+
+
+
+
+
+
+        repeat        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Thresholds        
+
+
+
+
+
+
+
+
+
+        Numeric values        
+
+
+
+
+
+
+
+
+
+        Positions shorthands        
+
+
+
+
+
+
+
+
+
+        Relative position values        
+
+
+
+
+
+
+
+
+
+        Min max        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Synchronisation modes        
+
+
+
+
+
+
+
+
+
+        Method names        
+
+
+
+
+
+
+
+
+
+        Playback progress        
+
+
+
+
+
+
+
+
+
+        Smooth scroll        
+
+
+
+
+
+
+
+
+
+        Eased scroll        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onEnter        
+
+
+
+
+
+
+
+
+
+        onEnterForward        
+
+
+
+
+
+
+
+
+
+        onEnterBackward        
+
+
+
+
+
+
+
+
+
+        onLeave        
+
+
+
+
+
+
+
+
+
+        onLeaveForward        
+
+
+
+
+
+
+
+
+
+        onLeaveBackward        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onSyncComplete        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        link()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Scope        
+
+
+
+
+
+
+
+
+
+        Add constructor function        
+
+
+
+
+
+
+
+
+
+        Register method function        
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        root        
+
+
+
+
+
+
+
+
+
+        defaults        
+
+
+
+
+
+
+
+
+
+        mediaQueries        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        add()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Stagger        
+
+
+
+
+
+
+
+
+
+        Time staggering        
+
+
+
+
+
+
+
+
+
+        Values staggering        
+
+
+
+
+
+
+
+
+
+        Timeline staggering        
+
+
+
+
+
+
+
+
+
+        Value types        
+
+
+
+
+
+
+
+
+
+        Numerical        
+
+
+
+
+
+
+
+
+
+        Range        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        start value        
+
+
+
+
+
+
+
+
+
+        from        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        grid        
+
+
+
+
+
+
+
+
+
+        axis        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        SVG        
+
+
+
+
+
+
+
+
+
+        morphTo()        
+
+
+
+
+
+
+
+
+
+        createDrawable()        
+
+
+
+
+
+
+
+
+
+        createMotionPath()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Utilities        
+
+
+
+
+
+
+
+
+
+        $()        
+
+
+
+
+
+
+
+
+
+        get()        
+
+
+
+
+
+
+
+
+
+        set()        
+
+
+
+
+
+
+
+
+
+        remove()        
+
+
+
+
+
+
+
+
+
+        cleanInlineStyles()        
+
+
+
+
+
+
+
+
+
+        random()        
+
+
+
+
+
+
+
+
+
+        randomPick()        
+
+
+
+
+
+
+
+
+
+        shuffle()        
+
+
+
+
+
+
+
+
+
+        sync()        
+
+
+
+
+
+
+
+
+
+        lerp()        
+
+
+
+
+
+
+
+
+
+        round()        
+
+
+
+
+
+
+
+
+
+        clamp()        
+
+
+
+
+
+
+
+
+
+        snap()        
+
+
+
+
+
+
+
+
+
+        wrap()        
+
+
+
+
+
+
+
+
+
+        mapRange()        
+
+
+
+
+
+
+
+
+
+        interpolate()        
+
+
+
+
+
+
+
+
+
+        roundPad()        
+
+
+
+
+
+
+
+
+
+        padStart()        
+
+
+
+
+
+
+
+
+
+        padEnd()        
+
+
+
+
+
+
+
+
+
+        degToRad()        
+
+
+
+
+
+
+
+
+
+        radToDeg()        
+
+
+
+
+
+
+
+
+
+        Chain-able utilities        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        WAAPI        
+
+
+
+
+
+
+
+
+
+        When to use        
+
+
+
+
+
+
+
+
+
+        Hardware-acceleration        
+
+
+
+
+
+
+
+
+
+        Improvements to WAAPI        
+
+
+
+
+
+
+
+
+
+        Sensible defaults        
+
+
+
+
+
+
+
+
+
+        Multi-targets animation        
+
+
+
+
+
+
+
+
+
+        Default units        
+
+
+
+
+
+
+
+
+
+        Function based values        
+
+
+
+
+
+
+
+
+
+        Individual transforms        
+
+
+
+
+
+
+
+
+
+        Individual property params        
+
+
+
+
+
+
+
+
+
+        Spring and custom easings        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        API differences        
+
+
+
+
+
+
+
+
+
+        iterations        
+
+
+
+
+
+
+
+
+
+        direction        
+
+
+
+
+
+
+
+
+
+        easing        
+
+
+
+
+
+
+
+
+
+        finished        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        convertEase()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Engine        
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        timeUnit        
+
+
+
+
+
+
+
+
+
+        speed        
+
+
+
+
+
+
+
+
+
+        fps        
+
+
+
+
+
+
+
+
+
+        precision        
+
+
+
+
+
+
+
+
+
+        pauseOnDocumentHidden        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        update()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+        Engine defaults        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Animation
+
+
+
+
+
+Tween parameters
+
+
+
+
+
+
+Since 4.0.0
+
+
+
+
+
+
+
+
+
+            composition            
+V4
+ 
+JS
+ 
+
+
+
+
+Defines how animations behave when another animation on the same target with the same property is playing simultaneously. The composition mode can be defined globally for all animation properties or locally for a specific property.
+
+
+Accepts
+
+
+
+
+
+
+
+
+Mode
+
+
+Description
+
+
+
+
+
+
+
+
+
+
+'replace'
+
+
+Replace and cancel the running animation.
+
+
+
+
+
+
+'none'
+ 
+JS
+
+
+Do not replace the running animation. This means the previous animation will continue running if its duration is longer than the new animation. This mode can also offer better performance.
+
+
+
+
+
+
+'blend'
+ 
+JS
+
+
+Creates an additive animation and blends its values with the running animation.
+
+
+
+
+
+
+0
+ 
+JS
+
+
+Shorthand for 
+'replace'
+.
+
+
+
+
+
+
+1
+ 
+JS
+
+
+Shorthand for 
+'none'
+.
+
+
+
+
+
+
+2
+ 
+JS
+
+
+Shorthand for 
+'blend'
+.
+
+
+
+
+
+
+
+
+Default
+
+
+'replace'
+ if the animation targets count is below 
+1000
+; otherwise, the default composition is set to 
+'none'
+ on the 
+JS
+ version if no composition mode is defined.
+
+
+
+
+To change the default value globally, update the 
+engine.defaults
+ object.
+
+
+import { engine } from 'animejs';
+engine.defaults.composition = 'blend';
+
+
+
+
+Additive animations
+
+
+The 
+'blend'
+ mode lets you create 
+additive animations
+. This type of animation allows you to smoothly blend two animations of the same property on the same target together. This mode works best on properties that visually 
+move
+ on the screen, like 
+'translate'
+, 
+'scale'
+, and 
+'rotation'
+.
+
+
+
+It is not currently possible to use the additive mode when using keyframes or with color values.
+
+ 
+
+
+
+
+
+
+
+
+
+
+composition code example
+
+
+
+
+
+
+J
+ava
+S
+cript
+
+
+HTML
+
+
+
+
+
+
+
+
+import { animate, utils } from 'animejs';
+
+const squares = utils.$('.square');
+const [ $none, $replace, $blend ] = squares;
+
+// Animate each square with a different composition mode
+
+squares.forEach($square => {
+  // 'none', 'replace', 'blend'
+  const mode = $square.classList[1];
+  animate($square, {
+    scale: [.5, 1],
+    alternate: true,
+    loop: true,
+    duration: 750,
+    composition: mode,
+  });
+});
+
+// Common animation parameters
+
+const enter = { scale: 1.5, duration: 350 };
+const leave = { scale: 1.0, duration: 250 };
+
+// Composition none animations
+
+const enterNone = () => animate($none, {
+  composition: 'none', ...enter
+});
+
+const leaveNone = () => animate($none, {
+  composition: 'none', ...leave
+});
+
+$none.addEventListener('mouseenter', enterNone);
+$none.addEventListener('mouseleave', leaveNone);
+
+// Composition replace animations
+
+const enterReplace = () => animate($replace, {
+  composition: 'replace', ...enter
+});
+
+const leaveReplace = () => animate($replace, {
+  composition: 'replace', ...leave
+});
+
+$replace.addEventListener('mouseenter', enterReplace);
+$replace.addEventListener('mouseleave', leaveReplace);
+
+// Composition blend animations
+
+const enterBlend = () => animate($blend, {
+  composition: 'blend', ...enter
+});
+
+const leaveBlend = () => animate($blend, {
+  composition: 'blend', ...leave
+});
+
+$blend.addEventListener('mouseenter', enterBlend);
+$blend.addEventListener('mouseleave', leaveBlend);
+
+
+<div class="large spaced-evenly row">
+  <div class="col">
+    <div class="centered row">
+      <span class="label centered">none<br><br></span>
+      <div class="square none"></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="centered row">
+      <span class="label centered">replace<br><br></span>
+      <div class="square replace"></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="centered row">
+      <span class="label centered">blend<br><br></span>
+      <div class="square blend"></div>
+    </div>
+  </div>
+</div>
+
+<div class="medium spaced-evenly centered row">
+  <div class="label"><br><br>(Hover the squares)</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+Previous
+ 
+Next
+ 
+
+
+
+
+
+
+ease
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+modifier
+
+
+
+
+
+
+
+
+
+
+

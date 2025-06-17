@@ -1,0 +1,3688 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Getting started        
+
+
+
+
+
+
+
+
+
+        Installation        
+
+
+
+
+
+
+
+
+
+        Imports        
+
+
+
+
+
+
+
+
+
+        Using with vanilla JS        
+
+
+
+
+
+
+
+
+
+        Using with React        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Timer        
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onLoop        
+
+
+
+
+
+
+
+
+
+        onPause        
+
+
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animation        
+
+
+
+
+
+
+
+
+
+        Targets        
+
+
+
+
+
+
+
+
+
+        CSS Selector        
+
+
+
+
+
+
+
+
+
+        DOM Elements        
+
+
+
+
+
+
+
+
+
+        JavaScript Objects        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Array of targets        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animatable properties        
+
+
+
+
+
+
+
+
+
+        CSS Properties        
+
+
+
+
+
+
+
+
+
+        CSS transforms        
+
+
+
+
+
+
+
+
+
+        CSS Variables        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        JS Object properties        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        HTML Attributes        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        SVG Attributes        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Tween value types        
+
+
+
+
+
+
+
+
+
+        Numerical        
+
+
+
+
+
+
+
+
+
+        Unit conversion        
+
+
+
+
+
+
+
+
+
+        Relative        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Color        
+
+
+
+
+
+
+
+
+
+        Color function        
+
+
+WAAPI
+ 
+
+
+
+
+
+
+
+        CSS variable        
+
+
+WAAPI
+ 
+
+
+
+
+
+
+
+        Function based        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Tween parameters        
+
+
+
+
+
+
+
+
+
+        to        
+
+
+
+
+
+
+
+
+
+        from        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        composition        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        modifier        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Keyframes        
+
+
+
+
+
+
+
+
+
+        Tween values        
+
+
+
+
+
+
+
+
+
+        Tween parameters        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Duration based        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        Percentage based        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+        playbackEase        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onBeforeUpdate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onUpdate        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onRender        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onLoop        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        onPause        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+JS
+ 
+
+
+
+
+
+
+
+        refresh()        
+
+
+JS
+ 
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Timeline        
+
+
+
+
+
+
+
+
+
+        Add timers        
+
+
+
+
+
+
+
+
+
+        Add animations        
+
+
+
+
+
+
+
+
+
+        Sync WAAPI animations        
+
+
+
+
+
+
+
+
+
+        Sync timelines        
+
+
+
+
+
+
+
+
+
+        Call functions        
+
+
+
+
+
+
+
+
+
+        Time position        
+
+
+
+
+
+
+
+
+
+        Playback settings        
+
+
+
+
+
+
+
+
+
+        defaults        
+
+
+
+
+
+
+
+
+
+        delay        
+
+
+
+
+
+
+
+
+
+        loop        
+
+
+
+
+
+
+
+
+
+        loopDelay        
+
+
+
+
+
+
+
+
+
+        alternate        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        autoplay        
+
+
+
+
+
+
+
+
+
+        frameRate        
+
+
+
+
+
+
+
+
+
+        playbackRate        
+
+
+
+
+
+
+
+
+
+        playbackEase        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onBegin        
+
+
+
+
+
+
+
+
+
+        onComplete        
+
+
+
+
+
+
+
+
+
+        onBeforeUpdate        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onRender        
+
+
+
+
+
+
+
+
+
+        onLoop        
+
+
+
+
+
+
+
+
+
+        onPause        
+
+
+
+
+
+
+
+
+
+        then()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        add()        
+
+
+
+
+
+
+
+
+
+        set()        
+
+
+
+
+
+
+
+
+
+        sync()        
+
+
+
+
+
+
+
+
+
+        label()        
+
+
+
+
+
+
+
+
+
+        remove()        
+
+
+
+
+
+
+
+
+
+        call()        
+
+
+
+
+
+
+
+
+
+        init()        
+
+
+
+
+
+
+
+
+
+        play()        
+
+
+
+
+
+
+
+
+
+        reverse()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        restart()        
+
+
+
+
+
+
+
+
+
+        alternate()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+        complete()        
+
+
+
+
+
+
+
+
+
+        cancel()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        seek()        
+
+
+
+
+
+
+
+
+
+        stretch()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Animatable        
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        unit        
+
+
+
+
+
+
+
+
+
+        duration        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        Getters        
+
+
+
+
+
+
+
+
+
+        Setters        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Draggable        
+
+
+
+
+
+
+
+
+
+        Axes parameters        
+
+
+
+
+
+
+
+
+
+        x        
+
+
+
+
+
+
+
+
+
+        y        
+
+
+
+
+
+
+
+
+
+        snap        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+        mapTo        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        trigger        
+
+
+
+
+
+
+
+
+
+        container        
+
+
+
+
+
+
+
+
+
+        containerPadding        
+
+
+
+
+
+
+
+
+
+        containerFriction        
+
+
+
+
+
+
+
+
+
+        releaseContainerFriction        
+
+
+
+
+
+
+
+
+
+        releaseMass        
+
+
+
+
+
+
+
+
+
+        releaseStiffness        
+
+
+
+
+
+
+
+
+
+        releaseDamping        
+
+
+
+
+
+
+
+
+
+        velocityMultiplier        
+
+
+
+
+
+
+
+
+
+        minVelocity        
+
+
+
+
+
+
+
+
+
+        maxVelocity        
+
+
+
+
+
+
+
+
+
+        releaseEase        
+
+
+
+
+
+
+
+
+
+        dragSpeed        
+
+
+
+
+
+
+
+
+
+        scrollThreshold        
+
+
+
+
+
+
+
+
+
+        scrollSpeed        
+
+
+
+
+
+
+
+
+
+        cursor        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onGrab        
+
+
+
+
+
+
+
+
+
+        onDrag        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onRelease        
+
+
+
+
+
+
+
+
+
+        onSnap        
+
+
+
+
+
+
+
+
+
+        onSettle        
+
+
+
+
+
+
+
+
+
+        onResize        
+
+
+
+
+
+
+
+
+
+        onAfterResize        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        disable()        
+
+
+
+
+
+
+
+
+
+        enable()        
+
+
+
+
+
+
+
+
+
+        setX()        
+
+
+
+
+
+
+
+
+
+        setY()        
+
+
+
+
+
+
+
+
+
+        animateInView()        
+
+
+
+
+
+
+
+
+
+        scrollInView()        
+
+
+
+
+
+
+
+
+
+        stop()        
+
+
+
+
+
+
+
+
+
+        reset()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ScrollObserver        
+
+
+
+
+
+
+
+
+
+        Settings        
+
+
+
+
+
+
+
+
+
+        container        
+
+
+
+
+
+
+
+
+
+        target        
+
+
+
+
+
+
+
+
+
+        debug        
+
+
+
+
+
+
+
+
+
+        axis        
+
+
+
+
+
+
+
+
+
+        repeat        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Thresholds        
+
+
+
+
+
+
+
+
+
+        Numeric values        
+
+
+
+
+
+
+
+
+
+        Positions shorthands        
+
+
+
+
+
+
+
+
+
+        Relative position values        
+
+
+
+
+
+
+
+
+
+        Min max        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Synchronisation modes        
+
+
+
+
+
+
+
+
+
+        Method names        
+
+
+
+
+
+
+
+
+
+        Playback progress        
+
+
+
+
+
+
+
+
+
+        Smooth scroll        
+
+
+
+
+
+
+
+
+
+        Eased scroll        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Callbacks        
+
+
+
+
+
+
+
+
+
+        onEnter        
+
+
+
+
+
+
+
+
+
+        onEnterForward        
+
+
+
+
+
+
+
+
+
+        onEnterBackward        
+
+
+
+
+
+
+
+
+
+        onLeave        
+
+
+
+
+
+
+
+
+
+        onLeaveForward        
+
+
+
+
+
+
+
+
+
+        onLeaveBackward        
+
+
+
+
+
+
+
+
+
+        onUpdate        
+
+
+
+
+
+
+
+
+
+        onSyncComplete        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        link()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Scope        
+
+
+
+
+
+
+
+
+
+        Add constructor function        
+
+
+
+
+
+
+
+
+
+        Register method function        
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        root        
+
+
+
+
+
+
+
+
+
+        defaults        
+
+
+
+
+
+
+
+
+
+        mediaQueries        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        add()        
+
+
+
+
+
+
+
+
+
+        revert()        
+
+
+
+
+
+
+
+
+
+        refresh()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Stagger        
+
+
+
+
+
+
+
+
+
+        Time staggering        
+
+
+
+
+
+
+
+
+
+        Values staggering        
+
+
+
+
+
+
+
+
+
+        Timeline staggering        
+
+
+
+
+
+
+
+
+
+        Value types        
+
+
+
+
+
+
+
+
+
+        Numerical        
+
+
+
+
+
+
+
+
+
+        Range        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        start value        
+
+
+
+
+
+
+
+
+
+        from        
+
+
+
+
+
+
+
+
+
+        reversed        
+
+
+
+
+
+
+
+
+
+        ease        
+
+
+
+
+
+
+
+
+
+        grid        
+
+
+
+
+
+
+
+
+
+        axis        
+
+
+
+
+
+
+
+
+
+        modifier        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        SVG        
+
+
+
+
+
+
+
+
+
+        morphTo()        
+
+
+
+
+
+
+
+
+
+        createDrawable()        
+
+
+
+
+
+
+
+
+
+        createMotionPath()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Utilities        
+
+
+
+
+
+
+
+
+
+        $()        
+
+
+
+
+
+
+
+
+
+        get()        
+
+
+
+
+
+
+
+
+
+        set()        
+
+
+
+
+
+
+
+
+
+        remove()        
+
+
+
+
+
+
+
+
+
+        cleanInlineStyles()        
+
+
+
+
+
+
+
+
+
+        random()        
+
+
+
+
+
+
+
+
+
+        randomPick()        
+
+
+
+
+
+
+
+
+
+        shuffle()        
+
+
+
+
+
+
+
+
+
+        sync()        
+
+
+
+
+
+
+
+
+
+        lerp()        
+
+
+
+
+
+
+
+
+
+        round()        
+
+
+
+
+
+
+
+
+
+        clamp()        
+
+
+
+
+
+
+
+
+
+        snap()        
+
+
+
+
+
+
+
+
+
+        wrap()        
+
+
+
+
+
+
+
+
+
+        mapRange()        
+
+
+
+
+
+
+
+
+
+        interpolate()        
+
+
+
+
+
+
+
+
+
+        roundPad()        
+
+
+
+
+
+
+
+
+
+        padStart()        
+
+
+
+
+
+
+
+
+
+        padEnd()        
+
+
+
+
+
+
+
+
+
+        degToRad()        
+
+
+
+
+
+
+
+
+
+        radToDeg()        
+
+
+
+
+
+
+
+
+
+        Chain-able utilities        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        WAAPI        
+
+
+
+
+
+
+
+
+
+        When to use        
+
+
+
+
+
+
+
+
+
+        Hardware-acceleration        
+
+
+
+
+
+
+
+
+
+        Improvements to WAAPI        
+
+
+
+
+
+
+
+
+
+        Sensible defaults        
+
+
+
+
+
+
+
+
+
+        Multi-targets animation        
+
+
+
+
+
+
+
+
+
+        Default units        
+
+
+
+
+
+
+
+
+
+        Function based values        
+
+
+
+
+
+
+
+
+
+        Individual transforms        
+
+
+
+
+
+
+
+
+
+        Individual property params        
+
+
+
+
+
+
+
+
+
+        Spring and custom easings        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        API differences        
+
+
+
+
+
+
+
+
+
+        iterations        
+
+
+
+
+
+
+
+
+
+        direction        
+
+
+
+
+
+
+
+
+
+        easing        
+
+
+
+
+
+
+
+
+
+        finished        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        convertEase()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Engine        
+
+
+
+
+
+
+
+
+
+        Parameters        
+
+
+
+
+
+
+
+
+
+        timeUnit        
+
+
+
+
+
+
+
+
+
+        speed        
+
+
+
+
+
+
+
+
+
+        fps        
+
+
+
+
+
+
+
+
+
+        precision        
+
+
+
+
+
+
+
+
+
+        pauseOnDocumentHidden        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Methods        
+
+
+
+
+
+
+
+
+
+        update()        
+
+
+
+
+
+
+
+
+
+        pause()        
+
+
+
+
+
+
+
+
+
+        resume()        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Properties        
+
+
+
+
+
+
+
+
+
+        Engine defaults        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Getting started
+
+
+
+
+
+
+Since 4.0.0
+
+
+
+
+
+
+
+
+
+            Using with React                                              
+
+
+
+
+Anime.js can be used with React by combining React's 
+useEffect()
+ and Anime.js 
+createScope()
+ methods.
+
+
+The following example showcase how to uses Anime.js methods straight into React code.
+ 
+
+
+
+
+
+
+
+
+
+
+Using with React code example
+
+
+
+
+
+
+J
+ava
+S
+cript
+
+
+HTML
+
+
+
+
+
+
+
+
+import { animate, createScope, createSpring, createDraggable } from 'animejs';
+import { useEffect, useRef, useState } from 'react';
+import reactLogo from './assets/react.svg';
+import './App.css';
+
+function App() {
+  const root = useRef(null);
+  const scope = useRef(null);
+  const [ rotations, setRotations ] = useState(0);
+
+  useEffect(() => {
+  
+    scope.current = createScope({ root }).add( self => {
+    
+      // Every anime.js instances declared here are now scopped to <div ref={root}>
+
+      // Created a bounce animation loop
+      animate('.logo', {
+        scale: [
+          { to: 1.25, ease: 'inOut(3)', duration: 200 },
+          { to: 1, ease: createSpring({ stiffness: 300 }) }
+        ],
+        loop: true,
+        loopDelay: 250,
+      });
+      
+      // Make the logo draggable around its center
+      createDraggable('.logo', {
+        container: [0, 0, 0, 0],
+        releaseEase: createSpring({ stiffness: 200 })
+      });
+
+      // Register function methods to be used outside the useEffect
+      self.add('rotateLogo', (i) => {
+        animate('.logo', {
+          rotate: i * 360,
+          ease: 'out(4)',
+          duration: 1500,
+        });
+      });
+
+    });
+
+    // Properly cleanup all anime.js instances declared inside the scope
+    return () => scope.current.revert()
+
+  }, []);
+
+  const handleClick = () => {
+    setRotations(prev => {
+      const newRotations = prev + 1;
+      // Animate logo rotation on click using the method declared inside the scope
+      scope.current.methods.rotateLogo(newRotations);
+      return newRotations;
+    });
+  };
+
+  return (
+    <div ref={root}>
+      <div className="large centered row">
+        <img src={reactLogo} className="logo react" alt="React logo" />
+      </div>
+      <div className="medium row">
+        <fieldset className="controls">
+        <button onClick={handleClick}>rotations: {rotations}</button>
+        </fieldset>
+      </div>
+    </div>
+  )
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+Previous
+ 
+Next
+ 
+
+
+
+
+
+
+Using with vanilla JS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Timer
+
+
+
+
+
+
+
+
+
+
+
