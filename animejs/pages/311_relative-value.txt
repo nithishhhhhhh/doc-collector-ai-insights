@@ -1,0 +1,163 @@
+URL: https://animejs.com/documentation/animation/tween-value-types/relative-value
+==================================================
+
+Animation
+
+Tween value types
+Since 2.0.0
+Relative value
+JS
+Adds, subtracts or multiplies the current target value by a specified amount.
+Accepts
+Prefix
+Effect
+Examples
+'+='
+Add
+'+=45'
+|
+'+=45px'
+'-='
+Subtracts
+'-=45'
+|
+'-=45deg'
+'*='
+Multiply
+'*=.5'
+import
+{ animate, utils }
+from
+'animejs'
+;
+const
+[ $clock ] = utils.$(
+'.clock'
+);
+const
+[ $add ] = utils.$(
+'.add'
+);
+const
+[ $sub ] = utils.$(
+'.sub'
+);
+const
+[ $mul ] = utils.$(
+'.mul'
+);
+const
+add
+= (
+) =>
+animate
+($clock, {
+rotate
+:
+'+=90'
+});
+const
+sub
+= (
+) =>
+animate
+($clock, {
+rotate
+:
+'-=90'
+});
+const
+mul
+= (
+) =>
+animate
+($clock, {
+rotate
+:
+'*=.5'
+});
+$add.
+addEventListener
+(
+'click'
+, add);
+$sub.
+addEventListener
+(
+'click'
+, sub);
+$mul.
+addEventListener
+(
+'click'
+, mul);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"clock"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button add"
+>
++ 90°
+</
+button
+>
+<
+button
+class
+=
+"button sub"
+>
+- 90°
+</
+button
+>
+<
+button
+class
+=
+"button mul"
+>
+× .5
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+Unit conversion value
+Color value

@@ -1,0 +1,43 @@
+URL: https://animejs.com/documentation/animation/animation-methods
+==================================================
+
+Animation
+Since 1.0.0
+Animation methods
+Provide control over the timing, behaviour and progression of an animation.
+Animation methods are available on an Animation instance
+Object
+.
+const
+animation =
+animate
+(target, parameters);
+┌──────────┐
+animation.│
+pause
+()   │
+animation.│
+play
+()    ├─
+Methods
+animation.│
+restart
+() │
+└──────────┘
+In this section
+play()
+reverse()
+pause()
+restart()
+alternate()
+resume()
+complete()
+cancel()
+revert()
+seek()
+stretch()
+refresh()
+Previous
+Next
+Animation callbacks
+play()

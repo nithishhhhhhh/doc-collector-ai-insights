@@ -1,0 +1,107 @@
+URL: https://animejs.com/documentation/animation/targets/array-of-targets
+==================================================
+
+Animation
+
+Targets
+Since 1.0.0
+Array of targets
+Targets multiple valid
+Targets
+simultaneously by grouping them inside an
+Array
+.
+Any types of targets can be grouped together
+Accepts
+An
+Array
+of
+Targets
+import
+{ animate, utils }
+from
+'animejs'
+;
+const
+[ $log ] = utils.$(
+'.demo code'
+);
+const
+vector2D = {
+x
+:
+0
+,
+y
+:
+0
+};
+animate
+([vector2D,
+'.square'
+], {
+x
+:
+'17rem'
+,
+modifier
+: utils.
+roundPad
+(
+2
+).
+padStart
+(
+5
+,
+'0'
+),
+onRender
+:
+() =>
+$log.
+textContent
+=
+JSON
+.
+stringify
+(vector2D),
+});
+<
+pre
+class
+=
+"row large centered"
+>
+<
+code
+>
+{"x":"0"}
+</
+code
+>
+</
+pre
+>
+<
+div
+class
+=
+"row medium"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+JavaScript Objects
+Animatable properties

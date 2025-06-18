@@ -1,0 +1,175 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/alternate
+==================================================
+
+Timeline
+
+Playback settings
+Since 4.0.0
+alternate
+Defines if the direction of the timeline alternates on each iteration when the loop parameter is set to
+true
+or superior to
+1
+.
+Accepts
+Boolean
+Default
+false
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+alternate
+=
+true
+;
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $loops ] = utils.$(
+'.loops'
+);
+let
+loops =
+0
+;
+const
+tl =
+createTimeline
+({
+loop
+:
+true
+,
+alternate
+:
+true
+,
+onLoop
+:
+self
+=>
+$loops.
+innerHTML
+= ++loops,
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+loops
+</
+span
+>
+<
+span
+class
+=
+"loops value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+loopDelay
+reversed

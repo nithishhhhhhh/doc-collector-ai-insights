@@ -1,0 +1,82 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks
+==================================================
+
+ScrollObserver
+Since 4.0.0
+ScrollObserver callbacks
+Triggers functions at specific points during scroll.
+ScrollObservers callbacks functions are defined directly in the
+onScroll
+()
+parameters
+Object
+.
+animate
+(
+'.square'
+, {
+x
+:
+100
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.container'
+,
+target
+:
+'.section'
+,
+axis
+:
+'y'
+,
+enter
+:
+'bottom top'
+,
+leave
+:
+'top bottom'
+,
+sync
+:
+true
+,
+┌──────────────────────────┐
+│
+onEnter
+:
+() =>
+{},     │
+│
+onLeave
+:
+() =>
+{},     ├─
+Callbacks
+│
+onUpdate
+:
+() =>
+{},    │
+└──────────────────────────┘
+})
+});
+In this section
+onEnter
+onEnterForward
+onEnterBackward
+onLeave
+onLeaveForward
+onLeaveBackward
+onUpdate
+onSyncComplete
+Previous
+Next
+ScrollObserver synchronisation modes
+onEnter

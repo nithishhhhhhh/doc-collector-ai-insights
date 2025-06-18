@@ -1,0 +1,61 @@
+URL: https://animejs.com/documentation/timer/timer-playback-settings
+==================================================
+
+Timer
+Since 4.0.0
+Timer playback settings
+Specify the timings and behaviours of a timer.
+Playback settings properties are defined directly in the
+createTimer
+()
+parameters
+Object
+.
+createTimer
+({
+┌───────────────────┐
+│
+duration
+:
+1000
+,   │
+│
+frameRate
+:
+true
+,  ├─
+Playback
+Settings
+│
+loop
+:
+true
+,       │
+└───────────────────┘
+onBegin
+:
+() =>
+{},
+onLoop
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+});
+In this section
+delay
+duration
+loop
+loopDelay
+alternate
+reversed
+autoplay
+frameRate
+playbackRate
+Previous
+Next
+Timer
+delay

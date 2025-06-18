@@ -1,0 +1,200 @@
+URL: https://animejs.com/documentation/engine/engine-parameters/precision
+==================================================
+
+Engine
+
+Parameters
+Since 4.0.0
+precision
+Defines how many decimal places to round string values to during an animation.
+The more decimals you add, the more precise the animations will be. Setting
+0
+will essentially remove all decimals during an animation.
+Only string values of CSS properties, SVG and DOM Attributes are rounded (e.g.,
+'120.725px'
+,
+'1.523'
+) and the rounding is only applied during the animation, the first and last frames of the animation use the full value.
+In 99% of cases, you won't need to increase the precision beyond 4, as the visual difference won't be noticeable.
+Lowering the precision can help in cases where you are animating many elements simultaneously, but can drastically reduce the visual quality and smoothness of your animations.
+engine.
+precision
+=
+1
+;
+// values will be rounded to 1 decimal place ('120.7px')
+Accepts
+A
+Number
+greater than or equal to
+0
+to define the number of decimal places
+A
+Number
+lower than
+0
+to skip the rounding process
+Default
+4
+import
+{ engine, animate, utils }
+from
+'animejs'
+;
+const
+[ $container ] = utils.$(
+'.container'
+);
+const
+[ $range ] = utils.$(
+'.range'
+);
+for
+(
+let
+i =
+0
+; i <
+150
+; i++) {
+const
+$particle =
+document
+.
+createElement
+(
+'div'
+);
+$particle.
+classList
+.
+add
+(
+'particle'
+);
+$container.
+appendChild
+($particle);
+animate
+($particle, {
+x
+: utils.
+random
+(-
+10
+,
+10
+,
+2
+) +
+'rem'
+,
+y
+: utils.
+random
+(-
+3
+,
+3
+,
+2
+) +
+'rem'
+,
+scale
+: [{
+from
+:
+0
+,
+to
+:
+1
+}, {
+to
+:
+0
+}],
+delay
+: utils.
+random
+(
+0
+,
+1000
+),
+loop
+:
+true
+,
+});
+}
+function
+onInput
+(
+) {
+engine.
+precision
+=
+this
+.
+value
+;
+}
+$range.
+addEventListener
+(
+'input'
+, onInput);
+<
+div
+class
+=
+"large row container"
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+input
+type
+=
+"range"
+min
+=
+0
+max
+=
+5
+value
+=
+4
+step
+=
+1
+class
+=
+"range"
+/>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+fps
+pauseOnDocumentHidden

@@ -1,0 +1,184 @@
+URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/iterations
+==================================================
+
+Web Animation API
+
+API differences
+Since 4.0.0
+iterations
+The
+iterations
+parameter is replaced by the
+loop
+parameter and determines how many times the animation will repeat instead of the total number of iterations.
+iterations
+loop
+Effect
+1
+0
+No repeat
+3
+2
+Repeat twice
+Infinity
+Infinity
+|
+true
+| -1
+Repeat indefinitely
+Syntax comparison
+Anime.js
+waapi.
+animate
+(
+'.square'
+, {
+x
+:
+100
+,
+loop
+:
+3
+});
+WAAPI equivalent
+const
+targets =
+document
+.
+querySelectorAll
+(
+'.square'
+);
+targets.
+forEach
+(
+(
+$el, i
+) =>
+{
+$el.
+animate
+({
+translate
+:
+'100px'
+,
+}, {
+fill
+:
+'forwards'
+,
+duration
+:
+1000
+,
+iterations
+:
+4
+})
+});
+Accepts
+A
+Number
+[
+0
+,
+Infinity
+]
+A
+Boolean
+where
+true
+is equivalent to
+Infinity
+and
+false
+doesn't loop
+import
+{ waapi, stagger }
+from
+'animejs'
+;
+waapi.
+animate
+(
+'.square'
+, {
+translate
+:
+'17rem'
+,
+loop
+:
+3
+,
+alternate
+:
+true
+,
+delay
+:
+stagger
+(
+100
+)
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+API differences with native WAAPI
+direction

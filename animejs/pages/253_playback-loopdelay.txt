@@ -1,0 +1,173 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/playback-loopdelay
+==================================================
+
+Timeline
+
+Playback settings
+Since 4.0.0
+loopDelay
+V4
+Defines the delay in milliseconds between each loops.
+Accepts
+A
+Number
+equal to or greater than
+0
+Default
+0
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+loopDelay
+=
+500
+;
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $loops ] = utils.$(
+'.loops'
+);
+const
+tl =
+createTimeline
+({
+loopDelay
+:
+500
+,
+loop
+:
+true
+,
+onLoop
+:
+self
+=>
+$loops.
+innerHTML
+= self.
+_currentIteration
+,
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+loops
+</
+span
+>
+<
+span
+class
+=
+"loops value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+loop
+alternate

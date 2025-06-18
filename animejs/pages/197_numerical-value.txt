@@ -1,0 +1,154 @@
+URL: https://animejs.com/documentation/stagger/stagger-value-types/numerical-value
+==================================================
+
+Stagger
+
+Value types
+Since 2.0.0
+Numerical value
+Represents by how much each staggered value is incremented by.
+Accepts
+Number
+String
+containing at least one
+Number
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+// Increase translateX by 5.75rem for each elements
+x
+:
+stagger
+(
+'5.75rem'
+),
+// Increase delay by 100ms for each elements
+delay
+:
+stagger
+(
+100
+)
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 0rem      delay: 0ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 5.75rem   delay: 100ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 11.5rem   delay: 200ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 17.25rem  delay: 300ms
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Stagger value types
+Range value

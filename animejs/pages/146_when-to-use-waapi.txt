@@ -1,0 +1,156 @@
+URL: https://animejs.com/documentation/web-animation-api/when-to-use-waapi
+==================================================
+
+Web Animation API
+Since 4.0.0
+When to use WAAPI
+The Web Animations API (WAAPI) offers a lot of advantages over JavaScript
+requestAnimationFrame
+(RAF) powered animations, but both have their strengths and downsides, and depending on the type of animation or the context in which an animation is created, it's not always possible or even recommended to use WAAPI over RAF.
+Prioritize
+waapi.
+animate
+()
+when:
+Animating during CPU/network load (see the
+hardware-accelerated animations
+section)
+Initial page load time is critical and every KB counts (3KB gzip vs 10KB for the JavaScript version)
+Animating complex CSS values not correctly handled by the JavaScript version, like CSS transform matrixes or CSS color functions.
+Use
+animate
+()
+when:
+Animating a large amount of targets (> 500)
+Animating JS/canvas/WebGL/WebGPU
+Animating SVG, DOM attributes or CSS properties not handled by the Web Animation API
+Animating complex timelines and keyframes
+You need more
+control methods
+You need more advanced
+callback functions
+import
+{ animate, waapi, utils }
+from
+'animejs'
+;
+// WAAPI Animation
+waapi.
+animate
+(
+'.waapi.square'
+, {
+x
+:
+'17rem'
+,
+rotate
+:
+180
+,
+loop
+:
+3
+,
+alternate
+:
+true
+,
+});
+// JS Animation
+const
+data = {
+x
+:
+'0rem'
+,
+rotate
+:
+'0deg'
+}
+const
+[ $log ] = utils.$(
+'code'
+);
+animate
+(data, {
+x
+:
+17
+,
+rotate
+:
+180
+,
+modifier
+: utils.
+round
+(
+0
+),
+loop
+:
+3
+,
+alternate
+:
+true
+,
+onRender
+:
+() =>
+$log.
+innerHTML
+=
+JSON
+.
+stringify
+(data)
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square waapi"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+</
+div
+>
+<
+pre
+class
+=
+"medium centered row"
+>
+<
+code
+>
+{"x": '0rem',"rotate":"0deg"}
+</
+code
+>
+</
+pre
+>
+Previous
+Next
+Web Animation API
+Hardware-accelerated animations

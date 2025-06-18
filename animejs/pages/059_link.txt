@@ -1,0 +1,173 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-methods/link
+==================================================
+
+ScrollObserver
+
+Methods
+Since 4.0.0
+link()
+Connects an
+Animation
+,
+Timer
+or
+Timeline
+to a
+ScrollObserver
+instance.
+This is equivalent to defining an
+onScroll
+()
+instance on the
+autoplay
+parameter.
+Only one object can be linked at a time, every call to
+link
+()
+overrides the previously linked object.
+Accepts
+Animation
+|
+Timer
+|
+Timeline
+Returns
+The ScrollObserver itself
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+});
+const
+scrollObserver =
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+true
+,
+debug
+:
+true
+,
+});
+scrollObserver.
+link
+(animation);
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+ScrollObserver methods
+refresh()

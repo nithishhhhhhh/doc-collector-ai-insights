@@ -1,0 +1,88 @@
+URL: https://animejs.com/documentation/animation/animation-playback-settings
+==================================================
+
+Animation
+Since 1.0.0
+Animation playback settings
+Specify the timings and behaviours of an animation.
+Playback settings properties are defined directly in the
+animate
+()
+parameters
+Object
+.
+animate
+(
+'.square'
+, {
+translateX
+:
+100
+,
+scale
+:
+2
+,
+opacity
+:
+.5
+,
+duration
+:
+400
+,
+delay
+:
+250
+,
+ease
+:
+'out(3)'
+,
+┌───────────────────┐
+│
+loop
+:
+3
+,          │
+│
+alternate
+:
+true
+,  ├─
+Playback
+Settings
+│
+autoplay
+:
+false
+,  │
+└───────────────────┘
+onBegin
+:
+() =>
+{},
+onLoop
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+});
+In this section
+delay
+duration
+loop
+loopDelay
+alternate
+reversed
+autoplay
+frameRate
+playbackRate
+playbackEase
+Previous
+Next
+Keyframes
+delay

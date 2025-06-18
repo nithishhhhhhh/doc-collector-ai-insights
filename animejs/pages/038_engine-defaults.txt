@@ -1,0 +1,97 @@
+URL: https://animejs.com/documentation/engine/engine-defaults
+==================================================
+
+Engine
+Since 4.0.0
+Engine defaults
+Defines the global defaults properties used by all
+Timer
+,
+Animation
+and
+Timeline
+instances.
+All default properties are available on the
+defaults
+Object
+of
+engine
+.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+engine
+.
+defaults
+.
+duration
+=
+500
+;
+Name
+Accepts
+playbackEase
+Easing name
+String
+| Easing
+Function
+playbackRate
+Number
+frameRate
+Number
+loop
+Number
+|
+Boolean
+reversed
+Boolean
+alternate
+Boolean
+autoplay
+Boolean
+duration
+Number
+|
+Function
+delay
+Number
+|
+Function
+composition
+Composition types
+String
+|
+Function
+ease
+Easing name
+String
+| Easing
+Function
+loopDelay
+Number
+modifier
+Modifier
+Function
+onBegin
+Callback
+Function
+onUpdate
+Callback
+Function
+onRender
+Callback
+Function
+onLoop
+Callback
+Function
+onComplete
+Callback
+Function
+onPause
+Callback
+Function
+Previous
+Engine properties

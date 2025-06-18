@@ -1,0 +1,149 @@
+URL: https://animejs.com/documentation/animation/animation-callbacks/then
+==================================================
+
+Animation
+
+Callbacks
+Since 4.0.0
+then()
+V4
+Returns a
+Promise
+that resolves and execute a callback when the animation completes.
+The
+then
+()
+method can be directly inlined like this:
+animate
+(target, {
+x
+:
+100
+,
+duration
+:
+500
+}).
+then
+(callback);
+Or used in an
+async
+/
+await
+context:
+async
+function
+waitForAnimationToComplete
+(
+) {
+return
+animate
+(target, {
+x
+:
+100
+,
+duration
+:
+500
+,
+});
+}
+const
+asyncAnimation =
+await
+waitForAnimationToComplete
+();
+Parameters
+Name
+Type
+callback
+A
+Function
+whose first argument returns the animation itself
+Returns
+Promise
+import
+{ animate }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+const
+animation =
+animate
+(
+'.circle'
+, {
+x
+:
+'16rem'
+,
+delay
+:
+500
+,
+});
+animation.
+then
+(
+() =>
+$value.
+textContent
+=
+'fulfilled'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+promise status
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+pending
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+onPause
+Animation methods

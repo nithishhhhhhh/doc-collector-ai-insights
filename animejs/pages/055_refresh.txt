@@ -1,0 +1,123 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods/refresh
+==================================================
+
+Draggable
+
+Methods
+Since 4.0.0
+refresh()
+Re-compute every parameter defined using a function and re-calculate all internal values.
+Refreshable parameters
+snap
+container
+containerPadding
+containerFriction
+dragSpeed
+scrollSpeed
+scrollThreshold
+minVelocity
+maxVelocity
+velocityMultiplier
+Returns
+The draggable itself
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $refreshButton ] = utils.$(
+'.refresh'
+);
+const
+draggable =
+createDraggable
+(
+'.square'
+, {
+snap
+:
+() =>
+utils.
+random
+(
+0
+,
+32
+,
+0
+),
+dragSpeed
+:
+() =>
+utils.
+random
+(
+.5
+,
+1.5
+,
+1
+),
+});
+const
+refreshDraggable
+= (
+) => draggable.
+refresh
+();
+$refreshButton.
+addEventListener
+(
+'click'
+, refreshDraggable);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button refresh"
+>
+Refresh
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+revert()
+Draggable properties

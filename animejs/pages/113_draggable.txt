@@ -1,0 +1,75 @@
+URL: https://animejs.com/documentation/draggable
+==================================================
+
+Draggable
+V4
+Adds draggable capabilities to DOM Elements.
+Draggables are created using the
+createDraggable
+()
+function.
+import
+{ createDraggable }
+from
+'animejs'
+;
+const
+draggable =
+createDraggable
+(target, parameters);
+Parameters
+Name
+Accepts
+target
+CSS Selector
+|
+DOM Element
+parameters
+(opt)
+An
+Object
+of
+Draggable axes parameters
+,
+Draggable settings
+and
+Draggable callbacks
+Returns
+Draggable
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+);
+<
+div
+class
+=
+"large row centered"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+In this section
+Axes parameters
+Settings
+Callbacks
+Methods
+Properties
+Previous
+Next
+Animatable
+Draggable axes parameters

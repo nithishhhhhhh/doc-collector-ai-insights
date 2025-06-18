@@ -1,0 +1,220 @@
+URL: https://animejs.com/documentation/utilities/clamp
+==================================================
+
+Utilities
+Since 4.0.0
+clamp()
+V4
+Restricts a
+Number
+between the specified
+min
+and
+max
+values or creates a clamping
+Function
+with pre-defined
+min
+and
+max
+parameters.
+const
+clampedValue = utils.
+clamp
+(value, min, max);
+const
+clamperFunction = utils.
+clamp
+(min, max);
+Parameters
+Name
+Accepts
+value
+(opt)
+Number
+min
+Number
+max
+Number
+Returns
+A
+Number
+if a value is provided, otherwise a
+chain-able utility
+Function
+to clamp numbers between the specified
+min
+and
+max
+values:
+const
+clampBetween0and100 = utils.
+clamp
+(
+0
+,
+100
+);
+clampBetween0and100
+(
+90
+);
+// 90
+clampBetween0and100
+(
+120
+);
+// 100
+clampBetween0and100
+(-
+15
+);
+// 0
+const
+clampAndRound = utils.
+clamp
+(
+0
+,
+100
+).
+round
+(
+2
+);
+// Clamp then round to 2 decimal places
+clampAndRound
+(
+72.7523
+);
+// 72.75
+clampAndRound
+(
+120.2514
+);
+// 100
+import
+{ animate, utils }
+from
+'animejs'
+;
+animate
+(
+'.normal'
+, {
+rotate
+:
+'1turn'
+,
+duration
+:
+3000
+,
+loop
+:
+true
+,
+ease
+:
+'inOut'
+,
+});
+animate
+(
+'.clamped'
+, {
+rotate
+:
+'1turn'
+,
+modifier
+: utils.
+clamp
+(
+.25
+,
+.75
+),
+// Used as a function
+duration
+:
+3000
+,
+loop
+:
+true
+,
+ease
+:
+'inOut'
+,
+});
+<
+div
+class
+=
+"x-large spaced-evenly row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock normal"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+normal
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock clamped"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+clamped [.25,.75]
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+round()
+snap()

@@ -1,0 +1,139 @@
+URL: https://animejs.com/documentation/utilities/round-pad
+==================================================
+
+Utilities
+Since 4.0.0
+roundPad()
+V4
+Rounds a value to a specified decimal length, pads with zeros if needed, and returns the result as a string, or creates a rounding and padding
+Function
+with a pre-defined
+decimalLength
+parameter.
+const
+roundedPaddedValue = utils.
+roundPad
+(value, decimalLength);
+const
+roundPadderFunction = utils.
+roundPad
+(decimalLength);
+Parameters
+Name
+Accepts
+value
+(opt)
+Number
+/
+String
+decimalLength
+Number
+Returns
+A
+String
+if a value is provided, otherwise a
+chain-able utility
+Function
+to round and pad numbers to the specified decimal length:
+const
+roundPadTo2Decimals = utils.
+roundPad
+(
+2
+);
+roundPadTo2Decimals
+(
+90.12345
+);
+// '90.12'
+roundPadTo2Decimals
+(
+120
+);
+// '120.00'
+roundPadTo2Decimals
+(
+15.9
+);
+// '15.90'
+const
+snapAndRoundPad = utils.
+snap
+(
+50
+).
+roundPad
+(
+2
+);
+// Snap to nearest 50 then roundPad to 2 decimal places
+snapAndRoundPad
+(
+123.456
+);
+// '100.00'
+snapAndRoundPad
+(
+175.789
+);
+// '200.00'
+import
+{ animate, utils }
+from
+'animejs'
+;
+animate
+(
+'.value'
+, {
+innerHTML
+:
+'8.1'
+,
+modifier
+: utils.
+roundPad
+(
+3
+),
+duration
+:
+10000
+,
+ease
+:
+'linear'
+,
+});
+<
+div
+class
+=
+"large row"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"value lcd"
+>
+0.000
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+interpolate()
+padStart()

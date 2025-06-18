@@ -1,0 +1,56 @@
+URL: https://animejs.com/documentation/stagger/stagger-parameters
+==================================================
+
+Stagger
+Since 2.0.0
+Stagger parameters
+stagger
+(
+'1rem'
+,
+{
+┌───────────────────┐
+│
+start
+:
+100
+,       │
+│
+from
+:
+2
+,          │
+│
+reversed
+:
+false
+,  ├─
+Stagger
+Parameters
+│
+ease
+:
+'outQuad'
+,  │
+│
+grid
+: [
+8
+,
+8
+],     │
+└───────────────────┘
+}
+);
+In this section
+start value
+from
+reversed
+ease
+grid
+axis
+modifier
+Previous
+Next
+Stagger value types
+Stagger start

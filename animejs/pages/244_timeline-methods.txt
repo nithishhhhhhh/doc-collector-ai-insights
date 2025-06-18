@@ -1,0 +1,50 @@
+URL: https://animejs.com/documentation/timeline/timeline-methods
+==================================================
+
+Timeline
+Since 2.0.0
+Timeline methods
+Provide control over the timing, behaviour and progression of a timeline.
+Timeline methods are available on a Timeline instance
+Object
+.
+const
+timeline =
+createTimeline
+(parameters);
+┌──────────┐
+timeline.│
+pause
+()   │
+timeline.│
+play
+()    ├─
+Methods
+timeline.│
+restart
+() │
+└──────────┘
+In this section
+add()
+set()
+sync()
+label()
+remove()
+call()
+init()
+play()
+reverse()
+pause()
+restart()
+alternate()
+resume()
+complete()
+cancel()
+revert()
+seek()
+stretch()
+refresh()
+Previous
+Next
+Timeline callbacks
+add()

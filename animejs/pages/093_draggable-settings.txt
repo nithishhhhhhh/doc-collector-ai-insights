@@ -1,0 +1,88 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings
+==================================================
+
+Draggable
+Since 4.0.0
+Draggable settings
+Draggable settings are defined directly in the
+createDraggable
+()
+parameters
+Object
+.
+createDraggable
+(
+'.square'
+, {
+x
+: {
+snap
+:
+100
+},
+y
+: {
+snap
+:
+50
+},
+modifier
+: utils.
+wrap
+(-
+200
+,
+0
+),
+┌───────────────────────┐
+│
+containerPadding
+:
+10
+, │
+│
+releaseStiffness
+:
+40
+, ├─
+Settings
+│
+releaseEase
+:
+'out(3)'
+,│
+└───────────────────────┘
+onGrab
+:
+() =>
+{},
+onDrag
+:
+() =>
+{},
+onRelease
+:
+() =>
+{},
+});
+In this section
+trigger
+container
+containerPadding
+containerFriction
+releaseContainerFriction
+releaseMass
+releaseStiffness
+releaseDamping
+velocityMultiplier
+minVelocity
+maxVelocity
+releaseEase
+dragSpeed
+scrollThreshold
+scrollSpeed
+cursor
+Previous
+Next
+Draggable axes parameters
+trigger

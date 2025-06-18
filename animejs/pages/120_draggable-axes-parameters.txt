@@ -1,0 +1,73 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters
+==================================================
+
+Draggable
+Since 4.0.0
+Draggable axes parameters
+Axes parameters are specified globally to all axes on the parameters object, or specifically to an axis by passing it an object.
+createDraggable
+(
+'.square'
+, {
+┌───────────────────────────────┐
+│
+x
+: {
+snap
+:
+100
+},             │
+│
+y
+: {
+snap
+:
+50
+},              ├─
+Axes
+Parameters
+│
+modifier
+: utils.
+wrap
+(-
+200
+,
+0
+),│
+└───────────────────────────────┘
+containerPadding
+:
+10
+,
+releaseStiffness
+:
+40
+,
+releaseEase
+:
+'out(3)'
+,
+onGrab
+:
+() =>
+{},
+onDrag
+:
+() =>
+{},
+onRelease
+:
+() =>
+{},
+});
+In this section
+x
+y
+snap
+modifier
+mapTo
+Previous
+Next
+Draggable
+x

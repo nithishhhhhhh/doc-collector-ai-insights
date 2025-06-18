@@ -1,0 +1,223 @@
+URL: https://animejs.com/documentation/utilities/interpolate
+==================================================
+
+Utilities
+Since 4.0.0
+interpolate()
+V4
+Interpolates a value between two numbers based on a given
+progress
+or creates an interpolation
+Function
+with pre-defined
+start
+and
+end
+parameters.
+const
+interpolatedValue = utils.
+interpolate
+(start, end, progress);
+const
+interpolatorFunction = utils.
+interpolate
+(start, end);
+Parameters
+Name
+Accepts
+start
+Number
+end
+Number
+progress
+(opt)
+Number
+(
+[
+0
+-
+1
+]
+)
+Returns
+A
+Number
+if a progress value is provided, otherwise a
+chain-able utility
+Function
+to interpolate between the specified
+start
+and
+end
+values:
+const
+interpolateBetween0and100 = utils.
+interpolate
+(
+0
+,
+100
+);
+interpolateBetween0and100
+(
+0.5
+);
+// 50
+interpolateBetween0and100
+(
+0.75
+);
+// 75
+interpolateBetween0and100
+(
+0.25
+);
+// 25
+const
+interpolateAndRound = utils.
+interpolate
+(
+0
+,
+100
+).
+round
+(
+2
+);
+// Interpolate then round to 2 decimal places
+interpolateAndRound
+(
+0.677523
+);
+// 67.75
+interpolateAndRound
+(
+1.202514
+);
+// 100
+import
+{ animate, utils }
+from
+'animejs'
+;
+animate
+(
+'.normal'
+, {
+rotate
+:
+'1turn'
+,
+duration
+:
+3000
+,
+loop
+:
+true
+,
+ease
+:
+'inOut'
+,
+});
+animate
+(
+'.interpolated'
+, {
+rotate
+:
+'1turn'
+,
+modifier
+: utils.
+interpolate
+(
+0
+,
+12
+),
+// Interpolates 0 to 12 by passing the rotate progress value 0 to 1
+duration
+:
+3000
+,
+loop
+:
+true
+,
+ease
+:
+'inOut'
+,
+});
+<
+div
+class
+=
+"x-large spaced-evenly row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock normal"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+normal
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock interpolated"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+interpolated [0,12]
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+mapRange()
+roundPad()

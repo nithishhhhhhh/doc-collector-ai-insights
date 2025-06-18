@@ -1,0 +1,79 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes
+==================================================
+
+ScrollObserver
+Since 4.0.0
+ScrollObserver synchronisation modes
+Determines the behaviour of the animation and how it is synchronised relative to the scroll progress or by meeting certain thresholds.
+The different synchronisation modes are defined on the
+sync
+property of the
+onScroll
+()
+parameters
+Object
+.
+animate
+(
+'.square'
+, {
+x
+:
+100
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.container'
+,
+target
+:
+'.section'
+,
+axis
+:
+'y'
+,
+enter
+:
+'bottom top'
+,
+leave
+:
+'top bottom'
+,
+┌──────────────────────────┐
+│
+sync
+:
+true
+,            ├─
+Synchronisation
+Mode
+└──────────────────────────┘
+onEnter
+:
+() =>
+{},
+onLeave
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+})
+});
+In this section
+Method names
+Playback progress
+Smooth scroll
+Eased scroll
+Previous
+Next
+ScrollObserver thresholds
+Method names

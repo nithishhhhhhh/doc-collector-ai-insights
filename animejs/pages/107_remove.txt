@@ -1,0 +1,217 @@
+URL: https://animejs.com/documentation/utilities/remove
+==================================================
+
+Utilities
+Since 2.0.0
+remove()
+Removes one or multiple targets from all active animations, a specific instance or a specific property, cancelling any
+Animation
+or
+Timeline
+referencing these targets if needed.
+const
+removed = utils.
+remove
+(targets, instance, propertyName);
+Parameters
+Name
+Accepts
+targets
+Targets
+instance
+(opt)
+Animation
+|
+Timeline
+propertyName
+(opt)
+Animatable Properties
+name
+String
+Returns
+An
+Array
+of the removed targeted elements
+import
+{ animate, utils }
+from
+'animejs'
+;
+let
+updates =
+0
+;
+const
+[ $removeFirstButton ] = utils.$(
+'.remove-1'
+);
+const
+[ $removeSecondButton ] = utils.$(
+'.remove-2'
+);
+const
+[ $updates ] = utils.$(
+'.value'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+rotate
+:
+360
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+onUpdate
+:
+() =>
+{
+$updates.
+textContent
+= updates++;
+}
+});
+$removeFirstButton.
+onclick
+=
+() =>
+{
+utils.
+remove
+(
+'.row:nth-child(1) .square'
+);
+}
+$removeSecondButton.
+onclick
+=
+() =>
+{
+utils.
+remove
+(
+'.row:nth-child(2) .square'
+, animation,
+'x'
+);
+}
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+updates
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+--
+</
+span
+>
+</
+pre
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button remove-1"
+>
+Remove all first
+</
+button
+>
+<
+button
+class
+=
+"button remove-2"
+>
+Remove x second
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+set()
+cleanInlineStyles()

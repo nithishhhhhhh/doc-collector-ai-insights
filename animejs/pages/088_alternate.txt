@@ -1,0 +1,128 @@
+URL: https://animejs.com/documentation/animation/animation-methods/alternate
+==================================================
+
+Animation
+
+Methods
+Since 1.0.0
+alternate()
+V4
+Toggles the playback direction while adjusting the
+currentTime
+position to reflect the new time progress.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $alternateButton ] = utils.$(
+'.button'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+ease
+:
+'inOutSine'
+,
+loop
+:
+true
+,
+delay
+:
+stagger
+(
+100
+),
+});
+const
+alternateAnimation
+= (
+) => animation.
+alternate
+();
+$alternateButton.
+addEventListener
+(
+'click'
+, alternateAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button"
+>
+Alternate
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+restart()
+resume()

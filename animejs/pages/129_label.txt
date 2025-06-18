@@ -1,0 +1,158 @@
+URL: https://animejs.com/documentation/timeline/timeline-methods/label
+==================================================
+
+Timeline
+
+Methods
+Since 4.0.0
+label()
+V4
+Associate specific time positions with label names for easy reference within the timeline.
+Once added to a timeline, a label can be used as a
+Time position
+.
+timeline.
+label
+(labelName, position);
+Parameters
+Name
+Accepts
+labelName
+String
+position
+(opt)
+Time position
+Returns
+The timeline itself
+Can be chained with other timeline methods.
+import
+{ createTimeline }
+from
+'animejs'
+;
+const
+tl =
+createTimeline
+()
+.
+label
+(
+'circle'
+,
+0
+)
+.
+label
+(
+'square'
+,
+500
+)
+.
+label
+(
+'triangle'
+,
+1000
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+duration
+:
+500
+,
+},
+'square'
+)
+.
+add
+(
+'.circle'
+, {
+x
+:
+'13rem'
+,
+duration
+:
+1000
+,
+},
+'circle'
+)
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+500
+,
+},
+'triangle'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+sync()
+remove()

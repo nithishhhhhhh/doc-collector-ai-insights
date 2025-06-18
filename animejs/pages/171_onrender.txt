@@ -1,0 +1,139 @@
+URL: https://animejs.com/documentation/animation/animation-callbacks/onrender
+==================================================
+
+Animation
+
+Callbacks
+Since 4.0.0
+onRender
+V4
+JS
+Executes a function every time an animation renders something on the screen, this means that no rendering is happening when the
+currentTime
+is inside the
+delay
+or
+loopDelay
+time frames.
+Accepts
+A
+Function
+whose first argument returns the animation itself
+Default
+noop
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+onRender
+=
+self
+=>
+console
+.
+log
+(self.
+id
+);
+import
+{ animate, utils }
+from
+'animejs'
+;
+const
+[ $rendersLog ] = utils.$(
+'.value'
+);
+let
+renders =
+0
+;
+const
+animation =
+animate
+(
+'.circle'
+, {
+x
+:
+'16rem'
+,
+loopDelay
+:
+1500
+,
+loop
+:
+true
+,
+alternate
+:
+true
+,
+onRender
+:
+self
+=>
+$rendersLog.
+textContent
+= ++renders
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+renders
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+onUpdate
+onLoop

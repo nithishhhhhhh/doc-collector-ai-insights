@@ -1,0 +1,78 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-settings
+==================================================
+
+ScrollObserver
+Since 4.0.0
+ScrollObserver settings
+ScrollObserver settings properties are defined directly in the
+onScroll
+()
+parameters
+Object
+.
+animate
+(
+'.square'
+, {
+x
+:
+100
+,
+autoplay
+:
+onScroll
+({
+┌──────────────────────────┐
+│
+container
+:
+'.container'
+, │
+│
+target
+:
+'.section'
+,      ├─
+Settings
+│
+axis
+:
+'y'
+,               │
+└──────────────────────────┘
+enter
+:
+'bottom top'
+,
+leave
+:
+'top bottom'
+,
+sync
+:
+true
+,
+onEnter
+:
+() =>
+{},
+onLeave
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+})
+});
+In this section
+container
+target
+debug
+axis
+repeat
+Previous
+Next
+ScrollObserver
+container

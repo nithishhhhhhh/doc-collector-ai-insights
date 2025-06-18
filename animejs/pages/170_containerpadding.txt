@@ -1,0 +1,88 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/containerpadding
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+containerPadding
+Specifies the container's padding in pixels.
+Accepts
+Number
+Array
+<
+Number
+>
+(
+[top, right, bottom, left]
+)
+A
+Function
+that returns
+Array
+<
+Number
+>
+(
+[top, right, bottom, left]
+)
+When defined using a
+Function
+, the value will be automatically refreshed every time the container or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+0
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+containerPadding
+: [
+16
+,
+32
+, -
+16
+,
+64
+],
+// top, right, bottom, left
+scrollThreshold
+:
+0
+,
+});
+<
+div
+class
+=
+"large centered padded show-bounds grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+container
+containerFriction

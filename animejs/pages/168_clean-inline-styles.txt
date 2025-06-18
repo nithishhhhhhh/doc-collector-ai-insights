@@ -1,0 +1,134 @@
+URL: https://animejs.com/documentation/utilities/clean-inline-styles
+==================================================
+
+Utilities
+Since 4.0.0
+cleanInlineStyles()
+V4
+Removes all CSS inline styles added by the specified instance.
+Can be used as a Animation or Timeline
+onComplete
+()
+callback.
+const
+cleanedInstance = utils.
+cleanInlineStyles
+(instance);
+Parameters
+Name
+Accepts
+instance
+Animation
+|
+Timeline
+Returns
+The passed
+Animation
+or
+Timeline
+instance.
+import
+{ animate, utils }
+from
+'animejs'
+;
+utils.
+set
+(
+'.square'
+, {
+scale
+:
+.75
+});
+animate
+(
+'.keep-styles'
+, {
+x
+:
+'23rem'
+,
+borderRadius
+:
+'50%'
+,
+});
+animate
+(
+'.clean-styles'
+, {
+x
+:
+'23rem'
+,
+borderRadius
+:
+'50%'
+,
+// This removes the translateX and borderRadius inline styles
+// But keeps the scale previously added outside of this animation
+onComplete
+: utils.
+cleanInlineStyles
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square keep-styles"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+Keep styles (default)
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square clean-styles"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+Clean translateX and borderRadius
+</
+div
+>
+</
+div
+>
+Previous
+Next
+remove()
+random()

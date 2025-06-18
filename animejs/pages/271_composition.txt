@@ -1,0 +1,410 @@
+URL: https://animejs.com/documentation/animation/tween-parameters/composition
+==================================================
+
+Animation
+
+Tween parameters
+Since 4.0.0
+composition
+V4
+JS
+Defines how animations behave when another animation on the same target with the same property is playing simultaneously. The composition mode can be defined globally for all animation properties or locally for a specific property.
+Accepts
+Mode
+Description
+'replace'
+Replace and cancel the running animation.
+'none'
+JS
+Do not replace the running animation. This means the previous animation will continue running if its duration is longer than the new animation. This mode can also offer better performance.
+'blend'
+JS
+Creates an additive animation and blends its values with the running animation.
+0
+JS
+Shorthand for
+'replace'
+.
+1
+JS
+Shorthand for
+'none'
+.
+2
+JS
+Shorthand for
+'blend'
+.
+Default
+'replace'
+if the animation targets count is below
+1000
+; otherwise, the default composition is set to
+'none'
+on the
+JS
+version if no composition mode is defined.
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+composition
+=
+'blend'
+;
+Additive animations
+The
+'blend'
+mode lets you create
+additive animations
+. This type of animation allows you to smoothly blend two animations of the same property on the same target together. This mode works best on properties that visually
+move
+on the screen, like
+'translate'
+,
+'scale'
+, and
+'rotation'
+.
+It is not currently possible to use the additive mode when using keyframes or with color values.
+import
+{ animate, utils }
+from
+'animejs'
+;
+const
+squares = utils.$(
+'.square'
+);
+const
+[ $none, $replace, $blend ] = squares;
+// Animate each square with a different composition mode
+squares.
+forEach
+($square => {
+// 'none', 'replace', 'blend'
+const
+mode = $square.
+classList
+[
+1
+];
+animate
+($square, {
+scale
+: [
+.5
+,
+1
+],
+alternate
+:
+true
+,
+loop
+:
+true
+,
+duration
+:
+750
+,
+composition
+: mode,
+});
+});
+// Common animation parameters
+const
+enter = {
+scale
+:
+1.5
+,
+duration
+:
+350
+};
+const
+leave = {
+scale
+:
+1.0
+,
+duration
+:
+250
+};
+// Composition none animations
+const
+enterNone
+= (
+) =>
+animate
+($none, {
+composition
+:
+'none'
+, ...enter
+});
+const
+leaveNone
+= (
+) =>
+animate
+($none, {
+composition
+:
+'none'
+, ...leave
+});
+$none.
+addEventListener
+(
+'mouseenter'
+, enterNone);
+$none.
+addEventListener
+(
+'mouseleave'
+, leaveNone);
+// Composition replace animations
+const
+enterReplace
+= (
+) =>
+animate
+($replace, {
+composition
+:
+'replace'
+, ...enter
+});
+const
+leaveReplace
+= (
+) =>
+animate
+($replace, {
+composition
+:
+'replace'
+, ...leave
+});
+$replace.
+addEventListener
+(
+'mouseenter'
+, enterReplace);
+$replace.
+addEventListener
+(
+'mouseleave'
+, leaveReplace);
+// Composition blend animations
+const
+enterBlend
+= (
+) =>
+animate
+($blend, {
+composition
+:
+'blend'
+, ...enter
+});
+const
+leaveBlend
+= (
+) =>
+animate
+($blend, {
+composition
+:
+'blend'
+, ...leave
+});
+$blend.
+addEventListener
+(
+'mouseenter'
+, enterBlend);
+$blend.
+addEventListener
+(
+'mouseleave'
+, leaveBlend);
+<
+div
+class
+=
+"large spaced-evenly row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"centered row"
+>
+<
+span
+class
+=
+"label centered"
+>
+none
+<
+br
+>
+<
+br
+>
+</
+span
+>
+<
+div
+class
+=
+"square none"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"centered row"
+>
+<
+span
+class
+=
+"label centered"
+>
+replace
+<
+br
+>
+<
+br
+>
+</
+span
+>
+<
+div
+class
+=
+"square replace"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"centered row"
+>
+<
+span
+class
+=
+"label centered"
+>
+blend
+<
+br
+>
+<
+br
+>
+</
+span
+>
+<
+div
+class
+=
+"square blend"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium spaced-evenly centered row"
+>
+<
+div
+class
+=
+"label"
+>
+<
+br
+>
+<
+br
+>
+(Hover the squares)
+</
+div
+>
+</
+div
+>
+Previous
+Next
+ease
+modifier

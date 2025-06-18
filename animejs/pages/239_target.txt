@@ -1,0 +1,162 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-settings/target
+==================================================
+
+ScrollObserver
+
+Settings
+Since 4.0.0
+target
+Specifies which
+HTMLElement
+triggers the scroll event.
+Accepts
+CSS Selector
+DOM Element
+Defaults
+If defined on an animation, the first targeted
+HTMLElement
+of the animation.
+null
+if defined outside of an animation
+import
+{ createTimer, utils, onScroll }
+from
+'animejs'
+;
+const
+[ $timer ] = utils.$(
+'.timer'
+);
+createTimer
+({
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+onUpdate
+:
+self
+=>
+{
+$timer.
+innerHTML
+= self.
+iterationCurrentTime
+},
+autoplay
+:
+onScroll
+({
+target
+: $timer,
+container
+:
+'.scroll-container'
+,
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+timer
+</
+span
+>
+<
+span
+class
+=
+"timer value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+container
+debug

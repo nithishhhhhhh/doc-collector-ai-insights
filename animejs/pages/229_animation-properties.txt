@@ -1,0 +1,99 @@
+URL: https://animejs.com/documentation/animation/animation-properties
+==================================================
+
+Animation
+Animation properties
+const
+animation =
+animate
+(targets, parameters);
+┌────────────┐
+animation.│targets     │
+animation.│currentTime ├─
+Properties
+animation.│duration    │
+└────────────┘
+Name
+Description
+id
+JS
+Gets and sets the ID of the animation (
+String
+|
+Number
+)
+targets
+Gets the current animation targets (
+Array
+)
+currentTime
+Gets and sets the global current time in ms of the animation (
+Number
+)
+iterationCurrentTime
+JS
+Gets and sets the current iteration time in ms (
+Number
+)
+deltaTime
+JS
+Gets the time in ms elapsed between the current and previous frame (
+Number
+)
+progress
+Gets and sets the overall progress of the animation from
+0
+to
+1
+(
+Number
+)
+iterationProgress
+JS
+Gets and sets the progress of the current iteration from
+0
+to
+1
+(
+Number
+)
+currentIteration
+JS
+Gets and sets the current iteration count (
+Number
+)
+duration
+Gets the total duration in ms of the animation (
+Number
+)
+speed
+Gets and sets the speed multiplier of the animation (
+Number
+)
+fps
+JS
+Gets and sets the fps of the animation (
+Number
+)
+paused
+Gets and sets whether the animation is paused (
+Boolean
+)
+began
+JS
+Gets and sets whether the animation has started (
+Boolean
+)
+completed
+Gets and sets whether the animation has completed (
+Boolean
+)
+reversed
+JS
+Gets and sets whether the animation is reversed (
+Boolean
+)
+Previous
+Next
+Animation methods
+Timeline

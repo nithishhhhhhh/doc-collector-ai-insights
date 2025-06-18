@@ -1,0 +1,155 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/smooth-scroll
+==================================================
+
+ScrollObserver
+
+Synchronisation modes
+Since 4.0.0
+Smooth scroll
+Smoothly animate the playback progress of the linked object to the scroll position by passing a value between
+0
+and
+1
+. The closer the value gets to
+0
+, the longer the animation takes to catch up with the current scroll position.
+Accepts
+A
+Number
+greater than or equal to
+0
+and lower to or equal
+1
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+.25
+,
+debug
+:
+true
+,
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Playback progress
+Eased scroll

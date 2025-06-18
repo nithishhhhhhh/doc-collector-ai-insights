@@ -1,0 +1,265 @@
+URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/function-based-values
+==================================================
+
+Web Animation API
+
+Improvements to WAAPI
+Since 4.0.0
+Function based values
+Adds
+Function based value
+support to WAAPI animations, allowing passing different values pert targets.
+Syntax comparison
+Anime.js
+waapi.
+animate
+(
+'.square'
+, {
+translate
+:
+() =>
+`
+${utils.random(
+10
+,
+17
+)}
+rem`
+,
+rotate
+:
+() =>
+utils.
+random
+(-
+180
+,
+180
+),
+scale
+:
+(
+_, i
+) =>
+.25
++ (i *
+.25
+),
+delay
+:
+stagger
+(
+100
+)
+});
+WAAPI equivalent
+document
+.
+querySelectorAll
+(
+'.square'
+).
+forEach
+(
+(
+$el, i
+) =>
+{
+$el.
+animate
+({
+translate
+:
+`
+${utils.random(
+10
+,
+17
+)}
+rem`
+,
+rotate
+: utils.
+random
+(-
+180
+,
+180
+),
+scale
+:
+.25
++ (i *
+.25
+),
+}, {
+duration
+:
+1000
+,
+delay
+: i *
+100
+,
+easing
+:
+'ease-out'
+,
+}).
+finished
+.
+then
+(
+() =>
+{
+$el.
+style
+.
+translate
+=
+'100px'
+;
+})
+});
+import
+{ waapi, utils, stagger }
+from
+'animejs'
+;
+waapi.
+animate
+(
+'.square'
+, {
+translate
+:
+() =>
+`
+${utils.random(
+10
+,
+17
+)}
+rem`
+,
+rotate
+:
+() =>
+utils.
+random
+(-
+180
+,
+180
+),
+scale
+:
+(
+_, i
+) =>
+.25
++ (i *
+.25
+),
+duration
+: $el => $el.
+dataset
+.
+duration
+,
+delay
+:
+stagger
+(
+100
+)
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+data-duration
+=
+"400"
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+data-duration
+=
+"600"
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+data-duration
+=
+"800"
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+data-duration
+=
+"1000"
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Default units
+Individual CSS transforms

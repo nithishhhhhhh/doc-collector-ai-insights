@@ -1,0 +1,80 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/snap
+==================================================
+
+Draggable
+
+Axes parameters
+Since 4.0.0
+snap
+Rounds the final value of either both axes or one specific axis to the nearest specified increment.
+If an
+Array
+is provided as the increment, it selects the closest value from the array.
+Accepts
+Number
+Array
+<
+Number
+>
+A
+Function
+that returns any if the above
+When defined using a
+Function
+, the value will be automatically refreshed every time the container or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+0
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+snap
+:
+56
+,
+// Global to both x and y
+x
+: {
+snap
+: [
+0
+,
+200
+] },
+// Specific to x
+});
+<
+div
+class
+=
+"large grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+y
+modifier

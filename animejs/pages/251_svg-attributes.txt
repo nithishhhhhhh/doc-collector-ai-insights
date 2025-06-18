@@ -1,0 +1,135 @@
+URL: https://animejs.com/documentation/animation/animatable-properties/svg-attributes
+==================================================
+
+Animation
+
+Animatable properties
+Since 1.0.0
+SVG Attributes
+JS
+Numerical and color SVG attributes can be animated by passing them directly to the animation parameters.
+For more convenient SVG animations, check out the built-in
+SVG utility methods
+.
+import
+{ animate }
+from
+'animejs'
+;
+animate
+([
+'feTurbulence'
+,
+'feDisplacementMap'
+], {
+baseFrequency
+:
+.05
+,
+scale
+:
+15
+,
+alternate
+:
+true
+,
+loop
+:
+true
+});
+animate
+(
+'polygon'
+, {
+points
+:
+'64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100'
+,
+alternate
+:
+true
+,
+loop
+:
+true
+});
+<
+div
+class
+=
+"large centered row"
+>
+<
+svg
+width
+=
+"128"
+height
+=
+"128"
+viewBox
+=
+"0 0 128 128"
+>
+<
+filter
+id
+=
+"displacementFilter"
+>
+<
+feTurbulence
+type
+=
+"turbulence"
+numOctaves
+=
+"2"
+baseFrequency
+=
+"0"
+result
+=
+"turbulence"
+/>
+<
+feDisplacementMap
+in2
+=
+"turbulence"
+in
+=
+"SourceGraphic"
+scale
+=
+"1"
+xChannelSelector
+=
+"R"
+yChannelSelector
+=
+"G"
+/>
+</
+filter
+>
+<
+polygon
+points
+=
+"64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96"
+fill
+=
+"currentColor"
+/>
+</
+svg
+>
+</
+div
+>
+Previous
+Next
+HTML Attributes
+Tween value types

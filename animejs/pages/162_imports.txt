@@ -1,0 +1,64 @@
+URL: https://animejs.com/documentation/getting-started/imports
+==================================================
+
+Getting started
+Imports
+V4
+Anime.js v4 API exposes the following modules:
+Import methods
+ES Modules
+To import
+Anime.js
+using the ES Modules syntax, you can use the
+import
+statement as shown below:
+import
+{
+animate,
+createTimeline,
+createTimer,
+// ...other methods
+}
+from
+'animejs'
+;
+Global object
+You can define
+Anime.js
+globally using a script tag like this:
+<
+script
+src
+=
+"path/to/anime.iife.min.js"
+>
+</
+script
+>
+Then access all the modules directly from
+anime
+object:
+anime.
+animate
+();
+anime.
+createTimeline
+();
+anime.
+createTimer
+();
+// ...other methods
+Or you can mimic the ESM import syntax by using the
+object destructuring
+syntax like this:
+const
+{
+animate,
+createTimeline,
+createTimer,
+// ...other methods
+} = anime;
+Previous
+Next
+Installation
+Using with vanilla JS

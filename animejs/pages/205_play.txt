@@ -1,0 +1,137 @@
+URL: https://animejs.com/documentation/timer/timer-methods/play
+==================================================
+
+Timer
+
+Methods
+Since 4.0.0
+play()
+Forces the timer to play forward.
+Returns
+The timer itself
+Can be chained with other timer methods.
+import
+{ createTimer, utils }
+from
+'animejs'
+;
+const
+[ $playButton ] = utils.$(
+'.play'
+);
+const
+[ $time ] = utils.$(
+'.time'
+);
+const
+timer =
+createTimer
+({
+duration
+:
+2000
+,
+autoplay
+:
+false
+,
+onUpdate
+:
+self
+=>
+$time.
+innerHTML
+= self.
+iterationCurrentTime
+,
+});
+const
+playTimer
+= (
+) => timer.
+play
+();
+$playButton.
+addEventListener
+(
+'click'
+, playTimer);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"half col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+iteration time
+</
+span
+>
+<
+span
+class
+=
+"time value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button play"
+>
+Play
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+Timer methods
+reverse()

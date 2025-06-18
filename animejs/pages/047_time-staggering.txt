@@ -1,0 +1,172 @@
+URL: https://animejs.com/documentation/stagger/time-staggering
+==================================================
+
+Stagger
+Since 2.0.0
+Time staggering
+Tween's time related properties like
+delay
+and
+duration
+accepts Function-based values, enabling the use of the stagger function returned by the
+stagger
+()
+method in multi-target animations.
+This results in each target tween having different timings, increasing by a set number of milliseconds for each subsequent target.
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+delay
+:
+stagger
+(
+100
+),
+duration
+:
+stagger
+(
+200
+, {
+start
+:
+500
+}),
+loop
+:
+true
+,
+alternate
+:
+true
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+delay: 0ms;
+&nbsp;
+&nbsp;
+&nbsp;
+duration: 500ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+delay: 100ms; duration: 700ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+delay: 200ms; duration: 900ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+delay: 300ms; duration: 1100ms
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Stagger
+Values staggering

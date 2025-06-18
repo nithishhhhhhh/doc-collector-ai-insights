@@ -1,0 +1,97 @@
+URL: https://animejs.com/documentation/scope/scope-parameters
+==================================================
+
+Scope
+Since 4.0.0
+Scope parameters
+import
+{ createScope, animate }
+from
+'animejs'
+;
+createScope
+({
+┌─────────────────────────────────────────────────┐
+│
+root
+:
+'.section'
+,                               │
+│
+defaults
+: {                                     │
+│
+duration
+:
+250
+,                                │
+│
+ease
+:
+'out(4)'
+,                               │
+│ },                                              ├─
+Parameters
+│
+mediaQueries
+: {                                 │
+│
+mobile
+:
+'(max-width: 640px)'
+,                 │
+│
+reducedMotion
+:
+'(prefers-reduced-motion)'
+,    │
+│ }                                               │
+└─────────────────────────────────────────────────┘
+})
+.
+add
+(
+ctx
+=>
+{
+const
+isMobile = ctx.
+matches
+.
+mobile
+;
+const
+reduceMotion = ctx.
+matches
+.
+reducedMotion
+;
+animate
+(targets, {
+x
+: isMobile ?
+0
+:
+'100vw'
+,
+y
+: isMobile ?
+'100vh'
+:
+0
+,
+duration
+: reduceMotion ?
+0
+:
+750
+});
+});
+In this section
+root
+defaults
+mediaQueries
+Previous
+Next
+Register method function
+root

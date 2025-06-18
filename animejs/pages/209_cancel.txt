@@ -1,0 +1,155 @@
+URL: https://animejs.com/documentation/animation/animation-methods/cancel
+==================================================
+
+Animation
+
+Methods
+Since 4.0.0
+cancel()
+V4
+Pauses the animation, removes it from the engine's main loop, and frees up memory.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $cancelButton ] = utils.$(
+'.cancel'
+);
+const
+[ $playButton ] = utils.$(
+'.play'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+alternate
+:
+true
+,
+ease
+:
+'inOutSine'
+,
+loop
+:
+true
+,
+delay
+:
+stagger
+(
+100
+),
+});
+const
+cancelAnimation
+= (
+) => animation.
+cancel
+();
+const
+playAnimation
+= (
+) => animation.
+play
+();
+$cancelButton.
+addEventListener
+(
+'click'
+, cancelAnimation);
+$playButton.
+addEventListener
+(
+'click'
+, playAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button cancel"
+>
+Cancel
+</
+button
+>
+<
+button
+class
+=
+"button play"
+>
+Play
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+complete()
+revert()

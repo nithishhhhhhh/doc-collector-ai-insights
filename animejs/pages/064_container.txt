@@ -1,0 +1,101 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/container
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+container
+Specifies the container of the draggable element, preventing it from being dragged outside of the defined boundaries.
+Accepts
+CSS Selector
+String
+to target an
+HTMLElement
+HTMLElement
+Array
+<
+Number
+>
+(
+[top, right, bottom, left]
+)
+A
+Function
+that returns
+Array
+<
+Number
+>
+(
+[top, right, bottom, left]
+)
+When defined using a
+Function
+, the value will be automatically refreshed every time the window or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+null
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+});
+createDraggable
+(
+'.circle'
+, {
+container
+: [-
+16
+,
+80
+,
+16
+,
+0
+],
+});
+<
+div
+class
+=
+"large centered grid square-grid array-container"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+trigger
+containerPadding

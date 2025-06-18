@@ -1,0 +1,70 @@
+URL: https://animejs.com/documentation/timeline/timeline-callbacks
+==================================================
+
+Timeline
+Since 2.0.0
+Timeline callbacks
+Execute functions at specific points during a timeline playback.
+Timeline callbacks functions are defined directly in the
+createTimeline
+()
+parameters
+Object
+.
+createTimeline
+({
+defaults
+: {
+ease
+:
+'out(3)'
+,
+duration
+:
+500
+,
+},
+loop
+:
+3
+,
+alternate
+:
+true
+,
+autoplay
+:
+false
+,
+┌─────────────────────┐
+│
+onBegin
+:
+() =>
+{},  │
+│
+onLoop
+:
+() =>
+{},   ├─
+Callbacks
+│
+onUpdate
+:
+() =>
+{}, │
+└─────────────────────┘
+});
+In this section
+onBegin
+onComplete
+onBeforeUpdate
+onUpdate
+onRender
+onLoop
+onPause
+then()
+Previous
+Next
+Timeline playback settings
+onBegin

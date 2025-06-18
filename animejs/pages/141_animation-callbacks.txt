@@ -1,0 +1,87 @@
+URL: https://animejs.com/documentation/animation/animation-callbacks
+==================================================
+
+Animation
+Since 1.0.0
+Animation callbacks
+Execute functions at specific points during an animation playback.
+Callbacks
+Function
+are specified directly in the
+animate
+()
+parameters
+Object
+.
+animate
+(
+'.square'
+, {
+translateX
+:
+100
+,
+scale
+:
+2
+,
+opacity
+:
+.5
+,
+duration
+:
+400
+,
+delay
+:
+250
+,
+ease
+:
+'out(3)'
+,
+loop
+:
+3
+,
+alternate
+:
+true
+,
+autoplay
+:
+false
+,
+┌─────────────────────┐
+│
+onBegin
+:
+() =>
+{},  │
+│
+onLoop
+:
+() =>
+{},   ├─
+Callbacks
+│
+onUpdate
+:
+() =>
+{}, │
+└─────────────────────┘
+});
+In this section
+onBegin
+onComplete
+onBeforeUpdate
+onUpdate
+onRender
+onLoop
+onPause
+then()
+Previous
+Next
+Animation playback settings
+onBegin

@@ -1,0 +1,100 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/releaseease
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+releaseEase
+Specifies a custom easing applied to the dragged element after release, a snap event, or repositioning when dragged out of bounds.
+Accepts
+ease
+Passing
+createSpring
+()
+overrides the draggable
+releaseMass
+,
+releaseStiffness
+and
+releaseDamping
+parameters. The
+velocity
+parameter of
+createSpring
+()
+has no effect and is replaced with the actual velocity of the dragged element.
+Default
+eases.
+outQuint
+import
+{ createDraggable, createSpring }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+releaseEase
+:
+'outElastic'
+,
+});
+createDraggable
+(
+'.circle'
+, {
+container
+:
+'.grid'
+,
+releaseEase
+:
+createSpring
+({
+stiffness
+:
+150
+,
+damping
+:
+15
+,
+})
+});
+<
+div
+class
+=
+"large centered grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+maxVelocity
+dragSpeed

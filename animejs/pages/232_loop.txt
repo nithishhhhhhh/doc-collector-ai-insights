@@ -1,0 +1,184 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/loop
+==================================================
+
+Timeline
+
+Playback settings
+Since 2.0.0
+loop
+Defines how many times a timeline repeats.
+Accepts
+Value
+Effect
+Number
+The number of loops in the range
+[
+0
+,
+Infinity
+]
+Infinity
+Loop indefinitely
+true
+Equivalent to
+Infinity
+-
+1
+Equivalent to
+Infinity
+Default
+0
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+loop
+=
+true
+;
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $loops ] = utils.$(
+'.loops'
+);
+let
+loops =
+0
+;
+const
+tl =
+createTimeline
+({
+loop
+:
+true
+,
+onLoop
+:
+self
+=>
+$loops.
+innerHTML
+= ++loops,
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+loops
+</
+span
+>
+<
+span
+class
+=
+"loops value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+delay
+loopDelay

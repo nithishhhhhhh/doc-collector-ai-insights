@@ -1,70 +1,202 @@
-import os
-import requests
+import os, hashlib, time, json
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
 BASE_URL = "https://animejs.com/documentation"
-OUTPUT_DIR = "animejs/pages"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+OUT_DIR = "animejs/pages"
+os.makedirs(OUT_DIR, exist_ok=True)
 
-def normalize(url):
-    """
-    Strip fragment and trailing slash, so that
-    https://animejs.com/documentation/#foo  → https://animejs.com/documentation
-    https://animejs.com/documentation/       → https://animejs.com/documentation
-    """
-    parsed = urlparse(url)
-    # rebuild without fragment, then rstrip slash
-    clean = f"{parsed.scheme}://{parsed.netloc}{parsed.path}"
-    return clean.rstrip('/')
+def setup_driver():
+    """Setup headless Chrome with automatic driver management"""
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
+    
+    # Fix for Selenium 4.10.0+ - use Service object for driver path
+    from selenium.webdriver.chrome.service import Service
+    
+    service = Service(ChromeDriverManager().install())
+    return webdriver.Chrome(service=service, options=options)
 
-visited = set()
+visited_urls = set()
+seen_text_hash = set()
 
-def save_page_content(url, idx):
-    print(f"[{idx:03d}] Fetching {url}")
-    resp = requests.get(url)
-    soup = BeautifulSoup(resp.text, "lxml")
+def wait_for_content(driver, timeout=10):
+    """Wait for the main content to load"""
+    try:
+        WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "main, .content, article"))
+        )
+        time.sleep(2)  # Extra wait for dynamic content
+        return True
+    except:
+        return False
 
-    main = soup.find("main") or soup.body
-    text = main.get_text(separator="\n") if main else soup.get_text()
+def extract_navigation_links(driver):
+    """Extract all documentation section links"""
+    links = set()
+    try:
+        # Look for navigation links in sidebar
+        nav_elements = driver.find_elements(By.CSS_SELECTOR, 
+            "nav a, .sidebar a, .navigation a, .menu a, aside a")
+        
+        for element in nav_elements:
+            href = element.get_attribute("href")
+            if href and "documentation" in href:
+                links.add(href)
+                
+        # Also check for any hash-based navigation
+        hash_links = driver.find_elements(By.CSS_SELECTOR, "a[href*='#']")
+        for element in hash_links:
+            href = element.get_attribute("href")
+            if href and "documentation" in href:
+                links.add(href)
+                
+    except Exception as e:
+        print(f"Error extracting navigation: {e}")
+    
+    return list(links)
 
-    with open(f"{OUTPUT_DIR}/{idx:03d}.txt", "w", encoding="utf-8") as f:
-        f.write(text)
+def get_page_content(driver):
+    """Extract meaningful content from the current page"""
+    try:
+        # Wait for content to load
+        if not wait_for_content(driver):
+            return ""
+            
+        # Get page source and parse with BeautifulSoup
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'lxml')
+        
+        # Remove script and style elements
+        for script in soup(["script", "style", "nav", "header", "footer"]):
+            script.decompose()
+        
+        # Try to find main content area
+        main_content = (
+            soup.find("main") or 
+            soup.find(class_="content") or 
+            soup.find("article") or 
+            soup.find(id="content") or
+            soup.body
+        )
+        
+        if main_content:
+            text = main_content.get_text(separator="\n", strip=True)
+        else:
+            text = soup.get_text(separator="\n", strip=True)
+            
+        # Clean up the text
+        lines = [line.strip() for line in text.split('\n') if line.strip()]
+        return '\n'.join(lines)
+        
+    except Exception as e:
+        print(f"Error extracting content: {e}")
+        return ""
 
-def crawl(start_url):
-    start = normalize(start_url)
-    queue = [start]
-    visited.add(start)
-    idx = 1
+def save_content(idx, content, url):
+    """Save content to file with better naming"""
+    # Create filename from URL
+    url_parts = url.split('/')
+    if url_parts[-1]:
+        filename = url_parts[-1]
+    elif len(url_parts) > 1:
+        filename = url_parts[-2]
+    else:
+        filename = "index"
+    
+    # Clean filename
+    filename = "".join(c for c in filename if c.isalnum() or c in ('-', '_')).rstrip()
+    if not filename:
+        filename = f"page_{idx}"
+    
+    filepath = f"{OUT_DIR}/{idx:03d}_{filename}.txt"
+    
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(f"URL: {url}\n")
+        f.write("=" * 50 + "\n\n")
+        f.write(content)
+    
+    print(f"    ✅ Saved: {filepath}")
 
-    while queue:
-        url = queue.pop(0)
-        try:
-            save_page_content(url, idx)
-            idx += 1
-
-            resp = requests.get(url)
-            soup = BeautifulSoup(resp.text, "lxml")
-
-            for a in soup.find_all("a", href=True):
-                href = a["href"].strip()
-
-                # skip pure fragments, external links, mailto, javascript:
-                if href.startswith("#") \
-                   or href.startswith("mailto:") \
-                   or href.startswith("javascript:"):
+def scrape_animejs():
+    """Main scraping function"""
+    driver = setup_driver()
+    
+    try:
+        print("🚀 Starting AnimeJS documentation scrape...")
+        
+        # Load main page
+        print(f"📄 Loading main page: {BASE_URL}")
+        driver.get(BASE_URL)
+        
+        # Wait and extract navigation
+        if not wait_for_content(driver):
+            print("❌ Failed to load main page content")
+            return
+            
+        # Get all documentation links
+        print("🔍 Extracting navigation links...")
+        all_links = extract_navigation_links(driver)
+        all_links.append(BASE_URL)  # Include main page
+        
+        # Remove duplicates and sort
+        unique_links = list(set(all_links))
+        print(f"📋 Found {len(unique_links)} unique documentation pages")
+        
+        idx = 1
+        successful_scrapes = 0
+        
+        for url in unique_links:
+            if url in visited_urls:
+                continue
+                
+            visited_urls.add(url)
+            print(f"\n[{idx:03d}] 🌐 {url}")
+            
+            try:
+                driver.get(url)
+                content = get_page_content(driver)
+                
+                if not content or len(content.strip()) < 50:
+                    print("    ⚠️  No meaningful content found")
                     continue
-
-                full = urljoin(BASE_URL, href)
-                norm = normalize(full)
-
-                # only docs pages under BASE_URL, and not yet visited
-                if norm.startswith(BASE_URL) and norm not in visited:
-                    visited.add(norm)
-                    queue.append(norm)
-
-        except Exception as e:
-            print(f"  ❌ Error on {url}: {e}")
+                
+                # Check for duplicate content
+                content_hash = hashlib.sha256(content.encode()).hexdigest()
+                if content_hash in seen_text_hash:
+                    print("    ⚠️  Duplicate content - skipped")
+                    continue
+                
+                seen_text_hash.add(content_hash)
+                save_content(idx, content, url)
+                successful_scrapes += 1
+                idx += 1
+                
+                # Be nice to the server
+                time.sleep(1)
+                
+            except Exception as e:
+                print(f"    ❌ Error scraping {url}: {e}")
+                continue
+        
+        print(f"\n🎉 Scraping complete!")
+        print(f"📊 Successfully scraped {successful_scrapes} unique pages")
+        
+    finally:
+        driver.quit()
 
 if __name__ == "__main__":
-    crawl(BASE_URL)
+    start_time = time.time()
+    scrape_animejs()
+    print(f"⏱️  Total time: {time.time() - start_time:.1f}s")

@@ -1,0 +1,151 @@
+URL: https://animejs.com/documentation/scope
+==================================================
+
+Scope
+V4
+Anime.js instances declared inside a Scope can react to media queries, use custom root elements, share default parameters, and be reverted in batch, streamlining work in responsive and component-based environments.
+Scopes are created using the
+createScope
+()
+function.
+import
+{ createScope }
+from
+'animejs'
+;
+const
+scope =
+createScope
+(parameters);
+Parameters
+Name
+Accepts
+parameters
+(opt)
+Scope parameters
+Returns
+Scope
+import
+{ animate, utils, createScope }
+from
+'animejs'
+;
+createScope
+({
+mediaQueries
+: {
+isSmall
+:
+'(max-width: 200px)'
+,
+reduceMotion
+:
+'(prefers-reduced-motion)'
+,
+}
+})
+.
+add
+(
+self
+=>
+{
+const
+{ isSmall, reduceMotion } = self.
+matches
+;
+if
+(isSmall) {
+utils.
+set
+(
+'.square'
+, {
+scale
+:
+.5
+});
+}
+animate
+(
+'.square'
+, {
+x
+: isSmall ?
+0
+: [
+'-35vw'
+,
+'35vw'
+],
+y
+: isSmall ? [
+'-40vh'
+,
+'40vh'
+] :
+0
+,
+loop
+:
+true
+,
+alternate
+:
+true
+,
+duration
+: reduceMotion ?
+0
+: isSmall ?
+750
+:
+1250
+});
+});
+<
+div
+class
+=
+"iframe-content resizable"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+In this section
+Add constructor function
+Register method function
+Parameters
+Methods
+Properties
+Previous
+Next
+ScrollObserver
+Add constructor function

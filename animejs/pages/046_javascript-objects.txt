@@ -1,0 +1,82 @@
+URL: https://animejs.com/documentation/animation/targets/javascript-objects
+==================================================
+
+Animation
+
+Targets
+Since 1.0.0
+JavaScript Objects
+JS
+Targets one or multiple JavaScript
+Object
+.
+Accepts
+Object
+Instance of
+Class
+import
+{ animate, utils }
+from
+'animejs'
+;
+const
+[ $log ] = utils.$(
+'code'
+);
+const
+vector2D = {
+x
+:
+0
+,
+y
+:
+0
+};
+animate
+(vector2D, {
+x
+:
+100
+,
+y
+:
+150
+,
+modifier
+: utils.
+round
+(
+0
+),
+onUpdate
+:
+() =>
+$log.
+textContent
+=
+JSON
+.
+stringify
+(vector2D),
+});
+<
+pre
+class
+=
+"row large centered"
+>
+<
+code
+>
+{"x":0,"y":0}
+</
+code
+>
+</
+pre
+>
+Previous
+Next
+DOM Elements
+Array of targets

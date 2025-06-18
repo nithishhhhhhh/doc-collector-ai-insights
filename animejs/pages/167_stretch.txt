@@ -1,0 +1,222 @@
+URL: https://animejs.com/documentation/timeline/timeline-methods/stretch
+==================================================
+
+Timeline
+
+Methods
+Since 4.0.0
+stretch()
+V4
+Changes the total duration of a timeline and its children to fit a specific time.
+The total duration is equal to the duration of an iteration multiplied with the total number of iterations. So if the timeline is 1000ms and loops twice (3 iterations in total), the total duration will be 3000ms (1000 * 3).
+timeline.
+stretch
+(duration);
+Parameters
+Name
+Type
+Description
+duration
+Number
+The new total duration in ms of the timeline
+Returns
+The timeline itself
+Can be chained with other timeline methods.
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $range ] = utils.$(
+'.range'
+);
+const
+[ $totalDuration ] = utils.$(
+'.value'
+);
+const
+tl =
+createTimeline
+({
+loop
+:
+1
+,
+alternate
+:
+true
+,
+})
+.
+add
+(
+'.circle'
+,   {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+500
+)
+.
+add
+(
+'.square'
+,   {
+x
+:
+'15rem'
+},
+1000
+);
+const
+stretchTimeline
+= (
+) => {
+const
+newDuration = +$range.
+value
+;
+$totalDuration.
+textContent
+= newDuration;
+tl.
+stretch
+(newDuration).
+restart
+();
+}
+stretchTimeline
+();
+$range.
+addEventListener
+(
+'input'
+, stretchTimeline);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+total duration
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"medium centered row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+input
+type
+=
+"range"
+min
+=
+100
+max
+=
+2000
+value
+=
+1000
+step
+=
+100
+class
+=
+"seek range"
+/>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+seek()
+refresh()

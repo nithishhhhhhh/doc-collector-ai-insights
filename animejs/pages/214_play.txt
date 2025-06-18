@@ -1,0 +1,126 @@
+URL: https://animejs.com/documentation/animation/animation-methods/play
+==================================================
+
+Animation
+
+Methods
+Since 1.0.0
+play()
+Forces the animation to play forward.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $playButton ] = utils.$(
+'.play'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+ease
+:
+'inOutSine'
+,
+delay
+:
+stagger
+(
+100
+),
+autoplay
+:
+false
+,
+// The animation is paused by default
+});
+const
+playAnimation
+= (
+) => animation.
+play
+();
+$playButton.
+addEventListener
+(
+'click'
+, playAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button play"
+>
+Play
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+Animation methods
+reverse()

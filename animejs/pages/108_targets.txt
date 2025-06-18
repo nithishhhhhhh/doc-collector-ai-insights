@@ -1,0 +1,78 @@
+URL: https://animejs.com/documentation/animation/targets
+==================================================
+
+Animation
+Since 4.0.0
+Targets
+Specify the elements to which property value changes are applied.
+Animation targets are defined in the first argument of the
+animate
+()
+function.
+animate
+(
+┌────────────┐
+│
+'.square'
+, ├─
+Targets
+└────────────┘
+{
+translateX
+:
+100
+,
+scale
+:
+2
+,
+opacity
+:
+.5
+,
+duration
+:
+400
+,
+delay
+:
+250
+,
+ease
+:
+'out(3)'
+,
+loop
+:
+3
+,
+alternate
+:
+true
+,
+autoplay
+:
+false
+,
+onBegin
+:
+() =>
+{},
+onLoop
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+});
+In this section
+CSS Selector
+DOM Elements
+JavaScript Objects
+Array of targets
+Previous
+Next
+Animation
+CSS Selector

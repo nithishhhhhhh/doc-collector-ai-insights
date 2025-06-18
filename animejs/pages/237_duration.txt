@@ -1,0 +1,107 @@
+URL: https://animejs.com/documentation/animation/tween-parameters/duration
+==================================================
+
+Animation
+
+Tween parameters
+Since 1.0.0
+duration
+Defines the duration in milliseconds of all animated properties, or of a specific property.
+Accepts
+Number
+equal to or greater than
+0
+Function based value
+that returns a
+Number
+equal to or greater than
+0
+Duration values higher than
+1e12
+or equal to
+Infinity
+are clamped internally to
+1e12
+(approximately 32 years).
+Default
+The animation duration value (default
+1000
+).
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+duration
+=
+500
+;
+import
+{ animate }
+from
+'animejs'
+;
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+rotate
+: {
+to
+:
+360
+,
+duration
+:
+1500
+,
+// Local duration only applied to rotate property
+},
+duration
+:
+3000
+,
+// Global duration applied to all properties
+loop
+:
+true
+,
+alternate
+:
+true
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+delay
+ease

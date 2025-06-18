@@ -1,0 +1,137 @@
+URL: https://animejs.com/documentation/animation/animatable-properties/css-variables
+==================================================
+
+Animation
+
+Animatable properties
+Since 4.0.0
+CSS Variables
+V4
+JS
+CSS variables with numerical or color values can be animated by directly passing the variable name as a string to the animation parameters.
+This approach also enables animation of properties defined on pseudo-elements like
+::after
+and
+::before
+, which are otherwise inaccessible via JavaScript.
+In order to animate CSS variables properties with the
+WAAPI
+powered
+waapi.
+animate
+()
+method, you need to use
+CSS
+.
+registerProperty
+(propertyDefinition)
+, otherwise it falls back to no animations.
+import
+{ animate, utils }
+from
+'animejs'
+;
+// Set the CSS variables as properties on the animated elements
+utils.
+set
+(
+'.square'
+, {
+'--radius'
+:
+'4px'
+,
+'--x'
+:
+'0rem'
+,
+'--pseudo-el-after-scale'
+:
+'1'
+,
+// applied to the pseudo element "::after"
+borderRadius
+:
+'var(--radius)'
+,
+translateX
+:
+'var(--x)'
+,
+});
+// Animate the values of the CSS variables
+animate
+(
+'.square'
+, {
+'--radius'
+:
+'20px'
+,
+'--x'
+:
+'16.5rem'
+,
+'--pseudo-el-after-scale'
+:
+'1.55'
+// Animates the ":after" pseudo element of the element
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"css-variables square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"css-variables square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"css-variables square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+CSS transforms
+JavaScript Object properties

@@ -1,0 +1,165 @@
+URL: https://animejs.com/documentation/timeline
+==================================================
+
+Timeline
+Synchronises animations, timers, and functions together.
+Timelines are created using the
+createTimeline
+()
+function.
+import
+{ createTimeline }
+from
+'animejs'
+;
+const
+timeline =
+createTimeline
+(parameters);
+Parameters
+Name
+Accepts
+parameters
+(opt)
+An
+Object
+of
+Timeline playback settings
+and
+Timeline callbacks
+Returns
+A Timeline instance with various
+methods
+used to add animations, timers, callback functions and labels to it:
+timeline.
+add
+(target, animationParameters, position);
+timeline.
+add
+(timerParameters, position);
+timeline.
+sync
+(timelineB, position);
+timeline.
+call
+(callbackFunction, position);
+timeline.
+label
+(labelName, position);
+import
+{ createTimeline }
+from
+'animejs'
+;
+const
+tl =
+createTimeline
+({
+defaults
+: {
+duration
+:
+750
+} });
+tl.
+label
+(
+'start'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+500
+)
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+},
+'start'
+)
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+},
+'<-=500'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+In this section
+Add timers
+Add animations
+Sync WAAPI animations
+Sync timelines
+Call functions
+Time position
+Playback settings
+Callbacks
+Methods
+Properties
+Previous
+Next
+Animation
+Add timers

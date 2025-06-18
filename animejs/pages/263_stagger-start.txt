@@ -1,0 +1,164 @@
+URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-start
+==================================================
+
+Stagger
+
+Parameters
+Since 2.0.0
+Stagger start
+Defines the starting value of the stagger.
+Accepts
+Number
+|
+Timeline time position
+(Only when used as a timeline position argument)
+Default
+0
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+stagger
+(
+'1rem'
+, {
+start
+:
+14
+}),
+// adds 14 to the staggered value
+delay
+:
+stagger
+(
+100
+, {
+start
+:
+500
+}),
+// adds 500 to the staggered value
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 14rem, delay: 500ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 15rem, delay: 600ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 16rem, delay: 700ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+x: 17rem, delay: 700ms
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Stagger parameters
+Stagger from

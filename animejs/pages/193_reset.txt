@@ -1,0 +1,87 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods/reset
+==================================================
+
+Draggable
+
+Methods
+Since 4.0.0
+reset()
+Restores the draggable element to its initial position.
+Returns
+The draggable itself
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $resetButton ] = utils.$(
+'.reset'
+);
+const
+draggable =
+createDraggable
+(
+'.square'
+);
+const
+resetDraggable
+= (
+) => draggable.
+reset
+();
+$resetButton.
+addEventListener
+(
+'click'
+, resetDraggable);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button reset"
+>
+Reset
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+stop()
+revert()

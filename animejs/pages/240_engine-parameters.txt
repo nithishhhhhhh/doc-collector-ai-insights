@@ -1,0 +1,27 @@
+URL: https://animejs.com/documentation/engine/engine-parameters
+==================================================
+
+Engine
+Since 4.0.0
+Engine parameters
+import
+{ engine }
+from
+'animejs'
+;
+┌────────────┐
+engine.│speed       │
+engine.│fps         ├─
+Parameters
+engine.│precision   │
+└────────────┘
+In this section
+timeUnit
+speed
+fps
+precision
+pauseOnDocumentHidden
+Previous
+Next
+Engine
+timeUnit (seconds / milliseconds)

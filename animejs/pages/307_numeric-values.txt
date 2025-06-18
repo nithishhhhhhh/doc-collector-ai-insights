@@ -1,0 +1,167 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/numeric-values
+==================================================
+
+ScrollObserver
+
+Thresholds
+Since 4.0.0
+Numeric values
+Defines an offset from the top of the target and container by passing a numeric values.
+If no unit is defined, the values is interpreted as pixels.
+Accepts
+Type
+Example
+Description
+Number
+100
+100px from the top of the target or container
+Unit
+'1rem'
+1rem from the top of the target or container
+Percentage
+'10%'
+10% of the target or container height, from the top of the target or container
+Default unit
+px
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+ease
+:
+'inOutQuad'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+// -48px from the top of the target, 80px from the top of the container
+enter
+:
+'80 -48'
+,
+// 250% from the top of the target, 67.5% from the top of the container
+leave
+:
+'67.5% 250%'
+,
+debug
+:
+true
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+ScrollObserver thresholds
+Positions shorthands

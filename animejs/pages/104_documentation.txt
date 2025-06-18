@@ -1,0 +1,81 @@
+URL: https://animejs.com/documentation
+==================================================
+
+Documentation
+This documentation is only made possible with the help of my sponsors
+Anime.js is developed and maintained with the generous support of my sponsors. If you're using Anime.js, a monthly contribution would be highly valuable.
+Funding goal
+31%
+Jordan
+Sebastian
+Ivan Zarea
+Rhemery
+satoshionoda
+bparrillo
+Dikshith
+Richard Davey
+Mase Graye
+Aaron Wade
+entrepeneur4lyf
+Matvey Levinson
+Nicolaj Andersen
+lilchocobo
+Artisann
+Daniel Cruz
+Mike
+Scott Ashton
+Njordr
+Huly® Platform™
+Mr White
+Ismail Magomedov
+David Lapointe Gilbert
+Stefan
+Carmen Ansio
+jamesd256
+Kaze Wong
+Frank Frick
+Ado Kukic
+bandit.camp
+Osande de Jesus
+talli
+EvGreen
+willmcinnis
+Luke Jackson
+Calvin Ducharme
+Donovan Dikaio
+Zaid Al Kazemi
+Daniela Aviles
+Arjun Samir Patel
+lucasskywalker
+Gokul Js
+Micky Cormier
+Umut Ozan Yıldırım
+michelducker
+Joshua T.
+ash-ftdx
+InTheScript
+Sam Denty
+RickEvry
+Help the project via
+GitHub Sponsors
+.
+Platinum sponsors
+Huly
+Ice Open Network
+Your logo here
+In this section
+Getting started
+Timer
+Animation
+Timeline
+Animatable
+Draggable
+ScrollObserver
+Scope
+Stagger
+SVG
+Utilities
+WAAPI
+Engine
+Next
+Getting started

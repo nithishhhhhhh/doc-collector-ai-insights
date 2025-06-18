@@ -1,0 +1,66 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/mapto
+==================================================
+
+Draggable
+
+Axes parameters
+Since 4.0.0
+mapTo
+Maps the axis value to a different property of the element.
+Accepts
+String
+Default
+null
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+utils.
+set
+(
+'.square'
+, {
+z
+:
+100
+});
+createDraggable
+(
+'.square'
+, {
+x
+: {
+mapTo
+:
+'rotateY'
+},
+y
+: {
+mapTo
+:
+'z'
+},
+});
+<
+div
+class
+=
+"large grid centered perspective square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+modifier
+Draggable settings

@@ -1,0 +1,83 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/scrollthreshold
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+scrollThreshold
+Specifies the number of pixels the draggable element must cross beyond the area bounds before the container starts scrolling automatically.
+Accepts
+A
+Number
+A
+Function
+that returns a
+Number
+When defined using a
+Function
+, the value will be automatically refreshed every time the container or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+20
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.scroll-container'
+,
+scrollThreshold
+:
+12
+,
+});
+<
+div
+class
+=
+"scroll-container scroll-x scroll-y"
+>
+<
+div
+class
+=
+"scroll-content"
+>
+<
+div
+class
+=
+"large padded grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+dragSpeed
+scrollSpeed

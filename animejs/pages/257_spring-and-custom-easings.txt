@@ -1,0 +1,189 @@
+URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/spring-and-custom-easings
+==================================================
+
+Web Animation API
+
+Improvements to WAAPI
+Since 4.0.0
+Spring and custom easings
+Uses any spring and custom JavaScript easing function.
+All Anime.js built-in easing functions can be used by passing the function accessible on the
+eases
+object.
+import
+{ eases }
+from
+'animejs'
+;
+const
+{ linear, outExpo, cubicBezier } = eases;
+The
+createSpring
+()
+easing function must be imported separately.
+import
+{ createSpring }
+from
+'animejs'
+;
+Built-in eases
+Built-in string
+Function
+Parameters
+'linear'
+'linear(0, .5 75%, 1)'
+linear
+()
+coords (
+0
+,
+'.5 75%'
+,
+1
+)
+'steps'
+'steps(10)'
+steps
+()
+steps =
+10
+'cubicBezier'
+'cubicBezier(.5,0,.5,1)'
+cubicBezier
+()
+x1 =
+.5
+, y1 =
+0
+, x2 =
+.5
+, y2 =
+1
+'in'
+'in(1.675)'
+in
+()
+power =
+1.675
+'out'
+'out(1.675)'
+out
+()
+power =
+1.675
+'inOut'
+'inOut(1.675)'
+inOut
+()
+power =
+1.675
+Default
+'out(2)'
+import
+{ waapi, utils, stagger, createSpring, eases }
+from
+'animejs'
+;
+waapi.
+animate
+(
+'.circle'
+, {
+y
+: [
+0
+, -
+30
+,
+0
+],
+ease
+:
+createSpring
+({
+stiffness
+:
+150
+,
+damping
+:
+5
+}),
+delay
+:
+stagger
+(
+75
+),
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Individual property parameters
+API differences with native WAAPI

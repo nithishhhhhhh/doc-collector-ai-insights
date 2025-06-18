@@ -1,0 +1,105 @@
+URL: https://animejs.com/documentation/draggable/draggable-callbacks/onsnap
+==================================================
+
+Draggable
+
+Callbacks
+Since 4.0.0
+onSnap
+Executes a function every time a snap occurs when the element is being dragged.
+Accepts
+A
+Function
+whose first argument returns the draggable itself
+Default
+noop
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+let
+snaps =
+0
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+snap
+:
+16
+,
+modifier
+: utils.
+snap
+(
+16
+),
+// also snap the element while draggin
+onSnap
+:
+() =>
+$value.
+textContent
+= ++snaps
+});
+<
+div
+class
+=
+"large padded grid square-grid"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+snaps
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onRelease
+onSettle

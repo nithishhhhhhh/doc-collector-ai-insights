@@ -1,0 +1,98 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/y
+==================================================
+
+Draggable
+
+Axes parameters
+Since 4.0.0
+y
+Defines the behaviour of the y-axis by either passing an object of parameters or disabling it by setting the value to
+false
+.
+Accepts
+Boolean
+Draggable axes parameters
+Object
+Default
+true
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square.enabled'
+, {
+y
+:
+true
+});
+createDraggable
+(
+'.square.disabled'
+, {
+y
+:
+false
+});
+<
+div
+class
+=
+"large spaced-evenly row"
+>
+<
+div
+class
+=
+"square enabled draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"square disabled draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large spaced-evenly row"
+>
+<
+div
+class
+=
+"label"
+>
+y enabled
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+y disabled
+</
+div
+>
+</
+div
+>
+Previous
+Next
+x
+snap

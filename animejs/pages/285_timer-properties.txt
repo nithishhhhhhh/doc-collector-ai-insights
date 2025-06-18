@@ -1,0 +1,83 @@
+URL: https://animejs.com/documentation/timer/timer-properties
+==================================================
+
+Timer
+Timer properties
+const
+timer =
+createTimer
+(parameters);
+┌────────────┐
+timer.│progress    │
+timer.│currentTime ├─
+Properties
+timer.│duration    │
+└────────────┘
+Name
+Description
+id
+Gets and sets the ID of the timer (
+String
+|
+Number
+)
+deltaTime
+Gets the time in ms elapsed between the current and previous frame (
+Number
+)
+currentTime
+Gets and sets the global current time in ms of the timer (
+Number
+)
+iterationCurrentTime
+Gets and sets the current iteration time in ms (
+Number
+)
+progress
+Gets and sets the overall progress of the timer from
+0
+to
+1
+(
+Number
+)
+iterationProgress
+Gets and sets the progress of the current iteration from
+0
+to
+1
+(
+Number
+)
+currentIteration
+Gets and sets the current iteration count (
+Number
+).
+speed
+Gets and sets the playbackRate multiplier of the timer (
+Number
+)
+fps
+Gets and sets the frameRate of the timer (
+Number
+)
+paused
+Gets and sets whether the timer is paused (
+Boolean
+)
+began
+Gets and sets whether the timer has started (
+Boolean
+)
+completed
+Gets and sets whether the timer has completed (
+Boolean
+)
+reversed
+Gets and sets whether the timer is reversed (
+Boolean
+)
+Previous
+Next
+Timer methods
+Animation

@@ -1,0 +1,84 @@
+URL: https://animejs.com/documentation/animation/tween-parameters/from
+==================================================
+
+Animation
+
+Tween parameters
+Since 4.0.0
+from
+V4
+Animates
+from
+a specified value to the current target value.
+Must be defined inside a local tween parameter
+Object
+.
+Required
+Only if no
+to
+property is defined
+Accepts
+Any valid
+Tween value types
+Default
+The current target value is used if only a
+to
+property is defined
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+opacity
+: {
+from
+:
+.5
+},
+// Animate from .5 opacity to 1 opacity
+translateX
+: {
+from
+:
+'16rem'
+},
+// From 16rem to 0rem
+rotate
+: {
+from
+:
+'-.75turn'
+,
+// From -.75turn to 0turn
+ease
+:
+'inOutQuad'
+,
+},
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+to
+delay

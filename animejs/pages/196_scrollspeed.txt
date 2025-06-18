@@ -1,0 +1,85 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/scrollspeed
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+scrollSpeed
+Specifies a value that affects the automatic scrolling speed of the container. The higher the value, the faster the scroll goes and
+0
+prevents the container from scrolling.
+Accepts
+A
+Number
+A
+Function
+that returns a
+Number
+When defined using a
+Function
+, the value will be automatically refreshed every time the container or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+1.5
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.scroll-container'
+,
+scrollSpeed
+:
+2
+,
+});
+<
+div
+class
+=
+"scroll-container scroll-x scroll-y"
+>
+<
+div
+class
+=
+"scroll-content"
+>
+<
+div
+class
+=
+"large padded grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+scrollThreshold
+cursor

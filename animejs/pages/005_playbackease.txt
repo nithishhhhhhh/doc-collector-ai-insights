@@ -1,0 +1,137 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/playbackease
+==================================================
+
+Timeline
+
+Playback settings
+Since 4.0.0
+playbackEase
+V4
+Applies and easing function to the entire playback of the timeline.
+0
+──────────playbackEase──────────›
+1
+A ──ease──› B ──ease──› C ──ease──› D
+Accepts
+ease
+Default
+null
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+playbackEase
+=
+'inOut'
+;
+import
+{ createTimeline }
+from
+'animejs'
+;
+const
+tl =
+createTimeline
+({
+playbackEase
+:
+'inOut(3)'
+,
+// this ease is applied across all children
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+,
+ease
+:
+'out(1)'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+,
+ease
+:
+'out(2)'
+})
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+ease
+:
+'out(3)'
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+playbackRate
+Timeline callbacks

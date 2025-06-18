@@ -1,0 +1,33 @@
+URL: https://animejs.com/documentation/animatable/animatable-properties
+==================================================
+
+Animatable
+Since 4.0.0
+Animatable properties
+const
+animatable =
+createAnimatable
+(targets, parameters);
+┌───────────┐
+animatable.│targets    ├─
+Properties
+animatable.│animations │
+└───────────┘
+Name
+Description
+targets
+Gets the animatable
+Targets
+(
+Array
+)
+animations
+Gets all animatable
+Animations
+(
+Object
+)
+Previous
+Next
+Animatable methods
+Draggable

@@ -1,0 +1,210 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-methods/refresh
+==================================================
+
+ScrollObserver
+
+Methods
+Since 4.0.0
+refresh()
+Updates the bounding values, and re-compute the
+Function based value
+of a ScrollObserver instance.
+The following parameters can be refreshed when set with a
+Function based value
+:
+repeat
+axis
+enter
+leave
+No need to call
+.
+refresh
+()
+when the container size changes, this is already handled internally.
+Returns
+The ScrollObserver itself
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+const
+scrollSettings = {
+enter
+:
+20
+,
+leave
+:
+60
+,
+}
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+() =>
+`bottom-=
+${scrollSettings.enter}
+top`
+,
+leave
+:
+() =>
+`top+=
+${scrollSettings.leave}
+bottom`
+,
+sync
+:
+.5
+,
+debug
+:
+true
+,
+})
+});
+animate
+(scrollSettings, {
+enter
+:
+90
+,
+leave
+:
+100
+,
+loop
+:
+true
+,
+alternate
+:
+true
+,
+modifier
+: utils.
+round
+(
+0
+),
+onUpdate
+:
+() =>
+animation.
+_autoplay
+.
+refresh
+()
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+link()
+revert()

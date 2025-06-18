@@ -1,0 +1,232 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/framerate
+==================================================
+
+Timeline
+
+Playback settings
+Since 4.0.0
+frameRate
+V4
+Determines the number of frames per second (fps) a timeline is played at.
+This value can be modified later with
+timeline.
+fps
+=
+30
+.
+Accepts
+A
+Number
+greater than
+0
+The frame rate is capped to the monitor refresh rate or in some cases by the browser itself
+Default
+120
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+frameRate
+=
+30
+;
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $range ] = utils.$(
+'.range'
+);
+const
+[ $fps ] = utils.$(
+'.fps'
+);
+const
+tl =
+createTimeline
+({
+frameRate
+:
+60
+,
+loop
+:
+true
+,
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+);
+const
+updateFps
+= (
+) => {
+const
+{ value } = $range;
+$fps.
+innerHTML
+= value;
+tl.
+fps
+= value;
+}
+$range.
+addEventListener
+(
+'input'
+, updateFps);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+fps
+</
+span
+>
+<
+span
+class
+=
+"fps value"
+>
+60
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+input
+type
+=
+"range"
+min
+=
+0
+max
+=
+120
+value
+=
+60
+step
+=
+1
+class
+=
+"range"
+/>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+autoplay
+playbackRate

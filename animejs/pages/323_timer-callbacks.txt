@@ -1,0 +1,59 @@
+URL: https://animejs.com/documentation/timer/timer-callbacks
+==================================================
+
+Timer
+Since 4.0.0
+Timer callbacks
+Execute functions at specific points during a timer playback.
+Callbacks
+Function
+are specified directly in the
+createTimer
+()
+parameters
+Object
+.
+createTimer
+({
+duration
+:
+1000
+,
+frameRate
+:
+true
+,
+loop
+:
+true
+,
+┌─────────────────────┐
+│
+onBegin
+:
+() =>
+{},  │
+│
+onLoop
+:
+() =>
+{},   ├─
+Callbacks
+│
+onUpdate
+:
+() =>
+{}, │
+└─────────────────────┘
+});
+In this section
+onBegin
+onComplete
+onUpdate
+onLoop
+onPause
+then()
+Previous
+Next
+Timer playback settings
+onBegin

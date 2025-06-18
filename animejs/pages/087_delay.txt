@@ -1,0 +1,100 @@
+URL: https://animejs.com/documentation/animation/tween-parameters/delay
+==================================================
+
+Animation
+
+Tween parameters
+Since 1.0.0
+delay
+Defines the delay in milliseconds at the beginning of all animated properties, or locally to a specific property.
+Accepts
+Number
+equal to or greater than
+0
+Function based value
+that returns a
+Number
+equal to or greater than
+0
+Default
+The animation delay value (default
+0
+).
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+delay
+=
+500
+;
+import
+{ animate }
+from
+'animejs'
+;
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+rotate
+: {
+to
+:
+360
+,
+delay
+:
+1000
+,
+// Local delay applied only to rotate property
+},
+delay
+:
+500
+,
+// Global delay applied to all properties
+loop
+:
+true
+,
+alternate
+:
+true
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+from
+duration

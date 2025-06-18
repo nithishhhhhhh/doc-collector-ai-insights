@@ -1,0 +1,30 @@
+URL: https://animejs.com/documentation/scope/scope-methods
+==================================================
+
+Scope
+Since 4.0.0
+Scope methods
+const
+scope =
+createScope
+(parameters);
+┌──────────┐
+scope.│
+add
+()     │
+scope.│
+refresh
+() ├─
+Methods
+scope.│
+revert
+()  │
+└──────────┘
+In this section
+add()
+revert()
+refresh()
+Previous
+Next
+Scope parameters
+add()

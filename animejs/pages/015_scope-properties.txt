@@ -1,0 +1,77 @@
+URL: https://animejs.com/documentation/scope/scope-properties
+==================================================
+
+Scope
+Since 4.0.0
+Scope properties
+const
+scope =
+createScope
+();
+┌────────┐
+scope.│methods │
+scope.│root    ├─
+Properties
+scope.│matches │
+└────────┘
+Name
+Description
+data
+An object used to store variables associated with the scope. Every properties added to it are cleared when the scope is reverted (
+Object
+)
+defaults
+Gets the default parameters for this scope (
+Object
+)
+root
+Gets the root element for DOM operations in this scope (
+Document
+|
+HTMLElement
+)
+constructors
+Gets the array of constructor functions added to this scope (
+Array
+<
+Function
+>
+)
+revertConstructors
+Gets the array of revert constructor functions (
+Array
+<
+Function
+>
+)
+revertibles
+Gets the array of revertible objects created within this scope (
+Array
+<
+Tickable
+|
+Animatable
+|
+Draggable
+|
+ScrollObserver
+|
+Scope
+>
+)
+methods
+Gets the object containing methods added to this scope (
+Object
+)
+matches
+Gets the object containing current media query match results (
+Object
+)
+mediaQueryLists
+Gets the object containing MediaQueryList objects for this scope (
+Object
+)
+Previous
+Next
+Scope methods
+Stagger

@@ -1,0 +1,160 @@
+URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/individual-property-parameters
+==================================================
+
+Web Animation API
+
+Improvements to WAAPI
+Since 4.0.0
+Individual property parameters
+Each property can have specific
+delay
+,
+duration
+and
+ease
+parameters by passing an
+Object
+with at least one
+to
+or
+from
+properties as value.
+import
+{ waapi, utils, stagger }
+from
+'animejs'
+;
+waapi.
+animate
+(
+'.square'
+, {
+y
+: {
+to
+: [
+0
+, -
+30
+,
+0
+],
+ease
+:
+'out(4)'
+,
+duration
+:
+1000
+,
+},
+rotate
+: {
+from
+: -
+180
+,
+to
+:
+0
+,
+ease
+:
+'out(3)'
+},
+scale
+: {
+to
+: [
+.65
+,
+1
+,
+.65
+],
+ease
+:
+'inOut(3)'
+},
+duration
+:
+500
+,
+delay
+:
+stagger
+(
+75
+),
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Individual CSS transforms
+Spring and custom easings

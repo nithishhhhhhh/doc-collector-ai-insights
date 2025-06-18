@@ -1,0 +1,199 @@
+URL: https://animejs.com/documentation/timeline/timeline-methods/sync
+==================================================
+
+Timeline
+
+Methods
+Since 4.0.0
+sync()
+V4
+Synchronises a JS animation, WAAPI Animation, timer, timeline or even a native
+WAAPI Animation
+to a timeline.
+const
+tlChild =
+createTimeline
+().
+add
+(target, {
+x
+:
+100
+}).
+add
+(target, {
+y
+:
+100
+});
+createTimeline
+().
+sync
+(tlChild);
+Tween value composition is handled when the timeline is created, and won't affect the timeline's existing children when added.
+Parameters
+Name
+Accepts
+synced
+JSAnimation
+|
+Timer
+|
+Timeline
+|
+Anime.js WAAPIAnimation
+|
+WAAPIAnimation
+position
+(opt)
+Time position
+Returns
+The timeline itself
+Can be chained with other timeline methods.
+import
+{ createTimeline, animate, waapi }
+from
+'animejs'
+;
+const
+circleAnimation = waapi.
+animate
+(
+'.circle'
+, {
+x
+:
+'15rem'
+});
+const
+tlA =
+createTimeline
+()
+.
+sync
+(circleAnimation)
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+,
+duration
+:
+2000
+,
+})
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+});
+const
+tlB =
+createTimeline
+({
+defaults
+: {
+duration
+:
+2000
+} })
+.
+add
+([
+'.triangle'
+,
+'.square'
+], {
+rotate
+:
+360
+,
+},
+0
+)
+.
+add
+(
+'.circle'
+, {
+scale
+: [
+1
+,
+1.5
+,
+1
+],
+},
+0
+);
+const
+tlMain =
+createTimeline
+()
+.
+sync
+(tlA)
+.
+sync
+(tlB,
+'-=2000'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+set()
+label()

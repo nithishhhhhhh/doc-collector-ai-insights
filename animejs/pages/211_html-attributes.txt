@@ -1,0 +1,79 @@
+URL: https://animejs.com/documentation/animation/animatable-properties/html-attributes
+==================================================
+
+Animation
+
+Animatable properties
+Since 1.0.0
+HTML Attributes
+JS
+Numerical and color HTML attributes can be passed directly to the animation parameters.
+import
+{ animate, utils }
+from
+'animejs'
+;
+animate
+(
+'input'
+, {
+value
+:
+1000
+,
+// animate the input "value" attribute
+alternate
+:
+true
+,
+loop
+:
+true
+,
+modifier
+: utils.
+round
+(
+0
+),
+});
+<
+pre
+class
+=
+"row large centered"
+>
+<
+input
+type
+=
+"range"
+value
+=
+"0"
+min
+=
+"0"
+max
+=
+"1000"
+/>
+<
+input
+type
+=
+"text"
+value
+=
+"0"
+size
+=
+"5"
+/>
+</
+pre
+>
+Previous
+Next
+JavaScript Object properties
+SVG Attributes

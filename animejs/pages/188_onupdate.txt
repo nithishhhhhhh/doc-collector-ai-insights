@@ -1,0 +1,94 @@
+URL: https://animejs.com/documentation/draggable/draggable-callbacks/onupdate
+==================================================
+
+Draggable
+
+Callbacks
+Since 4.0.0
+onUpdate
+Executes a function every time the position of the dragged element changes.
+Accepts
+A
+Function
+whose first argument returns the draggable itself
+Default
+noop
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+let
+updates =
+0
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+onUpdate
+:
+() =>
+$value.
+textContent
+= ++updates
+});
+<
+div
+class
+=
+"large padded grid square-grid"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+updates
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onDrag
+onRelease

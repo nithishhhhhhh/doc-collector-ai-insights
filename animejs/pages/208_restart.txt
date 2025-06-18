@@ -1,0 +1,138 @@
+URL: https://animejs.com/documentation/animation/animation-methods/restart
+==================================================
+
+Animation
+
+Methods
+Since 1.0.0
+restart()
+Resets all properties and set the
+currentTime
+of an animation to
+0
+.
+If the
+autoplay
+is set to
+true
+, the animation plays automatically.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $restartButton ] = utils.$(
+'.restart'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+direction
+:
+'alternate'
+,
+ease
+:
+'inOutSine'
+,
+loop
+:
+true
+,
+delay
+:
+stagger
+(
+100
+)
+});
+const
+restartAnimation
+= (
+) => animation.
+restart
+();
+$restartButton.
+addEventListener
+(
+'click'
+, restartAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button restart"
+>
+Restart
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+pause()
+alternate()

@@ -1,0 +1,165 @@
+URL: https://animejs.com/documentation/timer/timer-callbacks/oncomplete
+==================================================
+
+Timer
+
+Callbacks
+Since 4.0.0
+onComplete
+Executes a function when all the iterations (
+loop
+) of a timer have finished playing.
+Accepts
+A
+Function
+whose first argument returns the timer itself
+Default
+noop
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+onComplete
+=
+self
+=>
+console
+.
+log
+(self.
+id
+);
+import
+{ createTimer, utils }
+from
+'animejs'
+;
+const
+[ $status ] = utils.$(
+'.status'
+);
+const
+[ $time ] = utils.$(
+'.time'
+);
+createTimer
+({
+duration
+:
+2000
+,
+onComplete
+:
+self
+=>
+$status.
+innerHTML
+=
+'true'
+,
+onUpdate
+:
+self
+=>
+$time.
+innerHTML
+= self.
+currentTime
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+completed
+</
+span
+>
+<
+span
+class
+=
+"status value"
+>
+false
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+current time
+</
+span
+>
+<
+span
+class
+=
+"time value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onBegin
+onUpdate

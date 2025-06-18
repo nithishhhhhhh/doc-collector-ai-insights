@@ -1,0 +1,149 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/playback-progress
+==================================================
+
+ScrollObserver
+
+Synchronisation modes
+Since 4.0.0
+Playback progress
+Perfectly synchronises the playback progress of the linked object to the scroll position by passing a value of either
+true
+or
+1
+.
+Accepts
+1
+true
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+true
+,
+debug
+:
+true
+,
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Method names
+Smooth scroll

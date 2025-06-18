@@ -1,0 +1,128 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods/animateinview
+==================================================
+
+Draggable
+
+Methods
+Since 4.0.0
+animateInView()
+Animate the draggable inside the viewport if positioned outside of the container.
+Parameters
+Name
+Type
+Description
+duration
+(opt)
+Number
+The duration of the animation (default
+350
+)
+gap
+(opt)
+Boolean
+How much extra distance from the edges of the container the draggable should be animated to
+ease
+(opt)
+ease
+The easing function applied to the animation (default
+InOutQuad
+Returns
+The draggable itself
+import
+{ createDraggable }
+from
+'animejs'
+;
+const
+[ $animateInView ] = utils.$(
+'.animate-button'
+);
+const
+draggable =
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+});
+const
+animateInView
+= (
+) => {
+draggable.
+animateInView
+(
+400
+,
+16
+);
+}
+// Set the draggable position outside the container
+draggable.
+x
+= -
+24
+;
+draggable.
+y
+=
+72
+;
+$animateInView.
+addEventListener
+(
+'click'
+, animateInView);
+<
+div
+class
+=
+"medium padded show-bounds grid square-grid animate-in-view"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button animate-button"
+>
+Animate in view
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+setY()
+scrollInView()

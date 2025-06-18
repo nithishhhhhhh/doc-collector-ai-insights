@@ -1,0 +1,236 @@
+URL: https://animejs.com/documentation/animation
+==================================================
+
+Animation
+Animates the properties values of targeted elements, with a wide range of parameters, callbacks and methods.
+Animations are created using the
+animate
+()
+method.
+import
+{ animate }
+from
+'animejs'
+;
+const
+animation =
+animate
+(targets, parameters);
+Parameters
+Name
+Accepts
+targets
+Targets
+parameters
+An
+Object
+of
+Animatable properties
+,
+Tween parameters
+,
+Playback settings
+and
+Animation callbacks
+Returns
+JSAnimation
+WAAPI powered animations
+Anime.js provides a more lightweight (3KB) version of the
+animate
+()
+method (10KB) powered by the
+Web Animation API
+.
+import
+{ waapi }
+from
+'animejs'
+;
+const
+animation = waapi.
+animate
+(targets, parameters);
+The WAAPI version has less features overall, but covers most of the basic API.
+Features only available in the JavaScript version are indicated with a (
+JS
+) badge and WAAPI specific features are indicated with a (
+WAAPI
+) badge
+To know more about when to use the WAAPI version and its potential pitfalls, please refer to the
+Web Animations API Guide
+.
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'span'
+, {
+// Property keyframes
+y
+: [
+{
+to
+:
+'-2.75rem'
+,
+ease
+:
+'outExpo'
+,
+duration
+:
+600
+},
+{
+to
+:
+0
+,
+ease
+:
+'outBounce'
+,
+duration
+:
+800
+,
+delay
+:
+100
+}
+],
+// Property specific parameters
+rotate
+: {
+from
+:
+'-1turn'
+,
+delay
+:
+0
+},
+delay
+:
+(
+_, i
+) =>
+i *
+50
+,
+// Function based value
+ease
+:
+'inOutCirc'
+,
+loopDelay
+:
+1000
+,
+loop
+:
+true
+});
+<
+h2
+class
+=
+"large grid centered square-grid text-xl"
+>
+<
+span
+>
+H
+</
+span
+>
+<
+span
+>
+E
+</
+span
+>
+<
+span
+>
+L
+</
+span
+>
+<
+span
+>
+L
+</
+span
+>
+<
+span
+>
+O
+</
+span
+>
+<
+span
+>
+&nbsp;
+</
+span
+>
+<
+span
+>
+W
+</
+span
+>
+<
+span
+>
+O
+</
+span
+>
+<
+span
+>
+R
+</
+span
+>
+<
+span
+>
+L
+</
+span
+>
+<
+span
+>
+D
+</
+span
+>
+</
+h2
+>
+In this section
+Targets
+Animatable properties
+Tween value types
+Tween parameters
+Keyframes
+Playback settings
+Callbacks
+Methods
+Properties
+Previous
+Next
+Timer
+Targets

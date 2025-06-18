@@ -1,0 +1,132 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/defaults
+==================================================
+
+Timeline
+
+Playback settings
+Since 2.0.0
+defaults
+V4
+Defines defaults parameters for the timeline children.
+Accepts
+An
+Object
+of
+Tween parameters
+(except
+from
+and
+to
+),
+Playback settings
+and
+Callbacks
+import
+{ createTimeline }
+from
+'animejs'
+;
+const
+tl =
+createTimeline
+({
+defaults
+: {
+ease
+:
+'inOutExpo'
+,
+duration
+:
+500
+,
+loop
+:
+2
+,
+reversed
+:
+true
+,
+alternate
+:
+true
+,
+}
+})
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Timeline playback settings
+delay

@@ -1,0 +1,174 @@
+URL: https://animejs.com/documentation/timeline/timeline-callbacks/oncomplete
+==================================================
+
+Timeline
+
+Callbacks
+Since 4.0.0
+onComplete
+Executes a function when all the iterations (loops) of a timeline have finished playing.
+Accepts
+A
+Function
+whose first argument returns the timeline itself
+Default
+noop
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+onComplete
+=
+self
+=>
+console
+.
+log
+(self.
+id
+);
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+const
+tl =
+createTimeline
+({
+defaults
+: {
+duration
+:
+500
+},
+loop
+:
+1
+,
+onComplete
+:
+self
+=>
+$value.
+textContent
+= self.
+completed
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+completed
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+false
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+onBegin
+onBeforeUpdate

@@ -1,0 +1,86 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/releasemass
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+releaseMass
+Specifies the mass applied to the dragged element after release. Affects the speed, movement distance and bounciness of the dragged element. Lower values result in faster movement.
+releaseMass
+has no effect if a spring is passed to the
+releaseEase
+parameter and is overridden by the spring
+mass
+value.
+Accepts
+A
+Number
+between
+0
+and
+1000
+Default
+1
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+releaseMass
+:
+.1
+,
+});
+createDraggable
+(
+'.circle'
+, {
+container
+:
+'.grid'
+,
+releaseMass
+:
+10
+,
+});
+<
+div
+class
+=
+"large centered grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+releaseContainerFriction
+releaseStiffness

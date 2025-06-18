@@ -1,0 +1,122 @@
+URL: https://animejs.com/documentation/animation/animation-methods/reverse
+==================================================
+
+Animation
+
+Methods
+Since 1.0.0
+reverse()
+V4
+Forces the animation to play backward.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $reverseButton ] = utils.$(
+'.reverse'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+ease
+:
+'inOutSine'
+,
+delay
+:
+stagger
+(
+100
+),
+});
+const
+reverseAnimation
+= (
+) => animation.
+reverse
+();
+$reverseButton.
+addEventListener
+(
+'click'
+, reverseAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button reverse"
+>
+Reverse
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+play()
+pause()

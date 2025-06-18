@@ -1,0 +1,103 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/releasecontainerfriction
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+releaseContainerFriction
+Overrides the
+containerFriction
+applied to the dragged element when threw out of bounds on release, where
+0
+means no friction at all and
+1
+prevents the element from going past the container bounds.
+Accepts
+A
+Number
+greater than or equal to
+0
+and lower than or equal to
+1
+A
+Function
+that returns a
+Number
+greater than or equal to
+0
+and lower than or equal to
+1
+When defined using a
+Function
+, the value will be automatically refreshed every time the container or target element is resized.
+It can also be refreshed manually using the
+refresh
+()
+method.
+Default
+The
+containerFriction
+value
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+releaseContainerFriction
+:
+0
+,
+});
+createDraggable
+(
+'.circle'
+, {
+container
+:
+'.grid'
+,
+releaseContainerFriction
+:
+1
+,
+});
+<
+div
+class
+=
+"large centered grid square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+containerFriction
+releaseMass

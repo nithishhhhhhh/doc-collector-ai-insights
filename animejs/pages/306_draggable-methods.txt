@@ -1,0 +1,41 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods
+==================================================
+
+Draggable
+Since 4.0.0
+Draggable methods
+Controls the state and behaviour of a draggable.
+Draggable methods are accessible through a Draggable instance
+Object
+.
+const
+draggable =
+createDraggable
+(target, parameters);
+┌──────────┐
+draggable.│
+disable
+() │
+draggable.│
+enable
+()  ├─
+Methods
+draggable.│
+revert
+()  │
+└──────────┘
+In this section
+disable()
+enable()
+setX()
+setY()
+animateInView()
+scrollInView()
+stop()
+reset()
+revert()
+refresh()
+Previous
+Next
+Draggable callbacks
+disable()

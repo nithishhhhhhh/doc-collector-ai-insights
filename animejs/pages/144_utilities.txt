@@ -1,0 +1,42 @@
+URL: https://animejs.com/documentation/utilities
+==================================================
+
+Utilities
+A collection of utility functions for common animation tasks and for use as
+Animation modifier functions
+.
+All SVG utility functions are available on the
+utils
+object.
+import
+{ utils }
+from
+'animejs'
+;
+In this section
+$()
+get()
+set()
+remove()
+cleanInlineStyles()
+random()
+randomPick()
+shuffle()
+sync()
+lerp()
+round()
+clamp()
+snap()
+wrap()
+mapRange()
+interpolate()
+roundPad()
+padStart()
+padEnd()
+degToRad()
+radToDeg()
+Chain-able utilities
+Previous
+Next
+SVG
+$()

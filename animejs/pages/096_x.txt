@@ -1,0 +1,98 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/x
+==================================================
+
+Draggable
+
+Axes parameters
+Since 4.0.0
+x
+Defines the behaviour of the x-axis by either passing an object of parameters or disabling it by setting the value to
+false
+.
+Accepts
+Boolean
+Draggable axes parameters
+Object
+Default
+true
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.square.enabled'
+, {
+x
+:
+true
+});
+createDraggable
+(
+'.square.disabled'
+, {
+x
+:
+false
+});
+<
+div
+class
+=
+"large spaced-evenly row"
+>
+<
+div
+class
+=
+"square enabled draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"square disabled draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large spaced-evenly row"
+>
+<
+div
+class
+=
+"label"
+>
+x enabled
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+x disabled
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Draggable axes parameters
+y

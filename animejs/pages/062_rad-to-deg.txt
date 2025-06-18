@@ -1,0 +1,195 @@
+URL: https://animejs.com/documentation/utilities/rad-to-deg
+==================================================
+
+Utilities
+Since 4.0.0
+radToDeg()
+V4
+Converts radians into degrees.
+const
+degrees = utils.
+radToDeg
+(radians);
+Parameters
+Name
+Accepts
+radians
+(opt)
+Number
+Returns
+A
+Number
+if radians are provided, otherwise a
+chain-able utility
+Function
+to convert radians to degrees:
+const
+radToDeg = utils.
+radToDeg
+();
+radToDeg
+(
+1.7453292519943295
+);
+// 100
+radToDeg
+(
+Math
+.
+PI
+);
+// 180
+const
+roundRadToDeg = utils.
+radToDeg
+().
+round
+(
+2
+);
+// Convert radians to degrees then round to 2 decimal places
+roundRadToDeg
+(
+Math
+.
+PI
+/
+7
+);
+// 25.71
+import
+{ animate, createAnimatable, utils }
+from
+'animejs'
+;
+const
+degAnimatable =
+createAnimatable
+(
+'.deg'
+, {
+rotate
+: {
+unit
+:
+'deg'
+,
+duration
+:
+0
+}
+});
+const
+[ $rad ] = utils.$(
+'.rad'
+);
+const
+degAnimation =
+animate
+($rad, {
+rotate
+: (
+Math
+.
+PI
+*
+2
+) +
+'rad'
+,
+ease
+:
+'linear'
+,
+loop
+:
+true
+,
+onUpdate
+:
+() =>
+{
+const
+radians = utils.
+get
+($rad,
+'rotate'
+,
+false
+);
+degAnimatable.
+rotate
+(utils.
+radToDeg
+(radians));
+}
+});
+<
+div
+class
+=
+"x-large spaced-evenly row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock rad"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+radians
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock deg"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+degrees
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+degToRad()
+Chain-able utility functions

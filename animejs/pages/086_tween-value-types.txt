@@ -1,0 +1,54 @@
+URL: https://animejs.com/documentation/animation/tween-value-types
+==================================================
+
+Animation
+Since 1.0.0
+Tween value types
+Specify the
+start
+and
+end
+values that define the animation of animatable properties.
+Animation values are assigned to
+Animatable properties
+and accept a wide range of syntaxes.
+animate
+(
+'.square'
+, {
+x
+:
+'6rem'
+, ─────────────────┐
+y
+: $el => $el.
+dataset
+.
+y
+, ───┤
+scale
+:
+'+=.25'
+, ────────────┼─
+Tween
+Values
+opacity
+: {                  │
+from
+:
+.4
+, ────────────────┘
+},
+});
+In this section
+Numerical
+Unit conversion
+Relative
+Color
+Color function
+CSS variable
+Function based
+Previous
+Next
+Animatable properties
+Numerical value

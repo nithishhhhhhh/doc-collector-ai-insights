@@ -1,0 +1,86 @@
+URL: https://animejs.com/documentation/animation/animatable-properties
+==================================================
+
+Animation
+Since 1.0.0
+Animatable properties
+Define which properties of the
+Targets
+can be animated.
+Animatable properties are defined in the parameters
+Object
+of the
+animate
+()
+function.
+animate
+(
+'.square'
+, {
+┌──────────────────┐
+│
+translateX
+:
+100
+, │
+│
+scale
+:
+2
+,        ├─
+Animatable
+Properties
+│
+opacity
+:
+.5
+,     │
+└──────────────────┘
+duration
+:
+400
+,
+delay
+:
+250
+,
+ease
+:
+'out(3)'
+,
+loop
+:
+3
+,
+alternate
+:
+true
+,
+autoplay
+:
+false
+,
+onBegin
+:
+() =>
+{},
+onLoop
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+});
+In this section
+CSS Properties
+CSS transforms
+CSS Variables
+JS Object properties
+HTML Attributes
+SVG Attributes
+Previous
+Next
+Targets
+CSS Properties

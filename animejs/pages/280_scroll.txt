@@ -1,0 +1,357 @@
+URL: https://animejs.com/documentation/scroll
+==================================================
+
+ScrollObserver
+V4
+Triggers and synchronises Timer, Animation and Timeline instances on scroll
+ScrollObservers are created with the
+onScroll
+()
+function and can be directly declared in the
+autoplay parameter
+.
+import
+{ onScroll, animate }
+from
+'animejs'
+;
+animate
+(targets, {
+x
+:
+100
+,
+autoplay
+:
+onScroll
+(parameters) });
+Parameters
+Name
+Accepts
+parameters
+An
+Object
+of
+ScrollObserver settings
+,
+ScrollObserver thresholds
+,
+ScrollObserver sync modes
+and
+ScrollObserver callbacks
+Returns
+ScrollObserver
+import
+{ animate, utils, onScroll }
+from
+'animejs'
+;
+const
+[ container ] = utils.$(
+'.scroll-container'
+);
+const
+debug =
+true
+;
+// Animation
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+autoplay
+:
+onScroll
+({ container, debug })
+});
+// Timer
+const
+[ $timer ] = utils.$(
+'.timer'
+);
+createTimer
+({
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+onUpdate
+:
+self
+=>
+{
+$timer.
+innerHTML
+= self.
+iterationCurrentTime
+},
+autoplay
+:
+onScroll
+({
+target
+: $timer.
+parentNode
+,
+container,
+debug
+})
+});
+// Timeline
+const
+circles = utils.$(
+'.circle'
+);
+createTimeline
+({
+alternate
+:
+true
+,
+loop
+:
+true
+,
+autoplay
+:
+onScroll
+({
+target
+: circles[
+0
+],
+container,
+debug
+})
+})
+.
+add
+(circles[
+2
+], {
+x
+:
+'9rem'
+})
+.
+add
+(circles[
+1
+], {
+x
+:
+'9rem'
+})
+.
+add
+(circles[
+0
+], {
+x
+:
+'9rem'
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+timer
+</
+span
+>
+<
+span
+class
+=
+"timer value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+In this section
+Settings
+Thresholds
+Synchronisation modes
+Callbacks
+Methods
+Properties
+Previous
+Next
+Draggable
+ScrollObserver settings

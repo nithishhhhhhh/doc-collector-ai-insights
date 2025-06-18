@@ -1,0 +1,165 @@
+URL: https://animejs.com/documentation/utilities/random-pick
+==================================================
+
+Utilities
+Since 4.0.0
+randomPick()
+V4
+Returns a random element from a collection.
+const
+ramdomElement = utils.
+randomPick
+(collection);
+Parameters
+Name
+Accepts
+collection
+Array
+|
+NodeList
+|
+String
+Returns
+An random element from the collection
+import
+{ utils }
+from
+'animejs'
+;
+utils.
+set
+(
+'.letter'
+, {
+x
+:
+() =>
+utils.
+randomPick
+([
+5
+,
+9
+,
+13
+,
+17
+]) +
+'rem'
+,
+scale
+:
+() =>
+utils.
+randomPick
+([
+1
+,
+1.25
+,
+1.5
+,
+1.75
+]),
+color
+:
+() =>
+`var(--hex-
+${utils.randomPick([
+'red'
+,
+'orange'
+,
+'yellow'
+])}
+)`
+,
+innerHTML
+:
+() =>
+utils.
+randomPick
+(
+'ABCD'
+),
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"letter"
+>
+A
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"letter"
+>
+B
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"letter"
+>
+C
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"letter"
+>
+D
+</
+div
+>
+</
+div
+>
+Previous
+Next
+random()
+shuffle()

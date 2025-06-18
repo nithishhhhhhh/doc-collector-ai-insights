@@ -1,0 +1,163 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/eased-scroll
+==================================================
+
+ScrollObserver
+
+Synchronisation modes
+Since 4.0.0
+Eased scroll
+Applies an easing function to the synchronised playback progress of the linked object relative to the scroll position.
+Accepts
+ease
+import
+{ animate, stagger, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'12rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+delay
+:
+stagger
+(
+100
+, {
+from
+:
+'last'
+}),
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+'inOutCirc'
+,
+debug
+:
+true
+,
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Smooth scroll
+ScrollObserver callbacks

@@ -1,0 +1,67 @@
+URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/modifier
+==================================================
+
+Draggable
+
+Axes parameters
+Since 4.0.0
+modifier
+Defines a
+Modifier function
+that alter of modify the value of either both axes or one specific axis.
+Accepts
+Modifier function
+Default
+noop
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+createDraggable
+(
+'.square'
+, {
+modifier
+: utils.
+wrap
+(-
+32
+,
+32
+),
+// Global to both x and y
+x
+: {
+modifier
+: utils.
+wrap
+(-
+128
+,
+128
+) },
+// Specific to x
+});
+<
+div
+class
+=
+"large grid centered square-grid"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+snap
+mapTo

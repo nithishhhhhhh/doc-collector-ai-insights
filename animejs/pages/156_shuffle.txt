@@ -1,0 +1,154 @@
+URL: https://animejs.com/documentation/utilities/shuffle
+==================================================
+
+Utilities
+Since 4.0.0
+shuffle()
+V4
+Mutates an array by randomizing the order of its elements.
+const
+shuffledArray = utils.
+shuffle
+(array);
+Parameters
+Name
+Accepts
+array
+Array
+Returns
+The mutated
+Array
+import
+{ utils }
+from
+'animejs'
+;
+const
+[ $shuffle ] = utils.$(
+'button'
+);
+const
+squares = utils.$(
+'.square'
+);
+const
+x =
+stagger
+(
+'3.2rem'
+);
+// Initial squares x position
+utils.
+set
+(squares, { x });
+const
+shuffle
+= (
+) =>
+animate
+(utils.
+shuffle
+(squares), { x });
+$shuffle.
+addEventListener
+(
+'click'
+, shuffle);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+A
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+B
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+C
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+D
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+E
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+F
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+>
+Shuffle
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+randomPick()
+sync()

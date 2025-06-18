@@ -1,0 +1,148 @@
+URL: https://animejs.com/documentation/utilities/random
+==================================================
+
+Utilities
+Since 2.0.0
+random()
+Returns a random
+Number
+within a specified range, with an optional third parameter determining the number of decimal places.
+const
+randomValue = utils.
+random
+(min, max, decimalLength);
+Parameters
+Name
+Accepts
+min
+Number
+max
+Number
+decimalLength=0
+(opt)
+Number
+Returns
+Number
+import
+{ utils }
+from
+'animejs'
+;
+utils.
+set
+(
+'.square'
+, {
+x
+:
+() =>
+utils.
+random
+(
+2
+,
+18
+,
+2
+) +
+'rem'
+,
+rotate
+:
+() =>
+utils.
+random
+(
+0
+,
+180
+),
+scale
+:
+() =>
+utils.
+random
+(
+.25
+,
+1.5
+,
+3
+),
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+cleanInlineStyles()
+randomPick()

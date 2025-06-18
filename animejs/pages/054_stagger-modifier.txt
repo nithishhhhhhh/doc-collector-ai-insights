@@ -1,0 +1,191 @@
+URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-modifier
+==================================================
+
+Stagger
+
+Parameters
+Since 2.0.0
+Stagger modifier
+Defines a function that modify the returned staggered value.
+Accepts
+A
+Function
+with the following parameters:
+Parameters
+Names
+Description
+value
+The current animated numerical value
+Must returns
+Number
+|
+String
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+boxShadow
+: [
+{
+to
+:
+stagger
+([
+1
+,
+.25
+], {
+modifier
+:
+v
+=>
+`0 0
+${v *
+30
+}
+px
+${v *
+20
+}
+px currentColor`
+,
+from
+:
+'center'
+})
+},
+{
+to
+:
+0
+},
+],
+delay
+:
+stagger
+(
+100
+, {
+from
+:
+'center'
+}),
+loop
+:
+true
+});
+<
+div
+class
+=
+"small justified row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Stagger grid axis

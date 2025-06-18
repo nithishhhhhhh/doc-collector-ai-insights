@@ -1,0 +1,163 @@
+URL: https://animejs.com/documentation/timeline/timeline-methods/alternate
+==================================================
+
+Timeline
+
+Methods
+Since 2.0.0
+alternate()
+V4
+Toggles the playback direction while adjusting the
+currentTime
+position to reflect the new time progress.
+Returns
+The timeline itself
+Can be chained with other timeline methods.
+import
+{ creatTimeline, utils }
+from
+'animejs'
+;
+const
+[ $alternateButton ] = utils.$(
+'.button'
+);
+const
+tl =
+createTimeline
+({
+loop
+:
+true
+})
+.
+add
+(
+'.circle'
+,   {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+500
+)
+.
+add
+(
+'.square'
+,   {
+x
+:
+'15rem'
+},
+1000
+);
+const
+pauseTimeline
+= (
+) => tl.
+pause
+();
+const
+playTimeline
+= (
+) => tl.
+play
+();
+const
+alternateTimeline
+= (
+) => tl.
+alternate
+();
+$alternateButton.
+addEventListener
+(
+'click'
+, alternateTimeline);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button"
+>
+Alternate
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+restart()
+resume()

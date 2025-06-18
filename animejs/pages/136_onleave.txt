@@ -1,0 +1,184 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleave
+==================================================
+
+ScrollObserver
+
+Callbacks
+Since 4.0.0
+onLeave
+Triggers a function every time the
+leave
+threshold
+is met.
+Accepts
+A
+Function
+whose first argument returns the ScrollObserver instance
+Default
+noop
+import
+{ animate, onScroll, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+let
+exits =
+0
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+ease
+:
+'linear'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+true
+,
+debug
+:
+true
+,
+onLeave
+:
+() =>
+$value.
+textContent
+= ++exits,
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded sticky"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+exits
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onEnterBackward
+onLeaveForward

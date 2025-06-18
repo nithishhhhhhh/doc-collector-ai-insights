@@ -1,0 +1,26 @@
+URL: https://animejs.com/documentation/engine
+==================================================
+
+Engine
+V4
+Drives and synchronises all
+Animation
+,
+Timer
+, and
+Timeline
+instances.
+import
+{ engine }
+from
+'animejs'
+;
+In this section
+Parameters
+Methods
+Properties
+Engine defaults
+Previous
+Next
+Web Animation API
+Engine parameters

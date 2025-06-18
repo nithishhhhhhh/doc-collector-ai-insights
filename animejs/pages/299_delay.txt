@@ -1,0 +1,182 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings/delay
+==================================================
+
+Timeline
+
+Playback settings
+Since 2.0.0
+delay
+Defines the delay, in milliseconds, before the timeline starts.
+Accepts
+A
+Number
+equal to or greater than
+0
+Default
+0
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+delay
+=
+500
+;
+import
+{ createTimeline, createTimer, utils }
+from
+'animejs'
+;
+const
+tl =
+createTimeline
+({
+delay
+:
+2000
+,
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'-=500'
+);
+// For logging delayed time only
+const
+[ $time ] = utils.$(
+'.time'
+);
+createTimer
+({
+duration
+:
+2000
++ tl.
+duration
+,
+onUpdate
+:
+self
+=>
+$time.
+innerHTML
+= (
+2000
+- self.
+currentTime
+) * -
+1
+,
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+current time
+</
+span
+>
+<
+span
+class
+=
+"time value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+defaults
+loop

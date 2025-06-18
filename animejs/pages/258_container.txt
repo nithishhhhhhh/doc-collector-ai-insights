@@ -1,0 +1,135 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-settings/container
+==================================================
+
+ScrollObserver
+
+Settings
+Since 4.0.0
+container
+Specifies the container
+HTMLElement
+to which the scroll event is applied.
+Accepts
+CSS Selector
+DOM Element
+Default
+null
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+ease
+:
+'inOutQuad'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+ScrollObserver settings
+target

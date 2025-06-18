@@ -1,0 +1,177 @@
+URL: https://animejs.com/documentation/animation/tween-value-types/css-variable
+==================================================
+
+Animation
+
+Tween value types
+Since 4.0.0
+CSS variable
+WAAPI
+The
+WAAPI
+animate
+()
+method can natively animate any css variable by simply passing the variable value using the
+'var(--my-value)'
+syntax.
+Accepts
+CSS variable
+CSS Variables can be used with the
+JS
+animate
+()
+method by combining a
+Function based value
+and
+utils.
+get
+()
+.
+color
+: $target => utils.
+get
+($target,
+'--variable-name'
+)
+import
+{ waapi, animate }
+from
+'animejs'
+;
+waapi.
+animate
+(
+'.square'
+,  {
+rotate
+:
+'var(--rotation)'
+,
+borderColor
+: [
+'var(--hex-orange)'
+,
+'var(--hex-red)'
+],
+});
+// Helper for the JS animate() method
+const
+cssVar
+= name => $el => utils.
+get
+($el, name);
+animate
+(
+'.square'
+,  {
+scale
+:
+cssVar
+(
+'--scale'
+),
+background
+: [
+cssVar
+(
+'--hex-red'
+),
+cssVar
+(
+'--hex-orange'
+)],
+});
+<
+div
+class
+=
+"medium justified row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Color function value
+Function based value

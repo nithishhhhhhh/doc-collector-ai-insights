@@ -1,0 +1,31 @@
+URL: https://animejs.com/documentation/engine/engine-methods
+==================================================
+
+Engine
+Since 4.0.0
+Engine methods
+import
+{ engine }
+from
+'animejs'
+;
+┌──────────┐
+engine.│
+update
+()  │
+engine.│
+pause
+()   ├─
+Methods
+engine.│
+resume
+()  │
+└──────────┘
+In this section
+update()
+pause()
+resume()
+Previous
+Next
+Engine parameters
+update()

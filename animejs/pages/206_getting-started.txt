@@ -1,0 +1,17 @@
+URL: https://animejs.com/documentation/getting-started
+==================================================
+
+Getting started
+This section covers how to download, install and import Anime.js in your project.
+If you're migrating from v3, please check out the
+migration guide
+on GitHub.
+In this section
+Installation
+Imports
+Using with vanilla JS
+Using with React
+Previous
+Next
+Documentation
+Installation

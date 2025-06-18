@@ -1,0 +1,182 @@
+URL: https://animejs.com/documentation/timer/timer-callbacks/then
+==================================================
+
+Timer
+
+Callbacks
+Since 4.0.0
+then()
+Returns a
+Promise
+that resolves and execute a callback when the timer completes.
+The
+then
+()
+method can be directly inlined like this:
+createTimer
+({
+duration
+:
+500
+}).
+then
+(callback);
+Or used in an
+async
+/
+await
+context:
+async
+function
+waitForTimerToComplete
+(
+) {
+return
+createTimer
+({
+duration
+:
+250
+})
+}
+const
+asyncTimer =
+await
+waitForTimerToComplete
+();
+Parameters
+Name
+Type
+callback
+A
+Function
+whose first argument returns the timer itself
+Returns
+Promise
+import
+{ createTimer, utils }
+from
+'animejs'
+;
+const
+[ $status ] = utils.$(
+'.status'
+);
+const
+[ $time ] = utils.$(
+'.time'
+);
+createTimer
+({
+duration
+:
+2000
+,
+onUpdate
+:
+self
+=>
+$time.
+innerHTML
+= self.
+currentTime
+,
+})
+.
+then
+(
+() =>
+$status.
+innerHTML
+=
+'fulfilled'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+promise status
+</
+span
+>
+<
+span
+class
+=
+"status value"
+>
+pending
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+current time
+</
+span
+>
+<
+span
+class
+=
+"time value lcd"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onPause
+Timer methods

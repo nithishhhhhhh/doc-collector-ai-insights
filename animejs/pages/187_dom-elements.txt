@@ -1,0 +1,112 @@
+URL: https://animejs.com/documentation/animation/targets/dom-elements
+==================================================
+
+Animation
+
+Targets
+Since 1.0.0
+DOM Elements
+Targets one or multiple DOM Elements.
+Accepts
+HTMLElement
+SVGElement
+SVGGeometryElement
+NodeList
+import
+{ animate }
+from
+'animejs'
+;
+const
+$demo =
+document
+.
+querySelector
+(
+'#selector-demo'
+);
+const
+$squares = $demo.
+querySelectorAll
+(
+'.square'
+);
+animate
+($demo, {
+scale
+:
+.75
+});
+animate
+($squares, {
+x
+:
+'23rem'
+});
+<
+div
+id
+=
+"selector-demo"
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+CSS Selector
+JavaScript Objects

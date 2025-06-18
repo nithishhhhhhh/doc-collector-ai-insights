@@ -1,0 +1,140 @@
+URL: https://animejs.com/documentation/stagger
+==================================================
+
+Stagger
+Creates sequential effects by distributing values progressively across multiple targets.
+Stagger
+Function based values
+are created using
+stagger
+()
+function.
+import
+{ stagger }
+from
+'animejs'
+;
+const
+functionValue =
+stagger
+(value, parameters);
+Parameters
+Name
+Accepts
+value
+Stagger value
+parameters
+(opt)
+Stagger parameters
+Returns
+Function based value
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+scale
+:
+stagger
+([
+1
+,
+.1
+]),
+delay
+:
+stagger
+(
+100
+),
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+In this section
+Time staggering
+Values staggering
+Timeline staggering
+Value types
+Parameters
+Previous
+Next
+Scope
+Time staggering

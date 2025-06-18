@@ -1,0 +1,94 @@
+URL: https://animejs.com/documentation/draggable/draggable-callbacks/ondrag
+==================================================
+
+Draggable
+
+Callbacks
+Since 4.0.0
+onDrag
+Executes a function when the element is being dragged.
+Accepts
+A
+Function
+whose first argument returns the draggable itself
+Default
+noop
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+let
+drags =
+0
+;
+createDraggable
+(
+'.square'
+, {
+container
+:
+'.grid'
+,
+onDrag
+:
+() =>
+$value.
+textContent
+= ++drags
+});
+<
+div
+class
+=
+"large padded grid square-grid"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+drags
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+onGrab
+onUpdate

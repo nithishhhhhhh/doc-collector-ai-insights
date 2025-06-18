@@ -1,0 +1,196 @@
+URL: https://animejs.com/documentation/animation/tween-value-types/function-based
+==================================================
+
+Animation
+
+Tween value types
+Since 1.0.0
+Function based value
+Sets different values for each target of a multi-target animation by using a
+Function
+as the value.
+Function-based values can be re-calculated without creating a new animation using the
+animation.
+refresh
+()
+method.
+Accepts
+A
+Function
+with the following parameters:
+animate
+(targets, {
+x
+:
+(
+target, index, length
+) =>
+target.
+dataset
+.
+value
+* (length - index),
+});
+Parameters
+Name
+Description
+target
+The current animated target element
+index
+The index of current targeted element
+length
+The total number of animated targets of the animation
+Must return
+Tween value
+Tween parameters
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+: $el =>
+/**
+@type
+{
+HTMLElement
+} */
+($el).
+getAttribute
+(
+'data-x'
+),
+y
+:
+(
+_, i
+) =>
+50
++ (-
+50
+* i),
+scale
+:
+(
+_, i, l
+) =>
+(l - i) *
+.75
+,
+rotate
+:
+() =>
+utils.
+random
+(-
+360
+,
+360
+),
+borderRadius
+:
+() =>
+`+=
+${utils.random(
+0
+,
+8
+)}
+`
+,
+duration
+:
+() =>
+utils.
+random
+(
+1200
+,
+1800
+),
+delay
+:
+() =>
+utils.
+random
+(
+0
+,
+400
+),
+ease
+:
+'outElastic(1, .5)'
+,
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+data-x
+=
+"170"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+data-x
+=
+"80"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+data-x
+=
+"270"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+CSS variable
+Tween parameters

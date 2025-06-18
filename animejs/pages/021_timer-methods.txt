@@ -1,0 +1,42 @@
+URL: https://animejs.com/documentation/timer/timer-methods
+==================================================
+
+Timer
+Since 4.0.0
+Timer methods
+Provide control over the timing, behaviour and progression of a timer.
+Timer methods are available on a Timer instance
+Object
+.
+const
+timer =
+createTimer
+(parameters);
+┌──────────┐
+timer.│
+pause
+()   │
+timer.│
+play
+()    ├─
+Methods
+timer.│
+restart
+() │
+└──────────┘
+In this section
+play()
+reverse()
+pause()
+restart()
+alternate()
+resume()
+complete()
+cancel()
+revert()
+seek()
+stretch()
+Previous
+Next
+Timer callbacks
+play()

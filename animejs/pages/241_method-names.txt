@@ -1,0 +1,182 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/method-names
+==================================================
+
+ScrollObserver
+
+Synchronisation modes
+Since 4.0.0
+Method names
+Defines a list of method names of the linked
+Object
+to be called when specific
+callbacks
+are triggered.
+Accepts
+A
+String
+containing a list of
+Animation methods
+,
+Timer methods
+or
+Timeline methods
+names separated by an empty space
+Callbacks definition order
+'enter'
+Defines a method to be triggered when the enter threshold is crossed or when the element re-enters the viewport.
+{
+sync
+:
+'play'
+,
+}
+'enter leave'
+Defines methods to be triggered when the enter and leave thresholds are crossed.
+{
+sync
+:
+'play pause'
+,
+}
+'enterForward leaveForward enterBackward leaveBackward'
+Defines methods to be triggered when the enter and leave thresholds are crossed when scrolling forward and when the enter and leave thresholds are crossed when scrolling backward.
+{
+sync
+:
+'play pause reverse reset'
+,
+}
+Default
+'play pause'
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+2000
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'bottom-=50 top'
+,
+leave
+:
+'top+=60 bottom'
+,
+sync
+:
+'resume pause reverse reset'
+,
+debug
+:
+true
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+ScrollObserver synchronisation modes
+Playback progress

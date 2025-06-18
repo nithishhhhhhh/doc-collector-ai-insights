@@ -1,0 +1,21 @@
+URL: https://animejs.com/documentation/svg
+==================================================
+
+SVG
+A collection of utility functions to help with SVG morphing, line drawing and motion path animations.
+All SVG utilities functions are available on the
+svg
+object.
+import
+{ svg }
+from
+'animejs'
+;
+In this section
+morphTo()
+createDrawable()
+createMotionPath()
+Previous
+Next
+Stagger
+morphTo()

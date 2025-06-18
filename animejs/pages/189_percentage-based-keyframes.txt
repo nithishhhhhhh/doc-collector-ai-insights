@@ -1,0 +1,203 @@
+URL: https://animejs.com/documentation/animation/keyframes/percentage-based-keyframes
+==================================================
+
+Animation
+
+Keyframes
+Since 4.0.0
+Percentage based keyframes
+V4
+JS
+Sequences multiple
+Animatable properties
+with positions defined from a percentage of the animation total duration.
+This syntax is very similar to the CSS
+@keyframes
+syntax and only exposes control over the
+ease
+parameter for each individual keyframes.
+The first keyframe defines the
+from value
+of the tween.
+keyframes
+: {
+'25%'
+: {
+x
+:
+100
+,
+y
+:
+50
+,
+ease
+:
+'out'
+},
+'50%'
+: {
+x
+:
+200
+,
+y
+:
+75
+, },
+}
+Accepts
+An
+Object
+where
+keys
+are
+String
+representing the percentages
+values
+are an
+Object
+containing at least one
+Animatable properties
+and an optional
+ease
+parameter.
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+keyframes
+: {
+'0%'
+: {
+x
+:
+'0rem'
+,
+y
+:
+'0rem'
+,
+ease
+:
+'out'
+},
+'13%'
+: {
+x
+:
+'0rem'
+,
+y
+:
+'-2.5rem'
+, },
+'37%'
+: {
+x
+:
+'17rem'
+,
+y
+:
+'-2.5rem'
+,
+scale
+:
+.5
+},
+'63%'
+: {
+x
+:
+'17rem'
+,
+y
+:
+'2.5rem'
+,
+scale
+:
+.5
+},
+'87%'
+: {
+x
+:
+'0rem'
+,
+y
+:
+'2.5rem'
+,
+scale
+:
+1
+},
+'100%'
+: {
+y
+:
+'0rem'
+,
+ease
+:
+'in'
+}
+},
+rotate
+: {
+to
+:
+360
+,
+ease
+:
+'linear'
+},
+duration
+:
+3000
+,
+ease
+:
+'inOut'
+,
+// ease applied between each keyframes if no ease defined
+playbackEase
+:
+'ouIn(5)'
+,
+// ease applied accross all keyframes
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Duration based keyframes
+Animation playback settings

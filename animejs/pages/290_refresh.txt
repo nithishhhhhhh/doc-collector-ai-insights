@@ -1,0 +1,185 @@
+URL: https://animejs.com/documentation/animation/animation-methods/refresh
+==================================================
+
+Animation
+
+Methods
+Since 4.0.0
+refresh()
+V4
+JS
+Re-computes animated properties values defined with a
+Function based value
+by updating the
+from
+values to the current target values, and the
+to
+values to the newly computed values.
+Only the animatable properties values are re-calculated,
+duration
+and
+delay
+cannot be refreshed.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate }
+from
+'animejs'
+;
+const
+[ $refreshButton ] = utils.$(
+'.refresh'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+() =>
+utils.
+random
+(
+0
+,
+17
+) +
+'rem'
+,
+y
+:
+() =>
+utils.
+random
+(-
+1
+,
+1
+) +
+'rem'
+,
+rotate
+:
+() =>
+utils.
+random
+(-
+360
+,
+360
+,
+1
+),
+scale
+:
+() =>
+utils.
+random
+(
+.1
+,
+1.5
+,
+2
+),
+duration
+:
+750
+,
+loop
+:
+true
+,
+onLoop
+:
+self
+=>
+self.
+refresh
+()
+});
+const
+refreshAnimation
+= (
+) => animation.
+refresh
+().
+restart
+();
+$refreshButton.
+addEventListener
+(
+'click'
+, refreshAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button refresh"
+>
+Refresh & Restart
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+stretch()
+Animation properties

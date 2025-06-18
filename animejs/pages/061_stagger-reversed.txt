@@ -1,0 +1,153 @@
+URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-reversed
+==================================================
+
+Stagger
+
+Parameters
+Since 2.0.0
+Stagger reversed
+Defines if the stagger should operate in reverse.
+Accepts
+Boolean
+Default
+false
+import
+{ animate, stagger }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+translateX
+:
+'17rem'
+,
+delay
+:
+stagger
+(
+100
+, {
+reversed
+:
+true
+}),
+});
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"label padded"
+>
+delay: 300ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"label padded"
+>
+delay: 200ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"label padded"
+>
+delay: 100ms
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"small row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"label padded"
+>
+delay: 0ms
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Stagger from
+Stagger ease

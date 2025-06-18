@@ -1,0 +1,382 @@
+URL: https://animejs.com/documentation/scope/scope-methods/refresh
+==================================================
+
+Scope
+
+Methods
+Since 4.0.0
+refresh()
+Reverts
+the Scope and rebuild it by calling every
+constructor functions
+.
+Internally,
+refresh
+()
+is called every time a media query state changes.
+Returns
+The Scope itself
+import
+{ utils, stagger, createScope, createTimeline }
+from
+'animejs'
+;
+const
+[ $button1, $button2 ] = utils.$(
+'.refresh'
+);
+const
+scopeConstructor
+= scope => {
+const
+circles = utils.$(
+'.circle'
+);
+if
+(scope.
+i
+===
+undefined
+|| scope.
+i
+> circles.
+length
+-
+1
+) scope.
+i
+=
+0
+;
+const
+i = scope.
+i
+++;
+utils.
+set
+(circles, {
+opacity
+:
+stagger
+([
+1
+,
+.25
+], {
+from
+: i,
+ease
+:
+'out(3)'
+}),
+});
+createTimeline
+()
+.
+add
+(circles, {
+scale
+: [{
+to
+: [
+.5
+,
+1
+],
+duration
+:
+250
+}, {
+to
+:
+.5
+,
+duration
+:
+750
+}],
+duration
+:
+750
+,
+loop
+:
+true
+,
+},
+stagger
+(
+50
+, {
+from
+: i }))
+.
+seek
+(
+750
+)
+}
+const
+scope1 =
+createScope
+({
+root
+:
+'.row-1'
+}).
+add
+(scopeConstructor);
+const
+scope2 =
+createScope
+({
+root
+:
+'.row-2'
+}).
+add
+(scopeConstructor);
+const
+refreshScope1
+= (
+) => scope1.
+refresh
+();
+const
+refreshScope2
+= (
+) => scope2.
+refresh
+();
+$button1.
+addEventListener
+(
+'click'
+, refreshScope1);
+$button2.
+addEventListener
+(
+'click'
+, refreshScope2);
+<
+div
+class
+=
+"medium justified row row-1"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium justified row row-2"
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button refresh"
+>
+Refresh row 1
+</
+button
+>
+<
+button
+class
+=
+"button refresh"
+>
+Refresh row 2
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+revert()
+Scope properties

@@ -1,0 +1,206 @@
+URL: https://animejs.com/documentation/timeline/call-functions
+==================================================
+
+Timeline
+Since 4.0.0
+Call functions
+V4
+Functions are added to a timeline with the
+call
+()
+method.
+timeline.
+call
+(callback, position);
+Parameters
+Name
+Accepts
+callback
+Function
+position
+(opt)
+Time position
+Returns
+The timeline itself
+Can be chained with other timeline methods.
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $functionA ] = utils.$(
+'.function-A'
+);
+const
+[ $functionB ] = utils.$(
+'.function-B'
+);
+const
+[ $functionC ] = utils.$(
+'.function-C'
+);
+const
+tl =
+createTimeline
+()
+.
+call
+(
+() =>
+$functionA.
+innerHTML
+=
+'A'
+,
+0
+)
+.
+call
+(
+() =>
+$functionB.
+innerHTML
+=
+'B'
+,
+800
+)
+.
+call
+(
+() =>
+$functionC.
+innerHTML
+=
+'C'
+,
+1200
+);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+function A
+</
+span
+>
+<
+span
+class
+=
+"function-A value lcd"
+>
+--
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+function B
+</
+span
+>
+<
+span
+class
+=
+"function-B value lcd"
+>
+--
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+function C
+</
+span
+>
+<
+span
+class
+=
+"function-C value lcd"
+>
+--
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Sync timelines
+Time position

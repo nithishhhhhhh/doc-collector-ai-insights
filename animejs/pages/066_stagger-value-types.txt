@@ -1,0 +1,47 @@
+URL: https://animejs.com/documentation/stagger/stagger-value-types
+==================================================
+
+Stagger
+Since 2.0.0
+Stagger value types
+stagger
+(
+┌───────────────────┐
+│
+'1rem'
+,           ├─
+Stagger
+Value
+└───────────────────┘
+{
+start
+:
+100
+,
+from
+:
+2
+,
+reversed
+:
+false
+,
+ease
+:
+'outQuad'
+,
+grid
+: [
+8
+,
+8
+],
+}
+);
+In this section
+Numerical
+Range
+Previous
+Next
+Timeline positions staggering
+Numerical value

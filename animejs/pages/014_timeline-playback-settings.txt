@@ -1,0 +1,76 @@
+URL: https://animejs.com/documentation/timeline/timeline-playback-settings
+==================================================
+
+Timeline
+Since 2.0.0
+Timeline playback settings
+Specify the timings and behaviours of a timeline.
+Timeline playback settings are defined directly in the
+createTimeline
+()
+parameters
+Object
+.
+createTimeline
+({
+┌───────────────────┐
+│
+defaults
+: {       │
+│
+ease
+:
+'out(3)'
+, │
+│
+duration
+:
+500
+,  │
+│ },                ├─
+Playback
+Settings
+│
+loop
+:
+3
+,          │
+│
+alternate
+:
+true
+,  │
+│
+autoplay
+:
+false
+,  │
+└───────────────────┘
+onBegin
+:
+() =>
+{},
+onLoop
+:
+() =>
+{},
+onUpdate
+:
+() =>
+{},
+});
+In this section
+defaults
+delay
+loop
+loopDelay
+alternate
+reversed
+autoplay
+frameRate
+playbackRate
+playbackEase
+Previous
+Next
+Time position
+defaults

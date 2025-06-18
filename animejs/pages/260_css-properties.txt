@@ -1,0 +1,69 @@
+URL: https://animejs.com/documentation/animation/animatable-properties/css-properties
+==================================================
+
+Animation
+
+Animatable properties
+Since 1.0.0
+CSS Properties
+Any CSS numerical and color properties can be animated.
+Properties containing a dash in their name, like
+background-color
+, must be converted to camel case (
+backgroundColor
+), or written as a
+String
+(
+'background-color'
+).
+Most CSS properties can cause layout changes or repaint leading to choppy animations. To achieve smoother animations, always prioritise opacity and
+CSS transforms
+as much as possible.
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+left
+:
+'calc(7.75rem * 2)'
+,
+borderRadius
+:
+64
+,
+'background-color'
+:
+'#F9F640'
+,
+filter
+:
+'blur(5px)'
+,
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Animatable properties
+CSS transforms

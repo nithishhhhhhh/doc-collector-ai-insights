@@ -1,0 +1,126 @@
+URL: https://animejs.com/documentation/getting-started/installation
+==================================================
+
+Getting started
+Installation
+Anime.js can be installed in multiple ways depending of your environment or workflow.
+This section covers differents methods of installation.
+Installation via NPM and a bundler
+If you're using a bundler like
+Vite
+or
+esbuild
+, simply install the package via
+NPM
+.
+npm install animejs
+Then import
+Anime.js
+methods as
+ES6 Modules
+like this:
+import
+{ animate }
+from
+'animejs'
+;
+Linking from a CDN
+CDN Name
+URL
+JsDelivr
+jsdelivr.com
+ES6 Modules
+<
+script
+type
+=
+"module"
+>
+import
+{ animate }
+from
+'https://cdn.jsdelivr.net/npm/animejs/+esm'
+;
+</
+script
+>
+Global object
+<
+script
+src
+=
+"https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"
+>
+</
+script
+>
+<
+script
+>
+const
+{ animate } = anime;
+</
+script
+>
+Direct download from GitHub
+If you prefer to download the Anime.js library manually, you can also simply grab the code from the official
+GitHub repository
+.
+The following versions are available in the
+/lib
+directory:
+File name
+Type
+anime.
+esm
+.
+js
+ES6 Module
+anime.
+umd
+.
+js
+Universal Module
+anime.
+iife
+.
+js
+Global Object
+Once downloaded inside your project folder, link the library in your code like this:
+ES6 Modules
+<
+script
+type
+=
+"module"
+>
+import
+{ animate }
+from
+'./path/to/anime.esm.min.js'
+;
+</
+script
+>
+Global object
+<
+script
+src
+=
+"path/to/anime.iife.min.js"
+>
+</
+script
+>
+<
+script
+>
+const
+{ animate } = anime;
+</
+script
+>
+Previous
+Next
+Getting started
+Imports

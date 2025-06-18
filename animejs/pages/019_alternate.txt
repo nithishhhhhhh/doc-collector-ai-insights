@@ -1,0 +1,186 @@
+URL: https://animejs.com/documentation/animation/animation-playback-settings/alternate
+==================================================
+
+Animation
+
+Playback settings
+Since 4.0.0
+alternate
+V4
+Defines if the direction of the animation alternates on each iteration when the
+loop
+parameter is set to
+true
+or superior to
+1
+.
+Accepts
+Boolean
+Default
+false
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+alternate
+=
+true
+;
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.dir-normal'
+, {
+x
+:
+'17rem'
+,
+alternate
+:
+false
+,
+// Default
+loop
+:
+1
+,
+});
+animate
+(
+'.dir-alternate'
+, {
+x
+:
+'17rem'
+,
+alternate
+:
+true
+,
+loop
+:
+1
+,
+// Required to see the second iteration
+});
+animate
+(
+'.dir-alternate-reverse'
+, {
+x
+:
+'17rem'
+,
+alternate
+:
+true
+,
+reversed
+:
+true
+,
+loop
+:
+1
+,
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"circle dir-normal"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+alternate: false
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"circle dir-alternate"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+alternate: true
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"circle dir-alternate-reverse"
+>
+</
+div
+>
+<
+div
+class
+=
+"padded label"
+>
+alternate: true, reversed: true
+</
+div
+>
+</
+div
+>
+Previous
+Next
+loopDelay
+reversed

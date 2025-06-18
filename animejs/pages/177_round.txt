@@ -1,0 +1,174 @@
+URL: https://animejs.com/documentation/utilities/round
+==================================================
+
+Utilities
+Since 4.0.0
+round()
+Rounds a
+Number
+to a specified number of decimal places or creates a rounding
+Function
+with a pre-defined
+decimalLength
+parameter.
+const
+roundedValue = utils.
+round
+(value, decimalLength);
+const
+roundingFunction = utils.
+round
+(decimalLength);
+Parameters
+Name
+Accepts
+value
+(opt)
+Number
+decimalLength
+Number
+Returns
+A
+Number
+if a value is provided, otherwise a
+chain-able utility
+Function
+to round numbers with the specified decimal length:
+const
+clampAndRound = utils.
+clamp
+(
+0
+,
+100
+).
+round
+(
+2
+);
+// Clamp then round to 2 decimal places
+clampAndRound
+(
+72.7523
+);
+// 72.75
+clampAndRound
+(
+120.2514
+);
+// 100
+import
+{ animate, utils }
+from
+'animejs'
+;
+animate
+(
+'.normal'
+, {
+rotate
+:
+'1turn'
+,
+duration
+:
+3000
+,
+loop
+:
+true
+,
+});
+animate
+(
+'.rounded'
+, {
+rotate
+:
+'1turn'
+,
+modifier
+: utils.
+round
+(
+1
+),
+// Used as a function
+duration
+:
+3000
+,
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"x-large spaced-evenly row"
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock normal"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+normal
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"col"
+>
+<
+div
+class
+=
+"clock rounded"
+>
+</
+div
+>
+<
+div
+class
+=
+"label"
+>
+rounded (.1)
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+lerp()
+clamp()

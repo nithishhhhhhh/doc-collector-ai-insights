@@ -1,0 +1,141 @@
+URL: https://animejs.com/documentation/animation/keyframes/tween-values-keyframes
+==================================================
+
+Animation
+
+Keyframes
+Since 4.0.0
+Tween values keyframes
+V4
+Sequences multiple
+Tween value
+specific to an
+Animatable property
+using an
+Array
+.
+The duration between each keyframe equals the total animation duration divided by the number of transitions between each keyframes.
+The first keyframe defines the
+from value
+of the tween.
+You can use this syntax to quickly set the initial
+from value
+value of an animation:
+animate
+(
+target
+: {
+x
+: [-
+100
+,
+100
+] });
+// Animate x from -100 to 100
+Accepts
+An
+Array
+of valid
+Tween values
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+translateX
+: [
+'0rem'
+,
+0
+,
+17
+,
+17
+,
+0
+,
+0
+],
+translateY
+: [
+'0rem'
+, -
+2.5
+, -
+2.5
+,
+2.5
+,
+2.5
+,
+0
+],
+scale
+: [
+1
+,
+1
+,
+.5
+,
+.5
+,
+1
+,
+1
+],
+rotate
+: {
+to
+:
+360
+,
+ease
+:
+'linear'
+},
+duration
+:
+3000
+,
+ease
+:
+'inOut'
+,
+// ease applied between each keyframes if no ease defined
+playbackEase
+:
+'ouIn(5)'
+,
+// ease applied accross all keyframes
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Keyframes
+Tween parameters keyframes

@@ -1,0 +1,169 @@
+URL: https://animejs.com/documentation/timeline/timeline-callbacks/onbegin
+==================================================
+
+Timeline
+
+Callbacks
+Since 4.0.0
+onBegin
+Executes a function when an timeline begins to play.
+Accepts
+A
+Function
+whose first argument returns the timeline itself
+Default
+noop
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+onBegin
+=
+self
+=>
+console
+.
+log
+(self.
+id
+);
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+const
+tl =
+createTimeline
+({
+delay
+:
+1000
+,
+// Delays the onBegin() callback by 1000ms
+onBegin
+:
+self
+=>
+$value.
+textContent
+= self.
+began
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+});
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+began
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+false
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+Timeline callbacks
+onComplete

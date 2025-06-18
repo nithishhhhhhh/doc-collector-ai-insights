@@ -1,0 +1,168 @@
+URL: https://animejs.com/documentation/animation/animation-methods/resume
+==================================================
+
+Animation
+
+Methods
+Since 1.0.0
+resume()
+V4
+Resumes the playback of a paused animation in its current direction.
+Returns
+The animation itself
+Can be chained with other animation methods.
+import
+{ animate, utils, stagger }
+from
+'animejs'
+;
+const
+[ $pauseButton, $alternateButton, $resumeButton ] = utils.$(
+'.button'
+);
+const
+animation =
+animate
+(
+'.square'
+, {
+x
+:
+'17rem'
+,
+ease
+:
+'inOutSine'
+,
+loop
+:
+true
+,
+delay
+:
+stagger
+(
+100
+),
+});
+const
+pauseAnimation
+= (
+) => animation.
+pause
+();
+const
+alternateAnimation
+= (
+) => animation.
+alternate
+();
+const
+resumeAnimation
+= (
+) => animation.
+resume
+();
+$pauseButton.
+addEventListener
+(
+'click'
+, pauseAnimation);
+$alternateButton.
+addEventListener
+(
+'click'
+, alternateAnimation);
+$resumeButton.
+addEventListener
+(
+'click'
+, resumeAnimation);
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"medium row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button"
+>
+Pause
+</
+button
+>
+<
+button
+class
+=
+"button"
+>
+Alternate
+</
+button
+>
+<
+button
+class
+=
+"button"
+>
+Resume
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+alternate()
+complete()

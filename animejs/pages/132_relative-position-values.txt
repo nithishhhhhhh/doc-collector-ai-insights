@@ -1,0 +1,164 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/relative-position-values
+==================================================
+
+ScrollObserver
+
+Thresholds
+Since 4.0.0
+Relative position values
+Defines position values relative to the target and container top coordinate using a a
+Relative value
+syntax.
+Accepts
+Prefix
+Effect
+Example
+'+='
+Add
+'+=45'
+'-='
+Subtracts
+'-=50%'
+'*='
+Multiply
+'*=.5'
+import
+{ animate, onScroll }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+x
+:
+'15rem'
+,
+rotate
+:
+'1turn'
+,
+duration
+:
+2000
+,
+alternate
+:
+true
+,
+loop
+:
+true
+,
+ease
+:
+'inOutQuad'
+,
+autoplay
+:
+onScroll
+({
+container
+:
+'.scroll-container'
+,
+enter
+:
+'center+=1em top-=100%'
+,
+leave
+:
+'center-=1em bottom+=100%'
+,
+debug
+:
+true
+})
+});
+<
+div
+class
+=
+"scroll-container scroll-y"
+>
+<
+div
+class
+=
+"scroll-content grid square-grid"
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"label"
+>
+scroll down
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section padded"
+>
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"scroll-section"
+>
+</
+div
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Positions shorthands
+Min max

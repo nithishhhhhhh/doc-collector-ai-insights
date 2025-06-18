@@ -1,0 +1,187 @@
+URL: https://animejs.com/documentation/timeline/timeline-callbacks/onbeforeupdate
+==================================================
+
+Timeline
+
+Callbacks
+Since 4.0.0
+onBeforeUpdate
+Executes a function before updating the child animations values, on every frames of a running timeline at the specified
+frameRate
+.
+Accepts
+A
+Function
+whose first argument returns the timeline itself
+Default
+noop
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+onUpdate
+=
+self
+=>
+console
+.
+log
+(self.
+id
+);
+import
+{ createTimeline, utils }
+from
+'animejs'
+;
+const
+[ $value ] = utils.$(
+'.value'
+);
+let
+updates =
+0
+;
+const
+tl =
+createTimeline
+({
+defaults
+: {
+duration
+:
+500
+},
+loopDelay
+:
+250
+,
+loop
+:
+true
+,
+onBeforeUpdate
+:
+self
+=>
+$value.
+textContent
+= ++updates
+})
+.
+add
+(
+'.circle'
+, {
+x
+:
+'15rem'
+})
+.
+add
+(
+'.triangle'
+, {
+x
+:
+'15rem'
+},
+'+=250'
+)
+.
+add
+(
+'.square'
+, {
+x
+:
+'15rem'
+},
+'+=250'
+);
+<
+div
+class
+=
+"large row"
+>
+<
+div
+class
+=
+"medium pyramid"
+>
+<
+div
+class
+=
+"triangle"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle"
+>
+</
+div
+>
+</
+div
+>
+<
+pre
+class
+=
+"large log row"
+>
+<
+span
+class
+=
+"label"
+>
+updates
+</
+span
+>
+<
+span
+class
+=
+"value"
+>
+0
+</
+span
+>
+</
+pre
+>
+</
+div
+>
+Previous
+Next
+onComplete
+onUpdate

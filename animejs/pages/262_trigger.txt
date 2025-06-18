@@ -1,0 +1,66 @@
+URL: https://animejs.com/documentation/draggable/draggable-settings/trigger
+==================================================
+
+Draggable
+
+Settings
+Since 4.0.0
+trigger
+Specifies a different element than the defined target to trigger the drag animation.
+Accepts
+CSS Selector
+DOM Element
+import
+{ createDraggable }
+from
+'animejs'
+;
+createDraggable
+(
+'.row'
+, {
+trigger
+:
+'.circle'
+,
+});
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+<
+div
+class
+=
+"circle draggable"
+>
+</
+div
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+Draggable settings
+container

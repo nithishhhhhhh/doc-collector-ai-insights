@@ -1,0 +1,125 @@
+URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi
+==================================================
+
+Web Animation API
+Since 4.0.0
+API differences with native WAAPI
+This chapter covers all major differences between the native Web Animation API
+element.
+animate
+()
+syntax and Anime.js
+waapi.
+animate
+(element)
+syntax.
+Anime.js
+waapi.
+animate
+(
+┌────────────┐
+│
+'.square'
+, ├─
+Targets
+└────────────┘
+{
+┌──────────────────┐
+│
+x
+:
+100
+,          │
+│
+y
+:
+50
+,           ├─
+Keyframes
+Values
+│
+opacity
+:
+.5
+,     │
+└──────────────────┘
+┌──────────────────┐
+│
+loop
+:
+3
+,         │
+│
+alternate
+:
+true
+, ├─
+Playback
+Settings
+│
+ease
+:
+'out'
+,     │
+└──────────────────┘
+});
+WAAPI
+const
+$square =
+document
+.
+querySelector
+(
+'.square'
+);
+┌────────────┐
+│ $square    ├─
+Targets
+└────────────┘
+.
+animate
+({
+┌──────────────────────────┐
+│
+translate
+:
+'100px 50px'
+, ├─
+Keyframes
+Values
+│
+opacity
+:
+.5
+,             │
+└──────────────────────────┘
+}, {
+┌──────────────────────────┐
+│
+ieterations
+:
+4
+,          │
+│
+direction
+:
+'alternate'
+,  ├─
+Playback
+Settings
+│
+easing
+:
+'ease-out'
+,      │
+└──────────────────────────┘
+});
+In this section
+iterations
+direction
+easing
+finished
+Previous
+Next
+Improvements to the Web Animation API
+iterations

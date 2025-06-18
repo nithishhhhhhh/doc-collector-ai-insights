@@ -1,0 +1,103 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods/stop
+==================================================
+
+Draggable
+
+Methods
+Since 4.0.0
+stop()
+Stop all currently running animations targeting the draggable, the container scroll animation and the draggable release animation.
+Returns
+The draggable itself
+import
+{ createDraggable, animate, utils }
+from
+'animejs'
+;
+const
+[ $stopButton ] = utils.$(
+'.stop'
+);
+const
+draggable =
+createDraggable
+(
+'.square'
+);
+animate
+(draggable, {
+x
+: [-
+100
+,
+100
+],
+alternate
+:
+true
+,
+loop
+:
+true
+});
+const
+stopDraggable
+= (
+) => draggable.
+stop
+();
+$stopButton.
+addEventListener
+(
+'click'
+, stopDraggable);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button stop"
+>
+Stop
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+scrollInView()
+reset()

@@ -1,0 +1,118 @@
+URL: https://animejs.com/documentation/draggable/draggable-methods/sety
+==================================================
+
+Draggable
+
+Methods
+Since 4.0.0
+setY()
+Manually set the
+y
+position of the draggable target.
+Is equivalent updating
+draggable.
+y
+directly when no
+muteCallback
+parameter is defined.
+Parameters
+Name
+Type
+Description
+y
+Number
+The new y value
+muteCallback
+(opt)
+Boolean
+If
+true
+, prevents the
+onUpdate
+callback to fire (default
+false
+)
+Returns
+The draggable itself
+import
+{ createDraggable, utils }
+from
+'animejs'
+;
+const
+[ $setButton ] = utils.$(
+'.set'
+);
+const
+draggable =
+createDraggable
+(
+'.square'
+);
+const
+setRandomY
+= (
+) => draggable.
+setY
+(utils.
+random
+(-
+40
+,
+40
+));
+$setButton.
+addEventListener
+(
+'click'
+, setRandomY);
+<
+div
+class
+=
+"large centered row"
+>
+<
+div
+class
+=
+"square draggable"
+>
+</
+div
+>
+</
+div
+>
+<
+div
+class
+=
+"large row"
+>
+<
+fieldset
+class
+=
+"controls"
+>
+<
+button
+class
+=
+"button set"
+>
+Set random y
+</
+button
+>
+</
+fieldset
+>
+</
+div
+>
+Previous
+Next
+setX()
+animateInView()

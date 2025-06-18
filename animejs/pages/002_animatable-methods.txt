@@ -1,0 +1,42 @@
+URL: https://animejs.com/documentation/animatable/animatable-methods
+==================================================
+
+Animatable
+Since 4.0.0
+Animatable methods
+Triggers animations attached to the animatable properties.
+Animation methods are available on an Animatable instance
+Object
+.
+const
+animatable =
+createAnimatable
+(target, parameters);
+┌─────────────────────┐
+animatable.│
+x
+(
+100
+)               │
+animatable.│
+y
+(
+50
+,
+500
+,
+'out(2)'
+) ├─
+Methods
+animatable.│
+revert
+()             │
+└─────────────────────┘
+In this section
+Getters
+Setters
+revert()
+Previous
+Next
+Animatable settings
+Getters

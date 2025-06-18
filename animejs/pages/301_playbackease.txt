@@ -1,0 +1,142 @@
+URL: https://animejs.com/documentation/animation/animation-playback-settings/playbackease
+==================================================
+
+Animation
+
+Playback settings
+Since 4.0.0
+playbackEase
+V4
+JS
+Applies and easing function to the entire playback of the animation.
+Unlike the tween
+ease
+parameter that is applied in between every property keyframes like this:
+0
+────────────────────────────────›
+1
+A ──ease──› B ──ease──› C ──ease──› D
+The
+playbackEase
+parameter is applied globally like this:
+0
+──────────────ease──────────────›
+1
+A ────────› B ────────› C ────────› D
+Accepts
+ease
+Default
+null
+To change the default value globally, update the
+engine.
+defaults
+object.
+import
+{ engine }
+from
+'animejs'
+;
+engine.
+defaults
+.
+playbackEase
+=
+'inOut'
+;
+import
+{ animate }
+from
+'animejs'
+;
+animate
+(
+'.square'
+, {
+keyframes
+: [
+{
+y
+:
+'-2.5rem'
+,
+duration
+:
+400
+},
+{
+x
+:
+'17rem'
+,
+rotate
+:
+180
+,
+scale
+:
+.5
+},
+{
+y
+:
+'2.5rem'
+},
+{
+x
+:
+0
+,
+rotate
+:
+360
+,
+scale
+:
+1
+},
+{
+y
+:
+0
+,
+duration
+:
+400
+}
+],
+duration
+:
+4000
+,
+playbackEase
+:
+'inOut(3)'
+,
+// this ease is applied accross all keyframes
+loop
+:
+true
+,
+});
+<
+div
+class
+=
+"medium row"
+>
+<
+div
+class
+=
+"square"
+>
+</
+div
+>
+</
+div
+>
+Previous
+Next
+playbackRate
+Animation callbacks

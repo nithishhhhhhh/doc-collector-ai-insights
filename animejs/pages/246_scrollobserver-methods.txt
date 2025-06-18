@@ -1,0 +1,39 @@
+URL: https://animejs.com/documentation/scroll/scrollobserver-methods
+==================================================
+
+ScrollObserver
+Since 4.0.0
+ScrollObserver methods
+Controls the state and behaviour of a
+ScrollObserver
+.
+ScrollObserver methods are available on the
+ScrollObserver
+instance returned by a
+onScroll
+()
+function.
+const
+scrollObserver =
+onScroll
+(parameters);
+┌──────────┐
+scrollObserver.│
+link
+()    │
+scrollObserver.│
+refresh
+() ├─
+Methods
+scrollObserver.│
+revert
+()  │
+└──────────┘
+In this section
+link()
+refresh()
+revert()
+Previous
+Next
+ScrollObserver callbacks
+link()
