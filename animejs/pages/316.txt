@@ -3490,36 +3490,10 @@ JS
 
 
 
-Utilities
+Engine
 
 
-
-
-
-
-Since 2.0.0
-
-
-
-
-
-
-
-
-
-            remove()                                              
-
-
-
-
-Removes one or multiple targets from all active animations, a specific instance or a specific property, cancelling any 
-Animation
- or 
-Timeline
- referencing these targets if needed.
-
-
-const removed = utils.remove(targets, instance, propertyName);
+
 
 
 Parameters
@@ -3529,66 +3503,45 @@ Parameters
 
 
 
+Since 4.0.0
 
 
-Name
+
+
+
+
+
+
+
+            fps                                              
+
+
+
+
+Controls the global frame rate at which animations are updated and rendered.
+
+
+
+Adjusting the frame rate can help optimize performance on lower-end devices or when running many complex animations simultaneously. However, it may affect the perceived smoothness of animations.
+
+
+
+engine.fps = 30; // Set all animations to update at 30 fps
 
 
 Accepts
 
 
+A 
+Number
+ greater than 
+0
 
 
+Default
 
 
-
-
-
-
-targets
-
-
-Targets
-
-
-
-
-
-
-instance 
-(opt)
-
-
-Animation
- | 
-Timeline
-
-
-
-
-
-
-propertyName 
-(opt)
-
-
-Animatable Properties
- name 
-String
-
-
-
-
-
-
-
-
-Returns
-
-
-An 
-Array
- of the removed targeted elements
+120
  
 
 
@@ -3600,7 +3553,7 @@ Array
 
 
 
-remove() code example
+fps code example
 
 
 
@@ -3622,47 +3575,35 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { engine, animate, utils } from 'animejs';
 
-let updates = 0;
+const [ $container ] = utils.$('.container');
+const [ $range ] = utils.$('.range');
 
-const [ $removeFirstButton ] = utils.$('.remove-1');
-const [ $removeSecondButton ] = utils.$('.remove-2');
-const [ $updates ] = utils.$('.value');
-
-const animation = animate('.square', {
-  x: '17rem',
-  rotate: 360,
-  alternate: true,
-  loop: true,
-  onUpdate: () => {
-    $updates.textContent = updates++;
-  }
-});
-
-$removeFirstButton.onclick = () => {
-  utils.remove('.row:nth-child(1) .square');
+for (let i = 0; i < 150; i++) {
+  const $particle = document.createElement('div');
+  $particle.classList.add('particle');
+  $container.appendChild($particle);
+  animate($particle, {
+    x: utils.random(-10, 10, 2) + 'rem',
+    y: utils.random(-3, 3, 2) + 'rem',
+    scale: [{ from: 0, to: 1 }, { to: 0 }],
+    delay: utils.random(0, 1000),
+    loop: true,
+  });  
 }
 
-$removeSecondButton.onclick = () => {
-  utils.remove('.row:nth-child(2) .square', animation, 'x');
+function onInput() {
+  engine.fps = this.value;
 }
 
+$range.addEventListener('input', onInput);
 
-<div class="medium row">
-  <div class="square"></div>
-</div>
-<div class="medium row">
-  <div class="square"></div>
-</div>
-<pre class="large log row">
-  <span class="label">updates</span>
-  <span class="value">--</span>
-</pre>
+
+<div class="large row container"></div>
 <div class="medium row">
   <fieldset class="controls">
-    <button class="button remove-1">Remove all first</button>
-    <button class="button remove-2">Remove x second</button>
+    <input type="range" min=0 max=240 value=60 step=1 class="range" />
   </fieldset>
 </div>
 
@@ -3685,7 +3626,7 @@ Next
 
 
 
-set()
+speed
 
 
 
@@ -3712,7 +3653,7 @@ set()
 
 
 
-cleanInlineStyles()
+precision
 
 
 

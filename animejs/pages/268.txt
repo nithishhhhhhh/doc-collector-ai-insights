@@ -3489,51 +3489,26 @@ JS
 
 
 
-
-Engine
-
+            SVG                                              
 
 
 
 
-
-Since 4.0.0
-
+A collection of utility functions to help with SVG morphing, line drawing and motion path animations.
 
 
+All SVG utilities functions are available on the 
+svg
+ object.
 
 
-
-
-
-
-            Engine defaults                                              
-
-
-
-
-Defines the global defaults properties used by all 
-Timer
-, 
-Animation
- and 
-Timeline
- instances.
-
-
-All default properties are available on the 
-defaults
+import { svg } from 'animejs';
  
-Object
- of 
-engine
-.
 
 
-import { engine } from 'animejs';
 
-engine.engine.defaults.duration = 500;
 
+In this section
 
 
 
@@ -3541,10 +3516,9 @@ engine.engine.defaults.duration = 500;
 
 
 
-Name
 
+morphTo()
 
-Accepts
 
 
 
@@ -3555,232 +3529,58 @@ Accepts
 
 
 
-playbackEase
 
 
-Easing name 
-String
- | Easing 
-Function
 
 
 
+createDrawable()
 
 
 
-playbackRate
 
 
-Number
 
 
 
 
 
 
-frameRate
 
 
-Number
 
 
 
+createMotionPath()
 
 
 
-loop
 
 
-Number
- | 
-Boolean
 
 
 
 
 
 
-reversed
 
 
-Boolean
 
-
-
-
-
-
-alternate
-
-
-Boolean
-
-
-
-
-
-
-autoplay
-
-
-Boolean
-
-
-
-
-
-
-duration
-
-
-Number
- | 
-Function
-
-
-
-
-
-
-delay
-
-
-Number
- | 
-Function
-
-
-
-
-
-
-composition
-
-
-Composition types 
-String
- | 
-Function
-
-
-
-
-
-
-ease
-
-
-Easing name 
-String
- | Easing 
-Function
-
-
-
-
-
-
-loopDelay
-
-
-Number
-
-
-
-
-
-
-modifier
-
-
-Modifier 
-Function
-
-
-
-
-
-
-onBegin
-
-
-Callback 
-Function
-
-
-
-
-
-
-onUpdate
-
-
-Callback 
-Function
-
-
-
-
-
-
-onRender
-
-
-Callback 
-Function
-
-
-
-
-
-
-onLoop
-
-
-Callback 
-Function
-
-
-
-
-
-
-onComplete
-
-
-Callback 
-Function
-
-
-
-
-
-
-onPause
-
-
-Callback 
-Function
-
-
-
-
-
-
- 
 
 
 
 
 Previous
  
+Next
+ 
 
 
 
 
 
 
-Engine properties
+Stagger
 
 
 
@@ -3791,6 +3591,23 @@ Engine properties
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+morphTo()
 
 
 

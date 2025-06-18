@@ -3493,12 +3493,6 @@ JS
 Web Animation API
 
 
-
-
-
-Improvements to WAAPI
-
-
 
 
 
@@ -3513,161 +3507,73 @@ Since 4.0.0
 
 
 
-            Spring and custom easings                                              
+            Hardware-accelerated animations                                              
 
 
 
 
-Uses any spring and custom JavaScript easing function.
+One of the biggest advantages of WAAPI over 
+requestAnimationFrame
+ powered animations is the ability to run animations off the main thread, leading to smoother animations when the CPU is busy while consuming less power, which can improve battery life.
 
 
-All Anime.js built-in easing functions can be used by passing the function accessible on the 
-eases
- object.
+The catch is that not all properties can be hardware-accelerated, there are currently only a few that can create a new compositor layer and run off the main thread on every browser.
 
 
-import { eases } from 'animejs';
 
-const { linear, outExpo, cubicBezier } = eases;
 
+Hardware-accelerated properties in every major browsers:
 
-The 
-createSpring()
- easing function must be imported separately.
 
 
-import { createSpring } from 'animejs';
 
+opacity
 
-Built-in eases
 
+transform
 
 
+translate
 
 
+scale
 
 
+rotate
 
-Built-in string
 
 
-Function
 
+Hardware-accelerated properties in some browsers:
 
-Parameters
 
 
 
+clip-path
 
 
+filter
 
 
 
 
 
-'linear'
-'linear(0, .5 75%, 1)'
 
 
-linear()
 
+Safari (desktop and mobile) currently won't trigger hardware acceleration if the animation is using a custom 
+'linear()'
+ easing. This mean that custom power eases like: 
+'out(3)'
+, 
+'in(3)'
+, 
+'inOut(3)'
+, and every JavaScript easing passed to 
+waapi.animate()
+ prevents the animation to be hardware accelerated, even if the property supports it.
 
-coords (
-0, '.5 75%', 1
-)
 
-
-
-
-
-
-'steps'
-'steps(10)'
-
-
-steps()
-
-
-steps = 
-10
-
-
-
-
-
-
-'cubicBezier'
-'cubicBezier(.5,0,.5,1)'
-
-
-cubicBezier()
-
-
-x1 = 
-.5
-, y1 = 
-0
-, x2 = 
-.5
-, y2 = 
-1
-
-
-
-
-
-
-'in'
-'in(1.675)'
-
-
-in()
-
-
-power = 
-1.675
-
-
-
-
-
-
-'out'
-'out(1.675)'
-
-
-out()
-
-
-power = 
-1.675
-
-
-
-
-
-
-'inOut'
-'inOut(1.675)'
-
-
-inOut()
-
-
-power = 
-1.675
-
-
-
-
-
-
-
-
-Default
-
-
-'out(2)'
  
 
 
@@ -3679,7 +3585,7 @@ Default
 
 
 
-Spring and custom easings code example
+Hardware-accelerated animations code example
 
 
 
@@ -3701,23 +3607,59 @@ HTML
 
 
 
-import { waapi, utils, stagger, createSpring, eases } from 'animejs';
+import { animate, waapi, createTimer, utils } from 'animejs';
 
-waapi.animate('.circle', {
-  y: [0, -30, 0],
-  ease: createSpring({ stiffness: 150, damping: 5 }),
-  delay: stagger(75),
+const [ $block ] = utils.$('.button');
+
+const waapiAnim = waapi.animate('.waapi.square', {
+  translate: 270,
+  rotate: 180,
+  alternate: true,
+  loop: true,
+  ease: 'cubicBezier(0, 0, .58, 1)',
+});
+
+const jsAnim = animate('.js.square', {
+  x: 270,
+  rotate: 180,
+  ease: 'cubicBezier(0, 0, .58, 1)',
+  alternate: true,
   loop: true,
 });
 
+const blockCPUTimer = createTimer({
+  onUpdate: () => {
+    const end = Date.now() + 100;
+    while(Date.now() < end) {
+      Math.random() * Math.random();
+    }
+  },
+  autoplay: false
+});
 
-<div class="large row">
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
+let isBusy = false;
+
+const toggleCPU = () => {
+  blockCPUTimer[isBusy ? 'pause' : 'play']();
+  $block.innerText = (isBusy ? 'block' : 'free') + ' CPU';
+  isBusy = !isBusy;
+}
+
+$block.addEventListener('click', toggleCPU);
+
+
+<div class="medium row">
+  <div class="waapi square"></div>
+  <span class="padded label">WAAPI</span>
+</div>
+<div class="medium row">
+  <div class="js square"></div>
+  <span class="padded label">JS</span>
+</div>
+<div class="medium row">
+  <fieldset class="controls">
+    <button class="button">Block CPU</button>
+  </fieldset>
 </div>
 
 
@@ -3739,7 +3681,7 @@ Next
 
 
 
-Individual property parameters
+When to use WAAPI
 
 
 
@@ -3766,7 +3708,7 @@ Individual property parameters
 
 
 
-API differences with native WAAPI
+Improvements to the Web Animation API
 
 
 

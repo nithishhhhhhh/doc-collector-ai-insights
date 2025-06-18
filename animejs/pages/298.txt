@@ -3490,7 +3490,7 @@ JS
 
 
 
-Utilities
+Web Animation API
 
 
 
@@ -3507,139 +3507,166 @@ Since 4.0.0
 
 
 
-            Chain-able utility functions            
-V4
- 
+            Improvements to the Web Animation API                                              
 
 
 
 
-Chain-able utility functions allow for the creation of complex operations by combining multiple functions in a single expression.
+The 
+waapi.animate()
+ method adds lots of quality of life improvements and greatly improves the overall experience of using WAAPI.
 
 
-const clampRoundPad = utils.clamp(0, 100).round(2).padStart(6, '0');
-clampRoundPad(125)   // '000100'
-clampRoundPad(75.25) // '075.25'
+On top of all the improvements to the API listed in this chapter, it is also possible to link WAAPI animations to Anime.js built-in 
+ScrollObserver
 
 
-The following utility functions support chaining:
-
-
-
-
-round()
-
-
-clamp()
-
-
-snap()
-
-
-wrap()
-
-
-mapRange()
-
-
-interpolate()
-
-
-roundPad()
-
-
-padStart()
-
-
-padEnd()
-
-
-degToRad()
-
-
-radToDeg()
-
-
-
-
-
-
-Chain-able functions works great in combinaison with the 
-modifier
- tween parameter.
-
-
-
-
-Usage
-
-
-Chain-able functions are created when calling a utility function without its optional value parameter:
-
-
-const chainableClamp = utils.clamp(0, 100); // Returns a chain-able function
-const result = chainableClamp(150); // 100
-
-
-Chaining
-
-
-Chain-able functions are combined like this:
-
-
-const normalizeAndRound = utils.mapRange(0, 255, 0, 1).round(1);
-normalizeAndRound(128); // '0.5'
-normalizeAndRound(64);  // '0.3'
- 
-
-
-
-
-
-
-
-
-
-
-Chain-able utility functions code example
-
-
-
-
-
-
-J
-ava
-S
-cript
-
-
-HTML
-
-
-
-
-
-
-
-
-import { animate, utils } from 'animejs';
-
-animate('.value', {
-  innerHTML: 1000,
-  modifier: utils.wrap(0, 10).roundPad(3).padStart(6, '0'),
-  duration: 100000,
-  alternate: true,
-  loop: true,
-  ease: 'linear',
+waapi.animate('.square', {
+  translate: '100px',
+  autoplay: onScroll()
 });
 
 
-<div class="large row">
-  <pre class="large log row">
-    <span class="value lcd">0</span>
-  </pre>
-</div>
+And use a 
+Scope
+ for easy media queries handling and component cleanup:
+
+
+createScope({
+  mediaQueries: { reduceMotion: '(prefers-reduced-motion)' }
+})
+.add(({ matches }) => {
+  const { reduceMotion } = matches;
+  waapi.animate('.square', {
+    transform: reduceMotion ? ['100px', '100px'] : '100px',
+    opacity: [0, 1],
+  });
+});
+ 
+
+
+
+
+In this section
+
+
+
+
+
+
+
+
+Sensible defaults
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Multi-targets animation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Default units
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Function based values
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Individual transforms
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Individual property params
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spring and custom easings
+
+
+
+
+
+
+
+
 
 
 
@@ -3660,7 +3687,7 @@ Next
 
 
 
-radToDeg()
+Hardware-accelerated animations
 
 
 
@@ -3687,7 +3714,7 @@ radToDeg()
 
 
 
-Web Animation API
+Sensible defaults
 
 
 

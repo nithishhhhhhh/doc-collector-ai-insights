@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+API differences
 
 
 
@@ -3507,33 +3513,16 @@ Since 4.0.0
 
 
 
-            snap()            
-V4
- 
+            iterations                                              
 
 
 
 
-Rounds a 
-Number
- to the nearest specified 
-increment
- or creates a snapping 
-Function
- with a pre-defined 
-increment
- parameter.
-
-If an 
-Array
- is provided as the increment, it selects the closest value from the array.
-
-
-const snappedValue = utils.snap(value, increment);
-const snapperFunction = utils.snap(increment);
-
-
-Parameters
+The 
+iterations
+ parameter is replaced by the 
+loop
+ parameter and determines how many times the animation will repeat instead of the total number of iterations.
 
 
 
@@ -3542,7 +3531,93 @@ Parameters
 
 
 
-Name
+iterations
+
+
+loop
+
+
+Effect
+
+
+
+
+
+
+
+
+
+
+1
+
+
+0
+
+
+No repeat
+
+
+
+
+
+
+3
+
+
+2
+
+
+Repeat twice
+
+
+
+
+
+
+Infinity
+
+
+Infinity
+ | 
+true
+ | -1
+
+
+Repeat indefinitely
+
+
+
+
+
+
+
+
+Syntax comparison
+
+
+Anime.js
+
+
+waapi.animate('.square', {
+  x: 100,
+  loop: 3
+});
+
+
+WAAPI equivalent
+
+
+const targets = document.querySelectorAll('.square');
+
+targets.forEach(($el, i) => {
+  $el.animate({
+    translate: '100px',
+  }, {
+    fill: 'forwards',
+    duration: 1000,
+    iterations: 4
+  })
+});
 
 
 Accepts
@@ -3550,63 +3625,23 @@ Accepts
 
 
 
-
-
-
-
-
-
-value 
-(opt)
-
-
+A 
 Number
-
-
-
-
-
-
-increment
-
-
-Number
- | 
-Array<Number>
-
-
-
-
-
-
-
-
-Returns
+ 
+[0, Infinity]
 
 
 A 
-Number
- if a value is provided, otherwise a 
-chain-able utility
- 
-Function
- to snap numbers to the nearest 
-increment
- or array value:
+Boolean
+ where 
+true
+ is equivalent to 
+Infinity
+ and 
+false
+ doesn't loop
 
 
-const snapTo10 = utils.snap(10);
-snapTo10(94);  // 90
-snapTo10(-17); // -20
-
-const snapToArray = utils.snap([0, 50, 100]);
-snapToArray(30);  // 50
-snapToArray(75);  // 100
-snapToArray(-10); // 0
-
-const clampAndSnap = utils.clamp(0, 100).snap(30);
-clampAndSnap(72.7523); // 60
-clampAndSnap(120.2514); // 90
  
 
 
@@ -3618,7 +3653,7 @@ clampAndSnap(120.2514); // 90
 
 
 
-snap() code example
+iterations code example
 
 
 
@@ -3640,33 +3675,24 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi, stagger } from 'animejs';
 
-animate('.normal', {
-  rotate: '1turn',
-  duration: 3000,
-  loop: true,
-  ease: 'inOut',
-});
-
-animate('.snapped', {
-  rotate: '1turn',
-  modifier: utils.snap(.25), // Used as a modifier
-  duration: 3000,
-  loop: true,
-  ease: 'inOut',
+waapi.animate('.square', {
+  translate: '17rem',
+  loop: 3,
+  alternate: true,
+  delay: stagger(100)
 });
 
 
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock normal"></div>
-    <div class="label">normal</div>
-  </div>
-  <div class="col">
-    <div class="clock snapped"></div>
-    <div class="label">snapped (.25)</div>
-  </div>
+<div class="medium row">
+  <div class="square"></div>
+</div>
+<div class="medium row">
+  <div class="square"></div>
+</div>
+<div class="medium row">
+  <div class="square"></div>
 </div>
 
 
@@ -3688,7 +3714,7 @@ Next
 
 
 
-clamp()
+API differences with native WAAPI
 
 
 
@@ -3715,7 +3741,7 @@ clamp()
 
 
 
-wrap()
+direction
 
 
 

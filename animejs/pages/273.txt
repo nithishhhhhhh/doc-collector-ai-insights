@@ -3490,13 +3490,7 @@ JS
 
 
 
-Engine
-
-
-
-
-
-Methods
+Utilities
 
 
 
@@ -3513,24 +3507,82 @@ Since 4.0.0
 
 
 
-            resume()                                              
+            $()            
+V4
+ 
 
 
 
 
-Resumes the engine after being either paused with a call to 
-engine.pause()
+Converts the provided targets parameter into an 
+Array
+ of elements, serving as an alternative to 
+document.querySelectorAll()
 .
 
 
-engine.pause();  // Pauses the engine and all animations
-engine.resume(); // Resumes the engine and all animations
+When used within a 
+Scope
+, it uses the Scope's 
+root
+ element instead of 
+document
+, effectively calling 
+root.querySelectorAll()
+.
+
+
+const targetsArray = utils.$(targets);
+
+
+Parameters
+
+
+
+
+
+
+
+
+Name
+
+
+Accepts
+
+
+
+
+
+
+
+
+
+
+targets
+
+
+CSS selector
+ | 
+DOM Elements
+
+
+
+
+
+
 
 
 Returns
 
 
-Engine
+An 
+Array
+ of 
+HTMLElement
+ or 
+SVGElement
+ or 
+SVGGeometryElement
  
 
 
@@ -3542,7 +3594,7 @@ Engine
 
 
 
-resume() code example
+$() code example
 
 
 
@@ -3564,39 +3616,50 @@ HTML
 
 
 
-import { engine, animate, utils } from 'animejs';
+import { utils, createScope } from 'animejs';
 
-const [ $container ] = utils.$('.container');
-const [ $pause, $resume ] = utils.$('button');
+// Targets all the '.square' elements
+utils.$('.square').forEach($square => {
+  utils.set($square, { scale: .5 });
+});
 
-function addAnimation() {
-  const $particle = document.createElement('div');
-  $particle.classList.add('particle');
-  $container.appendChild($particle);
-  animate($particle, {
-    x: utils.random(-10, 10, 2) + 'rem',
-    y: utils.random(-3, 3, 2) + 'rem',
-    scale: [{ from: 0, to: 1 }, { to: 0 }],
-    loop: true,
-    delay: utils.random(0, 1000)
+createScope({ root: '.row:nth-child(2)' }).add(() => {
+  // Limits the selection to '.row:nth-child(2) .square'
+  utils.$('.square').forEach($square => {
+    utils.set($square, { rotate: 45 });
   });
-}
-
-for (let i = 0; i < 150; i++) addAnimation();
-
-const resumeEngine = () => engine.resume();
-const pauseEngine = () => engine.pause();
-
-$pause.addEventListener('click', pauseEngine);
-$resume.addEventListener('click', resumeEngine);
+});
 
 
-<div class="large row container"></div>
-<div class="medium row">
-  <fieldset class="controls">
-    <button>Pause</button>
-    <button>Resume</button>
-  </fieldset>
+<div class="medium justified row">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+</div>
+<div class="medium justified row">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+</div>
+<div class="medium justified row">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
 </div>
 
 
@@ -3618,7 +3681,7 @@ Next
 
 
 
-pause()
+Utilities
 
 
 
@@ -3645,7 +3708,7 @@ pause()
 
 
 
-Engine properties
+get()
 
 
 

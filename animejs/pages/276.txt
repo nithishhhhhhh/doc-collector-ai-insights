@@ -3490,10 +3490,36 @@ JS
 
 
 
-Engine
+Utilities
 
 
-
+
+
+
+
+Since 2.0.0
+
+
+
+
+
+
+
+
+
+            remove()                                              
+
+
+
+
+Removes one or multiple targets from all active animations, a specific instance or a specific property, cancelling any 
+Animation
+ or 
+Timeline
+ referencing these targets if needed.
+
+
+const removed = utils.remove(targets, instance, propertyName);
 
 
 Parameters
@@ -3503,32 +3529,9 @@ Parameters
 
 
 
-Since 4.0.0
 
 
-
-
-
-
-
-
-
-            timeUnit (seconds / milliseconds)                                              
-
-
-
-
-Configures the unit of time to use for time-related values like 
-duration
- and 
-delay
-.
-
-The currently defined default duration is automatically adjusted to the newly specified time unit.
-
-
-engine.timeUnit = 's'; // Change the time unit globally to seconds
-console.log(engine.engine.defaults.duration); // -> Returns 1
+Name
 
 
 Accepts
@@ -3536,20 +3539,56 @@ Accepts
 
 
 
-'s'
- to use seconds
-
-
-'ms'
- to use milliseconds
 
 
 
 
-Default
 
 
-'ms'
+targets
+
+
+Targets
+
+
+
+
+
+
+instance 
+(opt)
+
+
+Animation
+ | 
+Timeline
+
+
+
+
+
+
+propertyName 
+(opt)
+
+
+Animatable Properties
+ name 
+String
+
+
+
+
+
+
+
+
+Returns
+
+
+An 
+Array
+ of the removed targeted elements
  
 
 
@@ -3561,7 +3600,7 @@ Default
 
 
 
-timeUnit (seconds / milliseconds) code example
+remove() code example
 
 
 
@@ -3583,53 +3622,47 @@ HTML
 
 
 
-import { engine, animate, utils } from 'animejs';
+import { animate, utils } from 'animejs';
 
-const [ $timeS ] = utils.$('.time-s');
-const [ $timeMs ] = utils.$('.time-ms');
-const [ $ms, $s ] = utils.$('.toggle');
+let updates = 0;
 
-const secondsTimer = createTimer({
-  duration: 1,
+const [ $removeFirstButton ] = utils.$('.remove-1');
+const [ $removeSecondButton ] = utils.$('.remove-2');
+const [ $updates ] = utils.$('.value');
+
+const animation = animate('.square', {
+  x: '17rem',
+  rotate: 360,
+  alternate: true,
   loop: true,
-  onUpdate: self => $timeS.innerHTML = utils.roundPad(self.iterationCurrentTime, 2)
+  onUpdate: () => {
+    $updates.textContent = updates++;
+  }
 });
 
-const millisecondsTimer = createTimer({
-  duration: 1000,
-  loop: true,
-  onUpdate: self => $timeMs.innerHTML = utils.roundPad(self.iterationCurrentTime, 2)
-});
-
-const toggleSetting = () => {
-  const isUsingSeconds = engine.timeUnit === 's';
-  engine.timeUnit = isUsingSeconds ? 'ms' : 's';
-  $ms.disabled = isUsingSeconds;
-  $s.disabled = !isUsingSeconds;
+$removeFirstButton.onclick = () => {
+  utils.remove('.row:nth-child(1) .square');
 }
 
-$ms.addEventListener('click', toggleSetting);
-$s.addEventListener('click', toggleSetting);
+$removeSecondButton.onclick = () => {
+  utils.remove('.row:nth-child(2) .square', animation, 'x');
+}
 
 
-<div class="large centered row">
-  <div class="col">
-    <pre class="large log row">
-      <span class="label">duration: 1</span>
-      <span class="time-s value lcd">0</span>
-    </pre>
-  </div>
-  <div class="col">
-    <pre class="large log row">
-      <span class="label">duration: 1000</span>
-      <span class="time-ms value lcd">0</span>
-    </pre>
-  </div>
+<div class="medium row">
+  <div class="square"></div>
 </div>
 <div class="medium row">
+  <div class="square"></div>
+</div>
+<pre class="large log row">
+  <span class="label">updates</span>
+  <span class="value">--</span>
+</pre>
+<div class="medium row">
   <fieldset class="controls">
-    <button class="button toggle" disabled>milliseconds</button>
-    <button class="button toggle">seconds</button>
+    <button class="button remove-1">Remove all first</button>
+    <button class="button remove-2">Remove x second</button>
   </fieldset>
 </div>
 
@@ -3652,7 +3685,7 @@ Next
 
 
 
-Engine parameters
+set()
 
 
 
@@ -3679,7 +3712,7 @@ Engine parameters
 
 
 
-speed
+cleanInlineStyles()
 
 
 

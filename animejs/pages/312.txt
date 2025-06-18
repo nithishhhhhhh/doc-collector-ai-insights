@@ -3489,35 +3489,35 @@ JS
 
 
 
-
-Utilities
-
-
-
-
-
-
-Since 4.0.0
-
-
-
-
-
-
-
-
-
-            shuffle()            
+            Engine            
 V4
  
 
 
 
 
-Mutates an array by randomizing the order of its elements.
+Drives and synchronises all 
+Animation
+, 
+Timer
+, and 
+Timeline
+ instances.
 
 
-const shuffledArray = utils.shuffle(array);
+import { engine } from 'animejs';
+ 
+
+
+
+
+In this section
+
+
+
+
+
+
 
 
 Parameters
@@ -3529,10 +3529,6 @@ Parameters
 
 
 
-Name
-
-
-Accepts
 
 
 
@@ -3541,26 +3537,7 @@ Accepts
 
 
 
-
-
-array
-
-
-Array
-
-
-
-
-
-
-
-
-Returns
-
-
-The mutated 
-Array
- 
+Methods
 
 
 
@@ -3571,20 +3548,13 @@ Array
 
 
 
-shuffle() code example
 
 
 
 
 
 
-J
-ava
-S
-cript
-
-
-HTML
+Properties
 
 
 
@@ -3593,33 +3563,23 @@ HTML
 
 
 
-import { utils } from 'animejs';
-
-const [ $shuffle ] = utils.$('button');
-const squares = utils.$('.square');
-const x = stagger('3.2rem');
-
-// Initial squares x position
-utils.set(squares, { x });
-
-const shuffle = () => animate(utils.shuffle(squares), { x });
-
-$shuffle.addEventListener('click', shuffle);
 
 
-<div class="large row">
-  <div class="square">A</div>
-  <div class="square">B</div>
-  <div class="square">C</div>
-  <div class="square">D</div>
-  <div class="square">E</div>
-  <div class="square">F</div>
-</div>
-<div class="medium row">
-  <fieldset class="controls">
-    <button>Shuffle</button>
-  </fieldset>
-</div>
+
+
+
+
+
+
+Engine defaults
+
+
+
+
+
+
+
+
 
 
 
@@ -3640,7 +3600,7 @@ Next
 
 
 
-randomPick()
+Web Animation API
 
 
 
@@ -3667,7 +3627,7 @@ randomPick()
 
 
 
-sync()
+Engine parameters
 
 
 

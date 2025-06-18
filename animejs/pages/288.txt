@@ -3490,7 +3490,7 @@ JS
 
 
 
-Web Animation API
+Utilities
 
 
 
@@ -3507,63 +3507,111 @@ Since 4.0.0
 
 
 
-            When to use WAAPI                                              
+            interpolate()            
+V4
+ 
 
 
 
 
-The Web Animations API (WAAPI) offers a lot of advantages over JavaScript 
-requestAnimationFrame
- (RAF) powered animations, but both have their strengths and downsides, and depending on the type of animation or the context in which an animation is created, it's not always possible or even recommended to use WAAPI over RAF.
+Interpolates a value between two numbers based on a given 
+progress
+ or creates an interpolation 
+Function
+ with pre-defined 
+start
+ and 
+end
+ parameters.
 
 
-Prioritize 
-waapi.animate()
- when:
+const interpolatedValue = utils.interpolate(start, end, progress);
+const interpolatorFunction = utils.interpolate(start, end);
 
 
-
-
-Animating during CPU/network load (see the 
-hardware-accelerated animations
- section)
-
-
-Initial page load time is critical and every KB counts (3KB gzip vs 10KB for the JavaScript version)
-
-
-Animating complex CSS values not correctly handled by the JavaScript version, like CSS transform matrixes or CSS color functions.
+Parameters
 
 
 
 
-Use 
-animate()
- when:
 
 
 
 
-Animating a large amount of targets (> 500)
+Name
 
 
-Animating JS/canvas/WebGL/WebGPU
+Accepts
 
 
-Animating SVG, DOM attributes or CSS properties not handled by the Web Animation API
 
 
-Animating complex timelines and keyframes
 
 
-You need more 
-control methods
 
 
-You need more advanced 
-callback functions
 
 
+start
+
+
+Number
+
+
+
+
+
+
+end
+
+
+Number
+
+
+
+
+
+
+progress 
+(opt)
+
+
+Number
+ (
+[0 - 1]
+)
+
+
+
+
+
+
+
+
+Returns
+
+
+A 
+Number
+ if a progress value is provided, otherwise a 
+chain-able utility
+ 
+Function
+ to interpolate between the specified 
+start
+ and 
+end
+ values:
+
+
+const interpolateBetween0and100 = utils.interpolate(0, 100);
+interpolateBetween0and100(0.5);  // 50
+interpolateBetween0and100(0.75); // 75
+interpolateBetween0and100(0.25); // 25
+
+const interpolateAndRound = utils.interpolate(0, 100).round(2); // Interpolate then round to 2 decimal places
+interpolateAndRound(0.677523); // 67.75
+interpolateAndRound(1.202514); // 100
  
 
 
@@ -3575,7 +3623,7 @@ callback functions
 
 
 
-When to use WAAPI code example
+interpolate() code example
 
 
 
@@ -3597,39 +3645,34 @@ HTML
 
 
 
-import { animate, waapi, utils } from 'animejs';
+import { animate, utils } from 'animejs';
 
-// WAAPI Animation
-
-waapi.animate('.waapi.square', {
-  x: '17rem',
-  rotate: 180,
-  loop: 3,
-  alternate: true,
+animate('.normal', {
+  rotate: '1turn',
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
 });
 
-// JS Animation
-
-const data = { x: '0rem', rotate: '0deg' }
-const [ $log ] = utils.$('code');
-
-animate(data, {
-  x: 17,
-  rotate: 180,
-  modifier: utils.round(0),
-  loop: 3,
-  alternate: true,
-  onRender: () => $log.innerHTML = JSON.stringify(data)
+animate('.interpolated', {
+  rotate: '1turn',
+  modifier: utils.interpolate(0, 12), // Interpolates 0 to 12 by passing the rotate progress value 0 to 1
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
 });
 
 
-<div class="medium row">
-  <div class="square waapi"></div>
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock normal"></div>
+    <div class="label">normal</div>
+  </div>
+  <div class="col">
+    <div class="clock interpolated"></div>
+    <div class="label">interpolated [0,12]</div>
+  </div>
 </div>
-<div class="small row"></div>
-<pre class="medium centered row">
-  <code>{"x": '0rem',"rotate":"0deg"}</code>
-</pre>
 
 
 
@@ -3650,7 +3693,7 @@ Next
 
 
 
-Web Animation API
+mapRange()
 
 
 
@@ -3677,7 +3720,7 @@ Web Animation API
 
 
 
-Hardware-accelerated animations
+roundPad()
 
 
 

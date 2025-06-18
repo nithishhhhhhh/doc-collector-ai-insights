@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+API differences
 
 
 
@@ -3507,34 +3513,73 @@ Since 4.0.0
 
 
 
-            lerp()            
-V4
- 
+            finished                                              
 
 
 
 
-Performs a linear interpolation between two values.
+animation.finished
+ is replaced by the 
+animation.then()
+ method. It returns a 
+Promise
+ that resolves and execute a callback when the animation completes.
 
-The closer the amount is to 
-1
-, the closer the result is to the 
-end
- value.
+
+Syntax comparison
 
 
+Anime.js
 
 
 The 
-utils.lerp()
- function is 
-frame rate independent
-.
+then()
+ method can be directly inlined like this:
 
 
+waapi.animate(target, {
+  translate: '100px',
+  duration: 500,
+}).then(callback);
 
 
-const lerped = utils.lerp(start, end, amount);
+Or used in an 
+async
+ / 
+await
+ context:
+
+
+async function waitForAnimationToComplete() {
+  return animate(target, {
+    translate: '100px',
+    duration: 500,
+  });
+}
+
+const asyncAnimation = await waitForAnimationToComplete();
+
+
+WAAPI equivalent
+
+
+const targets = document.querySelectorAll('.square');
+const animations = [];
+
+targets.forEach(($el, i) => {
+  animations[i] = $el.animate({
+    translate: '100px',
+  }, {
+    fill: 'forwards',
+    duration: 500,
+  });
+});
+
+Promise.all(
+  animations
+    .map((animation) => animation.finished)
+    .then(() => console.log('completed'))
+);
 
 
 Parameters
@@ -3549,7 +3594,7 @@ Parameters
 Name
 
 
-Accepts
+Type
 
 
 
@@ -3560,30 +3605,12 @@ Accepts
 
 
 
-start
+callback
 
 
-Number
-
-
-
-
-
-
-end
-
-
-Number
-
-
-
-
-
-
-amount
-
-
-Number [0-1]
+A 
+Function
+ whose first argument returns the animation itself
 
 
 
@@ -3595,12 +3622,7 @@ Number [0-1]
 Returns
 
 
-Number
-
-
-utils.lerp(0, 100, 0); // 0
-utils.lerp(0, 100, 0.5); // 50
-utils.lerp(0, 100, 1); // 100
+Promise
  
 
 
@@ -3612,7 +3634,7 @@ utils.lerp(0, 100, 1); // 100
 
 
 
-lerp() code example
+finished code example
 
 
 
@@ -3634,55 +3656,25 @@ HTML
 
 
 
-import { animate, createTimer, utils } from 'animejs';
+import { waapi, utils } from 'animejs';
 
-const [ $input ] = utils.$('.input');
-const [ $lerped ] = utils.$('.lerped');
-const [ $lerped15fps ] = utils.$('.lerped-15');
+const [ $value ] = utils.$('.value');
 
-animate($input, {
-  rotate: '1000turn',
-  modifier: utils.snap(.25),
-  duration: 4000000,
-  loop: true,
-  ease: 'linear',
+const animation = waapi.animate('.circle', {
+  translate: '16rem',
+  loop: 2,
+  alternate: true,
 });
 
-const loop = createTimer({
-  onUpdate: clock => {
-    const sourceRotate = utils.get($input, 'rotate', false);
-    const lerpedRotate = utils.get($lerped, 'rotate', false);
-    utils.set($lerped, {
-      rotate: utils.lerp(lerpedRotate, sourceRotate, .075) + 'turn'
-    });
-  }
-});
-
-const loop15fps = createTimer({
-  frameRate: 15,
-  onUpdate: clock => {
-    const sourceRotate = utils.get($input, 'rotate', false);
-    const lerpedRotate = utils.get($lerped15fps, 'rotate', false);
-    utils.set($lerped15fps, {
-      rotate: utils.lerp(lerpedRotate, sourceRotate, .0725, clock) + 'turn'
-    });
-  }
-});
+animation.then(() => $value.textContent = 'fulfilled');
 
 
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock input"></div>
-    <div class="label">input</div>
-  </div>
-  <div class="col">
-    <div class="clock lerped"></div>
-    <div class="label">lerped</div>
-  </div>
-  <div class="col">
-    <div class="clock lerped-15"></div>
-    <div class="label">lerped 15fps</div>
-  </div>
+<div class="large row">
+  <div class="circle"></div>
+  <pre class="large log row">
+    <span class="label">promise status</span>
+    <span class="value">pending</span>
+  </pre>
 </div>
 
 
@@ -3704,7 +3696,7 @@ Next
 
 
 
-sync()
+easing
 
 
 
@@ -3731,7 +3723,7 @@ sync()
 
 
 
-round()
+waapi.convertEase()
 
 
 

@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+Improvements to WAAPI
 
 
 
@@ -3507,22 +3513,45 @@ Since 4.0.0
 
 
 
-            mapRange()            
-V4
- 
+            Spring and custom easings                                              
 
 
 
 
-Maps a 
-Number
- from one range to another or creates a mapping 
+Uses any spring and custom JavaScript easing function.
+
+
+All Anime.js built-in easing functions can be used by passing the function accessible on the 
+eases
+ object.
+
+
+import { eases } from 'animejs';
+
+const { linear, outExpo, cubicBezier } = eases;
+
+
+The 
+createSpring()
+ easing function must be imported separately.
+
+
+import { createSpring } from 'animejs';
+
+
+Built-in eases
+
+
+
+
+
+
+
+
+Built-in string
+
+
 Function
- with pre-defined ranges parameters.
-
-
-const mappedValue = utils.mapRange(value, fromLow, fromHigh, toLow, toHigh);
-const mapperFunction = utils.mapRange(fromLow, fromHigh, toLow, toHigh);
 
 
 Parameters
@@ -3534,94 +3563,112 @@ Parameters
 
 
 
-Name
 
 
-Accepts
+'linear'
+'linear(0, .5 75%, 1)'
 
 
+linear()
 
 
-
-
-
-
-
-
-value 
-(opt)
-
-
-Number
+coords (
+0, '.5 75%', 1
+)
 
 
 
 
 
 
-fromLow
+'steps'
+'steps(10)'
 
 
-Number
+steps()
 
 
-
-
-
-
-fromHigh
-
-
-Number
+steps = 
+10
 
 
 
 
 
 
-toLow
+'cubicBezier'
+'cubicBezier(.5,0,.5,1)'
 
 
-Number
+cubicBezier()
 
 
-
-
-
-
-toHigh
-
-
-Number
-
-
-
-
+x1 = 
+.5
+, y1 = 
+0
+, x2 = 
+.5
+, y2 = 
+1
 
 
 
 
-Returns
 
 
-A 
-Number
- if a value is provided, otherwise a 
-chain-able utility
+'in'
+'in(1.675)'
+
+
+in()
+
+
+power = 
+1.675
+
+
+
+
+
+
+'out'
+'out(1.675)'
+
+
+out()
+
+
+power = 
+1.675
+
+
+
+
+
+
+'inOut'
+'inOut(1.675)'
+
+
+inOut()
+
+
+power = 
+1.675
+
+
+
+
+
+
+
+
+Default
+
+
+'out(2)'
  
-Function
- to map numbers from one range to another:
-
-
-const mapFrom0and100to0and200 = utils.mapRange(0, 100, 0, 200);
-mapFrom0and100to0and200(45);  // 90
-mapFrom0and100to0and200(120); // 240
-mapFrom0and100to0and200(-15); // -30
-
-const normalizeAndClamp = utils.mapRange(-100, 100, 0, 1).clamp(0, 1); // Normalize then clamp between 0 and 1
-normalizeAndClamp(50);  // 0.75
-normalizeAndClamp(120); // 1
- 
 
 
 
@@ -3632,7 +3679,7 @@ normalizeAndClamp(120); // 1
 
 
 
-mapRange() code example
+Spring and custom easings code example
 
 
 
@@ -3654,33 +3701,23 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi, utils, stagger, createSpring, eases } from 'animejs';
 
-animate('.normal', {
-  rotate: '12turn',
-  duration: 12000,
+waapi.animate('.circle', {
+  y: [0, -30, 0],
+  ease: createSpring({ stiffness: 150, damping: 5 }),
+  delay: stagger(75),
   loop: true,
-  ease: 'inOut',
-});
-
-animate('.mapped', {
-  rotate: '12turn',
-  modifier: utils.mapRange(0, 12, 0, 1), // Used as a modifier
-  duration: 12000,
-  loop: true,
-  ease: 'inOut',
 });
 
 
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock normal"></div>
-    <div class="label">normal</div>
-  </div>
-  <div class="col">
-    <div class="clock mapped"></div>
-    <div class="label">mapped [0,12] [0,1]</div>
-  </div>
+<div class="large row">
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
 </div>
 
 
@@ -3702,7 +3739,7 @@ Next
 
 
 
-wrap()
+Individual property parameters
 
 
 
@@ -3729,7 +3766,7 @@ wrap()
 
 
 
-interpolate()
+API differences with native WAAPI
 
 
 

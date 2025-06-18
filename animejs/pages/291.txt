@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-Improvements to WAAPI
+Utilities
 
 
 
@@ -3513,38 +3507,106 @@ Since 4.0.0
 
 
 
-            Sensible defaults                                              
+            padEnd()            
+V4
+ 
 
 
 
 
-By default, a native WAAPI animation requires a duration to be set, won't have any easing applied, and more annoyingly, won't persist its final value, letting the user to take care of setting the final styles manually after the animation completes.
-
-Anime.js simplifies all that by making sure the animation state is preserved after the animation completes, and uses the same default duration and delay as the JS 
-animate()
- method.
-
-
-Syntax comparison
-
-
-Anime.js
+Pads a 
+Number
+ from the end with a string until the result reaches a given length or creates a padding 
+Function
+ with pre-defined 
+totalLength
+ and 
+padString
+ parameters.
 
 
-waapi.animate('.circle', { translate: '100px' });
+const paddedValue = utils.padEnd(value, totalLength, padString);
+const padderFunction = utils.padEnd(totalLength, padString);
 
 
-WAAPI equivalent
+Parameters
 
 
-const $el = document.querySelector('.circle');
 
-$el.animate({ translate: '100px' }, {
-  duration: 1000,
-  easing: 'ease-out',
-}).finished.then(() => {
-  $el.style.translate = '100px';
-});
+
+
+
+
+
+Name
+
+
+Accepts
+
+
+
+
+
+
+
+
+
+
+value 
+(opt)
+
+
+String
+ / 
+Number
+
+
+
+
+
+
+totalLength
+
+
+Number
+
+
+
+
+
+
+padString
+
+
+String
+
+
+
+
+
+
+
+
+Returns
+
+
+A 
+String
+ if a value is provided, otherwise a 
+chain-able utility
+ 
+Function
+ to pad numbers from the end:
+
+
+const padTo5WithZeros = utils.padEnd(5, '0');
+padTo5WithZeros('123');  // '12300'
+padTo5WithZeros(78);     // '78000'
+padTo5WithZeros('1234'); // '12340'
+
+const roundAndPadEnd = utils.round(0).padEnd(5, '0'); // Round to nearest integer then pad to 5 characters
+roundAndPadEnd(123.456); // '12300'
+roundAndPadEnd(7.8);     // '80000'
  
 
 
@@ -3556,7 +3618,7 @@ $el.animate({ translate: '100px' }, {
 
 
 
-Sensible defaults code example
+padEnd() code example
 
 
 
@@ -3578,13 +3640,20 @@ HTML
 
 
 
-import { waapi } from 'animejs';
+import { animate, utils } from 'animejs';
 
-waapi.animate('.circle', { translate: '16rem' });
+animate('.value', {
+  innerHTML: 1,
+  modifier: utils.round(3).padEnd(6, '-'),
+  duration: 100000,
+  ease: 'linear',
+});
 
 
 <div class="large row">
-  <div class="circle"></div>
+  <pre class="large log row">
+    <span class="value lcd">0</span>
+  </pre>
 </div>
 
 
@@ -3606,7 +3675,7 @@ Next
 
 
 
-Improvements to the Web Animation API
+padStart()
 
 
 
@@ -3633,7 +3702,7 @@ Improvements to the Web Animation API
 
 
 
-Multi-targets animation
+degToRad()
 
 
 

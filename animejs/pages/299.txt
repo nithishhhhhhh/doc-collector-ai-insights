@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+Improvements to WAAPI
 
 
 
@@ -3507,73 +3513,38 @@ Since 4.0.0
 
 
 
-            radToDeg()            
-V4
- 
+            Sensible defaults                                              
 
 
 
 
-Converts radians into degrees.
+By default, a native WAAPI animation requires a duration to be set, won't have any easing applied, and more annoyingly, won't persist its final value, letting the user to take care of setting the final styles manually after the animation completes.
+
+Anime.js simplifies all that by making sure the animation state is preserved after the animation completes, and uses the same default duration and delay as the JS 
+animate()
+ method.
 
 
-const degrees = utils.radToDeg(radians);
+Syntax comparison
 
 
-Parameters
+Anime.js
 
 
+waapi.animate('.circle', { translate: '100px' });
 
 
+WAAPI equivalent
 
 
+const $el = document.querySelector('.circle');
 
-
-Name
-
-
-Accepts
-
-
-
-
-
-
-
-
-
-
-radians 
-(opt)
-
-
-Number
-
-
-
-
-
-
-
-
-Returns
-
-
-A 
-Number
- if radians are provided, otherwise a 
-chain-able utility
- 
-Function
- to convert radians to degrees:
-
-
-const radToDeg = utils.radToDeg();
-radToDeg(1.7453292519943295); // 100
-radToDeg(Math.PI);            // 180
-
-const roundRadToDeg = utils.radToDeg().round(2); // Convert radians to degrees then round to 2 decimal places
-roundRadToDeg(Math.PI / 7);  // 25.71
+$el.animate({ translate: '100px' }, {
+  duration: 1000,
+  easing: 'ease-out',
+}).finished.then(() => {
+  $el.style.translate = '100px';
+});
  
 
 
@@ -3585,7 +3556,7 @@ roundRadToDeg(Math.PI / 7);  // 25.71
 
 
 
-radToDeg() code example
+Sensible defaults code example
 
 
 
@@ -3607,34 +3578,13 @@ HTML
 
 
 
-import { animate, createAnimatable, utils } from 'animejs';
+import { waapi } from 'animejs';
 
-const degAnimatable = createAnimatable('.deg', {
-  rotate: { unit: 'deg', duration: 0 }
-});
-
-const [ $rad ] = utils.$('.rad');
-
-const degAnimation = animate($rad, {
-  rotate: (Math.PI * 2) + 'rad',
-  ease: 'linear',
-  loop: true,
-  onUpdate: () => {
-    const radians = utils.get($rad, 'rotate', false);
-    degAnimatable.rotate(utils.radToDeg(radians));
-  }
-});
+waapi.animate('.circle', { translate: '16rem' });
 
 
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock rad"></div>
-    <div class="label">radians</div>
-  </div>
-  <div class="col">
-    <div class="clock deg"></div>
-    <div class="label">degrees</div>
-  </div>
+<div class="large row">
+  <div class="circle"></div>
 </div>
 
 
@@ -3656,7 +3606,7 @@ Next
 
 
 
-degToRad()
+Improvements to the Web Animation API
 
 
 
@@ -3683,7 +3633,7 @@ degToRad()
 
 
 
-Chain-able utility functions
+Multi-targets animation
 
 
 

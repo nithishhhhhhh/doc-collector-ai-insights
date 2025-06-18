@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-API differences
+Utilities
 
 
 
@@ -3513,73 +3507,30 @@ Since 4.0.0
 
 
 
-            finished                                              
+            wrap()            
+V4
+ 
 
 
 
 
-animation.finished
- is replaced by the 
-animation.then()
- method. It returns a 
-Promise
- that resolves and execute a callback when the animation completes.
+Wraps a 
+Number
+ between a range defined with 
+min
+ and 
+max
+ values or creates a wrapping 
+Function
+ with pre-defined 
+min
+ and 
+max
+ parameters.
 
 
-Syntax comparison
-
-
-Anime.js
-
-
-The 
-then()
- method can be directly inlined like this:
-
-
-waapi.animate(target, {
-  translate: '100px',
-  duration: 500,
-}).then(callback);
-
-
-Or used in an 
-async
- / 
-await
- context:
-
-
-async function waitForAnimationToComplete() {
-  return animate(target, {
-    translate: '100px',
-    duration: 500,
-  });
-}
-
-const asyncAnimation = await waitForAnimationToComplete();
-
-
-WAAPI equivalent
-
-
-const targets = document.querySelectorAll('.square');
-const animations = [];
-
-targets.forEach(($el, i) => {
-  animations[i] = $el.animate({
-    translate: '100px',
-  }, {
-    fill: 'forwards',
-    duration: 500,
-  });
-});
-
-Promise.all(
-  animations
-    .map((animation) => animation.finished)
-    .then(() => console.log('completed'))
-);
+const wrappedValue = utils.wrap(value, min, max);
+const wrapperFunction = utils.wrap(min, max);
 
 
 Parameters
@@ -3594,7 +3545,7 @@ Parameters
 Name
 
 
-Type
+Accepts
 
 
 
@@ -3605,12 +3556,31 @@ Type
 
 
 
-callback
+value 
+(opt)
 
 
-A 
-Function
- whose first argument returns the animation itself
+Number
+
+
+
+
+
+
+min
+
+
+Number
+
+
+
+
+
+
+max
+
+
+Number
 
 
 
@@ -3622,7 +3592,27 @@ Function
 Returns
 
 
-Promise
+A 
+Number
+ if a value is provided, otherwise a 
+chain-able utility
+ 
+Function
+ to wrap numbers between the specified 
+min
+ and 
+max
+ values:
+
+
+const wrapBetween0and100 = utils.wrap(0, 100);
+wrapBetween0and100(105); // 5
+wrapBetween0and100(220); // 20
+wrapBetween0and100(-15); // 85
+
+const wrapAndRound = utils.wrap(0, 100).round(2); // Wrap then round to 2 decimal places
+wrapAndRound(105.7523); // 5.75
+wrapAndRound(220.2514); // 20.25
  
 
 
@@ -3634,7 +3624,7 @@ Promise
 
 
 
-finished code example
+wrap() code example
 
 
 
@@ -3656,25 +3646,33 @@ HTML
 
 
 
-import { waapi, utils } from 'animejs';
+import { animate, utils } from 'animejs';
 
-const [ $value ] = utils.$('.value');
-
-const animation = waapi.animate('.circle', {
-  translate: '16rem',
-  loop: 2,
-  alternate: true,
+animate('.normal', {
+  rotate: '1turn',
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
 });
 
-animation.then(() => $value.textContent = 'fulfilled');
+animate('.wrapped', {
+  rotate: '1turn',
+  modifier: utils.wrap(-.25, .25), // Used as a modifier
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
+});
 
 
-<div class="large row">
-  <div class="circle"></div>
-  <pre class="large log row">
-    <span class="label">promise status</span>
-    <span class="value">pending</span>
-  </pre>
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock normal"></div>
+    <div class="label">normal</div>
+  </div>
+  <div class="col">
+    <div class="clock wrapped"></div>
+    <div class="label">wrapped [-.25,.25]</div>
+  </div>
 </div>
 
 
@@ -3696,7 +3694,7 @@ Next
 
 
 
-easing
+snap()
 
 
 
@@ -3723,7 +3721,7 @@ easing
 
 
 
-waapi.convertEase()
+mapRange()
 
 
 

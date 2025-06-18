@@ -3490,7 +3490,7 @@ JS
 
 
 
-Utilities
+Web Animation API
 
 
 
@@ -3507,173 +3507,133 @@ Since 4.0.0
 
 
 
-            wrap()            
-V4
- 
+            API differences with native WAAPI                                              
 
 
 
 
-Wraps a 
-Number
- between a range defined with 
-min
- and 
-max
- values or creates a wrapping 
-Function
- with pre-defined 
-min
- and 
-max
- parameters.
+This chapter covers all major differences between the native Web Animation API 
+element.animate()
+ syntax and Anime.js 
+waapi.animate(element)
+ syntax.
 
 
-const wrappedValue = utils.wrap(value, min, max);
-const wrapperFunction = utils.wrap(min, max);
+Anime.js
 
 
-Parameters
-
-
-
-
-
-
-
-
-Name
-
-
-Accepts
-
-
-
-
-
-
-
-
-
-
-value 
-(opt)
-
-
-Number
-
-
-
-
-
-
-min
-
-
-Number
-
-
-
-
-
-
-max
-
-
-Number
-
-
-
-
-
-
-
-
-Returns
-
-
-A 
-Number
- if a value is provided, otherwise a 
-chain-able utility
- 
-Function
- to wrap numbers between the specified 
-min
- and 
-max
- values:
-
-
-const wrapBetween0and100 = utils.wrap(0, 100);
-wrapBetween0and100(105); // 5
-wrapBetween0and100(220); // 20
-wrapBetween0and100(-15); // 85
-
-const wrapAndRound = utils.wrap(0, 100).round(2); // Wrap then round to 2 decimal places
-wrapAndRound(105.7523); // 5.75
-wrapAndRound(220.2514); // 20.25
- 
-
-
-
-
-
-
-
-
-
-
-wrap() code example
-
-
-
-
-
-
-J
-ava
-S
-cript
-
-
-HTML
-
-
-
-
-
-
-
-
-import { animate, utils } from 'animejs';
-
-animate('.normal', {
-  rotate: '1turn',
-  duration: 3000,
-  loop: true,
-  ease: 'inOut',
-});
-
-animate('.wrapped', {
-  rotate: '1turn',
-  modifier: utils.wrap(-.25, .25), // Used as a modifier
-  duration: 3000,
-  loop: true,
-  ease: 'inOut',
+waapi.animate(
+┌────────────┐
+│ '.square', ├─ Targets
+└────────────┘
+{
+┌──────────────────┐
+│ x: 100,          │
+│ y: 50,           ├─ Keyframes Values
+│ opacity: .5,     │
+└──────────────────┘
+┌──────────────────┐
+│ loop: 3,         │
+│ alternate: true, ├─ Playback Settings
+│ ease: 'out',     │
+└──────────────────┘
 });
 
 
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock normal"></div>
-    <div class="label">normal</div>
-  </div>
-  <div class="col">
-    <div class="clock wrapped"></div>
-    <div class="label">wrapped [-.25,.25]</div>
-  </div>
-</div>
+WAAPI
+
+
+const $square = document.querySelector('.square');
+
+┌────────────┐
+│ $square    ├─ Targets
+└────────────┘
+.animate({
+┌──────────────────────────┐
+│ translate: '100px 50px', ├─ Keyframes Values
+│ opacity: .5,             │
+└──────────────────────────┘
+}, {
+┌──────────────────────────┐
+│ ieterations: 4,          │
+│ direction: 'alternate',  ├─ Playback Settings
+│ easing: 'ease-out',      │
+└──────────────────────────┘
+});
+ 
+
+
+
+
+In this section
+
+
+
+
+
+
+
+
+iterations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+direction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+easing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+finished
+
+
+
+
+
+
+
+
 
 
 
@@ -3694,7 +3654,7 @@ Next
 
 
 
-snap()
+Improvements to the Web Animation API
 
 
 
@@ -3721,7 +3681,7 @@ snap()
 
 
 
-mapRange()
+iterations
 
 
 

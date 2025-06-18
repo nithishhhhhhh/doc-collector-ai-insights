@@ -3490,7 +3490,7 @@ JS
 
 
 
-Utilities
+Web Animation API
 
 
 
@@ -3507,58 +3507,21 @@ Since 4.0.0
 
 
 
-            sync()            
-V4
- 
+            waapi.convertEase()                                              
 
 
 
 
-Execute a callback function in sync with the engine loop.
+Converts any JavaScript easing functions into a compatible WAAPI  
+linear easing
+.
 
 
-utils.sync(function);
+import { waapi, createSpring } from 'animejs';
 
+const spring = createSpring({ stiffness: 12 });
 
-Parameters
-
-
-
-
-
-
-
-
-Name
-
-
-Accepts
-
-
-
-
-
-
-
-
-
-
-callback
-
-
-Function
-
-
-
-
-
-
-
-
-Returns
-
-
-Timer
+const linearEasing = waapi.convertEase(spring.ease);
  
 
 
@@ -3570,7 +3533,7 @@ Timer
 
 
 
-sync() code example
+waapi.convertEase() code example
 
 
 
@@ -3592,38 +3555,38 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi, createSpring } from 'animejs';
 
-const [ $range ] = utils.$('.range');
-const [ $speed ] = utils.$('.speed');
+const springs = [
+  createSpring({ stiffness: 100 }),
+  createSpring({ stiffness: 150 }),
+  createSpring({ stiffness: 200 })
+]
 
-const animation = animate('.circle', {
-  x: '16rem',
-  loop: true,
-  alternate: true,
-  playbackRate: 1,
+document.querySelectorAll('#web-animation-api-waapi-convertease .demo .square').forEach(($el, i) => {
+  $el.animate({
+    translate: '17rem',
+    rotate: '1turn',
+  }, {
+    easing: waapi.convertEase(springs[i].ease),
+    delay: i * 250,
+    duration: springs[i].duration,
+    fill: 'forwards'
+  });
 });
 
-const updateSpeed = () => {
-  const { value } = $range;
-  $speed.innerHTML = utils.roundPad(+value, 2);
-  utils.sync(() => animation.speed = value);
-}
 
-$range.addEventListener('input', updateSpeed);
-
-
-<div class="large row">
-  <div class="circle"></div>
-  <pre class="large log row">
-    <span class="label">speed</span>
-    <span class="speed value">1.00</span>
-  </pre>
+<div class="medium row">
+  <div class="square"></div>
+  <div class="padded label">stiffness: 100</div>
 </div>
 <div class="medium row">
-  <fieldset class="controls">
-    <input type="range" min=0 max=5 value=1 step=.01 class="range" />
-  </fieldset>
+  <div class="square"></div>
+  <div class="padded label">stiffness: 150</div>
+</div>
+<div class="medium row">
+  <div class="square"></div>
+  <div class="padded label">stiffness: 200</div>
 </div>
 
 
@@ -3645,7 +3608,7 @@ Next
 
 
 
-shuffle()
+API differences with native WAAPI
 
 
 
@@ -3672,7 +3635,7 @@ shuffle()
 
 
 
-lerp()
+Engine
 
 
 

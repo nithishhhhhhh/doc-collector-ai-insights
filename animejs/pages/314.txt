@@ -3490,34 +3490,10 @@ JS
 
 
 
-Utilities
+Engine
 
 
-
-
-
-
-Since 2.0.0
-
-
-
-
-
-
-
-
-
-            random()                                              
-
-
-
-
-Returns a random 
-Number
- within a specified range, with an optional third parameter determining the number of decimal places.
-
-
-const randomValue = utils.random(min, max, decimalLength);
+
 
 
 Parameters
@@ -3527,9 +3503,32 @@ Parameters
 
 
 
+Since 4.0.0
 
 
-Name
+
+
+
+
+
+
+
+            timeUnit (seconds / milliseconds)                                              
+
+
+
+
+Configures the unit of time to use for time-related values like 
+duration
+ and 
+delay
+.
+
+The currently defined default duration is automatically adjusted to the newly specified time unit.
+
+
+engine.timeUnit = 's'; // Change the time unit globally to seconds
+console.log(engine.engine.defaults.duration); // -> Returns 1
 
 
 Accepts
@@ -3537,49 +3536,20 @@ Accepts
 
 
 
+'s'
+ to use seconds
+
+
+'ms'
+ to use milliseconds
 
 
 
 
+Default
 
 
-min
-
-
-Number
-
-
-
-
-
-
-max
-
-
-Number
-
-
-
-
-
-
-decimalLength=0 
-(opt)
-
-
-Number
-
-
-
-
-
-
-
-
-Returns
-
-
-Number
+'ms'
  
 
 
@@ -3591,7 +3561,7 @@ Number
 
 
 
-random() code example
+timeUnit (seconds / milliseconds) code example
 
 
 
@@ -3613,26 +3583,54 @@ HTML
 
 
 
-import { utils } from 'animejs';
+import { engine, animate, utils } from 'animejs';
 
-utils.set('.square', {
-  x: () => utils.random(2, 18, 2) + 'rem',
-  rotate: () => utils.random(0, 180),
-  scale: () => utils.random(.25, 1.5, 3),
+const [ $timeS ] = utils.$('.time-s');
+const [ $timeMs ] = utils.$('.time-ms');
+const [ $ms, $s ] = utils.$('.toggle');
+
+const secondsTimer = createTimer({
+  duration: 1,
+  loop: true,
+  onUpdate: self => $timeS.innerHTML = utils.roundPad(self.iterationCurrentTime, 2)
 });
 
+const millisecondsTimer = createTimer({
+  duration: 1000,
+  loop: true,
+  onUpdate: self => $timeMs.innerHTML = utils.roundPad(self.iterationCurrentTime, 2)
+});
 
-<div class="small row">
-  <div class="square"></div>
+const toggleSetting = () => {
+  const isUsingSeconds = engine.timeUnit === 's';
+  engine.timeUnit = isUsingSeconds ? 'ms' : 's';
+  $ms.disabled = isUsingSeconds;
+  $s.disabled = !isUsingSeconds;
+}
+
+$ms.addEventListener('click', toggleSetting);
+$s.addEventListener('click', toggleSetting);
+
+
+<div class="large centered row">
+  <div class="col">
+    <pre class="large log row">
+      <span class="label">duration: 1</span>
+      <span class="time-s value lcd">0</span>
+    </pre>
+  </div>
+  <div class="col">
+    <pre class="large log row">
+      <span class="label">duration: 1000</span>
+      <span class="time-ms value lcd">0</span>
+    </pre>
+  </div>
 </div>
-<div class="small row">
-  <div class="square"></div>
-</div>
-<div class="small row">
-  <div class="square"></div>
-</div>
-<div class="small row">
-  <div class="square"></div>
+<div class="medium row">
+  <fieldset class="controls">
+    <button class="button toggle" disabled>milliseconds</button>
+    <button class="button toggle">seconds</button>
+  </fieldset>
 </div>
 
 
@@ -3654,7 +3652,7 @@ Next
 
 
 
-cleanInlineStyles()
+Engine parameters
 
 
 
@@ -3681,7 +3679,7 @@ cleanInlineStyles()
 
 
 
-randomPick()
+speed
 
 
 

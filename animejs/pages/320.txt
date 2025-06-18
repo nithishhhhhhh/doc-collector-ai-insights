@@ -3489,43 +3489,82 @@ JS
 
 
 
-            Utilities                                              
+
+Engine
+
+
+
+
+
+Methods
 
 
 
 
-A collection of utility functions for common animation tasks and for use as 
-Animation modifier functions
-.
 
 
-All SVG utility functions are available on the 
-utils
- object.
+Since 4.0.0
 
 
-import { utils } from 'animejs';
+
+
+
+
+
+
+
+            update()                                              
+
+
+
+
+Manually ticks the engine when 
+engine.useDefaultMainLoop
+ is set to false.
+
+
+engine.useDefaultMainLoop = false;
+engine.update(); // Manual update call
+
+
+
+
+Useful for integrating Anime.js in projects with existing animation loops, such as 
+Three.js
+ or game engines.
+
+
+
+
+Returns
+
+
+Engine
  
 
 
 
 
-In this section
 
 
 
 
 
 
+update() code example
 
 
-$()
 
 
 
 
+J
+ava
+S
+cript
 
 
+HTML
 
 
 
@@ -3534,357 +3573,58 @@ $()
 
 
 
+import { engine, createTimeline, utils } from 'animejs';
 
+// Prevents Anime.js from using its own loop
+engine.useDefaultMainLoop = false;
 
-get()
+const [ $container ] = utils.$('.container');
+const color = utils.get($container, 'color');
+const { width, height } = $container.getBoundingClientRect();
 
+// Three.js setup, note that the global THREE object is defined globally
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 20);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color, wireframe: true });
 
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+$container.appendChild(renderer.domElement);
+camera.position.z = 5;
 
+function createAnimatedCube() {
+  const cube = new THREE.Mesh(geometry, material);
+  const x = utils.random(-10, 10, 2);
+  const y = utils.random(-5, 5, 2);
+  const z = [-10, 7];
+  const r = () => utils.random(-Math.PI * 2, Math.PI * 2, 3);
+  const duration = 4000;
+  createTimeline({
+    delay: utils.random(0, duration),
+    defaults: { loop: true, duration, ease: 'inSine', },
+  })
+  .add(cube.position, { x, y, z }, 0)
+  .add(cube.rotation, { x: r, y: r, z: r }, 0)
+  .init();
+  scene.add(cube);
+}
 
+for (let i = 0; i < 40; i++) {
+  createAnimatedCube();
+}
 
+function render() {
+  engine.update(); // Manually update Anime.js engine
+  renderer.render(scene, camera); // Render Three.js scene
+}
 
+// Calls the builtin Three.js animation loop
+renderer.setAnimationLoop(render);
 
 
-
-
-
-
-
-
-
-
-set()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-remove()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-cleanInlineStyles()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-random()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-randomPick()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-shuffle()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-sync()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-lerp()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-round()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-clamp()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-snap()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-wrap()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-mapRange()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-interpolate()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-roundPad()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-padStart()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-padEnd()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-degToRad()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-radToDeg()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Chain-able utilities
-
-
-
-
-
-
-
-
+<div class="container large grid square-grid"></div>
 
 
 
@@ -3905,7 +3645,7 @@ Next
 
 
 
-SVG
+Engine methods
 
 
 
@@ -3932,7 +3672,7 @@ SVG
 
 
 
-$()
+pause()
 
 
 

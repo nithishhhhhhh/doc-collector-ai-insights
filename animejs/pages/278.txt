@@ -3490,10 +3490,34 @@ JS
 
 
 
-Engine
+Utilities
 
 
-
+
+
+
+
+Since 2.0.0
+
+
+
+
+
+
+
+
+
+            random()                                              
+
+
+
+
+Returns a random 
+Number
+ within a specified range, with an optional third parameter determining the number of decimal places.
+
+
+const randomValue = utils.random(min, max, decimalLength);
 
 
 Parameters
@@ -3503,45 +3527,59 @@ Parameters
 
 
 
-Since 4.0.0
 
 
-
-
-
-
-
-
-
-            fps                                              
-
-
-
-
-Controls the global frame rate at which animations are updated and rendered.
-
-
-
-Adjusting the frame rate can help optimize performance on lower-end devices or when running many complex animations simultaneously. However, it may affect the perceived smoothness of animations.
-
-
-
-engine.fps = 30; // Set all animations to update at 30 fps
+Name
 
 
 Accepts
 
 
-A 
+
+
+
+
+
+
+
+
+min
+
+
 Number
- greater than 
-0
 
 
-Default
 
 
-120
+
+
+max
+
+
+Number
+
+
+
+
+
+
+decimalLength=0 
+(opt)
+
+
+Number
+
+
+
+
+
+
+
+
+Returns
+
+
+Number
  
 
 
@@ -3553,7 +3591,7 @@ Default
 
 
 
-fps code example
+random() code example
 
 
 
@@ -3575,36 +3613,26 @@ HTML
 
 
 
-import { engine, animate, utils } from 'animejs';
+import { utils } from 'animejs';
 
-const [ $container ] = utils.$('.container');
-const [ $range ] = utils.$('.range');
-
-for (let i = 0; i < 150; i++) {
-  const $particle = document.createElement('div');
-  $particle.classList.add('particle');
-  $container.appendChild($particle);
-  animate($particle, {
-    x: utils.random(-10, 10, 2) + 'rem',
-    y: utils.random(-3, 3, 2) + 'rem',
-    scale: [{ from: 0, to: 1 }, { to: 0 }],
-    delay: utils.random(0, 1000),
-    loop: true,
-  });  
-}
-
-function onInput() {
-  engine.fps = this.value;
-}
-
-$range.addEventListener('input', onInput);
+utils.set('.square', {
+  x: () => utils.random(2, 18, 2) + 'rem',
+  rotate: () => utils.random(0, 180),
+  scale: () => utils.random(.25, 1.5, 3),
+});
 
 
-<div class="large row container"></div>
-<div class="medium row">
-  <fieldset class="controls">
-    <input type="range" min=0 max=240 value=60 step=1 class="range" />
-  </fieldset>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
 </div>
 
 
@@ -3626,7 +3654,7 @@ Next
 
 
 
-speed
+cleanInlineStyles()
 
 
 
@@ -3653,7 +3681,7 @@ speed
 
 
 
-precision
+randomPick()
 
 
 

@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-Improvements to WAAPI
+Utilities
 
 
 
@@ -3513,48 +3507,20 @@ Since 4.0.0
 
 
 
-            Default units                                              
+            radToDeg()            
+V4
+ 
 
 
 
 
-If no unit is specified for properties that expect a unit, like 
-width
- for example, the resulting animation will use the default browser unit for a set of commonly used properties:
+Converts radians into degrees.
 
 
-Syntax comparison
+const degrees = utils.radToDeg(radians);
 
 
-Anime.js
-
-
-waapi.animate('.circle', {
-  x: 100,
-  y: 50,
-  width: 150,
-  height: 80,
-});
-
-
-WAAPI equivalent
-
-
-const $el = document.querySelector('.circle');
-
-$el.animate({
-  translate: '100px 50px',
-  width: '150px',
-  height: '80px',
-}, {
-  duration: 1000,
-  easing: 'ease-out',
-}).finished.then(() => {
-  $el.style.translate = '100px';
-});
-
-
-Properties that automatically adds default units
+Parameters
 
 
 
@@ -3566,7 +3532,7 @@ Properties that automatically adds default units
 Name
 
 
-Default Unit
+Accepts
 
 
 
@@ -3577,256 +3543,37 @@ Default Unit
 
 
 
-x
+radians 
+(opt)
 
 
-'px'
+Number
 
 
 
 
 
 
-y
 
 
-'px'
+Returns
 
 
+A 
+Number
+ if radians are provided, otherwise a 
+chain-able utility
+ 
+Function
+ to convert radians to degrees:
 
 
+const radToDeg = utils.radToDeg();
+radToDeg(1.7453292519943295); // 100
+radToDeg(Math.PI);            // 180
 
-
-z
-
-
-'px'
-
-
-
-
-
-
-translateX
-
-
-'px'
-
-
-
-
-
-
-translateY
-
-
-'px'
-
-
-
-
-
-
-translateZ
-
-
-'px'
-
-
-
-
-
-
-rotate
-
-
-'deg'
-
-
-
-
-
-
-rotateX
-
-
-'deg'
-
-
-
-
-
-
-rotateY
-
-
-'deg'
-
-
-
-
-
-
-rotateZ
-
-
-'deg'
-
-
-
-
-
-
-skew
-
-
-'deg'
-
-
-
-
-
-
-skewX
-
-
-'deg'
-
-
-
-
-
-
-skewY
-
-
-'deg'
-
-
-
-
-
-
-perspective
-
-
-'px'
-
-
-
-
-
-
-width
-
-
-'px'
-
-
-
-
-
-
-height
-
-
-'px'
-
-
-
-
-
-
-margin
-
-
-'px'
-
-
-
-
-
-
-padding
-
-
-'px'
-
-
-
-
-
-
-top
-
-
-'px'
-
-
-
-
-
-
-right
-
-
-'px'
-
-
-
-
-
-
-bottom
-
-
-'px'
-
-
-
-
-
-
-left
-
-
-'px'
-
-
-
-
-
-
-borderWidth
-
-
-'px'
-
-
-
-
-
-
-fontSize
-
-
-'px'
-
-
-
-
-
-
-borderRadius
-
-
-'px'
-
-
-
-
-
-
+const roundRadToDeg = utils.radToDeg().round(2); // Convert radians to degrees then round to 2 decimal places
+roundRadToDeg(Math.PI / 7);  // 25.71
  
 
 
@@ -3838,7 +3585,7 @@ borderRadius
 
 
 
-Default units code example
+radToDeg() code example
 
 
 
@@ -3860,28 +3607,34 @@ HTML
 
 
 
-import { waapi } from 'animejs';
+import { animate, createAnimatable, utils } from 'animejs';
 
-waapi.animate('.square', {
-  opacity: .5,
-  x: 250,
-  rotate: 45,
-  width: 40,
-  height: 40,
+const degAnimatable = createAnimatable('.deg', {
+  rotate: { unit: 'deg', duration: 0 }
+});
+
+const [ $rad ] = utils.$('.rad');
+
+const degAnimation = animate($rad, {
+  rotate: (Math.PI * 2) + 'rad',
+  ease: 'linear',
+  loop: true,
+  onUpdate: () => {
+    const radians = utils.get($rad, 'rotate', false);
+    degAnimatable.rotate(utils.radToDeg(radians));
+  }
 });
 
 
-<div class="small row">
-  <div class="square"></div>
-</div>
-<div class="small row">
-  <div class="square"></div>
-</div>
-<div class="small row">
-  <div class="square"></div>
-</div>
-<div class="small row">
-  <div class="square"></div>
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock rad"></div>
+    <div class="label">radians</div>
+  </div>
+  <div class="col">
+    <div class="clock deg"></div>
+    <div class="label">degrees</div>
+  </div>
 </div>
 
 
@@ -3903,7 +3656,7 @@ Next
 
 
 
-Multi-targets animation
+degToRad()
 
 
 
@@ -3930,7 +3683,7 @@ Multi-targets animation
 
 
 
-Function based values
+Chain-able utility functions
 
 
 

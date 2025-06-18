@@ -3489,91 +3489,28 @@ JS
 
 
 
-
-Engine
-
-
-
-
-
-Methods
+            Utilities                                              
 
 
 
 
+A collection of utility functions for common animation tasks and for use as 
+Animation modifier functions
+.
 
 
-Since 4.0.0
+All SVG utility functions are available on the 
+utils
+ object.
 
 
-
-
-
-
-
-
-
-            pause()                                              
-
-
-
-
-Pauses the engine's main loop, pausing all active 
-Timer
-, 
-Animation
-, and 
-Timeline
- instances. Use 
-engine.resume()
- to restart the animations from where they paused.
-
-
-engine.pause();  // Stops all animations
-engine.resume(); // Resumes all animations
-
-
-
-
-Timer
-, 
-Animation
-, or 
-Timeline
- can still be added when the engine is paused, but won't play until the engine is started again.
-
-
-
-
-Returns
-
-
-Engine
+import { utils } from 'animejs';
  
 
 
 
 
-
-
-
-
-
-
-pause() code example
-
-
-
-
-
-
-J
-ava
-S
-cript
-
-
-HTML
+In this section
 
 
 
@@ -3582,54 +3519,372 @@ HTML
 
 
 
-import { engine, animate, utils } from 'animejs';
-
-const [ $container ] = utils.$('.container');
-const [ $add, $pause ] = utils.$('button');
-
-function addAnimation() {
-  const $particle = document.createElement('div');
-  $particle.classList.add('particle');
-  $container.appendChild($particle);
-  animate($particle, {
-    x: utils.random(-10, 10, 2) + 'rem',
-    y: utils.random(-3, 3, 2) + 'rem',
-    scale: [{ from: 0, to: 1 }, { to: 0 }],
-    loop: true,
-  });
-}
-
-let timeout = 3;
-let interval;
-
-function pauseEngine() {
-  engine.pause();
-  $pause.setAttribute('disabled', 'true');
-  $pause.innerHTML = `Resume in ${timeout--} seconds`;
-  interval = setInterval(() => {
-    if (timeout <= 0) {
-      clearInterval(interval);
-      engine.resume();
-      $pause.removeAttribute('disabled');
-      $pause.innerHTML = 'Pause for 3 seconds';
-      timeout = 3;    
-    } else {
-      $pause.innerHTML = `Resume in ${timeout--} seconds`;
-    }
-  }, 1000);
-}
-
-$add.addEventListener('click', addAnimation);
-$pause.addEventListener('click', pauseEngine);
+$()
 
 
-<div class="large row container"></div>
-<div class="medium row">
-  <fieldset class="controls">
-    <button>Add animation</button>
-    <button>Pause for 3 seconds</button>
-  </fieldset>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+get()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+remove()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cleanInlineStyles()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+random()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+randomPick()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+shuffle()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sync()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lerp()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+round()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+clamp()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+snap()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+wrap()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mapRange()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interpolate()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+roundPad()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+padStart()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+padEnd()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+degToRad()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+radToDeg()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Chain-able utilities
+
+
+
+
+
+
+
+
 
 
 
@@ -3650,7 +3905,7 @@ Next
 
 
 
-update()
+SVG
 
 
 
@@ -3677,7 +3932,7 @@ update()
 
 
 
-resume()
+$()
 
 
 

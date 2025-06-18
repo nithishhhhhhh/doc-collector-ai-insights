@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-API differences
+Utilities
 
 
 
@@ -3513,141 +3507,42 @@ Since 4.0.0
 
 
 
-            direction                                              
+            clamp()            
+V4
+ 
 
 
 
 
-The 
-direction
- parameter is replaced by two separate parameters: 
-reversed
+Restricts a 
+Number
+ between the specified 
+min
  and 
-alternate
-.
+max
+ values or creates a clamping 
+Function
+ with pre-defined 
+min
+ and 
+max
+ parameters.
 
 
+const clampedValue = utils.clamp(value, min, max);
+const clamperFunction = utils.clamp(min, max);
 
 
+Parameters
 
 
 
 
-direction
 
 
-reversed
 
 
-alternate
-
-
-Effect
-
-
-
-
-
-
-
-
-
-
-'forward'
-
-
-false
-
-
-false
-
-
-Play forward
-
-
-
-
-
-
-'reverse'
-
-
-true
-
-
-false
-
-
-Play backward
-
-
-
-
-
-
-'alternate'
-
-
-false
-
-
-true
-
-
-Alternate on loop
-
-
-
-
-
-
-'alternate-reverse'
-
-
-true
-
-
-true
-
-
-Start in reverse and alternate on loop
-
-
-
-
-
-
-
-
-Syntax comparison
-
-
-Anime.js
-
-
-waapi.animate('.square', {
-  x: 100,
-  reversed: true,
-  alternate: true,
-  loop: 3
-});
-
-
-WAAPI equivalent
-
-
-const targets = document.querySelectorAll('.square');
-
-targets.forEach(($el, i) => {
-  $el.animate({
-    translate: '100px',
-  }, {
-    fill: 'forwards',
-    duration: 1000,
-    direction: 'alternate-reverse',
-    iterations: 4
-  })
-});
+Name
 
 
 Accepts
@@ -3655,9 +3550,69 @@ Accepts
 
 
 
-Boolean
 
 
+
+
+
+
+value 
+(opt)
+
+
+Number
+
+
+
+
+
+
+min
+
+
+Number
+
+
+
+
+
+
+max
+
+
+Number
+
+
+
+
+
+
+
+
+Returns
+
+
+A 
+Number
+ if a value is provided, otherwise a 
+chain-able utility
+ 
+Function
+ to clamp numbers between the specified 
+min
+ and 
+max
+ values:
+
+
+const clampBetween0and100 = utils.clamp(0, 100);
+clampBetween0and100(90);  // 90
+clampBetween0and100(120); // 100
+clampBetween0and100(-15); // 0
+
+const clampAndRound = utils.clamp(0, 100).round(2); // Clamp then round to 2 decimal places
+clampAndRound(72.7523); // 72.75
+clampAndRound(120.2514); // 100
  
 
 
@@ -3669,7 +3624,7 @@ Boolean
 
 
 
-direction code example
+clamp() code example
 
 
 
@@ -3691,23 +3646,33 @@ HTML
 
 
 
-import { waapi, stagger } from 'animejs';
+import { animate, utils } from 'animejs';
 
-waapi.animate('.square', {
-  translate: '17rem',
-  reversed: true,
-  delay: stagger(100)
+animate('.normal', {
+  rotate: '1turn',
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
+});
+
+animate('.clamped', {
+  rotate: '1turn',
+  modifier: utils.clamp(.25, .75), // Used as a function
+  duration: 3000,
+  loop: true,
+  ease: 'inOut',
 });
 
 
-<div class="medium row">
-  <div class="square"></div>
-</div>
-<div class="medium row">
-  <div class="square"></div>
-</div>
-<div class="medium row">
-  <div class="square"></div>
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock normal"></div>
+    <div class="label">normal</div>
+  </div>
+  <div class="col">
+    <div class="clock clamped"></div>
+    <div class="label">clamped [.25,.75]</div>
+  </div>
 </div>
 
 
@@ -3729,7 +3694,7 @@ Next
 
 
 
-iterations
+round()
 
 
 
@@ -3756,7 +3721,7 @@ iterations
 
 
 
-easing
+snap()
 
 
 

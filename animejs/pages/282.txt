@@ -3490,7 +3490,7 @@ JS
 
 
 
-Web Animation API
+Utilities
 
 
 
@@ -3507,77 +3507,37 @@ Since 4.0.0
 
 
 
-            API differences with native WAAPI                                              
-
-
-
-
-This chapter covers all major differences between the native Web Animation API 
-element.animate()
- syntax and Anime.js 
-waapi.animate(element)
- syntax.
-
-
-Anime.js
-
-
-waapi.animate(
-┌────────────┐
-│ '.square', ├─ Targets
-└────────────┘
-{
-┌──────────────────┐
-│ x: 100,          │
-│ y: 50,           ├─ Keyframes Values
-│ opacity: .5,     │
-└──────────────────┘
-┌──────────────────┐
-│ loop: 3,         │
-│ alternate: true, ├─ Playback Settings
-│ ease: 'out',     │
-└──────────────────┘
-});
-
-
-WAAPI
-
-
-const $square = document.querySelector('.square');
-
-┌────────────┐
-│ $square    ├─ Targets
-└────────────┘
-.animate({
-┌──────────────────────────┐
-│ translate: '100px 50px', ├─ Keyframes Values
-│ opacity: .5,             │
-└──────────────────────────┘
-}, {
-┌──────────────────────────┐
-│ ieterations: 4,          │
-│ direction: 'alternate',  ├─ Playback Settings
-│ easing: 'ease-out',      │
-└──────────────────────────┘
-});
+            lerp()            
+V4
  
 
 
 
 
-In this section
+Performs a linear interpolation between two values.
 
+The closer the amount is to 
+1
+, the closer the result is to the 
+end
+ value.
 
 
 
 
+The 
+utils.lerp()
+ function is 
+frame rate independent
+.
 
 
 
-iterations
 
+const lerped = utils.lerp(start, end, amount);
 
 
+Parameters
 
 
 
@@ -3586,12 +3546,13 @@ iterations
 
 
 
+Name
 
 
+Accepts
 
 
 
-direction
 
 
 
@@ -3599,25 +3560,30 @@ direction
 
 
 
+start
 
 
+Number
 
 
 
 
 
 
+end
 
-easing
 
+Number
 
 
 
 
 
 
+amount
 
 
+Number [0-1]
 
 
 
@@ -3625,15 +3591,99 @@ easing
 
 
 
-finished
 
+Returns
 
 
+Number
 
 
+utils.lerp(0, 100, 0); // 0
+utils.lerp(0, 100, 0.5); // 50
+utils.lerp(0, 100, 1); // 100
+ 
 
 
 
+
+
+
+
+
+
+
+lerp() code example
+
+
+
+
+
+
+J
+ava
+S
+cript
+
+
+HTML
+
+
+
+
+
+
+
+
+import { animate, createTimer, utils } from 'animejs';
+
+const [ $input ] = utils.$('.input');
+const [ $lerped ] = utils.$('.lerped');
+const [ $lerped15fps ] = utils.$('.lerped-15');
+
+animate($input, {
+  rotate: '1000turn',
+  modifier: utils.snap(.25),
+  duration: 4000000,
+  loop: true,
+  ease: 'linear',
+});
+
+const loop = createTimer({
+  onUpdate: clock => {
+    const sourceRotate = utils.get($input, 'rotate', false);
+    const lerpedRotate = utils.get($lerped, 'rotate', false);
+    utils.set($lerped, {
+      rotate: utils.lerp(lerpedRotate, sourceRotate, .075) + 'turn'
+    });
+  }
+});
+
+const loop15fps = createTimer({
+  frameRate: 15,
+  onUpdate: clock => {
+    const sourceRotate = utils.get($input, 'rotate', false);
+    const lerpedRotate = utils.get($lerped15fps, 'rotate', false);
+    utils.set($lerped15fps, {
+      rotate: utils.lerp(lerpedRotate, sourceRotate, .0725, clock) + 'turn'
+    });
+  }
+});
+
+
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock input"></div>
+    <div class="label">input</div>
+  </div>
+  <div class="col">
+    <div class="clock lerped"></div>
+    <div class="label">lerped</div>
+  </div>
+  <div class="col">
+    <div class="clock lerped-15"></div>
+    <div class="label">lerped 15fps</div>
+  </div>
+</div>
 
 
 
@@ -3654,7 +3704,7 @@ Next
 
 
 
-Improvements to the Web Animation API
+sync()
 
 
 
@@ -3681,7 +3731,7 @@ Improvements to the Web Animation API
 
 
 
-iterations
+round()
 
 
 

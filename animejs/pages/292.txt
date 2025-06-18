@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-Improvements to WAAPI
+Utilities
 
 
 
@@ -3513,53 +3507,73 @@ Since 4.0.0
 
 
 
-            Multi-targets animation                                              
+            degToRad()            
+V4
+ 
 
 
 
 
-Targets one or multiple DOM Elements using a CSS selector, allowing animating multiple targets in one single 
-animate()
- call and support of the 
-stagger()
- method.
+Converts degrees into radians.
 
 
-Syntax comparison
+const radians = utils.degToRad(degrees);
 
 
-Anime.js
+Parameters
 
 
-waapi.animate('.circle', {
-  translate: '100px',
-  delay: stagger(100),
-});
 
 
-WAAPI equivalent
 
 
-document.querySelectorAll('.circle').forEach(($el, i) => {
-  $el.animate({
-    translate: '100px',
-  }, {
-    duration: 1000,
-    delay: i * 100,
-    easing: 'ease-out',
-  }).finished.then(() => {
-    $el.style.translate = '100px';
-  })
-});
+
+
+Name
 
 
 Accepts
 
 
-Any 
-String
- accepted by 
-document.querySelectorAll()
+
+
+
+
+
+
+
+
+degrees 
+(opt)
+
+
+Number
+
+
+
+
+
+
+
+
+Returns
+
+
+A 
+Number
+ if degrees are provided, otherwise a 
+chain-able utility
+ 
+Function
+ to convert degrees to radians:
+
+
+const degToRad = utils.degToRad();
+degToRad(360); // 6.283185307179586
+
+const roundDegToRad = utils.degToRad().round(2); // Convert degrees to radians then round to 2 decimal places
+roundDegToRad(180); // 3.14
+roundDegToRad(90);  // 1.57
  
 
 
@@ -3571,7 +3585,7 @@ document.querySelectorAll()
 
 
 
-Multi-targets animation code example
+degToRad() code example
 
 
 
@@ -3593,24 +3607,34 @@ HTML
 
 
 
-import { waapi, stagger } from 'animejs';
+import { animate, createAnimatable, utils } from 'animejs';
 
-waapi.animate('.circle', {
-  translate: '17rem',
-  delay: stagger(100),
+const radAnimatable = createAnimatable('.rad', {
+  rotate: { unit: 'rad', duration: 0 },
+});
+
+const [ $deg ] = utils.$('.deg');
+
+const degAnimation = animate($deg, {
+  rotate: '360deg',
+  ease: 'linear',
   loop: true,
-  alternate: true,
+  onUpdate: () => {
+    const degrees = utils.get($deg, 'rotate', false);
+    radAnimatable.rotate(utils.degToRad(degrees));
+  }
 });
 
 
-<div class="medium row">
-  <div class="circle"></div>
-</div>
-<div class="medium row">
-  <div class="circle"></div>
-</div>
-<div class="medium row">
-  <div class="circle"></div>
+<div class="x-large spaced-evenly row">
+  <div class="col">
+    <div class="clock deg"></div>
+    <div class="label">degrees</div>
+  </div>
+  <div class="col">
+    <div class="clock rad"></div>
+    <div class="label">radians</div>
+  </div>
 </div>
 
 
@@ -3632,7 +3656,7 @@ Next
 
 
 
-Sensible defaults
+padEnd()
 
 
 
@@ -3659,7 +3683,7 @@ Sensible defaults
 
 
 
-Default units
+radToDeg()
 
 
 

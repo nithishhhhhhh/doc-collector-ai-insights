@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+Improvements to WAAPI
 
 
 
@@ -3507,111 +3513,24 @@ Since 4.0.0
 
 
 
-            interpolate()            
-V4
- 
+            Individual property parameters                                              
 
 
 
 
-Interpolates a value between two numbers based on a given 
-progress
- or creates an interpolation 
-Function
- with pre-defined 
-start
+Each property can have specific 
+delay
+, 
+duration
  and 
-end
- parameters.
-
-
-const interpolatedValue = utils.interpolate(start, end, progress);
-const interpolatorFunction = utils.interpolate(start, end);
-
-
-Parameters
-
-
-
-
-
-
-
-
-Name
-
-
-Accepts
-
-
-
-
-
-
-
-
-
-
-start
-
-
-Number
-
-
-
-
-
-
-end
-
-
-Number
-
-
-
-
-
-
-progress 
-(opt)
-
-
-Number
- (
-[0 - 1]
-)
-
-
-
-
-
-
-
-
-Returns
-
-
-A 
-Number
- if a progress value is provided, otherwise a 
-chain-able utility
- 
-Function
- to interpolate between the specified 
-start
- and 
-end
- values:
-
-
-const interpolateBetween0and100 = utils.interpolate(0, 100);
-interpolateBetween0and100(0.5);  // 50
-interpolateBetween0and100(0.75); // 75
-interpolateBetween0and100(0.25); // 25
-
-const interpolateAndRound = utils.interpolate(0, 100).round(2); // Interpolate then round to 2 decimal places
-interpolateAndRound(0.677523); // 67.75
-interpolateAndRound(1.202514); // 100
+ease
+ parameters by passing an 
+Object
+ with at least one 
+to
+ or 
+from
+ properties as value.
  
 
 
@@ -3623,7 +3542,7 @@ interpolateAndRound(1.202514); // 100
 
 
 
-interpolate() code example
+Individual property parameters code example
 
 
 
@@ -3645,33 +3564,29 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi, utils, stagger } from 'animejs';
 
-animate('.normal', {
-  rotate: '1turn',
-  duration: 3000,
+waapi.animate('.square', {
+  y: {
+    to: [0, -30, 0],
+    ease: 'out(4)',
+    duration: 1000,
+  },
+  rotate: { from: -180, to: 0, ease: 'out(3)' },
+  scale: { to: [.65, 1, .65], ease: 'inOut(3)' },
+  duration: 500,
+  delay: stagger(75),
   loop: true,
-  ease: 'inOut',
 });
 
-animate('.interpolated', {
-  rotate: '1turn',
-  modifier: utils.interpolate(0, 12), // Interpolates 0 to 12 by passing the rotate progress value 0 to 1
-  duration: 3000,
-  loop: true,
-  ease: 'inOut',
-});
 
-
-<div class="x-large spaced-evenly row">
-  <div class="col">
-    <div class="clock normal"></div>
-    <div class="label">normal</div>
-  </div>
-  <div class="col">
-    <div class="clock interpolated"></div>
-    <div class="label">interpolated [0,12]</div>
-  </div>
+<div class="large row">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
 </div>
 
 
@@ -3693,7 +3608,7 @@ Next
 
 
 
-mapRange()
+Individual CSS transforms
 
 
 
@@ -3720,7 +3635,7 @@ mapRange()
 
 
 
-roundPad()
+Spring and custom easings
 
 
 

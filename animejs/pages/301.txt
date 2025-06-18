@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+Improvements to WAAPI
 
 
 
@@ -3507,29 +3513,48 @@ Since 4.0.0
 
 
 
-            padEnd()            
-V4
- 
+            Default units                                              
 
 
 
 
-Pads a 
-Number
- from the end with a string until the result reaches a given length or creates a padding 
-Function
- with pre-defined 
-totalLength
- and 
-padString
- parameters.
+If no unit is specified for properties that expect a unit, like 
+width
+ for example, the resulting animation will use the default browser unit for a set of commonly used properties:
 
 
-const paddedValue = utils.padEnd(value, totalLength, padString);
-const padderFunction = utils.padEnd(totalLength, padString);
+Syntax comparison
 
 
-Parameters
+Anime.js
+
+
+waapi.animate('.circle', {
+  x: 100,
+  y: 50,
+  width: 150,
+  height: 80,
+});
+
+
+WAAPI equivalent
+
+
+const $el = document.querySelector('.circle');
+
+$el.animate({
+  translate: '100px 50px',
+  width: '150px',
+  height: '80px',
+}, {
+  duration: 1000,
+  easing: 'ease-out',
+}).finished.then(() => {
+  $el.style.translate = '100px';
+});
+
+
+Properties that automatically adds default units
 
 
 
@@ -3541,7 +3566,7 @@ Parameters
 Name
 
 
-Accepts
+Default Unit
 
 
 
@@ -3552,62 +3577,257 @@ Accepts
 
 
 
-value 
-(opt)
+x
 
 
-String
- / 
-Number
+'px'
 
 
 
 
 
 
-totalLength
+y
 
 
-Number
-
-
-
-
-
-
-padString
-
-
-String
+'px'
 
 
 
 
 
 
+z
 
 
-Returns
+'px'
 
 
-A 
-String
- if a value is provided, otherwise a 
-chain-able utility
+
+
+
+
+translateX
+
+
+'px'
+
+
+
+
+
+
+translateY
+
+
+'px'
+
+
+
+
+
+
+translateZ
+
+
+'px'
+
+
+
+
+
+
+rotate
+
+
+'deg'
+
+
+
+
+
+
+rotateX
+
+
+'deg'
+
+
+
+
+
+
+rotateY
+
+
+'deg'
+
+
+
+
+
+
+rotateZ
+
+
+'deg'
+
+
+
+
+
+
+skew
+
+
+'deg'
+
+
+
+
+
+
+skewX
+
+
+'deg'
+
+
+
+
+
+
+skewY
+
+
+'deg'
+
+
+
+
+
+
+perspective
+
+
+'px'
+
+
+
+
+
+
+width
+
+
+'px'
+
+
+
+
+
+
+height
+
+
+'px'
+
+
+
+
+
+
+margin
+
+
+'px'
+
+
+
+
+
+
+padding
+
+
+'px'
+
+
+
+
+
+
+top
+
+
+'px'
+
+
+
+
+
+
+right
+
+
+'px'
+
+
+
+
+
+
+bottom
+
+
+'px'
+
+
+
+
+
+
+left
+
+
+'px'
+
+
+
+
+
+
+borderWidth
+
+
+'px'
+
+
+
+
+
+
+fontSize
+
+
+'px'
+
+
+
+
+
+
+borderRadius
+
+
+'px'
+
+
+
+
+
+
  
-Function
- to pad numbers from the end:
-
-
-const padTo5WithZeros = utils.padEnd(5, '0');
-padTo5WithZeros('123');  // '12300'
-padTo5WithZeros(78);     // '78000'
-padTo5WithZeros('1234'); // '12340'
-
-const roundAndPadEnd = utils.round(0).padEnd(5, '0'); // Round to nearest integer then pad to 5 characters
-roundAndPadEnd(123.456); // '12300'
-roundAndPadEnd(7.8);     // '80000'
- 
 
 
 
@@ -3618,7 +3838,7 @@ roundAndPadEnd(7.8);     // '80000'
 
 
 
-padEnd() code example
+Default units code example
 
 
 
@@ -3640,20 +3860,28 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi } from 'animejs';
 
-animate('.value', {
-  innerHTML: 1,
-  modifier: utils.round(3).padEnd(6, '-'),
-  duration: 100000,
-  ease: 'linear',
+waapi.animate('.square', {
+  opacity: .5,
+  x: 250,
+  rotate: 45,
+  width: 40,
+  height: 40,
 });
 
 
-<div class="large row">
-  <pre class="large log row">
-    <span class="value lcd">0</span>
-  </pre>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
 </div>
 
 
@@ -3675,7 +3903,7 @@ Next
 
 
 
-padStart()
+Multi-targets animation
 
 
 
@@ -3702,7 +3930,7 @@ padStart()
 
 
 
-degToRad()
+Function based values
 
 
 

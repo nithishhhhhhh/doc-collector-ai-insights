@@ -3490,7 +3490,7 @@ JS
 
 
 
-Utilities
+Engine
 
 
 
@@ -3507,32 +3507,38 @@ Since 4.0.0
 
 
 
-            randomPick()            
-V4
+            Engine parameters                                              
+
+
+
+
+import { engine } from 'animejs';
+       ┌────────────┐
+engine.│speed       │
+engine.│fps         ├─ Parameters
+engine.│precision   │
+       └────────────┘
  
 
 
 
 
-Returns a random element from a collection.
+In this section
 
 
-const ramdomElement = utils.randomPick(collection);
 
 
-Parameters
 
 
 
 
+timeUnit
 
 
 
 
-Name
 
 
-Accepts
 
 
 
@@ -3543,14 +3549,9 @@ Accepts
 
 
 
-collection
+speed
 
 
-Array
- | 
-NodeList
- | 
-String
 
 
 
@@ -3559,65 +3560,55 @@ String
 
 
 
-Returns
 
 
-An random element from the collection
- 
 
 
 
 
+fps
 
 
 
 
 
 
-randomPick() code example
 
 
 
 
 
 
-J
-ava
-S
-cript
 
 
-HTML
 
 
+precision
 
 
 
 
 
 
-import { utils } from 'animejs';
 
-utils.set('.letter', {
-  x: () => utils.randomPick([5, 9, 13, 17]) + 'rem',
-  scale: () => utils.randomPick([1, 1.25, 1.5, 1.75]),
-  color: () => `var(--hex-${utils.randomPick(['red', 'orange', 'yellow'])})`,
-  innerHTML: () => utils.randomPick('ABCD'),
-});
 
 
-<div class="small row">
-  <div class="letter">A</div>
-</div>
-<div class="small row">
-  <div class="letter">B</div>
-</div>
-<div class="small row">
-  <div class="letter">C</div>
-</div>
-<div class="small row">
-  <div class="letter">D</div>
-</div>
+
+
+
+
+
+
+
+pauseOnDocumentHidden
+
+
+
+
+
+
+
+
 
 
 
@@ -3638,7 +3629,7 @@ Next
 
 
 
-random()
+Engine
 
 
 
@@ -3665,7 +3656,7 @@ random()
 
 
 
-shuffle()
+timeUnit (seconds / milliseconds)
 
 
 

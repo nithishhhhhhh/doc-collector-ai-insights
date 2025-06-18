@@ -3490,13 +3490,7 @@ JS
 
 
 
-Web Animation API
-
-
-
-
-
-Improvements to WAAPI
+Utilities
 
 
 
@@ -3513,46 +3507,89 @@ Since 4.0.0
 
 
 
-            Function based values                                              
+            Chain-able utility functions            
+V4
+ 
 
 
 
 
-Adds 
-Function based value
- support to WAAPI animations, allowing passing different values pert targets.
+Chain-able utility functions allow for the creation of complex operations by combining multiple functions in a single expression.
 
 
-Syntax comparison
+const clampRoundPad = utils.clamp(0, 100).round(2).padStart(6, '0');
+clampRoundPad(125)   // '000100'
+clampRoundPad(75.25) // '075.25'
 
 
-Anime.js
+The following utility functions support chaining:
 
 
-waapi.animate('.square', {
-  translate: () => `${utils.random(10, 17)}rem`,
-  rotate: () => utils.random(-180, 180),
-  scale: (_, i) => .25 + (i * .25),
-  delay: stagger(100)
-});
 
 
-WAAPI equivalent
+round()
 
 
-document.querySelectorAll('.square').forEach(($el, i) => {
-  $el.animate({
-    translate: `${utils.random(10, 17)}rem`,
-    rotate: utils.random(-180, 180),
-    scale: .25 + (i * .25),
-  }, {
-    duration: 1000,
-    delay: i * 100,
-    easing: 'ease-out',
-  }).finished.then(() => {
-    $el.style.translate = '100px';
-  })
-});
+clamp()
+
+
+snap()
+
+
+wrap()
+
+
+mapRange()
+
+
+interpolate()
+
+
+roundPad()
+
+
+padStart()
+
+
+padEnd()
+
+
+degToRad()
+
+
+radToDeg()
+
+
+
+
+
+
+Chain-able functions works great in combinaison with the 
+modifier
+ tween parameter.
+
+
+
+
+Usage
+
+
+Chain-able functions are created when calling a utility function without its optional value parameter:
+
+
+const chainableClamp = utils.clamp(0, 100); // Returns a chain-able function
+const result = chainableClamp(150); // 100
+
+
+Chaining
+
+
+Chain-able functions are combined like this:
+
+
+const normalizeAndRound = utils.mapRange(0, 255, 0, 1).round(1);
+normalizeAndRound(128); // '0.5'
+normalizeAndRound(64);  // '0.3'
  
 
 
@@ -3564,7 +3601,7 @@ document.querySelectorAll('.square').forEach(($el, i) => {
 
 
 
-Function based values code example
+Chain-able utility functions code example
 
 
 
@@ -3586,28 +3623,22 @@ HTML
 
 
 
-import { waapi, utils, stagger } from 'animejs';
+import { animate, utils } from 'animejs';
 
-waapi.animate('.square', {
-  translate: () => `${utils.random(10, 17)}rem`,
-  rotate: () => utils.random(-180, 180),
-  scale: (_, i) => .25 + (i * .25),
-  duration: $el => $el.dataset.duration,
-  delay: stagger(100)
+animate('.value', {
+  innerHTML: 1000,
+  modifier: utils.wrap(0, 10).roundPad(3).padStart(6, '0'),
+  duration: 100000,
+  alternate: true,
+  loop: true,
+  ease: 'linear',
 });
 
 
-<div class="small row">
-  <div data-duration="400" class="square"></div>
-</div>
-<div class="small row">
-  <div data-duration="600" class="square"></div>
-</div>
-<div class="small row">
-  <div data-duration="800" class="square"></div>
-</div>
-<div class="small row">
-  <div data-duration="1000" class="square"></div>
+<div class="large row">
+  <pre class="large log row">
+    <span class="value lcd">0</span>
+  </pre>
 </div>
 
 
@@ -3629,7 +3660,7 @@ Next
 
 
 
-Default units
+radToDeg()
 
 
 
@@ -3656,7 +3687,7 @@ Default units
 
 
 
-Individual CSS transforms
+Web Animation API
 
 
 

@@ -3490,7 +3490,13 @@ JS
 
 
 
-Utilities
+Web Animation API
+
+
+
+
+
+Improvements to WAAPI
 
 
 
@@ -3507,25 +3513,39 @@ Since 4.0.0
 
 
 
-            roundPad()            
-V4
- 
+            Individual CSS transforms                                              
 
 
 
 
-Rounds a value to a specified decimal length, pads with zeros if needed, and returns the result as a string, or creates a rounding and padding 
-Function
- with a pre-defined 
-decimalLength
- parameter.
+Unlike CSS animations or native WAAPI, the CSS 
+transform
+ property can be animated by specifying individual properties.
+
+This allows a greater level of control over how to animate individual transform properties.
 
 
-const roundedPaddedValue = utils.roundPad(value, decimalLength);
-const roundPadderFunction = utils.roundPad(decimalLength);
 
 
-Parameters
+Individual transforms with 
+WAAPI
+ only works for browsers that support 
+CSS.registerProperty(propertyDefinition)
+, and fallback to no animations.
+
+
+
+
+
+
+Individual transforms cannot be 
+hardware-accelerated
+.
+
+
+
+
+Valid individual CSS transforms properties
 
 
 
@@ -3537,7 +3557,13 @@ Parameters
 Name
 
 
-Accepts
+Shorthand
+
+
+Default Value
+
+
+Default Unit
 
 
 
@@ -3548,52 +3574,231 @@ Accepts
 
 
 
-value 
-(opt)
+translateX
 
 
-Number
- / 
-String
+x
 
 
+'0px'
 
 
-
-
-decimalLength
-
-
-Number
+'px'
 
 
 
 
 
 
+translateY
 
 
-Returns
+y
 
 
-A 
-String
- if a value is provided, otherwise a 
-chain-able utility
+'0px'
+
+
+'px'
+
+
+
+
+
+
+translateZ
+
+
+z
+
+
+'0px'
+
+
+'px'
+
+
+
+
+
+
+rotate
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+rotateX
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+rotateY
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+rotateZ
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+scale
+
+
+—
+
+
+'1'
+
+
+—
+
+
+
+
+
+
+scaleX
+
+
+—
+
+
+'1'
+
+
+—
+
+
+
+
+
+
+scaleY
+
+
+—
+
+
+'1'
+
+
+—
+
+
+
+
+
+
+scaleZ
+
+
+—
+
+
+'1'
+
+
+—
+
+
+
+
+
+
+skew
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+skewX
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
+skewY
+
+
+—
+
+
+'0deg'
+
+
+'deg'
+
+
+
+
+
+
  
-Function
- to round and pad numbers to the specified decimal length:
-
-
-const roundPadTo2Decimals = utils.roundPad(2);
-roundPadTo2Decimals(90.12345);  // '90.12'
-roundPadTo2Decimals(120);       // '120.00'
-roundPadTo2Decimals(15.9);      // '15.90'
-
-const snapAndRoundPad = utils.snap(50).roundPad(2); // Snap to nearest 50 then roundPad to 2 decimal places
-snapAndRoundPad(123.456); // '100.00'
-snapAndRoundPad(175.789); // '200.00'
- 
 
 
 
@@ -3604,7 +3809,7 @@ snapAndRoundPad(175.789); // '200.00'
 
 
 
-roundPad() code example
+Individual CSS transforms code example
 
 
 
@@ -3626,20 +3831,34 @@ HTML
 
 
 
-import { animate, utils } from 'animejs';
+import { waapi, utils } from 'animejs';
 
-animate('.value', {
-  innerHTML: '8.1',
-  modifier: utils.roundPad(3),
-  duration: 10000,
-  ease: 'linear',
-});
+const $squares = utils.$('.square');
+
+const animateSquares = () => {
+  waapi.animate($squares, {
+    x: () => utils.random(0, 17) + 'rem',
+    y: () => utils.random(-1, 1) + 'rem',
+    rotateX: () => utils.random(-90, 90),
+    rotateY: () => utils.random(-90, 90),
+    onComplete: () => animateSquares()
+  });
+}
+
+animateSquares();
 
 
-<div class="large row">
-  <pre class="large log row">
-    <span class="value lcd">0.000</span>
-  </pre>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
+</div>
+<div class="small row">
+  <div class="square"></div>
 </div>
 
 
@@ -3661,7 +3880,7 @@ Next
 
 
 
-interpolate()
+Function based values
 
 
 
@@ -3688,7 +3907,7 @@ interpolate()
 
 
 
-padStart()
+Individual property parameters
 
 
 

@@ -3490,7 +3490,7 @@ JS
 
 
 
-Web Animation API
+Utilities
 
 
 
@@ -3507,62 +3507,41 @@ Since 4.0.0
 
 
 
-            Improvements to the Web Animation API                                              
-
-
-
-
-The 
-waapi.animate()
- method adds lots of quality of life improvements and greatly improves the overall experience of using WAAPI.
-
-
-On top of all the improvements to the API listed in this chapter, it is also possible to link WAAPI animations to Anime.js built-in 
-ScrollObserver
-
-
-waapi.animate('.square', {
-  translate: '100px',
-  autoplay: onScroll()
-});
-
-
-And use a 
-Scope
- for easy media queries handling and component cleanup:
-
-
-createScope({
-  mediaQueries: { reduceMotion: '(prefers-reduced-motion)' }
-})
-.add(({ matches }) => {
-  const { reduceMotion } = matches;
-  waapi.animate('.square', {
-    transform: reduceMotion ? ['100px', '100px'] : '100px',
-    opacity: [0, 1],
-  });
-});
+            padStart()            
+V4
  
 
 
 
 
-In this section
+Pads a 
+Number
+ from the start with a string until the result reaches a given length or creates a padding 
+Function
+ with pre-defined 
+totalLength
+ and 
+padString
+ parameters.
 
 
+const paddedValue = utils.padStart(value, totalLength, padString);
+const padderFunction = utils.padStart(totalLength, padString);
 
 
+Parameters
 
 
 
 
-Sensible defaults
 
 
 
 
+Name
 
 
+Accepts
 
 
 
@@ -3573,26 +3552,33 @@ Sensible defaults
 
 
 
-Multi-targets animation
+value 
+(opt)
 
 
+String
+ / 
+Number
 
 
 
 
 
 
+totalLength
 
 
+Number
 
 
 
 
 
 
-Default units
+padString
 
 
+String
 
 
 
@@ -3601,13 +3587,28 @@ Default units
 
 
 
+Returns
 
 
+A 
+String
+ if a value is provided, otherwise a 
+chain-able utility
+ 
+Function
+ to pad numbers from the start:
 
 
+const padTo5WithZeros = utils.padStart(5, '0');
+padTo5WithZeros('123');  // '00123'
+padTo5WithZeros(78);     // '00078'
+padTo5WithZeros('1234'); // '01234'
 
+const roundAndPad = utils.round(2).padStart(5, '0'); // Round to 2 decimal places then pad to 5 characters
+roundAndPad(12.345);  // '12.35'
+roundAndPad(7.8);     // '07.80'
+ 
 
-Function based values
 
 
 
@@ -3617,15 +3618,20 @@ Function based values
 
 
 
+padStart() code example
 
 
 
 
 
 
+J
+ava
+S
+cript
 
-Individual transforms
 
+HTML
 
 
 
@@ -3634,39 +3640,21 @@ Individual transforms
 
 
 
+import { animate, utils } from 'animejs';
 
+animate('.value', {
+  innerHTML: 10000,
+  modifier: utils.round(0).padStart(6, '-'),
+  duration: 100000,
+  ease: 'linear',
+});
 
 
-
-
-
-
-Individual property params
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Spring and custom easings
-
-
-
-
-
-
-
-
+<div class="large row">
+  <pre class="large log row">
+    <span class="value lcd">0</span>
+  </pre>
+</div>
 
 
 
@@ -3687,7 +3675,7 @@ Next
 
 
 
-Hardware-accelerated animations
+roundPad()
 
 
 
@@ -3714,7 +3702,7 @@ Hardware-accelerated animations
 
 
 
-Sensible defaults
+padEnd()
 
 
 

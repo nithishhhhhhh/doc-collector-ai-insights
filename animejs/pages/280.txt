@@ -3490,13 +3490,7 @@ JS
 
 
 
-Engine
-
-
-
-
-
-Parameters
+Utilities
 
 
 
@@ -3513,35 +3507,59 @@ Since 4.0.0
 
 
 
-            pauseOnDocumentHidden                                              
+            shuffle()            
+V4
+ 
 
 
 
 
-Controls whether the engine pauses animations when the browser tab is hidden.
-
-When 
-true
-, animations pause automatically when the tab loses focus. When 
-false
-, animations will adjust their 
-currentTime
- to catch up how long they have been idle in the background, making it looks like they never paused.
+Mutates an array by randomizing the order of its elements.
 
 
-engine.pauseOnDocumentHidden = true;
+const shuffledArray = utils.shuffle(array);
+
+
+Parameters
+
+
+
+
+
+
+
+
+Name
 
 
 Accepts
 
 
-Boolean
 
 
-Default
 
 
-true
+
+
+
+
+array
+
+
+Array
+
+
+
+
+
+
+
+
+Returns
+
+
+The mutated 
+Array
  
 
 
@@ -3553,7 +3571,7 @@ true
 
 
 
-pauseOnDocumentHidden code example
+shuffle() code example
 
 
 
@@ -3575,55 +3593,31 @@ HTML
 
 
 
-import { engine, utils, createTimer } from 'animejs';
+import { utils } from 'animejs';
 
-const [ $globalTime ] = utils.$('.global-time');
-const [ $engineTime ] = utils.$('.engine-time');
-const [ $toggle ] = utils.$('.toggle');
+const [ $shuffle ] = utils.$('button');
+const squares = utils.$('.square');
+const x = stagger('3.2rem');
 
-const startTime = Date.now();
+// Initial squares x position
+utils.set(squares, { x });
 
-const globalTimer = setInterval(() => {
-  $globalTime.innerHTML = Date.now() - startTime;
-}, 16);
+const shuffle = () => animate(utils.shuffle(squares), { x });
 
-const engineTimer = createTimer({
-  onUpdate: self => $engineTime.innerHTML = self.currentTime
-});
-
-const toggleSetting = () => {
-  const isPauseWhenHidden = engine.pauseOnDocumentHidden;
-  if (isPauseWhenHidden) {
-    engine.pauseOnDocumentHidden = false;
-    $toggle.innerHTML = '○ Disabled (Switch tab to see the effect)';
-  } else {
-    engine.pauseOnDocumentHidden = true;
-    $toggle.innerHTML = '● Enabled (Switch tab to see the effect)';
-  }
-}
-
-// Switch tab to see the effect
-
-$toggle.addEventListener('click', toggleSetting);
+$shuffle.addEventListener('click', shuffle);
 
 
-<div class="large centered row">
-  <div class="col">
-    <pre class="large log row">
-      <span class="label">global time</span>
-      <span class="global-time value lcd">0</span>
-    </pre>
-  </div>
-  <div class="col">
-    <pre class="large log row">
-      <span class="label">engine time</span>
-      <span class="engine-time value lcd">0</span>
-    </pre>
-  </div>
+<div class="large row">
+  <div class="square">A</div>
+  <div class="square">B</div>
+  <div class="square">C</div>
+  <div class="square">D</div>
+  <div class="square">E</div>
+  <div class="square">F</div>
 </div>
 <div class="medium row">
   <fieldset class="controls">
-    <button class="button toggle">● Enabled (Switch tab to see the effect)</button>
+    <button>Shuffle</button>
   </fieldset>
 </div>
 
@@ -3646,7 +3640,7 @@ Next
 
 
 
-precision
+randomPick()
 
 
 
@@ -3673,7 +3667,7 @@ precision
 
 
 
-Engine methods
+sync()
 
 
 
