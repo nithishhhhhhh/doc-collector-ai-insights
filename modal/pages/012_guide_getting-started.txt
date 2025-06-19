@@ -1,0 +1,8 @@
+URL: https://modal.com/docs/guide/getting-started
+==================================================
+
+Not Found
+Sorry, this page doesn't exist! We weren't able to find the documentation
+that you were looking for. Did you type the correct URL?
+You can find the rest of the Modal documentation
+here

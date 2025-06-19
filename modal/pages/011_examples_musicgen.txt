@@ -1,0 +1,561 @@
+URL: https://modal.com/docs/examples/musicgen
+==================================================
+
+Featured
+Getting started
+Hello, world
+Simple web scraper
+Serving web endpoints
+Large language models (LLMs)
+Deploy an OpenAI-compatible LLM service with vLLM
+Run DeepSeek-R1 and Phi-4 with llama.cpp
+Low-latency, serverless TensorRT-LLM
+Run Vision-Language Models with SGLang
+Run a multimodal RAG chatbot to answer questions about PDFs
+Fine-tune an LLM to replace your CEO
+Images, video, & 3D
+Fine-tune Wan2.1 video models on your face
+Run Flux fast with torch.compile
+Fine-tune Flux with LoRA
+Animate images with LTX-Video
+Generate video clips with LTX-Video
+Generate video clips with Mochi
+Run Stable Diffusion with a CLI, API, and web UI
+Deploy ControlNet demos with Gradio
+Audio
+Run Text to Speech (TTS) with Chatterbox
+Deploy a Moshi voice chatbot
+Create music with MusicGen
+Real-time communication
+Serverless WebRTC
+Real-time audio transcription using Parakeet
+WebRTC quickstart with FastRTC
+Computational biology
+Fold proteins with Chai-1
+Build a protein-folding dashboard
+Fold proteins with Boltz-2
+Sandboxed code execution
+Run a LangGraph agent's code in a secure GPU sandbox
+Build a stateful, sandboxed code interpreter
+Run Node.js, Ruby, and more in a Sandbox
+Run a sandboxed Jupyter notebook
+Embeddings
+Embed millions of documents with TEI
+Turn satellite images into vectors and store them in MongoDB
+Parallel processing and job scheduling
+Transcribe podcasts with Whisper
+Deploy a Hacker News Slackbot
+Run a Document OCR job queue
+Serve a Document OCR web app
+Training models from scratch
+Train an SLM with early-stopping grid search over hyperparameters
+Run long, resumable training jobs
+Hosting popular libraries
+FastHTML: Deploy 100,000 multiplayer checkboxes
+YOLO: Fine-tune and serve computer vision models
+MultiOn: Create an agent for AI news
+Blender: Build a 3D render farm
+Streamlit: Run and deploy Streamlit apps
+ComfyUI: Run Flux on ComfyUI as an API
+SQLite: Publish explorable data with Datasette
+Algolia: Build docsearch with a crawler
+Connecting to other APIs
+Discord: Deploy and run a Discord Bot
+Google Sheets: Sync databases and APIs to a Google Sheet
+OpenAI: Run a RAG Q&A chatbot
+Tailscale: Add Modal Apps to your VPN
+Prometheus: Publish custom metrics with Pushgateway
+Managing data
+Mount S3 buckets in Modal apps
+Build your own data warehouse with DuckDB, DBT, and Modal
+Create a LoRA Playground with Modal, Gradio, and S3
+Miscellaneous
+View on GitHub
+Create your own music samples with MusicGen
+MusicGen is a popular open-source music-generation model family from Meta.
+In this example, we show you how you can run MusicGen models on Modal GPUs,
+along with a Gradio UI for playing around with the model.
+We use
+Audiocraft
+the inference library released by Meta
+for MusicGen and its kin, like AudioGen.
+Setting up dependencies
+from
+pathlib
+import
+Path
+from
+typing
+import
+Optional
+from
+uuid
+import
+uuid4
+import
+modal
+Copy
+We start by defining the environment our generation runs in.
+This takes some explaining since, like most cutting-edge ML environments, it is a bit fiddly.
+This environment is captured by a
+container image
+which we build step-by-step by calling methods to add dependencies,
+like
+apt_install
+to add system packages and
+pip_install
+to add
+Python packages.
+Note that we don’t have to install anything with “CUDA”
+in the name — the drivers come for free with the Modal environment
+and the rest gets installed
+. That makes our life a lot easier!
+If you want to see the details, check out
+this guide
+in our docs.
+image = (
+modal.Image.debian_slim(
+python_version
+"3.11"
+.apt_install(
+"git"
+"ffmpeg"
+.pip_install(
+"huggingface_hub[hf_transfer]==0.27.1"
+# speed up model downloads
+"torch==2.1.0"
+# version pinned by audiocraft
+"numpy<2"
+# defensively cap the numpy version
+"git+https://github.com/facebookresearch/audiocraft.git@v1.3.0"
+# we can install directly from GitHub!
+Copy
+In addition to source code, we’ll also need the model weights.
+Audiocraft integrates with the Hugging Face ecosystem, so setting up the models
+is straightforward — the same
+get_pretrained
+method we use to load the weights for execution
+will also download them if they aren’t present.
+load_model
+and_return
+False
+from
+audiocraft.models
+import
+MusicGen
+model_large = MusicGen.get_pretrained(
+"facebook/musicgen-large"
+and_return:
+return
+model_large
+Copy
+But Modal Functions are serverless: instances spin down when they aren’t being used.
+If we want to avoid downloading the weights every time we start a new instance,
+we need to store the weights somewhere besides our local filesystem.
+So we add a Modal
+Volume
+to store the weights in the cloud.
+cache_dir =
+"/cache"
+model_cache = modal.Volume.from_name(
+"audiocraft-model-cache"
+create_if_missing
+True
+Copy
+We don’t need to change any of the model loading code —
+we just need to make sure the model gets stored in the right directory.
+To do that, we set an environment variable that Hugging Face expects
+(and another one that speeds up downloads, for good measure)
+and then run the
+load_model
+Python function.
+image = image.env(
+"HF_HUB_CACHE"
+: cache_dir,
+"HF_HUB_ENABLE_HF_TRANSER"
+).run_function(load_model,
+volumes
+={cache_dir: model_cache})
+Copy
+While we’re at it, let’s also define the environment for our UI.
+We’ll stick with Python and so use FastAPI and Gradio.
+web_image = modal.Image.debian_slim(
+python_version
+"3.11"
+).pip_install(
+"fastapi[standard]==0.115.4"
+"gradio==4.44.1"
+Copy
+This is a totally different environment from the one we run our model in.
+Say goodbye to Python dependency conflict hell!
+Running music generation on Modal
+Now, we write our music generation logic.
+This is bit complicated because we want to support generating long samples,
+but the model has a maximum context length of thirty seconds.
+We can get longer clips by feeding the model’s output back as input,
+auto-regressively, but we have to write that ourselves.
+There are also a few bits to make this work well with Modal:
+We make an
+to organize our deployment.
+We load the model at start, instead of during inference, with
+modal.enter
+which requires that we use a Modal
+In the
+app.cls
+decorator, we specify the Image we built and attach the Volume.
+We also pick a GPU to run on — here, an NVIDIA L40S.
+app = modal.App(
+"example-musicgen"
+MAX_SEGMENT_DURATION =
+# maximum context window size
+@app.cls
+"l40s"
+image
+=image,
+volumes
+={cache_dir: model_cache})
+class
+MusicGen
+@modal.enter
+init
+self
+self
+.model = load_model(
+and_return
+True
+@modal.method
+generate
+self
+prompt
+duration
+overlap
+format
+"wav"
+# or mp3
+) ->
+bytes
+"""Generate a music clip based on the prompt.
+Clips longer than the MAX_SEGMENT_DURATION of
+MAX_SEGMENT_DURATION
+are generated by clipping all but `overlap` seconds and running inference again."""
+context =
+None
+overlap =
+(overlap, MAX_SEGMENT_DURATION -
+remaining_duration = duration
+remaining_duration <
+return
+bytes
+while
+remaining_duration >
+# calculate duration of the next segment
+segment_duration = remaining_duration
+context
+None
+segment_duration += overlap
+segment_duration =
+(segment_duration, MAX_SEGMENT_DURATION)
+# generate next segment
+generated_duration = (
+segment_duration
+context
+None
+else
+(segment_duration - overlap)
+print
+"🎼 generating
+generated_duration
+seconds of music"
+self
+.model.set_generation_params(
+duration
+=segment_duration)
+next_segment =
+self
+._generate_next_segment(prompt, context, overlap)
+# update remaining duration
+remaining_duration -= generated_duration
+# combine with previous segments
+context =
+self
+._combine_segments(context, next_segment, overlap)
+output = context.detach().cpu().float()[
+return
+to_audio_bytes(
+output,
+self
+.model.sample_rate,
+format
+format
+# for more on audio encoding parameters, see the docs for audiocraft
+strategy
+"loudness"
+loudness_compressor
+True
+_generate_next_segment
+self
+prompt
+context
+overlap
+"""Generate the next audio segment, either fresh or as continuation of a context."""
+context
+None
+return
+self
+.model.generate(
+descriptions
+=[prompt])
+else
+overlap_samples = overlap *
+self
+.model.sample_rate
+last_chunk = context[:, :, -overlap_samples:]
+# B, C, T
+return
+self
+.model.generate_continuation(
+last_chunk,
+self
+.model.sample_rate,
+descriptions
+=[prompt]
+_combine_segments
+self
+context
+next_segment
+overlap
+"""Combine context with next segment, handling overlap."""
+import
+torch
+context
+None
+return
+next_segment
+# Calculate where to trim the context (removing overlap)
+overlap_samples = overlap *
+self
+.model.sample_rate
+context_trimmed = context[:, :, :-overlap_samples]
+# B, C, T
+return
+torch.cat([context_trimmed, next_segment],
+Copy
+We can then generate music from anywhere by running code like what we have in the
+local_entrypoint
+below.
+@app.local_entrypoint
+main
+prompt
+: Optional[
+None
+duration
+overlap
+format
+"wav"
+# or mp3
+prompt
+None
+prompt =
+"Amapiano polka, klezmers, log drum bassline, 112 BPM"
+print
+"🎼 generating
+duration
+seconds of music from prompt '
+prompt[:
+] + (
+'...'
+(prompt) >
+else
+audiocraft = MusicGen()
+clip = audiocraft.generate.remote(prompt,
+duration
+=duration,
+format
+format
+= Path(
+"/tmp/audiocraft"
+.mkdir(
+exist_ok
+True
+parents
+True
+output_path =
+slugify(prompt)[:
+format
+print
+"🎼 Saving to
+output_path
+output_path.write_bytes(clip)
+Copy
+You can execute it with a command like:
+modal
+musicgen.py
+--prompt=
+"Baroque boy band, Bachstreet Boys, basso continuo, Top 40 pop music"
+--duration=60
+Copy
+Hosting a web UI for the music generator
+With the Gradio library, we can create a simple web UI in Python
+that calls out to our music generator,
+then host it on Modal for anyone to try out.
+To deploy both the music generator and the UI, run
+modal
+deploy
+musicgen.py
+Copy
+Share the URL with your friends and they can generate their own songs!
+@app.function
+image
+=web_image,
+# Gradio requires sticky sessions
+# so we limit the number of concurrent containers to 1
+# and allow it to scale to 1000 concurrent inputs
+max_containers
+@modal.concurrent
+max_inputs
+1000
+@modal.asgi_app
+import
+gradio
+from
+fastapi
+import
+FastAPI
+from
+gradio.routes
+import
+mount_gradio_app
+api = FastAPI()
+# Since this Gradio app is running from its own container,
+# we make a `.remote` call to the music generator
+model = MusicGen()
+generate = model.generate.remote
+temp_dir = Path(
+"/dev/shm"
+async
+generate_music
+prompt
+duration
+format
+"wav"
+audio_bytes =
+await
+generate.aio(prompt,
+duration
+=duration,
+format
+format
+audio_path = temp_dir /
+uuid4()
+format
+audio_path.write_bytes(audio_bytes)
+return
+audio_path
+with
+gr.Blocks(
+theme
+"soft"
+demo:
+gr.Markdown(
+"# MusicGen"
+with
+gr.Row():
+with
+gr.Column():
+prompt = gr.Textbox(
+label
+"Prompt"
+duration = gr.Number(
+label
+"Duration (seconds)"
+value
+minimum
+maximum
+format
+= gr.Radio([
+"wav"
+"mp3"
+label
+"Format"
+value
+"wav"
+btn = gr.Button(
+"Generate"
+with
+gr.Column():
+clip_output = gr.Audio(
+label
+"Generated Music"
+autoplay
+True
+btn.click(
+generate_music,
+inputs
+=[prompt, duration,
+format
+outputs
+=[clip_output],
+return
+mount_gradio_app(
+=api,
+blocks
+=demo,
+path
+Copy
+Addenda
+The remainder of the code here is not directly related to Modal
+or to music generation, but is used in the example above.
+to_audio_bytes
+sample_rate
+, **
+kwargs
+) ->
+bytes
+from
+audiocraft.data.audio
+import
+audio_write
+# audiocraft provides a nice utility for converting waveform tensors to audio,
+# but it saves to a file path. here, we create a file path that is actually
+# just backed by memory, instead of disk, to save on some latency
+shm = Path(
+"/dev/shm"
+# /dev/shm is a memory-backed filesystem
+stem_name = shm /
+(uuid4())
+output_path = audio_write(stem_name, wav, sample_rate, **kwargs)
+return
+output_path.read_bytes()
+slugify
+string
+return
+string.lower()
+.replace(
+.replace(
+.replace(
+.replace(
+Copy
+Create your own music samples with MusicGen
+Setting up dependencies
+Running music generation on Modal
+Hosting a web UI for the music generator
+Addenda
+Try this on Modal!
+You can run this example on Modal in 60 seconds.
+Create account to run
+After creating a free account, install the Modal Python package, and
+create an API token.
+install
+modal
+modal
+setup
+Copy
+Clone the
+modal-examples
+repository and run:
+clone
+https://github.com/modal-labs/modal-examples
+modal-examples
+modal
+06_gpu_and_ml/text-to-audio/musicgen.py
+Copy

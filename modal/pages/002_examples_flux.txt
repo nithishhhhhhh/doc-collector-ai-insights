@@ -1,0 +1,485 @@
+URL: https://modal.com/docs/examples/flux
+==================================================
+
+Featured
+Getting started
+Hello, world
+Simple web scraper
+Serving web endpoints
+Large language models (LLMs)
+Deploy an OpenAI-compatible LLM service with vLLM
+Run DeepSeek-R1 and Phi-4 with llama.cpp
+Low-latency, serverless TensorRT-LLM
+Run Vision-Language Models with SGLang
+Run a multimodal RAG chatbot to answer questions about PDFs
+Fine-tune an LLM to replace your CEO
+Images, video, & 3D
+Fine-tune Wan2.1 video models on your face
+Run Flux fast with torch.compile
+Fine-tune Flux with LoRA
+Animate images with LTX-Video
+Generate video clips with LTX-Video
+Generate video clips with Mochi
+Run Stable Diffusion with a CLI, API, and web UI
+Deploy ControlNet demos with Gradio
+Audio
+Run Text to Speech (TTS) with Chatterbox
+Deploy a Moshi voice chatbot
+Create music with MusicGen
+Real-time communication
+Serverless WebRTC
+Real-time audio transcription using Parakeet
+WebRTC quickstart with FastRTC
+Computational biology
+Fold proteins with Chai-1
+Build a protein-folding dashboard
+Fold proteins with Boltz-2
+Sandboxed code execution
+Run a LangGraph agent's code in a secure GPU sandbox
+Build a stateful, sandboxed code interpreter
+Run Node.js, Ruby, and more in a Sandbox
+Run a sandboxed Jupyter notebook
+Embeddings
+Embed millions of documents with TEI
+Turn satellite images into vectors and store them in MongoDB
+Parallel processing and job scheduling
+Transcribe podcasts with Whisper
+Deploy a Hacker News Slackbot
+Run a Document OCR job queue
+Serve a Document OCR web app
+Training models from scratch
+Train an SLM with early-stopping grid search over hyperparameters
+Run long, resumable training jobs
+Hosting popular libraries
+FastHTML: Deploy 100,000 multiplayer checkboxes
+YOLO: Fine-tune and serve computer vision models
+MultiOn: Create an agent for AI news
+Blender: Build a 3D render farm
+Streamlit: Run and deploy Streamlit apps
+ComfyUI: Run Flux on ComfyUI as an API
+SQLite: Publish explorable data with Datasette
+Algolia: Build docsearch with a crawler
+Connecting to other APIs
+Discord: Deploy and run a Discord Bot
+Google Sheets: Sync databases and APIs to a Google Sheet
+OpenAI: Run a RAG Q&A chatbot
+Tailscale: Add Modal Apps to your VPN
+Prometheus: Publish custom metrics with Pushgateway
+Managing data
+Mount S3 buckets in Modal apps
+Build your own data warehouse with DuckDB, DBT, and Modal
+Create a LoRA Playground with Modal, Gradio, and S3
+Miscellaneous
+View on GitHub
+Run Flux fast on H100s with
+torch.compile
+Update: To speed up inference by another >2x, check out the additional optimization
+techniques we tried in
+this blog post
+In this guide, we’ll run Flux as fast as possible on Modal using open source tools.
+We’ll use
+torch.compile
+and NVIDIA H100 GPUs.
+Setting up the image and dependencies
+import
+time
+from
+import
+BytesIO
+from
+pathlib
+import
+Path
+import
+modal
+Copy
+We’ll make use of the full
+CUDA toolkit
+in this example, so we’ll build our container image off of the
+nvidia/cuda
+base.
+cuda_version =
+"12.4.0"
+# should be no greater than host CUDA version
+flavor =
+"devel"
+# includes full CUDA toolkit
+operating_sys =
+"ubuntu22.04"
+tag =
+cuda_version
+flavor
+operating_sys
+cuda_dev_image = modal.Image.from_registry(
+"nvidia/cuda:
+add_python
+"3.11"
+).entrypoint([])
+Copy
+Now we install most of our dependencies with
+For Hugging Face’s
+Diffusers
+library
+we install from GitHub source and so pin to a specific commit.
+PyTorch added [faster attention kernels for Hopper GPUs in version 2.5
+diffusers_commit_sha =
+"81cf3b2f155f1de322079af28f625349ee21ec6b"
+flux_image = (
+cuda_dev_image.apt_install(
+"git"
+"libglib2.0-0"
+"libsm6"
+"libxrender1"
+"libxext6"
+"ffmpeg"
+"libgl1"
+.pip_install(
+"invisible_watermark==0.2.0"
+"transformers==4.44.0"
+"huggingface_hub[hf_transfer]==0.26.2"
+"accelerate==0.33.0"
+"safetensors==0.4.4"
+"sentencepiece==0.2.0"
+"torch==2.5.0"
+"git+https://github.com/huggingface/diffusers.git@
+diffusers_commit_sha
+"numpy<2"
+.env({
+"HF_HUB_ENABLE_HF_TRANSFER"
+"HF_HUB_CACHE"
+"/cache"
+Copy
+Later, we’ll also use
+torch.compile
+to increase the speed further.
+Torch compilation needs to be re-executed when each new container starts,
+So we turn on some extra caching to reduce compile times for later containers.
+flux_image = flux_image.env(
+"TORCHINDUCTOR_CACHE_DIR"
+"/root/.inductor-cache"
+"TORCHINDUCTOR_FX_GRAPH_CACHE"
+Copy
+Finally, we construct our Modal
+set its default image to the one we just constructed,
+and import
+FluxPipeline
+for downloading and running Flux.1.
+app = modal.App(
+"example-flux"
+image
+=flux_image)
+with
+flux_image.imports():
+import
+torch
+from
+diffusers
+import
+FluxPipeline
+Copy
+Defining a parameterized
+Model
+inference class
+Next, we map the model’s setup and inference code onto Modal.
+We the model setun in the method decorated with
+@modal.enter()
+. This includes  loading the
+weights and moving them to the GPU, along with an optional
+torch.compile
+step (see details below).
+@modal.enter()
+decorator ensures that this method runs only once, when a new container starts,
+instead of in the path of every call.
+We run the actual inference in methods decorated with
+@modal.method()
+MINUTES =
+# seconds
+VARIANT =
+"schnell"
+# or "dev", but note [dev] requires you to accept terms and conditions on HF
+NUM_INFERENCE_STEPS =
+# use ~50 for [dev], smaller for [schnell]
+@app.cls
+"H100"
+# fastest GPU on Modal
+scaledown_window
+* MINUTES,
+timeout
+* MINUTES,
+# leave plenty of time for compilation
+volumes
+# add Volumes to store serializable compilation artifacts, see section on torch.compile below
+"/cache"
+: modal.Volume.from_name(
+"hf-hub-cache"
+create_if_missing
+True
+"/root/.nv"
+: modal.Volume.from_name(
+"nv-cache"
+create_if_missing
+True
+"/root/.triton"
+: modal.Volume.from_name(
+"triton-cache"
+create_if_missing
+True
+"/root/.inductor-cache"
+: modal.Volume.from_name(
+"inductor-cache"
+create_if_missing
+True
+class
+Model
+compile
+bool
+# see section on torch.compile below for details
+modal.parameter(
+default
+False
+@modal.enter
+enter
+self
+pipe = FluxPipeline.from_pretrained(
+"black-forest-labs/FLUX.1-
+VARIANT
+torch_dtype
+=torch.bfloat16
+).to(
+"cuda"
+# move model to GPU
+self
+.pipe = optimize(pipe,
+compile
+self
+.compile)
+@modal.method
+inference
+self
+prompt
+) ->
+bytes
+print
+"🎨 generating image..."
+out =
+self
+.pipe(
+prompt,
+output_type
+"pil"
+num_inference_steps
+=NUM_INFERENCE_STEPS,
+).images[
+byte_stream = BytesIO()
+out.save(byte_stream,
+format
+"JPEG"
+return
+byte_stream.getvalue()
+Copy
+Calling our inference function
+To generate an image we just need to call the
+Model
+generate
+method
+with
+.remote
+appended to it.
+You can call
+.generate.remote
+from any Python environment that has access to your Modal credentials.
+The local environment will get back the image as bytes.
+Here, we wrap the call in a Modal
+local_entrypoint
+so that it can be run with
+modal run
+modal
+flux.py
+Copy
+By default, we call
+generate
+twice to demonstrate how much faster
+the inference is after cold start. In our tests, clients received images in about 1.2 seconds.
+We save the output bytes to a temporary file.
+@app.local_entrypoint
+main
+prompt
+"a computer screen showing ASCII terminal art of the"
+" word 'Modal' in neon green. two programmers are pointing excitedly"
+" at the screen."
+twice
+bool
+True
+compile
+bool
+False
+t0 = time.time()
+image_bytes = Model(
+compile
+compile
+).inference.remote(prompt)
+print
+"🎨 first inference latency:
+time.time() - t0
+:.2f}
+seconds"
+twice:
+t0 = time.time()
+image_bytes = Model(
+compile
+compile
+).inference.remote(prompt)
+print
+"🎨 second inference latency:
+time.time() - t0
+:.2f}
+seconds"
+output_path = Path(
+"/tmp"
+"flux"
+"output.jpg"
+output_path.parent.mkdir(
+exist_ok
+True
+parents
+True
+print
+"🎨 saving output to
+output_path
+output_path.write_bytes(image_bytes)
+Copy
+Speeding up Flux with
+torch.compile
+By default, we do some basic optimizations, like adjusting memory layout
+and re-expressing the attention head projections as a single matrix multiplication.
+But there are additional speedups to be had!
+PyTorch 2 added a compiler that optimizes the
+compute graphs created dynamically during PyTorch execution.
+This feature helps close the gap with the performance of static graph frameworks
+like TensorRT and TensorFlow.
+Here, we follow the suggestions from Hugging Face’s
+guide to fast diffusion inference
+which we verified with our own internal benchmarks.
+Review that guide for detailed explanations of the choices made below.
+The resulting compiled Flux
+schnell
+deployment returns images to the client in under a second (~700 ms), according to our testing.
+Super schnell
+Compilation takes up to twenty minutes on first iteration.
+As of time of writing in late 2024,
+the compilation artifacts cannot be fully serialized,
+so some compilation work must be re-executed every time a new container is started.
+That includes when scaling up an existing deployment or the first time a Function is invoked with
+modal run
+We cache compilation outputs from
+nvcc
+triton
+, and
+inductor
+which can reduce compilation time by up to an order of magnitude.
+For details see
+this tutorial
+You can turn on compilation with the
+--compile
+flag.
+Try it out with:
+modal
+flux.py
+--compile
+Copy
+compile
+option is passed by a
+modal.parameter
+on our class.
+Each different choice for a
+parameter
+creates a
+separate auto-scaling deployment
+That means your client can use arbitrary logic to decide whether to hit a compiled or eager endpoint.
+optimize
+pipe
+compile
+True
+# fuse QKV projections in Transformer and VAE
+pipe.transformer.fuse_qkv_projections()
+pipe.vae.fuse_qkv_projections()
+# switch memory layout to Torch's preferred, channels_last
+pipe.transformer.to(
+memory_format
+=torch.channels_last)
+pipe.vae.to(
+memory_format
+=torch.channels_last)
+compile
+return
+pipe
+# set torch compile flags
+config = torch._inductor.config
+config.disable_progress =
+False
+# show progress bar
+config.conv_1x1_as_mm =
+True
+# treat 1x1 convolutions as matrix muls
+# adjust autotuning algorithm
+config.coordinate_descent_tuning =
+True
+config.coordinate_descent_check_all_directions =
+True
+config.epilogue_fusion =
+False
+# do not fuse pointwise ops into matmuls
+# tag the compute-intensive modules, the Transformer and VAE decoder, for compilation
+pipe.transformer = torch.compile(
+pipe.transformer,
+mode
+"max-autotune"
+fullgraph
+True
+pipe.vae.decode = torch.compile(
+pipe.vae.decode,
+mode
+"max-autotune"
+fullgraph
+True
+# trigger torch compilation
+print
+"🔦 running torch compilation (may take up to 20 minutes)..."
+pipe(
+"dummy prompt to trigger torch compilation"
+output_type
+"pil"
+num_inference_steps
+=NUM_INFERENCE_STEPS,
+# use ~50 for [dev], smaller for [schnell]
+).images[
+print
+"🔦 finished torch compilation"
+return
+pipe
+Copy
+Run Flux fast on H100s with torch.compile
+Setting up the image and dependencies
+Defining a parameterized Model inference class
+Calling our inference function
+Speeding up Flux with torch.compile
+Try this on Modal!
+You can run this example on Modal in 60 seconds.
+Create account to run
+After creating a free account, install the Modal Python package, and
+create an API token.
+install
+modal
+modal
+setup
+Copy
+Clone the
+modal-examples
+repository and run:
+clone
+https://github.com/modal-labs/modal-examples
+modal-examples
+modal
+06_gpu_and_ml/stable_diffusion/flux.py
+--no-compile
+Copy

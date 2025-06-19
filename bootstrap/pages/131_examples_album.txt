@@ -1,0 +1,61 @@
+URL: https://getbootstrap.com/docs/5.3/examples/album
+==================================================
+
+Album example
+Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.
+Main call to action
+Secondary action
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins
+Placeholder
+Thumbnail
+This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+View
+Edit
+9 mins

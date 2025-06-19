@@ -1,0 +1,11 @@
+URL: https://getbootstrap.com/docs/5.3/examples/sticky-footer
+==================================================
+
+Toggle theme
+Light
+Dark
+Auto
+Sticky footer
+Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.
+the sticky footer with a fixed navbar
+if need be, too.

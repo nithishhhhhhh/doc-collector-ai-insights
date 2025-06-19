@@ -1,0 +1,227 @@
+URL: https://modal.com/docs/examples/llm-voice-chat
+==================================================
+
+Featured
+Getting started
+Hello, world
+Simple web scraper
+Serving web endpoints
+Large language models (LLMs)
+Deploy an OpenAI-compatible LLM service with vLLM
+Run DeepSeek-R1 and Phi-4 with llama.cpp
+Low-latency, serverless TensorRT-LLM
+Run Vision-Language Models with SGLang
+Run a multimodal RAG chatbot to answer questions about PDFs
+Fine-tune an LLM to replace your CEO
+Images, video, & 3D
+Fine-tune Wan2.1 video models on your face
+Run Flux fast with torch.compile
+Fine-tune Flux with LoRA
+Animate images with LTX-Video
+Generate video clips with LTX-Video
+Generate video clips with Mochi
+Run Stable Diffusion with a CLI, API, and web UI
+Deploy ControlNet demos with Gradio
+Audio
+Run Text to Speech (TTS) with Chatterbox
+Deploy a Moshi voice chatbot
+Create music with MusicGen
+Real-time communication
+Serverless WebRTC
+Real-time audio transcription using Parakeet
+WebRTC quickstart with FastRTC
+Computational biology
+Fold proteins with Chai-1
+Build a protein-folding dashboard
+Fold proteins with Boltz-2
+Sandboxed code execution
+Run a LangGraph agent's code in a secure GPU sandbox
+Build a stateful, sandboxed code interpreter
+Run Node.js, Ruby, and more in a Sandbox
+Run a sandboxed Jupyter notebook
+Embeddings
+Embed millions of documents with TEI
+Turn satellite images into vectors and store them in MongoDB
+Parallel processing and job scheduling
+Transcribe podcasts with Whisper
+Deploy a Hacker News Slackbot
+Run a Document OCR job queue
+Serve a Document OCR web app
+Training models from scratch
+Train an SLM with early-stopping grid search over hyperparameters
+Run long, resumable training jobs
+Hosting popular libraries
+FastHTML: Deploy 100,000 multiplayer checkboxes
+YOLO: Fine-tune and serve computer vision models
+MultiOn: Create an agent for AI news
+Blender: Build a 3D render farm
+Streamlit: Run and deploy Streamlit apps
+ComfyUI: Run Flux on ComfyUI as an API
+SQLite: Publish explorable data with Datasette
+Algolia: Build docsearch with a crawler
+Connecting to other APIs
+Discord: Deploy and run a Discord Bot
+Google Sheets: Sync databases and APIs to a Google Sheet
+OpenAI: Run a RAG Q&A chatbot
+Tailscale: Add Modal Apps to your VPN
+Prometheus: Publish custom metrics with Pushgateway
+Managing data
+Mount S3 buckets in Modal apps
+Build your own data warehouse with DuckDB, DBT, and Modal
+Create a LoRA Playground with Modal, Gradio, and S3
+Miscellaneous
+QuiLLMan: Voice Chat with Moshi
+QuiLLMan
+is a complete voice chat application built on Modal: you speak and the chatbot speaks back!
+At the core is Kyutai Lab’s
+Moshi
+model, a speech-to-speech language model that will continuously listen, plan, and respond to the user.
+Thanks to bidirectional websocket streaming and
+Opus audio compression
+, response times on good internet can be nearly instantaneous, closely matching the cadence of human speech.
+You can find the demo live
+here
+Everything — from the React frontend to the model backend — is deployed serverlessly on Modal, allowing it to automatically scale and ensuring you only pay for the compute you use.
+This page provides a high-level walkthrough of the
+GitHub repo
+Code overview
+Traditionally, building a bidirectional streaming web application as compute-heavy as QuiLLMan would take a lot of work, and it’s especially difficult to make it robust and scale to handle many concurrent users.
+But with Modal, it’s as simple as writing two different classes and running a CLI command.
+Our project structure looks like this:
+Moshi Websocket Server
+: loads an instance of the Moshi model and maintains a bidirectional websocket connection with the client.
+React Frontend
+: runs client-side interaction logic.
+Let’s go through each of these components in more detail.
+FastAPI Server
+Both frontend and backend are served via a
+FastAPI Server
+, which is a popular Python web framework for building REST APIs.
+On Modal, a function or class method can be exposed as a web endpoint by decorating it with
+@app.asgi_app()
+and returning a FastAPI app. You’re then free to configure the FastAPI server however you like, including adding middleware, serving static files, and running websockets.
+Moshi Websocket Server
+Traditionally, a speech-to-speech chat app requires three distinct modules: speech-to-text, text-to-text, and text-to-speech. Passing data between these modules introduces bottlenecks, and can limit the speed of the app and forces a turn-by-turn conversation which can feel unnatural.
+Kyutai Lab’s
+Moshi
+bundles all modalities into one model, which decreases latency and makes for a much simpler app.
+Under the hood, Moshi uses the
+Mimi
+streaming encoder/decoder model to maintain an unbroken stream of audio in and out. The encoded audio is processed by a
+speech-text foundation model
+, which uses an internal monologue to determine when and how to respond.
+Using a streaming model introduces a few challenges not normally seen in inference backends:
+The model is
+stateful
+, meaning it maintains context of the conversation so far. This means a model instance cannot be shared between user conversations, so we must run a unique GPU per user session, which is normally not an easy feat!
+The model is
+streaming
+, so the interface around it is not as simple as a POST request. We must find a way to stream audio data in and out, and do it fast enough for seamless playback.
+We solve both of these in
+src/moshi.py
+, using a few Modal features.
+To solve statefulness, we just spin up a new GPU per concurrent user.
+That’s easy with Modal!
+@app.cls
+image
+=image,
+"A10G"
+scaledown_window
+class
+Moshi
+# ...
+Copy
+With this setting, if a new user connects, a new GPU instance is created! When any user disconnects, the state of their model is reset and that GPU instance is returned to the warm pool for re-use (for up to 300 seconds). Be aware that a GPU per user is not going to be cheap, but it’s the simplest way to ensure user sessions are isolated.
+For streaming, we use FastAPI’s support for bidirectional websockets. This allows clients to establish a single connection at the start of their session, and stream audio data both ways.
+Just as a FastAPI server can run from a Modal function, it can also be attached to a Modal class method, allowing us to couple a prewarmed Moshi model to a websocket session.
+@modal.asgi_app
+self
+from
+fastapi
+import
+FastAPI, Response, WebSocket, WebSocketDisconnect
+web_app = FastAPI()
+@web_app.websocket
+"/ws"
+async
+websocket
+: WebSocket):
+with
+torch.no_grad():
+await
+ws.accept()
+# handle user session
+# spawn loops for async IO
+async
+recv_loop
+while
+True
+data =
+await
+ws.receive_bytes()
+# send data into inference stream...
+async
+send_loop
+while
+True
+await
+asyncio.sleep(
+0.001
+msg =
+self
+.opus_stream_outbound.read_bytes()
+# send inference output to user ...
+Copy
+To run a
+development server
+for the Moshi module, run this command from the root of the repo.
+modal
+serve
+src.moshi
+Copy
+In the terminal output, you’ll find a URL for creating a websocket connection.
+React Frontend
+The frontend is a static React app, found in the
+src/frontend
+directory and served by
+src/app.py
+We use the
+Web Audio API
+to record audio from the user’s microphone and playback audio responses from the model.
+For efficient audio transmission, we use the
+Opus codec
+to compress audio across the network. Opus recording and playback are supported by the
+opus-recorder
+ogg-opus-decoder
+libraries.
+To serve the frontend assets, run this command from the root of the repo.
+modal
+serve
+src.app
+Copy
+Since
+src/app.py
+imports the
+src/moshi.py
+module, this
+serve
+command also serves the Moshi websocket server as its own endpoint.
+Deploy
+When you’re ready to go live, use the
+deploy
+command to deploy the app to Modal.
+modal
+deploy
+src.app
+Copy
+Steal this example
+The code for this entire example is
+available on GitHub
+, so feel free to fork it and make it your own!
+QuiLLMan: Voice Chat with Moshi
+Code overview
+FastAPI Server
+Moshi Websocket Server
+React Frontend
+Deploy
+Steal this example

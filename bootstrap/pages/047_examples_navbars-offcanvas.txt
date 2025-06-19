@@ -1,0 +1,9 @@
+URL: https://getbootstrap.com/docs/5.3/examples/navbars-offcanvas
+==================================================
+
+Navbar with offcanvas examples
+This example shows how responsive offcanvas menus work within the navbar. For positioning of navbars, checkout the
+fixed top
+examples.
+From the top down, you'll see a dark navbar, light navbar and a responsive navbar—each with offcanvases built in. Resize your browser window to the large breakpoint to see the toggle for the offcanvas.
+Learn more about offcanvas navbars »

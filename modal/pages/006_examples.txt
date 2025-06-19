@@ -1,0 +1,117 @@
+URL: https://modal.com/docs/examples
+==================================================
+
+Featured
+Getting started
+Hello, world
+Simple web scraper
+Serving web endpoints
+Large language models (LLMs)
+Deploy an OpenAI-compatible LLM service with vLLM
+Run DeepSeek-R1 and Phi-4 with llama.cpp
+Low-latency, serverless TensorRT-LLM
+Run Vision-Language Models with SGLang
+Run a multimodal RAG chatbot to answer questions about PDFs
+Fine-tune an LLM to replace your CEO
+Images, video, & 3D
+Fine-tune Wan2.1 video models on your face
+Run Flux fast with torch.compile
+Fine-tune Flux with LoRA
+Animate images with LTX-Video
+Generate video clips with LTX-Video
+Generate video clips with Mochi
+Run Stable Diffusion with a CLI, API, and web UI
+Deploy ControlNet demos with Gradio
+Audio
+Run Text to Speech (TTS) with Chatterbox
+Deploy a Moshi voice chatbot
+Create music with MusicGen
+Real-time communication
+Serverless WebRTC
+Real-time audio transcription using Parakeet
+WebRTC quickstart with FastRTC
+Computational biology
+Fold proteins with Chai-1
+Build a protein-folding dashboard
+Fold proteins with Boltz-2
+Sandboxed code execution
+Run a LangGraph agent's code in a secure GPU sandbox
+Build a stateful, sandboxed code interpreter
+Run Node.js, Ruby, and more in a Sandbox
+Run a sandboxed Jupyter notebook
+Embeddings
+Embed millions of documents with TEI
+Turn satellite images into vectors and store them in MongoDB
+Parallel processing and job scheduling
+Transcribe podcasts with Whisper
+Deploy a Hacker News Slackbot
+Run a Document OCR job queue
+Serve a Document OCR web app
+Training models from scratch
+Train an SLM with early-stopping grid search over hyperparameters
+Run long, resumable training jobs
+Hosting popular libraries
+FastHTML: Deploy 100,000 multiplayer checkboxes
+YOLO: Fine-tune and serve computer vision models
+MultiOn: Create an agent for AI news
+Blender: Build a 3D render farm
+Streamlit: Run and deploy Streamlit apps
+ComfyUI: Run Flux on ComfyUI as an API
+SQLite: Publish explorable data with Datasette
+Algolia: Build docsearch with a crawler
+Connecting to other APIs
+Discord: Deploy and run a Discord Bot
+Google Sheets: Sync databases and APIs to a Google Sheet
+OpenAI: Run a RAG Q&A chatbot
+Tailscale: Add Modal Apps to your VPN
+Prometheus: Publish custom metrics with Pushgateway
+Managing data
+Mount S3 buckets in Modal apps
+Build your own data warehouse with DuckDB, DBT, and Modal
+Create a LoRA Playground with Modal, Gradio, and S3
+Miscellaneous
+Featured Examples
+Featured
+Images, video & 3D
+Fine-tuning
+Language modeling
+Batch processing
+Audio
+Sandboxed code execution
+Computational biology
+Deploy an OpenAI-compatible LLM service
+Run large language models with a drop-in replacement for the OpenAI API.
+Custom pet art from Flux with Hugging Face and Gradio
+Fine-tune an image generation model on pictures of your pet.
+Run llama.cpp
+Run DeepSeek-R1 and Phi-4 on llama.cpp
+Voice chat with LLMs
+Build an interactive voice chat app.
+Serve diffusion models
+Serve Flux on Modal with a number of optimizations for blazingly fast inference.
+Fold proteins with Chai-1
+Predict molecular structures from sequences with SotA open source models.
+Serverless TensorRT-LLM (LLaMA 3 8B)
+Run interactive language model applications.
+Star in custom music videos
+Fine-tune a Wan2.1 video model on your face and run it in parallel
+Create music
+Turn prompts into music with MusicGen
+Sandbox a LangGraph agent's code
+Run an LLM coding agent that runs its own language models.
+RAG Chat with PDFs
+Use ColBERT-style, multimodal embeddings with a Vision-Language Model to answer questions about documents.
+Bring images to life
+Prompt a generative video model to animate an image.
+Fast podcast transcriptions
+Build an end-to-end podcast transcription app that leverages dozens of containers for super-fast processing.
+Build a protein folding dashboard
+Serve a web UI for a protein model with ESM3, Molstar, and Gradio
+Deploy a Hacker News Slackbot
+Periodically post new Hacker News posts to Slack.
+Retrieval-Augmented Generation (RAG) for Q&A
+Build a question-answering web endpoint that can cite its sources.
+Document OCR job queue
+Use Modal as an infinitely scalable job queue that can service async tasks from a web app.
+Parallel processing of Parquet files on S3
+Analyze data from the Taxi and Limousine Commission of NYC in parallel.

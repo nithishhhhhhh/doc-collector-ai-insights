@@ -1,0 +1,64 @@
+URL: https://modal.com/docs
+==================================================
+
+Modal Documentation
+Modal provides a serverless cloud for engineers and researchers who want
+to build compute-intensive applications without thinking about
+infrastructure.
+Run generative AI models, large-scale batch workflows, job queues, and more,
+all faster than ever before.
+Try the playground
+Guide
+Everything you need to know to run code on Modal. Dive deep into all of our features and best practices.
+Examples
+Powerful applications built with Modal. Explore guided starting points for your use case.
+Reference
+Technical information about the Modal API. Quickly refer to basic descriptions of various programming functionalities.
+Playground
+Interactive tutorials to learn how to start using Modal. Run serverless cloud functions from your browser.
+Guide
+Everything you need to know to run code on Modal. Dive deep into all of our features and best practices.
+Examples
+Powerful applications built with Modal. Explore guided starting points for your use case.
+Reference
+Technical information about the Modal API. Quickly refer to basic descriptions of various programming functionalities.
+Playground
+Interactive tutorials to learn how to start using Modal. Run serverless cloud functions from your browser.
+Featured Examples
+View all
+Deploy an OpenAI-compatible LLM service
+Run large language models with a drop-in replacement for the OpenAI API.
+Custom pet art from Flux with Hugging Face and Gradio
+Fine-tune an image generation model on pictures of your pet.
+Run llama.cpp
+Run DeepSeek-R1 and Phi-4 on llama.cpp
+Voice chat with LLMs
+Build an interactive voice chat app.
+Serve diffusion models
+Serve Flux on Modal with a number of optimizations for blazingly fast inference.
+Fold proteins with Chai-1
+Predict molecular structures from sequences with SotA open source models.
+Serverless TensorRT-LLM (LLaMA 3 8B)
+Run interactive language model applications.
+Star in custom music videos
+Fine-tune a Wan2.1 video model on your face and run it in parallel
+Create music
+Turn prompts into music with MusicGen
+Sandbox a LangGraph agent's code
+Run an LLM coding agent that runs its own language models.
+RAG Chat with PDFs
+Use ColBERT-style, multimodal embeddings with a Vision-Language Model to answer questions about documents.
+Bring images to life
+Prompt a generative video model to animate an image.
+Fast podcast transcriptions
+Build an end-to-end podcast transcription app that leverages dozens of containers for super-fast processing.
+Build a protein folding dashboard
+Serve a web UI for a protein model with ESM3, Molstar, and Gradio
+Deploy a Hacker News Slackbot
+Periodically post new Hacker News posts to Slack.
+Retrieval-Augmented Generation (RAG) for Q&A
+Build a question-answering web endpoint that can cite its sources.
+Document OCR job queue
+Use Modal as an infinitely scalable job queue that can service async tasks from a web app.
+Parallel processing of Parquet files on S3
+Analyze data from the Taxi and Limousine Commission of NYC in parallel.

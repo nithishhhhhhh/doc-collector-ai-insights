@@ -1,0 +1,171 @@
+URL: https://modal.com/docs/reference
+==================================================
+
+Changelog
+API Reference
+modal.App
+modal.Client
+modal.CloudBucketMount
+modal.Cls
+modal.Cron
+modal.Dict
+modal.Error
+modal.FilePatternMatcher
+modal.Function
+modal.FunctionCall
+modal.Image
+modal.NetworkFileSystem
+modal.Period
+modal.Proxy
+modal.Queue
+modal.Retries
+modal.Sandbox
+modal.SandboxSnapshot
+modal.Secret
+modal.Tunnel
+modal.Volume
+modal.asgi_app
+modal.batched
+modal.call_graph
+modal.concurrent
+modal.container_process
+modal.current_function_call_id
+modal.current_input_id
+modal.enable_output
+modal.enter
+modal.exit
+modal.fastapi_endpoint
+modal.file_io
+modal.forward
+modal.gpu
+modal.interact
+modal.io_streams
+modal.is_local
+modal.method
+modal.parameter
+modal.web_endpoint
+modal.web_server
+modal.wsgi_app
+modal.exception
+modal.config
+CLI Reference
+modal app
+modal config
+modal container
+modal deploy
+modal dict
+modal environment
+modal launch
+modal nfs
+modal profile
+modal queue
+modal run
+modal secret
+modal serve
+modal setup
+modal shell
+modal token
+modal volume
+API Reference
+This is the API reference for the
+modal
+Python package, which allows you to run distributed applications on Modal.
+The reference is intended to be limited to low-level descriptions of various
+programmatic functionality. If you’re just getting started with Modal, we would
+instead recommend looking at the
+guide
+first
+or to get started quickly with an
+example
+Application construction
+The main unit of deployment for code on Modal
+App.function
+Decorator for registering a function with an App
+App.cls
+Decorator for registering a class with an App
+Serverless execution
+Function
+A serverless function backed by an autoscaling container pool
+A serverless class supporting parametrization and lifecycle hooks
+Extended Function configuration
+Class parametrization
+parameter
+Used to define class parameters, akin to a Dataclass field
+Lifecycle hooks
+enter
+Decorator for a method that will be executed during container startup
+exit
+Decorator for a method that will be executed during container shutdown
+method
+Decorator for exposing a method as an invokable function
+Web integrations
+fastapi_endpoint
+Decorator for exposing a simple FastAPI-based endpoint
+asgi_app
+Decorator for functions that construct an ASGI web application
+wsgi_app
+Decorator for functions that construct a WSGI web application
+web_server
+Decorator for functions that construct an HTTP web server
+Function semantics
+batched
+Decorator that enables
+dynamic input batching
+concurrent
+Decorator that enables
+input concurrency
+Scheduling
+Cron
+A schedule that runs based on cron syntax
+Period
+A schedule that runs at a fixed interval
+Exception handling
+Retries
+Function retry policy for input failures
+Sandboxed execution
+Sandbox
+An interface for restricted code execution
+ContainerProcess
+An object representing a sandboxed process
+FileIO
+A handle for a file in the Sandbox filesystem
+Container configuration
+Image
+An API for specifying container images
+Secret
+A pointer to secrets that will be exposed as environment variables
+Data primitives
+Persistent storage
+Volume
+Distributed storage supporting highly performant parallel reads
+CloudBucketMount
+Storage backed by a third-party cloud bucket (S3, etc.)
+NetworkFileSystem
+Shared, writeable cloud storage (superseded by
+modal.Volume
+In-memory storage
+Dict
+A distributed key-value store
+Queue
+A distributed FIFO queue
+Networking
+Proxy
+An object that provides a static outbound IP address for containers
+forward
+A context manager for publicly exposing a port from a container
+API Reference
+Application construction
+Serverless execution
+Extended Function configuration
+Class parametrization
+Lifecycle hooks
+Web integrations
+Function semantics
+Scheduling
+Exception handling
+Sandboxed execution
+Container configuration
+Data primitives
+Persistent storage
+In-memory storage
+Networking
