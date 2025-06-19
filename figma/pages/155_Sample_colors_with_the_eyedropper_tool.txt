@@ -1,0 +1,88 @@
+URL: https://help.figma.com/hc/en-us/articles/27643269375767-Sample-colors-with-the-eyedropper-tool
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+all plans
+Anyone with
+can edit
+access to a design file can use the eyedropper tool.
+Use the eyedropper tool to apply colors to layers by sampling colors from any layer, image, or background image of a page. You can even sample, apply, and create color variables and color styles using the eyedropper.
+Toggle the eyedropper tool
+There are a couple of ways to toggle the eyedropper tool depending on the property for which you want to update the color.
+Toggle eyedropper for color fill property
+Select the layer you wish to edit.
+Select the eyedropper tool by using the keyboard shortcut:
+Mac:
+⌃ Control
+Windows:
+Note:
+If you’re using Mac, you can also use
+⌃ Control
+to toggle the eyedropper tool. This can be useful if, for example, you’re editing a text layer and want to toggle the eyedropper tool without adding text content.
+Toggle eyedropper for other properties
+This method works for all properties containing color, such as
+stroke
+shadow effects
+, and
+colors in a mixed selection
+Select layer you wish to edit.
+In the right sidebar, find the property you wish to edit and click the color swatch to open the color picker.
+From the color picker, click the
+Eyedropper
+icon or use the keyboard shortcut:
+Mac:
+⌃ Control
+Windows:
+Sample and apply a color
+With the eyedropper tool toggled, you can sample and apply colors from any layer or background of the current page. You can also sample and apply color variables and color styles.
+Raw color value
+Select the layer you want to edit.
+Toggle the eyedropper tool, then hover over a layer to view information about the color’s appearance, color, and value. If desired, you can
+switch between different color models
+Click on the color to apply it to the selected layer.
+Color variable or style
+You can use the eyedropper tool to sample a color variable or style and apply it to a selected layer.
+Select the layer you want to edit.
+Toggle the eyedropper tool, then hover over a pixel containing a color variable or color style.
+While holding
+⇧ Shift
+, click on the layer to apply the variable or style to the selected layer.
+Switch between color models
+While sampling a color with the eyedropper tool, you can press
+Tab
+on your keyboard to switch to view the color values in a different color model.
+You can switch between Hex, RGB, HSL, and HSB. Learn more
+about color models
+Create a color variable or style
+You can use the eyedropper tool to create a color variable or style from a sampled color.
+Toggle the eyedropper tool.
+Hold the following keyboard shortcut:
+Mac:
+⌘ Command
+⇧ Shift
+Windows:
+⌃ Control
+⇧ Shift
+While holding the shortcut, press
+Enter
+or click on the color from which you wish to create a color variable or style. .
+From the modal, use the tabs to choose whether to create a
+Style
+Variable
+Fill out the fields and press
+Create
+. This will create the style or variable and apply it to the selected layer.
+Copy a color to the clipboard
+To copy the color values of a sampled pixel:
+Deselect everything on the canvas by pressing
+Esc
+on your keyboard.
+Toggle the eyedropper tool.
+If desired, press
+Tab
+to switch to a different color model.
+Click anywhere to copy the color information to your clipboard. If a color variable or color style is applied, you can hold
+⇧ Shift
+to copy the variable or style name and color value.

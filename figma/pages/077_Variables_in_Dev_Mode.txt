@@ -1,0 +1,89 @@
+URL: https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode
+==================================================
+
+As a developer, when you’re reviewing designs in Dev Mode, you’ll encounter color, number, string, and boolean variables. The values of those variables can be dependent on things like the variable mode, which sometimes makes it harder to identify the exact values you want to pull from the design.
+Figma provides a few options in Dev Mode to make working with variables easier for developers:
+Variable details
+Suggested variables
+Access local variable collections
+Variable details
+When you're inspecting a design in Dev Mode, you can view details about variables used in the design. The
+Variable details
+modal lists information about a variable including:
+The name of the variable
+A link to the file that hosts the variable
+The name of the variable collection that contains the variable
+The variable’s mode
+The variable’s value and, if relevant, the chain of aliases to a raw value
+The scope of the variable (where it can be used)
+A code snippet for using the variable
+A useful feature is the ability to follow the a chain of
+variable aliases
+back to a specific value. For example, in the previous image, the
+Background/Positive/Default
+variable uses
+Green/500
+as an alias, which corresponds to the color value
+#14AE5C
+Using the
+Variable details
+modal, you can also change modes, letting you see the other values the variable can have.
+Open the Variable details modal
+There are two ways to open the
+Variable details
+modal:
+For variables that appear in a code snippet, such as design tokens in CSS, click on the variable name in the in the
+Inspect
+panel to open the
+Variable details
+modal.
+For other variables, such as those that appear in the
+Selection colors
+section, click
+Variable details
+in the
+Inspect
+panel to open the
+Variable details
+modal.
+Suggested variables
+In Dev Mode, when you’re inspecting a design, you’ll sometimes encounter raw values rather than variables or styles. This can happen for a number of reasons, such as if a designer happened to detach a variable during the design phase. When you encounter a raw value, you may want to see if there’s an existing variable that should be used instead.
+To help make identifying corresponding variables easier, Dev Mode can suggest variables.
+To suggest a variable, the variable must have:
+Exactly the same value
+The appropriate scope
+You can click a suggested variable to copy the name.
+Get suggested variables
+To get suggested variables for a value in Dev Mode, in the
+Inspect
+panel, click the value you want to get a suggestion for. The
+Suggested variables
+modal appears next to the value you clicked.
+Access local variable collections
+In Dev Mode, you can access and view the local variable collections in the file.
+For example, in the previous image, in the
+Collections from this file
+section, the
+Color Primitives
+variable collection is selected. These names are just examples — the actual collection and variable names correspond to the local variables and collections in your file.
+Below the
+Collections from this file
+section is a list of all the variable groups that appear in the collection, such as
+Brand
+Black
+, and
+White
+. By default,
+All variables
+is selected. The groups are ordered the same way they’re organized in the
+Variables modal
+For the group that’s selected, the variables table displays the variables, along with the values for each mode a variable has. If you have
+All variables
+selected, the table is organized by group.
+You can click on individual variables and values to copy them to your clipboard and to view details about the variable.
+Open the variables table
+When you have no layers selected in Dev Mode, you can open a table of all variables that were created in your file. To open the variables table, in the
+Variables
+section of the inspect panel, click
+Open variables table
+. The variables table expands to fill the canvas.

@@ -1,0 +1,51 @@
+URL: https://help.figma.com/hc/en-us/articles/360038665754-Detach-an-instance-from-the-component
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any paid plan
+Anyone with
+can edit
+access to a file can detach component instances
+You can detach any instance from its main component. This is useful if you want to make changes to the component that
+aren't supported by overrides
+Or, if you want to create a variation of a component from your changes.
+When you detach an instance, Figma will:
+Make the instance a regular frame, while keeping the current layers and properties.
+Remove the link to the original component.
+No longer apply any changes made to the component, to that object.
+Note:
+Figma Organizations can
+track how often instances are detached with Design System Analytics
+Instance menu
+Select the instance you wish to detach.
+Click on the instance menu in the Properties Panel.
+Select
+Detach instance
+from the menu.
+Right-click menu
+Right-click on the instance on the canvas or in the Layers Panel.
+Select
+Detach instance
+from the options:
+Keyboard shortcuts
+You can quickly detach instances using the keyboard shortcut:
+Mac:
+⌥ Option
+⌘ Command
+Windows:
+Control
+Alt
+Tip:
+Accidentally created a component? You can turn this back into an instance.
+This allows you to keep the object(s) you created, without having them as components.
+If you just created the component you can undo it right away using the shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+If you want to revert something that's been a component for a while:
+Create an instance of the new component.
+Detach the instance from the component.
+Delete the original component.

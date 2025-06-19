@@ -1,0 +1,12 @@
+URL: https://docs.pydantic.dev/2.11/api/pydantic_extra_types_semantic_version/
+==================================================
+
+Semantic Version
+SemanticVersion definition that is based on the Semantiv Versioning Specification
+semver
+SemanticVersion
+Semantic version based on the official
+semver thread
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

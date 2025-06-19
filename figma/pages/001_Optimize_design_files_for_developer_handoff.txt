@@ -1,0 +1,83 @@
+URL: https://help.figma.com/hc/en-us/articles/360040521453-Optimize-design-files-for-developer-handoff
+==================================================
+
+Before you Start
+Who can use this feature
+Users on
+any team or plan
+Users with
+can edit
+access to a file can set up files for developer handoff
+Users with
+can view
+access to a file can only access the
+Inspect
+panel and the layers list
+Want to learn how other companies are approaching Developer Handoff?  Check out our blog post:
+A Guide to Developer Handoff
+While handing off designs to developers frequently happens after a major project milestone, here are some things you can do earlier in the design process to set up your files to improve handoff.
+Set up files for Collaboration
+There are lots of different ways to collaborate in Figma. We've rounded up a few tips that we've used ourselves, or seen in action.
+Files
+Right-click any frame and
+set a custom thumbnail
+so you can identify files at a glance. The thumbnail can also include information such as the project's current status.
+Link to Figma Design files
+in your project specification documents or project plans.
+Create "sticky note" components
+and add them to the canvas to explain or draw attention to design decisions.
+Apply Export Settings
+to frames, Components and Assets your Developers may need to export for the final production build.
+Pages
+Name pages
+descriptively to let others know what's ready for development.
+Create a single page with Instances of all your components. Collaborators only have to check this page, as you make changes to your components.
+Right-click on a component and choose
+Move to Page
+or check out the
+Component Page
+plugin.
+Sections
+Organize files with sections
+for easier navigation.
+Mark content as “Ready for development” to help with developer handoff.
+Styles and components
+Give
+Styles
+relevant and descriptive names.
+Add component documentation to your design system. Collaborators can use
+Go to Main Component
+to learn more about how to use it.
+Name layers and components based on their IDs
+Add meaningful descriptions to components
+When and how collaborators can use them
+Any variants or states
+Accessibility and contrast guidance
+Want to a bit more detail?
+Check out our
+Tips for a better developer workflow
+post.
+Invite collaborators to files and prototypes
+You can invite collaborators to a prototype, or to the file itself.
+Share a prototype
+Invite a collaborator to a file
+When inviting someone to a file, you can choose to give them
+can view
+can edit
+access. In most situations, inviting a collaborator with
+can view
+access will be enough.
+Users with view access can:
+Select layers from the Layers panel or canvas
+View properties of selected layers in the Inspect panel
+Copy text content from Text objects
+Measure distances between objects in the canvas
+Add or reply to comments in files and prototypes
+View Prototypes in Presentation View
+Access components via the Go to Main Component link
+Link Dev resources to layers in Dev Mode
+Note:
+You have the option to
+allow users with view access to copy and share
+the contents of a file. If you enable this, those with view access will not be able to explore or export assets from a file.
+Learn how to view code for your designs →

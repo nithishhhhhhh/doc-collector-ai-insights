@@ -1,0 +1,30 @@
+URL: https://help.figma.com/hc/en-us/articles/31616030150167-Use-patterns-as-a-fill-or-stroke
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access to a file can apply fills and strokes
+You can use a pattern as a layer’s fill or stroke. The pattern’s source references another object on the canvas in the same file. This could be a single layer, or multiple layers in a group or frame.
+Change a layer’s fill or stroke to a pattern
+Select a layer on the canvas.
+Click the swatch in the
+Fill
+section of the right sidebar to open the color picker.
+Select
+Pattern
+from the fill options.
+Click
+Select source
+, then select another object on the canvas.
+Use the pattern options to set the tile type, scale, spacing, alignment, and opacity.
+Pattern fills are dynamic. If you update the pattern’s source object, the pattern will automatically update on each layer where its used.
+Tip:
+You can use
+transforms
+and
+boolean operations
+to create unique shapes for your patterns.

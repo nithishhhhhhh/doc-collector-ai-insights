@@ -1,0 +1,128 @@
+URL: https://help.figma.com/hc/en-us/articles/24037724065943-Start-designing-with-UI-kits
+==================================================
+
+Before you Start
+Who can use this feature
+Available in Figma Design files on
+all plans
+Anyone with
+can edit
+access
+UI kits are a set of libraries curated by Figma and partners, optionally available from the assets tab in Figma Design files.
+UI kits contain high-quality components, styles, variables, and example screens to kick-start your designs, even if you don’t have a design system of your own. They behave just like any other library in Figma, in that you can pull assets onto your canvas directly from the assets tab.
+There are three UI kits available:
+iOS and iPadOS 18
+by Apple*
+Material 3 Design Kit
+by Google
+Simple Design System
+by Figma
+Unlike other Community resources, updates to UI kits are automatically available in your design files where you have the option to accept the updates.
+Each UI kit also supports Code Connect for those on Professional, Organization, and Enterprise plans, so you can grab code to assets at any time.
+*Before you use Apple's UI kit
+Apple requires users to accept an end user licensing agreement (EULA) before using their kit.
+Learn more →
+Find and use UI kits
+UI kits are automatically enabled on Starter teams. They are optionally available for Professional, Organization, and Enterprise plans.
+Admins may toggle access to UI kits
+for their team or organization.
+From the Assets tab
+You can access UI kits from the
+Assets
+tab in the left panel/sidebar of a design file. How you access UI kits depends on your plan:
+Starter
+Professional, Organization, and Enterprise
+UI kits are enabled on all design files in a Starter team. From the file, UI kits are listed at the top of the libraries list in the
+Assets
+tab. Double-click a UI kit to open it to browse through the available assets.
+For design files within Professional teams and organizations, UI kits can be added to individual files:
+Select the
+Assets
+tab in the left sidebar.
+Click
+Libraries
+to open the
+Libraries
+modal. The tooltip may read
+Review library updates
+if there are updates to libraries you are using in the file, or
+Review unpublished changes
+if you have unpublished updates in your file.
+Select
+UI kits
+in the sidebar.
+Click
+Add to file
+next to the UI kit you want to enable in the file. To remove from the file, click
+Remove
+Once UI kits are added to a file, you can access them in the Assets tab at the bottom of the list of libraries.
+If you don’t see UI kits in the Assets tab, make sure you have
+can edit
+access to the file and that
+UI kits are enabled
+by your team or organization admin.
+Once you’ve accessed the UI kit, you can use it like you would any Figma library, such as inserting components onto the canvas, swapping instances, and customizing component variants before inserting.
+From the Community
+UI kits can also be accessed in the
+Figma Community
+Open the Community page for the UI kit that you want to use.
+Click
+Open in Figma
+From the prompt window, choose
+Show kit in Figma
+If you belong to one or more team or organization, you’ll be asked to choose a space to create a new draft.
+Make a copy
+You can make a copy of a UI kit to edit its assets or browse the design system.
+Open the UI kit’s Community page.
+Click
+Open in Figma.
+From the prompt window, choose
+Make a new copy
+In the next prompt, choose the team or organization you want the copy to live in.
+Once you choose a team or organization, a copy of the kit will be added to the draft folder of that space.
+Receive updates
+Note:
+Copies of UI kits will not receive updates from the creators if there are updates to the library. If you want to use assets from the kit and receive updates to them, use assets directly from the UI kit.
+Updates to UI kits are managed by the UI kit authors. If an author publishes updates to their UI kit, you’ll have the option to accept the updates from within individual design files.
+To view and accept updates to a UI kit, check the
+Library updates
+modal from any design file.
+Manage access to UI kits (admins only)
+Admins can control the level of access to UI kits for their team or organization in two different ways:
+global setting
+to enable or disable the UI kit feature for an entire team or organization (paid plans only)
+Individual settings to
+toggle specific UI kits
+on or off for a team
+Toggle UI kits globally
+If you’re a team admin for a Professional team or admin for an organization, you can toggle the UI kits feature globally for your entire team or organization.
+When the UI kits feature is disabled globally, you won't be able to add individual UI kits to files and their assets won't be discoverable. However, team members can still
+make a copy of UI kits
+from the Community and use the assets from the duplicated file.
+Open your team or organization space in the file browser.
+Click
+Admin
+from the left sidebar.
+Open the
+Settings
+tab, and go to
+Resources
+UI kit
+Use the toggle to enable or disable the UI kits feature. This setting applies to all files within the team or organization.
+Toggle individual UI kits for a team
+Team admins can toggle individual UI kits from their team’s default libraries settings. These settings apply to all files within the team by default.
+When an individual UI kit is disabled, assets from the UI kit are still discoverable and team members can still
+add the UI kit to a file
+for use.
+If your team is part of an organization or is on a Professional plan, UI kits will need to be
+enabled globally
+in order for to access individual settings.
+Open your team in the file browser.
+Open the dropdown next to the team name and click
+View settings
+From the settings modal, go to click
+View team libraries
+Open the
+UI kits
+tab.
+Use the dropdowns next to the UI kit’s name to turn it on or off. These settings apply to all files within that team.

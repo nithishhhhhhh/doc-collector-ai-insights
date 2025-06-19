@@ -1,0 +1,155 @@
+URL: https://help.figma.com/hc/en-us/articles/14397859494295-State-management-for-prototypes
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any team or plan
+Anyone with
+can edit
+access to a file can create prototypes.
+In prototypes, we want our interactions to feel as much like the real thing as possible—especially when moving back and forth across multiple frames.
+State management
+allows us to maintain object properties and states when navigating in and across frames when playing prototypes.
+State management can be used with
+interactive components
+scroll position
+, and
+videos in prototypes
+in three ways:
+State memorization:
+Preserve the state of an object when you leave and return to the frame
+State sharing:
+Share states between matching objects in different frames
+State reset:
+Reset object states on each interaction
+In order to share states across frames,
+objects must match
+Updates to preserve scroll position
+We’ve made updates to the
+Preserve scroll position
+setting. Scroll position of top-level frames is now preserved automatically, as long as the top-level frame names have identical names or a shared prefix.
+Bulk rename layers
+to add a shared prefix.
+Learn more about
+preserving scroll position →
+State memorization
+When you navigate back and forth between frames, objects re-open in their last set state.
+Interactive components
+Figma memorizes the last set variant of your interactive component.
+For example, you might have an interactive component for a checkbox. If you set the interactive component to the checked variant, Figma remembers the state of that variant. This means that if you navigate away from that frame and come back to it later, the interactive component will remain in the checked state.
+Scroll position
+Figma memorizes your scroll position.
+For example, you might have a map with horizontal and vertical scrolling enabled. If you scroll to a specific location on the map, Figma remembers the position of your scroll. This means that if you navigate away from that frame and come back to it later, you will remain scrolled to the same location on the map.
+Videos
+Figma memorizes the play state of any videos used in your prototypes.
+For example, you might start playing a video on one frame. When you get to the 5 second mark, you navigate to another frame. If you go back to the original frame, the video will continue playing from the 5 second mark, right where you left off.
+State sharing
+When you navigate between frames with
+matching objects
+, the state of the first object is shared with the second object.
+Interactive components
+Figma shares states between matching interactive components. States are only shared after the component has been initially interacted with.
+For example, you might have an interactive component for a checkbox, with an instance of the unchecked variant on each of two frames. When you play your prototype, you check the checkbox in the first frame. Then, when you navigate to the second frame, the matching component on the second frame will also be set to the checked variant.
+Scroll position
+Figma shares scroll position between matching objects.
+For example, you might have a map with horizontal and vertical scrolling enabled on each of two frames. If you scroll to a specific location on the map, then navigate to the second frame, the matching map object on the second frame will be scrolled to the same location.
+Videos
+Figma shares video play state between matching objects.
+For example, you might start playing a video on one frame. When you navigate to a second frame with a matching video object, the video on the second frame will continue playing from where you left off.
+State reset
+When users are navigating through prototypes, an object’s state may need to be reset on specific interactions. Object states should be reset on the interaction that navigates to the next frame.
+Click on a prototype connection to open the
+Interaction details
+panel.
+In the
+State Management
+section of the panel, check off any of the following settings:
+Reset scroll position
+: Reset to original scroll location
+Reset component state
+: Reset to original component state, as set on the canvas
+Reset video state
+: Restart the video from the beginning, and reset to its original play state
+Note:
+The reset settings only appear on the
+Interaction details
+panel if they are relevant to the currently selected interaction. For example, if the interaction connects to a frame without a video, there won’t be a
+Reset video state
+setting.
+Interactive components
+Reset interactive component states to their original state, as set on the canvas.
+For example, you might have an interactive component for a loading bar with
+empty
+and
+complete
+variants.
+You want the loading bar to restart on the
+empty
+variant when the user clicks a reload button, so you check off the
+Reset component state
+setting on the button interaction.
+Scroll position
+Use
+Reset scroll position
+to return to the original scroll location, as set on the canvas.
+For example, you might have a map with horizontal and vertical scrolling enabled. You want to return to the original scroll location when navigating between frames, so you check off the
+Reset scroll position
+setting on the interaction.
+Videos
+Restart the video from the beginning, and reset to its original play state, as set on canvas.
+For example, you might start playing a video on one frame. When you get to the 5 second mark, you navigate to another frame. When you return to the original frame, you want to restart the video from the beginning, so you check off the
+Reset video state
+setting on the interaction.
+Matching objects
+In order to share states across frames, objects must match.
+Learn more about
+matching objects →
+To identify objects that match between frames:
+Open the
+Prototype
+tab in the right sidebar.
+Hover over an object or layer in the canvas.
+Figma will highlight the matching object in any other frames it exists in.
+Nested objects
+Objects are considered matching if they have the same layer name and the same
+set of parents
+across top-level frames.
+Tip:
+If you don’t want the state to be shared across two objects, you can rename them so they no longer match.
+Top-level frames
+Top-level frames are frames directly placed on the canvas. Since top-level frames don’t have parent objects, you can match them by doing one of the following:
+Use identical layer names
+Use layer names with matching strings and forward slashes. For example, a top-level frame with the name
+Checkout / 1
+will match another top-level frame with the name
+Checkout /
+, since everything before the forward slash is identical.
+Tip:
+Need to rename layers? Learn how to
+rename layers in bulk →
+Update to new state management
+Figma updated to its current state management controls on May 24, 2023.
+For prototype interactions that were created before May 24, 2023:
+Interactive components cannot share states across frames
+Scrolling objects cannot memorize their state when re-opened
+Scrolling objects can share states across frames
+only
+the
+Preserve scroll position
+setting is checked
+Note:
+In new interactions, scroll position is shared automatically, as long as
+object names match across frames
+Learn more about
+preserving scroll position and transitioning to new state management →
+To update any older interactions to the new state management controls:
+Click on a prototype connection to open the
+Interaction details
+panel.
+Click
+Update
+Tip:
+Once you update an interaction, a success message appears at the bottom of the canvas. Click the
+Update all
+button on the success message banner in order to update all other interactions in the file.

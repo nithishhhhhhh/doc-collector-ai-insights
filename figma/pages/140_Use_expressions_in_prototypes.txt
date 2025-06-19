@@ -1,0 +1,285 @@
+URL: https://help.figma.com/hc/en-us/articles/15253194385943-Use-expressions-in-prototypes
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any paid plan
+Anyone with
+can edit
+access to a file can create prototypes.
+Anyone with
+can view
+can view prototypes only
+access to a file can view prototypes.
+Prototyping with variables allows you to create realistic prototypes that change based on user selection, using only a few simple frames and interactions.
+Expressions can help make your prototypes even more powerful. With expressions, you can generate dynamic string or number values, or even evaluate boolean expressions.
+Prototyping with expressions makes it possible to do things such as:
+Create a shopping cart that calculates purchase total
+Build objects that scale in size, like volume or progress bars
+Combine and build new text strings based on user selection
+New to variables? Learn more here:
+Guide to variables →
+Use variables in prototypes →
+Want to get more hands-on practice?
+Check out the
+advanced prototyping playground file →
+Looking for more examples of how you can use variables in prototypes? Check out some more
+advanced prototyping examples →
+Where to use expressions
+Expressions provide a way to manipulate the values of variables with basic operations. They can be used in:
+The
+Set variable
+prototype action, if the selected variable is a number, string, or boolean type
+The
+Conditional
+prototype action, as a part of a
+conditional statement
+You can write expressions directly in the following fields on the
+Interaction details
+modal:
+[Set variable] to
+: Enter an expression to represent the new value of the selected variable
+[Conditional] if
+: Enter a boolean expression to represent the condition required for the action
+To build expressions in your prototype, you can either write them directly in the available fields using supported syntax, or use the selection panel to choose from suggested variables and operators.
+Once your expression is complete, press
+Enter
+Return
+. Only expressions written with supported operations and syntax will work. Invalid expressions will be outlined in red.
+Write expressions
+Expressions are made up of values and operators.
+Operators
+represent the function you are performing or evaluating (such as addition or subtraction)
+Values
+are the items that the operators are performing on or evaluating
+For example, take a look at the following expression:
+variableName + 2
+In this example, the operator is addition, represented by the + plus symbol. The values are
+variableName
+and
+The expression type determines which values and operators are available.
+Numerical expressions
+Numerical expressions can be written with the following value types:
+Number variables
+Number literals (such as 0.5, 1, 10)
+The following operators can be used in numerical expressions:
+Operation
+Symbol
+Addition
+Subtraction
+Multiplication
+Division
+String expressions
+String expressions can be written with the following value types:
+String literals (such as "John Doe”, “item 2”, “5”)
+Number literals
+String and number variables
+String literals must be contained in quotations. Number values can be added on to a string value.
+The following operator can be used in string expressions:
+Operation
+Symbol
+Add to string
+Boolean expressions
+Boolean expressions can be written with the following value types:
+Boolean literals (true, false)
+Number literals
+String literals
+Boolean, string, and number variables
+The following operators can be used in boolean expressions:
+Operation
+Symbol
+Equal to
+Not equal to
+And
+and
+Greater than
+Less than
+Greater than or equal to
+Less than or equal to
+Addition**
+Subtraction**
+Multiplication**
+Division**
+Add to string**
+** Numerical and string operators are not used to evaluate boolean expressions, but can be used as supporting operators in
+complex expressions
+Boolean expressions must resolve to a
+true
+false
+value. When setting a boolean variable with an expression, the result of the expression is evaluated to have either a true or false value—therefore setting the new value of the boolean variable.
+For example, take a look at the simple interaction and expression below:
+Set itemCount to 0
+itemCount > 5
+The value of
+itemCount
+, which is not greater than
+. Therefore, the value of this expression is
+false
+. However, now take a look at the following example:
+Set itemCount to 6
+itemCount > 5
+The value of
+itemCount
+, which is greater than
+. Therefore, the value of this expression is
+true
+Examples of boolean expressions are listed in the tabs below. For these examples, the following statements are true:
+numberVariable1 ==  1
+numberVariable2 ==  2
+stringVariable1 ==  red
+stringVariable2 ==  blue
+Equal to (==)
+Not equal to (!=)
+And (and)
+Or (or)
+Returns
+true
+when the values are equal.
+Returns
+false
+when the values are not equal.
+Examples:
+Set booleanVariable to:
+numberVariable1 == numberVariable2
+Answer:
+Since
+does not equal
+booleanVariable
+is set to
+false
+Set booleanVariable to:
+numberVariable1 + 1 == numberVariable2
+Answer:
+Since
+does equal
+booleanVariable
+is set to
+true
+Returns
+true
+when the values are not equal.
+Returns
+false
+when the values are equal.
+Examples:
+Set booleanVariable to:
+stringVariable1 != stringVariable2
+Answer:
+Since
+red
+does not equal
+blue
+booleanVariable
+is set to
+true
+Set booleanVariable to:
+numberVariable1 + 1 != numberVariable2
+Answer:
+Since
+does equal
+booleanVariable
+is set to
+false
+Returns
+true
+when both values are true.
+Returns
+false
+if one or both values are false.
+Examples:
+Set booleanVariable to:
+numberVariable1 == 1 and numberVariable2 == 2
+Answer:
+Since
+equals
+and
+equals
+booleanVariable
+is set to
+true
+Set booleanVariable to:
+numberVariable1 > 5 and numberVariable2 == 2
+Answer:
+Since
+is not greater than
+booleanVariable
+is set to
+false
+Returns
+true
+when one or both values are true.
+Returns
+false
+when both values are false.
+Examples:
+Set booleanVariable to:
+stringVariable1 == red or stringVariable2 == purple
+Answer:
+Since
+red
+does equal
+red
+booleanVariable
+is set to
+true
+Set booleanVariable to:
+stringVariable1 == green or stringVariable2 == orange
+Answer:
+Since
+red
+does not equal
+green
+orange
+booleanVariable
+is set to
+false
+Note:
+Boolean expressions are also used to evaluate
+conditional statements
+Complex expressions and order of operations
+Complex expressions are built by using multiple operators within a single expression. Use parentheses to group expressions.
+In complex expressions, basic math operations are performed in the following order:
+Parentheses
+Multiplication/Division
+Addition/Subtraction
+Boolean expression operators are performed in the following order:
+Parentheses
+Comparisons (==, !=, >, <, etc.)
+And
+All operations are performed from left to right.
+For example, in the following expression:
+x + y * z
+First, multiply
+. Then, add
+In the following boolean expression:
+x == (y > z)
+First, evaluate if
+is greater than
+. Then, evaluate if
+is equal to the solution of
+y > z
+Concepts in expressions
+Negative numbers
+You can use negative numbers in expressions. To represent a negative number, use a
+minus sign.
+Negate boolean values
+Negating a boolean value means flipping its logical state. Negating a true boolean value would make it false, and negating a false boolean value would make it true.
+Negating boolean values can be valuable when buildings objects that have two opposing states—such as toggles, buttons, or other settings.
+In order to negate a boolean value, enter
+not
+before the boolean variable.
+For example, consider the following expression:
+! boolVar
+If the
+boolVar
+value is
+true
+, the statement is overall evaluated to be
+false
+If the
+boolVar
+value is
+false
+, the statement, is overall evaluated to be
+true

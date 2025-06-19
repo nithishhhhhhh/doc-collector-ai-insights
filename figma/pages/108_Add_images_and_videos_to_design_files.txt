@@ -1,0 +1,72 @@
+URL: https://help.figma.com/hc/en-us/articles/360040028034-Add-images-and-videos-to-design-files
+==================================================
+
+Who can use this feature
+Images are available on
+all plans
+Video is available on
+all paid plans
+Anyone with
+can edit
+access to a file can upload images and videos
+Add images and video to your design files to incorporate photography, screenshots, or other visual assets to your designs.
+Supported file types include:
+JPG, PNG, HEIC, WebP, TIFF (only available on Safari), and GIF raster image files
+MP4, MOV, and WebM video files
+Note:
+When a Scalable Vector Graphic (SVG) is imported into a Figma Design file, the SVG is no longer treated as an image. While raster images are applied to layers as fill properties, vector images are converted to
+vector layers
+that you can edit, just like other shapes drawn in Figma.
+Figma doesn't have a specific layer type for raster images and videos. Instead, they are a type of
+fill
+. This allows you to add images and videos to any shape or vector network.
+View and update image and video fills in the
+Fill
+section of the right sidebar. Figma will show a thumbnail in the swatch and an
+Image
+Video
+, or
+GIF
+label.
+Raster images and videos added to the canvas create a rectangle with the asset set to the object's fill. They can be identified in the left sidebar with the following:
+Static images will have an
+image icon next to its layer name
+Videos and GIFs will have a
+video icon next to its layer name
+If you add them to an existing object, Figma uses the layer icon and description of the original layer.
+Note:
+Figma downsizes images with a width or height
+larger than 4096 pixels
+. This scales the image's original dimensions proportionally, so the longest edge is less than 4096 pixels.
+Sometimes, Figma needs to decode and convert an image before adding it to the file. For this reason, we can't guarantee that all file metadata will be preserved.
+Add images and videos to files
+As raster images and videos are fills, you can add them to any vector or shape. This gives you greater flexibility and control.
+There are a number of ways you can add images to design files:
+Drag and drop image files from your computer onto the canvas
+Import static images into the file browser
+Add images and videos in bulk
+Use the color picker to upload an image or video
+Copy and paste an image between objects and from your clipboard
+You can also
+add video
+and
+animated GIFs
+to your prototypes. GIFs only playback when viewing designs and prototypes in presentation view.
+Edit images
+There are lots of ways to edit or adjust images:
+Scale, rotate and adjust the dimensions of any layers with images
+Crop and re-position images applied to layers
+Adjust the image options including the fill mode, rotation and blend modes
+Includes images in
+styles
+and
+components
+Apply
+masks
+to only show a part of the image
+Make
+adjustments to images
+like changing the hue, saturation, or contrast
+Having issues loading images?
+Learn how to
+troubleshoot common image loading issues

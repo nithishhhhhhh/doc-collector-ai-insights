@@ -1,0 +1,114 @@
+URL: https://help.figma.com/hc/en-us/articles/24004542669463-Make-or-edit-an-image-with-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We'll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in Figma Design, FigJam, Figma Slides, Figma Sites, and Figma Buzz
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+With Figma AI, you can create and edit images. This helps to make images to add to your designs, remove the background from any existing image, as well as boost image resolution.
+Make an image
+Use a custom text prompt with Figma AI to make images. You can fill an existing frame or shape, or make an image in a new shape.
+To use Make an image in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select where you’d like to add the new image. You can select a layer to fill an existing layer, or deselect all layers to make a new image layer.
+Open the
+Actions
+menu and select
+Make an image
+Enter a prompt in the text field. Try to include as much context as possible.
+From the dropdown menu, select an available AI model.
+Click
+Make it
+or press
+⌘Command
+Enter
+If you’d like to make any adjustments, click
+Make changes
+Tip:
+You can also use
+Make an image
+when you add an image fill to an object.
+To use Make an image in Figma Buzz:
+Select where you’d like to add the new image. You can select a layer to fill an existing layer, or deselect all layers to make a new image layer.
+From the inline toolbar, click
+AI tools >
+Make an image
+Enter a prompt in the text field. Try to include as much context as possible.
+From the dropdown menu, select an available AI model.
+Click
+Make it
+or press
+⌘Command
+Enter
+If you’d like to make any adjustments, click
+Make changes
+Edit image
+Note:
+Edit image
+is currently free while in
+beta
+, but usage limits may apply. When made generally available,
+Edit image
+will become a paid feature. We'll update you on pricing before that happens.
+Edit any image with a custom text prompt. You can edit images that were created with
+Make image
+, or images that were directly added to your file.
+To use Edit image in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select the image you'd like to edit.
+Open the
+Actions
+menu and select
+Edit image
+Enter a prompt in the text field. Try to include as much context as possible.
+Click
+Edit image
+or press
+⌘Command
+Enter
+To use Edit image in Figma Buzz:
+Select the image you'd like to edit.
+From the inline toolbar, click
+AI tools
+Edit image
+Enter a prompt in the text field. Try to include as much context as possible.
+Click
+Edit image
+or press
+⌘Command
+Enter
+Remove background
+You can use Figma AI to remove the background from any image. This comes in handy when layering an image over a design.
+To use Remove background in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select the image you want to edit.
+Click
+Actions
+in the toolbar.
+Select
+Remove background
+To use Remove background in Figma Buzz:
+Select the image you want to edit.
+From the inline toolbar, click
+AI tools > Remove background
+in the toolbar.
+Boost resolution
+You can use Figma AI to enhance the clarity of low-resolution images.
+To use Boost resolution in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select the image you want to enhance.
+Click
+Actions
+in the toolbar.
+Select
+Boost resolution.
+To use Boost resolution in Figma Buzz:
+Select the image you want to enhance.
+From the inline toolbar, click
+AI tools
+Boost resolution

@@ -1,0 +1,26 @@
+URL: https://docs.pydantic.dev/latest/api/pydantic_extra_types_ulid/
+==================================================
+
+ULID
+The
+pydantic_extra_types.ULID
+module provides the [
+ULID
+] data type.
+This class depends on the [python-ulid] package, which is a validate by the
+ULID-spec
+ULID
+dataclass
+ULID
+ulid
+ULID
+Bases:
+Representation
+A wrapper around
+python-ulid
+package, which
+is a validate by the
+ULID-spec
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

@@ -1,0 +1,181 @@
+URL: https://help.figma.com/hc/en-us/articles/360040315773-Connect-your-prototype
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+all plans.
+Anyone with
+can edit
+access to a file can create prototypes.
+Prototypes are designs you can interact with.
+In Figma, all prototypes start with a single interaction. Each interaction consists of two parts: a
+trigger
+(what causes the interaction to start) and an
+action
+(the result of the trigger).
+Some interactions take place on a single object—such as clicking on an object to open an external URL, or clicking a video to play and pause it.
+Other interactions take place between two objects or frames—such as clicking a button to navigate to the next frame, or clicking an icon to open an overlay. These interactions are considered
+connections
+, which consists of three parts:
+Hotspot:
+A hotspot is where the interaction takes place. A hotspot can be the frame itself, or an object within the frame. You can create a hotspot on anything, like a button, icon, or heading.
+Connection:
+A connection is the arrow or "noodle" that connects the hotspot to the destination. Define the interaction trigger, actions, and adjust animation settings from the connection.
+Destination:
+The destination is where a connection ends. In most cases, the destination must be a top-level frame. Only connections using the
+Scroll to
+action can be set to a destination within the same top-level frame.
+Add an interaction
+An interaction is created by selecting a hotspot, or starting point.
+Navigate to the
+Prototype
+tab of the right sidebar.
+Select a layer or object for the interaction's hotspot.
+Create the interaction by doing one of the following:
+Hover over the object, and drag the
+plus icon to the destination frame
+Click the
+Add
+in the
+Interactions
+section of the
+Prototype
+panel.
+Once the interaction has been made, use the
+Interaction details
+panel to set the interaction trigger, action, and destination.
+Tip:
+If you haven’t yet interacted with the
+Interaction details
+panel, you can press and hold
+Shift
+to hide it from the canvas.
+Create interactions in bulk
+You can create interactions from multiple objects at once. This can help you save time when creating multiple connections to the same destination.
+Select your starting objects, or hotspots, where the interactions begin. You can select multiple objects via one of the following methods:
+Select an initial object, then hold down
+Shift
+while clicking additional objects
+Drag your cursor across any objects you want to select
+Create the interactions by doing one of the following:
+Hover over one of the selected objects, then click and drag the
+plus icon to the destination frame
+Click the
+plus icon in the
+Interactions
+section of the
+Prototype
+panel, and use the Interaction details panel to set the trigger, action, and animation details
+Tip:
+You can also add interactions in bulk if you’re working with a main component. Learn how to
+add prototyping connections for components
+Interaction details
+Once you create an interaction, use the
+Interaction details
+modal to configure the following:
+Trigger
+: Defines what type of interaction will cause the prototype to advance forward, such as a mouse click or touch gesture.
+Action
+: Defines what type of event happens when a user interacts with the hotspot, such as moving to another frame, or engaging an overlay.
+Destination
+: Defines where the interaction ends. This could be another screen in the prototype, or an overlay that appears above the current screen. Not all interactions have destinations—for example, the
+Back
+trigger automatically returns to the previous frame.
+Animation settings
+: Determine how the prototype moves from one frame to the other.
+State management
+Click to reset object properties and states when navigating in and across frames.
+Add action
+Add another action to the same trigger.
+Close the
+Interaction details
+modal.
+A single object can have multiple interactions, each with its own trigger. For example, you might have an object with a video fill that has two interactions: One that plays the video
+On click
+and one that opens an overlay
+When video ends
+A single object can have:
+Any number of the following triggers:
+Key/Gamepad
+On drag
+When video hits
+One of each of the following triggers:
+On click / On tap
+While hovering
+While pressing
+Mouse enter
+Mouse leave
+Mouse down / Touch press
+Mouse up / Touch release
+After delay
+When video ends
+Note:
+You're not able to combine
+On click / On tap
+with
+While hovering
+. Instead, consider using
+Mouse enter
+and
+Mouse leave
+triggers in place of
+While hovering
+Adjust the animation
+The animation settings determine how the prototype moves from one frame to the other.
+Animation
+: The animation is how the prototype transitions from one frame to the next, such as push, slide, or dissolve.
+Direction
+: For certain animation types (such as move in or push), you can set the direction controls which way you want the transition to move in. Choose between left, right, down, or up.
+Animate matching layers
+: Check this box to apply the
+Smart animate
+transition to any matching layers.
+Easing and spring animation
+: Easing determines the acceleration of the transition between a starting frame and its destination.
+Duration
+: Duration controls how long it takes, in milliseconds (ms), to complete the transition. Choose a duration between 1ms and 10000ms (10 seconds).
+Preview the animation.
+Select and edit interactions
+Use the tools below to improve and speed up prototype editing.
+Select matching interactions
+Matching interactions are identical interactions that begin from matching objects in other frames.
+Identical interactions
+are interactions with the same action and destination
+Matching objects
+are objects in different frames that have identical names and matching hierarchy levels
+Tip:
+Figma makes it easy to identify matching objects—when you hover over an object, any matching objects in other frames are highlighted. Learn more about
+matching objects →
+To select matching interactions:
+Select an interaction.
+On the
+Interaction details
+modal, click
+Select matching interactions
+Edit interaction details to update all selected interactions at once.
+Note:
+We’ve tidied up the canvas! When there are matching interactions on a canvas, only the first connection (the top-left one in view) is displayed. Select that connection to display all other matching interactions in view.
+Update connection destinations in bulk
+If you have multiple connections, you can change the destination of those connections at the same time.
+Select the connections you want to edit. You can select multiple connections via one of the following methods:
+Select an initial connection, then hold down
+Shift
+while clicking additional connections.
+Drag your cursor across any connections you want to select. This will create a blue box around the selected connections.
+Hold and drag the connections to a new destination frame. You can also select the interaction from the right sidebar and change the destination frame from the Interaction details panel.
+Copy and paste interaction details
+Prototype faster by copying interaction details and pasting them on other objects.
+Select a prototype interaction on the canvas.
+Press
+⌘ Command
+Control
+to copy or
+⌘ Command
+Control
+to cut the interaction details.
+Select another object on the canvas.
+Press
+⌘ Command
+Control
+to paste the interaction details on to the new object.

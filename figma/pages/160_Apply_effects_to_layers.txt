@@ -1,0 +1,274 @@
+URL: https://help.figma.com/hc/en-us/articles/360041488473-Apply-effects-to-layers
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access to a file can create and adjust effects
+Apply effects to layers to enhance your designs.
+Effects can serve various aesthetic and functional purposes.
+For example, adding a shadow to a button can help bring attention to it and signal that the element is interactive.
+In Figma, there are six types of effects:
+Drop shadow
+Inner shadow
+Layer blur
+Background blur
+Noise
+Texture
+Each layer can have up to eight drop shadows, eight inner shadows, one layer blur, two noise effects, one texture effect, and one background blur. You can also combine effects with
+blend modes
+and
+fills
+to create a variety of styles and effects.
+Tip:
+Want more hands-on experience using effects? Check out this
+bite-sized illustration project
+to practice while you learn.
+Shadow effects
+There are two types of shadow effects in Figma: drop shadow and inner shadow.
+Tip
+Both shadow effects translate to the
+box-shadow
+property in CSS. Shadow effects on text layers translate to
+text-shadow
+in CSS. View CSS properties for your selection in
+Dev mode
+Drop shadow
+Drop shadows are a great way to add depth and dimension to your designs. You can do this by creating the shadow of an object on a surface behind it.
+Drop shadows can vary in opacity, depending on the effect you want to create.
+Use drop shadows to:
+Create distance between objects
+Set the direction of a light source
+Make your designs stand out against a background
+Make objects look three-dimensional
+Stylize text and icons
+Add borders around a layer or object
+Inner shadow
+Like drop shadows, inner shadows allow you to create depth within two-dimensional designs.
+Instead of creating a shadow behind your selection, inner shadows are applied within the layer or object. This contains the shadow within the layer's bounds.
+Use inner shadows to:
+Create depth within text
+Make an object look recessed or indented
+Show an active or clicked state of a button
+Tip:
+Preview effects on the canvas by hovering over each option in the menu before selecting.
+Show drop shadows through transparent layers
+By default, Figma doesn't display drop shadows through transparent areas of the layer. If you want to display drop shadows through an object:
+Make sure the layer meets at least one of the following criteria:
+Has only fills with less than 100% opacity
+Has a stroke, but no fill
+Has a fill or stroke with a blend mode that isn't
+Normal
+Or, has a
+center or outside stroke
+with less than 100% opacity
+Click the effects icon to open the shadow's property menu.
+Check the
+Show behind transparent areas
+checkbox.
+Note:
+Inner shadows don't support
+show behind transparent areas
+Shadow spread
+Shadow spread is only supported on rectangles, ellipses, frames, and components.
+To apply a spread shadow to a frame or component, you must have:
+Clip content
+enabled
+visible fill
+with at least 1% opacity
+Caution:
+The Figma Plugin API allows you to set a spread value for any object. Figma will not apply the spread value in the canvas, if spread isn't supported on that type of object.
+Add shadow effects
+You can apply shadow effects to frames, groups, components, or individual layers.
+Select the layer or object from the canvas or
+Layers
+tab of the left sidebar.
+Click the
+Effects
+section in the right sidebar. The
+Drop shadow
+effect is selected by default. Use the dropdown to switch to
+Inner shadow
+Click the
+Effect settings
+icon to adjust the shadow's settings.
+Offset the drop shadow along the x axis (horizontal). Use with Y offset to set the direction of the light source.
+Offset the drop shadow along the y axis (vertical). Use with X offset to set the direction of the light source.
+Fill
+: Apply a paint using the color picker and set an opacity for the shadow
+Blur:
+Adjust the blur or feathering of the shadow. Increase the blur to soften the shadow and blend it with the background. Decrease the blur to create a sharper contrast.
+Spread:
+Adjust the size of the shadow to represent the distance between the foreground and background objects. See:
+Shadow spread
+Tip
+You can copy a layer's effect settings to paste on another layer or object from the
+Effects
+section of the right sidebar.
+Click the
+Effect settings
+icon, then press
+Esc
+to clear the field selection.
+Use the keyboard shortcut to copy the settings:
+Mac
+⌘ Command
+Windows
+⌃ Control
+Select the layer or object you'd like to apply the effect to and paste using the keyboard shortcut:
+Mac
+⌘ Command
+Windows
+⌃ Control
+You can also duplicate the effect using the keyboard shortcut:
+Mac
+⌘ Command
+Windows
+⌃ Control
+Blur effects
+Caution
+Depending on your device and internet connection, files with a large number of blur effects can lead to reduced performance. Background blurs are typically the slowest effect to render. To temporarily improve performance, you can toggle the visibility of individual effects.
+Layer blur
+Blurs help to imply action or movement, or create the illusion of depth in two-dimensional designs. Use layer blur to:
+Anonymize information
+Soften or detract focus from the background
+Create abstract backgrounds from photographs and images
+Replicate camera depth and other photographic effects like bokeh
+There are two types of layer blurs:
+Uniform
+: Applies the same blur across the entire layer
+Progressive
+: Allows you to control the blur’s size, direction, and intensity where it starts and ends
+Background blur
+When you apply a background blur to a layer, Figma will blur any layers behind your selection on the canvas. You can think of this like a drop shadow, but instead of the layer creating a shadow, it creates a blur.
+You can use background blur to soften or detract focus. This draws attention away from the background and to the selected layer.
+Background blur is commonly used for interactive menus in iOS. But you can also use background blur to obscure text or personal information in a screenshot.
+There are two types of background blurs:
+Uniform
+: Applies the same blur across the entire layer
+Progressive
+: Allows you to control the blur’s size, direction, and intensity where it starts and ends
+To‌ see a background blur, your selection will need to have an appropriate opacity. You can set opacity for layers with background blur for any value
+between .10 and 99.99%
+You may have to adjust the opacity of your layers to get the desired effect. If you set a layer's opacity to 100%, you won't be able to see the background blur at all.
+Note
+It's only possible to add one layer or background blur to a layer or object.
+If you have other layers with background blur applied, Figma will ignore them instead of multiplying the existing background blur.
+Apply blur effects
+You can apply blur effects to frames, groups, components, or individual layers. It's only possible to add one layer or background blur to a layer or object.
+Select the layer or object from the canvas or
+Layers
+tab of the left sidebar.
+Click the
+Effects
+section in the right sidebar. The
+Drop shadow
+effect is selected by default. Use the dropdown to switch to
+Layer Blur
+Background
+Blur
+Click the
+Effect settings
+icon to adjust the blur value.
+Adjust the layer opacity, if needed.
+You can also create Styles for shadow and blur effects. This allows you to save those settings and use them across your design files. Learn how to
+create effect styles
+Noise
+The noise effect applies random pixels to a layer, giving it a subtle grainy texture that mimics the visual characteristics of film photography.
+Apply noise effects
+You can apply noise effects to any layer type. It’s only possible to add two noise effects per object.
+To apply a noise effect:
+Select the layer.
+Click the
+plus in the
+Effects
+section to add a new effect.
+Choose
+Noise
+from the dropdown menu.
+Open the
+Effect settings
+menu to configure the effect:
+Number of colors:
+Choose between
+Mono
+(one),
+Duo
+(two), or
+Multi
+(many) to determine how many colors will be included in the noise
+Noise size
+: Adjust the scale of the noise pixels
+Density
+: Set the concentration of noise pixels
+Color (Mono or Duo only):
+Choose the desired color and opacity for the noise pixels
+Opacity (Multi only):
+Set the opacity for the noise pixels
+Texture
+The texture effect distresses an object's edge, creating a roughened effect.
+Apply texture effects
+You can apply texture effects to any layer type. It’s only possible to apply one texture effect per object.
+To apply a texture effect:
+Select the layer.
+Click the
+plus in the
+Effects
+section to add a new effect.
+Choose
+Texture
+from the dropdown menu.
+Open the
+Effect settings
+menu to configure the effect:
+Size:
+Set the scale of the textured effect
+Radius
+: Adjust to determine how far past the layer’s boundary the effect will spread
+Clip to shape:
+Enable this option to limit the texture effect to within the layer’s boundary. While the texture itself will be confined to the shape, drop shadows will still interact with the clipped texture, creating a textured shadow effect.
+Reorder effects
+If a selection has multiple effects applied, you click and drag the handles to reorder the effects. How effects are ordered in the
+Effects
+section impacts how the selection is
+rendered
+Render order
+The way Figma renders a selection’s effects depends on the types of effects applied, their order in the
+Effects
+section of the right sidebar, and whether the selection is a layer or a group. Masks are considered groups in this context. The differences in group and layer shadows are most obvious on layers that overlap. When the shapes don’t overlap, they will appear the same.
+Render order for layers
+Top:
+Layer blur, noise, texture (applied in their specified order)
+Stroke paints
+Inner shadow
+Fill paints
+Drop shadow
+Bottom
+: Background blur
+Render order for groups
+Top:
+Layer blur, noise, texture (applied in their specified order)
+Inner shadow
+Paints, masks, and effects for individual fills or strokes
+Drop shadow
+Bottom:
+Background blur
+How layer blurs and unclipped textures impact rendering
+Layer blurs and unclipped texture effects extend past a selection’s boundary. There are some things to keep in mind when applying layer blurs or unclipped textures to a selection:
+Noise and clipped textures
+Noise and clipped textures normally do not extend past a selection’s boundary but can do so if placed above a layer blur or unclipped texture in the
+Effects
+section.
+For example, to enable a noise effect to reach the edge of a drop shadow, you can place a layer blur or unclipped texture in between them in the
+Effects
+section.
+Blend modes on drop shadows
+Typically, blend modes on drop shadows interact with content behind the layer with the drop shadow applied. Applying a layer blur or unclipped texture to the same layer will isolate the blend mode, causing it to only interact with other effects on the layer itself.
+Blend modes on fills and strokes
+Typically, blend modes on fills and strokes will interact with content behind the layer. Applying a layer blur or unclipped texture to the layer will isolate the blend mode, causing it to only interact with other fills and strokes on the selected layer. You can apply the blend mode to the layer itself in the
+Appe
+rance
+section of the right sidebar to enable the blend mode to interact with other content on the canvas.

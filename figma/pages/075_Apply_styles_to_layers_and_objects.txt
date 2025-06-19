@@ -1,0 +1,85 @@
+URL: https://help.figma.com/hc/en-us/articles/360040316193-Apply-styles-to-layers-and-objects
+==================================================
+
+Before you start
+Who can use this feature
+Anyone on
+Education, Professional, Organization, and Enterprise plans
+can use style libraries.
+Users with
+can edit
+access to a file can create and edit styles.
+Users with
+can view
+access to a published file can use styles from that library in files where they can edit.
+Styles allow you to define a set of properties or attributes of an object. You can create styles for colors, text, effects, and layout guides and reuse them across your designs.
+Apply a style to an object
+Apply any styles created in the current file, or apply
+styles from a published team library
+Tip:
+You can use the
+eyedropper tool
+to sample a color style and apply it to a selected layer.
+Select the object(s) you'd like to apply a style to.
+In the right sidebar, click the
+Apply s
+tyles
+Apply s
+tyles and variables
+icon next to the property you want to update.
+From the
+Libraries
+tab of the menu, you will see all styles created in the current file and any
+styles shared via the team library
+indicated by round thumbnails. The square thumbnails are
+color variables
+. Figma orders styles in the style panel accordingly:
+Alphabetically by team name
+Alphabetically by file name
+Individual styles appear in the order they were created. Learn about
+grouping and reordering styles
+Use the All libraries dropdown to filter your styles and variables to those created in a specific library.
+Search and select the style you want to apply to the selected object(s). The style picker can be viewed as a
+list or
+grid.
+Tip!
+If you aren't able to access styles from the properties panel, they may not be shared to your team library yet. Learn more about
+managing and sharing styles
+Use the color picker
+You can also
+use the color picker
+to apply colors from styles to objects. This is handy for situations when you want to:
+Create a custom color that matches some of a style's properties. For example, use a color from a style at only 50% opacity.
+Apply a color style to an object or layer in a place that doesn’t support styles.
+The
+olor picker
+allows you to switch between colors in the file (document colors) and from libraries added to the file. Click the On this page
+dropdown to select a palette from an
+added library
+Caution:
+When you select a style from the color picker, you are only setting the color, not applying a style.
+Switch between styles
+You can change the style that is applied to an object from the right sidebar.
+Select the object(s) you'd like to update.
+In the right sidebar, click on the style next to the relevant property.
+Use the style picker to search for and select the new style.
+Detach a style
+When you detach a style from an object, that object will keep its existing properties. You can then make changes to those properties, as desired.
+This is useful when using existing styles as the basis for future styles or iterations.
+To detach a style from an object:
+Select the object(s) you'd like to remove the style from.
+In the right sidebar, hover over the relevant style.
+Click the
+detach style
+icon when it appears.
+You can now make any changes you want to the object, independent of the style.
+Tip:
+You can also edit any local style that's applied to an object by selecting the style to open the style picker, hovering over the style, and clicking
+Share styles with libraries
+When you
+enable a library for a team
+add it to an individual file
+, Figma includes styles from that
+library
+in the style picker.
+You can use any styles you have can view access to. You can only edit the style itself if you have can edit access to the original file.

@@ -1,0 +1,53 @@
+URL: https://help.figma.com/hc/en-us/articles/360040623954-Add-fills-to-text-and-shape-layers
+==================================================
+
+Before you start
+Who can use this feature
+Supported on
+any team or plan
+Anyone with
+Can edit access
+to a file can add or adjust fills.
+Paints are colors, gradients, or images. Fills are just one of the ways you can use paints in Figma.
+Apply paints to text layers, or any vector object, this includes shapes, vector networks, and boolean groups. You can add, adjust, and remove fills in the
+Fill
+section of the right sidebar.
+Add fills
+Add fills to text layers, frames, and any vector objects. You can even add more than one fill to a single layer. This allows you to layer gradients over images, or apply blend modes to create unique effects.
+We treat each fill as a unique layer, so you can adjust the properties individually. You can even toggle the visibility of each fill independently.
+Select the layer(s) you want to add a fill to.
+In the
+Fill
+section of the right sidebar, click the
+icon to add a fill to the layer.
+Figma will add a default
+Solid
+fill with a hex value of
+C4C4C4
+. Click on the fill swatch to open the color picker:
+From the color picker you can select a paint type, choose a color, and apply blend modes.
+Learn more about using the color picker.
+Tip:
+Want to reuse fills across your designs?
+Create Color Styles
+from fills or strokes and apply them to objects in the canvas.
+Adjust fills
+Add, remove or adjust fill properties at any time. You can adjust fill in the
+Design
+panel of the right sidebar.
+Selection colors
+allows you to view and adjust the paints applied to a selection, individually. This also allows you to change the fills of child objects, when you have the parent selected.
+If selected layers share the same fill properties, you can adjust them in the
+Fill
+section of the Properties Panel.
+If selected layers have different fill properties, you can adjust each fill individually in the
+Selection colors
+section of the Properties Panel.
+Hover over the left edge of the fill to reveal the drag handles
+. Click and drag on the handles to reorder fills.
+Click the
+icon to toggle visibility off and the
+icon to toggle visibility on.
+Learn more about toggling visibility.
+Click the
+icon to remove a fill from your selection.

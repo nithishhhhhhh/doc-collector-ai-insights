@@ -1,0 +1,881 @@
+URL: https://docs.pydantic.dev/latest/api/experimental/#pydantic.experimental.pipeline._Pipeline.in_
+==================================================
+
+Pipeline API¶
+=============
+Pipeline API
+Experimental pipeline API functionality. Be careful with this API, it's subject to change.
+_Pipeline
+dataclass
+_Pipeline
+_steps
+tuple
+_Step
+...
+Bases:
+Generic
+_InT
+_OutT
+Abstract representation of a chain of validation, transformation, and parsing steps.
+transform
+transform
+func
+Callable
+_OutT
+_NewOutT
+_Pipeline
+_InT
+_NewOutT
+Transform the output of the previous step.
+If used as the first step in a pipeline, the type of the field is used.
+That is, the transformation is applied to after the value is parsed to the field's type.
+Source code in
+pydantic/experimental/pipeline.py
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+def
+transform
+self
+func
+Callable
+_OutT
+_NewOutT
+_Pipeline
+_InT
+_NewOutT
+"""Transform the output of the previous step.
+If used as the first step in a pipeline, the type of the field is used.
+That is, the transformation is applied to after the value is parsed to the field's type.
+"""
+return
+_Pipeline
+_InT
+_NewOutT
+self
+_steps
+_Transform
+func
+),))
+validate_as
+validate_as
+type
+_NewOutT
+strict
+bool
+...
+_Pipeline
+_InT
+_NewOutT
+validate_as
+EllipsisType
+strict
+bool
+...
+_Pipeline
+_InT
+Any
+validate_as
+type
+_NewOutT
+EllipsisType
+strict
+bool
+False
+_Pipeline
+_InT
+Any
+Validate / parse the input into a new type.
+If no type is provided, the type of the field is used.
+Types are parsed in Pydantic's
+lax
+mode by default,
+but you can enable
+strict
+mode by passing
+strict=True
+Source code in
+pydantic/experimental/pipeline.py
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+def
+validate_as
+self
+type
+_NewOutT
+EllipsisType
+strict
+bool
+False
+_Pipeline
+_InT
+Any
+# type: ignore
+"""Validate / parse the input into a new type.
+If no type is provided, the type of the field is used.
+Types are parsed in Pydantic's `lax` mode by default,
+but you can enable `strict` mode by passing `strict=True`.
+"""
+isinstance
+EllipsisType
+return
+_Pipeline
+_InT
+Any
+self
+_steps
+_ValidateAs
+_FieldTypeMarker
+strict
+strict
+),))
+return
+_Pipeline
+_InT
+_NewOutT
+self
+_steps
+_ValidateAs
+strict
+strict
+),))
+validate_as_deferred
+validate_as_deferred
+func
+Callable
+[[],
+type
+_NewOutT
+_Pipeline
+_InT
+_NewOutT
+Parse the input into a new type, deferring resolution of the type until the current class
+is fully defined.
+This is useful when you need to reference the class in it's own type annotations.
+Source code in
+pydantic/experimental/pipeline.py
+164
+165
+166
+167
+168
+169
+170
+def
+validate_as_deferred
+self
+func
+Callable
+[[],
+type
+_NewOutT
+]])
+_Pipeline
+_InT
+_NewOutT
+"""Parse the input into a new type, deferring resolution of the type until the current class
+is fully defined.
+This is useful when you need to reference the class in it's own type annotations.
+"""
+return
+_Pipeline
+_InT
+_NewOutT
+self
+_steps
+_ValidateAsDefer
+func
+),))
+constrain
+constrain
+constraint
+_Pipeline
+_InT
+_NewOutGe
+constrain
+constraint
+_Pipeline
+_InT
+_NewOutGt
+constrain
+constraint
+_Pipeline
+_InT
+_NewOutLe
+constrain
+constraint
+_Pipeline
+_InT
+_NewOutLt
+constrain
+constraint
+Len
+_Pipeline
+_InT
+_NewOutLen
+constrain
+constraint
+MultipleOf
+_Pipeline
+_InT
+_NewOutT
+constrain
+constraint
+Timezone
+_Pipeline
+_InT
+_NewOutDatetime
+constrain
+constraint
+Predicate
+_Pipeline
+_InT
+_OutT
+constrain
+constraint
+Interval
+_Pipeline
+_InT
+_NewOutInterval
+constrain
+constraint
+_Eq
+_Pipeline
+_InT
+_OutT
+constrain
+constraint
+_NotEq
+_Pipeline
+_InT
+_OutT
+constrain
+constraint
+_In
+_Pipeline
+_InT
+_OutT
+constrain
+constraint
+_NotIn
+_Pipeline
+_InT
+_OutT
+constrain
+constraint
+Pattern
+str
+_Pipeline
+_InT
+_NewOutT
+constrain
+constraint
+_ConstraintAnnotation
+Any
+Constrain a value to meet a certain condition.
+We support most conditions from
+annotated_types
+, as well as regular expressions.
+Most of the time you'll be calling a shortcut method like
+len
+, etc
+so you don't need to call this directly.
+Source code in
+pydantic/experimental/pipeline.py
+223
+224
+225
+226
+227
+228
+229
+230
+231
+def
+constrain
+self
+constraint
+_ConstraintAnnotation
+Any
+"""Constrain a value to meet a certain condition.
+We support most conditions from `annotated_types`, as well as regular expressions.
+Most of the time you'll be calling a shortcut method like `gt`, `lt`, `len`, etc
+so you don't need to call this directly.
+"""
+return
+_Pipeline
+_InT
+_OutT
+self
+_steps
+_Constraint
+constraint
+),))
+predicate
+predicate
+func
+Callable
+_NewOutT
+bool
+_Pipeline
+_InT
+_NewOutT
+Constrain a value to meet a certain predicate.
+Source code in
+pydantic/experimental/pipeline.py
+233
+234
+235
+def
+predicate
+self
+_Pipeline
+_InT
+_NewOutT
+func
+Callable
+_NewOutT
+bool
+_Pipeline
+_InT
+_NewOutT
+"""Constrain a value to meet a certain predicate."""
+return
+self
+constrain
+annotated_types
+Predicate
+func
+_NewOutGt
+_Pipeline
+_InT
+_NewOutGt
+Constrain a value to be greater than a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+237
+238
+239
+def
+self
+_Pipeline
+_InT
+_NewOutGt
+_NewOutGt
+_Pipeline
+_InT
+_NewOutGt
+"""Constrain a value to be greater than a certain value."""
+return
+self
+constrain
+annotated_types
+_NewOutLt
+_Pipeline
+_InT
+_NewOutLt
+Constrain a value to be less than a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+241
+242
+243
+def
+self
+_Pipeline
+_InT
+_NewOutLt
+_NewOutLt
+_Pipeline
+_InT
+_NewOutLt
+"""Constrain a value to be less than a certain value."""
+return
+self
+constrain
+annotated_types
+_NewOutGe
+_Pipeline
+_InT
+_NewOutGe
+Constrain a value to be greater than or equal to a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+245
+246
+247
+def
+self
+_Pipeline
+_InT
+_NewOutGe
+_NewOutGe
+_Pipeline
+_InT
+_NewOutGe
+"""Constrain a value to be greater than or equal to a certain value."""
+return
+self
+constrain
+annotated_types
+_NewOutLe
+_Pipeline
+_InT
+_NewOutLe
+Constrain a value to be less than or equal to a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+249
+250
+251
+def
+self
+_Pipeline
+_InT
+_NewOutLe
+_NewOutLe
+_Pipeline
+_InT
+_NewOutLe
+"""Constrain a value to be less than or equal to a certain value."""
+return
+self
+constrain
+annotated_types
+len
+len
+min_len
+int
+max_len
+int
+None
+None
+_Pipeline
+_InT
+_NewOutLen
+Constrain a value to have a certain length.
+Source code in
+pydantic/experimental/pipeline.py
+253
+254
+255
+def
+len
+self
+_Pipeline
+_InT
+_NewOutLen
+min_len
+int
+max_len
+int
+None
+None
+_Pipeline
+_InT
+_NewOutLen
+"""Constrain a value to have a certain length."""
+return
+self
+constrain
+annotated_types
+Len
+min_len
+max_len
+multiple_of
+multiple_of
+multiple_of
+_NewOutDiv
+_Pipeline
+_InT
+_NewOutDiv
+multiple_of
+multiple_of
+_NewOutMod
+_Pipeline
+_InT
+_NewOutMod
+multiple_of
+multiple_of
+Any
+_Pipeline
+_InT
+Any
+Constrain a value to be a multiple of a certain number.
+Source code in
+pydantic/experimental/pipeline.py
+263
+264
+265
+def
+multiple_of
+self
+_Pipeline
+_InT
+Any
+multiple_of
+Any
+_Pipeline
+_InT
+Any
+"""Constrain a value to be a multiple of a certain number."""
+return
+self
+constrain
+annotated_types
+MultipleOf
+multiple_of
+value
+_OutT
+_Pipeline
+_InT
+_OutT
+Constrain a value to be equal to a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+267
+268
+269
+def
+self
+_Pipeline
+_InT
+_OutT
+value
+_OutT
+_Pipeline
+_InT
+_OutT
+"""Constrain a value to be equal to a certain value."""
+return
+self
+constrain
+_Eq
+value
+not_eq
+not_eq
+value
+_OutT
+_Pipeline
+_InT
+_OutT
+Constrain a value to not be equal to a certain value.
+Source code in
+pydantic/experimental/pipeline.py
+271
+272
+273
+def
+not_eq
+self
+_Pipeline
+_InT
+_OutT
+value
+_OutT
+_Pipeline
+_InT
+_OutT
+"""Constrain a value to not be equal to a certain value."""
+return
+self
+constrain
+_NotEq
+value
+in_
+in_
+values
+Container
+_OutT
+_Pipeline
+_InT
+_OutT
+Constrain a value to be in a certain set.
+Source code in
+pydantic/experimental/pipeline.py
+275
+276
+277
+def
+in_
+self
+_Pipeline
+_InT
+_OutT
+values
+Container
+_OutT
+_Pipeline
+_InT
+_OutT
+"""Constrain a value to be in a certain set."""
+return
+self
+constrain
+_In
+values
+not_in
+not_in
+values
+Container
+_OutT
+_Pipeline
+_InT
+_OutT
+Constrain a value to not be in a certain set.
+Source code in
+pydantic/experimental/pipeline.py
+279
+280
+281
+def
+not_in
+self
+_Pipeline
+_InT
+_OutT
+values
+Container
+_OutT
+_Pipeline
+_InT
+_OutT
+"""Constrain a value to not be in a certain set."""
+return
+self
+constrain
+_NotIn
+values
+otherwise
+otherwise
+other
+_Pipeline
+_OtherIn
+_OtherOut
+_Pipeline
+_InT
+_OtherIn
+_OutT
+_OtherOut
+Combine two validation chains, returning the result of the first chain if it succeeds, and the second chain if it fails.
+Source code in
+pydantic/experimental/pipeline.py
+326
+327
+328
+def
+otherwise
+self
+other
+_Pipeline
+_OtherIn
+_OtherOut
+_Pipeline
+_InT
+_OtherIn
+_OutT
+_OtherOut
+"""Combine two validation chains, returning the result of the first chain if it succeeds, and the second chain if it fails."""
+return
+_Pipeline
+_PipelineOr
+self
+other
+),))
+then
+then
+other
+_Pipeline
+_OutT
+_OtherOut
+_Pipeline
+_InT
+_OtherOut
+Pipe the result of one validation chain into another.
+Source code in
+pydantic/experimental/pipeline.py
+332
+333
+334
+def
+then
+self
+other
+_Pipeline
+_OutT
+_OtherOut
+_Pipeline
+_InT
+_OtherOut
+"""Pipe the result of one validation chain into another."""
+return
+_Pipeline
+_PipelineAnd
+self
+other
+),))
+Arguments schema API
+Experimental module exposing a function to generate a core schema that validates callable arguments.
+generate_arguments_schema
+generate_arguments_schema
+func
+Callable
+...
+Any
+schema_type
+Literal
+"arguments"
+"arguments-v3"
+"arguments-v3"
+parameters_callback
+Callable
+int
+str
+Any
+Literal
+"skip"
+None
+None
+None
+config
+ConfigDict
+None
+None
+CoreSchema
+Generate the schema for the arguments of a function.
+Parameters:
+Name
+Type
+Description
+Default
+func
+Callable
+[...,
+Any
+The function to generate the schema for.
+required
+schema_type
+Literal
+['arguments', 'arguments-v3']
+The type of schema to generate.
+'arguments-v3'
+parameters_callback
+Callable
+int
+str
+Any
+Literal
+['skip'] | None] | None
+A callable that will be invoked for each parameter. The callback
+should take three required arguments: the index, the name and the type annotation
+(or
+Parameter.empty
+if not annotated) of the parameter.
+The callback can optionally return
+'skip'
+, so that the parameter gets excluded
+from the resulting schema.
+None
+config
+ConfigDict
+| None
+The configuration to use.
+None
+Returns:
+Type
+Description
+CoreSchema
+The generated schema.
+Source code in
+pydantic/experimental/arguments_schema.py
+def
+generate_arguments_schema
+func
+Callable
+...
+Any
+schema_type
+Literal
+'arguments'
+'arguments-v3'
+'arguments-v3'
+parameters_callback
+Callable
+int
+str
+Any
+Literal
+'skip'
+None
+None
+None
+config
+ConfigDict
+None
+None
+CoreSchema
+"""Generate the schema for the arguments of a function.
+Args:
+func: The function to generate the schema for.
+schema_type: The type of schema to generate.
+parameters_callback: A callable that will be invoked for each parameter. The callback
+should take three required arguments: the index, the name and the type annotation
+(or [`Parameter.empty`][inspect.Parameter.empty] if not annotated) of the parameter.
+The callback can optionally return `'skip'`, so that the parameter gets excluded
+from the resulting schema.
+config: The configuration to use.
+Returns:
+The generated schema.
+"""
+generate_schema
+_generate_schema
+GenerateSchema
+_config
+ConfigWrapper
+config
+ns_resolver
+_namespace_utils
+NsResolver
+namespaces_tuple
+_namespace_utils
+ns_for_function
+func
+)),
+schema_type
+'arguments'
+schema
+generate_schema
+_arguments_schema
+func
+parameters_callback
+# pyright: ignore[reportArgumentType]
+else
+schema
+generate_schema
+_arguments_v3_schema
+func
+parameters_callback
+# pyright: ignore[reportArgumentType]
+return
+generate_schema
+clean_schema
+schema
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

@@ -1,0 +1,139 @@
+URL: https://help.figma.com/hc/en-us/articles/360041098433-Adjust-the-properties-of-an-image
+==================================================
+
+Before you Start
+Who can use this feature
+Users on
+Any
+plan
+can edit image properties
+Users with
+Edit access
+to a File can edit image properties
+You can access the Image Properties from the
+Fill
+section of the Properties Panel.
+A static Image will be an "Image" in the Fill section. An animated GIF will be a "GIF".
+View a thumbnail of the image or GIF. Click the thumbnail to open the Fill menu.
+Adjust the
+Opacity
+of the Image using the field provided. We represent this as a percentage value (%).
+Toggle visibility of that Image by clicking the eye icon.
+Remove the image from the object by clicking the [-] icon.
+Add new Fill layers by clicking the [+] icon.
+Create Color Styles from Images, solid colors and gradients. Click the Style icon (four dot square) to view, apply or create Styles.
+You can also click the image thumbnail in the Properties Panel to access more image settings. This allows you to adjust the following:
+Fill Type (
+Add Fills to layers
+Blend Mode (
+Create unique effects with Blend modes
+Fill Mode
+Rotation
+Image Preview
+Image Adjustments
+Fill Mode
+There are four different modes that decide how Figma will apply a Fill to your object. This takes into account the dimensions of both the image and the object you're adding it to.
+We keep the selected Fill mode, even as you scale or manipulate the object.
+Fill
+will position and scale the Image so that it takes up the entire object it's applied to. If the image and the object are different shapes, we may clip the Image. This ensures the shape is completely filled.
+Fit
+ensures the entire image is visible within the object it fills. This ensures no part of the image hidden, even when you resize the object. Depending on the shape of the object, the Image may not completely fill the object.
+Crop
+allows you to adjust the boundary lines of your image. This allows you to control which part of the image you can see. This is a
+non-destructive
+action that works like a
+mask
+Tile
+creates a repeated pattern of the original image, which fills the entire object. You can adjust the size of the tile using the percentage value. We base this on a percentage of the image's original dimensions.
+You can enter a percentage in the field provided. Or, click and drag the blue handles in the canvas to adjust the scale.
+Images that scale
+As we apply Images as Fills, it's not possible to adjust the scale or dimensions of the Image itself.
+But like any other object, you can scale the object the Image fills. We will scale and position the Image based on the Fill mode you've selected.
+In the example below, our Image is set to Fill. When we resize the object, Figma scales our Image to ensure it fills the entire object.
+Rotation
+You can use the Image options menu to rotate the Fill within an object. This won't affect the orientation of the object itself, just the Fill within it.
+The rotate icon allows you to rotate the Fill
+clockwise
+at 90º increments.
+Select the object you want adjust.
+Click the image thumbnail in the Properties Panel to open the Image options menu:
+Click the rotate icon to rotate the Fill
+90º clockwise
+Repeat as many times as you need.
+Click X in the top-right corner of the
+Image options
+menu to close and return to the canvas.
+Image preview
+The Fill menu allows you to see a preview of the Image. From here, you can perform some extra actions:
+Upload images from your computer:
+Hover over the preview so that the
+Choose Image
+button appears. If you already have an image added, this will replace the existing Image with the new one.  Learn more in our
+Upload Images as Fills
+article.
+Replace Images:
+Drag Image Files over the Image Preview to replace the Image. This will preserve the Fill mode and settings of the previous image.
+Preview GIFs:
+If you've added a GIF, you can select which Frame you can see in the Editor. You can use the slider to choose your Frame, or press the play and stop icons to select a Frame.
+Image adjustments
+You can also apply adjustments to Images. These work like the filters or settings you'd see in photo editing software.
+We apply these on top the Image as opposed to editing the image itself. Adjustments are non-destructive, you can reverse or update these settings at any time.
+Apply Image adjustments
+Types of a adjustments
+Apply image adjustments
+You can apply Image Adjustments via the
+Image options
+menu:
+Select the Layer with the Image you want to adjust.
+Click the Image thumbnail in the Properties Panel.
+This will open up the Image menu where you can see a preview of the Image.
+You'll find the. Each setting has a scale which you can drag to adjust.
+Generally, you can drag the handle:
+To the
+left
+to apply a
+negative
+adjustment.
+To the
+right
+to apply a
+positive
+adjustment
+You can see the adjustments on the Image inn the canvas, as well as in the Image Preview.
+Click the
+to apply your adjustments and return to the Canvas.
+Types of adjustments
+There are seven Image adjustments available:
+Exposure
+Contrast
+Saturation
+Temperature
+Tint
+Highlights
+Shadows
+Note:
+It's not possible to apply adjustments to animated GIFs.
+Exposure
+Traditionally, exposure indicates how much light reaches the sensor within a camera. You can decrease the exposure to create a darker image (underexposure). Or, increase it to create an image with more light (over exposure).
+Contrast
+Contrast refers to the difference between the light and dark pixels within an Image.
+You can decrease the contrast to narrow the range of colors and create a muted Image. Or, increase the difference between the light and dark portions of your images.
+This results in more vivid images with brighter highlights and darker shadows.
+Saturation
+Allows you to adjust the intensity of the colors within an image. You can decrease the saturation completely to get a black and white image. Or, increase the saturation to create an image with more intense, saturated colors.
+Temperature
+Temperature refers to the tone of the image. We measure Temperature along a horizontal axis, from blue to amber.
+"Cooler" images have blue undertones, while "warmer" images have amber undertones. You can drag the slider to the left to create cooler toned images. Or, to the right to create warmer images.
+Tint
+Allows you apply a Tint to the colors within an image. We measure Tint along a vertical axis, from green to magenta.
+You can drag the slider to the left make the image appear more green. You can drag the slider to the right to makes the image appear more magenta.
+Tip!
+You can use Temperature and Tint together to adjust the
+white balance
+of the image.
+Highlights
+Allows you to isolate and adjust only the lighter areas of an image. You can use this to create more distinction between the highlights and shadows. As well as adjust the relative exposure.
+You can decrease to reduce the level of light in the highlights. Or, increase it to create even brighter highlights.
+Shadows
+This allows you to isolate and adjust only the darker areas of an image. You can use this to create more distinction between the highlights and shadows. As well as adjust the relative exposure.
+You can apply a negative adjustment to reduce the level of light and create deeper shadows. Or, a positive adjustment to increase the amount of light to create brighter shadows.

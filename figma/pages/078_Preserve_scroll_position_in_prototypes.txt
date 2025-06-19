@@ -1,0 +1,122 @@
+URL: https://help.figma.com/hc/en-us/articles/360051747774-Preserve-scroll-position-in-prototypes
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any team or plan
+Anyone with
+can edit
+access to a file can create prototypes.
+In prototypes, you can navigate through frames to demonstrate a user journey across multiple pages or screens.
+Preserving scroll position lets you maintain the same scroll position when you transition between frames. This applies to both vertical and horizontal scroll locations. In older versions of Figma, preserving scroll position was something that needed to be enabled as a part of prototype interactions. Now, scroll position is
+preserved by default
+after your layers are
+prepared for preserving scroll position
+In terms of
+state management
+, the concept of "preserve scroll position" is a combination of
+state memorization
+and
+state sharing
+. State memorization preserves the scroll position of content in a given layer of a prototype. State sharing lets the scroll position of content be shared by different layers that meet certain criteria, thus preserving the scroll position throughout the prototype.
+Note:
+State management allows us to maintain object properties and states when navigating in and across frames when playing prototypes—and can apply to scroll position, interactive components, and videos.
+Preserved by default
+In your prototypes, the scroll position of top-level frames and scrollable layers is
+memorized
+by default.
+For example, you have a prototype of a map app. In order to simulate the experience of scrolling the map, one of the frames contains an image of the map that overflows the frame. By default, when you navigate away from that frame in the prototype, the current scroll position of the map is memorized. When you return to the frame, the map is at the same position as when you left the frame earlier.
+The scroll position of layers is shared by default if the
+layers match
+. Top-level frames can have
+identical names or identical prefixes
+, in order to help differentiate between frames in the prototype.
+If you want an interaction to reset the scroll position of layers in a top-level frame (the
+old state management behavior
+), you can override the
+state memorization
+and
+state sharing
+behavior with
+Reset scroll position
+Learn more about
+prototype state management →
+Prepare layers for preserving scroll position
+For interactions in your protoypes, scroll position is preserved between matching objects or frames.
+Match nested objects
+Nested objects are objects placed within another layer or frame. To match nested objects across frames, both of the following criteria must be met:
+Objects have identical names
+Objects have the same
+set of parents
+across top-level frames
+Match top-level frames
+Top-level frames are frames placed directly on the canvas. To match top-level frames,
+only one
+of the following criteria needs to be met:
+Frames have identical names
+Frame names have a common prefix, followed by a forward slash. For example, frames
+Checkout / Empty
+and
+Checkout / Complete
+match.
+Rename layers in bulk
+If you have unique names for each layer, but would like match them so scroll position is automatically shared, you can rename multiple layers at the same time to match, or (for top-level frames) add a prefix to the existing name (for example,
+Prefix / Name
+Select the layers you want to rename by doing one of the following:
+Select an initial object on either the canvas or layers panel, then hold down
+Shift
+while clicking additional objects.
+Drag your cursor across any objects you want to select. This creates a blue box around the selected objects.
+Open up the rename layers panel:
+Mac:
+Command
+Windows:
+Control
+In the
+Rename to
+field, enter a name name, or a prefix that you want to add to the layer name. For a prefix, include a forward slash after the prefix name.
+If you're adding a prefix, click the
+Current Name
+button to add the current layer name after the forward slash.
+Click
+Rename
+to apply the changes.
+Learn more about
+renaming layers →
+Reset scroll position
+To override the default behavior of
+state memorization
+and
+state sharing
+between layers, you can enable
+Reset scroll position
+when you're configuring an interaction.
+To reset the scroll position:
+Click on a prototype connection to open the
+Interaction
+panel.
+In the
+State
+section of the panel, click the
+Reset scroll position
+checkbox.
+Update old state management: Preserve scroll position
+On May 24, 2023, Figma updated its prototype state management controls. This update changed how preserve scroll position is applied on interactions.
+To preserve scrolling between top-level frames,
+the top-level frame names have to be identical
+have a matching prefix.
+Turn off preserve scroll position
+Turn on preserve scroll position
+New state management
+Use non-matching layer names or check reset scroll position
+Use matching layer names
+(Top-level frame names can be identical or have a matching prefix)
+Old state management
+Toggle off the preserve scroll position setting
+Toggle on the preserve scroll position setting
+Any new interaction automatically follows new state management rules. To update an old interaction to the new state management controls, click the
+Update
+button on the
+Interaction details
+modal.

@@ -1,0 +1,49 @@
+URL: https://help.figma.com/hc/en-us/articles/31440394517143-Explore-Figma-Draw
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+any plan
+Requires a
+Full seat
+on paid plans
+Anyone with
+can edit
+access to a file can use Figma Draw
+Add personality and artistic flare to your designs with Figma Draw. Figma Draw lets you access illustration tools like
+brushes
+transforms
+, and
+textures
+, directly inside a Figma Design file.
+Want more hands-on experience using Figma Draw? Grab a copy of the
+Figma Draw playground file
+to practice while you learn.
+Enter Figma Draw
+Figma Draw is a set of visual design tools within the Figma Design editor. To open Figma Draw, click
+Draw
+in the toolbar.
+Note:
+If you don't see the
+Draw
+option in the toolbar, make sure you have
+can edit
+access to the design file.
+Navigate Figma Draw
+While using Figma Draw, the toolbar and sidebars change to provide a set of illustration-focused tools and properties.
+The toolbar
+The toolbar changes to give you quick access to the
+Pen
+Brush
+, and
+Pencil
+tools.
+The right sidebar
+The right sidebar changes to a more streamlined view of illustration-related properties, with slider controls that help you balance artistic feel with pixel-perfect adjustments. You can also access
+transforms
+from the right sidebar while in Figma Draw.
+The left sidebar
+The
+Layers
+section in the left sidebar displays an enlarged visual preview of the layer’s contents. Double-click on the layer preview to zoom directly to that layer on the canvas.

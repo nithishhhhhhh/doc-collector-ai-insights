@@ -1,0 +1,125 @@
+URL: https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances
+==================================================
+
+Who can use this feature
+Supported on
+Education
+Professional
+, and
+Organization
+, plans
+Anyone with
+can edit
+access to a file can insert components into a file.
+New to components and libraries?
+Guide to style and component libraries →
+Components let you create and reuse elements of your designs to speed up the process and keep things consistent.
+When building interfaces, we often switch between instances of these components for objects like icons, buttons, and cards.
+The Instance menu lets you quickly search, preview, and swap one component for another. There are a few ways you replace or swap instances in Figma.
+Want to swap instances in bulk?
+Use the
+Swap libraries
+feature to replace instances in the current file with components from another library.
+Swap libraries →
+Note:
+Figma will try to preserve any overrides when you select a different variant, or swap between instances in the Instance menu.
+Learn more about override preservation →
+Instance menu
+The Instance menu allows you to find component replacements from the current file and any
+libraries added to the file
+When you have a component selected, access the Instance menu in the right sidebar.
+Figma orders components in the Instance menu based on the component's
+Name
+and
+Location
+Related components are components that share the same hierarchy. This includes components in the same file, page, and frame.
+For example: you can have a
+file
+containing your app's UI design system, a
+page
+for each operating system, and
+frames
+within each page where your components are grouped by type.
+Figma also groups related components organized using the slash naming structure.
+For example: Figma considers
+UI/Button/Active
+UI/Button/Hover
+, and
+UI/Button/Inactive
+as related components.
+Learn how to name and organize components →
+To swap an instance using the
+Instance
+menu:
+Select the instance you want to replace. Figma will display the name of the component in the right sidebar.
+Click the name of the component to open the Instance menu.
+Use the menu to navigate through components:
+Select from the group of related components for your selection.
+Use the
+field to search a component by name.
+Click
+to switch between
+libraries added to the file
+Click
+to navigate to a different group of components.
+Use the
+and
+to switch between grid and list view.
+Select an instance to replace the current selection.
+Assets panel
+The
+Assets
+panel in the left sidebar allows you to search for components to add to your file. You can find components from any libraries you have access to.
+You can drag a component onto the canvas to create an instance of that component. If you use the modifier key while dragging a component from the Assets panel, you can replace the existing component.
+Open the
+Assets
+panel and find the component.
+Hold down the modifier key: If the component
+isn't nested
+within another frame or component
+Mac
+⌥ Option
+Windows
+Alt
+If the component
+is nested
+within another Frame or component
+Mac
+⌥ Option
+⌘ Command
+Windows
+Alt
+Control
+Drag the component above the instance you want to swap in the canvas.
+Release the mouse, then release the modifier key. If you release the modifier key first, Figma will only add the new component, not replace.
+Note:
+Figma only preserves text overrides. To keep any changes you've made to text layers,
+rename the layers
+so they're unique. If you swap a component with other overrides applied, we won't apply these to the new component. Learn more about
+overriding properties of an instance
+Quick insert
+Swap instances of components from your keyboard using quick insert. Quick insert opens the Resources modal where you can find and view components from libraries that have been added to the file. The components found in the Resources modal mirror what you see in the Assets panel.
+Select the layer or instance you want to swap.
+Use the shortcut
+Shift
+to open quick insert.
+To locate a component, do one of the following:
+Use the search field to find a specific component. U
+se your mouse or arrow keys to navigate to the relevant component.
+Use the
+and
+icons to switch between grid and list view.
+Select from a library that's been added to the file. If a library is not displaying, you may need to add it first.
+Manage libraries in design files →
+Hold down
+⌥ Option
+(Mac) or
+Ctrl
+(Windows).
+Right-click menu
+You can also use the right-click menu to switch between related components. This will only allow you to select components in the same frame or hierarchy.
+Right-click on the instance in the canvas.
+Hover over the
+Swap Instance
+option.
+Select an instance from the list of related components.

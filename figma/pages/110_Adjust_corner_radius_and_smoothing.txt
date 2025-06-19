@@ -1,0 +1,110 @@
+URL: https://help.figma.com/hc/en-us/articles/360050986854-Adjust-corner-radius-and-smoothing
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access to a file can adjust corner radius and smoothing
+In interface design, we see rounded corners on screens, icons, buttons, and cards. It's easier for eyes to follow circles and curves, while sharp edges disrupt our line of sight.
+Figma represents corner radius in (density-independent) pixels. You can adjust corner radius for an entire shape, or for each point in a vector object.
+Figma has two features for creating rounded corners:
+Corner radius:
+Rounds the corner where two lines meet. Use this to create shapes with rounded corners.
+Corner smoothing:
+Adjusts a rounded corner to create a continuous curve. Use this setting to create "squircles".
+Note:
+Rounded corners may not be available for rectangles you create with the pen tool or rectangles you edit in vector edit mode.
+You can apply corner radius and smoothing to:
+Frames
+Rectangles, polygons, and stars
+Vector networks that are closed shapes
+Boolean operations that contain rectangles
+Note:
+It's not possible to apply corner radius to lines, arrows, vector networks with only a single stroke, or boolean operations that only contain ellipses.
+Adjust corner radius for an entire shape
+There are a few ways to adjust the corner radius for a vector object or shape.
+Tip:
+Your S
+mall nudge
+and B
+ig nudge
+settings apply to corner radius too. Use the
+and
+keys to use your small nudge. Hold down
+Shift
+to use your big nudge settings with the arrow keys.
+Design tab
+Select the layer.
+Enter a pixel value in the
+Corner radius
+field in the right sidebar or hover your cursor over the
+icon, then click and drag left to reduce or right to increase.
+Canvas
+You can also adjust the corner radius for rectangles, stars, and polygons on the canvas.
+Select the shape you want to update.
+Hover over the corner you want adjust until the radius handle appears.
+Drag to adjust the radius.
+Adjust the radius of an individual corner
+By default, Figma applies corner radius to the entire shape. There are a few ways to adjust the corner radius for individual corners.
+Caution:
+It's not possible to adjust an individual corner's radius in an instance. This is something to think about when setting corner radius for components.
+Independent corners setting (rectangles and frames only)
+Select the rectangle or frame you want to update.
+Click
+Independent corners
+in the right sidebar.
+In the
+Corner radius details
+panel, you can:
+Enter a pixel value for each corner
+Click
+Apply variable
+in any of the four corner radius fields to
+apply a number variable
+Use the slider to adjust
+corner smoothing
+Canvas (rectangles only)
+You can also adjust the corner radius for an individual corner in the canvas. This only applies to rectangles.
+Select the shape you want to update.
+Hold down the modifier key to adjust a single corner.
+Mac:
+⌥ Option
+Windows:
+Alt
+Hover over the corner you want adjust until the radius handle appears.
+Drag to adjust the radius.
+Vector edit mode (shapes only)
+Select the shape you want to update.
+Double-click on the shape or press
+Enter
+Return
+to enter vector edit mode.
+Select the individual point on the canvas.
+Adjust the corner radius using the
+field in the right sidebar.
+Enter a pixel value in the
+Corner radius
+field or hover your cursor over the
+icon, then click and drag left to reduce and right to increase.
+Corner smoothing for squircles
+Designers noticed a difference in the rounded corners of iOS7 app icons. This corner smoothing created a seamless continuous curve that regular rounded corners couldn't.
+We refer to shapes that use this particular effect squircles. A shape that's somewhere between a square and a circle. We still see squircles in Apple's later designs, including OS14.
+There's quite a bit of mathematics that goes into a squircle. Learn more about
+one Figma engineer's search for squircles
+Adjust corner smoothing
+You can apply corner smoothing to any shape you can apply corner radius to. Unlike corner radius, you can only apply corner smoothing to the entire shape.
+Select the layer you want to update.
+Open the
+Design
+panel in the right sidebar.
+Click the
+Independent corners
+icon to open the
+Corner radius
+panel.
+Use the slider to adjust corner smoothing or click
+iOS
+to set corner smoothing to 60%, the default for iOS.

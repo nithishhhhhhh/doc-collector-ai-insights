@@ -1,0 +1,69 @@
+URL: https://help.figma.com/hc/en-us/articles/31441443713047-Create-multi-dimensional-auto-layout-flows
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+all plans
+Anyone with
+can edit
+access can use auto layout
+This article covers just one aspect of working auto layout. Check out these other articles to learn more about working with auto layout in Figma Design.
+Guide to auto layout
+: An overview of auto layout, how it works, key properties, and browse a collection of auto layout resources.
+Toggle auto layout on a design
+: Learn how to add auto layout to frames and layers so that you can start making your designs responsive.
+Use the horizontal or vertical flows in auto layout
+: Learn about the properties available to the horizontal and vertical flows in auto layout.
+Use the grid auto layout flow
+: Learn how to work with columns, rows, and cells with the grid layout flow.
+The true power of auto layout's responsiveness emerges when combining resizing behaviors across nested auto layout frame.
+Nesting an auto layout frame within another auto layout frame allows you to combine horizontal, vertical, and grid auto layout flows to create intricate components and interfaces. The nested frames will have both parent and child properties, meaning each frame will have its own separate padding and gap between values, which allow for for multi-dimensional layouts with elements that flow in different directions and arrangements.
+Tip
+: Nesting refers to the act of placing a layer inside of another layer, such as placing a button inside a component, or a shape inside of a frame.
+Learn more about nesting and parent, child, and sibling relationships.
+In this article, we’ll go through a couple of examples of nesting auto layout frames, but you can mix and match combinations of auto layout flows to achieve your desired effect.
+Nest grids inside a grid
+🚧 The grid flow for auto layout is currently in
+open beta
+. Some functions and settings may not yet be available to grid. The feature may change and you may experience bugs or performance issues during the beta period.
+In the mobile home screen example below, there are three levels of auto layout:
+Apps in home screen
+: The apps on the home screen live in a top-level auto layout frame that uses a grid flow with three columns and six rows (3x6).
+Folders
+: The folders are auto layout frames that uses a grid flow. Each frame spans across four grid cells.
+Apps in folder
+: Within the folder frames, one uses a 3x3 auto layout grid, and the other uses a 2x2 auto layout grid.
+You can nest an auto layout grid into another grid in a couple of ways:
+Click and drag an existing auto layout grid frame into a cell.
+Press
+to toggle the frame tool and click into a cell to create a frame. Then click the
+Grid
+option in the
+Auto layout
+section of the right sidebar.
+Learn more about the grid flow in auto layout.
+Nest vertical and horizontal flows
+In the social media newsfeed example below, there are four levels of auto layout:
+Button:
+Each button is a horizontal auto layout. This allows the button to grow and shrink as we change the label text.
+Button Row:
+We then add both buttons to another horizontal auto layout. This allows objects to respond when we make any changes to a sibling's contents.
+Post:
+We then add our buttons to a vertical auto layout with the other objects in the post. This includes a description, an image and the user's profile.
+Newsfeed:
+We've added three to a vertical auto layout to create our newsfeed. The auto layout frame is the
+top-level frame
+which sits on the canvas.
+You can nest auto layout frames in a couple of ways:
+Drag an auto layout frame into an existing auto layout frame
+Create a new auto layout frame around a selection of auto layout frames (and other objects).
+Tip
+You can bypass Figma's default
+parenting behavior
+. Hold down the modifier key to keep an object within the current frame, or prevent Figma from nesting it.
+Mac:
+⌘ Command
+Windows:
+Ctrl
+Learn more about the horizontal and vertical flows in auto layout.

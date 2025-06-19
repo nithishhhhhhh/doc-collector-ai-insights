@@ -1,0 +1,87 @@
+URL: https://help.figma.com/hc/en-us/articles/16783866441111-Use-Jambot-in-FigJam
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in FigJam
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+Jambot is a
+FigJam widget
+that brings the power of ChatGPT’s AI to your boards.
+Use Jambot to:
+Brainstorm ways to kick off your team meeting
+Summarize sticky notes on your board to help wrap up a meeting
+Create visual mindmaps with AI
+Reframe text for a specific audience, tone, or format
+Learn something new by asking the widget a question or to expand on a topic
+Generate code from a description or prompt
+Learn about the risk of using AI tools →
+Run Jambot
+To find and run the Jambot widget:
+Hover over the pile of recently used icons in the toolbar, then click
+More
+From the
+Widgets
+tab, search
+Jambot
+Click or drag to add the widget to the board.
+Add text to the input sticky.
+Select a function.
+Use existing stickies as input:
+Add the Jambot widget to the board.
+Select existing stickies or sections.
+Use the keyboard shortcuts
+⇧ Shift
+to create an elbow connector, and
+for a straight line.
+Drag a line from the selected stickies or section to the Jambot widget.
+Select a function.
+Note
+Figma may limit the usage of beta features, including capping feature use due to high demand.
+Jambot functions
+Function
+Use
+Prompt
+Ideate!
+Generates and produces ideas related to the input
+“Icebreaker questions for our weekly team sync.”
+Quick question
+Lets you ask Jambot a question about the text in a sticky
+"What can I cook with [sticky text]?”
+Teach me about this
+Asks Jambot to explain what is in the sticky
+"Impressionism”, “Design systems”
+Give me…
+Provides people, examples, ideas, statistic, and facts about the text in a sticky
+“US Women’s National Soccer Team”, “Punk rock”
+Rabbit hole
+Lets you dig deeper into a certain topic
+"Flamenco” will offer you information on The history of Flamenco or Regional variations of Flamenco music
+Similar stuff
+Shows you related topics to branch out to and open new areas to explore
+“Cacio e Pepe” will show you explanations of similar recipes like Aglio e olio
+Summarize
+Convert selected stickies into a consolidated format or bullet point summary
+[Selection of stickies with action items]
+Rewrite this
+Asks Jambot to reframe text for a different audience, tone, or style
+“Thanks for your input, but I will be moving forward with the team’s existing plan” as a polite but assertive Slack message
+Turn this into a…
+Will rewrite a selected text into a joke, song, or poem
+“Variables in Figma” as a poem
+Code this up
+Asks Jambot to generate code to implement what’s describe in a sticky
+“12 column CSS flex box grid”
+Custom
+Lets you write your own prompt
+“Write me a song about the Black-Crowned Night Herons of Lake Merritt.”
+See what else you can do with AI in FigJam →

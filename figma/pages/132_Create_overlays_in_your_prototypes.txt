@@ -1,0 +1,128 @@
+URL: https://help.figma.com/hc/en-us/articles/360039818254-Create-overlays-in-your-prototypes
+==================================================
+
+Before you start
+Who can use this feature
+Anyone on
+any team or plan
+Anyone with
+can edit
+access to the file can create and edit prototype connections.
+New to Prototyping in Figma?
+Check out our
+Getting Started with Prototyping
+and
+Build Prototypes with Interactions and Animations
+articles.
+Prototypes often require transitions between screens in a design. For some interactions, you may want to keep the user on the same screen, but show additional information.
+Overlays allow you to show new content or information above the current screen in a prototype. Use overlays to prototype:
+Alerts or confirmations
+Interactive hamburger menus
+Tooltips and additional information
+On-screen keyboards
+Overlay actions
+In a prototype connection, an action usually takes the user from
+. When the action is an overlay, Figma shows the overlay above the current screen.
+Figma usually applies interaction settings to just that the connection. When you create an overlay, Figma applies those settings to the overlay itself, not the connection.
+This allows you to apply those settings once and reuse that overlay across your prototype.
+Tip!
+You can create interactions between overlays using the
+Swap overlay
+action. Learn more in the
+Swap between overlays
+section.
+Create an overlay
+You create an overlay when you define the interaction of a connection. Overlays can be triggered from any object, layer, group or frame. The overlay must be inside a frame.
+Click the
+Prototype
+tab in the right sidebar.
+Hover over the object you want to start the overlay from. Click on the prototype node and drag a connection to the frame you want to become the overlay.
+Now you can customize the interaction. There are three aspects of the interaction, the trigger, action and destination.
+Select what kind of interaction will trigger the animation.
+Select
+Open overlay
+from the actions.
+Figma determines the
+Destination
+based on where the connection ends. For this interaction, you want this to be the overlay frame.
+There are a few aspects of an overlay that you can customize:
+Position:
+The location of the overlay relative to the original frame. Choose from seven default options or set a position manually.
+Close when clicking outside
+: Check this setting to dismiss the overlay when a user clicks outside the overlay's dimensions.
+Add background behind overlay:
+Check this setting to add a background color behind the overlay and in front of the current frame. Set both the color and the opacity.
+In the Animation section, customize how the overlay will appear. Select the (1) transition and any additional settings, including (2) direction, (3) easing, and (4) duration. Learn how to
+build prototypes with interactions and animations
+Tip!
+Add GIFs to your overlays to simulate more advanced animations. GIFs show up as static images in the Editor, but playback as GIFs in
+Presentation View
+Swap between overlays
+When working with overlays, you can choose the
+Swap overlay
+action. This allows you to keep the existing settings while you swap one overlay for another.
+In the following example, we used
+Swap overlay
+to show a user interacting with our in-app help menu.
+The user clicks on the help icon, which opens the first overlay (
+Help menu
+They select the
+Get Help
+option from the menu.
+We replace the
+Help menu
+overlay with a
+Chat window
+overlay.
+Note:
+Figma doesn't record
+Swap overlay
+actions in a prototype's history. When you create a
+Back
+action from a
+Swap overlay
+transition, Figma will take you back to the previous screen, not the previous overlay.
+Use Swap Overlay
+Select the first overlay in the canvas.
+Open the
+Prototype
+tab in the right sidebar.
+In the
+Trigger
+field, choose the type of interaction you want to use as the trigger.
+In the
+Action
+field, select
+Swap overlay
+In the
+Destination
+field, select the overlay you'd want to swap to.
+Customize the
+Animation
+with transition, direction, easing, and duration settings.
+Preview your overlay in
+Presentation view
+Note:
+You can't set a different position for the new overlay. Figma places the new overlay in the same position as the original overlay.
+Edit or delete an overlay
+Unlike other actions, overlay settings are applied to the overlay and not the connection. This means you can update the overlay's settings in one place.
+You can only edit or remove an overlay in
+Prototype
+mode.
+Edit overlay
+Identify an overlay using the blue
+icon. This will appear next to the frame in the canvas.
+Click the
+icon to view overlay's settings in the right sidebar.
+Make any changes to the overlay, as required.
+Tip!
+You can also access the overlay settings by clicking on a hotspot, or on an arrow from one of the connections.
+Delete Overlay
+There are a few ways to delete an overlay:
+Click on the connection arrow and drag it to an empty part of the canvas.
+Click the
+icon to select the overlay, then press the
+Delete
+key.
+Remove all connections on the current page. Right-click on a connection and select
+Remove all interactions

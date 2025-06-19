@@ -1,0 +1,168 @@
+URL: https://help.figma.com/hc/en-us/articles/17725942479127-Control-AI-features-and-content-training-settings
+==================================================
+
+Who can use this feature
+Available on
+all paid plans
+Note:
+Figma’s AI features are currently free while
+in beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+To make improvements to Figma's AI features over time, we will be training models that better understand design concepts and patterns, and Figma’s internal formats and structure through Figma content. Admins can control whether their teams use these features and whether they participate in content training.
+Learn more about AI tools in Figma
+How AI management works for admins
+Admins have control over AI use and content training, which they can adjust with two new settings. Admins can turn these settings on or off at anytime. These settings control:
+Access to AI features
+For all paid plans: AI features are set to ‘on’ by default
+Content training
+For Professional, content training is set to ‘on’ by default — admins can opt out
+For Organization and Enterprise, content training is set to ‘off’ by default
+These are team-level settings for Professional plans and organization-level settings for Organization and Enterprise plans.
+Our customer agreements with Organization and Enterprise are typically more complex and include specific requirements and restrictions, which is why we’ve chosen a different default setting for those plans. Additionally, these two new settings will default to ‘off’ for teams that turned off "Figma and FigJam AI" prior to June 26, 2024.
+Adjust access to AI features across Figma
+Note:
+The
+AI features
+toggle applies to all AI features across Figma products, including
+Figma Make
+Separately, Figma Make has a toggle where admins can enable or disable Figma Make publishing.
+Learn more about managing Figma Make publishing for an organization
+Admins can adjust the AI features setting at any time and any changes are applied immediately. When the
+AI features
+toggle is off, users within that team or organization cannot access or use any AI features in any of the team or organization’s files. When it’s on, users can use AI features that they have access to.
+Learn what AI features are available by product and plan →
+Select your plan for detailed instructions:
+Professional teams
+Organization or Enterprise plan
+Team admins can adjust access to AI features in the team’s settings.
+From the
+file browser
+, open your team and click
+Admin
+in the left sidebar.
+Open the
+Settings
+tab and scroll to
+section.
+Toggle
+AI features
+on or off.
+When AI features are toggled on:
+users with a full seat can use any AI feature, as long as they are in a file they can edit.
+When AI features are toggled off:
+users won’t be able to access AI features within the team. This won’t prevent them from using AI features in spaces outside the team.
+Organization admins can adjust access to AI features in the organization’s admin settings. Workspace admins and team admins do not have access to this setting.
+From the
+file browser
+, open your organization and click
+Admin
+in the left sidebar.
+Open the
+Settings
+tab and scroll to
+section.
+Toggle
+AI features
+on or off.
+When AI features are toggled on:
+members with a full seat can use any AI feature, as long as they are in a file they can edit. Guests of an organization cannot use AI features, even if the toggle is on.
+When AI features are toggled off:
+members won’t be able to access AI features within the organization. This won’t prevent them from using AI features in spaces outside the organization.
+Adjust AI content training settings
+Admins have control of whether their team’s content data is used for training.
+Learn more about Figma’s approach to AI →
+Note:
+If an admin turns off content training, new content and edits will not be used to train AI models.
+Select your plan for detailed instructions:
+Professional teams
+Organization or Enterprise plan
+By default, content training is turned
+for Professional teams.
+Admins of a Professional team can toggle off content training at any time in the team's settings. Content training does not affect access to AI features.
+From the
+file browser
+, open your team and click
+Admin
+in the left sidebar.
+Open the
+Settings
+tab and scroll to
+section.
+Toggle
+Content training
+on or off.
+By default, content training is turned
+off
+on Organization and Enterprise plans.
+Content training does not affect access to AI features.
+From the
+file browser
+, open your organization and click
+Admin
+in the left sidebar.
+Open the
+Settings
+tab and scroll to
+section.
+Toggle
+Content training
+on or off.
+Data privacy and security
+We know how important your data is to you, your company, and your clients. Our model development process is designed to protect your privacy and confidential information.
+We take additional steps to train our models so that they learn general design patterns and Figma-specific concepts and tools—not your content, concepts, and ideas. For example, we de-identify content and redact sensitive information including from text and images.
+You can learn more about how we protect your data
+here.
+Frequently asked questions
+I'm a
+Figma for Education
+Figma for Government
+account. What does this mean for me?
+AI features and settings will not be enabled for users who are a part of an Education plan. If you have any questions, please contact
+education@figma.com
+Organizations using the
+Figma for Government
+solution will not have AI features or settings enabled.
+Figma does not use
+any data from Figma for Education or Figma for Government accounts to train AI models.
+I turned off AI features prior to June 26, 2024. What happens to my settings?
+Content training is ‘off’ by default for teams who turned off the “Figma and FigJam AI” setting prior to June 26, 2024, no matter the plan type. The AI features setting will remain off.
+How does the content training setting work and what happens after I turn it off?
+Content helps us build better, more useful experiences, but sharing it with Figma for AI training is optional. Admins can control whether or not content is used for AI model training with the content training setting. For Starter and Professional accounts, this is a team-level setting.
+Content training went into effect on August 15, 2024. If an admin turns off content training after this date, new content and edits will not be used to train AI models.
+What 3rd party models does Figma’s AI use?
+We work with multiple vendors, such as OpenAI, to operationalize, build and fine-tune AI models, as well as process data to power Figma’s AI features. You can find the list of the sub-processors used to power AI features
+here
+Do you use content from my drafts to train AI models?
+Drafts organized into teams are treated the same as other files in that team and will only be used to train AI models if content training is set to ‘on’. Content training is an admin setting. If you prefer that Figma not use content in your drafts to train AI models, please:
+Turn off content training or ask your admin to do so
+Move your drafts into a Starter or paid team where content training is set to ‘off’
+How does Figma protect my privacy and confidential information?
+We know how important your data is to you, your company, and your clients. Our model development process is designed to protect your privacy and confidential information.
+For all customer data, we:
+Encrypt all data at rest and in transit
+Use security measures designed to protect against unauthorized access to customer data
+Enforce tailored permissions and user access controls around who can view and access your data
+When working with 3rd party companies to process data, we:
+Do not permit 3rd party model providers to use data that customers upload or create on the Figma platform for training their own models
+Limit how long vendors can store data. OpenAI and our other 3rd party model providers store data temporarily, or in some cases not at all, in order to process requests and enable AI features
+We take additional steps to train our models so that they learn general design patterns and Figma-specific concepts and tools—not your content, concepts, and ideas. For example, we de-identify content and redact sensitive information including from text and images.
+Read more about Figma’s security practices
+here
+Have another question?
+Learn more about
+Figma’s approach to AI →
+Review our updated
+AI Terms →
+Read about
+Figma’s Security →
+If you have any other questions about AI settings, please
+submit a request to our Support team
+using the below form fields so we can best support you:
+Under
+Please choose your issue
+, select
+Data privacy and content training
+Under
+I need help with…
+, select
+Content training

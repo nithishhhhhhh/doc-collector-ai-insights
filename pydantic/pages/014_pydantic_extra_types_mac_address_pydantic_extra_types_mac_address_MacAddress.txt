@@ -1,0 +1,195 @@
+URL: https://docs.pydantic.dev/latest/api/pydantic_extra_types_mac_address/#pydantic_extra_types.mac_address.MacAddress
+==================================================
+
+Mac Address
+The MAC address module provides functionality to parse and validate MAC addresses in different
+formats, such as IEEE 802 MAC-48, EUI-48, EUI-64, or a 20-octet format.
+MacAddress
+Bases:
+str
+Represents a MAC address and provides methods for conversion, validation, and serialization.
+from
+pydantic
+import
+BaseModel
+from
+pydantic_extra_types.mac_address
+import
+MacAddress
+class
+Network
+BaseModel
+mac_address
+MacAddress
+network
+Network
+mac_address
+"00:00:5e:00:53:01"
+print
+network
+#> mac_address='00:00:5e:00:53:01'
+validate_mac_address
+staticmethod
+validate_mac_address
+value
+bytes
+str
+Validate a MAC Address from the provided byte value.
+Source code in
+pydantic_extra_types/mac_address.py
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+@staticmethod
+def
+validate_mac_address
+value
+bytes
+str
+"""
+Validate a MAC Address from the provided byte value.
+"""
+len
+value
+raise
+PydanticCustomError
+'mac_address_len'
+'Length for a
+{mac_address}
+MAC address must be
+{required_length}
+'mac_address'
+value
+decode
+(),
+'required_length'
+value
+ord
+':'
+ord
+'-'
+)]:
+len
+value
+raise
+PydanticCustomError
+'mac_address_format'
+'Must have the format xx:xx:xx:xx:xx:xx or xx-xx-xx-xx-xx-xx'
+len
+value
+not
+raise
+PydanticCustomError
+'mac_address_format'
+'Length for a
+{mac_address}
+MAC address must be
+{required_length}
+'mac_address'
+value
+decode
+(),
+'required_length'
+)},
+mac_address
+bytearray
+for
+range
+try
+byte_value
+int
+value
+mac_address
+byte_value
+except
+ValueError
+raise
+PydanticCustomError
+'mac_address_format'
+'Unrecognized format'
+from
+elif
+value
+ord
+'.'
+len
+value
+raise
+PydanticCustomError
+'mac_address_format'
+'Must have the format xx.xx.xx.xx.xx.xx'
+len
+value
+not
+raise
+PydanticCustomError
+'mac_address_format'
+'Length for a
+{mac_address}
+MAC address must be
+{required_length}
+'mac_address'
+value
+decode
+(),
+'required_length'
+)},
+mac_address
+bytearray
+for
+range
+try
+byte_value
+int
+value
+mac_address
+byte_value
+byte_value
+int
+value
+mac_address
+byte_value
+except
+ValueError
+raise
+PydanticCustomError
+'mac_address_format'
+'Unrecognized format'
+from
+else
+raise
+PydanticCustomError
+'mac_address_format'
+'Unrecognized format'
+return
+':'
+join
+02x
+for
+mac_address
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

@@ -1,0 +1,45 @@
+URL: https://help.figma.com/hc/en-us/articles/360040328653-Keyboard-shortcuts-in-Figma
+==================================================
+
+Who can use this feature
+Available on
+any plan
+When you're getting into a state of flow, the line between tool and designer blurs, giving you the freedom to explore the problems you're trying to solve. To save you from any unnecessary clicking and scrolling, we've put some handy keyboard shortcuts at your fingertips.
+Note:
+It's currently not possible to create custom keyboard shortcuts. This is something to consider if you have applications with conflicting shortcuts. For example: a shortcut to open your password manager.
+Keyboard shortcuts
+You have access to a range of keyboard shortcuts in Figma Design and FigJam files.
+View shortcuts panel
+Open the keyboard shortcuts panel to view a selection of shortcuts. You can see which shortcuts you've already used, or discover new ways to speed up your workflow.
+There are two ways to open the shortcuts panel:
+Click
+Help and resources
+in the bottom-right and select
+Keyboard shortcuts
+Use the keyboard shortcut:
+Mac:
+Control
+Shift
+Windows:
+Ctrl
+Shift
+Figma will open the shortcuts panel along the bottom of your screen. Use the tabs at the top of the panel to explore shortcuts related to each set of actions. To
+view your current keyboard layout or select another one
+, select the
+Layout
+tab.
+You can continue to use in Figma while viewing the keyboard shortcuts panel. Try out a new shortcut and watch the panel update.
+Click
+to close the panel.
+Figma Design
+FigJam
+Shortcuts you've already used are shown in
+blue
+, shortcuts you haven’t are shown in
+white
+Shortcuts you've already used are shown in
+purple
+, shortcuts you haven’t are shown in
+white
+Note:
+Figma shows shortcuts based on your device. On some devices you’ll see a key’s symbol instead of the full name. Hover over the symbol to see the full expression.

@@ -1,0 +1,1952 @@
+{
+  "site": "animejs",
+  "total_files": 324,
+  "processed_files": 324,
+  "total_content_length": 381586,
+  "files": [
+    {
+      "filename": "001_onenter.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenter",
+      "content_length": 1118
+    },
+    {
+      "filename": "002_animatable-methods.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-methods",
+      "content_length": 456
+    },
+    {
+      "filename": "003_pad-start.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/pad-start",
+      "content_length": 1219
+    },
+    {
+      "filename": "004_setters.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-methods/setters",
+      "content_length": 2082
+    },
+    {
+      "filename": "005_playbackease.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/playbackease",
+      "content_length": 923
+    },
+    {
+      "filename": "006_color-function-value.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/color-function-value",
+      "content_length": 619
+    },
+    {
+      "filename": "007_array-of-targets.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/targets/array-of-targets",
+      "content_length": 700
+    },
+    {
+      "filename": "008_animatable-properties.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties",
+      "content_length": 644
+    },
+    {
+      "filename": "009_wrap.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/wrap",
+      "content_length": 1409
+    },
+    {
+      "filename": "010_animateinview.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/animateinview",
+      "content_length": 1172
+    },
+    {
+      "filename": "011_revert.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-methods/revert",
+      "content_length": 2441
+    },
+    {
+      "filename": "012_api-differences-with-native-waapi.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi",
+      "content_length": 1058
+    },
+    {
+      "filename": "013_mapto.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters/mapto",
+      "content_length": 464
+    },
+    {
+      "filename": "014_timeline-playback-settings.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings",
+      "content_length": 610
+    },
+    {
+      "filename": "015_scope-properties.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-properties",
+      "content_length": 1073
+    },
+    {
+      "filename": "016_duration.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/duration",
+      "content_length": 738
+    },
+    {
+      "filename": "017_update.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-methods/update",
+      "content_length": 2072
+    },
+    {
+      "filename": "018_add-constructor-function.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/add-constructor-function",
+      "content_length": 1598
+    },
+    {
+      "filename": "019_alternate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/alternate",
+      "content_length": 1189
+    },
+    {
+      "filename": "020_onleavebackward.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleavebackward",
+      "content_length": 1134
+    },
+    {
+      "filename": "021_timer-methods.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods",
+      "content_length": 447
+    },
+    {
+      "filename": "022_ongrab.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/ongrab",
+      "content_length": 642
+    },
+    {
+      "filename": "023_timeline-positions-staggering.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/timeline-positions-staggering",
+      "content_length": 1326
+    },
+    {
+      "filename": "024_time-position.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/time-position",
+      "content_length": 1781
+    },
+    {
+      "filename": "025_revert.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/revert",
+      "content_length": 1217
+    },
+    {
+      "filename": "026_lerp.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/lerp",
+      "content_length": 1781
+    },
+    {
+      "filename": "027_revert.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-methods/revert",
+      "content_length": 1704
+    },
+    {
+      "filename": "028_engine-properties.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-properties",
+      "content_length": 945
+    },
+    {
+      "filename": "029_playback-loopdelay.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/playback-loopdelay",
+      "content_length": 1045
+    },
+    {
+      "filename": "030_duration.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-settings/duration",
+      "content_length": 1480
+    },
+    {
+      "filename": "031_scope.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope",
+      "content_length": 1236
+    },
+    {
+      "filename": "032_get.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/get",
+      "content_length": 1775
+    },
+    {
+      "filename": "033_remove.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/remove",
+      "content_length": 2058
+    },
+    {
+      "filename": "034_easing.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/easing",
+      "content_length": 2039
+    },
+    {
+      "filename": "035_scrollobserver-thresholds.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-thresholds",
+      "content_length": 2105
+    },
+    {
+      "filename": "036_morphto.txt",
+      "title": "SVG",
+      "url": "https://animejs.com/documentation/svg/morphto",
+      "content_length": 2131
+    },
+    {
+      "filename": "037_deg-to-rad.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/deg-to-rad",
+      "content_length": 1240
+    },
+    {
+      "filename": "038_engine-defaults.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-defaults",
+      "content_length": 825
+    },
+    {
+      "filename": "039_eased-scroll.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/eased-scroll",
+      "content_length": 1015
+    },
+    {
+      "filename": "040_onupdate.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/onupdate",
+      "content_length": 1030
+    },
+    {
+      "filename": "041_sync.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/sync",
+      "content_length": 1004
+    },
+    {
+      "filename": "042_tween-parameters.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters",
+      "content_length": 820
+    },
+    {
+      "filename": "043_add-timers.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/add-timers",
+      "content_length": 1649
+    },
+    {
+      "filename": "044_direction.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/direction",
+      "content_length": 1134
+    },
+    {
+      "filename": "045_dragspeed.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/dragspeed",
+      "content_length": 886
+    },
+    {
+      "filename": "046_javascript-objects.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/targets/javascript-objects",
+      "content_length": 510
+    },
+    {
+      "filename": "047_time-staggering.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/time-staggering",
+      "content_length": 1168
+    },
+    {
+      "filename": "048_onafterresize.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onafterresize",
+      "content_length": 949
+    },
+    {
+      "filename": "049_engine.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine",
+      "content_length": 228
+    },
+    {
+      "filename": "050_color-value.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/color-value",
+      "content_length": 1091
+    },
+    {
+      "filename": "051_defaults.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-parameters/defaults",
+      "content_length": 1389
+    },
+    {
+      "filename": "052_default-units.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/default-units",
+      "content_length": 1479
+    },
+    {
+      "filename": "053_timeunit-seconds-milliseconds.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters/timeunit-seconds-milliseconds",
+      "content_length": 1881
+    },
+    {
+      "filename": "054_stagger-modifier.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-modifier",
+      "content_length": 987
+    },
+    {
+      "filename": "055_refresh.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/refresh",
+      "content_length": 954
+    },
+    {
+      "filename": "056_snap.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters/snap",
+      "content_length": 810
+    },
+    {
+      "filename": "057_onupdate.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onupdate",
+      "content_length": 1147
+    },
+    {
+      "filename": "058_releasemass.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/releasemass",
+      "content_length": 793
+    },
+    {
+      "filename": "059_link.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-methods/link",
+      "content_length": 1156
+    },
+    {
+      "filename": "060_animatable-settings.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-settings",
+      "content_length": 557
+    },
+    {
+      "filename": "061_stagger-reversed.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-reversed",
+      "content_length": 805
+    },
+    {
+      "filename": "062_rad-to-deg.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/rad-to-deg",
+      "content_length": 1289
+    },
+    {
+      "filename": "063_then.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/then",
+      "content_length": 1014
+    },
+    {
+      "filename": "064_container.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/container",
+      "content_length": 922
+    },
+    {
+      "filename": "065_installation.txt",
+      "title": "Getting started",
+      "url": "https://animejs.com/documentation/getting-started/installation",
+      "content_length": 1404
+    },
+    {
+      "filename": "066_stagger-value-types.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-value-types",
+      "content_length": 301
+    },
+    {
+      "filename": "067_autoplay.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/autoplay",
+      "content_length": 1229
+    },
+    {
+      "filename": "068_autoplay.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/autoplay",
+      "content_length": 1056
+    },
+    {
+      "filename": "069_precision.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters/precision",
+      "content_length": 1867
+    },
+    {
+      "filename": "070_oncomplete.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/oncomplete",
+      "content_length": 876
+    },
+    {
+      "filename": "071_repeat.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings/repeat",
+      "content_length": 1860
+    },
+    {
+      "filename": "072_using-with-react.txt",
+      "title": "Getting started",
+      "url": "https://animejs.com/documentation/getting-started/using-with-react",
+      "content_length": 2032
+    },
+    {
+      "filename": "073_framerate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/framerate",
+      "content_length": 1243
+    },
+    {
+      "filename": "074_createdrawable.txt",
+      "title": "SVG",
+      "url": "https://animejs.com/documentation/svg/createdrawable",
+      "content_length": 2850
+    },
+    {
+      "filename": "075_function-based-values.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/function-based-values",
+      "content_length": 1468
+    },
+    {
+      "filename": "076_ondrag.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/ondrag",
+      "content_length": 637
+    },
+    {
+      "filename": "077_stagger-from.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-from",
+      "content_length": 2531
+    },
+    {
+      "filename": "078_complete.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/complete",
+      "content_length": 838
+    },
+    {
+      "filename": "079_scope-parameters.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-parameters",
+      "content_length": 737
+    },
+    {
+      "filename": "080_duration.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/duration",
+      "content_length": 1192
+    },
+    {
+      "filename": "081_modifier.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-settings/modifier",
+      "content_length": 1330
+    },
+    {
+      "filename": "082_reverse.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/reverse",
+      "content_length": 889
+    },
+    {
+      "filename": "083_restart.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/restart",
+      "content_length": 953
+    },
+    {
+      "filename": "084_stagger-ease.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-ease",
+      "content_length": 789
+    },
+    {
+      "filename": "085_onsnap.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onsnap",
+      "content_length": 747
+    },
+    {
+      "filename": "086_tween-value-types.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types",
+      "content_length": 556
+    },
+    {
+      "filename": "087_delay.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/delay",
+      "content_length": 832
+    },
+    {
+      "filename": "088_alternate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/alternate",
+      "content_length": 887
+    },
+    {
+      "filename": "089_css-transforms.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/css-transforms",
+      "content_length": 2014
+    },
+    {
+      "filename": "090_resume.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/resume",
+      "content_length": 1264
+    },
+    {
+      "filename": "091_releasedamping.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/releasedamping",
+      "content_length": 851
+    },
+    {
+      "filename": "092_reversed.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/reversed",
+      "content_length": 889
+    },
+    {
+      "filename": "093_draggable-settings.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings",
+      "content_length": 730
+    },
+    {
+      "filename": "094_using-with-vanilla-js.txt",
+      "title": "Getting started",
+      "url": "https://animejs.com/documentation/getting-started/using-with-vanilla-js",
+      "content_length": 2499
+    },
+    {
+      "filename": "095_alternate.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/alternate",
+      "content_length": 1140
+    },
+    {
+      "filename": "096_x.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters/x",
+      "content_length": 717
+    },
+    {
+      "filename": "097_onenterforward.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenterforward",
+      "content_length": 1137
+    },
+    {
+      "filename": "098_pause.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-methods/pause",
+      "content_length": 1712
+    },
+    {
+      "filename": "099_onpause.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onpause",
+      "content_length": 2279
+    },
+    {
+      "filename": "100_revert.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-methods/revert",
+      "content_length": 943
+    },
+    {
+      "filename": "101_restart.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/restart",
+      "content_length": 1053
+    },
+    {
+      "filename": "102_reverse.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/reverse",
+      "content_length": 871
+    },
+    {
+      "filename": "103_onbegin.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/onbegin",
+      "content_length": 1084
+    },
+    {
+      "filename": "104_documentation.txt",
+      "title": "Documentation",
+      "url": "https://animejs.com/documentation",
+      "content_length": 1106
+    },
+    {
+      "filename": "105_hardware-accelerated-animations.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/hardware-accelerated-animations",
+      "content_length": 2265
+    },
+    {
+      "filename": "106_onleaveforward.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleaveforward",
+      "content_length": 1131
+    },
+    {
+      "filename": "107_remove.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/remove",
+      "content_length": 1543
+    },
+    {
+      "filename": "108_targets.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/targets",
+      "content_length": 565
+    },
+    {
+      "filename": "109_delay.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/delay",
+      "content_length": 736
+    },
+    {
+      "filename": "110_sety.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/sety",
+      "content_length": 894
+    },
+    {
+      "filename": "111_unit.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-settings/unit",
+      "content_length": 1345
+    },
+    {
+      "filename": "112_waapi-convertease.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/waapi-convertease",
+      "content_length": 1197
+    },
+    {
+      "filename": "113_draggable.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable",
+      "content_length": 682
+    },
+    {
+      "filename": "114_framerate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/framerate",
+      "content_length": 1440
+    },
+    {
+      "filename": "115_timer.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer",
+      "content_length": 1182
+    },
+    {
+      "filename": "116_css-variables.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/css-variables",
+      "content_length": 1389
+    },
+    {
+      "filename": "117_stretch.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/stretch",
+      "content_length": 1688
+    },
+    {
+      "filename": "118_velocitymultiplier.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/velocitymultiplier",
+      "content_length": 929
+    },
+    {
+      "filename": "119_sync.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/sync",
+      "content_length": 1352
+    },
+    {
+      "filename": "120_draggable-axes-parameters.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters",
+      "content_length": 583
+    },
+    {
+      "filename": "121_sync-waapi-animations.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/sync-waapi-animations",
+      "content_length": 968
+    },
+    {
+      "filename": "122_pause.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/pause",
+      "content_length": 831
+    },
+    {
+      "filename": "123_releasestiffness.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/releasestiffness",
+      "content_length": 810
+    },
+    {
+      "filename": "124_then.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/then",
+      "content_length": 1283
+    },
+    {
+      "filename": "125_stop.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/stop",
+      "content_length": 795
+    },
+    {
+      "filename": "126_animatable-properties.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-properties",
+      "content_length": 349
+    },
+    {
+      "filename": "127_onenterbackward.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenterbackward",
+      "content_length": 1139
+    },
+    {
+      "filename": "128_pause.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/pause",
+      "content_length": 803
+    },
+    {
+      "filename": "129_label.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/label",
+      "content_length": 973
+    },
+    {
+      "filename": "130_root.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-parameters/root",
+      "content_length": 921
+    },
+    {
+      "filename": "131_maxvelocity.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/maxvelocity",
+      "content_length": 812
+    },
+    {
+      "filename": "132_relative-position-values.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-thresholds/relative-position-values",
+      "content_length": 1043
+    },
+    {
+      "filename": "133_playback-progress.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/playback-progress",
+      "content_length": 927
+    },
+    {
+      "filename": "134_animatable.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable",
+      "content_length": 2015
+    },
+    {
+      "filename": "135_onloop.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onloop",
+      "content_length": 1053
+    },
+    {
+      "filename": "136_onleave.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleave",
+      "content_length": 1103
+    },
+    {
+      "filename": "137_seek.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/seek",
+      "content_length": 1672
+    },
+    {
+      "filename": "138_min-max.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-thresholds/min-max",
+      "content_length": 1340
+    },
+    {
+      "filename": "139_resume.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/resume",
+      "content_length": 1199
+    },
+    {
+      "filename": "140_getters.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-methods/getters",
+      "content_length": 2199
+    },
+    {
+      "filename": "141_animation-callbacks.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks",
+      "content_length": 631
+    },
+    {
+      "filename": "142_dollar-sign.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/dollar-sign",
+      "content_length": 1821
+    },
+    {
+      "filename": "143_interpolate.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/interpolate",
+      "content_length": 1624
+    },
+    {
+      "filename": "144_utilities.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities",
+      "content_length": 469
+    },
+    {
+      "filename": "145_playback-loopdelay.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/playback-loopdelay",
+      "content_length": 627
+    },
+    {
+      "filename": "146_when-to-use-waapi.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/when-to-use-waapi",
+      "content_length": 1724
+    },
+    {
+      "filename": "147_add.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-methods/add",
+      "content_length": 2020
+    },
+    {
+      "filename": "148_playbackrate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/playbackrate",
+      "content_length": 1461
+    },
+    {
+      "filename": "149_range-value.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-value-types/range-value",
+      "content_length": 763
+    },
+    {
+      "filename": "150_then.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/then",
+      "content_length": 1183
+    },
+    {
+      "filename": "151_ease.txt",
+      "title": "Animatable",
+      "url": "https://animejs.com/documentation/animatable/animatable-settings/ease",
+      "content_length": 1625
+    },
+    {
+      "filename": "152_onresize.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onresize",
+      "content_length": 740
+    },
+    {
+      "filename": "153_minvelocity.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/minvelocity",
+      "content_length": 817
+    },
+    {
+      "filename": "154_play.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/play",
+      "content_length": 862
+    },
+    {
+      "filename": "155_releasecontainerfriction.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/releasecontainerfriction",
+      "content_length": 1058
+    },
+    {
+      "filename": "156_shuffle.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/shuffle",
+      "content_length": 923
+    },
+    {
+      "filename": "157_reversed.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/reversed",
+      "content_length": 1037
+    },
+    {
+      "filename": "158_framerate.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/framerate",
+      "content_length": 1430
+    },
+    {
+      "filename": "159_chain-able-utility-functions.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/chain-able-utility-functions",
+      "content_length": 1421
+    },
+    {
+      "filename": "160_defaults.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/defaults",
+      "content_length": 720
+    },
+    {
+      "filename": "161_clamp.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/clamp",
+      "content_length": 1414
+    },
+    {
+      "filename": "162_imports.txt",
+      "title": "Getting started",
+      "url": "https://animejs.com/documentation/getting-started/imports",
+      "content_length": 777
+    },
+    {
+      "filename": "163_animation.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation",
+      "content_length": 1867
+    },
+    {
+      "filename": "164_onupdate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onupdate",
+      "content_length": 1113
+    },
+    {
+      "filename": "165_containerfriction.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/containerfriction",
+      "content_length": 1005
+    },
+    {
+      "filename": "166_engine-methods.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-methods",
+      "content_length": 248
+    },
+    {
+      "filename": "167_stretch.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/stretch",
+      "content_length": 1628
+    },
+    {
+      "filename": "168_clean-inline-styles.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/clean-inline-styles",
+      "content_length": 1066
+    },
+    {
+      "filename": "169_modifier.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/modifier",
+      "content_length": 1641
+    },
+    {
+      "filename": "170_containerpadding.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/containerpadding",
+      "content_length": 791
+    },
+    {
+      "filename": "171_onrender.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onrender",
+      "content_length": 986
+    },
+    {
+      "filename": "172_seek.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/seek",
+      "content_length": 1676
+    },
+    {
+      "filename": "173_oncomplete.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/oncomplete",
+      "content_length": 1051
+    },
+    {
+      "filename": "174_keyframes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/keyframes",
+      "content_length": 1275
+    },
+    {
+      "filename": "175_mediaqueries.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-parameters/mediaqueries",
+      "content_length": 1182
+    },
+    {
+      "filename": "176_scrollobserver-properties.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-properties",
+      "content_length": 1557
+    },
+    {
+      "filename": "177_round.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/round",
+      "content_length": 1208
+    },
+    {
+      "filename": "178_timer-playback-settings.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings",
+      "content_length": 508
+    },
+    {
+      "filename": "179_stagger.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger",
+      "content_length": 916
+    },
+    {
+      "filename": "180_multi-targets-animation.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/multi-targets-animation",
+      "content_length": 1090
+    },
+    {
+      "filename": "181_timeline.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline",
+      "content_length": 1317
+    },
+    {
+      "filename": "182_setx.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/setx",
+      "content_length": 889
+    },
+    {
+      "filename": "183_refresh.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-methods/refresh",
+      "content_length": 2119
+    },
+    {
+      "filename": "184_cancel.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/cancel",
+      "content_length": 1084
+    },
+    {
+      "filename": "185_autoplay.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/autoplay",
+      "content_length": 1446
+    },
+    {
+      "filename": "186_onrelease.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onrelease",
+      "content_length": 660
+    },
+    {
+      "filename": "187_dom-elements.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/targets/dom-elements",
+      "content_length": 665
+    },
+    {
+      "filename": "188_onupdate.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onupdate",
+      "content_length": 669
+    },
+    {
+      "filename": "189_percentage-based-keyframes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/keyframes/percentage-based-keyframes",
+      "content_length": 1357
+    },
+    {
+      "filename": "190_refresh.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/refresh",
+      "content_length": 1310
+    },
+    {
+      "filename": "191_pause.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/pause",
+      "content_length": 880
+    },
+    {
+      "filename": "192_web-animation-api.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api",
+      "content_length": 1222
+    },
+    {
+      "filename": "193_reset.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/reset",
+      "content_length": 636
+    },
+    {
+      "filename": "194_timeline-properties.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-properties",
+      "content_length": 1330
+    },
+    {
+      "filename": "195_individual-css-transforms.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/individual-css-transforms",
+      "content_length": 1592
+    },
+    {
+      "filename": "196_scrollspeed.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/scrollspeed",
+      "content_length": 845
+    },
+    {
+      "filename": "197_numerical-value.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-value-types/numerical-value",
+      "content_length": 968
+    },
+    {
+      "filename": "198_iterations.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/iterations",
+      "content_length": 1147
+    },
+    {
+      "filename": "199_snap.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/snap",
+      "content_length": 1502
+    },
+    {
+      "filename": "200_scrollthreshold.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/scrollthreshold",
+      "content_length": 819
+    },
+    {
+      "filename": "201_delay.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/delay",
+      "content_length": 708
+    },
+    {
+      "filename": "202_revert.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/revert",
+      "content_length": 1322
+    },
+    {
+      "filename": "203_loop.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/loop",
+      "content_length": 1328
+    },
+    {
+      "filename": "204_onloop.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onloop",
+      "content_length": 853
+    },
+    {
+      "filename": "205_play.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/play",
+      "content_length": 886
+    },
+    {
+      "filename": "206_getting-started.txt",
+      "title": "Getting started",
+      "url": "https://animejs.com/documentation/getting-started",
+      "content_length": 291
+    },
+    {
+      "filename": "207_scrollobserver-settings.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings",
+      "content_length": 562
+    },
+    {
+      "filename": "208_restart.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/restart",
+      "content_length": 936
+    },
+    {
+      "filename": "209_cancel.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/cancel",
+      "content_length": 1071
+    },
+    {
+      "filename": "210_onbeforeupdate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onbeforeupdate",
+      "content_length": 1074
+    },
+    {
+      "filename": "211_html-attributes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/html-attributes",
+      "content_length": 552
+    },
+    {
+      "filename": "212_stagger-parameters.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters",
+      "content_length": 343
+    },
+    {
+      "filename": "213_css-selector.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/targets/css-selector",
+      "content_length": 638
+    },
+    {
+      "filename": "214_play.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/play",
+      "content_length": 836
+    },
+    {
+      "filename": "215_reversed.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/reversed",
+      "content_length": 1254
+    },
+    {
+      "filename": "216_refresh.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-methods/refresh",
+      "content_length": 1383
+    },
+    {
+      "filename": "217_draggable-properties.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-properties",
+      "content_length": 5193
+    },
+    {
+      "filename": "218_cancel.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/cancel",
+      "content_length": 1139
+    },
+    {
+      "filename": "219_call-functions.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/call-functions",
+      "content_length": 1258
+    },
+    {
+      "filename": "220_oncomplete.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/oncomplete",
+      "content_length": 1073
+    },
+    {
+      "filename": "221_tween-parameters-keyframes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/keyframes/tween-parameters-keyframes",
+      "content_length": 1220
+    },
+    {
+      "filename": "222_map-range.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/map-range",
+      "content_length": 1528
+    },
+    {
+      "filename": "223_playbackrate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/playbackrate",
+      "content_length": 1265
+    },
+    {
+      "filename": "224_releaseease.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/releaseease",
+      "content_length": 895
+    },
+    {
+      "filename": "225_onbeforeupdate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onbeforeupdate",
+      "content_length": 1166
+    },
+    {
+      "filename": "226_revert.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/revert",
+      "content_length": 698
+    },
+    {
+      "filename": "227_scrollobserver-synchronisation-modes.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes",
+      "content_length": 764
+    },
+    {
+      "filename": "228_playbackrate.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/playbackrate",
+      "content_length": 1510
+    },
+    {
+      "filename": "229_animation-properties.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-properties",
+      "content_length": 1345
+    },
+    {
+      "filename": "230_onrender.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onrender",
+      "content_length": 1250
+    },
+    {
+      "filename": "231_onsettle.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks/onsettle",
+      "content_length": 688
+    },
+    {
+      "filename": "232_loop.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/loop",
+      "content_length": 1070
+    },
+    {
+      "filename": "233_onpause.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/onpause",
+      "content_length": 1450
+    },
+    {
+      "filename": "234_improvements-to-the-web-animation-api.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api",
+      "content_length": 992
+    },
+    {
+      "filename": "235_onpause.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onpause",
+      "content_length": 1908
+    },
+    {
+      "filename": "236_onbegin.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onbegin",
+      "content_length": 845
+    },
+    {
+      "filename": "237_duration.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/duration",
+      "content_length": 943
+    },
+    {
+      "filename": "238_pauseondocumenthidden.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters/pauseondocumenthidden",
+      "content_length": 1884
+    },
+    {
+      "filename": "239_target.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings/target",
+      "content_length": 1079
+    },
+    {
+      "filename": "240_engine-parameters.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters",
+      "content_length": 285
+    },
+    {
+      "filename": "241_method-names.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/method-names",
+      "content_length": 1643
+    },
+    {
+      "filename": "242_unit-conversion-value.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/unit-conversion-value",
+      "content_length": 837
+    },
+    {
+      "filename": "243_reverse.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/reverse",
+      "content_length": 797
+    },
+    {
+      "filename": "244_timeline-methods.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods",
+      "content_length": 539
+    },
+    {
+      "filename": "245_call.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/call",
+      "content_length": 1255
+    },
+    {
+      "filename": "246_scrollobserver-methods.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-methods",
+      "content_length": 463
+    },
+    {
+      "filename": "247_sensible-defaults.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/sensible-defaults",
+      "content_length": 1039
+    },
+    {
+      "filename": "248_pad-end.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/pad-end",
+      "content_length": 1210
+    },
+    {
+      "filename": "249_onloop.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks/onloop",
+      "content_length": 1043
+    },
+    {
+      "filename": "250_set.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/set",
+      "content_length": 744
+    },
+    {
+      "filename": "251_svg-attributes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/svg-attributes",
+      "content_length": 1071
+    },
+    {
+      "filename": "252_resume.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/resume",
+      "content_length": 1255
+    },
+    {
+      "filename": "253_playback-loopdelay.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/playback-loopdelay",
+      "content_length": 995
+    },
+    {
+      "filename": "254_to.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/to",
+      "content_length": 691
+    },
+    {
+      "filename": "255_animation-methods.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods",
+      "content_length": 503
+    },
+    {
+      "filename": "256_speed.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters/speed",
+      "content_length": 1351
+    },
+    {
+      "filename": "257_spring-and-custom-easings.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/spring-and-custom-easings",
+      "content_length": 1363
+    },
+    {
+      "filename": "258_container.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings/container",
+      "content_length": 821
+    },
+    {
+      "filename": "259_round-pad.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/round-pad",
+      "content_length": 1270
+    },
+    {
+      "filename": "260_css-properties.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/css-properties",
+      "content_length": 759
+    },
+    {
+      "filename": "261_scope-methods.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/scope-methods",
+      "content_length": 242
+    },
+    {
+      "filename": "262_trigger.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/trigger",
+      "content_length": 458
+    },
+    {
+      "filename": "263_stagger-start.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-start",
+      "content_length": 994
+    },
+    {
+      "filename": "264_set.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/set",
+      "content_length": 1818
+    },
+    {
+      "filename": "265_alternate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/alternate",
+      "content_length": 1046
+    },
+    {
+      "filename": "266_enable.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/enable",
+      "content_length": 687
+    },
+    {
+      "filename": "267_random-pick.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/random-pick",
+      "content_length": 885
+    },
+    {
+      "filename": "268_individual-property-parameters.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/individual-property-parameters",
+      "content_length": 848
+    },
+    {
+      "filename": "269_seek.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/seek",
+      "content_length": 1669
+    },
+    {
+      "filename": "270_loop.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/loop",
+      "content_length": 1104
+    },
+    {
+      "filename": "271_composition.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/composition",
+      "content_length": 3662
+    },
+    {
+      "filename": "272_numerical-value.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/numerical-value",
+      "content_length": 1246
+    },
+    {
+      "filename": "273_stretch.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/stretch",
+      "content_length": 1548
+    },
+    {
+      "filename": "274_fps.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-parameters/fps",
+      "content_length": 1273
+    },
+    {
+      "filename": "275_stagger-grid-axis.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-grid-axis",
+      "content_length": 2532
+    },
+    {
+      "filename": "276_init.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/init",
+      "content_length": 990
+    },
+    {
+      "filename": "277_revert.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/revert",
+      "content_length": 1410
+    },
+    {
+      "filename": "278_from.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/from",
+      "content_length": 677
+    },
+    {
+      "filename": "279_alternate.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-playback-settings/alternate",
+      "content_length": 1057
+    },
+    {
+      "filename": "280_scroll.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll",
+      "content_length": 2261
+    },
+    {
+      "filename": "281_timeline-callbacks.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks",
+      "content_length": 591
+    },
+    {
+      "filename": "282_function-based.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/function-based",
+      "content_length": 1377
+    },
+    {
+      "filename": "283_scrollobserver-callbacks.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks",
+      "content_length": 705
+    },
+    {
+      "filename": "284_debug.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings/debug",
+      "content_length": 1104
+    },
+    {
+      "filename": "285_timer-properties.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-properties",
+      "content_length": 1148
+    },
+    {
+      "filename": "286_tween-values-keyframes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/keyframes/tween-values-keyframes",
+      "content_length": 1069
+    },
+    {
+      "filename": "287_onsynccomplete.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-callbacks/onsynccomplete",
+      "content_length": 1140
+    },
+    {
+      "filename": "288_javascript-object-properties.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animatable-properties/javascript-object-properties",
+      "content_length": 608
+    },
+    {
+      "filename": "289_sync-timelines.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/sync-timelines",
+      "content_length": 1069
+    },
+    {
+      "filename": "290_refresh.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-methods/refresh",
+      "content_length": 1251
+    },
+    {
+      "filename": "291_modifier.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters/modifier",
+      "content_length": 530
+    },
+    {
+      "filename": "292_stagger-grid.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/stagger-parameters/stagger-grid",
+      "content_length": 2254
+    },
+    {
+      "filename": "293_cursor.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-settings/cursor",
+      "content_length": 909
+    },
+    {
+      "filename": "294_disable.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/disable",
+      "content_length": 656
+    },
+    {
+      "filename": "295_add.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/add",
+      "content_length": 1436
+    },
+    {
+      "filename": "296_positions-shorthands.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-thresholds/positions-shorthands",
+      "content_length": 1187
+    },
+    {
+      "filename": "297_y.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-axes-parameters/y",
+      "content_length": 696
+    },
+    {
+      "filename": "298_draggable-callbacks.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-callbacks",
+      "content_length": 656
+    },
+    {
+      "filename": "299_delay.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/delay",
+      "content_length": 1094
+    },
+    {
+      "filename": "300_register-method-function.txt",
+      "title": "Scope",
+      "url": "https://animejs.com/documentation/scope/register-method-function",
+      "content_length": 1502
+    },
+    {
+      "filename": "301_playbackease.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings/playbackease",
+      "content_length": 1083
+    },
+    {
+      "filename": "302_css-variable.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/css-variable",
+      "content_length": 1184
+    },
+    {
+      "filename": "303_onupdate.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-callbacks/onupdate",
+      "content_length": 883
+    },
+    {
+      "filename": "304_complete.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-methods/complete",
+      "content_length": 881
+    },
+    {
+      "filename": "305_duration-based-keyframes.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/keyframes/duration-based-keyframes",
+      "content_length": 1243
+    },
+    {
+      "filename": "306_draggable-methods.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods",
+      "content_length": 481
+    },
+    {
+      "filename": "307_numeric-values.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-thresholds/numeric-values",
+      "content_length": 1374
+    },
+    {
+      "filename": "308_values-staggering.txt",
+      "title": "Stagger",
+      "url": "https://animejs.com/documentation/stagger/values-staggering",
+      "content_length": 1002
+    },
+    {
+      "filename": "309_alternate.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-playback-settings/alternate",
+      "content_length": 1047
+    },
+    {
+      "filename": "310_complete.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-methods/complete",
+      "content_length": 896
+    },
+    {
+      "filename": "311_relative-value.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-value-types/relative-value",
+      "content_length": 1098
+    },
+    {
+      "filename": "312_onbegin.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/timeline-callbacks/onbegin",
+      "content_length": 1043
+    },
+    {
+      "filename": "313_smooth-scroll.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/smooth-scroll",
+      "content_length": 1079
+    },
+    {
+      "filename": "314_random.txt",
+      "title": "Utilities",
+      "url": "https://animejs.com/documentation/utilities/random",
+      "content_length": 840
+    },
+    {
+      "filename": "315_ease.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/tween-parameters/ease",
+      "content_length": 3225
+    },
+    {
+      "filename": "316_svg.txt",
+      "title": "SVG",
+      "url": "https://animejs.com/documentation/svg",
+      "content_length": 292
+    },
+    {
+      "filename": "317_axis.txt",
+      "title": "ScrollObserver",
+      "url": "https://animejs.com/documentation/scroll/scrollobserver-settings/axis",
+      "content_length": 813
+    },
+    {
+      "filename": "318_finished.txt",
+      "title": "Web Animation API",
+      "url": "https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/finished",
+      "content_length": 1554
+    },
+    {
+      "filename": "319_scrollinview.txt",
+      "title": "Draggable",
+      "url": "https://animejs.com/documentation/draggable/draggable-methods/scrollinview",
+      "content_length": 1256
+    },
+    {
+      "filename": "320_animation-playback-settings.txt",
+      "title": "Animation",
+      "url": "https://animejs.com/documentation/animation/animation-playback-settings",
+      "content_length": 636
+    },
+    {
+      "filename": "321_createmotionpath.txt",
+      "title": "SVG",
+      "url": "https://animejs.com/documentation/svg/createmotionpath",
+      "content_length": 3235
+    },
+    {
+      "filename": "322_resume.txt",
+      "title": "Engine",
+      "url": "https://animejs.com/documentation/engine/engine-methods/resume",
+      "content_length": 1245
+    },
+    {
+      "filename": "323_timer-callbacks.txt",
+      "title": "Timer",
+      "url": "https://animejs.com/documentation/timer/timer-callbacks",
+      "content_length": 492
+    },
+    {
+      "filename": "324_add-animations.txt",
+      "title": "Timeline",
+      "url": "https://animejs.com/documentation/timeline/add-animations",
+      "content_length": 1511
+    }
+  ]
+}

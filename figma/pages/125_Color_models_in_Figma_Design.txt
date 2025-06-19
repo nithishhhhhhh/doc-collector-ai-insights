@@ -1,0 +1,98 @@
+URL: https://help.figma.com/hc/en-us/articles/360043042113-Color-models-in-Figma-Design
+==================================================
+
+Before you start
+Who can use this feature
+Colors are available on
+any team or plan
+Anyone with
+can edit access
+to the file can use the color picker and select a color model.
+There are lots of terms used to describe color. In this article, we use the term color model to describe the different ways your can represent a color.
+Figma allows you to see colors across five color models: Hex, HSB, HSL, CSS, and RGB.
+Switching between color models only affects how Figma describes colors; It doesn't affect how Figma renders them.
+Color profiles
+affect how Figma renders colors. You can choose between sRGB or Display P3 as your default color profile, as a design file's color profile, or for exporting assets.
+Learn about color profiles and color management →
+Color models
+By default, Figma represents color values using the
+Hex
+model. You can also view color notation for other models in the
+color picker
+Hex
+Hex is the default color model in Figma and refers to the Hexadecimal color. This is an alphanumeric shorthand representative of the RGB values.
+Creators in web or digital design refer to the notation for this color model as hex codes.
+Hex values have 8 characters and use the following syntax:
+#RRGGBBAA
+The RR represents the red component.
+The GG represents the green component.
+The BB represents the blue component.
+The AA represents the alpha component. An alpha value of 00 represents a fully transparent color, and an alpha value of FF represents a fully opaque color.
+RGB
+RGB or
+reen
+lue is the most commonly used color model.
+Every color that is rendered on a monitor or screen will be made up of varying amounts of
+ed,
+reen, and
+lue.
+RGB values are in the following syntax:
+(red, green, blue, alpha)
+Red, green, and blue values define the intensity of the color with an integer between 0 and 255
+The alpha value defines the opacity as a number between 0.0 (fully transparent) and 1.0 (fully opaque)
+HSB
+aturation
+rightness is an alternative representation of the RGB model.
+This is based around how the
+human eye
+perceives color, versus how a display would (in RGB).
+HSB values are in the following syntax:
+(hue, saturation, brightness, alpha)
+The hue value is measured in degrees, and is represented with an integer from 0 and 360
+The saturation value is represented with an integer from 0 to 100, with 100 being the most saturated
+The brightness value is represented with an integer from 0 to 100, with 100 being the brightest
+The alpha value defines the opacity as a number between 0.0 (fully transparent) and 1.0 (fully opaque)
+HSL
+aturation
+uminance is another color model based around how the human eye perceives color.
+Like HSB, it is an alternative representation of the RGB model. The main difference between HSB and HSL is how saturation and lightness are treated.
+HSL values are in the following syntax:
+(hue, saturation, luminance, alpha)
+The hue value is measured in degrees, and is represented with an integer from 0 and 360
+The saturation value is represented with an integer from 0 to 100, with 100 being the most saturated
+The luminance value is represented with an integer from 1 to 100, with 100 being the lightest
+The alpha value defines the opacity as a number between 0.0 (fully transparent) and 1.0 (fully opaque)
+CSS
+The CSS color model allows you to view or enter RGBa values using CSS syntax.
+CSS values are in the following syntax:
+rgba(red, green, blue, alpha)
+Red, green, and blue values define the intensity of the color with an integer between 0 and 255
+The alpha value defines the opacity as a number between 0.0 (fully transparent) and 1.0 (fully opaque)
+Want to communicate colors to a developer or engineer?
+The CSS model lets you copy CSS-friendly notation for the selected color. This lets you paste this directly into a stylesheet, formatting included. Learn more about
+developer handoff
+View and adjust color model values
+View and update colors across different color models in the color picker.
+Click on the
+Fill
+Stroke
+in the right sidebar to open the color picker.
+Below the
+Hue
+and
+Opacity
+sliders you can see the current color model and the corresponding values.
+Use the dropdown to switch color models. Choose between
+Hex
+HSB
+HSL
+CSS
+and
+RGB
+Figma will shows values in the notation you selected.
+You can also adjust color by inputting the values directly in the available fields.
+RGB, HSL, and HSB color models have a separate percentage field for alpha values
+The CSS model must include an alpha value as a number between 0.0 and 1.0
+For Hex, you can either:
+Input a 6-digit hex code and use the separate percentage field for adjusting the alpha value
+Input an 8-digit hex code that includes the alpha value as the last two digits

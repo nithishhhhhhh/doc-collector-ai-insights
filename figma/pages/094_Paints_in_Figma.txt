@@ -1,0 +1,91 @@
+URL: https://help.figma.com/hc/en-us/articles/360041003694-Paints-in-Figma
+==================================================
+
+Who can use this feature
+Supported on
+any team or organization plan
+Anyone with
+can edit access
+can apply or edit paints
+Paints can be colors, gradients, or images. In Figma, you can use the
+Color picker
+to apply paints to
+fills
+and
+strokes
+Paints can be applied to the following objects and shapes using the
+fill
+stroke
+properties:
+Text layers
+Basic shapes
+Vector networks
+Boolean operations
+Frames
+Paint types
+There are three different types of paints you can apply:
+Solid
+: A solid color or paint.
+Gradients
+: Choose from four different gradients:
+Linear (gradient)
+: A progressive transition between two colors on a straight line. You can choose the angle of the line.
+Radial (gradient)
+: A circular gradient that has a color at the center which transitions to another color on the edge. This could be another color, or a fade to transparent.
+Diamond (gradient)
+: A gradient with four points that starts in the center of the object or layer. You can adjust the width and height of the gradient individually.
+Angular (gradient)
+: Creates a gradient clockwise from the starting position. You can adjust the location of both colors in the gradient to create a softer or harsher angle.
+Pattern
+: Pattern fills reference another object on the canvas. Learn more about using
+pattern fills
+Image or GIF
+: A static image or animated GIF. Learn more about
+adding images to your designs
+Video
+: Upload a .mp4, .mov, or .webm video file. Learn more
+about using videos
+Using gradients
+To use a gradient as a fill or stroke:
+Select the color swatch in the
+Fill
+Stroke
+section of the right sidebar.
+From the color picker, select the
+Gradient
+icon.
+From the dropdown, select either
+Linear
+Radial
+Diamond
+, or
+Angular
+Each gradient will automatically start with two color stops. Color stops are the point where a gradient switches from one color to the next. Learn more about
+adjusting colors and using the color picker →
+To add additional color stops to a gradient, click anywhere along the gradient color slider.
+To remove a color stop from a gradient, click on the stop from the color slider and select
+Delete
+Backspace
+Use variables with gradients
+Color variables store individual, raw color values. Learn more about
+variables →
+Gradients are a blend between two or more colors. You can use variables on color stops in a gradient to maintain consistency in your design system or to take advantage of theming, such as dark and light mode.
+To apply a variable to a gradient color stop:
+Select the color swatch in the
+Fill
+Stroke
+section of the right sidebar.
+From the color picker, select the
+Gradient
+icon.
+Select a color swatch from the list of colors in the gradient.
+Select the
+Libraries
+tab.
+Select a color variable to apply to the gradient color stop.
+To detach a variable from a gradient color stop:
+Hover over the color stop that has the variable applied.
+Click
+detach.
+You can save gradients, which may contain variable values, as styles to be reused in your design. Learn more about
+creating color styles →

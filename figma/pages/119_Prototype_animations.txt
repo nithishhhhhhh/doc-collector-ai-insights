@@ -1,0 +1,64 @@
+URL: https://help.figma.com/hc/en-us/articles/360040522373-Prototype-animations
+==================================================
+
+Before you start
+Who can use this feature
+Users on
+any team or plan
+Users with
+can edit
+access can create prototypes.
+New to Prototyping? Check out our
+Getting Started with Prototyping
+guide.
+Animations can be used to create smooth transitions between pages and define the behavior for actions like expanding a menu, swiping between pages, or opening a gallery.
+Instant
+The Instant transition will immediately display the
+Destination
+Frame, when the hotspot is interacted with (clicked, hovered over, or pressed).
+Dissolve
+The Dissolve transition will fade in the
+Destination
+frame, on top of the original frame.
+Supports:
+Duration
+Easing
+Smart Animate
+Smart Animate looks for matching layers that exist across multiple frames. For layers that match, we recognize what's changed and apply transitions to seamlessly move between them.
+Supports:
+Duration
+Easing
+Move In / Move Out
+The Move transition will slide the
+Destination
+frame
+into
+out of
+view, above the original frame.
+Supports:
+Easing
+Direction
+Duration
+Push
+The Push transition will push out the original frame, as the
+Destination
+frame is moved into view. This is the perfect transition for replicating a swiping gesture.
+Supports:
+Direction
+Easing
+Duration
+Slide In / Slide Out
+The Slide will move the
+Destination
+frame
+into
+out of
+view. Slide will slowly offset the frame as it dissolves, while the Move transition keeps the original frame stationary.
+Supports:
+Direction
+Easing
+Duration
+Tip!
+Use
+prototype easing and spring animation curves
+to give your animations a unique and natural feel.

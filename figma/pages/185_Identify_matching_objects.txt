@@ -1,0 +1,77 @@
+URL: https://help.figma.com/hc/en-us/articles/21523793229463-Identify-matching-objects
+==================================================
+
+Matching objects are identical objects that exist across more than one frame. For example, many app designs use an identical header across the top of each frame.
+Use matching objects to save time when selecting, editing, and prototyping.
+Matching objects are used with:
+Smart animate
+: Create advanced animations between matching objects when prototyping
+Multi-edit
+: Edit objects in bulk
+State management
+: When prototyping, share the state of interactive components, frames with scroll, and videos when navigating between frames with matching objects
+Matching interactions
+: Select and edit prototyping interactions on matching objects in bulk
+In order for two objects to be considered matching, they must:
+Match layer names
+Match parent frames
+Match layer hierarchy
+Matching object requirements
+Figma uses the following terms to help define matching object requirements:
+Parent objects
+: Objects such as frames, components, and groups, that contain other objects.
+Grandparent objects
+are objects that contain the parent object.
+Ancestors
+are any other objects in the hierarchy that contain child, parent, or grandparent objects.
+Children
+, or
+child objects
+: Objects that are contained within a parent.
+Top-level frames
+: Frames placed directly on the canvas. They do not have any parent objects.
+Learn more about parent, child and sibling relationships.
+Note:
+Top-level frames can be matching objects, but only for
+smart animate
+state management
+. You cannot use
+multi-edit
+select matching interactions
+on top-level frames.
+Objects in
+sections
+can only match with other objects within that section.
+Layer names
+Objects must have the same layer name.
+There is one exception to this rule:
+Text layers
+Text layers don’t always require identical layer names. When you create a text layer, the name of the layer will reflect the content of the text itself. You have the option to rename the text layer.
+If the text layers were explicitly
+named or renamed from the Layers panel
+, the names must match.
+If the text layers were implicitly named based on the text content, their
+text styles
+must match. If there are multiple matching text objects, the best match will be selected based on the x and y coordinates of the text layer in the frame.
+Parent frames
+All parent and ancestor frames of the objects must have matching names. The names of top-level frames do not need to match.
+Note:
+Top-level frames and variant names in a component set do not need to match.
+Layer hierarchy
+In order to be considered matching, objects must have the same position in layer hierarchy across top-level frames. For example, an object that has a parent and grandparent layer in one frame must also have a parent and grandparent layer in the second frame.
+Tip
+When all requirements match, and there are two or more objects with the same name in a frame, the index of the object within the parent frame is used to determine which one matches.
+Identify matching objects
+To highlight matching objects on the same page:
+Click to select an object.
+Hold
+Shift
+to highlight all matching objects in light blue.
+Alternatively, you can identify matching objects from the
+Prototype
+tab.
+Open the
+Prototype
+tab in the right sidebar.
+Hover over an object or layer in the canvas.
+Figma will highlight the matching object in any other frames it exists in.

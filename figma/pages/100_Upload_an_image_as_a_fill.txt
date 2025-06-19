@@ -1,0 +1,33 @@
+URL: https://help.figma.com/hc/en-us/articles/360041090073-Upload-an-image-as-a-fill
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access to a file can add images
+You can use an image as a layer's fill. You will need to have the image downloaded to your computer to upload it.
+Change a layer's fill to an image
+Select a layer on the canvas.
+Click on the swatch in the
+Fill
+section of the right sidebar to open the color picker.
+Select
+Image
+from the fill options. A placeholder image of gray and white checks will be applied to the layer's fill.
+Click
+Upload from computer
+to upload an existing image or click
+Make an image
+to create an image using
+Figma AI.
+Replace image fills
+You can change an image fill at any time. This will keep any fill mode settings you've applied, including any cropping or positioning.
+There are a few ways to do this:
+Drag the image file over the image preview in the color picker
+Double-click on the image and choose a new image using the color picker
+Drag the image file over the swatch in the
+Fill
+section of the right sidebar

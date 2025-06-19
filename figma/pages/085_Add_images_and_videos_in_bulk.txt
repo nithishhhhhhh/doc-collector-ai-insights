@@ -1,0 +1,53 @@
+URL: https://help.figma.com/hc/en-us/articles/360041089973-Add-images-and-videos-in-bulk
+==================================================
+
+Who can use this feature
+Adding images is supported on
+any team or plan
+. Adding videos is supported on any
+paid team or plan.
+Only people with Can
+edit access
+to the file can add images.
+Place image/video
+allows you to import images and/or videos in bulk. You can then choose exactly where you'd like to place each file. As Figma treats images and videos as fills, you can add them to existing objects.
+Tip!
+Figma supports .png, .jpg, .tiff, or .heic image files, and .mp4, .mov, or .webm video files.
+Learn more about working with videos in Figma →
+Note:
+If you are on the Starter plan, you can only add images—this means that instead of
+Place image/video
+, your action and menu item is labelled
+Place image
+Access
+Place image/video
+from any of the following places:
+From the
+menu, by searching
+Actions
+for
+Place image/video.
+From the
+Shape tools
+menu in the toolbar.
+Use the keyboard shortcuts:
+MacOS
+Shift-Command-K
+Windows
+Shift
+Ctrl
+In the file browser that Figma opens, select multiple image and/or video files you'd like to use, and then click
+Open
+The cursor gets a badge showing the number of images that need to be placed.
+A thumbnail of the current image to place appears next to the cursor. You then have two options:
+Click on the canvas to add the image/video. Figma adds the image/video to the canvas where you clicked, using its original dimensions.
+Select an existing object on the canvas. The image/video is applied as a fill with the
+Fill mode
+set to
+Fill
+Repeat the process for any remaining images/videos. To discard any remaining videos or images, press
+Esc
+Having issues loading images?
+Learn about the most
+common image loading issues
+and how to fix them.

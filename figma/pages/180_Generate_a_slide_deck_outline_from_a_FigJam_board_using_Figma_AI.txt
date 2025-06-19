@@ -1,0 +1,58 @@
+URL: https://help.figma.com/hc/en-us/articles/25968453273495-Generate-a-slide-deck-outline-from-a-FigJam-board-using-Figma-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in FigJam and Figma Slides
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+After hosting an engaging team brainstorm or user research session in FigJam, you may have a lot of content to sift through before you can share your findings in a Figma Slides deck. With Figma AI, you can generate a slide deck outline from a FigJam board, giving you a good starting point that you can use to build the rest of your presentation.
+Generate a slide deck outline
+You can generate a slide deck outline from any FigJam board you have
+can view
+access to. There are a few ways to generate a slide deck outline:
+From Figma Slides
+Click
+New slide
+in the left sidebar to open the template picker.
+Click
+Start with an outline
+Choose a FigJam board to summarize.
+If the FigJam board you selected has multiple pages, use the dropdown menu to select a specific page or choose
+All pages
+to summarize the entire board.
+Click
+Next
+Select a template to use for the deck or click
+Create outline without template
+Figma AI sorts and summarizes the content on the FigJam and generates a slide deck outline. You can modify the generated slides and add additional slides to the deck, as needed.
+From FigJam
+Open the board you want to use.
+Do one of the following:
+Go to
+Main menu
+File
+Create Figma Slides outline
+Click
+More actions
+next to a page and select
+Create Figma Slides outline
+Click
+Share
+in the top toolbar and select
+Create Figma Slides outline
+Select sticky notes on the board, right-click and select
+Create Figma Slides outline
+You’ll be redirected to the template picker in Figma Slides. Select a template to use for the deck or click
+Create outline without template
+Figma AI sorts and summarizes the content on the FigJam board and generates a slide deck outline. You can
+modify
+the generated slides and add additional slides to the deck, as needed.

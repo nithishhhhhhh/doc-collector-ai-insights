@@ -1,0 +1,43 @@
+URL: https://help.figma.com/hc/en-us/articles/360040450173-Arc-tool-create-arcs-semi-circles-and-rings
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any plan
+Users with
+can edit
+access to a file can use the arc tool
+You can use the arc tool to create shapes like pie charts, rings and broken rings.
+Use the arc tool
+Draw a circle using the
+Ellipse
+tool.
+When you hover over the circle, a single handle will appear on the right-hand side. This point (0) determines where you can begin to create an arc.
+Click and drag the
+Arc
+handle up or down to change the sweep. This create a gap in the circle.
+Tip:
+The tooltip will indicate the sweep percentage. Dragging the handle up will produce a positive percentage, while dragging the handle down will indicate a negative percentage.
+Now there will be three handles shown:
+The
+Sweep
+indicates how complete the circle is, shown by the percentage of the circle that is filled.
+The
+Start
+handle (which has a dot inside it) indicates where the arc begins. The starting position of the handle is set to 0, but you can drag this around the circle to change the position of the ring.
+The
+Ratio
+handle at the center of the circle allows you to change the circle to a ring. By dragging the Ratio handle around, you can determine which segment is shown (either the gap or the remaining circle), as well as the size of the ring.
+To make a closed ring, you will need to adjust the
+Ratio
+of the arc:
+Drag the
+Sweep
+handle to make a pie.
+Drag the
+Ratio
+handle to the desired size for the ring.
+Drag the
+Sweep
+handle back to meet the start position, to close the ring.

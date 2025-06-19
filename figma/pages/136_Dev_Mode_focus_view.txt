@@ -1,0 +1,87 @@
+URL: https://help.figma.com/hc/en-us/articles/23919923330455-Dev-Mode-focus-view
+==================================================
+
+Before you Start
+Who can use this feature
+Available on the
+Organization and Enterprise plans.
+Users with
+Full, Dev, or View
+seats can access the ready for dev view.
+Users with
+Full or Dev seats
+can change statuses.
+Users with
+full or dev seats
+can access the focus view.
+When you’re using the
+ready for dev view in Dev Mode
+to explore sections, frames, and components that are ready for development, you’ll frequently want to inspect specific designs more closely. To get details for designs that are ready for dev, use the Dev Mode focus view. With the focus view, you get:
+All the same tools you normally have available in your Dev Mode toolbar.
+The same
+Inspect
+and
+Plugins
+tabs you have access to in Dev Mode’s full experience.
+A version history with descriptions specific to the design you’re viewing that you can use to compare different versions and see changes over time.
+An easy way to expand and explore the layers of a given design that’s ready for dev.
+The ability to mark work as completed for a specific design.
+To access the focus view:
+Open a Figma Design file.
+Click
+Ready for dev
+in the left sidebar. The ready for dev view opens, displaying a list of all designs marked with a dev status.
+Click the design that you want to focus on.
+Alternatively:
+Open a Figma Design file.
+On the canvas, for the design you want to focus on, click the dev status and select
+Show in focus view
+Optionally, click
+Copy link to focus view
+to get a link to the focused design that you can share with others.
+The focus view opens, displaying the following:
+The design you wanted to inspect appears in the center of the focus view. You can use your Dev Mode tools to do things like measure, annotate, and comment on the design.
+The
+Inspect
+and
+Plugins
+tabs
+, where you can do things like generate code, view the properties of the design, export or download various, and run plugins for Dev Mode.
+The
+Mark as completed
+button, which you use to confirm that the dev work for the design is done.
+Navigate
+In the focus view, Figma provides a few ways to navigate to other areas of Dev Mode.
+To go to the ready for dev view, in the upper-left corner of the focus view, click
+Ready for dev.
+To see the design in the context of the canvas, in the upper-right corner of the focus view, click
+and then select
+Show on page
+To return to the area of the Figma interface you were using before you entered the focus view, in the upper-right corner of the focus view, click
+. If you entered the focus view from the canvas, you’re returned to the position you were at on the canvas. If you entered from the ready for dev view or using a link, then you are returned to the ready for dev view.
+Explore layers
+The focus view provides an easy way to explore the individual layers of a given design. The focus view’s layer panel appears when you select one or more parts of the design.
+Inspect and Plugins panels
+The
+Inspect
+and
+Plugins
+panels are the same as your regular Dev Mode experience, simply limited in scope to the design you’re viewing. To learn how to use the panels, see
+Guide to Dev Mode →
+Version history
+Similar to the
+version history that’s available for files
+, the focus view includes an annotated version history that tracks iterations of work on the design.
+Normally, the file-wide version history shows you every version in a file, but often there can be a lot of activity and you care most about what’s changed in a specific frame or section that you’re reviewing and implementing. The version history in focus view shows you versions and works the same as the file-wide history, but is scoped to only versions that affect the specific design you have open in focus view.
+As designers and developers iterate on a design, they update the
+status
+and add notes to describe the changes. Each time the status updates, an entry in the version history is added. You can also compare different versions in order to identify the changes between each iteration.
+You can inspect older versions, copy a link to that particular version, or compare it to the latest version currently in your file.
+Learn more about comparing in Dev Mode →
+Mark as completed
+To show the dev work for a design is done, use the
+Mark as completed
+button at the top of the focus view.
+When a design is marked completed, a new entry is added to the version history, and the design remains available in the
+ready for dev view
+for later iterations.

@@ -1,0 +1,36 @@
+URL: https://help.figma.com/hc/en-us/articles/360039238753-Styles-in-Figma-Design
+==================================================
+
+Before you start
+Who can use this feature
+Anyone on any plan can create styles. Anyone on
+Education, Professional, Organization, and Enterprise plans
+can publish styles.
+Anyone with
+can edit
+access can create styles.
+About styles
+Use styles to define the color, text and any effects applied to objects; or to define the structure and appearance of layout guides.
+Create styles for:
+Paints and colors
+: fill, stroke, background color
+Text
+: font family, size, line height, spacing
+Effects
+: drop shadow, inner shadow, layer blur, background blur
+Layout guides
+: row, column, grid
+Whenever you make a change to a style's properties - like updating a text style's color from red to blue - Figma will apply those changes to any objects using that style.
+Tip
+: Like
+components
+variables
+, styles can be shared by publishing them to your
+team library
+. This allows you to easily establish and maintain consistent styles across your team projects.
+Use styles
+Create paint, text, layout guides and effect styles
+Apply styles to layers and object
+Manage and share styles
+Learn more about when to use styles in our blog post:
+Best practices: components, styles, and shared libraries

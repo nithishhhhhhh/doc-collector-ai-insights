@@ -1,0 +1,227 @@
+URL: https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs
+==================================================
+
+Before you Start
+Who can use this feature
+Anyone on
+any plan
+can use variables
+Anyone with access to a file can use variables from that file
+Looking for more resources on variables?
+Check out our guide to variables
+Apply variables to various layer properties in the right sidebar. You can also apply variables to properties in text styles and color styles. Learn about
+which properties each variable type supports
+You can use any variables created in the current file, or variables from any
+published team library
+to which you have access.
+Apply a color variable
+Color variables can be applied to solid fills or gradient stops for fills, stroke colors, and color styles. While shadow colors don't have gradient stops, you can still apply color variables to the shadow color.
+Color variables and color styles are selected from the same
+Libraries
+picker.
+Color variables are displayed in square swatches.
+Color styles are displayed in circle swatches.
+Use the search bar to search by variable name or variable group.
+Open the dropdown to filter by library.
+Tip:
+You can apply existing variables and styles to layers using the
+eyedropper tool
+Solid fills
+To use a color variable on a selected layer:
+Click
+Apply styles and variables
+from the
+Fill
+Stroke
+sections of the right panel.
+Select a variable from the picker to apply.
+You can also
+apply color variables within a mixed selection
+Learn more about fill and stroke properties
+Gradient stops
+Apply color variables to gradient stops of any fill or stroke property.
+Select the layer, and add a fill or stroke if one doesn't exist yet.
+Click the color swatch for your fill or stroke.
+From the color picker, select the Gradient icon and click a color swatch from the
+Stops
+list.
+From the new menu, open the
+Libraries
+tab and select a variable to apply to the gradient stop.
+Repeat for any remaining gradient stops.
+Learn more about using color variables on gradients
+Shadow effects
+To apply a color variable to the color property of a shadow effect:
+Select the layer.
+From the right panel, add a shadow effect if one doesn't yet exist.
+Click the
+Effect settings
+icon of the inner shadow or drop shadow effect.
+Click the color swatch.
+Open the
+Libraries
+tab and select a variable to apply.
+Learn more about shadow effects
+Styles
+Color variables can be applied to new and existing color styles as well as the color property of shadow effects.
+Tip:
+You can apply color variables to styles using the
+eyedropper tool
+Color style with solid fill
+To use a variable on a solid color style:
+Deselect everything on the canvas by pressing
+Esc
+From the right panel, edit an existing color style or create a new one.
+From the menu, click a color swatch from the
+Properties
+section.
+Open the
+Libraries
+tab and select a variable to apply.
+Color style with gradient stops
+To use variables on a gradient color style:
+Deselect everything on the canvas by pressing
+Esc
+From the right panel, edit an existing color style or create a new one.
+From the window, select the
+Gradient
+icon.
+Under
+Stops
+, click a color swatch from the list.
+From the new menu, open the
+Libraries
+tab and select a variable to apply to the gradient stop.
+Repeat for any remaining gradient stops.
+Effect style with a color property
+To use a variable on the color of a shadow effect style:
+Deselect everything on the canvas by pressing
+Esc
+From the right panel, edit an existing shadow style or create a new one.
+Click the
+Effect settings
+icon of the inner shadow or drop shadow effect.
+Click the color swatch.
+Open the
+Libraries
+tab and select a variable to apply.
+Apply a number variable
+To apply a number variable to a selected object:
+Click into the property field.
+Press
+to open the
+Library
+picker.
+You can also choose one of the following methods:
+Property
+Additional methods
+Font size
+Gap between
+Layout guide count
+Width and height
+Maximum width and height
+Open the dropdown menu and select
+Apply variable
+Corner radius
+Effects
+Layout guide width, height, margin, offset, and gutter
+Padding
+Click
+Apply variable
+Hold
+Shift
+and click into the field
+Layer opacity
+Letter spacing
+Line height
+Paragraph indent
+Paragraph spacing
+Stroke weight
+Hold
+Shift
+and click into the field
+Right-click and select
+Apply variable
+From the
+Library
+picker, select a variable. Number variables are noted with a number icon.
+Note:
+If the methods above aren't working, it’s possible you don’t have any variables available to apply. Either create a supported variable in the file or enable a library containing a supported variable.
+Apply a string variable
+Text content
+String variables can be applied to the text content of any text layer. This means if the string variable has the value
+Figma
+, then the text on canvas will display as
+Figma
+Select a text layer.
+From the
+Text
+section at the top of the right sidebar, click
+Apply variable
+Select a variable from the
+Library
+picker to apply.
+Tip:
+You can also use number variables on text content. This can be useful for building prototypes that require calculations, such as subtotals in a shopping experience. Learn how to use
+variables in prototypes
+Font properties
+String variables can be applied to font family or font weight and style.
+To apply a string variable to a selected text layer:
+Open the dropdown for font family or font weight.
+Select
+Apply variable
+Select a variable from the picker.
+To apply a string variable to a new or existing text style:
+Edit or create a new text style.
+From the window, open the dropdown for font family or font weight.
+Select
+Apply variable
+Select a variable from the picker.
+Apply a boolean variable
+Boolean variables can be applied to layer visibility.
+If the value of the boolean variable is
+true
+then the layer will be visible. If the value of the boolean variable is
+false
+then the layer will be hidden.
+From the
+Appearance
+section of the right sidebar, right-click the
+visible /
+hidden icon.
+Select a variable from the picker.
+Apply variables to variant instances
+Boolean, number, and string variables can be applied to instances with variant
+properties
+to switch between variants of a component set. This can help you switch between variants depending on the mode of the parent frame.
+Learn how to create variable modes for variant instances
+Detach a variable
+To detach a variable:
+For color, string, and boolean variables
+: Hover over the variable in the relevant right sidebar section, and click the
+Detach variable
+icon.
+For number variables
+: Click into the property field and press
+Delete
+Backspace
+. For certain properties, you can also click the
+Detach variable
+icon.
+Note:
+Using on-canvas controls to change an auto layout frame’s padding or gap between items will detach any applied number variables.
+Paste unpublished variables across files
+When you copy and paste an object from one file to another, you may want to duplicate the object's unpublished variables to the second file to continue editing variables on the pasted object—such as when you are building a prototype.
+This is possible for objects that have:
+Unpublished variables directly applied to their properties (such as fill color).
+Or, unpublished styles directly applied to their properties, where the styles use unpublished variables. In this case, the pasted object will lose its connection to the unpublished style when opting to copy variables over.
+Once you paste these objects to a different file, a toast notification is triggered at the bottom of the file. If you opt to copy the variables over, they’ll be copied into a new collection and the pasted objects will remap to the new variables.
+If the object you copied is a published component and the destination file has access to it, then no remapping will occur.
+Note:
+Pasted objects will remap to existing variables within the second file if,
+The second file contains a collection with an identical name as the collection from the first file;
+And that collection in the second file also contains variables with identical names as the pasted variables
+Ready to continue your variables journey?
+Check out the following topics:
+Switch contexts of your designs using modes for variables →
+Use variables for advanced prototypes →

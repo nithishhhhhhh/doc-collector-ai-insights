@@ -1,0 +1,1450 @@
+URL: https://docs.pydantic.dev/2.11/api/pydantic_extra_types_color/
+==================================================
+
+Color
+Color definitions are used as per the CSS3
+CSS Color Module Level 3
+specification.
+A few colors have multiple names referring to the sames colors, eg.
+grey
+and
+gray
+aqua
+and
+cyan
+In these cases the
+last
+color when sorted alphabetically takes preferences,
+eg.
+Color((0, 255, 255)).as_named() == 'cyan'
+because "cyan" comes after "aqua".
+RGBA
+RGBA
+float
+float
+float
+alpha
+float
+None
+Internal use only as a representation of a color.
+Source code in
+pydantic_extra_types/color.py
+def
+__init__
+self
+float
+float
+float
+alpha
+float
+None
+self
+self
+self
+self
+alpha
+alpha
+self
+_tuple
+tuple
+float
+float
+float
+float
+None
+alpha
+Color
+Color
+value
+ColorType
+Bases:
+Representation
+Represents a color.
+Source code in
+pydantic_extra_types/color.py
+def
+__init__
+self
+value
+ColorType
+None
+self
+_rgba
+RGBA
+self
+_original
+ColorType
+isinstance
+value
+tuple
+list
+)):
+self
+_rgba
+parse_tuple
+value
+elif
+isinstance
+value
+str
+self
+_rgba
+parse_str
+value
+elif
+isinstance
+value
+Color
+self
+_rgba
+value
+_rgba
+value
+value
+_original
+else
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: value must be a tuple, list or string'
+# if we've got here value must be a valid color
+self
+_original
+value
+original
+original
+ColorType
+Original value passed to
+Color
+Source code in
+pydantic_extra_types/color.py
+103
+104
+105
+106
+107
+def
+original
+self
+ColorType
+"""
+Original value passed to `Color`.
+"""
+return
+self
+_original
+as_named
+as_named
+fallback
+bool
+False
+str
+Returns the name of the color if it can be found in
+COLORS_BY_VALUE
+dictionary,
+otherwise returns the hexadecimal representation of the color or raises
+ValueError
+Parameters:
+Name
+Type
+Description
+Default
+fallback
+bool
+If True, falls back to returning the hexadecimal representation of
+the color instead of raising a ValueError when no named color is found.
+False
+Returns:
+Type
+Description
+str
+The name of the color, or the hexadecimal representation of the color.
+Raises:
+Type
+Description
+ValueError
+When no named color is found and fallback is
+False
+Source code in
+pydantic_extra_types/color.py
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+def
+as_named
+self
+fallback
+bool
+False
+str
+"""
+Returns the name of the color if it can be found in `COLORS_BY_VALUE` dictionary,
+otherwise returns the hexadecimal representation of the color or raises `ValueError`.
+Args:
+fallback: If True, falls back to returning the hexadecimal representation of
+the color instead of raising a ValueError when no named color is found.
+Returns:
+The name of the color, or the hexadecimal representation of the color.
+Raises:
+ValueError: When no named color is found and fallback is `False`.
+"""
+self
+_rgba
+alpha
+not
+None
+return
+self
+as_hex
+rgb
+cast
+Tuple
+int
+int
+int
+self
+as_rgb_tuple
+())
+rgb
+COLORS_BY_VALUE
+return
+COLORS_BY_VALUE
+rgb
+else
+fallback
+return
+self
+as_hex
+else
+raise
+ValueError
+'no named color found, use fallback=True, as_hex() or as_rgb()'
+as_hex
+as_hex
+format
+Literal
+'short'
+'long'
+'short'
+str
+Returns the hexadecimal representation of the color.
+Hex string representing the color can be 3, 4, 6, or 8 characters depending on whether the string
+a "short" representation of the color is possible and whether there's an alpha channel.
+Returns:
+Type
+Description
+str
+The hexadecimal representation of the color.
+Source code in
+pydantic_extra_types/color.py
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+def
+as_hex
+self
+format
+Literal
+'short'
+'long'
+'short'
+str
+"""Returns the hexadecimal representation of the color.
+Hex string representing the color can be 3, 4, 6, or 8 characters depending on whether the string
+a "short" representation of the color is possible and whether there's an alpha channel.
+Returns:
+The hexadecimal representation of the color.
+"""
+values
+float_to_255
+for
+self
+_rgba
+self
+_rgba
+alpha
+not
+None
+values
+append
+float_to_255
+self
+_rgba
+alpha
+as_hex
+join
+02x
+for
+values
+format
+'short'
+and
+all
+repeat_colors
+for
+values
+as_hex
+join
+as_hex
+for
+range
+len
+as_hex
+return
+as_hex
+as_rgb
+as_rgb
+str
+Color as an
+rgb(<r>, <g>, <b>)
+rgba(<r>, <g>, <b>, <a>)
+string.
+Source code in
+pydantic_extra_types/color.py
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+def
+as_rgb
+self
+str
+"""
+Color as an `rgb(<r>, <g>, <b>)` or `rgba(<r>, <g>, <b>, <a>)` string.
+"""
+self
+_rgba
+alpha
+None
+return
+'rgb(
+float_to_255
+self
+_rgba
+float_to_255
+self
+_rgba
+float_to_255
+self
+_rgba
+else
+return
+'rgba(
+float_to_255
+self
+_rgba
+float_to_255
+self
+_rgba
+float_to_255
+self
+_rgba
+, '
+round
+self
+_alpha_float
+(),
+as_rgb_tuple
+as_rgb_tuple
+alpha
+bool
+None
+None
+ColorTuple
+Returns the color as an RGB or RGBA tuple.
+Parameters:
+Name
+Type
+Description
+Default
+alpha
+bool
+| None
+Whether to include the alpha channel. There are three options for this input:
+None
+(default): Include alpha only if it's set. (e.g. not
+None
+True
+: Always include alpha.
+False
+: Always omit alpha.
+None
+Returns:
+Type
+Description
+ColorTuple
+A tuple that contains the values of the red, green, and blue channels in the range 0 to 255.
+If alpha is included, it is in the range 0 to 1.
+Source code in
+pydantic_extra_types/color.py
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+def
+as_rgb_tuple
+self
+alpha
+bool
+None
+None
+ColorTuple
+"""
+Returns the color as an RGB or RGBA tuple.
+Args:
+alpha: Whether to include the alpha channel. There are three options for this input:
+- `None` (default): Include alpha only if it's set. (e.g. not `None`)
+- `True`: Always include alpha.
+- `False`: Always omit alpha.
+Returns:
+A tuple that contains the values of the red, green, and blue channels in the range 0 to 255.
+If alpha is included, it is in the range 0 to 1.
+"""
+float_to_255
+for
+self
+_rgba
+alpha
+None
+and
+self
+_rgba
+alpha
+None
+alpha
+not
+None
+and
+not
+alpha
+return
+else
+return
+self
+_alpha_float
+as_hsl
+as_hsl
+str
+Color as an
+hsl(<h>, <s>, <l>)
+hsl(<h>, <s>, <l>, <a>)
+string.
+Source code in
+pydantic_extra_types/color.py
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+def
+as_hsl
+self
+str
+"""
+Color as an `hsl(<h>, <s>, <l>)` or `hsl(<h>, <s>, <l>, <a>)` string.
+"""
+self
+_rgba
+alpha
+None
+self
+as_hsl_tuple
+alpha
+False
+# type: ignore
+return
+'hsl(
+360
+0.0f
+0.0%
+0.0%
+else
+self
+as_hsl_tuple
+alpha
+True
+# type: ignore
+return
+'hsl(
+360
+0.0f
+0.0%
+0.0%
+round
+as_hsl_tuple
+as_hsl_tuple
+alpha
+bool
+None
+None
+HslColorTuple
+Returns the color as an HSL or HSLA tuple.
+Parameters:
+Name
+Type
+Description
+Default
+alpha
+bool
+| None
+Whether to include the alpha channel.
+None
+(default): Include the alpha channel only if it's set (e.g. not
+None
+True
+: Always include alpha.
+False
+: Always omit alpha.
+None
+Returns:
+Type
+Description
+HslColorTuple
+The color as a tuple of hue, saturation, lightness, and alpha (if included).
+All elements are in the range 0 to 1.
+Note
+This is HSL as used in HTML and most other places, not HLS as used in Python's
+colorsys
+Source code in
+pydantic_extra_types/color.py
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+def
+as_hsl_tuple
+self
+alpha
+bool
+None
+None
+HslColorTuple
+"""
+Returns the color as an HSL or HSLA tuple.
+Args:
+alpha: Whether to include the alpha channel.
+- `None` (default): Include the alpha channel only if it's set (e.g. not `None`).
+- `True`: Always include alpha.
+- `False`: Always omit alpha.
+Returns:
+The color as a tuple of hue, saturation, lightness, and alpha (if included).
+All elements are in the range 0 to 1.
+Note:
+This is HSL as used in HTML and most other places, not HLS as used in Python's `colorsys`.
+"""
+rgb_to_hls
+self
+_rgba
+self
+_rgba
+self
+_rgba
+alpha
+None
+self
+_rgba
+alpha
+None
+return
+else
+return
+self
+_alpha_float
+return
+self
+_alpha_float
+())
+alpha
+else
+parse_tuple
+parse_tuple
+value
+tuple
+Any
+...
+RGBA
+Parse a tuple or list to get RGBA values.
+Parameters:
+Name
+Type
+Description
+Default
+value
+tuple
+Any
+, ...]
+A tuple or list.
+required
+Returns:
+Type
+Description
+RGBA
+RGBA
+tuple parsed from the input tuple.
+Raises:
+Type
+Description
+PydanticCustomError
+If tuple is not valid.
+Source code in
+pydantic_extra_types/color.py
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+def
+parse_tuple
+value
+tuple
+Any
+...
+RGBA
+"""Parse a tuple or list to get RGBA values.
+Args:
+value: A tuple or list.
+Returns:
+An `RGBA` tuple parsed from the input tuple.
+Raises:
+PydanticCustomError: If tuple is not valid.
+"""
+len
+value
+parse_color_value
+for
+value
+return
+RGBA
+None
+elif
+len
+value
+parse_color_value
+for
+value
+return
+RGBA
+parse_float_alpha
+value
+]))
+else
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: tuples must have length 3 or 4'
+parse_str
+parse_str
+value
+str
+RGBA
+Parse a string representing a color to an RGBA tuple.
+Possible formats for the input string include:
+named color, see
+COLORS_BY_NAME
+hex short eg.
+<prefix>fff
+(prefix can be
+or nothing)
+hex long eg.
+<prefix>ffffff
+(prefix can be
+or nothing)
+rgb(<r>, <g>, <b>)
+rgba(<r>, <g>, <b>, <a>)
+transparent
+Parameters:
+Name
+Type
+Description
+Default
+value
+str
+A string representing a color.
+required
+Returns:
+Type
+Description
+RGBA
+RGBA
+tuple parsed from the input string.
+Raises:
+Type
+Description
+ValueError
+If the input string cannot be parsed to an RGBA tuple.
+Source code in
+pydantic_extra_types/color.py
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+def
+parse_str
+value
+str
+RGBA
+"""
+Parse a string representing a color to an RGBA tuple.
+Possible formats for the input string include:
+* named color, see `COLORS_BY_NAME`
+* hex short eg. `<prefix>fff` (prefix can be `#`, `0x` or nothing)
+* hex long eg. `<prefix>ffffff` (prefix can be `#`, `0x` or nothing)
+* `rgb(<r>, <g>, <b>)`
+* `rgba(<r>, <g>, <b>, <a>)`
+* `transparent`
+Args:
+value: A string representing a color.
+Returns:
+An `RGBA` tuple parsed from the input string.
+Raises:
+ValueError: If the input string cannot be parsed to an RGBA tuple.
+"""
+value_lower
+value
+lower
+value_lower
+COLORS_BY_NAME
+COLORS_BY_NAME
+value_lower
+return
+ints_to_rgba
+None
+fullmatch
+r_hex_short
+value_lower
+rgb
+groups
+int
+for
+rgb
+alpha
+int
+255
+else
+None
+return
+ints_to_rgba
+alpha
+fullmatch
+r_hex_long
+value_lower
+rgb
+groups
+int
+for
+rgb
+alpha
+int
+255
+else
+None
+return
+ints_to_rgba
+alpha
+fullmatch
+r_rgb
+value_lower
+fullmatch
+r_rgb_v4_style
+value_lower
+return
+ints_to_rgba
+groups
+())
+# type: ignore
+fullmatch
+r_hsl
+value_lower
+fullmatch
+r_hsl_v4_style
+value_lower
+return
+parse_hsl
+groups
+())
+# type: ignore
+value_lower
+'transparent'
+return
+RGBA
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: string not recognised as a valid color'
+ints_to_rgba
+ints_to_rgba
+int
+str
+int
+str
+int
+str
+alpha
+float
+None
+None
+RGBA
+Converts integer or string values for RGB color and an optional alpha value to an
+RGBA
+object.
+Parameters:
+Name
+Type
+Description
+Default
+int
+str
+An integer or string representing the red color value.
+required
+int
+str
+An integer or string representing the green color value.
+required
+int
+str
+An integer or string representing the blue color value.
+required
+alpha
+float
+| None
+A float representing the alpha value. Defaults to None.
+None
+Returns:
+Type
+Description
+RGBA
+An instance of the
+RGBA
+class with the corresponding color and alpha values.
+Source code in
+pydantic_extra_types/color.py
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+def
+ints_to_rgba
+int
+str
+int
+str
+int
+str
+alpha
+float
+None
+None
+RGBA
+"""
+Converts integer or string values for RGB color and an optional alpha value to an `RGBA` object.
+Args:
+r: An integer or string representing the red color value.
+g: An integer or string representing the green color value.
+b: An integer or string representing the blue color value.
+alpha: A float representing the alpha value. Defaults to None.
+Returns:
+An instance of the `RGBA` class with the corresponding color and alpha values.
+"""
+return
+RGBA
+parse_color_value
+parse_color_value
+parse_color_value
+parse_float_alpha
+alpha
+parse_color_value
+parse_color_value
+value
+int
+str
+max_val
+int
+255
+float
+Parse the color value provided and return a number between 0 and 1.
+Parameters:
+Name
+Type
+Description
+Default
+value
+int
+str
+An integer or string color value.
+required
+max_val
+int
+Maximum range value. Defaults to 255.
+255
+Raises:
+Type
+Description
+PydanticCustomError
+If the value is not a valid color.
+Returns:
+Type
+Description
+float
+A number between 0 and 1.
+Source code in
+pydantic_extra_types/color.py
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+def
+parse_color_value
+value
+int
+str
+max_val
+int
+255
+float
+"""
+Parse the color value provided and return a number between 0 and 1.
+Args:
+value: An integer or string color value.
+max_val: Maximum range value. Defaults to 255.
+Raises:
+PydanticCustomError: If the value is not a valid color.
+Returns:
+A number between 0 and 1.
+"""
+try
+color
+float
+value
+except
+ValueError
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: color values must be a valid number'
+from
+color
+max_val
+return
+color
+max_val
+else
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: color values must be in the range 0 to
+{max_val}
+'max_val'
+max_val
+parse_float_alpha
+parse_float_alpha
+value
+None
+str
+float
+int
+float
+None
+Parse an alpha value checking it's a valid float in the range 0 to 1.
+Parameters:
+Name
+Type
+Description
+Default
+value
+None |
+str
+float
+int
+The input value to parse.
+required
+Returns:
+Type
+Description
+float
+| None
+The parsed value as a float, or
+None
+if the value was None or equal 1.
+Raises:
+Type
+Description
+PydanticCustomError
+If the input value cannot be successfully parsed as a float in the expected range.
+Source code in
+pydantic_extra_types/color.py
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+def
+parse_float_alpha
+value
+None
+str
+float
+int
+float
+None
+"""
+Parse an alpha value checking it's a valid float in the range 0 to 1.
+Args:
+value: The input value to parse.
+Returns:
+The parsed value as a float, or `None` if the value was None or equal 1.
+Raises:
+PydanticCustomError: If the input value cannot be successfully parsed as a float in the expected range.
+"""
+value
+None
+return
+None
+try
+isinstance
+value
+str
+and
+value
+endswith
+'%'
+alpha
+float
+value
+100
+else
+alpha
+float
+value
+except
+ValueError
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: alpha values must be a valid float'
+from
+math
+isclose
+alpha
+return
+None
+elif
+alpha
+return
+alpha
+else
+raise
+PydanticCustomError
+'color_error'
+'value is not a valid color: alpha values must be in the range 0 to 1'
+parse_hsl
+parse_hsl
+str
+h_units
+str
+sat
+str
+light
+str
+alpha
+float
+None
+None
+RGBA
+Parse raw hue, saturation, lightness, and alpha values and convert to RGBA.
+Parameters:
+Name
+Type
+Description
+Default
+str
+The hue value.
+required
+h_units
+str
+The unit for hue value.
+required
+sat
+str
+The saturation value.
+required
+light
+str
+The lightness value.
+required
+alpha
+float
+| None
+Alpha value.
+None
+Returns:
+Type
+Description
+RGBA
+An instance of
+RGBA
+Source code in
+pydantic_extra_types/color.py
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+def
+parse_hsl
+str
+h_units
+str
+sat
+str
+light
+str
+alpha
+float
+None
+None
+RGBA
+"""
+Parse raw hue, saturation, lightness, and alpha values and convert to RGBA.
+Args:
+h: The hue value.
+h_units: The unit for hue value.
+sat: The saturation value.
+light: The lightness value.
+alpha: Alpha value.
+Returns:
+An instance of `RGBA`.
+"""
+s_value
+l_value
+parse_color_value
+sat
+100
+parse_color_value
+light
+100
+h_value
+float
+h_units
+None
+'deg'
+h_value
+h_value
+360
+360
+elif
+h_units
+'rad'
+h_value
+h_value
+rads
+rads
+else
+# turns
+h_value
+hls_to_rgb
+h_value
+l_value
+s_value
+return
+RGBA
+parse_float_alpha
+alpha
+float_to_255
+float_to_255
+float
+int
+Converts a float value between 0 and 1 (inclusive) to an integer between 0 and 255 (inclusive).
+Parameters:
+Name
+Type
+Description
+Default
+float
+The float value to be converted. Must be between 0 and 1 (inclusive).
+required
+Returns:
+Type
+Description
+int
+The integer equivalent of the given float value rounded to the nearest whole number.
+Source code in
+pydantic_extra_types/color.py
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+def
+float_to_255
+float
+int
+"""
+Converts a float value between 0 and 1 (inclusive) to an integer between 0 and 255 (inclusive).
+Args:
+c: The float value to be converted. Must be between 0 and 1 (inclusive).
+Returns:
+The integer equivalent of the given float value rounded to the nearest whole number.
+"""
+return
+round
+255
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

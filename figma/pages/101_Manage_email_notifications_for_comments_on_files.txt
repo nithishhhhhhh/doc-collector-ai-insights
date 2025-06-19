@@ -1,0 +1,42 @@
+URL: https://help.figma.com/hc/en-us/articles/360041547813-Manage-email-notifications-for-comments-on-files
+==================================================
+
+Who can use this feature
+Available on
+any team or plan
+Anyone with at least
+can view
+access to a file can add and view comments
+New to comments?
+Learn how to get started with comments.
+Comments allow you to respond to feedback, collaborate with others, and iterate faster.
+If you are the owner of a file, you will receive email notifications for all comments by default. If you are not the file owner and leave two or more comments on a file, you’ll be notified about all new comments that file receives.
+Note:
+When a file's permissions changes from
+Anyone
+Only invited people
+, collaborators who previously received notifications on the file will stop receiving notifications if they don't have a direct role in the file or the containing project or team.
+Email notifications
+To modify your email notification settings for a file:
+Click
+Comment
+or press
+to enter comment mode.
+Click
+Settings
+at the top of the right sidebar in comment mode:
+From the dropdown, select one of the following:
+Everything
+: This setting will notify you of any comments made on the file, @mentions that mention you, and replies or reacts to threads you’ve created or participated in.
+Just mentions and replies
+: This setting will notify you of @mentions that mention you and replies or reacts to threads you’ve created or participated in.
+Nothing
+: You will not be sent any email notifications for new comments. You will still receive an email for @mentions that mention you, even if you have this option selected.
+Note:
+In addition to receiving email notifications, you will also receive in-app notifications. In-app notifications cannot be disabled.
+Learn more about notifications in Figma.
+Slack notifications
+Connect Slack to your Figma account using our
+Slack integration
+. This lets you receive notifications in Slack when a team member comments on a file or thread you're active on.
+Manage Figma notifications in Slack.

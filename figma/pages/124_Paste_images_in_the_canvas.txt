@@ -1,0 +1,53 @@
+URL: https://help.figma.com/hc/en-us/articles/360040615014-Paste-images-in-the-canvas
+==================================================
+
+Who can use this feature
+Supported on
+any team or plan
+Anyone who
+can edit
+the file can add images.
+Figma doesn't have a specific layer type for images, instead, images are a type of
+fill
+. This allows you to add images to any
+shape
+, including
+custom vector networks
+There are lots of ways to
+add images to design files
+. In this article, we'll show you how to paste from the clipboard and what outcomes to expect.
+Due to limitations with Chromium,
+it's not possible to paste from the clipboard on Windows devices
+. Instead, we recommend you
+upload images as fills
+Create a new layer
+If you want to create a new layer from an image on your clipboard, you can paste it directly on the canvas. This allows you to copy images from the web without having to download them to your device.
+Click an empty spot in the canvas to deselect any layers.
+Paste the image to add a new layer to the canvas using the keyboard shortcut:
+macOS:
+⌘Command
+Windows:
+Ctrl
+Figma will create a rectangle shape with the same dimensions as the original image and apply the image as a fill.
+Add image to an existing layer
+If you select a layer before pasting an image, Figma will add the image to that layer as a fill. You can use this process to replace an existing fill or add another fill to a layer.
+By default, Figma will add a new fill to the layer. If you want to replace the existing fill, you can select the fill in the right sidebar before pasting.
+Select the layer you want to add the image to.
+To replace the existing fill (optional):
+select the fill layer in the right sidebar. You'll need to click to the left of the image thumbnail. The fill layer is highlighted in blue when successfully selected.
+Use the paste shortcut
+macOS:
+⌘Command
+Windows:
+Ctrl
+Figma will add the image to the selected layer as a new fill. The fill mode of the image is
+Fill
+by default, but you can change this to
+Fit
+Tile
+, or
+Crop
+Paste GIFs
+Most browsers do not support copying animated GIFs to your clipboard. If you copy a GIF directly from the browser and paste this into Figma, it will result in a static image.
+We recommending downloading a copy of the GIF to your computer, then import it to Figma using another method.
+Add animated GIFs to prototypes →

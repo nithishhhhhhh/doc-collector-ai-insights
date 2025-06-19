@@ -1,0 +1,83 @@
+URL: https://help.figma.com/hc/en-us/articles/24004868368919-Rewrite-translate-and-shorten-text-with-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in Figma Design, FigJam, Figma Slides, Figma Sites, and Figma Buzz
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+Use Figma AI to rewrite, shorten, and translate text in your design.
+Rewrite text
+How it works
+Use
+Rewrite this
+to tailor your copy’s tone according to your intended audience. You can also use a prompt with
+Rewrite this
+to generate copy from scratch.
+Example
+: You're designing a travel app for booking hidden gem tours of a city. Your card for a tour has a title layer and a description layer. Use
+Rewrite this
+to generate realistic copy.
+Write me an editorial title for a hidden gems tour in Sydney, Australia.
+Example
+: You're designing an error message to be displayed during an outage and want to convey sympathy while giving your reader confidence their issue is being resolved.
+Rewrite this error message in a sympathetic tone for a customer who has lost connection during a temporary outage.
+Tip:
+If you're generating and rewriting copy for repeating elements, learn how to
+replace content with AI.
+Use Rewrite text
+To use Rewrite text in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select a text layer.
+From the toolbar, click
+Actions > Rewrite this
+Enter in a prompt.
+Click
+Rewrite
+To use Rewrite text in Figma Buzz:
+Select a text layer.
+From the inline toolbar, click
+AI tools > Rewrite this
+Enter in a prompt.
+Click
+Rewrite
+Shorten text
+How it works
+Use
+Shorten text
+to rewrite any text layers you need to be more concise. This is great for simplifying long paragraph text, or for UX copy with limited characters or space.
+Use Shorten text
+To use Shorten text in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select a text layer.
+Click
+Actions
+in the toolbar and select
+Shorten
+To use Shorten text in Figma Buzz:
+Select a text layer.
+From the inline toolbar, click
+AI tools > Shorten
+Translate text
+How it works
+Translate text
+can help you preview what your UX copy will look like in another language.
+Use Translate text
+To use Translate text in Figma Design, FigJam, Figma Slides, or Figma Sites:
+Select a text layer.
+Click
+Actions
+in the toolbar and select
+Translate to...
+Select a language.
+To use Translate text in Figma Buzz:
+Select a text layer.
+From the inline toolbar, click
+AI tools > Translate to
+Select a language.

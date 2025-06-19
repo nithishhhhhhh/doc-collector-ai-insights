@@ -1,0 +1,36 @@
+URL: https://help.figma.com/hc/en-us/articles/31326388366871-AI-text-suggestions
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in Figma Design
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+Use text suggestions
+Use AI text suggestions to automatically complete text strings based on the context of your design—saving time and allowing you to focus on your work.
+Text suggestions appear as transparent text while you're typing, when relevant suggestions are available.
+To accept the suggestion, press
+tab
+To accept only the first word, press the right arrow →
+To dismiss the suggestion, press
+esc
+or continue typing
+Disable text suggestions
+To disable text suggestions:
+Click the
+main menu >
+Text
+Toggle off
+Show text suggestions
+Note:
+Disabling text suggestions only applies to the AI autosuggest feature. Admins can
+disable all AI features
+across Figma from admin settings.

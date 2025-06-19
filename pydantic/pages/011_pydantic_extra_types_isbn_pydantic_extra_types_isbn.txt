@@ -1,0 +1,333 @@
+URL: https://docs.pydantic.dev/latest/api/pydantic_extra_types_isbn/#pydantic_extra_types.isbn
+==================================================
+
+ISBN
+The
+pydantic_extra_types.isbn
+module provides functionality to recieve and validate ISBN.
+ISBN (International Standard Book Number) is a numeric commercial book identifier which is intended to be unique. This module provides a ISBN type for Pydantic models.
+ISBN
+Bases:
+str
+Represents a ISBN and provides methods for conversion, validation, and serialization.
+from
+pydantic
+import
+BaseModel
+from
+pydantic_extra_types.isbn
+import
+ISBN
+class
+Book
+BaseModel
+isbn
+ISBN
+book
+Book
+isbn
+"8537809667"
+print
+book
+#> isbn='9788537809662'
+validate_isbn_format
+staticmethod
+validate_isbn_format
+value
+str
+None
+Validate a ISBN format from the provided str value.
+Parameters:
+Name
+Type
+Description
+Default
+value
+str
+The str value representing the ISBN in 10 or 13 digits.
+required
+Raises:
+Type
+Description
+PydanticCustomError
+If the ISBN is not valid.
+Source code in
+pydantic_extra_types/isbn.py
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+@staticmethod
+def
+validate_isbn_format
+value
+str
+None
+"""Validate a ISBN format from the provided str value.
+Args:
+value: The str value representing the ISBN in 10 or 13 digits.
+Raises:
+PydanticCustomError: If the ISBN is not valid.
+"""
+isbn_length
+len
+value
+isbn_length
+not
+raise
+PydanticCustomError
+'isbn_length'
+'Length for ISBN must be 10 or 13 digits, not
+isbn_length
+isbn_length
+not
+value
+isdigit
+value
+'X'
+and
+not
+value
+isdigit
+())):
+raise
+PydanticCustomError
+'isbn10_invalid_characters'
+'First 9 digits of ISBN-10 must be integers'
+isbn10_digit_calc
+value
+value
+raise
+PydanticCustomError
+'isbn_invalid_digit_check_isbn10'
+'Provided digit is invalid for given ISBN'
+isbn_length
+not
+value
+isdigit
+():
+raise
+PydanticCustomError
+'isbn13_invalid_characters'
+'All digits of ISBN-13 must be integers'
+value
+not
+'978'
+'979'
+raise
+PydanticCustomError
+'isbn_invalid_early_characters'
+'The first 3 digits of ISBN-13 must be 978 or 979'
+isbn13_digit_calc
+value
+value
+raise
+PydanticCustomError
+'isbn_invalid_digit_check_isbn13'
+'Provided digit is invalid for given ISBN'
+convert_isbn10_to_isbn13
+staticmethod
+convert_isbn10_to_isbn13
+value
+str
+str
+Convert an ISBN-10 to ISBN-13.
+Parameters:
+Name
+Type
+Description
+Default
+value
+str
+The ISBN-10 value to be converted.
+required
+Returns:
+Type
+Description
+str
+The converted ISBN or the original value if no conversion is necessary.
+Source code in
+pydantic_extra_types/isbn.py
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+@staticmethod
+def
+convert_isbn10_to_isbn13
+value
+str
+str
+"""Convert an ISBN-10 to ISBN-13.
+Args:
+value: The ISBN-10 value to be converted.
+Returns:
+The converted ISBN or the original value if no conversion is necessary.
+"""
+len
+value
+base_isbn
+'978
+value
+isbn13_digit
+isbn13_digit_calc
+base_isbn
+return
+ISBN
+base_isbn
+isbn13_digit
+return
+ISBN
+value
+isbn10_digit_calc
+isbn10_digit_calc
+isbn
+str
+str
+Calc a ISBN-10 last digit from the provided str value. More information of validation algorithm on
+Wikipedia
+Parameters:
+Name
+Type
+Description
+Default
+isbn
+str
+The str value representing the ISBN in 10 digits.
+required
+Returns:
+Type
+Description
+str
+The calculated last digit of the ISBN-10 value.
+Source code in
+pydantic_extra_types/isbn.py
+def
+isbn10_digit_calc
+isbn
+str
+str
+"""Calc a ISBN-10 last digit from the provided str value. More information of validation algorithm on [Wikipedia](https://en.wikipedia.org/wiki/ISBN#Check_digits)
+Args:
+isbn: The str value representing the ISBN in 10 digits.
+Returns:
+The calculated last digit of the ISBN-10 value.
+"""
+total
+sum
+int
+digit
+idx
+for
+idx
+digit
+enumerate
+isbn
+]))
+for
+check_digit
+range
+total
+check_digit
+valid_check_digit
+'X'
+check_digit
+else
+str
+check_digit
+return
+valid_check_digit
+isbn13_digit_calc
+isbn13_digit_calc
+isbn
+str
+str
+Calc a ISBN-13 last digit from the provided str value. More information of validation algorithm on
+Wikipedia
+Parameters:
+Name
+Type
+Description
+Default
+isbn
+str
+The str value representing the ISBN in 13 digits.
+required
+Returns:
+Type
+Description
+str
+The calculated last digit of the ISBN-13 value.
+Source code in
+pydantic_extra_types/isbn.py
+def
+isbn13_digit_calc
+isbn
+str
+str
+"""Calc a ISBN-13 last digit from the provided str value. More information of validation algorithm on [Wikipedia](https://en.wikipedia.org/wiki/ISBN#Check_digits)
+Args:
+isbn: The str value representing the ISBN in 13 digits.
+Returns:
+The calculated last digit of the ISBN-13 value.
+"""
+total
+sum
+int
+digit
+idx
+else
+for
+idx
+digit
+enumerate
+isbn
+]))
+check_digit
+total
+return
+str
+check_digit
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

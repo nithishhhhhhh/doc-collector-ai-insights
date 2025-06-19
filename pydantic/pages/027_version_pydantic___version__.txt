@@ -1,0 +1,121 @@
+URL: https://docs.pydantic.dev/latest/api/version/#pydantic.__version__
+==================================================
+
+Version Information
+pydantic.__version__
+module-attribute
+__version__
+VERSION
+pydantic.version.version_info
+version_info
+str
+Return complete version information for Pydantic and its dependencies.
+Source code in
+pydantic/version.py
+def
+version_info
+str
+"""Return complete version information for Pydantic and its dependencies."""
+import
+importlib.metadata
+import
+platform
+import
+sys
+from
+pathlib
+import
+Path
+import
+pydantic_core._pydantic_core
+pdc
+from
+._internal
+import
+_git
+git
+# get data about packages that are closely related to pydantic, use pydantic or often conflict with pydantic
+package_names
+'email-validator'
+'fastapi'
+'mypy'
+'pydantic-extra-types'
+'pydantic-settings'
+'pyright'
+'typing_extensions'
+related_packages
+for
+dist
+importlib
+metadata
+distributions
+():
+name
+dist
+metadata
+'Name'
+name
+package_names
+related_packages
+append
+name
+dist
+version
+pydantic_dir
+Path
+__file__
+parents
+resolve
+most_recent_commit
+git
+git_revision
+pydantic_dir
+git
+is_git_repo
+pydantic_dir
+and
+git
+have_git
+else
+'unknown'
+info
+'pydantic version'
+VERSION
+'pydantic-core version'
+pdc
+__version__
+'pydantic-core build'
+getattr
+pdc
+'build_info'
+None
+pdc
+build_profile
+'python version'
+sys
+version
+'platform'
+platform
+platform
+(),
+'related packages'
+' '
+join
+related_packages
+'commit'
+most_recent_commit
+return
+join
+{:>30}
+format
+':'
+str
+replace
+' '
+for
+info
+items
+())
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

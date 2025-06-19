@@ -1,0 +1,54 @@
+URL: https://help.figma.com/hc/en-us/articles/360040675194-Crop-an-image
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access to a file can crop an image
+Crop an image to trim its outer edges and show only the section of the image that you want.
+In Figma, cropping images is a non-destructive process, so the cropped area does not get deleted. Rather, it is hidden. This means you can make changes to the crop by going through the cropping process again.
+To crop an image:
+Select a layer with an image fill.
+Choose one of the following:
+Click
+in the properties panel.
+From the
+Fill
+section of the right sidebar, click the image thumbnail. Then, open the image mode dropdown and select
+Crop
+Click and drag one of the 8 blue handles around the image to crop it. You can also:
+Reposition the image
+: Click and drag.
+Resize the image
+: Click and drag the edges of the image.
+Rotate the image or crop section:
+Hover on the outside of a corner until the
+rotate cursor appears. Then click and drag.
+Keep the current aspect ratio of the image or crop section
+: Hold
+⌘ Command
+for Mac or
+Control
+for Windows while cropping or resizing.
+Crop or resize opposite sides of the image or crop section:
+Hold
+Option
+for Mac or
+Alt
+for Windows while dragging.
+Click anywhere on the canvas to apply the crop. You can also press
+Esc
+Return
+Tip:
+To quickly crop an image, hold
+⌘ Command
+for Mac or
+Control
+for Windows while clicking and dragging the corners of the image.
+Note:
+To crop your image into a circle or ellipse shape, you can either increase the layer’s
+corner radius
+create a mask

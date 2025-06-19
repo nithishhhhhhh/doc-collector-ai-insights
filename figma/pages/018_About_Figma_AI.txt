@@ -1,0 +1,193 @@
+URL: https://help.figma.com/hc/en-us/articles/24039793359767-About-Figma-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Best practices when using AI tools
+When it comes to building AI, we want to be transparent about what we’re doing and what this means for you.
+Learn more about Figma’s approach to AI →
+There are a few things to keep in mind when using any AI tool:
+Accuracy
+AI-powered tools are designed to provide information and results based on artificial intelligence algorithms, and identify patterns and relationships from large amounts of data. It’s important to note that the accuracy and reliability of these results may vary.
+There is a possibility of inaccuracies, omissions, or misleading outcomes due to the complexities and limitations of AI technologies. Therefore, the information provided by the tool should be regarded as a general reference and not a fact or a substitute for expert advice or your own research.
+Your responsibilities
+You should exercise your own judgment and discretion when using AI-powered tools. It’s essential to verify and cross-check the information provided by the tool before making any decisions, taking actions, or relying on it for critical matters.
+You should let others know when you’re using or presenting AI-generated outputs. For some features, like summarize stickies, Figma will indicate when an output is AI-generated.
+You will only use AI features in accordance with
+Figma’s Acceptable Use Policy
+Available AI features and tools
+Note:
+The chart below lists AI tools that you can access across Figma’s products.
+Separately, Figma Make is an AI-driven prompt-to-code tool that lets you bring ideas and existing Figma designs to life as functional prototypes, web apps, and interactive UI. Figma Make is currently in beta and rolling out in the coming weeks to users on all paid plans.
+Learn more about Figma Make
+AI tools can be found throughout Figma's products. Use the chart below to discover which AI tools are available in each product.
+Figma Design
+FigJam
+Figma Slides
+Figma Sites
+Figma Buzz
+Rewrite text
+Included
+Included
+Included
+Included
+Included
+Translate text
+Included
+Included
+Included
+Included
+Included
+Shorten text
+Included
+Included
+Included
+Included
+Included
+Adjust tone
+Not included
+Included
+Included
+Not included
+Not included
+Make image
+Included
+Included
+Included
+Included
+Included
+Remove background
+Included
+Included
+Included
+Included
+Included
+Boost resolution
+Included
+Included
+Included
+Included
+Included
+Edit image
+Included
+Included
+Included
+Included
+Included
+Replace content
+Included
+Not included
+Not included
+Included
+Not included
+Text suggestions
+Included
+Not included
+Not included
+Not included
+Not included
+Rename layers
+Included
+Not included
+Not included
+Not included
+Not included
+Add interactions
+Included
+Not included
+Not included
+Not included
+Not included
+AI search
+Included
+Not included
+Included
+Not included
+Not included
+First Draft
+Included
+Not included
+Not included
+Not included
+Not included
+Generate boards and diagrams
+Not included
+Included
+Not included
+Not included
+Not included
+Sort and summarize stickies
+Not included
+Included
+Not included
+Not included
+Not included
+Jambot
+Not included
+Included
+Not included
+Not included
+Not included
+Generate a slide deck outline from a FigJam board
+Not included
+Included
+Included
+Not included
+Not included
+Draft presenter notes
+Not included
+Not included
+Included
+Not included
+Not included
+To see a breakdown of AI tools by product, check out the following guides:
+Use AI tools in Figma Design
+Use AI tools in FigJam
+Use AI tools in Figma Slides
+Use AI tools in Figma Sites
+Use AI tools in Figma Buzz
+Who can use AI tools?
+AI tools are available on paid plans.
+Additionally, your
+seat type
+impacts which AI tools you can use in which product.
+Access to AI tools in Figma Design
+Access to AI tools in Figma Sites
+Access to AI tools in FigJam
+Access to AI tools in Figma Slides
+Access to AI tools in Figma Buzz
+Full seat
+Included
+Included
+Included
+Included
+Included
+Dev seat
+Not included
+Not included
+Included
+Included
+Included
+Collab seat
+Not included
+Not included
+Included
+Included
+Included
+View seat
+Not included
+Not included
+Not included
+Not included
+Not included
+If you do not have access to AI features in your account, it may be due to one of the following reasons:
+Your team or organization is opted out: Your admin has already chosen to
+opt your team or organization out of AI features
+. Please contact your admin if you have questions.
+You're on a Figma for Education plan: AI features and settings will not be enabled for users who are a part of an Education plan. If you have any questions, please contact
+education@figma.com
+You're using the
+Figma for Government
+solution: Organizations using the Figma for Government solution will not have AI features or settings enabled.

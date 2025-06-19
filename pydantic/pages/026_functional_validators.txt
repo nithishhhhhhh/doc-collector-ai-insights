@@ -1,0 +1,1078 @@
+URL: https://docs.pydantic.dev/latest/api/functional_validators/
+==================================================
+
+Functional Validators
+This module contains related classes and functions for validation.
+ModelAfterValidatorWithoutInfo
+module-attribute
+ModelAfterValidatorWithoutInfo
+Callable
+_ModelType
+_ModelType
+@model_validator
+decorated function signature. This is used when
+mode='after'
+and the function does not
+have info argument.
+ModelAfterValidator
+module-attribute
+ModelAfterValidator
+Callable
+_ModelType
+ValidationInfo
+_ModelType
+@model_validator
+decorated function signature. This is used when
+mode='after'
+AfterValidator
+dataclass
+AfterValidator
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+Usage Documentation
+field
+after
+validators
+A metadata class that indicates that a validation should be applied
+after
+the inner validation logic.
+Attributes:
+Name
+Type
+Description
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+The validator function.
+Example
+from
+typing
+import
+Annotated
+from
+pydantic
+import
+AfterValidator
+BaseModel
+ValidationError
+MyInt
+Annotated
+int
+AfterValidator
+lambda
+class
+Model
+BaseModel
+MyInt
+print
+Model
+#> 2
+try
+Model
+'a'
+except
+ValidationError
+print
+json
+indent
+'''
+"type": "int_parsing",
+"loc": [
+"a"
+"msg": "Input should be a valid integer, unable to parse string as an integer",
+"input": "a",
+"url": "https://errors.pydantic.dev/2/v/int_parsing"
+'''
+BeforeValidator
+dataclass
+BeforeValidator
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+json_schema_input_type
+Any
+PydanticUndefined
+Usage Documentation
+field
+before
+validators
+A metadata class that indicates that a validation should be applied
+before
+the inner validation logic.
+Attributes:
+Name
+Type
+Description
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+The validator function.
+json_schema_input_type
+Any
+The input type of the function. This is only used to generate the appropriate
+JSON Schema (in validation mode).
+Example
+from
+typing
+import
+Annotated
+from
+pydantic
+import
+BaseModel
+BeforeValidator
+MyInt
+Annotated
+int
+BeforeValidator
+lambda
+class
+Model
+BaseModel
+MyInt
+print
+Model
+#> 2
+try
+Model
+'a'
+except
+TypeError
+print
+#> can only concatenate str (not "int") to str
+PlainValidator
+dataclass
+PlainValidator
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+json_schema_input_type
+Any
+Any
+Usage Documentation
+field
+plain
+validators
+A metadata class that indicates that a validation should be applied
+instead
+of the inner validation logic.
+Note
+Before v2.9,
+PlainValidator
+wasn't always compatible with JSON Schema generation for
+mode='validation'
+You can now use the
+json_schema_input_type
+argument to specify the input type of the function
+to be used in the JSON schema when
+mode='validation'
+(the default). See the example below for more details.
+Attributes:
+Name
+Type
+Description
+func
+NoInfoValidatorFunction
+WithInfoValidatorFunction
+The validator function.
+json_schema_input_type
+Any
+The input type of the function. This is only used to generate the appropriate
+JSON Schema (in validation mode). If not provided, will default to
+Any
+Example
+from
+typing
+import
+Annotated
+Union
+from
+pydantic
+import
+BaseModel
+PlainValidator
+MyInt
+Annotated
+int
+PlainValidator
+lambda
+int
+json_schema_input_type
+Union
+str
+int
+class
+Model
+BaseModel
+MyInt
+print
+Model
+'1'
+#> 2
+print
+Model
+#> 2
+WrapValidator
+dataclass
+WrapValidator
+func
+NoInfoWrapValidatorFunction
+WithInfoWrapValidatorFunction
+json_schema_input_type
+Any
+PydanticUndefined
+Usage Documentation
+field
+wrap
+validators
+A metadata class that indicates that a validation should be applied
+around
+the inner validation logic.
+Attributes:
+Name
+Type
+Description
+func
+NoInfoWrapValidatorFunction
+WithInfoWrapValidatorFunction
+The validator function.
+json_schema_input_type
+Any
+The input type of the function. This is only used to generate the appropriate
+JSON Schema (in validation mode).
+from
+datetime
+import
+datetime
+from
+typing
+import
+Annotated
+from
+pydantic
+import
+BaseModel
+ValidationError
+WrapValidator
+def
+validate_timestamp
+handler
+'now'
+# we don't want to bother with further validation, just return the new value
+return
+datetime
+now
+try
+return
+handler
+except
+ValidationError
+# validation failed, in this case we want to return a default value
+return
+datetime
+2000
+MyTimestamp
+Annotated
+datetime
+WrapValidator
+validate_timestamp
+class
+Model
+BaseModel
+MyTimestamp
+print
+Model
+'now'
+#> 2032-01-02 03:04:05.000006
+print
+Model
+'invalid'
+#> 2000-01-01 00:00:00
+ModelWrapValidatorHandler
+Bases:
+ValidatorFunctionWrapHandler
+Protocol
+_ModelTypeCo
+@model_validator
+decorated function handler argument type. This is used when
+mode='wrap'
+ModelWrapValidatorWithoutInfo
+Bases:
+Protocol
+_ModelType
+@model_validator
+decorated function signature.
+This is used when
+mode='wrap'
+and the function does not have info argument.
+ModelWrapValidator
+Bases:
+Protocol
+_ModelType
+@model_validator
+decorated function signature. This is used when
+mode='wrap'
+FreeModelBeforeValidatorWithoutInfo
+Bases:
+Protocol
+@model_validator
+decorated function signature.
+This is used when
+mode='before'
+and the function does not have info argument.
+ModelBeforeValidatorWithoutInfo
+Bases:
+Protocol
+@model_validator
+decorated function signature.
+This is used when
+mode='before'
+and the function does not have info argument.
+FreeModelBeforeValidator
+Bases:
+Protocol
+@model_validator
+decorated function signature. This is used when
+mode='before'
+ModelBeforeValidator
+Bases:
+Protocol
+@model_validator
+decorated function signature. This is used when
+mode='before'
+InstanceOf
+dataclass
+InstanceOf
+Generic type for annotating a type that is an instance of a given class.
+Example
+from
+pydantic
+import
+BaseModel
+InstanceOf
+class
+Foo
+...
+class
+Bar
+BaseModel
+foo
+InstanceOf
+Foo
+Bar
+foo
+Foo
+())
+try
+Bar
+foo
+except
+ValidationError
+print
+"""
+│   {
+│   │   'type': 'is_instance_of',
+│   │   'loc': ('foo',),
+│   │   'msg': 'Input should be an instance of Foo',
+│   │   'input': 42,
+│   │   'ctx': {'class': 'Foo'},
+│   │   'url': 'https://errors.pydantic.dev/0.38.0/v/is_instance_of'
+│   }
+"""
+SkipValidation
+dataclass
+SkipValidation
+If this is applied as an annotation (e.g., via
+x: Annotated[int, SkipValidation]
+), validation will be
+skipped. You can also use
+SkipValidation[int]
+as a shorthand for
+Annotated[int, SkipValidation]
+This can be useful if you want to use a type annotation for documentation/IDE/type-checking purposes,
+and know that it is safe to skip validation for one or more of the fields.
+Because this converts the validation schema to
+any_schema
+, subsequent annotation-applied transformations
+may not have the expected effects. Therefore, when used, this annotation should generally be the final
+annotation applied to a type.
+field_validator
+field_validator
+field
+str
+fields
+str
+mode
+Literal
+"wrap"
+check_fields
+bool
+None
+...
+json_schema_input_type
+Any
+...
+Callable
+_V2WrapValidatorType
+_V2WrapValidatorType
+field_validator
+field
+str
+fields
+str
+mode
+Literal
+"before"
+"plain"
+check_fields
+bool
+None
+...
+json_schema_input_type
+Any
+...
+Callable
+_V2BeforeAfterOrPlainValidatorType
+_V2BeforeAfterOrPlainValidatorType
+field_validator
+field
+str
+fields
+str
+mode
+Literal
+"after"
+...
+check_fields
+bool
+None
+...
+Callable
+_V2BeforeAfterOrPlainValidatorType
+_V2BeforeAfterOrPlainValidatorType
+field_validator
+field
+str
+fields
+str
+mode
+FieldValidatorModes
+"after"
+check_fields
+bool
+None
+None
+json_schema_input_type
+Any
+PydanticUndefined
+Callable
+Any
+Any
+Usage Documentation
+field validators
+Decorate methods on the class indicating that they should be used to validate fields.
+Example usage:
+from
+typing
+import
+Any
+from
+pydantic
+import
+BaseModel
+ValidationError
+field_validator
+class
+Model
+BaseModel
+str
+@field_validator
+'a'
+@classmethod
+def
+ensure_foobar
+cls
+Any
+'foobar'
+not
+raise
+ValueError
+'"foobar" not found in a'
+return
+print
+repr
+Model
+'this is foobar good'
+)))
+#> Model(a='this is foobar good')
+try
+Model
+'snap'
+except
+ValidationError
+exc_info
+print
+exc_info
+'''
+1 validation error for Model
+Value error, "foobar" not found in a [type=value_error, input_value='snap', input_type=str]
+'''
+For more in depth examples, see
+Field Validators
+Parameters:
+Name
+Type
+Description
+Default
+field
+str
+The first field the
+field_validator
+should be called on; this is separate
+from
+fields
+to ensure an error is raised if you don't pass at least one.
+required
+*fields
+str
+Additional field(s) the
+field_validator
+should be called on.
+mode
+FieldValidatorModes
+Specifies whether to validate the fields before or after validation.
+'after'
+check_fields
+bool
+| None
+Whether to check that the fields actually exist on the model.
+None
+json_schema_input_type
+Any
+The input type of the function. This is only used to generate
+the appropriate JSON Schema (in validation mode) and can only specified
+when
+mode
+is either
+'before'
+'plain'
+'wrap'
+PydanticUndefined
+Returns:
+Type
+Description
+Callable
+Any
+Any
+A decorator that can be used to decorate a function to be used as a field_validator.
+Raises:
+Type
+Description
+PydanticUserError
+@field_validator
+is used bare (with no fields).
+If the args passed to
+@field_validator
+as fields are not strings.
+@field_validator
+applied to instance methods.
+Source code in
+pydantic/functional_validators.py
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+def
+field_validator
+field
+str
+fields
+str
+mode
+FieldValidatorModes
+'after'
+check_fields
+bool
+None
+None
+json_schema_input_type
+Any
+PydanticUndefined
+Callable
+Any
+Any
+"""!!! abstract "Usage Documentation"
+[field validators](../concepts/validators.md#field-validators)
+Decorate methods on the class indicating that they should be used to validate fields.
+Example usage:
+```python
+from typing import Any
+from pydantic import (
+BaseModel,
+ValidationError,
+field_validator,
+class Model(BaseModel):
+a: str
+@field_validator('a')
+@classmethod
+def ensure_foobar(cls, v: Any):
+if 'foobar' not in v:
+raise ValueError('"foobar" not found in a')
+return v
+print(repr(Model(a='this is foobar good')))
+#> Model(a='this is foobar good')
+try:
+Model(a='snap')
+except ValidationError as exc_info:
+print(exc_info)
+'''
+1 validation error for Model
+Value error, "foobar" not found in a [type=value_error, input_value='snap', input_type=str]
+'''
+```
+For more in depth examples, see [Field Validators](../concepts/validators.md#field-validators).
+Args:
+field: The first field the `field_validator` should be called on; this is separate
+from `fields` to ensure an error is raised if you don't pass at least one.
+*fields: Additional field(s) the `field_validator` should be called on.
+mode: Specifies whether to validate the fields before or after validation.
+check_fields: Whether to check that the fields actually exist on the model.
+json_schema_input_type: The input type of the function. This is only used to generate
+the appropriate JSON Schema (in validation mode) and can only specified
+when `mode` is either `'before'`, `'plain'` or `'wrap'`.
+Returns:
+A decorator that can be used to decorate a function to be used as a field_validator.
+Raises:
+PydanticUserError:
+- If `@field_validator` is used bare (with no fields).
+- If the args passed to `@field_validator` as fields are not strings.
+- If `@field_validator` applied to instance methods.
+"""
+isinstance
+field
+FunctionType
+raise
+PydanticUserError
+'`@field_validator` should be used with fields and keyword arguments, not bare. '
+"E.g. usage should be `@validator('<field_name>', ...)`"
+code
+'validator-no-fields'
+mode
+not
+'before'
+'plain'
+'wrap'
+and
+json_schema_input_type
+not
+PydanticUndefined
+raise
+PydanticUserError
+"`json_schema_input_type` can't be used when mode is set to
+mode
+!r}
+code
+'validator-input-type'
+json_schema_input_type
+PydanticUndefined
+and
+mode
+'plain'
+json_schema_input_type
+Any
+fields
+field
+fields
+not
+all
+isinstance
+field
+str
+for
+field
+fields
+raise
+PydanticUserError
+'`@field_validator` fields should be passed as separate string args. '
+"E.g. usage should be `@validator('<field_name_1>', '<field_name_2>', ...)`"
+code
+'validator-invalid-fields'
+def
+dec
+Callable
+...
+Any
+staticmethod
+Any
+Any
+classmethod
+Any
+Any
+Any
+_decorators
+PydanticDescriptorProxy
+Any
+_decorators
+is_instance_method_from_sig
+raise
+PydanticUserError
+'`@field_validator` cannot be applied to instance methods'
+code
+'validator-instance-method'
+# auto apply the @classmethod decorator
+_decorators
+ensure_classmethod_based_on_signature
+dec_info
+_decorators
+FieldValidatorDecoratorInfo
+fields
+fields
+mode
+mode
+check_fields
+check_fields
+json_schema_input_type
+json_schema_input_type
+return
+_decorators
+PydanticDescriptorProxy
+dec_info
+return
+dec
+model_validator
+model_validator
+mode
+Literal
+"wrap"
+Callable
+_AnyModelWrapValidator
+_ModelType
+]],
+PydanticDescriptorProxy
+ModelValidatorDecoratorInfo
+model_validator
+mode
+Literal
+"before"
+Callable
+_AnyModelBeforeValidator
+PydanticDescriptorProxy
+ModelValidatorDecoratorInfo
+model_validator
+mode
+Literal
+"after"
+Callable
+_AnyModelAfterValidator
+_ModelType
+]],
+PydanticDescriptorProxy
+ModelValidatorDecoratorInfo
+model_validator
+mode
+Literal
+"wrap"
+"before"
+"after"
+Any
+Usage Documentation
+Model Validators
+Decorate model methods for validation purposes.
+Example usage:
+from
+typing_extensions
+import
+Self
+from
+pydantic
+import
+BaseModel
+ValidationError
+model_validator
+class
+Square
+BaseModel
+width
+float
+height
+float
+@model_validator
+mode
+'after'
+def
+verify_square
+self
+Self
+self
+width
+self
+height
+raise
+ValueError
+'width and height do not match'
+return
+self
+Square
+width
+height
+print
+repr
+#> Square(width=1.0, height=1.0)
+try
+Square
+width
+height
+except
+ValidationError
+print
+'''
+1 validation error for Square
+Value error, width and height do not match [type=value_error, input_value={'width': 1, 'height': 2}, input_type=dict]
+'''
+For more in depth examples, see
+Model Validators
+Parameters:
+Name
+Type
+Description
+Default
+mode
+Literal
+['wrap', 'before', 'after']
+A required string literal that specifies the validation mode.
+It can be one of the following: 'wrap', 'before', or 'after'.
+required
+Returns:
+Type
+Description
+Any
+A decorator that can be used to decorate a function to be used as a model validator.
+Source code in
+pydantic/functional_validators.py
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+def
+model_validator
+mode
+Literal
+'wrap'
+'before'
+'after'
+Any
+"""!!! abstract "Usage Documentation"
+[Model Validators](../concepts/validators.md#model-validators)
+Decorate model methods for validation purposes.
+Example usage:
+```python
+from typing_extensions import Self
+from pydantic import BaseModel, ValidationError, model_validator
+class Square(BaseModel):
+width: float
+height: float
+@model_validator(mode='after')
+def verify_square(self) -> Self:
+if self.width != self.height:
+raise ValueError('width and height do not match')
+return self
+s = Square(width=1, height=1)
+print(repr(s))
+#> Square(width=1.0, height=1.0)
+try:
+Square(width=1, height=2)
+except ValidationError as e:
+print(e)
+'''
+1 validation error for Square
+Value error, width and height do not match [type=value_error, input_value={'width': 1, 'height': 2}, input_type=dict]
+'''
+```
+For more in depth examples, see [Model Validators](../concepts/validators.md#model-validators).
+Args:
+mode: A required string literal that specifies the validation mode.
+It can be one of the following: 'wrap', 'before', or 'after'.
+Returns:
+A decorator that can be used to decorate a function to be used as a model validator.
+"""
+def
+dec
+Any
+_decorators
+PydanticDescriptorProxy
+Any
+# auto apply the @classmethod decorator
+_decorators
+ensure_classmethod_based_on_signature
+dec_info
+_decorators
+ModelValidatorDecoratorInfo
+mode
+mode
+return
+_decorators
+PydanticDescriptorProxy
+dec_info
+return
+dec
+Was this page helpful?
+Thanks for your feedback!
+Thanks for your feedback!

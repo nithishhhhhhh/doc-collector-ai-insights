@@ -1,0 +1,361 @@
+URL: https://help.figma.com/hc/en-us/articles/360049283914-Apply-and-adjust-stroke-properties
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any plan
+Anyone with
+can edit
+access can update stroke properties
+Strokes are a collection of properties you can apply to layers in design files. You can think of strokes as the visual representation of a vector network's path. Use strokes to:
+Add outlines around
+shapes
+vector networks
+, or
+boolean operations
+Create lines and arrows
+Add borders to
+images
+The stroke properties let you control the appearance of a stroke's with color, weight, distribution, side, width and end points.
+Note:
+When you select an object, Figma applies stroke properties to the entire layer. You can use
+vector edit mode
+to adjust stroke properties for individual points.
+Stroke properties
+View and adjust stroke properties in the
+Stroke
+section of the right sidebar.
+Paints
+Paint is the main property you’ll use to define the stroke. You can apply more than one paint (color) to a stroke. This includes gradient and image paints. Paints must share the same weight, position, and style properties.
+Use the
+color picker
+to select a paint type, value, and opacity.
+Click
+to add another paint to the current selection.
+Select
+to toggle the visibility of each paint.
+Select
+to open the Style picker. From there you can apply a color style or create a new one from the current selection.
+Select
+to remove the stroke from the selected layer.
+Position
+Figma lets you define where to apply the stroke on the layer’s path. Choose from
+Inside
+Outside
+, or
+Center
+. The default option for most shape layers is
+Inside
+, except lines which are set to center.
+The SVG format only supports center stroke. This is something to consider if you plan on exporting the layer as an SVG.
+When you export a layer with inside or outside stroke to SVG, Figma will “simplify” the stroke. This makes an inside or outside stroke look like a center stroke. This won't affect the appearance of the exported object, but it will impact the complexity of the SVG code.
+Learn more about simplify stroke →
+Tip:
+Preview stroke positions and styles on the canvas by hovering over each option on the dropdown before selecting it.
+Weight
+Use the
+field to select the weight of the stroke, in pixels. Enter a value, or focus on the field and scroll through values using your mouse or trackpad.
+Note:
+Figma doesn’t include the stroke weight in the layer’s dimensions. This means you won’t see the stroke included in the layer’s dimensions in the
+Inspect
+panel.
+Individual strokes
+By default, Figma applies the stroke properties to all sides of a layer. If your layer is a rectangle, frame, or component/instance, you’ll also have a
+Stroke per side
+property.
+Use the
+Stroke per side
+property to choose which side or sides to apply the stroke.
+All
+(default)
+Top
+Bottom
+Left
+Right
+Custom
+: to choose which sides to apply stroke. Custom also allows you to set a different stroke weight per side.
+Tip!
+Rectangles include any shapes created using the
+rectangle tool, frames, and components and instances that use frames.
+Custom strokes per side
+When you select custom, you’ll see four individual fields in the
+Stroke
+section. Use the fields to adjust the weight for each side independently. To remove a stroke from a side, set the weight to
+You can use individual strokes to create common design elements and patterns:
+Apply a single stroke to the top or bottom of a row in a table
+Show a horizontal line underneath a section header or divider
+Apply a border to only three sides of an element
+Add a color block to the left side of a card or task element
+End points
+Add styling to the end points of any open ended paths. The end point property will show up in two different locations, depending on the vector path you have selected.
+Only two end points
+If the layer is an open vector path, you can set the endpoints at the start and end of the vector path in the main
+Stroke
+section. For example: line and arrow shapes.
+Use the two fields to set the
+cap or tip style ↓
+for the start (left) and end (right) endpoints.
+More than two endpoints
+If you have a closed vector path or shape—or an open path with more than two end points—you’ll find the end points settings in the
+Advanced stroke menu
+instead.
+If you have the entire layer selected, you can use the
+End points
+property to set the same tip or cap style for all endpoints.
+To edit them independently, you need to select each end point in vector edit mode:
+With the layer selected, press
+Enter
+Return
+to open
+vector edit mode →
+Select a single end point. You can identify the selected end point by the blue circle with a white stroke.
+Select the
+in the
+Stroke
+section of the right sidebar to open the
+Advanced stroke
+menu.
+Update the
+End point
+property.
+The
+Advanced stroke
+menu will stay open, allowing you to select another end point in the canvas and update the end point again.
+Cap and tip endpoints
+Choose from a selection of caps or tips to add to your end points:
+None
+: No cap or tip is added to the end of the path. The end are square, without adding any length to the path.
+Round (default)
+: Adds a cap half the stroke weight, as well as rounding the end point of the path to 50% the width.
+Square
+: Adds a cap half the stroke weight, while squaring the end point of the path.
+Line arrow
+: Two 45-degree lines to either side of the end point(s). The line arrow uses the same stroke weight as the path itself. You cannot change the length of the arrow head lines.
+Triangle arrow
+: Triangle arrowhead to both end points. You'll need to enter
+vector edit mode →
+to apply an arrow to only one end of the path.
+Reverse triangle:
+Reversed or flipped version of the triangle arrow, with the arrow pointing inward towards the path.
+Diamond arrow:
+Adds a solid diamond shaped tip to the end point.
+Stroke types
+You can use the advanced stroke settings to further customize how a stroke looks. To access these settings, navigate to the
+Stroke
+section in the right sidebar and select
+Advanced stroke settings
+Basic stroke
+You can use the basic stroke settings to create a dashed or dotted stroke.
+Note:
+Figma starts and ends every dashed line with a half-length dash. You can use
+Outline stroke
+from the right-click menu to convert the stroke to a vector object. This will allow you to use edit object mode to remove or extend the half-dash.
+Dashed
+Create a uniform dashed line.
+In the
+Stroke
+panel, select
+to open the
+Advanced stroke
+menu.
+Select the
+Dashed
+stroke style
+Enter the length you want for the
+Dash
+, in pixels.
+Enter the length of the
+Gap
+between dashes, in pixels.
+Choose the type of cap for the dash:
+None
+Round
+Square
+Dotted
+Create a dotted line.
+In the
+Stroke
+panel, use the dropdown to change the stroke position to
+Center
+Select
+to open the
+Advanced stroke
+menu.
+Select the
+Dashed
+stroke style
+Enter a
+Dash
+length of
+pixel.
+In the
+Dash cap
+setting, select
+Round
+Adjust the
+Gap
+between dashes to suit.
+Custom
+Create a dashed or dotted line with a custom pattern.
+In the
+Stroke
+panel, select
+to open the
+Advanced stroke
+menu.
+Set the
+Stroke style
+setting to the
+Custom
+option.
+Use the following syntax in the
+Dashes
+setting to define the dash pattern
+dash, gap, dash, gap
+...
+Select the
+Dash cap
+you want to use.
+For example: We want to represent the letter
+in morse code
+..-.
+as a custom dash pattern. We’d enter the following in the
+Dashes
+setting
+10, 20, 10, 20, 80, 20, 10, 100
+Brush stroke
+Brush strokes give your selection an organic, hand-painted look. Use the
+Brush
+tab in the
+Advanced stroke settings
+to browse through available brush styles, including custom brushes you’ve created. Hover your cursor over a style to preview how it will look on your selection. Once you apply a brush stroke, you can use the
+Direction
+setting to determine which direction the stroke will flow.
+Note:
+Brush strokes can only be positioned in the center of a stroke.
+Dynamic stroke
+Dynamic strokes give your selection’s stroke a hand-drawn, bumpy look. You can use the
+Dynamic stroke
+settings to configure the stroke’s appearance:
+Frequency:
+Determines the number of bumps in the stroke
+Wiggle:
+Determines how large the bumps appear
+Smoothen:
+Determines how jagged the bumps are
+Note:
+Dynamic strokes can only be positioned in the center of a stroke.
+Join and miter angle
+Define how lines join within a path or vector network. Adjust the joins in an entire path, or enter
+vector edit mode
+to select a single anchor point in the path. Choose from:
+Miter:
+Create a sharp point, like an arrow, where the two paths meet.
+Bevel:
+Cut off the sharp point to create a flat edge.
+Rounded:
+Round the point where two paths meet to soften to join.
+Use the
+Miter angle
+setting to control the angle at which two joined lines bevel. For example: for a miter of 90°, any angle ≤ 90° will bevel; anything > 90° will create a sharp point.
+Overview of supported stroke properties
+Some properties are only supported on specific layer types. Use the table below to see if a specific property is supported on the layer type you’re working with.
+Layer type
+Paints
+Position
+Weight
+Stroke per side
+Color style
+Endpoint
+Join
+Rectangle
+Lines
+Arrows
+Ellipse
+If altered with arc tool
+Polygon
+Star
+Booleans
+Vector networks
+Open paths only
+Text
+Frames (including components)
+View and copy stroke properties with view-only access to a file
+If you have
+can view
+permission to a file, stroke properties show up in the right sidebar as
+Borders
+. You can choose to represent the properties as CSS, or color values like Hex, RGB, HSL, or HSB. Once you've chosen how to represent the properties, hover over the
+Borders
+section and click
+Copy
+Note:
+Figma doesn’t include the stroke weight in a layer’s dimensions. You won’t see the stroke weight included in a layer’s dimensions in the right sidebar.
+This is something to consider when translating designs to code, especially for layers with center and outside stroke.
+In an auto layout frame, you can choose to include stroke in the layer’s total dimensions. When included, the layer’s dimensions in the right sidebar will include the weights of any strokes.
+Learn more about strokes in auto layout →
+Styles and strokes
+You can only create and apply
+color styles
+to strokes. There isn't a way to save a stroke's other properties, like weight and position, as a style.
+When you apply a color style to a stroke, you can still adjust the other properties. This includes the weight and distribution, as well as any advanced stroke properties like caps, join, and dashes.
+Apply color styles to strokes
+Select the layer you want to update.
+In the
+Stroke
+section of the right-hand panel, click the
+style icon.
+Use the style picker to select the relevant color style.
+Adjust any of the other properties of the stroke, as desired.
+Scale and resize strokes
+Strokes respond differently based on how you resize them.
+Resize the object if you want to retain a stroke's weight, while adjusting the object's dimensions. Hover over the stroke's bounding box until the
+cursor appears, then drag to resize.
+Use the
+scale
+tool to scale the stroke properties along with the object's dimensions.
+Learn how to use the scale tool →
+Convert strokes to vector objects
+Outline stroke allows you to convert strokes into vector objects. This will take each path in the object and turn it into a single editable shape.
+This will allow you to:
+Remove or extend half-dashes
+Create custom shapes and edit them in vector edit mode
+Combine multiple paths into a single object
+Scale vector objects uniformly
+Note:
+It's not possible to convert a vector object back into a stroke, unless you undo the action. Use the keyboard shortcuts to undo:
+Mac:
+Command
+Windows:
+Control
+Outline stroke
+Right-click the layer and select
+Outline stroke
+, or use keyboard shortcut:
+Mac:
+⌘ Command
+⌥ Option
+Window:
+Control
+Alt
+Figma will convert the path into a vector object and apply any paints you had as a stroke as a fill.
+You can see how that vector object looks in vector edit mode. Press
+Enter
+Return
+, or click
+Edit object
+in the toolbar to edit the vector object.
+Note:
+If you prefer to use
+⌘ Command
+Control
+⇧ Shift
+to toggle outline stroke, open the main menu in the top left-corner and go to
+Preferences
+Use old shortcuts for outlines
+. This setting will also change the keyboard shortcut for
+show outlines
+⇧ Shift
+Tip!
+If you have a style applied to the stroke, Figma will also take the color properties of the style and apply this to the object as a fill.

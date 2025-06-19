@@ -1,0 +1,73 @@
+URL: https://help.figma.com/hc/en-us/articles/360042553434-View-and-adjust-colors-in-a-mixed-selection
+==================================================
+
+Before you Start
+Who can use this feature
+Users on a
+plan
+can use paints in their designs
+Users with
+Edit access
+can view and update paint properties in a mixed selection
+The
+Selection Colors
+feature allows you to view and adjust any colors applied to objects in a selection.
+Select objects or layers and view or adjust individual colors in the selection.
+Select a parent object, like a Frame, Group, or Component. View and adjust the color properties of any child objects.
+Note:
+You can still adjust the properties of the parent object in the Properties Panel. This allows you to update Fill and Stroke properties of the Frame, without affecting child objects.
+Selection colors include:
+✅ Fills
+✅ Strokes
+✅ Solid colors
+✅ Gradients (linear, radial, angular, diamond)
+✅ Boolean groups*
+Selection colors do not include:
+🚫 Images
+🚫 Hidden fills
+🚫 Masks
+Note:
+Only colors applied to the combined Boolean group will be included in the Selection Colors. Colors applied to any child objects won't show up in the Selection Colors section.
+View Selection Colors
+View colors in your selection in the Selection Colors section of the Properties Panel.
+Figma groups colors into
+Color Styles
+and
+Paints
+- any Fills or Strokes that you haven't saved as Styles.
+Paints or Styles only appear once in the Selection colors section. By default, we show the three most frequently used Paints and Styles.
+Click on a Paint to open the
+Color picke
+r. This allows you to adjust the paint type, color, hue, opacity, and blend mode. Or, pick another color from your
+Document colors
+Click on a style or a
+variable
+to open the Style modal. Variables are displayed inside a grey pill. The Style modal allows you to select from a list of styles or variables created in the file, or ones from libraries that have been added to the file.
+Click the
+detach
+icon
+to detach the style or variable
+Click the
+target
+icon
+to select all layers that use that color
+Click the
+Style
+icon
+to open the Style picker. This allows you to apply a Style to the selected color, or create a new Style.
+Use the percentage field to adjust the opacity of a paint
+Click the
+See all colors
+See all styles
+link to view the rest of the colors in the selection
+Want to swap two colors around?
+We won't update the Selection colors section until you close the Color Picker.
+Click on the first color you want to swap.
+Select the second color in the
+Document colors
+section of the Color picker.
+Without closing the Color picker, click on the second color in the Selection Colors section.
+Select the first color in the
+Document colors
+section.
+Close the Color picker.

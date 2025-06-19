@@ -1,261 +1,258 @@
 import os
-import glob
-from pathlib import Path
 import re
-from collections import defaultdict
+import json
+from pathlib import Path
 
-def minify_content(content):
-    """Minify content while preserving structure and readability"""
-    lines = []
-    for line in content.split('\n'):
-        line = line.strip()
-        # Keep meaningful lines, filter out navigation and footer junk
-        if (line and len(line) > 3 and 
-            not line.startswith(('©', 'Cookie', 'Privacy', 'Terms', 'Skip to', 'Back to top', 'Toggle navigation')) and
-            not re.match(r'^v\d+\.\d+', line) and  # Version numbers
-            'getbootstrap.com' not in line.lower()):
-            lines.append(line)
-    return '\n'.join(lines)
-
-def categorize_bootstrap_content(filename, url=""):
-    """Enhanced categorization for Bootstrap content"""
-    filename_lower = filename.lower()
-    url_lower = url.lower()
+def minify_text(text):
+    """Minify text by removing extra whitespace and empty lines"""
+    # Remove extra whitespace and normalize line breaks
+    text = re.sub(r'\n\s*\n', '\n', text)  # Remove empty lines
+    text = re.sub(r'[ \t]+', ' ', text)    # Normalize spaces/tabs
+    text = re.sub(r'\n ', '\n', text)      # Remove leading spaces on lines
     
-    # Use both filename and URL for better categorization
-    content_text = f"{filename_lower} {url_lower}"
+    # Remove Pydantic-specific boilerplate patterns
+    boilerplate_patterns = [
+        r'Edit this page.*?(?=\n\n|\n[A-Z])',
+        r'Last update:.*?(?=\n\n|\n[A-Z])',
+        r'Created:.*?(?=\n\n|\n[A-Z])',
+        r'Back to top.*?(?=\n\n|\n[A-Z])',
+        r'Source code in.*?(?=\n\n|\n[A-Z])',
+        r'Usage Documentation.*?(?=\n\n|\n[A-Z])',
+        r'API Reference.*?(?=\n\n|\n[A-Z])',
+        r'Table of contents.*?(?=\n\n|\n[A-Z])',
+    ]
     
-    if any(term in content_text for term in ['getting-started', 'introduction', 'download', 'browsers', 'javascript', 'webpack', 'parcel', 'vite', 'accessibility', 'rtl', 'contribute', 'rfs']):
-        return '01_Getting_Started'
-    elif any(term in content_text for term in ['layout', 'breakpoints', 'containers', 'grid', 'columns', 'gutters', 'z-index', 'css-grid']):
-        return '02_Layout'
-    elif any(term in content_text for term in ['content', 'reboot', 'typography', 'images', 'tables', 'figures']):
-        return '03_Content'
-    elif any(term in content_text for term in ['forms', 'form-control', 'select', 'checks-radios', 'range', 'input-group', 'floating-labels', 'validation']):
-        return '04_Forms'
-    elif any(term in content_text for term in ['components', 'accordion', 'alerts', 'badge', 'breadcrumb', 'buttons', 'button-group', 'card', 'carousel', 'close-button', 'collapse', 'dropdowns', 'list-group', 'modal', 'navbar', 'navs-tabs', 'offcanvas', 'pagination', 'placeholders', 'popovers', 'progress', 'scrollspy', 'spinners', 'toasts', 'tooltips']):
-        return '05_Components'
-    elif any(term in content_text for term in ['helpers', 'clearfix', 'color-background', 'colored-links', 'focus-ring', 'icon-link', 'position', 'ratio', 'stacks', 'stretched-link', 'text-truncation', 'vertical-rule', 'visually-hidden']):
-        return '06_Helpers'
-    elif any(term in content_text for term in ['utilities', 'api', 'background', 'borders', 'colors', 'display', 'flex', 'float', 'interactions', 'link', 'object-fit', 'opacity', 'overflow', 'shadows', 'sizing', 'spacing', 'text', 'vertical-align', 'visibility']):
-        return '07_Utilities'
-    elif any(term in content_text for term in ['extend', 'approach', 'icons']):
-        return '08_Extend'
-    elif any(term in content_text for term in ['customize', 'sass', 'options', 'color', 'color-modes', 'css-variables', 'optimize']):
-        return '09_Customize'
-    elif any(term in content_text for term in ['about', 'overview', 'team', 'brand', 'license', 'translations']):
-        return '10_About'
-    elif any(term in content_text for term in ['migration', 'examples']):
-        return '11_Migration_Examples'
-    else:
-        return '99_Other'
+    for pattern in boilerplate_patterns:
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE | re.DOTALL)
+    
+    return text.strip()
 
-def extract_url_from_content(content):
-    """Extract URL from content for better categorization"""
+def extract_metadata(content):
+    """Extract URL and title from content"""
     lines = content.split('\n')
-    if lines and lines[0].startswith('URL:'):
-        return lines[0].replace('URL:', '').strip()
-    return ""
+    url = ""
+    title = ""
+    
+    # Extract URL (should be first line)
+    if lines and lines[0].startswith('URL: '):
+        url = lines[0].replace('URL: ', '').strip()
+    
+    # Find title (usually after the separator line)
+    for i, line in enumerate(lines):
+        if '=' * 20 in line and i + 2 < len(lines):
+            potential_title = lines[i + 2].strip()
+            if potential_title and len(potential_title) < 200:
+                # Clean up common Pydantic title patterns
+                if not any(skip in potential_title.lower() for skip in 
+                          ['table of contents', 'navigation', 'edit this page']):
+                    title = potential_title
+                    break
+    
+    return url, title
 
-def generate_bootstrap_llms():
-    """Generate comprehensive llms.txt for Bootstrap documentation with enhanced organization"""
-    site_folder = "bootstrap"
-    pages_dir = os.path.join(site_folder, "pages")
-    llms_file = os.path.join(site_folder, "llms.txt")
+def extract_pydantic_sections(content):
+    """Extract and organize Pydantic-specific content sections"""
+    lines = content.split('\n')
+    sections = []
+    current_section = []
+    current_header = ""
+    
+    for line in lines:
+        # Check if this is a method/class header
+        if (line.startswith('##') or 
+            line.startswith('###') or 
+            re.match(r'^[A-Za-z_][A-Za-z0-9_]*\s*¶', line) or
+            re.match(r'^class\s+\w+', line) or
+            re.match(r'^def\s+\w+', line)):
+            
+            # Save previous section
+            if current_section and current_header:
+                sections.append({
+                    'header': current_header,
+                    'content': '\n'.join(current_section)
+                })
+            
+            # Start new section
+            current_header = line.strip()
+            current_section = [line]
+        else:
+            current_section.append(line)
+    
+    # Don't forget the last section
+    if current_section and current_header:
+        sections.append({
+            'header': current_header,
+            'content': '\n'.join(current_section)
+        })
+    
+    return sections
+
+def process_site_folder(site_folder):
+    """Process a single site folder and generate llms.txt"""
+    pages_dir = os.path.join(site_folder, 'pages')
     
     if not os.path.exists(pages_dir):
-        print(f"❌ No pages directory found in {site_folder}")
+        print(f"⚠️  No pages directory found in {site_folder}")
         return
     
-    print(f"🔄 Generating comprehensive llms.txt for Bootstrap documentation...")
+    # Get all .txt files and sort them
+    txt_files = sorted([f for f in os.listdir(pages_dir) if f.endswith('.txt')])
     
-    all_content = []
+    if not txt_files:
+        print(f"⚠️  No .txt files found in {pages_dir}")
+        return
     
-    # Enhanced header with metadata
-    all_content.append("=== BOOTSTRAP 5.3 COMPLETE DOCUMENTATION COLLECTION ===")
-    all_content.append("Ultra-comprehensive Bootstrap documentation scraped with 80%+ coverage")
-    all_content.append("Source: https://getbootstrap.com/docs/5.3/")
-    all_content.append("Scraped with: Ultra-aggressive parallel scraper")
-    all_content.append("Content: Getting Started, Layout, Content, Forms, Components, Helpers, Utilities, Customization, and More")
-    all_content.append("=" * 80 + "\n")
+    print(f"📁 Processing {site_folder} ({len(txt_files)} files)")
     
-    # Process files and organize by category
-    txt_files = sorted(glob.glob(os.path.join(pages_dir, "*.txt")))
+    combined_content = []
+    metadata_list = []
     
-    # Group files by category with enhanced logic
-    categories = defaultdict(list)
-    file_metadata = {}
-    
-    for file_path in txt_files:
-        filename = os.path.basename(file_path)
+    for filename in txt_files:
+        filepath = os.path.join(pages_dir, filename)
         
-        # Read file to extract URL for better categorization
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(filepath, 'r', encoding='utf-8') as f:
                 content = f.read()
-                url = extract_url_from_content(content)
-                file_metadata[file_path] = {
-                    'url': url,
-                    'content': content,
-                    'filename': filename
-                }
+            
+            if len(content.strip()) < 50:  # Skip very short files
+                continue
+            
+            # Extract metadata
+            url, title = extract_metadata(content)
+            
+            # Remove URL and separator lines from content
+            lines = content.split('\n')
+            content_start = 0
+            for i, line in enumerate(lines):
+                if '=' * 20 in line:
+                    content_start = i + 1
+                    break
+            
+            clean_content = '\n'.join(lines[content_start:])
+            minified = minify_text(clean_content)
+            
+            if len(minified.strip()) < 30:  # Skip if too short after minification
+                continue
+            
+            # For Pydantic docs, try to extract structured sections
+            if 'pydantic' in site_folder.lower():
+                sections = extract_pydantic_sections(minified)
+                if sections:
+                    # Add main title
+                    section_header = f"--- {title or filename} ---"
+                    combined_content.append(section_header)
+                    
+                    # Add each section with sub-headers
+                    for section in sections:
+                        if len(section['content'].strip()) > 20:
+                            combined_content.append(f"## {section['header']}")
+                            combined_content.append(section['content'])
+                            combined_content.append("")
+                else:
+                    # Fallback to simple format
+                    section_header = f"--- {title or filename} ---"
+                    combined_content.append(section_header)
+                    combined_content.append(minified)
+                    combined_content.append("")
+            else:
+                # Simple format for non-Pydantic content
+                section_header = f"--- {title or filename} ---"
+                combined_content.append(section_header)
+                combined_content.append(minified)
+                combined_content.append("")
+            
+            # Track metadata
+            metadata_list.append({
+                'filename': filename,
+                'title': title,
+                'url': url,
+                'content_length': len(minified)
+            })
+            
         except Exception as e:
-            print(f"⚠️  Error reading {file_path}: {e}")
+            print(f"    ❌ Error processing {filename}: {e}")
             continue
-        
-        category = categorize_bootstrap_content(filename, url)
-        categories[category].append(file_path)
     
-    # Process each category in logical order
-    total_sections = 0
-    category_stats = {}
+    if not combined_content:
+        print(f"    ⚠️  No valid content found to combine")
+        return
     
-    for category in sorted(categories.keys()):
-        category_name = category.replace('_', ' ').replace('0', '').replace('1', '').replace('2', '').replace('3', '').replace('4', '').replace('5', '').replace('6', '').replace('7', '').replace('8', '').replace('9', '').strip()
-        
-        all_content.append(f"\n{'='*25} {category_name.upper()} {'='*25}")
-        all_content.append(f"Section: {category_name}")
-        all_content.append(f"Files: {len(categories[category])}")
-        all_content.append("=" * 70)
-        
-        category_files = sorted(categories[category])
-        section_count = 0
-        
-        for file_path in category_files:
-            try:
-                metadata = file_metadata.get(file_path, {})
-                content = metadata.get('content', '')
-                url = metadata.get('url', '')
-                filename = metadata.get('filename', os.path.basename(file_path))
-                
-                if content.startswith('URL:'):
-                    content_lines = content.split('\n')[2:]  # Skip URL and separator
-                    content = '\n'.join(content_lines)
-                
-                minified = minify_content(content)
-                if len(minified.strip()) > 50:
-                    # Enhanced section header with URL
-                    all_content.append(f"\n--- {filename} ---")
-                    if url:
-                        all_content.append(f"URL: {url}")
-                    all_content.append("-" * 50)
-                    all_content.append(minified + "\n")
-                    section_count += 1
-                    total_sections += 1
-                    
-            except Exception as e:
-                print(f"⚠️  Error processing {file_path}: {e}")
-        
-        category_stats[category_name] = section_count
-        all_content.append(f"\n{'-'*20} End of {category_name} ({section_count} pages) {'-'*20}\n")
+    # Generate final combined text
+    site_name = os.path.basename(site_folder).upper()
+    header = f"{site_name} DOCUMENTATION\n{'=' * (len(site_name) + 13)}\n\n"
     
-    # Write combined content
-    try:
-        with open(llms_file, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(all_content))
-        
-        file_size_mb = os.path.getsize(llms_file) / 1024 / 1024
-        
-        print(f"✅ Generated {llms_file}")
-        print(f"📊 Total sections: {total_sections}")
-        print(f"📊 Categories: {len(categories)}")
-        print(f"📊 File size: {file_size_mb:.1f} MB")
-        
-        # Enhanced statistics
-        print(f"\n📈 Detailed content breakdown:")
-        for category, count in sorted(category_stats.items()):
-            print(f"   - {category}: {count} pages")
-        
-        # Calculate coverage estimate
-        expected_bootstrap_pages = 150  # Rough estimate of total Bootstrap docs
-        coverage_percent = (total_sections / expected_bootstrap_pages) * 100
-        print(f"\n🎯 Estimated coverage: {coverage_percent:.1f}% of Bootstrap documentation")
-        
-        if coverage_percent >= 80:
-            print("🏆 EXCELLENT: Achieved 80%+ documentation coverage!")
-        elif coverage_percent >= 60:
-            print("👍 GOOD: Solid documentation coverage achieved!")
-        else:
-            print("⚠️  MODERATE: Consider running scraper again for better coverage")
-            
-    except Exception as e:
-        print(f"❌ Error writing {llms_file}: {e}")
+    final_content = header + '\n'.join(combined_content)
+    
+    # Save llms.txt
+    llms_path = os.path.join(site_folder, 'llms.txt')
+    with open(llms_path, 'w', encoding='utf-8') as f:
+        f.write(final_content)
+    
+    # Save metadata
+    metadata_path = os.path.join(site_folder, 'metadata.json')
+    with open(metadata_path, 'w', encoding='utf-8') as f:
+        json.dump({
+            'site': site_name.lower(),
+            'total_files': len(txt_files),
+            'processed_files': len(metadata_list),
+            'total_content_length': len(final_content),
+            'files': metadata_list
+        }, f, indent=2)
+    
+    print(f"    ✅ Generated {llms_path}")
+    print(f"    📊 Combined {len(metadata_list)} files into {len(final_content):,} characters")
+    print(f"    📋 Metadata saved to {metadata_path}")
 
-def generate_master_llms_with_bootstrap():
-    """Generate updated master llms.txt including Bootstrap"""
-    print("\n🔥 Generating master combined llms.txt with Bootstrap...")
+def main():
+    """Main function to process all site folders"""
+    print("🚀 Starting llms.txt generation...")
     
-    all_sites_content = []
-    sites_found = []
-    total_size = 0
+    # Look for site folders in current directory
+    current_dir = os.getcwd()
+    site_folders = []
     
-    # Process all sites including Bootstrap
-    for folder in ["animejs", "modal", "bootstrap"]:
-        if os.path.exists(folder):
-            sites_found.append(folder)
-            llms_file = os.path.join(folder, "llms.txt")
-            
-            if os.path.exists(llms_file):
-                with open(llms_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                    file_size = len(content.encode('utf-8'))
-                    total_size += file_size
-                    
-                    all_sites_content.append(f"\n{'='*100}")
-                    all_sites_content.append(f"DOCUMENTATION SITE: {folder.upper()}")
-                    all_sites_content.append(f"Size: {file_size / 1024 / 1024:.1f} MB")
-                    all_sites_content.append(f"{'='*100}\n")
-                    all_sites_content.append(content)
+    # Common site folder names including Pydantic
+    potential_folders = ['pydantic', 'animejs', 'figma', 'bootstrap', 'modal']
     
-    if all_sites_content:
-        master_file = "master_llms.txt"
-        
-        # Add master header
-        master_header = [
-            "=" * 100,
-            "MASTER DOCUMENTATION COLLECTION",
-            "=" * 100,
-            f"Combined documentation from: {', '.join(sites_found)}",
-            f"Total sites: {len(sites_found)}",
-            f"Combined size: {total_size / 1024 / 1024:.1f} MB",
-            f"Generated: {Path().absolute()}",
-            "=" * 100 + "\n"
-        ]
-        
-        with open(master_file, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(master_header))
-            f.write('\n'.join(all_sites_content))
-        
-        file_size_mb = os.path.getsize(master_file) / 1024 / 1024
-        print(f"🎯 Generated {master_file}")
-        print(f"📊 Combined {len(sites_found)} sites: {', '.join(sites_found)}")
-        print(f"📊 Total size: {file_size_mb:.1f} MB")
-        print("🏆 Your teams now have COMPLETE documentation coverage!")
-    else:
-        print("❌ No site llms.txt files found to combine")
+    for folder in potential_folders:
+        if os.path.exists(folder) and os.path.isdir(folder):
+            site_folders.append(folder)
+    
+    # Also check for any folder with a 'pages' subdirectory
+    for item in os.listdir(current_dir):
+        item_path = os.path.join(current_dir, item)
+        if (os.path.isdir(item_path) and 
+            os.path.exists(os.path.join(item_path, 'pages')) and 
+            item not in site_folders):
+            site_folders.append(item)
+    
+    if not site_folders:
+        print("❌ No site folders found with 'pages' subdirectories")
+        print("   Expected folders like: pydantic/, animejs/, figma/, etc.")
+        return
+    
+    print(f"📁 Found {len(site_folders)} site folders: {', '.join(site_folders)}")
+    
+    total_processed = 0
+    for folder in site_folders:
+        try:
+            process_site_folder(folder)
+            total_processed += 1
+            print()  # Empty line between sites
+        except Exception as e:
+            print(f"❌ Error processing {folder}: {e}")
+            continue
+    
+    print(f"🎉 Generation complete!")
+    print(f"📊 Successfully processed {total_processed}/{len(site_folders)} site folders")
+    
+    # Show final summary
+    print("\n📋 Summary:")
+    for folder in site_folders:
+        llms_path = os.path.join(folder, 'llms.txt')
+        if os.path.exists(llms_path):
+            size = os.path.getsize(llms_path)
+            print(f"    {folder}/llms.txt - {size:,} bytes")
 
 if __name__ == "__main__":
-    print("🚀 Starting enhanced LLM file generation...")
-    
-    # Generate Bootstrap llms.txt
-    generate_bootstrap_llms()
-    
-    # Generate for other sites if they exist
-    sites_processed = 1  # Bootstrap already processed
-    for folder in ["animejs", "modal"]:
-        if os.path.exists(folder):
-            print(f"\n🔄 Processing {folder}...")
-            # You can call individual generators here if needed
-            sites_processed += 1
-    
-    # Generate master combined file
-    generate_master_llms_with_bootstrap()
-    
-    print(f"\n🎉 All done! Processed {sites_processed} sites")
-    print("🎯 Your research, dev, and marketing teams now have:")
-    print("   - Ultra-comprehensive Bootstrap documentation (80%+ coverage)")
-    print("   - Individual site llms.txt files with enhanced categorization")
-    print("   - Master combined llms.txt with all documentation")
-    print("   - Organized content by logical sections")
-    print("   - Detailed statistics and coverage metrics")
-    print("\n💪 Ready to build websites that would make Bootstrap's creators jealous!")
+    main()

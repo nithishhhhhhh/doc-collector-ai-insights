@@ -1,0 +1,56 @@
+URL: https://help.figma.com/hc/en-us/articles/31440438150935-Draw-with-illustration-tools
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+any plan
+Requires a
+Full seat
+on paid plans
+Anyone with
+can edit
+access to a file can use the Pencil and Brush tools
+The Pencil and Brush tools allow you to draw and paint directly inside a Figma Design file. Use the Pencil tool for quick sketches, notes, and line work, then enhance your creations with the Brush tool to add texture and color for a more organic, hand-painted appearance. You can access the Pencil and Brush tools while in
+Figma Draw
+Drawing with the Pencil and Brush tools i
+nvolves creating
+vector
+networks
+. Unlike the precise point-by-point creation process when using the
+Pen tool
+, the Pencil and Brush tools automatically place vector points along the path you draw. The number of points created is determined by the length and complexity of the path. You can adjust these vector points at any time in
+vector edit mode
+Draw with the Pencil or Brush tool
+In Figma Design, click
+Draw
+in the toolbar to open Figma Draw.
+Select the
+Pencil
+Brush
+tool from the toolbar.
+Use the secondary toolbar to set the stroke’s color, size, and style.
+Click and drag your cursor to begin drawing. To draw a straight line, hold
+Shift
+as you move your cursor.
+Note:
+You can also apply brush styles to existing strokes in your designs. Learn more about
+adjusting stroke properties
+Create custom brush styles
+You can personalize your design toolkit by creating your own custom brush styles. Custom brush styles can be created from any single vector layer, such as a shape, a custom vector path, or a
+flattened text layer
+Note:
+Only closed vector paths can be used as a source for custom brushes. If you have an open vector path, such as a stroke from the Brush or Pencil tool, you can use
+Outline stroke
+to convert the stroke into a closed vector path.
+To create a custom brush:
+Right-click on a vector layer.
+Hover over
+Create brush
+, then select
+Stretch brush
+. This will elongate the brush style along the length of the stroke.
+Once created, you can access the brush from the Brush styles menu or the
+Advanced stroke settings
+Access custom brushes in other files
+By default, custom brushes are only available in the file where they were created. To access a custom brush in another file, copy and paste a layer that uses the brush style into the new file. The brush will be automatically added to the brush styles menu and remain available even if you delete the layer you initially copied.

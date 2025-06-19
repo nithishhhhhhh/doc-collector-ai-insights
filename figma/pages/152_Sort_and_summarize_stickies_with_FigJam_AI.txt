@@ -1,0 +1,56 @@
+URL: https://help.figma.com/hc/en-us/articles/18711926790423-Sort-and-summarize-stickies-with-FigJam-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in FigJam
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+FigJam is the perfect place for hosting collaborative exercises like brainstorms, design critiques, and retrospectives. As a result, you may be left with a load of sticky notes to sift through and categorize before you can create alignment and outline next steps. This is where FigJam AI steps in to help.
+Use FigJam AI to:
+Sort a selection of stickies by theme
+Summarize a selection of stickies
+Note
+Sorting and summarizing stickies with FigJam AI should only be used as a step in the larger process of sorting and summarizing your work, so your own magic touch may be needed to get the job done.
+Sort sticky notes
+To sort stickies:
+Select the stickies on your board.
+Click
+Organize
+in the selection’s toolbar >
+Sort stickies
+Sort stickies by
+Topic
+Color
+Author
+Stamp count
+, or
+Stamp type
+FigJam AI will create a copy of the selected stickies and categorize them in a new section. From here, you can manually adjust sorting as needed.
+Summarize sticky notes
+To summarize stickies:
+Select two or more stickies on your board.
+Click the
+Organize
+in the selection’s toolbar.
+Click
+Summarize
+Tip:
+You can use Jambot to summarize a single sticky note at a time →
+FigJam AI will create a new object on the board with a written summary of the stickies. You can
+Copy
+the text to paste and edit in a new shape or sticky, and click
+Link
+to copy a link of the summary to your clipboard.
+Note
+It's currently not possible to edit summaries made with FigJam AI, but you can
+Copy
+the text to a new shape or sticky and edit.

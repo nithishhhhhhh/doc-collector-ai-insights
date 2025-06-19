@@ -1,10 +1,7 @@
-=== ANIMEJS DOCUMENTATION COLLECTION ===
-Generated: /Users/pandujakkampudi/Desktop/Project1/doc-collector-ai-insights
-Source: Documentation scraper
-============================================================
+ANIMEJS DOCUMENTATION
+====================
 
-=== DOC: 001_onenter.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenter
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -187,8 +184,7 @@ Next
 ScrollObserver callbacks
 onEnterForward
 
-=== DOC: 002_animatable-methods.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-methods
+--- Animatable ---
 Animatable
 Since 4.0.0
 Animatable methods
@@ -205,7 +201,7 @@ animatable.│
 x
 (
 100
-)               │
+) │
 animatable.│
 y
 (
@@ -218,7 +214,7 @@ y
 Methods
 animatable.│
 revert
-()             │
+() │
 └─────────────────────┘
 In this section
 Getters
@@ -229,8 +225,7 @@ Next
 Animatable settings
 Getters
 
-=== DOC: 003_pad-start.txt ===
-URL: https://animejs.com/documentation/utilities/pad-start
+--- Utilities ---
 Utilities
 Since 4.0.0
 padStart()
@@ -384,8 +379,7 @@ Next
 roundPad()
 padEnd()
 
-=== DOC: 004_setters.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-methods/setters
+--- Animatable ---
 Animatable
 
 Methods
@@ -617,8 +611,7 @@ Next
 Getters
 revert()
 
-=== DOC: 005_playbackease.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/playbackease
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -754,8 +747,7 @@ Next
 playbackRate
 Timeline callbacks
 
-=== DOC: 006_color-function-value.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/color-function-value
+--- Animation ---
 Animation
 
 Tween value types
@@ -783,7 +775,7 @@ waapi.
 animate
 (
 '.circle'
-,  {
+, {
 backgroundColor
 :
 'color(display-p3 1.0 0.267 0.267 / 1.0)'
@@ -857,8 +849,7 @@ Next
 Color value
 CSS variable
 
-=== DOC: 007_array-of-targets.txt ===
-URL: https://animejs.com/documentation/animation/targets/array-of-targets
+--- Animation ---
 Animation
 
 Targets
@@ -964,8 +955,7 @@ Next
 JavaScript Objects
 Animatable properties
 
-=== DOC: 008_animatable-properties.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties
+--- Animation ---
 Animation
 Since 1.0.0
 Animatable properties
@@ -992,14 +982,14 @@ translateX
 scale
 :
 2
-,        ├─
+, ├─
 Animatable
 Properties
 │
 opacity
 :
 .5
-,     │
+, │
 └──────────────────┘
 duration
 :
@@ -1050,8 +1040,7 @@ Next
 Targets
 CSS Properties
 
-=== DOC: 009_wrap.txt ===
-URL: https://animejs.com/documentation/utilities/wrap
+--- Utilities ---
 Utilities
 Since 4.0.0
 wrap()
@@ -1270,8 +1259,7 @@ Next
 snap()
 mapRange()
 
-=== DOC: 010_animateinview.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/animateinview
+--- Draggable ---
 Draggable
 
 Methods
@@ -1398,8 +1386,7 @@ Next
 setY()
 scrollInView()
 
-=== DOC: 011_revert.txt ===
-URL: https://animejs.com/documentation/scope/scope-methods/revert
+--- Scope ---
 Scope
 
 Methods
@@ -1787,8 +1774,7 @@ Next
 add()
 refresh()
 
-=== DOC: 012_api-differences-with-native-waapi.txt ===
-URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi
+--- Web Animation API ---
 Web Animation API
 Since 4.0.0
 API differences with native WAAPI
@@ -1817,26 +1803,26 @@ Targets
 x
 :
 100
-,          │
+, │
 │
 y
 :
 50
-,           ├─
+, ├─
 Keyframes
 Values
 │
 opacity
 :
 .5
-,     │
+, │
 └──────────────────┘
 ┌──────────────────┐
 │
 loop
 :
 3
-,         │
+, │
 │
 alternate
 :
@@ -1848,7 +1834,7 @@ Settings
 ease
 :
 'out'
-,     │
+, │
 └──────────────────┘
 });
 WAAPI
@@ -1861,7 +1847,7 @@ querySelector
 '.square'
 );
 ┌────────────┐
-│ $square    ├─
+│ $square ├─
 Targets
 └────────────┘
 .
@@ -1879,7 +1865,7 @@ Values
 opacity
 :
 .5
-,             │
+, │
 └──────────────────────────┘
 }, {
 ┌──────────────────────────┐
@@ -1887,19 +1873,19 @@ opacity
 ieterations
 :
 4
-,          │
+, │
 │
 direction
 :
 'alternate'
-,  ├─
+, ├─
 Playback
 Settings
 │
 easing
 :
 'ease-out'
-,      │
+, │
 └──────────────────────────┘
 });
 In this section
@@ -1912,8 +1898,7 @@ Next
 Improvements to the Web Animation API
 iterations
 
-=== DOC: 013_mapto.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/mapto
+--- Draggable ---
 Draggable
 
 Axes parameters
@@ -1978,8 +1963,7 @@ Next
 modifier
 Draggable settings
 
-=== DOC: 014_timeline-playback-settings.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings
+--- Timeline ---
 Timeline
 Since 2.0.0
 Timeline playback settings
@@ -1995,7 +1979,7 @@ createTimeline
 ┌───────────────────┐
 │
 defaults
-: {       │
+: { │
 │
 ease
 :
@@ -2005,25 +1989,25 @@ ease
 duration
 :
 500
-,  │
-│ },                ├─
+, │
+│ }, ├─
 Playback
 Settings
 │
 loop
 :
 3
-,          │
+, │
 │
 alternate
 :
 true
-,  │
+, │
 │
 autoplay
 :
 false
-,  │
+, │
 └───────────────────┘
 onBegin
 :
@@ -2054,8 +2038,7 @@ Next
 Time position
 defaults
 
-=== DOC: 015_scope-properties.txt ===
-URL: https://animejs.com/documentation/scope/scope-properties
+--- Scope ---
 Scope
 Since 4.0.0
 Scope properties
@@ -2065,7 +2048,7 @@ createScope
 ();
 ┌────────┐
 scope.│methods │
-scope.│root    ├─
+scope.│root ├─
 Properties
 scope.│matches │
 └────────┘
@@ -2131,8 +2114,7 @@ Next
 Scope methods
 Stagger
 
-=== DOC: 016_duration.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/duration
+--- Timer ---
 Timer
 
 Playback settings
@@ -2230,8 +2212,7 @@ Next
 delay
 loop
 
-=== DOC: 017_update.txt ===
-URL: https://animejs.com/documentation/engine/engine-methods/update
+--- Engine ---
 Engine
 
 Methods
@@ -2507,8 +2488,7 @@ Next
 Engine methods
 pause()
 
-=== DOC: 018_add-constructor-function.txt ===
-URL: https://animejs.com/documentation/scope/add-constructor-function
+--- Scope ---
 Scope
 Since 4.0.0
 Add constructor function
@@ -2659,8 +2639,7 @@ Next
 Scope
 Register method function
 
-=== DOC: 019_alternate.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/alternate
+--- Animation ---
 Animation
 
 Playback settings
@@ -2845,8 +2824,7 @@ Next
 loopDelay
 reversed
 
-=== DOC: 020_onleavebackward.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleavebackward
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -3029,8 +3007,7 @@ Next
 onLeaveForward
 onUpdate
 
-=== DOC: 021_timer-methods.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods
+--- Timer ---
 Timer
 Since 4.0.0
 Timer methods
@@ -3045,10 +3022,10 @@ createTimer
 ┌──────────┐
 timer.│
 pause
-()   │
+() │
 timer.│
 play
-()    ├─
+() ├─
 Methods
 timer.│
 restart
@@ -3071,8 +3048,7 @@ Next
 Timer callbacks
 play()
 
-=== DOC: 022_ongrab.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/ongrab
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -3165,8 +3141,7 @@ Next
 Draggable callbacks
 onDrag
 
-=== DOC: 023_timeline-positions-staggering.txt ===
-URL: https://animejs.com/documentation/stagger/timeline-positions-staggering
+--- Stagger ---
 Stagger
 Since 4.0.0
 Timeline positions staggering
@@ -3298,8 +3273,7 @@ Next
 Values staggering
 Stagger value types
 
-=== DOC: 024_time-position.txt ===
-URL: https://animejs.com/documentation/timeline/time-position
+--- Timeline ---
 Timeline
 Since 2.0.0
 Time position
@@ -3478,8 +3452,7 @@ Next
 Call functions
 Timeline playback settings
 
-=== DOC: 025_revert.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/revert
+--- Timer ---
 Timer
 
 Methods
@@ -3649,8 +3622,7 @@ Next
 cancel()
 seek()
 
-=== DOC: 026_lerp.txt ===
-URL: https://animejs.com/documentation/utilities/lerp
+--- Utilities ---
 Utilities
 Since 4.0.0
 lerp()
@@ -3938,8 +3910,7 @@ Next
 sync()
 round()
 
-=== DOC: 027_revert.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-methods/revert
+--- Animatable ---
 Animatable
 
 Methods
@@ -4168,8 +4139,7 @@ Next
 Setters
 Animatable properties
 
-=== DOC: 028_engine-properties.txt ===
-URL: https://animejs.com/documentation/engine/engine-properties
+--- Engine ---
 Engine
 Since 4.0.0
 Engine properties
@@ -4179,10 +4149,10 @@ from
 'animejs'
 ;
 ┌───────────────────────┐
-engine.│deltaTime              │
-engine.│useDefaultMainLoop     ├─
+engine.│deltaTime │
+engine.│useDefaultMainLoop ├─
 Properties
-engine.│pauseOnDocumentHidden  │
+engine.│pauseOnDocumentHidden │
 └───────────────────────┘
 Name
 Description
@@ -4229,8 +4199,7 @@ Next
 Engine methods
 Engine defaults
 
-=== DOC: 029_playback-loopdelay.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/playback-loopdelay
+--- Timer ---
 Timer
 
 Playback settings
@@ -4403,8 +4372,7 @@ Next
 loop
 alternate
 
-=== DOC: 030_duration.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-settings/duration
+--- Animatable ---
 Animatable
 
 Settings
@@ -4612,8 +4580,7 @@ Next
 unit
 ease
 
-=== DOC: 031_scope.txt ===
-URL: https://animejs.com/documentation/scope
+--- Scope ---
 Scope
 V4
 Anime.js instances declared inside a Scope can react to media queries, use custom root elements, share default parameters, and be reverted in batch, streamlining work in responsive and component-based environments.
@@ -4763,8 +4730,7 @@ Next
 ScrollObserver
 Add constructor function
 
-=== DOC: 032_get.txt ===
-URL: https://animejs.com/documentation/utilities/get
+--- Utilities ---
 Utilities
 Since 2.0.0
 get()
@@ -4995,8 +4961,7 @@ Next
 $()
 set()
 
-=== DOC: 033_remove.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/remove
+--- Timeline ---
 Timeline
 
 Methods
@@ -5105,7 +5070,7 @@ rotate
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -5249,8 +5214,7 @@ Next
 label()
 call()
 
-=== DOC: 034_easing.txt ===
-URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/easing
+--- Web Animation API ---
 Web Animation API
 
 API differences
@@ -5438,8 +5402,7 @@ Next
 direction
 finished
 
-=== DOC: 035_scrollobserver-thresholds.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 ScrollObserver thresholds
@@ -5483,13 +5446,13 @@ axis
 enter
 :
 'bottom top'
-,     ├─
+, ├─
 Thresholds
 │
 leave
 :
 'top bottom'
-,     │
+, │
 └──────────────────────────┘
 sync
 :
@@ -5517,22 +5480,22 @@ values.
 ┌────────────────────────────────┐-
 Container
 Start
-│                                │
+│ │
 │
 Container
 │
-│                                │
-│          ┌──────────┐----------│-
+│ │
+│ ┌──────────┐----------│-
 Target
 Start
-│          │          │          │
-│          │
+│ │ │ │
+│ │
 Target
-│          │
+│ │
 └────────────────────────────────┘-
 Container
 End
-│          │
+│ │
 └──────────┘------------
 Target
 End
@@ -5610,8 +5573,7 @@ Next
 ScrollObserver settings
 Numeric values
 
-=== DOC: 036_morphto.txt ===
-URL: https://animejs.com/documentation/svg/morphto
+--- SVG ---
 SVG
 Since 4.0.0
 morphTo()
@@ -5866,8 +5828,7 @@ Next
 SVG
 createDrawable()
 
-=== DOC: 037_deg-to-rad.txt ===
-URL: https://animejs.com/documentation/utilities/deg-to-rad
+--- Utilities ---
 Utilities
 Since 4.0.0
 degToRad()
@@ -6049,8 +6010,7 @@ Next
 padEnd()
 radToDeg()
 
-=== DOC: 038_engine-defaults.txt ===
-URL: https://animejs.com/documentation/engine/engine-defaults
+--- Engine ---
 Engine
 Since 4.0.0
 Engine defaults
@@ -6146,8 +6106,7 @@ Function
 Previous
 Engine properties
 
-=== DOC: 039_eased-scroll.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/eased-scroll
+--- ScrollObserver ---
 ScrollObserver
 
 Synchronisation modes
@@ -6309,8 +6268,7 @@ Next
 Smooth scroll
 ScrollObserver callbacks
 
-=== DOC: 040_onupdate.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/onupdate
+--- Timer ---
 Timer
 
 Callbacks
@@ -6471,8 +6429,7 @@ Next
 onComplete
 onLoop
 
-=== DOC: 041_sync.txt ===
-URL: https://animejs.com/documentation/utilities/sync
+--- Utilities ---
 Utilities
 Since 4.0.0
 sync()
@@ -6643,8 +6600,7 @@ Next
 shuffle()
 lerp()
 
-=== DOC: 042_tween-parameters.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters
+--- Animation ---
 Animation
 Since 1.0.0
 Tween parameters
@@ -6672,12 +6628,12 @@ x
 to
 :
 100
-,        │
+, │
 │
 delay
 :
 0
-,       ├─
+, ├─
 Local
 Tween
 Parameters
@@ -6701,12 +6657,12 @@ opacity
 duration
 :
 400
-,    │
+, │
 │
 delay
 :
 250
-,       ├─
+, ├─
 Global
 Tween
 Parameters
@@ -6714,7 +6670,7 @@ Parameters
 ease
 :
 'out(3)'
-,   │
+, │
 └───────────────────┘
 loop
 :
@@ -6738,8 +6694,7 @@ Next
 Tween value types
 to
 
-=== DOC: 043_add-timers.txt ===
-URL: https://animejs.com/documentation/timeline/add-timers
+--- Timeline ---
 Timeline
 Since 4.0.0
 Add timers
@@ -6986,8 +6941,7 @@ Next
 Timeline
 Add animations
 
-=== DOC: 044_direction.txt ===
-URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/direction
+--- Web Animation API ---
 Web Animation API
 
 API differences
@@ -7170,8 +7124,7 @@ Next
 iterations
 easing
 
-=== DOC: 045_dragspeed.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/dragspeed
+--- Draggable ---
 Draggable
 
 Settings
@@ -7261,8 +7214,7 @@ Next
 releaseEase
 scrollThreshold
 
-=== DOC: 046_javascript-objects.txt ===
-URL: https://animejs.com/documentation/animation/targets/javascript-objects
+--- Animation ---
 Animation
 
 Targets
@@ -7343,8 +7295,7 @@ Next
 DOM Elements
 Array of targets
 
-=== DOC: 047_time-staggering.txt ===
-URL: https://animejs.com/documentation/stagger/time-staggering
+--- Stagger ---
 Stagger
 Since 2.0.0
 Time staggering
@@ -7515,8 +7466,7 @@ Next
 Stagger
 Values staggering
 
-=== DOC: 048_onafterresize.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onafterresize
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -7631,8 +7581,7 @@ Next
 onResize
 Draggable methods
 
-=== DOC: 049_engine.txt ===
-URL: https://animejs.com/documentation/engine
+--- Engine ---
 Engine
 V4
 Drives and synchronises all
@@ -7657,8 +7606,7 @@ Next
 Web Animation API
 Engine parameters
 
-=== DOC: 050_color-value.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/color-value
+--- Animation ---
 Animation
 
 Tween value types
@@ -7697,7 +7645,7 @@ from
 animate
 (
 '.hex'
-,  {
+, {
 background
 :
 '#FF4B4B'
@@ -7706,7 +7654,7 @@ background
 animate
 (
 '.rgb'
-,  {
+, {
 background
 :
 'rgb(255, 168, 40)'
@@ -7715,7 +7663,7 @@ background
 animate
 (
 '.hsl'
-,  {
+, {
 background
 :
 'hsl(44, 100%, 59%)'
@@ -7816,8 +7764,7 @@ Next
 Relative value
 Color function value
 
-=== DOC: 051_defaults.txt ===
-URL: https://animejs.com/documentation/scope/scope-parameters/defaults
+--- Scope ---
 Scope
 
 Parameters
@@ -8036,8 +7983,7 @@ Next
 root
 mediaQueries
 
-=== DOC: 052_default-units.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/default-units
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -8279,8 +8225,7 @@ Next
 Multi-targets animation
 Function based values
 
-=== DOC: 053_timeunit-seconds-milliseconds.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters/timeunit-seconds-milliseconds
+--- Engine ---
 Engine
 
 Parameters
@@ -8548,8 +8493,7 @@ Next
 Engine parameters
 speed
 
-=== DOC: 054_stagger-modifier.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-modifier
+--- Stagger ---
 Stagger
 
 Parameters
@@ -8739,8 +8683,7 @@ div
 Previous
 Stagger grid axis
 
-=== DOC: 055_refresh.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/refresh
+--- Draggable ---
 Draggable
 
 Methods
@@ -8862,8 +8805,7 @@ Next
 revert()
 Draggable properties
 
-=== DOC: 056_snap.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/snap
+--- Draggable ---
 Draggable
 
 Axes parameters
@@ -8942,8 +8884,7 @@ Next
 y
 modifier
 
-=== DOC: 057_onupdate.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onupdate
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -9123,8 +9064,7 @@ Next
 onLeaveBackward
 onSyncComplete
 
-=== DOC: 058_releasemass.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/releasemass
+--- Draggable ---
 Draggable
 
 Settings
@@ -9209,8 +9149,7 @@ Next
 releaseContainerFriction
 releaseStiffness
 
-=== DOC: 059_link.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-methods/link
+--- ScrollObserver ---
 ScrollObserver
 
 Methods
@@ -9382,8 +9321,7 @@ Next
 ScrollObserver methods
 refresh()
 
-=== DOC: 060_animatable-settings.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-settings
+--- Animatable ---
 Animatable
 Since 4.0.0
 Animatable settings
@@ -9397,7 +9335,7 @@ x
 unit
 :
 'rem'
-,   │
+, │
 │
 duration
 :
@@ -9426,7 +9364,7 @@ rotate
 ease
 :
 'out(2)'
-,  ├─
+, ├─
 Global
 Properties
 Settings
@@ -9442,8 +9380,7 @@ Next
 Animatable
 unit
 
-=== DOC: 061_stagger-reversed.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-reversed
+--- Stagger ---
 Stagger
 
 Parameters
@@ -9595,8 +9532,7 @@ Next
 Stagger from
 Stagger ease
 
-=== DOC: 062_rad-to-deg.txt ===
-URL: https://animejs.com/documentation/utilities/rad-to-deg
+--- Utilities ---
 Utilities
 Since 4.0.0
 radToDeg()
@@ -9790,8 +9726,7 @@ Next
 degToRad()
 Chain-able utility functions
 
-=== DOC: 063_then.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/then
+--- Animation ---
 Animation
 
 Callbacks
@@ -9939,8 +9874,7 @@ Next
 onPause
 Animation methods
 
-=== DOC: 064_container.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/container
+--- Draggable ---
 Draggable
 
 Settings
@@ -10040,8 +9974,7 @@ Next
 trigger
 containerPadding
 
-=== DOC: 065_installation.txt ===
-URL: https://animejs.com/documentation/getting-started/installation
+--- Getting started ---
 Getting started
 Installation
 Anime.js can be installed in multiple ways depending of your environment or workflow.
@@ -10166,8 +10099,7 @@ Next
 Getting started
 Imports
 
-=== DOC: 066_stagger-value-types.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-value-types
+--- Stagger ---
 Stagger
 Since 2.0.0
 Stagger value types
@@ -10176,7 +10108,7 @@ stagger
 ┌───────────────────┐
 │
 '1rem'
-,           ├─
+, ├─
 Stagger
 Value
 └───────────────────┘
@@ -10213,8 +10145,7 @@ Next
 Timeline positions staggering
 Numerical value
 
-=== DOC: 067_autoplay.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/autoplay
+--- Timer ---
 Timer
 
 Playback settings
@@ -10375,8 +10306,7 @@ Next
 reversed
 frameRate
 
-=== DOC: 068_autoplay.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/autoplay
+--- Animation ---
 Animation
 
 Playback settings
@@ -10509,8 +10439,7 @@ Next
 reversed
 frameRate
 
-=== DOC: 069_precision.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters/precision
+--- Engine ---
 Engine
 
 Parameters
@@ -10709,8 +10638,7 @@ Next
 fps
 pauseOnDocumentHidden
 
-=== DOC: 070_oncomplete.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/oncomplete
+--- Animation ---
 Animation
 
 Callbacks
@@ -10839,8 +10767,7 @@ Next
 onBegin
 onBeforeUpdate
 
-=== DOC: 071_repeat.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings/repeat
+--- ScrollObserver ---
 ScrollObserver
 
 Settings
@@ -11132,8 +11059,7 @@ Next
 axis
 ScrollObserver thresholds
 
-=== DOC: 072_using-with-react.txt ===
-URL: https://animejs.com/documentation/getting-started/using-with-react
+--- Getting started ---
 Getting started
 Since 4.0.0
 Using with React
@@ -11401,8 +11327,7 @@ Next
 Using with vanilla JS
 Timer
 
-=== DOC: 073_framerate.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/framerate
+--- Animation ---
 Animation
 
 Playback settings
@@ -11586,8 +11511,7 @@ Next
 autoplay
 playbackRate
 
-=== DOC: 074_createdrawable.txt ===
-URL: https://animejs.com/documentation/svg/createdrawable
+--- SVG ---
 SVG
 Since 4.0.0
 createDrawable()
@@ -11642,35 +11566,35 @@ drawable.
 draw
 =
 '0 1'
-;      |[———————————————————]|
+; |[———————————————————]|
 0
 .5
 drawable.
 draw
 =
 '0 .5'
-;     |[—————————]          |
+; |[—————————] |
 .25
 .75
 drawable.
 draw
 =
 '.25 .75'
-;  |     [—————————]     |
+; | [—————————] |
 .5
 1
 drawable.
 draw
 =
 '.5 1'
-;     |          [—————————]|
+; | [—————————]|
 1
 1
 drawable.
 draw
 =
 '1 1'
-;      |                   []|
+; | []|
 Animating an element with the
 vector-effect
 attribute/styles set to
@@ -11841,8 +11765,7 @@ Next
 morphTo()
 createMotionPath()
 
-=== DOC: 075_function-based-values.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/function-based-values
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -12106,8 +12029,7 @@ Next
 Default units
 Individual CSS transforms
 
-=== DOC: 076_ondrag.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/ondrag
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -12200,8 +12122,7 @@ Next
 onGrab
 onUpdate
 
-=== DOC: 077_stagger-from.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-from
+--- Stagger ---
 Stagger
 
 Parameters
@@ -12757,8 +12678,7 @@ Next
 Stagger start
 Stagger reversed
 
-=== DOC: 078_complete.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/complete
+--- Animation ---
 Animation
 
 Methods
@@ -12887,8 +12807,7 @@ Next
 resume()
 cancel()
 
-=== DOC: 079_scope-parameters.txt ===
-URL: https://animejs.com/documentation/scope/scope-parameters
+--- Scope ---
 Scope
 Since 4.0.0
 Scope parameters
@@ -12904,36 +12823,36 @@ createScope
 root
 :
 '.section'
-,                               │
+, │
 │
 defaults
-: {                                     │
+: { │
 │
 duration
 :
 250
-,                                │
+, │
 │
 ease
 :
 'out(4)'
-,                               │
-│ },                                              ├─
+, │
+│ }, ├─
 Parameters
 │
 mediaQueries
-: {                                 │
+: { │
 │
 mobile
 :
 '(max-width: 640px)'
-,                 │
+, │
 │
 reducedMotion
 :
 '(prefers-reduced-motion)'
-,    │
-│ }                                               │
+, │
+│ } │
 └─────────────────────────────────────────────────┘
 })
 .
@@ -12984,8 +12903,7 @@ Next
 Register method function
 root
 
-=== DOC: 080_duration.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/duration
+--- Animation ---
 Animation
 
 Playback settings
@@ -13161,8 +13079,7 @@ Next
 delay
 loop
 
-=== DOC: 081_modifier.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-settings/modifier
+--- Animatable ---
 Animatable
 
 Settings
@@ -13368,8 +13285,7 @@ Next
 ease
 Animatable methods
 
-=== DOC: 082_reverse.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/reverse
+--- Timer ---
 Timer
 
 Methods
@@ -13502,8 +13418,7 @@ Next
 play()
 pause()
 
-=== DOC: 083_restart.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/restart
+--- Timer ---
 Timer
 
 Methods
@@ -13639,8 +13554,7 @@ Next
 pause()
 alternate()
 
-=== DOC: 084_stagger-ease.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-ease
+--- Stagger ---
 Stagger
 
 Parameters
@@ -13796,8 +13710,7 @@ Next
 Stagger reversed
 Stagger grid
 
-=== DOC: 085_onsnap.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onsnap
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -13901,8 +13814,7 @@ Next
 onRelease
 onSettle
 
-=== DOC: 086_tween-value-types.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types
+--- Animation ---
 Animation
 Since 1.0.0
 Tween value types
@@ -13935,7 +13847,7 @@ scale
 Tween
 Values
 opacity
-: {                  │
+: { │
 from
 :
 .4
@@ -13955,8 +13867,7 @@ Next
 Animatable properties
 Numerical value
 
-=== DOC: 087_delay.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/delay
+--- Animation ---
 Animation
 
 Tween parameters
@@ -14055,8 +13966,7 @@ Next
 from
 duration
 
-=== DOC: 088_alternate.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/alternate
+--- Animation ---
 Animation
 
 Methods
@@ -14183,8 +14093,7 @@ Next
 restart()
 resume()
 
-=== DOC: 089_css-transforms.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/css-transforms
+--- Animation ---
 Animation
 
 Animatable properties
@@ -14390,8 +14299,7 @@ Next
 CSS Properties
 CSS Variables
 
-=== DOC: 090_resume.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/resume
+--- Timer ---
 Timer
 
 Methods
@@ -14569,8 +14477,7 @@ Next
 alternate()
 complete()
 
-=== DOC: 091_releasedamping.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/releasedamping
+--- Draggable ---
 Draggable
 
 Settings
@@ -14655,8 +14562,7 @@ Next
 releaseStiffness
 velocityMultiplier
 
-=== DOC: 092_reversed.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/reversed
+--- Animation ---
 Animation
 
 Playback settings
@@ -14789,8 +14695,7 @@ Next
 alternate
 autoplay
 
-=== DOC: 093_draggable-settings.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings
+--- Draggable ---
 Draggable
 Since 4.0.0
 Draggable settings
@@ -14877,8 +14782,7 @@ Next
 Draggable axes parameters
 trigger
 
-=== DOC: 094_using-with-vanilla-js.txt ===
-URL: https://animejs.com/documentation/getting-started/using-with-vanilla-js
+--- Getting started ---
 Getting started
 Since 4.0.0
 Using with vanilla JS
@@ -15065,8 +14969,7 @@ Next
 Imports
 Using with React
 
-=== DOC: 095_alternate.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/alternate
+--- Timer ---
 Timer
 
 Methods
@@ -15215,8 +15118,7 @@ Next
 restart()
 resume()
 
-=== DOC: 096_x.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/x
+--- Draggable ---
 Draggable
 
 Axes parameters
@@ -15313,8 +15215,7 @@ Next
 Draggable axes parameters
 y
 
-=== DOC: 097_onenterforward.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenterforward
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -15497,8 +15398,7 @@ Next
 onEnter
 onEnterBackward
 
-=== DOC: 098_pause.txt ===
-URL: https://animejs.com/documentation/engine/engine-methods/pause
+--- Engine ---
 Engine
 
 Methods
@@ -15737,8 +15637,7 @@ Next
 update()
 resume()
 
-=== DOC: 099_onpause.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onpause
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -16041,8 +15940,7 @@ Next
 onLoop
 then()
 
-=== DOC: 100_revert.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-methods/revert
+--- ScrollObserver ---
 ScrollObserver
 
 Methods
@@ -16197,8 +16095,7 @@ Next
 refresh()
 scrollObserver properties
 
-=== DOC: 101_restart.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/restart
+--- Timeline ---
 Timeline
 
 Methods
@@ -16243,7 +16140,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -16263,7 +16160,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -16359,8 +16256,7 @@ Next
 pause()
 alternate()
 
-=== DOC: 102_reverse.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/reverse
+--- Timeline ---
 Timeline
 
 Methods
@@ -16388,7 +16284,7 @@ createTimeline
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -16408,7 +16304,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -16504,8 +16400,7 @@ Next
 play()
 pause()
 
-=== DOC: 103_onbegin.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/onbegin
+--- Timer ---
 Timer
 
 Callbacks
@@ -16681,8 +16576,7 @@ Next
 Timer callbacks
 onComplete
 
-=== DOC: 104_documentation.txt ===
-URL: https://animejs.com/documentation
+--- Documentation ---
 Documentation
 This documentation is only made possible with the help of my sponsors
 Anime.js is developed and maintained with the generous support of my sponsors. If you're using Anime.js, a monthly contribution would be highly valuable.
@@ -16762,8 +16656,7 @@ Engine
 Next
 Getting started
 
-=== DOC: 105_hardware-accelerated-animations.txt ===
-URL: https://animejs.com/documentation/web-animation-api/hardware-accelerated-animations
+--- Web Animation API ---
 Web Animation API
 Since 4.0.0
 Hardware-accelerated animations
@@ -17010,8 +16903,7 @@ Next
 When to use WAAPI
 Improvements to the Web Animation API
 
-=== DOC: 106_onleaveforward.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleaveforward
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -17194,8 +17086,7 @@ Next
 onLeave
 onLeaveBackward
 
-=== DOC: 107_remove.txt ===
-URL: https://animejs.com/documentation/utilities/remove
+--- Utilities ---
 Utilities
 Since 2.0.0
 remove()
@@ -17411,8 +17302,7 @@ Next
 set()
 cleanInlineStyles()
 
-=== DOC: 108_targets.txt ===
-URL: https://animejs.com/documentation/animation/targets
+--- Animation ---
 Animation
 Since 4.0.0
 Targets
@@ -17489,8 +17379,7 @@ Next
 Animation
 CSS Selector
 
-=== DOC: 109_delay.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/delay
+--- Timer ---
 Timer
 
 Playback settings
@@ -17596,8 +17485,7 @@ Next
 Timer playback settings
 duration
 
-=== DOC: 110_sety.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/sety
+--- Draggable ---
 Draggable
 
 Methods
@@ -17714,8 +17602,7 @@ Next
 setX()
 animateInView()
 
-=== DOC: 111_unit.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-settings/unit
+--- Animatable ---
 Animatable
 
 Settings
@@ -17890,8 +17777,7 @@ Next
 Animatable settings
 duration
 
-=== DOC: 112_waapi-convertease.txt ===
-URL: https://animejs.com/documentation/web-animation-api/waapi-convertease
+--- Web Animation API ---
 Web Animation API
 Since 4.0.0
 waapi.convertEase()
@@ -18075,8 +17961,7 @@ Next
 API differences with native WAAPI
 Engine
 
-=== DOC: 113_draggable.txt ===
-URL: https://animejs.com/documentation/draggable
+--- Draggable ---
 Draggable
 V4
 Adds draggable capabilities to DOM Elements.
@@ -18150,8 +18035,7 @@ Next
 Animatable
 Draggable axes parameters
 
-=== DOC: 114_framerate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/framerate
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -18382,8 +18266,7 @@ Next
 autoplay
 playbackRate
 
-=== DOC: 115_timer.txt ===
-URL: https://animejs.com/documentation/timer
+--- Timer ---
 Timer
 V4
 Schedules and controls timed function callbacks that can be used as a replacement to
@@ -18555,8 +18438,7 @@ Next
 Getting started
 Timer playback settings
 
-=== DOC: 116_css-variables.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/css-variables
+--- Animation ---
 Animation
 
 Animatable properties
@@ -18692,8 +18574,7 @@ Next
 CSS transforms
 JavaScript Object properties
 
-=== DOC: 117_stretch.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/stretch
+--- Animation ---
 Animation
 
 Methods
@@ -18891,8 +18772,7 @@ Next
 seek()
 refresh()
 
-=== DOC: 118_velocitymultiplier.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/velocitymultiplier
+--- Draggable ---
 Draggable
 
 Settings
@@ -18988,8 +18868,7 @@ Next
 releaseDamping
 minVelocity
 
-=== DOC: 119_sync.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/sync
+--- Timeline ---
 Timeline
 
 Methods
@@ -19187,8 +19066,7 @@ Next
 set()
 label()
 
-=== DOC: 120_draggable-axes-parameters.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters
+--- Draggable ---
 Draggable
 Since 4.0.0
 Draggable axes parameters
@@ -19204,14 +19082,14 @@ x
 snap
 :
 100
-},             │
+}, │
 │
 y
 : {
 snap
 :
 50
-},              ├─
+}, ├─
 Axes
 Parameters
 │
@@ -19260,8 +19138,7 @@ Next
 Draggable
 x
 
-=== DOC: 121_sync-waapi-animations.txt ===
-URL: https://animejs.com/documentation/timeline/sync-waapi-animations
+--- Timeline ---
 Timeline
 Since 4.0.0
 Sync WAAPI animations
@@ -19415,8 +19292,7 @@ Next
 Add animations
 Sync timelines
 
-=== DOC: 122_pause.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/pause
+--- Timer ---
 Timer
 
 Methods
@@ -19543,8 +19419,7 @@ Next
 reverse()
 restart()
 
-=== DOC: 123_releasestiffness.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/releasestiffness
+--- Draggable ---
 Draggable
 
 Settings
@@ -19629,8 +19504,7 @@ Next
 releaseMass
 releaseDamping
 
-=== DOC: 124_then.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/then
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -19835,8 +19709,7 @@ Next
 onPause
 Timeline methods
 
-=== DOC: 125_stop.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/stop
+--- Draggable ---
 Draggable
 
 Methods
@@ -19938,8 +19811,7 @@ Next
 scrollInView()
 reset()
 
-=== DOC: 126_animatable-properties.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-properties
+--- Animatable ---
 Animatable
 Since 4.0.0
 Animatable properties
@@ -19948,7 +19820,7 @@ animatable =
 createAnimatable
 (targets, parameters);
 ┌───────────┐
-animatable.│targets    ├─
+animatable.│targets ├─
 Properties
 animatable.│animations │
 └───────────┘
@@ -19971,8 +19843,7 @@ Next
 Animatable methods
 Draggable
 
-=== DOC: 127_onenterbackward.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onenterbackward
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -20155,8 +20026,7 @@ Next
 onEnterForward
 onLeave
 
-=== DOC: 128_pause.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/pause
+--- Animation ---
 Animation
 
 Methods
@@ -20284,8 +20154,7 @@ Next
 reverse()
 restart()
 
-=== DOC: 129_label.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/label
+--- Timeline ---
 Timeline
 
 Methods
@@ -20442,8 +20311,7 @@ Next
 sync()
 remove()
 
-=== DOC: 130_root.txt ===
-URL: https://animejs.com/documentation/scope/scope-parameters/root
+--- Scope ---
 Scope
 
 Parameters
@@ -20577,8 +20445,7 @@ Next
 Scope parameters
 defaults
 
-=== DOC: 131_maxvelocity.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/maxvelocity
+--- Draggable ---
 Draggable
 
 Settings
@@ -20668,8 +20535,7 @@ Next
 minVelocity
 releaseEase
 
-=== DOC: 132_relative-position-values.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/relative-position-values
+--- ScrollObserver ---
 ScrollObserver
 
 Thresholds
@@ -20832,8 +20698,7 @@ Next
 Positions shorthands
 Min max
 
-=== DOC: 133_playback-progress.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/playback-progress
+--- ScrollObserver ---
 ScrollObserver
 
 Synchronisation modes
@@ -20981,8 +20846,7 @@ Next
 Method names
 Smooth scroll
 
-=== DOC: 134_animatable.txt ===
-URL: https://animejs.com/documentation/animatable
+--- Animatable ---
 Animatable
 V4
 Efficiently animates target properties, making it an ideal replacement for
@@ -21188,8 +21052,7 @@ Next
 Timeline
 Animatable settings
 
-=== DOC: 135_onloop.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onloop
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -21370,8 +21233,7 @@ Next
 onRender
 onPause
 
-=== DOC: 136_onleave.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onleave
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -21554,8 +21416,7 @@ Next
 onEnterBackward
 onLeaveForward
 
-=== DOC: 137_seek.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/seek
+--- Animation ---
 Animation
 
 Methods
@@ -21784,8 +21645,7 @@ Next
 revert()
 stretch()
 
-=== DOC: 138_min-max.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/min-max
+--- ScrollObserver ---
 ScrollObserver
 
 Thresholds
@@ -21965,8 +21825,7 @@ Next
 Relative position values
 ScrollObserver synchronisation modes
 
-=== DOC: 139_resume.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/resume
+--- Animation ---
 Animation
 
 Methods
@@ -22133,8 +21992,7 @@ Next
 alternate()
 complete()
 
-=== DOC: 140_getters.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-methods/getters
+--- Animatable ---
 Animatable
 
 Methods
@@ -22433,8 +22291,7 @@ Next
 Animatable methods
 Setters
 
-=== DOC: 141_animation-callbacks.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks
+--- Animation ---
 Animation
 Since 1.0.0
 Animation callbacks
@@ -22492,12 +22349,12 @@ false
 onBegin
 :
 () =>
-{},  │
+{}, │
 │
 onLoop
 :
 () =>
-{},   ├─
+{}, ├─
 Callbacks
 │
 onUpdate
@@ -22520,8 +22377,7 @@ Next
 Animation playback settings
 onBegin
 
-=== DOC: 142_dollar-sign.txt ===
-URL: https://animejs.com/documentation/utilities/dollar-sign
+--- Utilities ---
 Utilities
 Since 4.0.0
 $()
@@ -22855,8 +22711,7 @@ Next
 Utilities
 get()
 
-=== DOC: 143_interpolate.txt ===
-URL: https://animejs.com/documentation/utilities/interpolate
+--- Utilities ---
 Utilities
 Since 4.0.0
 interpolate()
@@ -23078,8 +22933,7 @@ Next
 mapRange()
 roundPad()
 
-=== DOC: 144_utilities.txt ===
-URL: https://animejs.com/documentation/utilities
+--- Utilities ---
 Utilities
 A collection of utility functions for common animation tasks and for use as
 Animation modifier functions
@@ -23120,8 +22974,7 @@ Next
 SVG
 $()
 
-=== DOC: 145_playback-loopdelay.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/playback-loopdelay
+--- Animation ---
 Animation
 
 Playback settings
@@ -23219,8 +23072,7 @@ Next
 loop
 alternate
 
-=== DOC: 146_when-to-use-waapi.txt ===
-URL: https://animejs.com/documentation/web-animation-api/when-to-use-waapi
+--- Web Animation API ---
 Web Animation API
 Since 4.0.0
 When to use WAAPI
@@ -23375,8 +23227,7 @@ Next
 Web Animation API
 Hardware-accelerated animations
 
-=== DOC: 147_add.txt ===
-URL: https://animejs.com/documentation/scope/scope-methods/add
+--- Scope ---
 Scope
 
 Methods
@@ -23700,8 +23551,7 @@ Next
 Scope methods
 revert()
 
-=== DOC: 148_playbackrate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/playbackrate
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -23944,8 +23794,7 @@ Next
 frameRate
 playbackEase
 
-=== DOC: 149_range-value.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-value-types/range-value
+--- Stagger ---
 Stagger
 
 Value types
@@ -24101,8 +23950,7 @@ Next
 Numerical value
 Stagger parameters
 
-=== DOC: 150_then.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/then
+--- Timer ---
 Timer
 
 Callbacks
@@ -24283,8 +24131,7 @@ Next
 onPause
 Timer methods
 
-=== DOC: 151_ease.txt ===
-URL: https://animejs.com/documentation/animatable/animatable-settings/ease
+--- Animatable ---
 Animatable
 
 Settings
@@ -24504,8 +24351,7 @@ Next
 duration
 modifier
 
-=== DOC: 152_onresize.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onresize
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -24610,8 +24456,7 @@ Next
 onSettle
 onAfterResize
 
-=== DOC: 153_minvelocity.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/minvelocity
+--- Draggable ---
 Draggable
 
 Settings
@@ -24701,8 +24546,7 @@ Next
 velocityMultiplier
 maxVelocity
 
-=== DOC: 154_play.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/play
+--- Timeline ---
 Timeline
 
 Methods
@@ -24733,7 +24577,7 @@ false
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -24753,7 +24597,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -24849,8 +24693,7 @@ Next
 init()
 reverse()
 
-=== DOC: 155_releasecontainerfriction.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/releasecontainerfriction
+--- Draggable ---
 Draggable
 
 Settings
@@ -24952,8 +24795,7 @@ Next
 containerFriction
 releaseMass
 
-=== DOC: 156_shuffle.txt ===
-URL: https://animejs.com/documentation/utilities/shuffle
+--- Utilities ---
 Utilities
 Since 4.0.0
 shuffle()
@@ -25106,8 +24948,7 @@ Next
 randomPick()
 sync()
 
-=== DOC: 157_reversed.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/reversed
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -25276,8 +25117,7 @@ Next
 alternate
 autoplay
 
-=== DOC: 158_framerate.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/framerate
+--- Timer ---
 Timer
 
 Playback settings
@@ -25496,8 +25336,7 @@ Next
 autoplay
 playbackRate
 
-=== DOC: 159_chain-able-utility-functions.txt ===
-URL: https://animejs.com/documentation/utilities/chain-able-utility-functions
+--- Utilities ---
 Utilities
 Since 4.0.0
 Chain-able utility functions
@@ -25684,8 +25523,7 @@ Next
 radToDeg()
 Web Animation API
 
-=== DOC: 160_defaults.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/defaults
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -25816,8 +25654,7 @@ Next
 Timeline playback settings
 delay
 
-=== DOC: 161_clamp.txt ===
-URL: https://animejs.com/documentation/utilities/clamp
+--- Utilities ---
 Utilities
 Since 4.0.0
 clamp()
@@ -26036,8 +25873,7 @@ Next
 round()
 snap()
 
-=== DOC: 162_imports.txt ===
-URL: https://animejs.com/documentation/getting-started/imports
+--- Getting started ---
 Getting started
 Imports
 V4
@@ -26100,8 +25936,7 @@ Next
 Installation
 Using with vanilla JS
 
-=== DOC: 163_animation.txt ===
-URL: https://animejs.com/documentation/animation
+--- Animation ---
 Animation
 Animates the properties values of targeted elements, with a wide range of parameters, callbacks and methods.
 Animations are created using the
@@ -26336,8 +26171,7 @@ Next
 Timer
 Targets
 
-=== DOC: 164_onupdate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onupdate
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -26523,8 +26357,7 @@ Next
 onBeforeUpdate
 onRender
 
-=== DOC: 165_containerfriction.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/containerfriction
+--- Draggable ---
 Draggable
 
 Settings
@@ -26622,8 +26455,7 @@ Next
 containerPadding
 releaseContainerFriction
 
-=== DOC: 166_engine-methods.txt ===
-URL: https://animejs.com/documentation/engine/engine-methods
+--- Engine ---
 Engine
 Since 4.0.0
 Engine methods
@@ -26635,14 +26467,14 @@ from
 ┌──────────┐
 engine.│
 update
-()  │
+() │
 engine.│
 pause
-()   ├─
+() ├─
 Methods
 engine.│
 resume
-()  │
+() │
 └──────────┘
 In this section
 update()
@@ -26653,8 +26485,7 @@ Next
 Engine parameters
 update()
 
-=== DOC: 167_stretch.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/stretch
+--- Timeline ---
 Timeline
 
 Methods
@@ -26706,7 +26537,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -26726,7 +26557,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -26875,8 +26706,7 @@ Next
 seek()
 refresh()
 
-=== DOC: 168_clean-inline-styles.txt ===
-URL: https://animejs.com/documentation/utilities/clean-inline-styles
+--- Utilities ---
 Utilities
 Since 4.0.0
 cleanInlineStyles()
@@ -27009,8 +26839,7 @@ Next
 remove()
 random()
 
-=== DOC: 169_modifier.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/modifier
+--- Animation ---
 Animation
 
 Tween parameters
@@ -27222,8 +27051,7 @@ Next
 composition
 Keyframes
 
-=== DOC: 170_containerpadding.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/containerpadding
+--- Draggable ---
 Draggable
 
 Settings
@@ -27310,8 +27138,7 @@ Next
 container
 containerFriction
 
-=== DOC: 171_onrender.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onrender
+--- Animation ---
 Animation
 
 Callbacks
@@ -27449,8 +27276,7 @@ Next
 onUpdate
 onLoop
 
-=== DOC: 172_seek.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/seek
+--- Timer ---
 Timer
 
 Methods
@@ -27683,8 +27509,7 @@ Next
 revert()
 stretch()
 
-=== DOC: 173_oncomplete.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/oncomplete
+--- Timer ---
 Timer
 
 Callbacks
@@ -27848,8 +27673,7 @@ Next
 onBegin
 onUpdate
 
-=== DOC: 174_keyframes.txt ===
-URL: https://animejs.com/documentation/animation/keyframes
+--- Animation ---
 Animation
 Since 2.0.0
 Keyframes
@@ -27933,8 +27757,8 @@ animate
 ┌───────────────────────┐
 │
 keyframes
-: [          │
-│   {
+: [ │
+│ {
 x
 :
 100
@@ -27945,7 +27769,7 @@ y
 }, ├─
 Duration
 Based
-│   {
+│ {
 x
 :
 200
@@ -27954,7 +27778,7 @@ y
 :
 200
 }, │
-│ ],                    │
+│ ], │
 └───────────────────────┘
 duration
 :
@@ -27968,7 +27792,7 @@ animate
 ┌───────────────────────────────┐
 │
 keyframes
-: {                  │
+: { │
 │
 '0%'
 : {
@@ -28004,7 +27828,7 @@ y
 :
 200
 }, │
-│ },                            │
+│ }, │
 └───────────────────────────────┘
 duration
 :
@@ -28021,8 +27845,7 @@ Next
 Tween parameters
 Tween values keyframes
 
-=== DOC: 175_mediaqueries.txt ===
-URL: https://animejs.com/documentation/scope/scope-parameters/mediaqueries
+--- Scope ---
 Scope
 
 Parameters
@@ -28178,8 +28001,7 @@ Next
 defaults
 Scope methods
 
-=== DOC: 176_scrollobserver-properties.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-properties
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 scrollObserver properties
@@ -28288,8 +28110,7 @@ Next
 ScrollObserver methods
 Scope
 
-=== DOC: 177_round.txt ===
-URL: https://animejs.com/documentation/utilities/round
+--- Utilities ---
 Utilities
 Since 4.0.0
 round()
@@ -28462,8 +28283,7 @@ Next
 lerp()
 clamp()
 
-=== DOC: 178_timer-playback-settings.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings
+--- Timer ---
 Timer
 Since 4.0.0
 Timer playback settings
@@ -28481,19 +28301,19 @@ createTimer
 duration
 :
 1000
-,   │
+, │
 │
 frameRate
 :
 true
-,  ├─
+, ├─
 Playback
 Settings
 │
 loop
 :
 true
-,       │
+, │
 └───────────────────┘
 onBegin
 :
@@ -28523,8 +28343,7 @@ Next
 Timer
 delay
 
-=== DOC: 179_stagger.txt ===
-URL: https://animejs.com/documentation/stagger
+--- Stagger ---
 Stagger
 Creates sequential effects by distributing values progressively across multiple targets.
 Stagger
@@ -28663,8 +28482,7 @@ Next
 Scope
 Time staggering
 
-=== DOC: 180_multi-targets-animation.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/multi-targets-animation
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -28840,8 +28658,7 @@ Next
 Sensible defaults
 Default units
 
-=== DOC: 181_timeline.txt ===
-URL: https://animejs.com/documentation/timeline
+--- Timeline ---
 Timeline
 Synchronises animations, timers, and functions together.
 Timelines are created using the
@@ -29005,8 +28822,7 @@ Next
 Animation
 Add timers
 
-=== DOC: 182_setx.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/setx
+--- Draggable ---
 Draggable
 
 Methods
@@ -29123,8 +28939,7 @@ Next
 enable()
 setY()
 
-=== DOC: 183_refresh.txt ===
-URL: https://animejs.com/documentation/scope/scope-methods/refresh
+--- Scope ---
 Scope
 
 Methods
@@ -29505,8 +29320,7 @@ Next
 revert()
 Scope properties
 
-=== DOC: 184_cancel.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/cancel
+--- Timer ---
 Timer
 
 Methods
@@ -29658,8 +29472,7 @@ Next
 complete()
 revert()
 
-=== DOC: 185_autoplay.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/autoplay
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -29884,8 +29697,7 @@ Next
 reversed
 frameRate
 
-=== DOC: 186_onrelease.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onrelease
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -29978,8 +29790,7 @@ Next
 onUpdate
 onSnap
 
-=== DOC: 187_dom-elements.txt ===
-URL: https://animejs.com/documentation/animation/targets/dom-elements
+--- Animation ---
 Animation
 
 Targets
@@ -30090,8 +29901,7 @@ Next
 CSS Selector
 JavaScript Objects
 
-=== DOC: 188_onupdate.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onupdate
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -30184,8 +29994,7 @@ Next
 onDrag
 onRelease
 
-=== DOC: 189_percentage-based-keyframes.txt ===
-URL: https://animejs.com/documentation/animation/keyframes/percentage-based-keyframes
+--- Animation ---
 Animation
 
 Keyframes
@@ -30387,8 +30196,7 @@ Next
 Duration based keyframes
 Animation playback settings
 
-=== DOC: 190_refresh.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/refresh
+--- Timeline ---
 Timeline
 
 Methods
@@ -30439,7 +30247,7 @@ refresh
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 () =>
@@ -30477,7 +30285,7 @@ random
 add
 (
 '.square'
-,   {
+, {
 x
 :
 () =>
@@ -30583,8 +30391,7 @@ Next
 stretch()
 Timeline properties
 
-=== DOC: 191_pause.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/pause
+--- Timeline ---
 Timeline
 
 Methods
@@ -30620,7 +30427,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -30640,7 +30447,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -30736,8 +30543,7 @@ Next
 reverse()
 restart()
 
-=== DOC: 192_web-animation-api.txt ===
-URL: https://animejs.com/documentation/web-animation-api
+--- Web Animation API ---
 Web Animation API
 V4
 Create WAAPI powered animations with the simplicity of Anime.js
@@ -30916,8 +30722,7 @@ Next
 Utilities
 When to use WAAPI
 
-=== DOC: 193_reset.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/reset
+--- Draggable ---
 Draggable
 
 Methods
@@ -31003,8 +30808,7 @@ Next
 stop()
 revert()
 
-=== DOC: 194_timeline-properties.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-properties
+--- Timeline ---
 Timeline
 Timeline properties
 const
@@ -31012,10 +30816,10 @@ timeline =
 createTimeline
 (parameters);
 ┌────────────┐
-timeline.│labels      │
+timeline.│labels │
 timeline.│currentTime ├─
 Properties
-timeline.│duration    │
+timeline.│duration │
 └────────────┘
 Name
 Description
@@ -31094,8 +30898,7 @@ Next
 Timeline methods
 Animatable
 
-=== DOC: 195_individual-css-transforms.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/individual-css-transforms
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -31323,8 +31126,7 @@ Next
 Function based values
 Individual property parameters
 
-=== DOC: 196_scrollspeed.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/scrollspeed
+--- Draggable ---
 Draggable
 
 Settings
@@ -31408,8 +31210,7 @@ Next
 scrollThreshold
 cursor
 
-=== DOC: 197_numerical-value.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-value-types/numerical-value
+--- Stagger ---
 Stagger
 
 Value types
@@ -31466,7 +31267,7 @@ class
 =
 "padded label"
 >
-x: 0rem      delay: 0ms
+x: 0rem delay: 0ms
 </
 div
 >
@@ -31494,7 +31295,7 @@ class
 =
 "padded label"
 >
-x: 5.75rem   delay: 100ms
+x: 5.75rem delay: 100ms
 </
 div
 >
@@ -31522,7 +31323,7 @@ class
 =
 "padded label"
 >
-x: 11.5rem   delay: 200ms
+x: 11.5rem delay: 200ms
 </
 div
 >
@@ -31550,7 +31351,7 @@ class
 =
 "padded label"
 >
-x: 17.25rem  delay: 300ms
+x: 17.25rem delay: 300ms
 </
 div
 >
@@ -31562,8 +31363,7 @@ Next
 Stagger value types
 Range value
 
-=== DOC: 198_iterations.txt ===
-URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/iterations
+--- Web Animation API ---
 Web Animation API
 
 API differences
@@ -31746,8 +31546,7 @@ Next
 API differences with native WAAPI
 direction
 
-=== DOC: 199_snap.txt ===
-URL: https://animejs.com/documentation/utilities/snap
+--- Utilities ---
 Utilities
 Since 4.0.0
 snap()
@@ -31981,8 +31780,7 @@ Next
 clamp()
 wrap()
 
-=== DOC: 200_scrollthreshold.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/scrollthreshold
+--- Draggable ---
 Draggable
 
 Settings
@@ -32064,8 +31862,7 @@ Next
 dragSpeed
 scrollSpeed
 
-=== DOC: 201_delay.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/delay
+--- Animation ---
 Animation
 
 Playback settings
@@ -32156,8 +31953,7 @@ Next
 Animation playback settings
 duration
 
-=== DOC: 202_revert.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/revert
+--- Animation ---
 Animation
 
 Methods
@@ -32328,8 +32124,7 @@ Next
 cancel()
 seek()
 
-=== DOC: 203_loop.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/loop
+--- Animation ---
 Animation
 
 Playback settings
@@ -32557,8 +32352,7 @@ Next
 duration
 loopDelay
 
-=== DOC: 204_onloop.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onloop
+--- Animation ---
 Animation
 
 Callbacks
@@ -32692,8 +32486,7 @@ Next
 onRender
 onPause
 
-=== DOC: 205_play.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/play
+--- Timer ---
 Timer
 
 Methods
@@ -32829,8 +32622,7 @@ Next
 Timer methods
 reverse()
 
-=== DOC: 206_getting-started.txt ===
-URL: https://animejs.com/documentation/getting-started
+--- Getting started ---
 Getting started
 This section covers how to download, install and import Anime.js in your project.
 If you're migrating from v3, please check out the
@@ -32846,8 +32638,7 @@ Next
 Documentation
 Installation
 
-=== DOC: 207_scrollobserver-settings.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 ScrollObserver settings
@@ -32879,13 +32670,13 @@ container
 target
 :
 '.section'
-,      ├─
+, ├─
 Settings
 │
 axis
 :
 'y'
-,               │
+, │
 └──────────────────────────┘
 enter
 :
@@ -32924,8 +32715,7 @@ Next
 ScrollObserver
 container
 
-=== DOC: 208_restart.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/restart
+--- Animation ---
 Animation
 
 Methods
@@ -33062,8 +32852,7 @@ Next
 pause()
 alternate()
 
-=== DOC: 209_cancel.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/cancel
+--- Animation ---
 Animation
 
 Methods
@@ -33217,8 +33006,7 @@ Next
 complete()
 revert()
 
-=== DOC: 210_onbeforeupdate.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onbeforeupdate
+--- Animation ---
 Animation
 
 Callbacks
@@ -33369,8 +33157,7 @@ Next
 onComplete
 onUpdate
 
-=== DOC: 211_html-attributes.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/html-attributes
+--- Animation ---
 Animation
 
 Animatable properties
@@ -33448,8 +33235,7 @@ Next
 JavaScript Object properties
 SVG Attributes
 
-=== DOC: 212_stagger-parameters.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters
+--- Stagger ---
 Stagger
 Since 2.0.0
 Stagger parameters
@@ -33463,31 +33249,31 @@ stagger
 start
 :
 100
-,       │
+, │
 │
 from
 :
 2
-,          │
+, │
 │
 reversed
 :
 false
-,  ├─
+, ├─
 Stagger
 Parameters
 │
 ease
 :
 'outQuad'
-,  │
+, │
 │
 grid
 : [
 8
 ,
 8
-],     │
+], │
 └───────────────────┘
 }
 );
@@ -33504,8 +33290,7 @@ Next
 Stagger value types
 Stagger start
 
-=== DOC: 213_css-selector.txt ===
-URL: https://animejs.com/documentation/animation/targets/css-selector
+--- Animation ---
 Animation
 
 Targets
@@ -33615,8 +33400,7 @@ Next
 Targets
 DOM Elements
 
-=== DOC: 214_play.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/play
+--- Animation ---
 Animation
 
 Methods
@@ -33741,8 +33525,7 @@ Next
 Animation methods
 reverse()
 
-=== DOC: 215_reversed.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/reversed
+--- Timer ---
 Timer
 
 Playback settings
@@ -33915,8 +33698,7 @@ Next
 alternate
 autoplay
 
-=== DOC: 216_refresh.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-methods/refresh
+--- ScrollObserver ---
 ScrollObserver
 
 Methods
@@ -34125,8 +33907,7 @@ Next
 link()
 revert()
 
-=== DOC: 217_draggable-properties.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-properties
+--- Draggable ---
 Draggable
 Since 4.0.0
 Draggable properties
@@ -34138,7 +33919,7 @@ createDraggable
 draggable.│progressX │
 draggable.│progressY ├─
 Properties
-draggable.│velocity  │
+draggable.│velocity │
 └──────────┘
 Name
 Description
@@ -34476,8 +34257,7 @@ Next
 Draggable methods
 ScrollObserver
 
-=== DOC: 218_cancel.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/cancel
+--- Timeline ---
 Timeline
 
 Methods
@@ -34518,7 +34298,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -34538,7 +34318,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -34655,8 +34435,7 @@ Next
 complete()
 revert()
 
-=== DOC: 219_call-functions.txt ===
-URL: https://animejs.com/documentation/timeline/call-functions
+--- Timeline ---
 Timeline
 Since 4.0.0
 Call functions
@@ -34861,8 +34640,7 @@ Next
 Sync timelines
 Time position
 
-=== DOC: 220_oncomplete.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/oncomplete
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -35035,8 +34813,7 @@ Next
 onBegin
 onBeforeUpdate
 
-=== DOC: 221_tween-parameters-keyframes.txt ===
-URL: https://animejs.com/documentation/animation/keyframes/tween-parameters-keyframes
+--- Animation ---
 Animation
 
 Keyframes
@@ -35230,8 +35007,7 @@ Next
 Tween values keyframes
 Duration based keyframes
 
-=== DOC: 222_map-range.txt ===
-URL: https://animejs.com/documentation/utilities/map-range
+--- Utilities ---
 Utilities
 Since 4.0.0
 mapRange()
@@ -35456,8 +35232,7 @@ Next
 wrap()
 interpolate()
 
-=== DOC: 223_playbackrate.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/playbackrate
+--- Animation ---
 Animation
 
 Playback settings
@@ -35650,8 +35425,7 @@ Next
 frameRate
 playbackEase
 
-=== DOC: 224_releaseease.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/releaseease
+--- Draggable ---
 Draggable
 
 Settings
@@ -35750,8 +35524,7 @@ Next
 maxVelocity
 dragSpeed
 
-=== DOC: 225_onbeforeupdate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onbeforeupdate
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -35937,8 +35710,7 @@ Next
 onComplete
 onUpdate
 
-=== DOC: 226_revert.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/revert
+--- Draggable ---
 Draggable
 
 Methods
@@ -36031,8 +35803,7 @@ Next
 reset()
 refresh()
 
-=== DOC: 227_scrollobserver-synchronisation-modes.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 ScrollObserver synchronisation modes
@@ -36082,7 +35853,7 @@ leave
 sync
 :
 true
-,            ├─
+, ├─
 Synchronisation
 Mode
 └──────────────────────────┘
@@ -36110,8 +35881,7 @@ Next
 ScrollObserver thresholds
 Method names
 
-=== DOC: 228_playbackrate.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/playbackrate
+--- Timer ---
 Timer
 
 Playback settings
@@ -36348,8 +36118,7 @@ Next
 frameRate
 Timer callbacks
 
-=== DOC: 229_animation-properties.txt ===
-URL: https://animejs.com/documentation/animation/animation-properties
+--- Animation ---
 Animation
 Animation properties
 const
@@ -36357,10 +36126,10 @@ animation =
 animate
 (targets, parameters);
 ┌────────────┐
-animation.│targets     │
+animation.│targets │
 animation.│currentTime ├─
 Properties
-animation.│duration    │
+animation.│duration │
 └────────────┘
 Name
 Description
@@ -36447,8 +36216,7 @@ Next
 Animation methods
 Timeline
 
-=== DOC: 230_onrender.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onrender
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -36639,8 +36407,7 @@ Next
 onUpdate
 onLoop
 
-=== DOC: 231_onsettle.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks/onsettle
+--- Draggable ---
 Draggable
 
 Callbacks
@@ -36733,8 +36500,7 @@ Next
 onSnap
 onResize
 
-=== DOC: 232_loop.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/loop
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -36917,8 +36683,7 @@ Next
 delay
 loopDelay
 
-=== DOC: 233_onpause.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/onpause
+--- Timer ---
 Timer
 
 Callbacks
@@ -37143,8 +36908,7 @@ Next
 onLoop
 then()
 
-=== DOC: 234_improvements-to-the-web-animation-api.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api
+--- Web Animation API ---
 Web Animation API
 Since 4.0.0
 Improvements to the Web Animation API
@@ -37224,8 +36988,7 @@ Next
 Hardware-accelerated animations
 Sensible defaults
 
-=== DOC: 235_onpause.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onpause
+--- Animation ---
 Animation
 
 Callbacks
@@ -37474,8 +37237,7 @@ Next
 onLoop
 then()
 
-=== DOC: 236_onbegin.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onbegin
+--- Animation ---
 Animation
 
 Callbacks
@@ -37596,8 +37358,7 @@ Next
 Animation callbacks
 onComplete
 
-=== DOC: 237_duration.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/duration
+--- Animation ---
 Animation
 
 Tween parameters
@@ -37703,8 +37464,7 @@ Next
 delay
 ease
 
-=== DOC: 238_pauseondocumenthidden.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters/pauseondocumenthidden
+--- Engine ---
 Engine
 
 Parameters
@@ -37938,8 +37698,7 @@ Next
 precision
 Engine methods
 
-=== DOC: 239_target.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings/target
+--- ScrollObserver ---
 ScrollObserver
 
 Settings
@@ -38100,8 +37859,7 @@ Next
 container
 debug
 
-=== DOC: 240_engine-parameters.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters
+--- Engine ---
 Engine
 Since 4.0.0
 Engine parameters
@@ -38111,10 +37869,10 @@ from
 'animejs'
 ;
 ┌────────────┐
-engine.│speed       │
-engine.│fps         ├─
+engine.│speed │
+engine.│fps ├─
 Parameters
-engine.│precision   │
+engine.│precision │
 └────────────┘
 In this section
 timeUnit
@@ -38127,8 +37885,7 @@ Next
 Engine
 timeUnit (seconds / milliseconds)
 
-=== DOC: 241_method-names.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/method-names
+--- ScrollObserver ---
 ScrollObserver
 
 Synchronisation modes
@@ -38309,8 +38066,7 @@ Next
 ScrollObserver synchronisation modes
 Playback progress
 
-=== DOC: 242_unit-conversion-value.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/unit-conversion-value
+--- Animation ---
 Animation
 
 Tween value types
@@ -38382,8 +38138,7 @@ Next
 Numerical value
 Relative value
 
-=== DOC: 243_reverse.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/reverse
+--- Animation ---
 Animation
 
 Methods
@@ -38504,8 +38259,7 @@ Next
 play()
 pause()
 
-=== DOC: 244_timeline-methods.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods
+--- Timeline ---
 Timeline
 Since 2.0.0
 Timeline methods
@@ -38520,10 +38274,10 @@ createTimeline
 ┌──────────┐
 timeline.│
 pause
-()   │
+() │
 timeline.│
 play
-()    ├─
+() ├─
 Methods
 timeline.│
 restart
@@ -38554,8 +38308,7 @@ Next
 Timeline callbacks
 add()
 
-=== DOC: 245_call.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/call
+--- Timeline ---
 Timeline
 
 Methods
@@ -38759,8 +38512,7 @@ Next
 remove()
 init()
 
-=== DOC: 246_scrollobserver-methods.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-methods
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 ScrollObserver methods
@@ -38780,14 +38532,14 @@ onScroll
 ┌──────────┐
 scrollObserver.│
 link
-()    │
+() │
 scrollObserver.│
 refresh
 () ├─
 Methods
 scrollObserver.│
 revert
-()  │
+() │
 └──────────┘
 In this section
 link()
@@ -38798,8 +38550,7 @@ Next
 ScrollObserver callbacks
 link()
 
-=== DOC: 247_sensible-defaults.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/sensible-defaults
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -38897,8 +38648,7 @@ Next
 Improvements to the Web Animation API
 Multi-targets animation
 
-=== DOC: 248_pad-end.txt ===
-URL: https://animejs.com/documentation/utilities/pad-end
+--- Utilities ---
 Utilities
 Since 4.0.0
 padEnd()
@@ -39052,8 +38802,7 @@ Next
 padStart()
 degToRad()
 
-=== DOC: 249_onloop.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks/onloop
+--- Timer ---
 Timer
 
 Callbacks
@@ -39222,8 +38971,7 @@ Next
 onUpdate
 onPause
 
-=== DOC: 250_set.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/set
+--- Timeline ---
 Timeline
 
 Methods
@@ -39337,8 +39085,7 @@ Next
 add()
 sync()
 
-=== DOC: 251_svg-attributes.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/svg-attributes
+--- Animation ---
 Animation
 
 Animatable properties
@@ -39472,8 +39219,7 @@ Next
 HTML Attributes
 Tween value types
 
-=== DOC: 252_resume.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/resume
+--- Timeline ---
 Timeline
 
 Methods
@@ -39505,7 +39251,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -39525,7 +39271,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -39663,8 +39409,7 @@ Next
 alternate()
 complete()
 
-=== DOC: 253_playback-loopdelay.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/playback-loopdelay
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -39836,8 +39581,7 @@ Next
 loop
 alternate
 
-=== DOC: 254_to.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/to
+--- Animation ---
 Animation
 
 Tween parameters
@@ -39923,8 +39667,7 @@ Next
 Tween parameters
 from
 
-=== DOC: 255_animation-methods.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods
+--- Animation ---
 Animation
 Since 1.0.0
 Animation methods
@@ -39939,10 +39682,10 @@ animate
 ┌──────────┐
 animation.│
 pause
-()   │
+() │
 animation.│
 play
-()    ├─
+() ├─
 Methods
 animation.│
 restart
@@ -39966,8 +39709,7 @@ Next
 Animation callbacks
 play()
 
-=== DOC: 256_speed.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters/speed
+--- Engine ---
 Engine
 
 Parameters
@@ -40162,8 +39904,7 @@ Next
 timeUnit (seconds / milliseconds)
 fps
 
-=== DOC: 257_spring-and-custom-easings.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/spring-and-custom-easings
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -40351,8 +40092,7 @@ Next
 Individual property parameters
 API differences with native WAAPI
 
-=== DOC: 258_container.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings/container
+--- ScrollObserver ---
 ScrollObserver
 
 Settings
@@ -40486,8 +40226,7 @@ Next
 ScrollObserver settings
 target
 
-=== DOC: 259_round-pad.txt ===
-URL: https://animejs.com/documentation/utilities/round-pad
+--- Utilities ---
 Utilities
 Since 4.0.0
 roundPad()
@@ -40625,8 +40364,7 @@ Next
 interpolate()
 padStart()
 
-=== DOC: 260_css-properties.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/css-properties
+--- Animation ---
 Animation
 
 Animatable properties
@@ -40694,8 +40432,7 @@ Next
 Animatable properties
 CSS transforms
 
-=== DOC: 261_scope-methods.txt ===
-URL: https://animejs.com/documentation/scope/scope-methods
+--- Scope ---
 Scope
 Since 4.0.0
 Scope methods
@@ -40706,14 +40443,14 @@ createScope
 ┌──────────┐
 scope.│
 add
-()     │
+() │
 scope.│
 refresh
 () ├─
 Methods
 scope.│
 revert
-()  │
+() │
 └──────────┘
 In this section
 add()
@@ -40724,8 +40461,7 @@ Next
 Scope parameters
 add()
 
-=== DOC: 262_trigger.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/trigger
+--- Draggable ---
 Draggable
 
 Settings
@@ -40790,8 +40526,7 @@ Next
 Draggable settings
 container
 
-=== DOC: 263_stagger-start.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-start
+--- Stagger ---
 Stagger
 
 Parameters
@@ -40954,8 +40689,7 @@ Next
 Stagger parameters
 Stagger from
 
-=== DOC: 264_set.txt ===
-URL: https://animejs.com/documentation/utilities/set
+--- Utilities ---
 Utilities
 Since 2.0.0
 set()
@@ -41197,8 +40931,7 @@ Next
 get()
 remove()
 
-=== DOC: 265_alternate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/alternate
+--- Timeline ---
 Timeline
 
 Methods
@@ -41232,7 +40965,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -41252,7 +40985,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -41360,8 +41093,7 @@ Next
 restart()
 resume()
 
-=== DOC: 266_enable.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/enable
+--- Draggable ---
 Draggable
 
 Methods
@@ -41450,8 +41182,7 @@ Next
 disable()
 setX()
 
-=== DOC: 267_random-pick.txt ===
-URL: https://animejs.com/documentation/utilities/random-pick
+--- Utilities ---
 Utilities
 Since 4.0.0
 randomPick()
@@ -41615,8 +41346,7 @@ Next
 random()
 shuffle()
 
-=== DOC: 268_individual-property-parameters.txt ===
-URL: https://animejs.com/documentation/web-animation-api/improvements-to-the-web-animation-api/individual-property-parameters
+--- Web Animation API ---
 Web Animation API
 
 Improvements to WAAPI
@@ -41775,8 +41505,7 @@ Next
 Individual CSS transforms
 Spring and custom easings
 
-=== DOC: 269_seek.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/seek
+--- Timeline ---
 Timeline
 
 Methods
@@ -41860,7 +41589,7 @@ onComplete
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -41880,7 +41609,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -42025,8 +41754,7 @@ Next
 revert()
 stretch()
 
-=== DOC: 270_loop.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/loop
+--- Timer ---
 Timer
 
 Playback settings
@@ -42202,8 +41930,7 @@ Next
 duration
 loopDelay
 
-=== DOC: 271_composition.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/composition
+--- Animation ---
 Animation
 
 Tween parameters
@@ -42612,8 +42339,7 @@ Next
 ease
 modifier
 
-=== DOC: 272_numerical-value.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/numerical-value
+--- Animation ---
 Animation
 
 Tween value types
@@ -42694,7 +42420,7 @@ x
 :
 240
 ,
-//  -> 240px
+// -> 240px
 width
 :
 75
@@ -42728,8 +42454,7 @@ Next
 Tween value types
 Unit conversion value
 
-=== DOC: 273_stretch.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/stretch
+--- Timer ---
 Timer
 
 Methods
@@ -42936,8 +42661,7 @@ Next
 seek()
 Timer properties
 
-=== DOC: 274_fps.txt ===
-URL: https://animejs.com/documentation/engine/engine-parameters/fps
+--- Engine ---
 Engine
 
 Parameters
@@ -43121,8 +42845,7 @@ Next
 speed
 precision
 
-=== DOC: 275_stagger-grid-axis.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-grid-axis
+--- Stagger ---
 Stagger
 
 Parameters
@@ -43682,8 +43405,7 @@ Next
 Stagger grid
 Stagger modifier
 
-=== DOC: 276_init.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/init
+--- Timeline ---
 Timeline
 
 Methods
@@ -43718,7 +43440,7 @@ createTimeline
 add
 (
 '.square'
-,   {
+, {
 x
 : {
 from
@@ -43742,7 +43464,7 @@ from
 add
 (
 '.circle'
-,   {
+, {
 x
 : {
 from
@@ -43804,8 +43526,7 @@ Next
 call()
 play()
 
-=== DOC: 277_revert.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/revert
+--- Timeline ---
 Timeline
 
 Methods
@@ -43868,7 +43589,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 0
@@ -43888,7 +43609,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 0
@@ -44005,8 +43726,7 @@ Next
 cancel()
 seek()
 
-=== DOC: 278_from.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/from
+--- Animation ---
 Animation
 
 Tween parameters
@@ -44089,8 +43809,7 @@ Next
 to
 delay
 
-=== DOC: 279_alternate.txt ===
-URL: https://animejs.com/documentation/timer/timer-playback-settings/alternate
+--- Timer ---
 Timer
 
 Playback settings
@@ -44259,8 +43978,7 @@ Next
 loopDelay
 reversed
 
-=== DOC: 280_scroll.txt ===
-URL: https://animejs.com/documentation/scroll
+--- ScrollObserver ---
 ScrollObserver
 V4
 Triggers and synchronises Timer, Animation and Timeline instances on scroll
@@ -44616,8 +44334,7 @@ Next
 Draggable
 ScrollObserver settings
 
-=== DOC: 281_timeline-callbacks.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks
+--- Timeline ---
 Timeline
 Since 2.0.0
 Timeline callbacks
@@ -44658,12 +44375,12 @@ false
 onBegin
 :
 () =>
-{},  │
+{}, │
 │
 onLoop
 :
 () =>
-{},   ├─
+{}, ├─
 Callbacks
 │
 onUpdate
@@ -44686,8 +44403,7 @@ Next
 Timeline playback settings
 onBegin
 
-=== DOC: 282_function-based.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/function-based
+--- Animation ---
 Animation
 
 Tween value types
@@ -44882,8 +44598,7 @@ Next
 CSS variable
 Tween parameters
 
-=== DOC: 283_scrollobserver-callbacks.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks
+--- ScrollObserver ---
 ScrollObserver
 Since 4.0.0
 ScrollObserver callbacks
@@ -44935,18 +44650,18 @@ true
 onEnter
 :
 () =>
-{},     │
+{}, │
 │
 onLeave
 :
 () =>
-{},     ├─
+{}, ├─
 Callbacks
 │
 onUpdate
 :
 () =>
-{},    │
+{}, │
 └──────────────────────────┘
 })
 });
@@ -44964,8 +44679,7 @@ Next
 ScrollObserver synchronisation modes
 onEnter
 
-=== DOC: 284_debug.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings/debug
+--- ScrollObserver ---
 ScrollObserver
 
 Settings
@@ -45140,8 +44854,7 @@ Next
 target
 axis
 
-=== DOC: 285_timer-properties.txt ===
-URL: https://animejs.com/documentation/timer/timer-properties
+--- Timer ---
 Timer
 Timer properties
 const
@@ -45149,10 +44862,10 @@ timer =
 createTimer
 (parameters);
 ┌────────────┐
-timer.│progress    │
+timer.│progress │
 timer.│currentTime ├─
 Properties
-timer.│duration    │
+timer.│duration │
 └────────────┘
 Name
 Description
@@ -45223,8 +44936,7 @@ Next
 Timer methods
 Animation
 
-=== DOC: 286_tween-values-keyframes.txt ===
-URL: https://animejs.com/documentation/animation/keyframes/tween-values-keyframes
+--- Animation ---
 Animation
 
 Keyframes
@@ -45364,8 +45076,7 @@ Next
 Keyframes
 Tween parameters keyframes
 
-=== DOC: 287_onsynccomplete.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-callbacks/onsynccomplete
+--- ScrollObserver ---
 ScrollObserver
 
 Callbacks
@@ -45545,8 +45256,7 @@ Next
 onUpdate
 ScrollObserver methods
 
-=== DOC: 288_javascript-object-properties.txt ===
-URL: https://animejs.com/documentation/animation/animatable-properties/javascript-object-properties
+--- Animation ---
 Animation
 
 Animatable properties
@@ -45627,8 +45337,7 @@ Next
 CSS Variables
 HTML Attributes
 
-=== DOC: 289_sync-timelines.txt ===
-URL: https://animejs.com/documentation/timeline/sync-timelines
+--- Timeline ---
 Timeline
 Since 4.0.0
 Sync timelines
@@ -45803,8 +45512,7 @@ Next
 Sync WAAPI animations
 Call functions
 
-=== DOC: 290_refresh.txt ===
-URL: https://animejs.com/documentation/animation/animation-methods/refresh
+--- Animation ---
 Animation
 
 Methods
@@ -45988,8 +45696,7 @@ Next
 stretch()
 Animation properties
 
-=== DOC: 291_modifier.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/modifier
+--- Draggable ---
 Draggable
 
 Axes parameters
@@ -46055,8 +45762,7 @@ Next
 snap
 mapTo
 
-=== DOC: 292_stagger-grid.txt ===
-URL: https://animejs.com/documentation/stagger/stagger-parameters/stagger-grid
+--- Stagger ---
 Stagger
 
 Parameters
@@ -46582,8 +46288,7 @@ Next
 Stagger ease
 Stagger grid axis
 
-=== DOC: 293_cursor.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-settings/cursor
+--- Draggable ---
 Draggable
 
 Settings
@@ -46686,8 +46391,7 @@ Next
 scrollSpeed
 Draggable callbacks
 
-=== DOC: 294_disable.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/disable
+--- Draggable ---
 Draggable
 
 Methods
@@ -46773,8 +46477,7 @@ Next
 Draggable methods
 enable()
 
-=== DOC: 295_add.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/add
+--- Timeline ---
 Timeline
 
 Methods
@@ -46965,8 +46668,7 @@ Next
 Timeline methods
 set()
 
-=== DOC: 296_positions-shorthands.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/positions-shorthands
+--- ScrollObserver ---
 ScrollObserver
 
 Thresholds
@@ -47139,8 +46841,7 @@ Next
 Numeric values
 Relative position values
 
-=== DOC: 297_y.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-axes-parameters/y
+--- Draggable ---
 Draggable
 
 Axes parameters
@@ -47237,8 +46938,7 @@ Next
 x
 snap
 
-=== DOC: 298_draggable-callbacks.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-callbacks
+--- Draggable ---
 Draggable
 Since 4.0.0
 Draggable callbacks
@@ -47290,18 +46990,18 @@ containerEase
 onGrab
 :
 () =>
-{},      │
+{}, │
 │
 onDrag
 :
 () =>
-{},      ├─
+{}, ├─
 Callbaks
 │
 onRelease
 :
 () =>
-{},   │
+{}, │
 └────────────────────────┘
 });
 In this section
@@ -47318,8 +47018,7 @@ Next
 Draggable settings
 onGrab
 
-=== DOC: 299_delay.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/delay
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -47500,8 +47199,7 @@ Next
 defaults
 loop
 
-=== DOC: 300_register-method-function.txt ===
-URL: https://animejs.com/documentation/scope/register-method-function
+--- Scope ---
 Scope
 Since 4.0.0
 Register method function
@@ -47678,8 +47376,7 @@ Next
 Add constructor function
 Scope parameters
 
-=== DOC: 301_playbackease.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings/playbackease
+--- Animation ---
 Animation
 
 Playback settings
@@ -47820,8 +47517,7 @@ Next
 playbackRate
 Animation callbacks
 
-=== DOC: 302_css-variable.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/css-variable
+--- Animation ---
 Animation
 
 Tween value types
@@ -47863,7 +47559,7 @@ waapi.
 animate
 (
 '.square'
-,  {
+, {
 rotate
 :
 'var(--rotation)'
@@ -47884,7 +47580,7 @@ get
 animate
 (
 '.square'
-,  {
+, {
 scale
 :
 cssVar
@@ -47997,8 +47693,7 @@ Next
 Color function value
 Function based value
 
-=== DOC: 303_onupdate.txt ===
-URL: https://animejs.com/documentation/animation/animation-callbacks/onupdate
+--- Animation ---
 Animation
 
 Callbacks
@@ -48131,8 +47826,7 @@ Next
 onBeforeUpdate
 onRender
 
-=== DOC: 304_complete.txt ===
-URL: https://animejs.com/documentation/timer/timer-methods/complete
+--- Timer ---
 Timer
 
 Methods
@@ -48263,8 +47957,7 @@ Next
 resume()
 cancel()
 
-=== DOC: 305_duration-based-keyframes.txt ===
-URL: https://animejs.com/documentation/animation/keyframes/duration-based-keyframes
+--- Animation ---
 Animation
 
 Keyframes
@@ -48444,8 +48137,7 @@ Next
 Tween parameters keyframes
 Percentage based keyframes
 
-=== DOC: 306_draggable-methods.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods
+--- Draggable ---
 Draggable
 Since 4.0.0
 Draggable methods
@@ -48463,11 +48155,11 @@ disable
 () │
 draggable.│
 enable
-()  ├─
+() ├─
 Methods
 draggable.│
 revert
-()  │
+() │
 └──────────┘
 In this section
 disable()
@@ -48485,8 +48177,7 @@ Next
 Draggable callbacks
 disable()
 
-=== DOC: 307_numeric-values.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-thresholds/numeric-values
+--- ScrollObserver ---
 ScrollObserver
 
 Thresholds
@@ -48652,8 +48343,7 @@ Next
 ScrollObserver thresholds
 Positions shorthands
 
-=== DOC: 308_values-staggering.txt ===
-URL: https://animejs.com/documentation/stagger/values-staggering
+--- Stagger ---
 Stagger
 Since 2.0.0
 Values staggering
@@ -48810,8 +48500,7 @@ Next
 Time staggering
 Timeline positions staggering
 
-=== DOC: 309_alternate.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-playback-settings/alternate
+--- Timeline ---
 Timeline
 
 Playback settings
@@ -48985,8 +48674,7 @@ Next
 loopDelay
 reversed
 
-=== DOC: 310_complete.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-methods/complete
+--- Timeline ---
 Timeline
 
 Methods
@@ -49019,7 +48707,7 @@ true
 add
 (
 '.circle'
-,   {
+, {
 x
 :
 '15rem'
@@ -49039,7 +48727,7 @@ x
 add
 (
 '.square'
-,   {
+, {
 x
 :
 '15rem'
@@ -49135,8 +48823,7 @@ Next
 resume()
 cancel()
 
-=== DOC: 311_relative-value.txt ===
-URL: https://animejs.com/documentation/animation/tween-value-types/relative-value
+--- Animation ---
 Animation
 
 Tween value types
@@ -49298,8 +48985,7 @@ Next
 Unit conversion value
 Color value
 
-=== DOC: 312_onbegin.txt ===
-URL: https://animejs.com/documentation/timeline/timeline-callbacks/onbegin
+--- Timeline ---
 Timeline
 
 Callbacks
@@ -49467,8 +49153,7 @@ Next
 Timeline callbacks
 onComplete
 
-=== DOC: 313_smooth-scroll.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-synchronisation-modes/smooth-scroll
+--- ScrollObserver ---
 ScrollObserver
 
 Synchronisation modes
@@ -49622,8 +49307,7 @@ Next
 Playback progress
 Eased scroll
 
-=== DOC: 314_random.txt ===
-URL: https://animejs.com/documentation/utilities/random
+--- Utilities ---
 Utilities
 Since 2.0.0
 random()
@@ -49770,8 +49454,7 @@ Next
 cleanInlineStyles()
 randomPick()
 
-=== DOC: 315_ease.txt ===
-URL: https://animejs.com/documentation/animation/tween-parameters/ease
+--- Animation ---
 Animation
 
 Tween parameters
@@ -50211,8 +49894,7 @@ Next
 duration
 composition
 
-=== DOC: 316_svg.txt ===
-URL: https://animejs.com/documentation/svg
+--- SVG ---
 SVG
 A collection of utility functions to help with SVG morphing, line drawing and motion path animations.
 All SVG utilities functions are available on the
@@ -50232,8 +49914,7 @@ Next
 Stagger
 morphTo()
 
-=== DOC: 317_axis.txt ===
-URL: https://animejs.com/documentation/scroll/scrollobserver-settings/axis
+--- ScrollObserver ---
 ScrollObserver
 
 Settings
@@ -50372,8 +50053,7 @@ Next
 debug
 repeat
 
-=== DOC: 318_finished.txt ===
-URL: https://animejs.com/documentation/web-animation-api/api-differences-with-native-waapi/finished
+--- Web Animation API ---
 Web Animation API
 
 API differences
@@ -50595,14 +50275,13 @@ Next
 easing
 waapi.convertEase()
 
-=== DOC: 319_scrollinview.txt ===
-URL: https://animejs.com/documentation/draggable/draggable-methods/scrollinview
+--- Draggable ---
 Draggable
 
 Methods
 Since 4.0.0
 scrollInView()
-Animate the scroll position of the container if the draggable  position is outside of the
+Animate the scroll position of the container if the draggable position is outside of the
 scroll threshold
 .
 Parameters
@@ -50734,8 +50413,7 @@ Next
 animateInView()
 stop()
 
-=== DOC: 320_animation-playback-settings.txt ===
-URL: https://animejs.com/documentation/animation/animation-playback-settings
+--- Animation ---
 Animation
 Since 1.0.0
 Animation playback settings
@@ -50779,19 +50457,19 @@ ease
 loop
 :
 3
-,          │
+, │
 │
 alternate
 :
 true
-,  ├─
+, ├─
 Playback
 Settings
 │
 autoplay
 :
 false
-,  │
+, │
 └───────────────────┘
 onBegin
 :
@@ -50822,8 +50500,7 @@ Next
 Keyframes
 delay
 
-=== DOC: 321_createmotionpath.txt ===
-URL: https://animejs.com/documentation/svg/createmotionpath
+--- SVG ---
 SVG
 createMotionPath()
 Creates pre-defined
@@ -50976,8 +50653,7 @@ Next
 createDrawable()
 Utilities
 
-=== DOC: 322_resume.txt ===
-URL: https://animejs.com/documentation/engine/engine-methods/resume
+--- Engine ---
 Engine
 
 Methods
@@ -51165,8 +50841,7 @@ Next
 pause()
 Engine properties
 
-=== DOC: 323_timer-callbacks.txt ===
-URL: https://animejs.com/documentation/timer/timer-callbacks
+--- Timer ---
 Timer
 Since 4.0.0
 Timer callbacks
@@ -51198,12 +50873,12 @@ true
 onBegin
 :
 () =>
-{},  │
+{}, │
 │
 onLoop
 :
 () =>
-{},   ├─
+{}, ├─
 Callbacks
 │
 onUpdate
@@ -51224,8 +50899,7 @@ Next
 Timer playback settings
 onBegin
 
-=== DOC: 324_add-animations.txt ===
-URL: https://animejs.com/documentation/timeline/add-animations
+--- Timeline ---
 Timeline
 Since 2.0.0
 Add animations

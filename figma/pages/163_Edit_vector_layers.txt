@@ -1,0 +1,100 @@
+URL: https://help.figma.com/hc/en-us/articles/360039957634-Edit-vector-layers
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+plan
+Anyone with
+can edit
+access to a file can edit vector layers
+Vector edit mode lets you select, adjust, and change the properties of vector layers,
+including
+basic shapes
+and custom vector networks drawn with the
+Pen
+Brush
+, or
+Pencil
+tools
+Enter vector edit mode
+To enter vector edit mode, select one or more vector layers and press
+Enter
+. While in vector edit mode, you’ll be able to see and interact with the existing points and paths of the vector layer. You’ll also have access to the following vector editing tools in the secondary toolbar:
+Lasso
+Shape builder
+Paint
+Bend
+Edit vector networks
+While in vector edit mode, you can interact with the existing points and paths of a vector network:
+Move points:
+To move an existing point, select the
+Move
+tool in the secondary toolbar or press
+. Then, click and drag a point to reposition it on the canvas.
+Add points
+: To add additional points, select the
+Pen
+tool in the toolbar or press
+. Then, click along the vector network’s path to start adding additional points.
+Edit multiple vector layers:
+You can edit multiple vector layers at once by pressing
+Shift
+and clicking on a layer to add it to your current selection.
+Switch vector layers:
+To change to a different vector layer outside your current selection, press the modifier key and click on the layer:
+Mac:
+Command
+Windows:
+Control
+Create curved paths with bézier handles
+The Bend tool allows you to add bézier handles to create a curve in a path.
+To add bézier handles to a vector network:
+Select the
+Bend
+tool in the secondary toolbar.
+Click on a point or path where you want to add a curve.
+Use the bézier handles to adjust the length and slope of the curve.
+Tip
+: We recommend checking out
+The Bezier Game
+to practice using the Pen tool and mastering bézier curves.
+Handle mirroring options
+You can use the Mirroring settings to specify how a set of bézier handles mirror each other:
+No mirroring:
+Each handle can be moved independently
+Mirror angle:
+The unselected handle will mirror the angle of the selected handle
+Mirror angle and length
+: The unselected handle will mirror the angle and length of the selected handle
+Note:
+To move both handles in the same direction, press
+Shift
+and select each handle, then click and drag one handle to adjust its position. The other handle will copy the movement.
+Select points and paths with the Lasso tool
+You can select specific points and paths inside a vector network using the Lasso tool.
+Select the
+Lasso
+tool from the secondary toolbar or press
+Click and drag to draw a shape around the points and paths you want to select. You can then manipulate the selected points, or delete them from the vector network.
+Add fills to closed regions
+You can add fills to any closed regions of a vector network. If there are multiple closed regions within a vector network, you can adjust the fill of each region individually.
+To add a fill to a closed region:
+Select the
+Paint
+tool from the secondary toolbar or press
+Shift
+Hover over the region of the vector network you want to add a fill to. A pattern of diagonal stripes indicates which region is currently selected.
+The cursor will change to a droplet icon with a:
+plus if you can add a fill to that region
+minus if there is an existing fill that you can remove
+Click to add or remove a fill to the shape or region.
+Figma uses a grey fill by default. You can change the fill using the settings in the
+Fill
+section of the right sidebar. Learn more about
+fill properties
+Round the corners of a shape
+You can round individual corners of a vector network using the
+Corner radius
+setting in the right sidebar. If the vector network is an open path, you can use caps to round endpoints. Learn more about
+corner radius and smoothing

@@ -1,0 +1,232 @@
+URL: https://help.figma.com/hc/en-us/articles/4409078832791-Copy-and-paste-objects
+==================================================
+
+Before you start
+Who can use this feature
+Supported on
+any team or plan
+Anyone with
+can view
+access can copy objects in a file
+Anyone with
+can edit
+access can paste objects in a file
+Hands-on learner?
+Check out our
+Copy and paste playground file
+When you copy and paste an object in your canvas, Figma considers your intended placement of the object while keeping you aware of your location and view of the canvas.
+Paste placement
+Pasted objects try to maintain the same
+and
+positions within the destination frame relative to its position in the group or frame it was copied from. If the destination group or frame can't accommodate either of the object's
+position in its previous container, Figma will paste the object in the center of the new frame.
+In the example below, Frame 1 contains a purple ellipse, red star, and green square located at the top left, bottom left, and bottom right corners respectively.
+When we copy the objects from Frame 1 to Frame 2:
+the purple ellipse keeps its original position because both its
+and
+coordinates can be matched in Frame 2
+the red star can only be matched with its original
+coordinate and is centered on the
+axis
+the green square is centered on both axes because neither its original coordinates can be accommodated in Frame 2.
+When we copy the objects from Frame 1 to Frame 3 below:
+the purple ellipse keeps its original position because both its
+and
+coordinates can be matched in Frame 3
+the red star keeps its original position because both its
+and
+coordinates can be matched in Frame 3
+the green square is centered along the
+axis because it can only be matched to its
+coordinate in Frame 1.
+Canvas view
+If you have a frame selected while pasting a copied object, Figma considers your current view of the canvas to determine where to paste the object and whether to adjust your viewing area.
+If your current view of the canvas is far from the selected frame, Figma will paste the object in the center of your current view to avoid moving you too far from your intended paste area or disorienting you within the canvas.
+If the selected frame is just outside your current view, Figma will paste the object into the selected frame and adjust your viewing area slightly to bring the pasted object into view.
+If the object being pasted is larger than your current view of the canvas, Figma will adjust your view's zoom level so you can see the full pasted object.
+If the object is being pasted into a selected frame larger than your view of the canvas, Figma will place it inside the frame in a centered position to keep you within your viewing area.
+Note:
+Figma considers an area 50% larger than your current view of the canvas to determine whether to adjust your view after pasting an object. If your pasted object is placed within that area, Figma will adjust your view. Otherwise, Figma will paste your object on the canvas, centered to your current view, and adjust your zoom level to depending on the object's size.
+Copy and paste
+You can copy an object and paste in the same page, a different page, or a different file.
+Select the layer or object.
+Copy using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Navigate to where you want to paste the object.
+Paste using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Duplicate
+Duplicate an object is a shorthand for copy and paste if you want to duplicate an object on the same page.
+Click and drag
+You can click and drag a layer while holding this keyboard shortcut to duplicate it:
+Mac:
+⌥ Option
+Windows:
+Alt
+Keyboard shortcut
+You can duplicate a selected layer by using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+⌃ Control
+If you are duplicating a top-level frame, the new frame will be placed to the right of the original. Otherwise, new objects are be placed on top of the original.
+Tip:
+You can combine both duplicate shortcuts to speed up your workflow!
+If you use click and drag to duplicate, then use this keyboard shortcut to continue duplicating, Figma will continue the same distance between objects as you create the duplicate objects.
+If you duplicate an object, rotate the new object, then continue duplicating the object using this keyboard shortcut, the new objects will continue rotating at the degree amount of the original duplicate.
+Paste to replace
+Use the
+Paste to replace
+function to remove a selected object from your canvas or frame and replace it with the object copied to your clipboard. This is useful when you want to replace placeholder items in a frame or populate low fidelity wireframes with assets.
+Select and copy an object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Select the objects you'd like to replace with the copied object.
+Right-click your selection and click
+Paste to replace
+from the menu. You can also use the keyboard shortcut:
+Mac:
+⇧ Shift
+⌘ Command
+Windows:
+Control
+Shift
+Note:
+The pasted object will adopt the constraints of the object it replaced.
+Learn more about constraints →
+Paste over selection
+The
+Paste over selection
+option will place a copied object on top of a selected frame, not inside it. The pasted object will match the
+position of the selected object.
+Select and copy an object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Select the frame you want to paste the copied object on top of.
+Click
+to open the file menu >
+Edit
+Paste over selection
+. You can also use the keyboard shortcut:
+Mac:
+⌘ Command
+⇧ Shift
+Windows:
+Control
+Shift
+Multi-paste
+Multi-paste is useful when you want to add one or more objects to multiple frames at the same time. For example, you can add a navigation bar to multiple mobile wireframes, or a footer to slides in a presentation deck.
+Paste one object
+To copy one object and paste it to multiple frames:
+Select and copy an object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Select the frames you want to paste your copied object to.
+Paste the object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Paste multiple objects
+You can copy multiple objects and paste them to one or more frames. For example, you can copy different background styles and paste them across multiple slides so patterns rotate throughout your presentation.
+Select multiple objects. These can be objects from within the same frame, across multiple frames, or a combination of both.
+Learn how to select multiple objects →
+Copy the objects using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Select the frames you want to paste your copied objects to.
+Paste the object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Objects are pasted in the order that they are copied and will repeat if there are additional frames.
+If the number of frames copied from is more than the number of frames you paste to, the extra objects are pasted into the last frame.
+Paste here
+The
+Paste here
+option lets you choose the exact placement for a pasted object. The object is placed in the location of your cursor on the canvas or in a frame.
+Select and copy an object using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Position your cursor where you want the top left of your copied object to be placed.
+Right-click and select
+Paste here
+Note:
+When you use
+Paste here
+with an auto layout frame, the object will be pasted on top of the frame, not inside it.
+Paste to clipped frames
+Copy pasting objects that are inside a frame, but visually outside the frame bounds will honor the outside position whether the destination frame is clipped or not.
+This is handy for placing objects outside of the frame that will be animated into or out of a frame in a prototype with
+smart animate
+Copy as PNG
+You can copy a selected object as a PNG image to your clipboard to paste inside Figma or other applications. Images created using
+Copy as PNG
+will default to a 2× size image output.
+Select an object.
+Right-click the object and select
+Copy as PNG
+. You can also use the keyboard shortcut:
+Mac:
+⌘ Command
+⇧Shift
+Windows:
+Control
+Shift
+Paste the image using the keyboard shortcut:
+Mac:
+⌘ Command
+⇧Shift
+Windows:
+Control
+Shift
+Copy as code
+You can copy a selected object as code to use in other applications during the development process.
+Select an object.
+Right-click the object and hover over
+Copy as code
+. You can also use the keyboard shortcut:
+Mac:
+⌘ Command
+⇧Shift
+Windows:
+Control
+Shift
+Select
+CSS, iOS
+Android
+from the list of options.
+Copy and paste image fills
+Images in Figma behave as fills that can be layered and applied to shapes objects. You can select an image fill on a shape and copy paste it onto another shape.
+In the
+Fill
+section of the right sidebar, select the area just to the left of the image preview.
+Copy the fill using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Select the shape you want to add the copied fill to.
+Paste the copied image using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Control
+Learn more about how copy and paste works in our playground file →

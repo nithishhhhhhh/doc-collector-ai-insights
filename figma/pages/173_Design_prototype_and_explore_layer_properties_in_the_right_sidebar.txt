@@ -1,0 +1,126 @@
+URL: https://help.figma.com/hc/en-us/articles/360039832014-Design-prototype-and-explore-layer-properties-in-the-right-sidebar
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+all plans
+Requires
+can edit
+access to a file to adjust layers and prototype from the properties panel
+Requires
+can view
+access to a file to comment, explore file and layer properties, and export layers from the properties panel
+In Figma Design, a file has three main interface elements that are detached from the canvas:
+The
+navigation panel
+on the left side of the screen
+The
+toolbar
+at the bottom of the screen
+The properties panel on the right side of the screen
+In this article, we're going to explore the properties panel.
+How the properties panel changes based on your access to a file
+The properties panel has different capabilities depending on your level of access to a file, and your
+seat type
+Edit access
+: Edit the design properties of layers, and add prototype flows and interactions
+View-only access
+: View and search comments, inspect layer properties and code output, and export
+Use the properties panel with edit access
+There are two tabs available in the properties panel when you have edit access to a file:
+Design
+and
+Prototype
+Tip
+: You can add labels to the properties panel to make it clearer what each property does. To turn on labels, click the
+dropdown menu next to the 100% zoom percentage in the properties panel and select
+Property labels
+Design
+The
+Design
+tab lets you view, add, remove or change the properties of objects within your design.
+If nothing is selected on the canvas, you'll be able to do the following from the
+Design
+tab:
+Access styles and variables that are local to the file
+Update the background color of the canvas
+Export the entire page
+When you select a layer, you can access many different property controls for editing the layer. For example:
+Alignment, rotation, and position
+Frame size and orientation
+Corner radius
+Constraints
+Layout guides
+Component properties
+Instance
+Auto layout
+Blend Modes
+Text
+Fill
+Stroke
+Effects
+Export settings
+Prototype
+Use the
+Prototype
+tab to start building prototypes. Select any object to begin, then:
+Add a
+flow starting point
+: A flow is a path users take through the network of connected frames that make up your prototype. Add a starting point to choose the first frame of the journey.
+Add an
+interaction
+: Open up the
+Interaction Details
+modal, where you can define the trigger, action, and any animations for the interaction.
+Define
+scroll behavior
+: Select how the prototype responds to scrolling.
+Show
+prototype settings
+: Allows you to adjust the device and background of your prototype.
+Tip
+: You can also add interactions directly on the canvas by selecting the
+Prototype
+tab, then clicking and dragging connections between objects.
+Learn more about prototyping in Figma →
+Use the properties panel with view-only access
+People with
+can view
+access to a file, or who have a View seat on a paid plan, have two tabs in the properties panel:
+Comment
+and
+Properties
+View-only access is great for people who don't need to edit designs or for developers who need to access designs, but don't need the full suite of Dev Mode features. People with this access to a file can collaborate on designs, view design properties, copy basic code, and export assets.
+Comment
+Select
+Comment
+in the right sidebar to add new comments or view existing ones. You can use comments to add or respond to feedback, collaborate, and iterate faster—all from the original design file.
+From the
+Comment
+tab, you can see all the existing comments in a file. Or, find a particular comment or set of comments within a file:
+Type a keyword in the Search field to find a particular comment.
+Use the Filter to view comments by when they were posted or see only the ones you haven’t read yet. Here, you can filter to only view a certain set of comments.
+Learn more about
+adding comments to a Figma Design file
+viewing and manage comments.
+Properties
+The
+Properties
+tab of the right sidebar lets you inspect particular layers on the canvas, as well as export designs.
+To begin, select a layer on the canvas. You can do this by either selecting the element on the canvas itself or by selecting it from the
+Layers
+panel on the left sidebar. You can select any type of layer, such as a shape, text, group, or frame.
+Under
+Properties
+, you’ll see the name of the selected layer and details about it, such as its layout and colors.
+Right-click the layer on the canvas to:
+Copy the layer
+Copy/paste as code (CSS, iOS, or Android), SVG, PNG, copy the link, or copy its properties
+Select a different layer within the layer you selected
+Looking to measure distances between objects? You can use keyboard shortcuts to quickly access spacing and padding information.
+Learn how to add measurement guidelines →
+At the bottom of the
+Properties
+tab, you can add an export configuration to export designs in a variety of file formats and sizes. Exporting helps you share content with others, move content between tools, and save copies of your designs outside Figma.
+Learn how to export content from Figma →

@@ -1,0 +1,30 @@
+URL: https://help.figma.com/hc/en-us/articles/24244814883735-Adjust-tone-using-Figma-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in FigJam and Figma Slides
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+You can use Figma AI to adjust the tone of any text within your file. Quickly rephrase, condense, or expand content to reduce manual rewriting and keep your tone consistent.
+Use Adjust tone
+To use Adjust tone in FigJam or Figma Slides:
+Select a text layer.
+From the bottom toolbar, click
+Actions > Rewrite this
+On the prompt box, click
+Adjust tone
+Drag the tone dial inside the axis or choose a tone preset: Executive, Technical, Basic, or Educational. Figma AI will attempt to detect the language you’re using and adjust the text accordingly.
+If you aren’t happy with the adjusted text, click
+Try again
+to rewrite the text again. To undo the changes, click
+Reset
+in the adjust tone axis.

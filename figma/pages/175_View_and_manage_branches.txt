@@ -1,0 +1,113 @@
+URL: https://help.figma.com/hc/en-us/articles/5668839659415-View-and-manage-branches
+==================================================
+
+Who can use this feature
+Only people with a
+paid seat
+in an organization or workspace can access the branching feature
+Anyone with
+can view
+can edit
+access to the main file can
+view branches
+This article covers one step in the branching process:
+Create
+Share
+Update
+Request
+Review
+Merge
+Manage
+View and manage branches of a Figma Design file from the branches modal. You can identify design files with branches using the
+icon.
+View branches
+You can view a file's branches from the main file, a branch, or from the file browser.
+From a file
+Click the
+next to the file/branch name in the toolbar.
+Select
+See all branches
+to open the branches modal.
+If you have
+can edit
+access to the main file, you can take further action on branches from the file name menu:
+Select
+Duplicate as new file
+to create a new file from the branch. This will create a separate file, so you won't be able to apply any changes from that file back to the main file.
+Select
+Rename
+to change the name of the branch (from branch only)
+Select
+Archive
+to archive the current branch without merging (from branch only)
+From the file browser
+If a file has branches, you'll see an icon on the top-left of the file tile, and the total number of branches underneath the file name.
+Click to view the main file
+Use the dropdown to select one of the branches
+Manage branches
+View all branches in the
+Branches
+modal. You'll see three tabs for
+Active
+and
+Archived
+branches, as well as branches you created (
+Yours
+). The Archived tab includes both merged and archived branches.
+If you have can edit access to the main file, you can do the following from the
+Branches
+modal:
+Open a branch
+Merge a branch
+Archive a branch
+Copy link to branch
+Rename a branch
+Restore an archived branch
+Open branch
+You can open, view, and explore any active or archived branches. You can view any pages, comments, and a full version history for that branch.
+Find the branch you want to open. You can find merged branches in the
+Archived
+tab.
+Hover over the branch and click
+Open
+. Figma will open that branch in the editor.
+Archive branch
+Archive any historic, abandoned, or incomplete branches.
+Find the branch you want to archive.
+Click
+to open the menu.
+Select
+Archive
+to move the branch to the
+Archived
+tab.
+Copy link to branch
+Copy a link to the branch to share the file URL with a co-worker or collaborator.
+Open the branches modal.
+Next to the branch you want to share, click
+to open the menu.
+Select
+Copy link
+to add the URL for the branch to your clipboard.
+Rename branch
+Open the branches modal.
+Next to the branch you want to share, click
+to open the menu.
+Select
+Rename
+from the options.
+The branch name will now be an editable field. Enter the new name in the field provided.
+Press
+Enter
+or click outside the field to apply your changes.
+Restore an archived branch
+Restore an archived branch. This allows you to continue to edit the file, as well as merge your updates into the main file. It's not possible to restore a merged branch.
+Select the
+Archived
+tab.
+Find the archived branch.
+Click
+to open the menu.
+Select
+Restore
+to continue to edit the branch.

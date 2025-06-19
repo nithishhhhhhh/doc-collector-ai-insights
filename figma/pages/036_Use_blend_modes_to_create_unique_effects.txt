@@ -1,0 +1,75 @@
+URL: https://help.figma.com/hc/en-us/articles/360040667874-Use-blend-modes-to-create-unique-effects
+==================================================
+
+Before you Start
+Who can use this feature
+Supported on
+any team or plan.
+Anyone with
+edit access
+to a file can add or adjust blend modes
+Blend modes allow you to define how you want two layers to blend together. This involves taking the pixels from each layer and applying calculations to them.
+Blend modes allow you to adjust aspects of an image, like the background color. Or, create interesting overlays and textures.
+You can adjust the blend mode of an entire layer, or an individual fill.
+A frame or section with a blend mode applied will blend with layers nested inside of it. For other layers, a layer with a blend mode applied will affect any layers behind it.
+Blend modes
+There are 19 blend modes available in Figma.
+Default
+Pass through (layers only)
+Normal
+Darker
+Darken
+Multiply
+Plus darker
+Color burn
+Lighter
+Light
+Screen
+Plus lighter
+Color dodge
+Contrast
+Overlay
+Soft light
+Hard light
+Comparative
+Difference
+Exclusion
+Color
+Hue
+Saturation
+Color
+Luminosity
+Pass through
+is an additional blend mode available for layers only.
+Pass through
+is the default for layers, while
+Normal
+is the default for fills.
+Apply blend mode to a fill
+With a layer selected, open the
+color picker
+from the
+Fill
+section of the right sidebar.
+Click the
+Blend mode
+icon in the top-right corner of the color picker.
+Select the desired blend mode to apply.
+You can apply one blend mode per fill. You can create multiple fills per layer and add blend mode to each fill.
+Learn how to create multiple fills →
+Note:
+Blend modes can’t be added to fills for color variables, or layers with styles or variables applied. Instead, apply a blend mode to a layer or to a color style.
+Tip:
+Preview blend modes on the canvas by hovering over each option in the menu before selecting it.
+Apply blend mode to a layer
+You can apply one blend mode to each layer. To apply a blend mode to an entire layer and any nested layers:
+Select the layer you want to apply the blend mode to.
+In the
+Appearance
+section of the right sidebar, click
+Blend mode
+. This will be set to
+Pass through
+by default.
+Select the desired blend mode to apply. Once applied to a layer, the blend mode button in the right sidebar is highlighted in blue.
+To remove a blend mode from a layer, click the blend mode button in the right sidebar again.

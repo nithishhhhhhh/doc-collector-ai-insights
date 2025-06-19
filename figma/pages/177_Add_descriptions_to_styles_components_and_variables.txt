@@ -1,0 +1,167 @@
+URL: https://help.figma.com/hc/en-us/articles/7938814091287-Add-descriptions-to-styles-components-and-variables
+==================================================
+
+Documentation makes sure the people using your design system have the right information and context. It can help guide proper application, variant and state usage, and accessibility and contrast requirements.
+Documentation is not just for designers, it’s also important to consider other people who will be using your design system. This includes the developers who will be implementing your designs.
+At the moment, there are a few ways to incorporate design system documentation in your Figma libraries:
+Give
+styles
+components
+, and
+variables
+meaningful names
+Add short descriptions to styles, components, and variables
+Add links to external documentation to components
+Add descriptions to any library updates
+Tip!
+Looking for more guidance around style and component libraries? Check out these best practice guides:
+Components, styles, and shared libraries
+Component architecture in Figma
+Components
+You can attach a short
+description
+and a
+link
+to your components. This allows you to better communicate a component’s intended use.
+Figma will look at component descriptions when returning search results. So you can use descriptions to tag components with relevant keywords. It won’t be possible to capture every detail in this description field, so have a think about what information will be most important.
+If you have design system documentation in an external tool, you can add a link to that documentation.
+Note:
+If you combine existing components as a component set, Figma will apply any existing links and descriptions to the individual variants. You can view and edit this description when you have the variant selected.
+Add descriptions and links
+Add a description and any links to your main components. You’ll need edit access to the library file to add or update descriptions. You can add descriptions and links to:
+Main components, including those with component properties
+Entire component sets and individual variants in a component set
+Open the file where your component library lives. If you have an instance selected, you can select
+Go to main component in library
+to view the component in the library file.
+Select main component, component set or a specific variant within the component set.
+Click
+to open the
+Component configuration
+details:
+Add a
+description
+for this component. Figma will look at this description when searching for components, so you can use this field to tag relevant keywords.
+Add a
+link
+to external documentation, or another file with further explanations or guidance.
+Click
+or anywhere outside the modal to apply changes.
+Figma will show descriptions and links in common style and component locations in files.
+View component descriptions and links ↓
+Styles
+There are a few tools you can use to help guide people toward the right styles for their designs.
+You can use the slash or dash naming process to organize your styles into groups. We recommend giving your
+styles
+names that are relevant to their use case.
+You can also add descriptions to styles. Descriptions allow you to show extra information about a style’s intended usage. You can
+view a style’s description
+when you hover over the style in the style picker.
+Add style descriptions
+Add a description to the style definition in the library file. You need to
+create a style
+before you can add a description to it.
+Click an empty spot in the canvas.
+In the
+Design
+panel, view any style definitions in the file.
+Hover over the style and click
+when it appears:
+In the
+Edit style
+menu add a
+Description
+using the field.
+Click outside the menu or use the
+to close the menu.
+Tip!
+You can find and open the style definition from any layer that uses that style:
+Select a layer that supports that style.
+Click
+to open the style picker.
+Right-click the style and select
+Edit style
+Variables
+You can use the slash naming process to organize your variables into groups. We recommend giving your
+variables
+names that are relevant to their use case.
+You can also add descriptions to variables. Descriptions allow you to show extra information about a variable's intended usage.
+From the file where the variable lives, click an empty spot on the canvas to deselect any objects.
+From the right sidebar, find the
+Local variables
+section.
+Click
+Open variables.
+Find the variable from the Variables modal. Hover over the variable row, right-click, and select
+Edit variable
+Enter your description into the description box.
+Libraries
+You can also add descriptions when publishing updates to your library. These descriptions show in both the library modal and in the file’s version history and are great for communicating high-level changes to your library.
+We recommend using these descriptions in addition to component and style descriptions. Style and component descriptions are visible to anyone who interacts with the style or description. Library descriptions are only available at a file and library level, so have much less visibility.
+Figma will show a notification in any files with styles and components from that library. You can view a list of updated styles and components and the description (if included).
+Review and accept library updates →
+View descriptions and documentation
+You can view descriptions and links when interacting with styles and components in these places:
+Instance menu in right sidebar
+Assets panel in left sidebar
+Style picker from properties in the right sidebar
+Inspect panel in Dev Mode
+Properties panel (if you have view only access to the file)
+Instance menu in right sidebar
+View component details in the instance section of the
+Design
+panel in the right sidebar. You need
+edit
+access to the file to access the
+Design
+panel.
+Figma shows a preview of the description underneath the component / instance name.
+Click
+Show more
+to view the full description and link in the documentation window. Click outside of the modal or use the
+button to close.
+Collaborators can also click
+to view the original library file. This is great if you have additional guidance for how to use components.
+Assets panel
+You can view component names and descriptions in the
+Assets
+panel. Figma will also use component descriptions when you search for a component.
+Hover over the component in the
+Assets
+panel of the left sidebar to view the component’s details. You can see both the component
+name
+and
+description
+from list or grid view.
+You need to have
+can edit
+access to a file to open the
+Assets
+panel. You’ll only need view access to the library to use components from that library.
+Libraries picker
+View the name and description of a style or variable from the
+Libraries
+picker.
+From the Fill or Stroke section of the right sidebar, click
+Apply styles and variables
+to open the
+Libraries
+picker.
+Hover over a style or variable to view its description in a tooltip:
+Dev Mode
+If you have access to
+Dev Mode
+, you can view style and components descriptions in the
+Inspect
+panel. View component descriptions in the
+Component
+section, underneath the component preview.
+Properties panel (view only access)
+If you have view access to the file, and don't have access to Dev Mode, you can view component descriptions in the
+Properties
+panel of the right sidebar.
+View the name of the component or instance. If the component lives in another file, you’ll also see the
+Go to main component in library
+icon to view the component in the library file.
+View the description. If the component or instance is a variant, you’ll see descriptions for both the component set and the variant.
+View other documentation and properties attached to the component.

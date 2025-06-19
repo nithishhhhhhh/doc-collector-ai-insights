@@ -1,0 +1,231 @@
+URL: https://help.figma.com/hc/en-us/categories/360002042553-Figma-Design
+==================================================
+
+Tour the interface
+Create designs
+Figma Draw
+Build design systems
+Dev Mode
+Create prototypes
+Import and export
+Work together in files
+Tour the interface
+Explore
+Use AI tools in Figma Design
+Explore design files
+Change the background color of the canvas
+Access design tools from the toolbar
+Navigating UI3: Figma's new UI
+View layers and pages in the left sidebar
+Design, prototype, and explore layer properties in the right sidebar
+File utilities
+Use the actions menu in Figma Design
+Keyboard shortcuts in Figma
+Set small and big nudge values
+Adjust your zoom and view options
+Set custom thumbnails for files
+Add guides to the canvas or frames
+View layer outlines in Figma Design
+Find and replace in Figma
+Create designs
+Create and edit layers
+Frames in Figma Design
+Sketch on the canvas with the pencil tool
+Shape tools
+The difference between frames and groups
+Arc tool: create arcs, semi-circles, and rings
+Masks
+Work with layers
+Edit objects on the canvas in bulk
+Identify matching objects
+Parent, child, and sibling relationships
+Select layers and objects
+Adjust alignment, rotation, position, and dimensions
+Copy and paste objects
+Scale layers while maintaining proportions
+Organize your canvas with sections
+Measure distances between layers
+Lock and unlock layers
+Toggle visibility to hide layers
+Rename Layers
+Copy and paste properties between layers
+Arrange layers with Smart selection
+Apply constraints to define how layers resize
+Create layout guides
+Combine layout guides and constraints
+Design with vector tools
+Create custom shapes with the shape builder tool
+Vector networks
+Edit vector layers
+Boolean operations
+Flatten layers
+Convert text to vector paths
+Text and typography
+Guide to text in Figma Design
+Explore text properties
+Add a font to Figma Design
+Browse and apply fonts
+Create and apply text styles
+Adjust text dimensions and resizing
+Add links to text
+Add emojis and smart symbols to text
+Create bulleted and numbered lists
+Use icon fonts
+Use OpenType features
+Use variable fonts
+Add text in Chinese, Japanese, and Korean
+Add right-to-left text
+Color, gradients, and images
+Use patterns as a fill or stroke
+Sample colors with the eyedropper tool
+Paints in Figma
+Color models in Figma Design
+Add fills to text and shape layers
+Upload an image as a fill
+Add images and videos to design files
+Apply paints with the color picker
+Add images and videos in bulk
+Use blend modes to create unique effects
+Paste images in the canvas
+View and adjust colors in a mixed selection
+Crop an image
+Adjust the properties of an image
+Additional properties
+Apply and adjust stroke properties
+Apply effects to layers
+Adjust corner radius and smoothing
+Use auto layout
+Create multi-dimensional auto layout flows
+Use the horizontal and vertical flows in auto layout
+Use the grid auto layout flow
+Guide to auto layout
+Toggle auto layout on designs
+Figma Draw
+Explore Figma Draw
+Draw with illustration tools
+Create patterns with transforms
+Build design systems
+Styles
+Styles in Figma Design
+Create color, text, effect, and layout guide styles
+Manage and share styles
+Components
+Guide to components in Figma
+Create components to reuse in designs
+Create and use variants
+Create interactive components with variants
+Explore component properties
+Name and organize components
+Variables
+The difference between variables and styles
+Guide to variables in Figma
+Overview of variables, collections, and modes
+Create and manage variables and collections
+Modes for variables
+Apply variables to designs
+Create and share libraries
+Guide to libraries in Figma
+Add descriptions to styles, components, and variables
+Publish a library
+Move published components
+Edit main components
+Hide styles, components, and variables when publishing
+Unpublish a library
+Use libraries
+Get started with Apple's UI kit
+Start designing with UI kits
+Apply styles to layers and objects
+Review and accept library updates
+Swap style and component libraries
+Create and insert component instances
+Detach an instance from the component
+Apply changes to instances
+Edit instances with component properties
+Manage your libraries
+Add or remove a library from a design file
+Enable access to libraries in your drafts
+Enable a library for a team
+Swap components and instances
+Remove your access to a library
+Dev Mode
+Tour the interface
+Guide to Dev Mode
+Navigate designs in Dev Mode
+Dev Mode for admins
+Inspect designs
+Guide to inspecting
+Compare changes in Dev Mode
+Add measurements and annotate designs
+Variables in Dev Mode
+Turn designs to code
+Guide to the Dev Mode MCP Server
+Code Connect
+Use code snippets in Dev Mode
+Link Dev resources to layers in Dev Mode
+Figma for VS Code
+Dev Mode across your organization
+Dev Mode statuses and notifications
+Dev Mode focus view
+Dev Mode ready for dev view
+Manage Dev Mode settings for an organization
+Create prototypes
+Guides
+Guide to prototyping in Figma
+State management for prototypes
+Use animated GIFs in prototypes
+Use videos in prototypes
+Prototype triggers
+Prototype actions
+Prototype animations
+Prototype easing and spring animations
+Create prototypes
+Use sections in prototyping
+Connect your prototype
+Add prototype connections from main components
+Create and manage prototype flows
+Create overlays in your prototypes
+Preserve scroll position in prototypes
+Prototype scroll and overflow behavior
+Advanced prototyping
+Advanced prototyping examples
+Smart animate layers between frames
+Variable modes in prototypes
+Multiple actions and conditionals
+Use expressions in prototypes
+Use variables in prototypes
+View prototypes
+Present prototypes offline
+Set prototype device and background settings
+View prototype connections
+Play your prototypes
+View prototypes on a mobile device
+Accessible prototypes in Figma
+Import and export
+Guide to imports in Figma Design
+Import files to the file browser
+Import Sketch files
+Copy assets between design tools
+Export from Figma Design
+Export formats and settings
+Work together in files
+Comments
+Guide to comments in Figma
+Add comments to files
+View and manage comments
+Move or edit comments
+Comment on prototypes
+Manage email notifications for comments on files
+Multiplayer tools
+See viewer history for your files
+Present to collaborators using spotlight
+Use cursor chat in Figma Design
+Optimize design files for developer handoff
+Branching and merging
+Guide to branching
+Share a branch
+Get updates from main files
+View and manage branches
+Request a branch review
+Review branch changes
+Merge branch into main file
+Incomplete merges or updates

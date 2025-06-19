@@ -1,0 +1,44 @@
+URL: https://help.figma.com/hc/en-us/articles/360041003114-Import-files-to-the-file-browser
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+any plan
+Anyone can import files into their drafts
+Starter and Professional plans
+: Anyone with
+can edit
+access to a project can import files to the project
+Organization and Enterprise plans:
+Anyone with a paid seat and
+can edit
+access to a project can import files to the project
+You can import the following file types using the file browser:
+Sketch files
+(.sketch)
+Figma Design files (.fig)
+FigJam files (.jam)
+Figma Slides files (.deck)
+PNG and JPG files
+PowerPoint files
+(.pptx)
+Tip:
+You can also import static image formats, GIF, and video file formats directly into a Figma Design file. Learn more about adding
+images and video to design files
+Import files to the file browser
+From the
+file browser
+, open the
+Create new
+dropdown menu and select
+Import
+Click
+Import from computer
+Select the files you want to import and click
+Open
+. Depending on the file size, the import process may take a few seconds.
+Click
+Done
+Note:
+You can also drag and drop files from your computer to import them to the file browser.

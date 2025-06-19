@@ -1,0 +1,87 @@
+URL: https://help.figma.com/hc/en-us/articles/5665728006423-Get-updates-from-main-files
+==================================================
+
+Who can use this feature
+Only people with a
+paid seat
+in an organization or workspace can access the branching feature
+Anyone with
+can edit
+access to a branch can receive and apply updates from the main file
+This article covers one step in the branching process:
+Create
+Share
+Update
+Request
+Review
+Merge
+Manage
+If changes are made in the main file, Figma will notify any branches that updates are available. If you have edit access to the branch, you can review and apply those updates to your branch.
+It's not possible to choose which changes from the main file you want to apply. You'll need to receive all updates from the main file.
+If there are changes to layers you are editing in your branch, you may need to resolve conflicts. You can do this as soon as new changes are available, or when you merge the branch.
+Caution
+: If you have an active memory limit banner in your file, you can't review and merge changes. Figma will disable the
+Review and merge changes
+setting. To get updates from the main file or merge a branch, you need to
+reduce your memory usage
+Review and apply changes
+When you accept updates, Figma applies any changes to existing layers, components, or styles in your branch. If new assets were created in the main file, Figma will also add these to your branch. If you've created new assets in your branch, these changes won't have any affect on those assets.
+Expand the
+menu next to the file/branch name in the left sidebar.
+Select
+Update from main...
+to preview any updates.
+View a list of items that have been
+, or
+. You can see a preview of the latest versions, but it's not a before and after of what's changed.
+Select
+Apply changes
+to apply all updates to your branch.
+Resolve conflicts
+If other collaborators have been continuing to make changes to the main file, you may have conflicting changes. This means one or more of the elements you've made changes to has been updated in the main file.
+Figma will let you know if there are any conflicting changes from the
+Update from main file
+modal.
+Click
+Resolve conflicts
+to view any conflicts.
+View a list of conflicts in the left sidebar.
+Select an option from the list to review the conflicting changes side-by-side. The version from the main file (source) is on the left and the branch on the right.
+Select which version you would like to use. Figma will add a badge next to the conflict to show whether you selected the
+main
+branch
+Repeat the process for the remaining conflicts. You'll need to choose a version for every conflict.
+To quickly select the same option for every conflict, use the
+Resolve all
+menu. Choose from:
+Pick main file
+to use the latest changes from the main file
+Pick branch
+to keep the changes in your branch.
+When you have a selection for every conflict, click
+Next
+to move to the next step.
+You can now preview any other updates from the main file, if there are any. Click
+Apply changes
+to apply those updates.
+Figma will apply updates from the main file return you to the branch. You can then continue to edit your branch. If you're receiving updates as part of a
+branch merge
+, you can complete the rest of the process.
+Reverse or undo updates
+If you want to undo or reverse a branch update, you can restore a previous version of the branch. If you notice something doesn’t look right after a merge or update, read our
+Incomplete updates and merges
+article.
+From the branch, click the
+next to the file/branch name in the left sidebar.
+Select
+Show version history
+to open version history in the right sidebar.
+Select a version before the
+update from the main file.
+Right-click the version or click the
+and select
+Restore this version
+Figma will add two autosave checkpoints to the file's version history. A checkpoint that saves the current version. This is an autosaved version with a timestamp that matches the current time. A checkpoint at the same timestamp for the version you just restored.
+Click
+Done
+in the toolbar to exit version history.

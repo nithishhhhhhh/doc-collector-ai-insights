@@ -1,0 +1,193 @@
+URL: https://help.figma.com/hc/en-us/articles/360041065034-Adjust-your-zoom-and-view-options
+==================================================
+
+Who can use this feature
+Available on
+all plans
+You can customize your preferences for design files the
+Zoom/view options
+menu. Adjust your zoom settings, or toggle on other view options like layout guides or multiplayer cursors.
+Access the
+Zoom/view options
+menu from the right sidebar.
+Canvas zoom settings
+There are a number of ways to adjust canvas zoom in design files. Any changes you make to zoom only apply in the current tab for that file.
+When you first open a file, the default zoom level will be set to
+Zoom to fit
+. This focuses the viewport so you can see everything on the current page.
+Note:
+These zoom settings only apply to layers and objects on the canvas. If you're using the desktop app, you can
+adjust the scale of Figma's interface
+, which includes the toolbar, and the left and right sidebars. If you're using Figma in a browser, you can use your browser's zoom settings to adjust the size of the interface.
+Zoom percentages
+View the current zoom percentage in the top-right corner of the right sidebar.
+Click to open the
+Zoom/view options
+menu.
+Figma focuses on the current percentage field. Start typing to enter a specific percentage.
+Select one of the default zoom percentages:
+Zoom to 50%
+Zoom to 100%
+Zoom to 200%
+Keyboard shortcuts
+Zoom in:
+Shift
+Zoom out:
+Shift
+Zoom to fit:
+Shift
+Zoom to selection:
+Shift
+Tip:
+If you are opening a Figma URL that links to a specific node, the canvas will be zoomed to fit that specific node.
+Mouse and trackpad gestures
+You can also use your mouse or trackpad to zoom the canvas.
+On both
+Mac and Windows trackpads
+, you can use the following gestures to adjust zoom:
+Stretch two fingers apart to zoom in
+Pinch two fingers together to zoom out
+On an
+Apple Magic Mouse
+Hold down ⌘ Command (Mac) or Ctrl (Windows) and scroll up and down
+Double-tap with one finger to zoom in and back out
+another type of mouse
+Hold down
+⌘ Command
+(Mac) or
+Ctrl
+(Windows) and scroll the mouse wheel up to zoom in, or down to zoom out.
+Pixel preview
+By default, vectors in Figma are rendered as resolution-independent. This means that there aren't fixed resolutions for the paths you create in the canvas.
+To support pixel-precise editing, you can enable pixel preview. This allows you to preview vector objects in their rasterized format.
+You can view pixel preview in either 1x or 2x mode. This allows you to preview how objects will appear on both low and high resolution displays.
+To enable Pixel preview:
+Open the
+Zoom/view options
+menu.
+Hover over the
+Pixel preview
+option to open the menu.
+Select either
+from the options.
+A checkmark will appear next to the setting in the menu. You will also see a notification at the bottom of your screen to confirm Pixel preview is enabled.
+To disable pixel preview:
+Select the
+Zoom/view options
+menu in the toolbar.
+Hover over the
+Pixel preview
+option.
+Select
+Disabled
+from the options.
+Tip:
+You can also use the shortcut to toggle pixel preview off and on:
+Mac:
+⌃Control
+Windows:
+Control
+Alt
+Pixel grid
+For greater accuracy when placing and aligning objects, you can enable the
+pixel grid
+. Each square in the pixel grid represents a single pixel, when exported at 1x resolution.
+Open the
+Zoom/view options
+menu.
+If there is no check next to it: select
+Pixel grid
+to toggle this on.
+If there is already a check next to
+Pixel grid
+, you can click it again to toggle it off.
+You can also use the keyboard shortcuts to toggle the pixel grid off and on:
+Mac:
+⌘Command
+Windows:
+Ctrl
+Snap to pixel grid
+The pixel grid is only visible at zoom levels of 400% or higher. If you want to use the pixel grid while zoomed out, the
+Snap to pixel grid
+setting is a great tool.
+When you enable this functionality, we will align objects to the underlying grid when placing or moving them. This can help to prevent mis-aligned pixel errors when exporting elements.
+Note:
+Frames, sections, and components always snap to the pixel grid, even if
+Snap to pixel grid
+is disabled.
+To toggle snap to pixel grid, open the
+Zoom/view options
+menu (from the zoom level in the toolbar) and select
+Snap to pixel grid.
+Or use keyboard shortcut:
+Mac:
+⌘Command
+⇧ Shift
+Windows:
+Control
+⇧ Shift
+Tip:
+You can temporarily disable
+Snap to pixel grid
+by holding
+Control
+while in
+vector edit mode
+and zoomed in to the canvas.
+To know if you’ve zoomed in to the canvas enough, turn on the pixel grid
+⇧ Shift
+and zoom in until the grid is visible. You can disable the pixel grid at anytime as it isn’t needed to disable snap to pixel grid.
+Layout guides
+You can toggle the visibility of all layout guides in your files, from the
+Zoom/view options
+menu. This is great if you'd like to preview how a design will look, without having to remove or hide layout guides for individual objects.
+Open the
+Zoom/view options
+menu.
+If there is no check next to the
+Layout guides
+option, click to display them:
+If there is a check already showing, clicking
+Layout guides
+will hide them:
+You can also use the keyboard shortcuts to toggle layout guides:
+Mac:
+Control
+Windows:
+Ctrl
+Shift
+Learn more about layout guides.
+Multiplayer cursors
+If you're collaborating with other team members in a file, you will be able to see their actions via the Multiplayer cursors. Collaborator names and cursors are shown next to their location on the canvas.
+If you don't want to be distracted by other team member's actions, you can hide their cursors from your view.
+Open the
+Zoom/view options
+menu.
+If there is no check next to the
+Multiplayer cursors
+option, click to display them.
+If there is a check already showing, click
+Multiplayer cursors
+again to hide.
+You can also use the keyboard shortcut
+Option-Command-\
+to toggle multiplayer cursors.
+Prototype flows
+A prototype is the network of frames and connections in a single page. Prototypes can map out a user's entire journey through your app or website, or can focus on a specific segment or flow.
+Learn more about prototyping →
+If you only have
+can view
+access to a file, you can't create prototypes or make changes to an existing prototype. However, you can still view existing prototype connections by toggling the
+Prototyping
+view option.
+In the toolbar, click the current zoom percentage to open your view options menu.
+Select
+Prototyping
+to toggle prototype connections on or off.
+Note:
+If you have edit access to the file, you won’t have the
+Prototyping
+setting in your view options. Instead, you can view prototype flows by switching to the
+Prototype
+tab.
+Learn more about viewing prototype connections →

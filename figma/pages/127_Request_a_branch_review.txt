@@ -1,0 +1,92 @@
+URL: https://help.figma.com/hc/en-us/articles/5691414603543-Request-a-branch-review
+==================================================
+
+Who can use this feature
+Available on
+Organization and Enterprise plans
+Anyone with a
+paid seat
+in an organization or workspace can access the branching feature
+Anyone with
+can view
+can edit
+access to the main file can
+request a review
+This article covers one step in the branching process:
+Create
+Share
+Update
+Request
+Review
+Merge
+Manage
+When you've finished making changes in your branch, you can request one or more people to review and approve the changes before merging the branch to the main file.
+If you don’t have edit access to the main file, you must request a merge from someone who does have edit access. Reviewers can either
+Approve
+the branch or
+Request changes
+You can request a review from anyone who has access to the main file. This can include members of the team, as well as anyone who has access to the file or project.
+A reviewer can then review the changes in your branch and choose whether to approve them or suggest changes.
+Request review
+You can request one or more people to review and approve the changes before merging the branch to the main file. This process is not a requirement for merging to the main file.
+Open the branch you want reviewed.
+Expand the
+menu next to the file/branch name in the toolbar.
+Click
+Review and merge changes...
+to open the
+Branch review
+modal.
+You can preview any changes you've made as well as select reviewers to approve the changes.
+Figma will suggest people with
+can edit
+access to the main file. Click
+Add
+next to the suggestion to add them as a reviewer.
+To select another team member, or someone outside of your team, click
+Browse
+Other team members
+in the list.
+Use the
+Search
+field to find a specific person.
+Once you've added your reviewer(s), click
+Request review
+Use the description field to give reviewers more context for the changes you're making.
+Click
+Send to reviewers
+to submit the request.
+Figma will notify reviewers by in-app notification and email. A label will also appear next to your branch name when viewing the Branch review window to show the branch is
+In review
+View reviewer feedback
+Reviewers can choose to approve your branch or suggest further changes. Figma will send you a notification and email (if enabled) to let you know the review outcome.
+There are three possible outcomes from a review. Figma represents these outcomes as a status next to the branch name in the Branch review window:
+In review:
+A gray badge shows that a branch review has been requested from another user. No changes have been suggested or approved yet.
+Changes suggested
+: A yellow badge indicates that the reviewer needs you to make some changes before the branch is accepted. You can open the review modal to view the suggestions.
+Reviewers may have added feedback to individual layers or designs using comments. If there are comments, you'll see a
+View comments
+banner.
+Approved:
+Your changes have been approved, but the branch has not yet been merged. This usually means the reviewer does not have edit access to the main file or is waiting for other reviewers to add their reviews too before merging.
+When ready, you can click
+Merge branch
+in the bottom right corner of the Branch review window, which will merge the branch into the main file. The branch will be archived and locked after it has been merged.
+Learn more about merging branches.
+Resend request
+Resend a review request to any reviewers. You can do this to remind a reviewer of an outstanding review or to submit another request after making changes.
+Open the branch you want reviewed.
+Expand the
+menu next to the file/branch name in the toolbar.
+Select
+Review and merge changes
+to open the
+Branch review
+modal.
+Select
+Request another review
+Update the description of the review to account for any changes (optional).
+Click
+Send to reviewer
+. Figma will notify any reviewers of the request via email and in-app notification.

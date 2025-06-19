@@ -1,0 +1,52 @@
+URL: https://help.figma.com/hc/en-us/articles/360041308034-Browse-and-apply-fonts
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any team or plan
+Anyone with
+can edit
+access can apply fonts to text
+Check out guide to
+Getting started with text →
+Text is one of the crucial components of interface design. Picking the right font can help determine the legibility and appeal of your design.
+When editing text, fonts can be applied to:
+All text within a text layer
+A number of selected text layers
+A string of text within a text layer
+When applying fonts, you can search for a font by name or use the filter options to browse font collections:
+Search
+: Use this field to search the font list by name.
+All fonts:
+Will show all fonts that are available to you, including installed fonts, shared fonts, and those provided by Figma.
+In this file:
+Fonts used in the current file
+Popular:
+A list of commonly used fonts, curated by Figma
+Used at [your organization]:
+Shared fonts
+uploaded by your organization
+Installed by you:
+Fonts you have installed to your computer
+Google fonts:
+Fonts available via Google fonts in Figma
+Variable fonts:
+All
+fonts that have at least one variable font axis
+Browse and apply fonts
+Browse and apply fonts from the
+Text
+section in the
+right sidebar:
+Select a text layer, or some text within the layer, in order to adjust its properties.
+The current font is displayed at the top of the
+Text
+section. Click the font name to open up the font picker.
+Search or select a font from the list, or click
+All fonts
+to select a filter. Hover over a font name to preview it on any selected text layers.
+Click
+to close the window and return to the canvas.
+Figma will remember the last font filter used per session.
+Learn more about using text in Figma →

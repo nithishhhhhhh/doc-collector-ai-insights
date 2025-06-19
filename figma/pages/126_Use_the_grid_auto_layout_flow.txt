@@ -1,0 +1,154 @@
+URL: https://help.figma.com/hc/en-us/articles/31289469907863-Use-the-grid-auto-layout-flow
+==================================================
+
+🚧 Grid in auto layout is currently in
+open beta
+. Some functions and settings may not yet be available to grid. The feature may change and experience bugs or performance issues during the beta period.
+Before you start
+Who can use this feature
+Available on
+all plans
+Anyone with
+can edit
+access can use auto layout
+Grid is one of three auto layout flows that you can apply to frames. It consists of “cells” organized into rows and columns where you can place layers and assets. Objects can span multiple cells, and when a frame using grid is resized, objects in these cells will respond with it.
+The grid auto layout flow is ideal for creating designs like bento boxes, dashboards, and editorial layouts.
+This article covers just one aspect of working auto layout. Check out these other articles to learn more about working with auto layout in Figma Design.
+Guide to auto layout
+: An overview of auto layout, how it works, key properties, and browse a collection of auto layout resources.
+Toggle auto layout on a design
+: Learn how to add auto layout to frames and layers so that you can start making your designs responsive.
+Use the horizontal or vertical flows in auto layout
+: Learn about the properties available to the horizontal and vertical flows in auto layout.
+Create multi-dimensional auto layout flows
+: Combine multiple auto layout flows to build fully responsive components and screens.
+Note
+: Grid in auto layout is a different feature than the
+uniform grid option in layout guides
+. Auto layout allows content to resize and reflow, while layout guides are used as visual aids while designing.
+Glossary
+Cell
+: The intersection between a grid column and grid row
+Cell layer
+, or
+cell object
+: A layer or object that lives inside of a cell. They are considered children that live inside a grid.
+Child
+: A layer that lives inside a container
+Container
+: A structure (such as a cell) or layer (such as a frame or component) that can hold other layers
+Nested
+: Describes a layer that lives inside a container
+Parent
+: A layer—namely frames, components, groups, and sections—that contains other layers
+Span
+: The ability of a cell object to occupy multiple cells at a time
+Top-level
+: Describes a layer that sits directly on the canvas and does not contain a parent
+Track
+: An individual row or column
+Columns and rows
+The grid auto layout flow brings two-dimensional layout control—rows and columns—into your designs. Once you’ve
+enabled grid
+on a frame, you can choose the desired number of rows and columns by clicking on the grid picker in the right sidebar. Enter a value in the
+Number of columns
+and
+Number of rows
+fields, or use the interactive selector.
+Note
+: If you’re decreasing the number of rows or columns in a grid, you will need to make sure the row or column is empty first.
+Resize columns and rows
+The size of each column and row is set to
+Auto
+, and is calculated based on how much space is remaining after factoring in other
+spacing
+values and column or row sizes.
+To resize a track (column or row):
+Select the frame.
+Hover your cursor over the top or left sides of the frame. You can also hover your cursor over the desired track, or select an item from the desired track. A blue dot will appear.
+Hover over the blue dot and and click the label, indicating the track size, that appears.
+From there, you can resize the track in the following ways:
+Automatic sizing
+: For the track to automatically resize based on the available space, type
+Auto
+then press
+Enter
+Return
+Specific size
+: Click and drag the edge of the track to resize to a specific value
+Spacing
+Gap between
+Gap between
+sets the distance between columns and rows. You can do this using the
+Gap between rows
+and
+Gap between columns
+fields in the right sidebar when the grid auto layout frame is selected. Enter a number value into the field, nudge the values using your arrow keys, or scrub the field using your cursor.
+Padding
+Padding controls the empty or white space between the boundary of the auto layout frame and the frame’s cells. You can set padding uniformly, vertically and horizontally, or have different values for top, right, bottom, and left padding.
+Default
+: Padding controls are separated into vertical (top and bottom) and horizontal (left and right) padding by default.
+Individual padding
+: Click
+to use top, right, bottom, and left padding fields.
+Uniform padding or CSS shorthand
+: Hold
+⌘ Command
+Ctrl
+and click into any padding field. You can also type CSS shorthand.
+Example: Entering
+1,2,3,4
+sets top: 1px, right: 2px, bottom: 3px, and left: 4px
+Example: Entering
+1,2
+sets top/bottom: 1px and left/right: 2px
+Tip:
+Press the
+Tab
+key to move between input fields.
+Resizing
+Note
+: Resizing properties are covered in full in our
+Guide to auto layout
+article. This section covers details specific to the grid auto layout flow. These details may change as the feature develops throughout grid’s beta period.
+Resizing options are available to any child layer of a grid auto layout frame, including nested grid auto layout frames. Resizing options are not available to top-level auto layout frames using grid. Learn more about
+nesting auto layout frames
+The following resizing properties are available:
+Fixed
+width or height: The dimensions of the cell object or nested grid auto layout frame remains the same, regardless of the size of its parent cell or parent frame
+Fill container
+: The cell object or nested grid frame stretches to fill the width or height of the cell or parent frame
+Work with objects in grid cells
+Add and move objects in a grid
+Create shapes, frames, and text layers
+: Create these elements directly in a cell
+Move objects into a grid
+: Drag one or more layers and drop it into any empty cell or in between two cells
+Reposition child objects
+: Drag one or more child objects and drop it into an empty cell, or in between two cells
+Duplicate existing objects
+: Select one or more child objects and use the keyboard shortcut
+⌘ Command
+for Mac, and
+Ctrl
+for Windows
+Objects will be placed in succession from left to right, top to bottom. If there are not enough empty cells available, Figma will reposition obstructing objects into available cells or create new rows or columns to accommodate.
+Span objects across multiple cells
+You can span a child object to stretch across multiple cells in a grid, allowing it to resize when the parent is resized.
+To span a child object, select it and resize it on the canvas. While resizing, if the object snaps to the edge of a cell, its auto layout resizing property will update to
+Fill container
+for the adjusted dimension (width or height).
+Align objects to their cells
+Within a grid auto layout frame, a child object can be aligned to its cell.
+Select a child object and use the alignment buttons in the
+Position
+section of the right sidebar.
+Align left
+Align horizontal centers
+Align right
+Align top
+Align vertical centers
+If you have multiple child objects selected, each one will align to its respective cell.
+Try it out
+To get some hands-on practice, grab a copy of our
+Grid community file

@@ -1,0 +1,71 @@
+URL: https://help.figma.com/hc/en-us/articles/23870272542231-Use-AI-tools-in-Figma-Design
+==================================================
+
+Note:
+Figma AI is currently in
+open beta
+. AI features are currently free while in beta, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Figma Design AI tools are available on
+paid plans
+Requires a Full seat to use AI tools in Figma Design.
+AI outputs may be misleading or wrong. The information provided by the tools should be regarded as a general reference and not a fact or a substitute for expert advice or your own research.
+Learn more about accuracy and responsibilities when using Figma AI
+Figma AI helps you get started faster, find what you're looking for, and stay in the flow. In this article, you can explore all the AI features available in Figma Design.
+You can access Figma AI tools using
+Actions
+in the Figma Design toolbar. If an admin has
+disabled Figma AI for your team or organization
+, you won’t be able to use these features.
+Tip
+: You can also use AI tools in other Figma products.
+Learn more about Figma AI and see a breakdown of AI features available by product
+AI tools in Figma Design
+First Draft
+First Draft with Figma AI lets you transform an idea into editable designs in a couple of minutes.
+This helps you explore a wider range of design possibilities and iterations quickly, and reduces the amount of effort needed to manually create early explorations from scratch.
+Learn more about First Draft.
+Find assets and designs
+Figma AI can help you track down designs from across your team, organization or within Figma Community files.
+Start a search using part of a design, a screenshot, or just a description.
+Learn more about finding assets and designs.
+Replace content
+Replace placeholder or duplicate text with unique, realistic content.
+Learn more about replacing content with AI.
+Add interactions
+Quickly turn your designs into an interactive prototype.
+Learn more about adding interactions with AI.
+Rename layers
+Organize your file by giving all your layers meaningful names with a click.
+Learn more about renaming layers with AI.
+Rewrite, translate, and shorten text
+Rewrite text to give it a different tone, translate it to another language, or shorten it to fit your designs.
+Learn more about updating text with AI.
+Make and edit images
+Generate and edit unique images using a written prompt.
+Learn more about making an image with AI.
+Text suggestions
+Use context-aware suggestions to complete your text strings, saving time and effort as you design.
+Learn more about text suggestions
+Remove background
+Remove an image’s background to isolate the main subject.
+Learn more about removing an image background with AI.
+Boost resolution
+Improve sharpness and clarity of low-resolution images.
+Learn more about boosting resolution with AI.
+Troubleshooting
+Something not working as expected? Check out our guide to
+Troubleshooting AI tools.
+AI considerations and best practices
+When it comes to building AI, we want to be transparent about what we’re doing and what this means for you.
+Learn more about Figma’s approach to AI.
+There are a few things to keep in mind when using any AI tool:
+Accuracy
+AI-powered tools are designed to provide information and results based on artificial intelligence algorithms and identify patterns and relationships from large amounts of data. It’s important to note that the accuracy and reliability of these results may vary.
+There is a possibility of inaccuracies, omissions, or misleading outcomes due to the complexities and limitations of AI technologies. Therefore, the information provided by the tool should be regarded as a general reference and not a fact or a substitute for expert advice or your own research.
+Your responsibilities
+You should exercise your own judgment and discretion when using AI-powered tools. It’s essential to verify and cross-check the information provided by the tool before making any decisions, taking actions, or relying on it for critical matters.
+You should let others know when you’re using or presenting AI-generated outputs. For some features, like summarize stickies, Figma will indicate when an output is AI-generated.
+You will only use AI features in accordance with
+Figma’s Acceptable Use Policy

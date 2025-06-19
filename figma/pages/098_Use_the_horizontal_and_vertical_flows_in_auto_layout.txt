@@ -1,0 +1,193 @@
+URL: https://help.figma.com/hc/en-us/articles/31289464393751-Use-the-horizontal-and-vertical-flows-in-auto-layout
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+all plans
+Anyone with
+can edit
+access can use auto layout
+This article covers just one aspect of working auto layout. Check out these other articles to learn more about working with auto layout in Figma Design.
+Guide to auto layout
+: An overview of auto layout, how it works, key properties, and browse a collection of auto layout resources.
+Toggle auto layout on a design
+: Learn how to add auto layout to frames and layers so that you can start making your designs responsive.
+Use the grid in auto layout flow
+: Learn how to work with columns, rows, and cells with the grid layout flow.
+Create multi-dimensional auto layout flows
+: Combine multiple auto layout flows to build fully responsive components and screens.
+Vertical and horizontal flows
+The
+vertical
+auto layout flow places objects in your frame along the y-axis. Any objects you add, remove, or reorder will follow the y-axis. For example: list items in a to-do list, or posts within a newsfeed or timeline.
+The
+horizontal
+auto layout flow objects in your frame along the x-axis. Any objects you add, remove, or reorder will follow the x-axis. For example: a row of buttons, or icons in a mobile navigation menu.
+When you have the horizontal selected,
+Wrap
+becomes available. Wrap pushes any overflowing objects to the next line in your frame.
+Resizing
+Resizing allows for objects to adapt their dimensions to the objects and spacing properties around them. You can set resizing behavior on a parent auto layout frame to determine how it resizes based on changes made to its contents, and vice versa.
+Learn more about the resizing property.
+Alignment
+Choose how to align child objects within an auto layout frame. What alignment options are available are determined by the flow of the auto layout frame and the distribution, or gap between items.
+Unlike objects in a regular frame, you can't control the alignment of the objects individually. For that reason, you set the alignment of the child objects on the parent auto layout frame.
+Use the alignment box in the right panel to select from nine layout options for the children in a frame.
+Select the box and use arrow keys to switch between the different alignment settings.
+Select the box and press
+to set alignment to the edge of the frame.
+If gap between items is set to
+Auto
+, you have three options for each flow:
+Vertical auto layout flow: Left, Center, Right
+Horizontal auto layout flow: Top, Center, Bottom
+If gap between items is set to a specific number, you have the same nine options for each auto layout flow:
+Top left
+Top center
+Top right
+Left
+Center
+Right
+Bottom left
+Bottom center
+Bottom right
+Note
+: When one or more resizing properties are set to hug contents, some selections won't result in visually different layouts on the canvas. This is because hug contents removes any extra space around the child objects.
+Spacing
+Gap between items
+Use
+gap between items
+to set the distance, or distribution, between objects in an auto layout frame.
+Gap between items has two different settings:
+Auto
+: Set the gap between objects to be the largest distance possible. Type
+Auto
+in the field or select it from the dropdown menu.
+A specified gap:
+Specify how far apart you want objects to be. Enter a value into the field, nudge the values using your arrow keys, or scrub the field using your cursor.
+To quickly toggle between these two settings, click the alignment box and press
+If the auto layout frame's flow is set to vertical or horizontal, you'll be able to set gap between items vertically or horizontally, respectively. If the frame's flow is set to wrap, then you'll be able to set both horizontal and vertical gap between items.
+Tip:
+Hold
+⇧ Shift
+while dragging handles to increase and decrease using your
+big nudge
+values.
+Padding
+Padding controls the empty or white space between the boundary of an auto layout frame and the frame’s child objects. You can set padding uniformly, vertically and horizontally, or have different values for top, right, bottom, and left padding.
+Adjust the padding using canvas controls or spacing fields in the right panel.
+To access canvas controls, select an auto layout frame and hover over it. Pink handles will appear, similar to those in smart selection.
+Click handles to open input fields and enter a numeric value
+Or, click and drag the handle to change the spacing
+Tip
+: Check out our
+keyboard shortcut guide
+for shortcuts on setting padding on opposite sides, all sides, and more!
+Padding controls in the right panel are separated into vertical (top and bottom) and horizontal (left and right) padding by default.
+To set individual padding, click to use top, right, bottom, and left padding fields.
+To set uniform padding or to use CSS shorthand, hold
+⌘ Command
+Control
+and click into any padding field. You can also type CSS shorthand. For example, entering
+1,2,3,4
+sets the top, right, bottom, and left to 1, 2, 3, and 4 respectively. Entering
+1,2
+sets the values to top/bottom: 1 and left/right: 2.
+Tip
+: Press the
+tab
+key to move between input fields.
+Additional auto layout settings
+Text baseline alignment
+A baseline is the invisible line in which text or a layer sits. In typography, descenders will extend beneath this line.
+In some cases, aligning the baselines of layers can create more balance—such as when aligning baselines of text layers with varying font sizes, or when aligning an icon with a text layer.
+To align layers by their baselines, select the layers you want to align, and click from the right panel to open auto layout settings. Next to text baseline alignment, click to enable baseline alignment.
+Tip:
+Click the alignment box in the right panel, and press
+to toggle text baseline alignment on and off.
+Strokes in layout
+By default, strokes aren’t accounted for when calculating the size of objects, and thus don’t affect their parent frame or surrounding siblings.
+This may not be ideal during developer handoff, as it doesn’t accurately represent how CSS renders borders.
+Choose whether strokes will take up space in an auto layout frame by going to the auto layout settings, and using the dropdown next to
+stroke
+to select
+included in layout
+excluded from layout
+Canvas stacking order
+When multiple layers have negative spacing creating a stack, the last object (either the right-most or bottom-most object) in the stack will be on top by default.
+You can change the visual order of the stack as seen on the canvas.
+With the auto layout frame selected, click from the right panel to open auto layout settings. Next to
+canvas stacking
+, select:
+First on top:
+the first layer in the stack will be on top
+Last on top:
+the last layer in the stack will be on top
+Note:
+When the stacking order changes, the order of layers in the layers panel stays the same. Canvas stacking is solely a visual change that happens on the canvas.
+Work with objects in the frame
+Add objects
+To add a layer or object to an auto layout frame.
+Click and drag an object over an auto layout frame.
+Use the blue indicator to choose where to place the object.
+Note:
+The object's size determines if it can be added to the auto layout frame. If any of the object's dimensions are larger than the parent frame, you won't see the option to add it to the auto layout.
+Use the modifier key to bypass Figma's default behavior and add larger objects to an auto layout. Or, to add objects to a nested auto layout:
+Mac:
+⌘ Command
+Windows:
+Ctrl
+Learn more about parent, child, and sibling relationships
+Duplicate objects
+You can duplicate existing objects to add them to the Auto layout. Figma will add the duplicate to the right (horizontal) or below (vertical) the original object.
+Select a child object in an Auto layout frame.
+Duplicate it by using the keyboard shortcut:
+Mac:
+⌘ Command
+Windows:
+Ctrl
+Arrange or reorder objects
+Note:
+You can't reorder objects in an instance. You will need to change the object's order in the main component, or detach the instance to reorder objects. Learn more about
+using auto layout in components
+You can change the order that objects appear in an auto layout frame. This is only supported on main components, or auto layout frames outside of a component.
+Select the child object. If the layer is nested, you'll need to use the modifier key to deep select:
+Mac:
+⌘ Command
+Windows:
+Ctrl
+There are a few ways to reorder objects:
+Use the arrow keys on your keyboard the object to a new position.
+Click-and-drag the object to a new position.
+Remove objects
+To remove an object from a main component or auto layout frame:
+Drag the object outside of the auto layout frame
+Click
+next to
+Appearance
+in the right sidebar, or next to the layer in the left sidebar to toggle the layer visibility
+Select the object and press the
+Delete
+Backspace
+key
+You can't delete a layer or object from an instance. If you try, Figma will only toggle the layer's visibility instead of removing it.
+Tip
+Toggling a layer or object's visibility will hide it from an auto layout frame. If you want to create a gap in where the object should be, you can adjust the opacity of the object instead. In the right panel, update the
+Layer
+settings to
+Try it out
+New to auto layout? Play around with the different auto layout properties in the interactive sandbox below to see how they work. Just keep in mind that this demo is a simplified version and doesn’t fully replicate how auto layout works in Figma Design.
+Try it!
+Change me
+Auto layout
+Add
+Component
+What did you think of this demo? Let us know by rating this article at the bottom of the page.
+More ways to learn:
+Figma tutorial playlist:
+Learn to create flexible designs and components
+This playlist includes video tutorials that cover the basics of auto layout, how to apply auto layout to designs, and hands-on tutorials for more practice.
+Community file:
+Auto layout playground
+Grab a copy of the auto layout playground file to practice while you learn.

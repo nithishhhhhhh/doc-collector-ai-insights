@@ -1,0 +1,57 @@
+URL: https://getbootstrap.com/docs/5.3/helpers/position
+==================================================
+
+Fixed top
+Position an element at the top of the viewport, from edge to edge. Be sure you understand the ramifications of fixed position in your project; you may need to add additional CSS.
+class
+fixed-top
+Fixed bottom
+Position an element at the bottom of the viewport, from edge to edge. Be sure you understand the ramifications of fixed position in your project; you may need to add additional CSS.
+class
+fixed-bottom
+Sticky top
+Position an element at the top of the viewport, from edge to edge, but only after you scroll past it.
+class
+sticky-top
+Responsive sticky top
+Responsive variations also exist for
+.sticky-top
+utility.
+class
+sticky-sm-top
+Stick to the top on viewports sized SM (small) or wider
+class
+sticky-md-top
+Stick to the top on viewports sized MD (medium) or wider
+class
+sticky-lg-top
+Stick to the top on viewports sized LG (large) or wider
+class
+sticky-xl-top
+Stick to the top on viewports sized XL (extra-large) or wider
+class
+sticky-xxl-top
+Stick to the top on viewports sized XXL (extra-extra-large) or wider
+Sticky bottom
+Position an element at the bottom of the viewport, from edge to edge, but only after you scroll past it.
+class
+sticky-bottom
+Responsive sticky bottom
+Responsive variations also exist for
+.sticky-bottom
+utility.
+class
+sticky-sm-bottom
+Stick to the bottom on viewports sized SM (small) or wider
+class
+sticky-md-bottom
+Stick to the bottom on viewports sized MD (medium) or wider
+class
+sticky-lg-bottom
+Stick to the bottom on viewports sized LG (large) or wider
+class
+sticky-xl-bottom
+Stick to the bottom on viewports sized XL (extra-large) or wider
+class
+sticky-xxl-bottom
+Stick to the bottom on viewports sized XXL (extra-extra-large) or wider

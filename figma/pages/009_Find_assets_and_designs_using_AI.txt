@@ -1,0 +1,115 @@
+URL: https://help.figma.com/hc/en-us/articles/24037716110615-Find-assets-and-designs-using-AI
+==================================================
+
+Note:
+Figma’s AI features are currently free while in
+beta
+, but usage limits may apply. When made generally available, Figma AI will become a paid feature. We’ll update you on pricing before that happens.
+Before you start
+Who can use this feature
+Available in Figma Design and Figma Slides
+Available on
+paid plans
+Requires
+can edit
+file access
+Learn more about who can access AI features in Figma
+Find the components or assets that you're looking for with Figma AI, so you can get started faster, stay in the flow, and make space for more creativity.
+For example:
+Get inspired through related designs and see how others are thinking about a design problem
+Browse through past explorations to help finish an in-progress design
+Find the latest source of truth for a component
+There are two ways to use AI in search:
+Find similar designs
+: Use descriptive prompts, an image, or a canvas selection to find related components and designs.
+Assets tab
+: Use a keyword search to find components without needing to remember their exact names.
+Find similar designs
+With
+Find similar designs
+, you can find components and non-component elements using a keyword or descriptive prompt, a layer selection, or an image. If you find one you like, you open the source file or insert it onto the canvas without leaving your current file.
+Search by keywords
+From the toolbar, click
+Actions
+Type keywords or a description into the search bar and select the
+Figma/Community
+filter.
+From the search results, use the
+Figma
+tab to find components and other designs, or use the
+Community
+tab to search through Figma Community files.
+Search from a canvas selection
+Select a layer.
+Click
+Actions
+from the toolbar and select
+Find more like
+From the search results, use the
+Figma
+tab to find components and other designs, or use the
+Community
+tab to search through Figma Community files.
+Search using an image
+From the toolbar, click
+Actions
+Click
+Search with image or selection.
+Select a layer with an image fill. Or click
+Upload
+to upload an image from your computer, then click
+Search.
+From the search results, use the
+Figma
+tab to find components and other designs, or use the
+Community
+tab to search through Figma Community files.
+Navigate results
+There are two tabs you can use to browse from the results view. The
+Figma
+tab shows components and other design assets from files available to you. The
+Community
+tab shows designs available in Figma Community files. Each tab has a different search result experience:
+Figma tab
+Community tab
+If you’re in the
+Figma
+tab, use the dropdown on the right to filter by library.
+When you click
+See more
+next to
+Other designs
+, you can narrow and sort your results:
+Filter by file owner
+Filter by space
+Sort by relevance
+Sort by last modified
+When you select a design from the list, you can choose to:
+Open the file
+where the design lives in a new tab
+Preview
+the design in the current tab
+Insert
+the design into the current file
+When you select a design in the
+Community
+tab, you can choose to:
+Open the file
+where the design lives in a new tab
+Preview
+the design in the current tab
+Insert
+the design into the current file
+Find components from the Figma tab
+Figma uses AI to return smarter results and help you find what you’re looking for, so you don’t have to remember the name of that one component.
+Without AI
+Without AI, Figma tries to match your search terms to exact keywords in a component’s name or description. For example, if you searched
+arrow
+Figma would only return components with the word “arrow” in its name or description.
+With AI
+With AI, Figma looks for exact names as well as related components. For example, searching
+arrow
+would return components with “arrow” in their name and descriptions, as well as components that are similar in form or function.
+You can search for assets either from the assets tab in the left panel, or by using
+Actions
+from the toolbar.

@@ -1,0 +1,250 @@
+URL: https://help.figma.com/hc/en-us/articles/14506587589399-Use-variables-in-prototypes
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any paid plan
+Anyone with
+can edit
+access to a file can create prototypes.
+In Figma, variables are stored values that represent design attributes or saved states. They can be string, number, color, or boolean value types.
+You can set and modify the values of variables with prototyping actions—allowing you to create immersive prototypes that dynamically change based on user selection, using only a few simple frames and interactions. This means you can use prototype actions to:
+Update text content with string variables
+Change object dimensions, corner radius, or auto layout properties with number variables
+Toggle layer visibility with boolean variables
+To begin using variables in prototypes,
+set up your variables
+, then
+use the
+Set variable
+action
+to change or modify your variable values.
+Once you’ve got the hang of using variables and prototypes together, try some more advanced features to extend their power even further:
+Expressions
+: Manipulate variables with basic operations, allowing you to build more advanced prototypes with flexible values
+Multiple actions and conditionals
+: Use if/else statements to check if a condition is met before performing actions, and stack an unlimited number of actions on a single trigger
+Learn more about variables in Figma
+Try it out
+Want to get even more practice? Check out the
+advanced prototyping playground file
+Looking for more examples of how you can use variables in prototypes? Check out some more
+advanced prototyping examples
+Set up your variables
+Before you can prototype with variables, you need to:
+Create your variables
+Learn how to create and organize variable collections
+Apply variables
+Learn how to apply variables to text content, object dimensions, layer visibility, and more
+Set variable values
+Once you’ve created and applied variables throughout your design, you can start using them with prototypes.
+Each prototype interaction has a trigger (what causes the prototype to advance forward) and one or more multiple actions (what happens as a result of the trigger).
+The
+Set variable
+action allows you to set or modify the value of a variable as a result of a prototype trigger.
+To use the
+Set variable
+action on a prototype interaction:
+Create a
+prototype interaction
+Navigate to the
+Interaction
+modal and select a trigger from the dropdown menu.
+From the
+Action
+dropdown menu, select
+Set variable
+From the
+Target
+dropdown menu, select the variable you want to set a new value for.
+In the
+Value
+field, enter in a new value for the variable. The new value type must match the variable type you’re changing. For example, if you selected a number variable, the new value must also be a number.
+String values
+: Enter any text string literal (contained in quotations), or select any string variable from the selection panel
+Number values
+: Enter any number value, or select any number variable from the selection panel
+Boolean values
+: Enter
+true
+false
+, or select any boolean variable from the selection panel
+Color values
+: Enter any hex code, or select a hex code from the color picker
+Play your prototype
+to test the interaction.
+Note:
+Do your variables have multiple modes?
+Learn more about setting variable values to specific mode values
+Tip:
+Use
+expressions
+to manipulate variables with operations. For example, you can perform basic math on number variables, combine multiple string variables together, or use boolean expressions.
+Try it out
+Let’s create a collection of variables titled “Shapes”. This collection will include one string variable that represents the name of the shape.
+Deselect all items on the canvas, then find the
+Local variables
+section in the right sidebar and click
+Open variables
+Click
+Create variable
+, and select
+String
+In the
+Name
+column, enter “shapeName”.
+In the
+Value
+column, enter “circle”.
+Now, you can apply the
+shapeName
+variable to your design. For this example, we’ve created a simple design that includes a frame with two shapes (a circle and a square) and two text layers. We want to bind the
+shapeName
+variable to the bottom text layer so that it changes based on the selected shape.
+Recreate the design pictured below. Add an ellipse object, a rectangle object, and two text layers to a frame. Enter “You picked:” as the content of the first text layer.
+Click to select the bottom text layer on your frame.
+From the
+Design
+tab in the right sidebar, find the
+Text
+section and click
+Apply variable
+Select the
+shapeName
+variable from the variable selection panel to apply it to the text content.
+Now, let’s add an interaction with a
+Set variable
+action.
+Select the ellipse object.
+From the right sidebar, switch to the
+Prototype
+tab. In in
+Interactions
+section, click
+the plus sign to add a new interaction.
+In the
+Interaction
+modal, create an interaction with an
+On tap/On click
+trigger and the
+Set variable
+action.
+Select the
+shapeName
+variable from the
+Target
+dropdown menu. In the
+Value
+field, set the new value to “circle”.
+Repeat steps 1-4 for the rectangle object. This time, set the
+shapeName
+variable to “square”.
+Now, you’re ready to
+play your prototype
+to test it out. When you click each shape object, the text layer will automatically update based on the new variable value.
+Prototype with variables and components
+Once you’ve learned the basics, you can start using variables and components together in your prototypes.
+Apply variables to components to automatically update your component when you change the value of a variable in a prototype. Any change in variable value also updates any other elements bound to that same variable.
+The value of a variable can be changed by:
+Using the
+Set variable
+action
+Using the
+Change to
+action in an interactive component
+Using the
+Set variable mode
+action
+Example
+An interactive button component set has a
+default
+and a
+hover
+state. The component uses the
+Change to
+action, so that when you hover over the
+default
+variant, it switches to the
+hover
+variant (and vice versa).
+A boolean
+hoverState
+variable is applied to both an instance of the variant and the visibility of a separate, overlay layer.
+When you hover over the
+default
+variant in your prototype:
+The instance updates to the
+hover
+variant
+The
+hoverState
+boolean variable updates from false to true
+The image layer is made visible
+Want to practice with a similar example? Check out the “Try it out” section below.
+The location where you apply the variable determines the scope of changes in the prototype.
+Apply variable to:
+When prototyping:
+Variant properties of component instances
+Change the value of the variable to update the variant of the instance.
+Component properties
+Change the value of the variable to update all instances of the component.
+Learn more about applying variables to component and variant properties
+Try it out: Example 1
+Create an
+interactive component set
+Create a button component that has a “clicked” variant property with “true” and “false” values.
+Add a prototype interaction on the “false” variant, using the
+On click
+trigger and the
+Change to
+action. Now, when the false variant is clicked, it will switch to the true variant.
+Place an instance of a variant from the interactive component set in a frame.
+Add the false variant to a frame.
+Assign a variable to the interactive component instance. The value of the variable must match a
+variant property value
+Create a boolean
+circleVisibility
+variable with a default false value.
+Select the instance of the button.
+From the right sidebar, hover over the clicked variant property.
+Select
+Apply variable
+Click to select the
+circleVisibility
+variable to bind to the property.
+Assign the same variable to another layer in your design.
+Add an ellipse object to the frame.
+From the
+Appearance
+section of the right sidebar, right-click the
+Hide
+icon.
+Select the
+circleVisibility
+variable to apply the boolean variable to the visibility of the ellipse layer.
+Play your prototype to test the interaction. When the interaction is triggered and the component is changed, the value of the variable also changes. This means that if you have that same variable bound to any other values, those will also update.
+Try it out: Example 2
+Create a component set with at least two variants.
+Create a component set that has a “shape” variant property with “circle” and “square” values.
+Place an instance of a variant on a frame.
+Assign a variable to the instance. The value of the variable must match a
+variant property value
+Create a
+shapeType
+string variable with a default “circle” value.
+Click on the instance to select it.
+From the right sidebar, hover to the right of a variant property and click
+Assign variable
+Select the variable you’d like to bind to the property.
+Create an interaction on any object within the frame that uses the
+Set variable
+action. Change the value of the variable to match the value of the unused variant property.
+Add a prototype interaction on an object, using the
+On click/On tap
+trigger and the
+Set variable
+action. Set the
+shapeType
+variable value to “square”.
+Play your prototype to test the interaction. When the interaction is triggered and the variable is changed, the variant also updates.

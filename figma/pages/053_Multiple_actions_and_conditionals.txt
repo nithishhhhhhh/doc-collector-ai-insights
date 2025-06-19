@@ -1,0 +1,122 @@
+URL: https://help.figma.com/hc/en-us/articles/15253220891799-Multiple-actions-and-conditionals
+==================================================
+
+Before you start
+Who can use this feature
+Available on
+any paid plan
+Anyone with
+can edit
+access to a file can create prototypes.
+Anyone with
+can view
+can view prototypes only
+access to a file can view prototypes.
+As your prototypes increase in depth and complexity, you can use multiple actions and conditionals to handle multiple or different outcomes within the same interaction.
+Multiple actions
+: Stack an unlimited number of actions on the same trigger
+Conditionals
+: Check if a condition is met before performing an action by using an if/else conditional statement
+New to variables? Learn more here:
+Guide to variables →
+Use variables in prototypes →
+Want to get more hands-on practice?
+Check out the
+advanced prototyping playground file →
+Looking for more examples of how you can use variables in prototypes? Check out some more
+advanced prototyping examples →
+Note:
+This video explains prototyping using Figma's old interface. For examples of the new interface, see the images in this article.
+Multiple actions
+Every prototype interaction has a trigger and one or more actions. A trigger is what causes the interaction to begin, and an action is the response.
+Multiple actions allow you to add an unlimited number of actions on one trigger.
+Create a
+prototype interaction
+To add an additional action, click
+Add action
+From the
+Interaction
+panel, select any action from the
+Action
+dropdown menu.
+Tip:
+Collapse or expand details of each action by clicking the chevron to the left of the action name.
+Reorder actions
+Actions run in the order in which they’re listed, from top to bottom.
+To reorder actions:
+Open an
+Interactions
+panel.
+Click to the left of the action and drag to change its order.
+Tip:
+You can drag and drop any action into a
+Conditional
+action.
+Changing the order of actions can change the outcome of a prototype.
+For example, two sample prototype actions are listed below. For this example, the starting value of
+numberVar
+1. Set numberVar to 2
+2. Conditional: if numberVar == 2, Navigate to Frame 2
+In the first action, the number variable is set to a value of
+. This means the conditional statement (
+if numberVar == 2
+) is evaluated to be true, so the action (Navigate to Frame 2) executes.
+Now, switch the order of the actions:
+1. Conditional: if numberVar == 2, Navigate to Frame 2
+2. Set numberVar to 2
+In the first action, the conditional statement (
+if numberVar == 2
+) is evaluated to be false, so the action does not execute, and the prototype stays on the current frame. Then, the value of
+numberVar
+is changed to
+Animation order
+Prototype animations
+can be used to create smooth transitions between pages and define the behavior for actions like
+Navigate to
+Scroll to
+Open overlay
+, and more.
+If you have multiple animations on a trigger, they run sequentially.
+Conditionals
+In prototyping, a conditional is a rule that defines if an action should trigger. Conditionals are written with if/else logic.
+For example, consider building a checkout flow.
+the cart total is higher than a certain amount, the user receives free shipping. If not, or
+else
+, the user sees the full shipping price.
+In Figma, you can use the
+Conditional
+prototype action to build prototypes with conditional logic.
+Create a
+prototype interaction
+From the
+Interaction
+panel, select any trigger from the dropdown menu.
+From the
+Actions
+dropdown menu, select
+Conditional
+Complete the
+condition:
+In the
+field, write a
+boolean expression
+to represent the condition that must be met.
+Select an action (or multiple actions) from the dropdown menu. These actions will be triggered if the
+statement is met.
+Complete the
+Else
+condition:
+Select an action (or multiple actions) from the dropdown menu. These actions will be triggered if the
+statement is not met. Alternatively, leave the
+Else
+action blank.
+Only conditionals written with
+supported operations and format
+will work. Invalid conditional statements will be outlined in red.
+Evaluate conditional statements
+Conditional statements are identical to boolean expressions—the statement is evaluated to have a true or false value. If the value of the statement is true, the
+action is triggered. If the value of the statement is false, the
+else
+action is triggered.
+Learn more about
+how to format and evaluate boolean expressions →

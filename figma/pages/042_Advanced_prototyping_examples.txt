@@ -1,0 +1,258 @@
+URL: https://help.figma.com/hc/en-us/articles/17146044893591-Advanced-prototyping-examples
+==================================================
+
+Advanced prototyping features (such as
+variables
+conditionals
+, and
+expressions
+) allow you to add a higher level of fidelity to prototypes, while reducing the number of frames and interactions needed to do so.
+Use the examples below to inspire you on how you might use advanced prototyping features in your designs.
+Create a required checkbox interaction
+In this prototype, create a button with a required checkbox interaction.
+Features used:
+Variables
+interactive components
+component properties
+using variables with interactive components
+This interaction is common in online forms. For example, you might be required to agree to a site’s terms and conditions by selecting a checkbox before you can click a
+Continue
+button.
+Create an
+interactive component
+set with two variants to represent a checkbox.
+Name the
+component property
+isChecked
+, with “true” and “false” variants.
+Add a
+Change to
+prototype action between both variants—so when you click on the false variant, it will change to the true variant, and vice versa.
+Create another component set for a continue button. One variant should represent an inactive state, and the other should represent an active state.
+Name the
+component property
+hasAcceptedTerms
+with “true” and “false” value names. The “true” variant represents the active button state, and the “false” variant represents the inactive button state.
+Create a boolean variable
+named “hasAcceptedTerms”, with a value of false.
+Add instances
+of your components to your design.
+Add an instance of the “false” continue button variant.
+Add an instance of the “false” checkbox variant.
+Assign the
+hasAcceptedTerms
+boolean variable to both instances.
+Click on the checkbox instance to select it.
+From the right sidebar, hover to the right of the variant property and click
+Assign variable
+Select the
+hasAcceptedTerms
+variable to bind it to the property.
+Repeat steps A through C for the continue button instance.
+Tip:
+You can bind a variable to a variant property as long as the values match. Since the boolean variable has
+true
+and
+false
+values, and the variant properties have
+true
+and
+false
+values, you can bind them together.
+Now, whenever the variable changes to a true value, the instances will also change to their true variant.
+Return to your continue button component set, and add an action to the active button variant. For example, you can add an
+On click
+interaction that navigates to the next frame.
+Play your prototype
+to test it out.
+Add an error message for empty selection states
+In this prototype, you can create a form that shows an error if users try to submit it without answering all the questions.
+Features used:
+Variables
+interactive components
+component properties
+using variables with interactive components
+boolean expressions
+overlays
+In this example, each question has two radio buttons a user can use to select their answer. Let’s create an
+interactive component
+set to represent each state the answer can be in: nothing selected, choice 1 selected, or choice 2 selected.
+Make three variants to represent each state.
+Name the
+component property
+selectedState
+, with “choice1”, “choice2”, and “none” as variants.
+Add a
+Change to
+prototype action between each variant—so whenever you click on the “Choice 1” object, the variant changes to choice1, and whenever you click the “Choice 2” object, the variant changes to choice2.
+Since our form will have two questions, let’s
+create two string variables
+. These variables will let us validate whether the form is complete or not when a user submits it.
+Name the first string variable “question1response”, with a value of “none”.
+Name the second string variable “question2response”, with a value of “none”.
+Now, let’s assemble our prototype. Add a frame to represent the design of your form. Include two instances of the “none” radio button variant, and a
+Submit
+button.
+Assign the variables to the radio button instances.
+Click on the first radio button instance to select it.
+From the right sidebar, hover to the right of the variant property and click
+Assign variable
+Select the
+question1response
+variable to bind it to the property.
+Repeat steps A through C for the second radio button instance, this time selecting the
+question2response
+variable.
+Add two more frames: one to represent an error message
+overlay
+, and one to represent a success message.
+Add a
+On tap
+prototype interaction to the
+Submit
+button. Use the
+Conditional
+action:
+question1response
+== “none”
+question2response
+== “none”, open the error message frame as an overlay.
+Else,
+Navigate to
+the success message frame.
+Play your prototype
+to test it out.
+Display count of selected items
+In this prototype, we’ll increase a counter each time a user makes a selection.
+Features used:
+Variables
+interactive components
+component properties
+using variables with interactive components
+This type of interaction has several applications. For example, you might see the total number of items you’ve added to your cart on an e-commerce site, how many photos or messages you’ve selected in a messaging or social media app, or even how many glasses of water you’ve drank in your habit tracking app.
+Create an
+interactive component
+set with two variants to represent a selected and unselected state.
+Add a
+Change to
+prototype action between both variants—so when you click on the unselected variant, it will change to the true variant, and vice versa.
+Add multiple instances
+of the unselected variant to your design.
+Add a text layer to your design that represents the number of selected items.
+In our design, we’ve added two text layers in a single frame. One text layer states “Items selected:”, and the second text layer states “0”.
+Create a number variable
+named “itemsSelected”, with a value of 0. We’ll use this variable to store a count of how many items have been selected.
+Assign the
+itemsSelected
+variable to the text layer.
+Click on the “0” text layer to select it.
+From the
+Text
+section of right sidebar, click
+Assign variable
+Select the
+itemsSelected
+variable to bind it to the text layer.
+Return to your component set, and add an additional prototype action to each variant that calculates the number of selected items.
+On the false variant, add a
+Set variable
+action that sets the value of the
+itemsSelected
+variable to
+itemsSelected + 1
+On the true variant, add a
+Set variable
+action that sets the value of the
+itemsSelected
+variable to
+itemsSelected - 1
+Play your prototype
+to test it out.
+Build a click counter
+In this prototype, build a click counter. When a user clicks an object or objects the required amount of times, a success interaction initiates.
+Features used:
+Variables
+expressions
+conditionals
+This type of interaction might be seen in the real world when users need to select a specific number of items to continue. For example, users might need to select a certain number of topics that interest them in an onboarding experience to customize their profile, or users might need to select a certain number of toppings to add to their meal in a food delivery app.
+Add two variables:
+A number variable named
+clickCount
+, with a starting value of
+A boolean variable named
+clickComplete
+, with a starting value of
+false
+Add a rectangle object to a frame.
+On the rectangle object, add a prototype interaction with an
+On click/On tap
+trigger. Add two actions, in this order:
+Set variable
+clickCount
+clickCount + 1
+Conditional
+: If
+clickCount == 5
+Set variable
+clickComplete
+true
+Add two text layers to the frame:
+The first text layer should list simple instructions (“Press the square 5 times.”)
+The second text layer should be a success message (“You did it!)
+Apply the
+clickComplete
+variable to the layer visibility of the second text layer:
+Select the text layer.
+Go to the
+Layer
+section of the right sidebar and right-click the visibility icon.
+Click the
+clickComplete
+variable from the variable selection panel. Now, the layer will only be visible if the
+clickComplete
+variable value is true.
+Play your prototype
+to test the interaction.
+Build a volume control bar
+In this example, we'll use variables to build a volume control bar.
+Features used:
+Variables
+expressions
+To begin, set up your frame with a few basic shapes to represent the volume bar and the controls:
+Add one rectangle to represent the volume container—ours has a width of 260 and a height of 100.
+Add a second rectangle to represent the volume level. This rectangle should be placed on top of the first one, and they should be aligned on the left side. The width of the second rectangle should be smaller than the first—ours has a height of 100 and a width of 14 to start.
+Use lines to create objects that represent a plus sign and a minus sign, and place them beneath the volume container.
+Next, we need to create a variable. In a new collection, create a number variable. Name it
+volumeLevel
+and give it an initial value of 14.
+Now, let’s bind the
+volumeLevel
+variable to the width value of the rectangle representing the volume level.
+Click on the smaller rectangle to select it.
+From the
+Design
+tab of the right sidebar, find the width value.
+Hover over the width value field, then select
+Apply variable
+From the variable selectional panel, select the
+volumeLevel
+variable.
+Now that our frame and variables are set up, let’s create our prototyping interactions.
+Click the plus sign object on the frame.
+From the
+Prototype
+tab on the right sidebar, click
+the plus icon to add a new interaction.
+Set the trigger to
+On tap/On click
+, and set the action to
+Set variable
+. Select the
+volumeLevel
+variable.
+Set the new value using an expression. We want the width of the volume level to increase by 5 each time a user presses the plus icon, so we’ll use the following expression:
+volumeLevel + 5
+Repeat steps 1-4 for the minus icon, this time setting the new variable value with the following expression:
+volumeLevel - 5
+Play your prototype
+to test the interactions.

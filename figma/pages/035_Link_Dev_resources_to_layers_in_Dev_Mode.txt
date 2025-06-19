@@ -1,0 +1,39 @@
+URL: https://help.figma.com/hc/en-us/articles/15023231995927-Link-Dev-resources-to-layers-in-Dev-Mode
+==================================================
+
+Before you Start
+Who can use this feature
+Available on
+all paid plans
+Requires a
+Full or Dev seat
+Dev resources are a great way for anyone to add external documentation that can help developers better understand and build a component. Dev resources can be linked to objects in Figma Design and are often related to the documentation or source code. Use Dev resources to:
+Link a GitHub file to a component for quick access to the source code
+Assign a Jira ticket to a specific part of a mockup
+Connect Storybook to view stories in Figma
+Note:
+If an attached dev resource has a related plugin available, clicking the link will automatically launch it in the
+Plugins
+tab.
+Link to a Dev resource
+Dev resources can be added to any layer on the canvas. If a dev resource is added to a component, the link is inherited by all instances of that component. If a dev resource is added to an instance of a component, the link will only appear for that instance.
+To link to a dev resource:
+Copy the URL you want to add.
+In Dev Mode, select a layer on the canvas.
+In the inspect panel, click
+Layer options
+, and then
+Add a dev resource link
+In the box that appears in the inspect panel, paste the link.
+Press
+Enter
+Remove a linked Dev resource
+In the inspect panel
+click
+Additional options
+next to the link to the resource.
+Select
+Delete link
+Note:
+Dev resources with related plugins may have different ways of detaching a link from a layer.
+Learn more about using plugins in Dev Mode.

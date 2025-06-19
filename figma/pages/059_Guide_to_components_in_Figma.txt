@@ -1,0 +1,40 @@
+URL: https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma
+==================================================
+
+Before you start
+Who can use this feature
+Users on
+any
+plan
+Users with
+can edit access
+to a file can create and edit components.
+Users with
+can view
+access to the original file can use components from that Library.
+Video tutorials
+Check out these video tutorials about components:
+Overview
+Components are elements you can reuse across your designs. They help to create and manage consistent designs across projects.
+You can create components from any layers or objects you've designed. These could be a whole range of things like buttons, icons, layouts, and more.
+There are two aspects to a component:
+main component
+defines the properties of the component.
+instance
+is a copy of the component you can reuse in your designs. Instances are linked to the main component and receive any updates made to the component.
+You can create components to use within a single file. Or, you can use team l
+ibrary
+to share components and styles
+across files and projects
+Related articles
+Read these articles to learn more detailed and specific information about components.
+Create a component
+Create and use variants
+Create and use component properties
+Name and organize components
+Create an instance of a component
+Swap between component instances in a file
+Override properties of an instance
+Reset instances to remove overrides
+Detach instances from components
+Make changes to components and instances
