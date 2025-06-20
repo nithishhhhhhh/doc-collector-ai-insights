@@ -1,0 +1,25 @@
+URL: https://tframex.tesslate.com/tframex/core-concepts#agent-as-tool
+SCRAPED: 2025-06-19 21:25:04
+============================================================
+
+TFrameX Core Concepts
+Understanding the fundamental building blocks of the TFrameX framework.
+TFrameX is built around several key concepts that work together to create powerful AI applications. Expand each section below to learn more about these core components.
+Agents
+The intelligent actors in TFrameX, capable of reasoning, using tools, and interacting. They are the workhorses of your AI applications.
+Tools
+Functions that grant agents external capabilities, like API access, database queries, or custom computations.
+Flows & FlowContext
+Orchestrate sequences of agent actions and pattern executions to achieve complex goals.
+Interaction Patterns
+Pre-defined, reusable structures for common multi-agent collaborations and task processing logic within Flows.
+LLM Integration
+Pluggable wrappers for Large Language Models, making TFrameX adaptable to various LLM providers and local setups.
+Memory Management
+Enabling agents to recall past interactions and maintain context throughout conversations or tasks.
+MCP Integration
+Connect TFrameX agents to external services and capabilities using the Multi-Capability Protocol.
+Agent-as-Tool (Hierarchical Agents)
+A powerful paradigm where 'supervisor' agents can delegate tasks to 'specialist' agents by calling them like tools.
+Messages
+The primary data structure for communication between users, agents, and tools.

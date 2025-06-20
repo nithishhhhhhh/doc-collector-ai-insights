@@ -1,0 +1,419 @@
+URL: https://tframex.tesslate.com/getting-started
+SCRAPED: 2025-06-19 21:26:16
+============================================================
+
+Getting Started with TFrameX
+Your journey to building powerful agentic systems begins here. Follow these steps to get TFrameX up and running.
+Prerequisites
+Python 3.8 or higher installed.
+Access to an LLM:
+An OpenAI API key, OR
+A locally running LLM server (e.g.,
+Ollama
+, LiteLLM) that exposes an OpenAI-compatible API.
+Basic understanding of Python and asynchronous programming (
+async
+await
+Step 1: Installation
+Install TFrameX using pip. We recommend using a virtual environment.
+pip install tframex
+Alternatively, for faster environment management, you can use
+# Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+This will install TFrameX and its core dependencies.
+Step 2: Environment Configuration
+TFrameX needs to know how to connect to your LLM. Create a file named
+.env
+in the root of your project directory and add your LLM API details. TFrameX uses
+python-dotenv
+to load these variables automatically.
+# .env
+# Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+# Example for OpenAI API
+# OPENAI_API_KEY="your_actual_openai_api_key"
+# OPENAI_MODEL_NAME="gpt-4-turbo"
+# OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+Important LLM Setup:
+If using a local server like Ollama, ensure it's running and the specified model (e.g.,
+llama3
+) has been pulled (
+ollama pull llama3
+). If using OpenAI, ensure your API key has credits.
+Step 3: Your First TFrameX Agent
+Create a Python file (e.g.,
+my_first_agent.py
+) and paste the following code. This example defines a simple "Greeter" agent.
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+# Load environment variables from .env file
+load_dotenv()
+# 1. Configure your LLM
+# TFrameXApp will use these environment variables if not explicitly passed.
+# Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+api_key=os.getenv("OPENAI_API_KEY")        # e.g., "ollama" or your actual API key
+# 2. Initialize TFrameXApp
+# You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+# 3. Define a simple agent
+# The @app.agent decorator registers this function as an agent configuration.
+# For LLMAgent (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+name="FriendlyGreeterAgent",
+system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+async def friendly_greeter_placeholder():
+pass
+# 4. Run the agent
+async def main():
+# The run_context manages resources like LLM clients.
+async with app.run_context() as rt:
+user_query = Message(role="user", content="Hi there, TFrameX!")
+print(f"Sending message to 'FriendlyGreeterAgent': '{user_query.content}'")
+# Call the agent by its registered name.
+agent_response = await rt.call_agent("FriendlyGreeterAgent", user_query)
+print(f"\nAgent Response:")
+print(f"  Role: {agent_response.role}")
+print(f"  Content: {agent_response.content}")
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured. ")
+print("Please set OPENAI_API_BASE in your .env file or in the script.")
+else:
+print("--- Running TFrameX Basic Agent Example ---")
+asyncio.run(main())
+Run the script from your terminal:
+python my_first_agent.py
+If your LLM is configured correctly and running, you should see a friendly greeting from your agent printed to the console!
+Step 4: Adding a Tool to an Agent
+Let's enhance our setup by creating an agent that uses a tool. Create a new file (e.g.,
+tool_agent_example.py
+) or modify the previous one:
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+load_dotenv()
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME"),
+api_base_url=os.getenv("OPENAI_API_BASE"),
+api_key=os.getenv("OPENAI_API_KEY")
+app = TFrameXApp(default_llm=llm_config)
+# Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+return a + b
+# Define an agent that can use this tool
+@app.agent(
+name="CalculatorAgent",
+system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+tools=["add_numbers"] # Make the tool available to this agent
+async def calculator_agent_placeholder():
+pass
+async def main_tool_example():
+async with app.run_context() as rt:
+# The LLM should decide to use the tool based on the prompt
+user_query = Message(role="user", content="What is 5 plus 7?")
+print(f"Sending message to 'CalculatorAgent': '{user_query.content}'")
+agent_response = await rt.call_agent("CalculatorAgent", user_query)
+print(f"\nAgent Response (CalculatorAgent):")
+print(f"  Content: {agent_response.content}") # Expected: "12" or similar
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured.")
+else:
+print("\n--- Running TFrameX Tool Agent Example ---")
+asyncio.run(main_tool_example())
+Run this script:
+python tool_agent_example.py
+You should see output indicating the
+add_numbers
+tool was executed, and the agent should respond with the calculated sum. This demonstrates the LLM deciding to use a tool based on the system prompt and user query.
+Congratulations & Next Steps!
+You've successfully installed TFrameX, configured your LLM, and run your first basic and tool-using agents! You're now equipped to explore the more advanced capabilities of the framework.
+Dive deeper into
+Core Concepts
+to understand Agents, Tools, Flows, and Patterns in detail.
+Explore the
+TFrameX Library documentation
+for comprehensive API references.
+Check out more examples in the TFrameX GitHub repository (link can be found in the footer).
+Start building your own sophisticated agentic applications!
+
+=== CODE EXAMPLES ===
+
+--- Code Block 3 ---
+pip install tframex
+
+--- Code Block 4 ---
+pip install tframex
+
+--- Code Block 6 ---
+# Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+
+--- Code Block 7 ---
+# Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+
+--- Code Block 9 ---
+python-dotenv
+
+--- Code Block 10 ---
+# .env
+# Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+
+# Example for OpenAI API
+# OPENAI_API_KEY="your_actual_openai_api_key"
+# OPENAI_MODEL_NAME="gpt-4-turbo" 
+# OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+
+--- Code Block 11 ---
+# .env
+# Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+
+# Example for OpenAI API
+# OPENAI_API_KEY="your_actual_openai_api_key"
+# OPENAI_MODEL_NAME="gpt-4-turbo" 
+# OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+
+--- Code Block 13 ---
+ollama pull llama3
+
+--- Code Block 14 ---
+my_first_agent.py
+
+--- Code Block 15 ---
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+# Load environment variables from .env file
+load_dotenv()
+
+# 1. Configure your LLM
+# TFrameXApp will use these environment variables if not explicitly passed.
+# Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+    model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+    api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+    api_key=os.getenv("OPENAI_API_KEY")        # e.g., "ollama" or your actual API key
+)
+
+# 2. Initialize TFrameXApp
+# You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+
+# 3. Define a simple agent
+# The @app.agent decorator registers this function as an agent configuration.
+# For LLMAgent (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+    name="FriendlyGreeterAgent",
+    system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+)
+async def friendly_greeter_placeholder():
+    pass
+
+# 4. Run the agent
+async def main():
+    # The run_context manages resources like LLM clients.
+    async with app.run_context() as rt:
+        user_query = Message(role="user", content="Hi there, TFrameX!")
+        
+        print(f"Sending message to 'FriendlyGreeterAgent': '{user_query.content}'")
+        
+        # Call the agent by its registered name.
+        agent_response = await rt.call_agent("FriendlyGreeterAgent", user_query)
+        
+        print(f"\nAgent Response:")
+        print(f"  Role: {agent_response.role}")
+        print(f"  Content: {agent_response.content}")
+
+if __name__ == "__main__":
+    if not llm_config.api_base_url:
+        print("[ERROR] LLM API base URL is not configured. ")
+        print("Please set OPENAI_API_BASE in your .env file or in the script.")
+    else:
+        print("--- Running TFrameX Basic Agent Example ---")
+        asyncio.run(main())
+
+--- Code Block 16 ---
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+# Load environment variables from .env file
+load_dotenv()
+
+# 1. Configure your LLM
+# TFrameXApp will use these environment variables if not explicitly passed.
+# Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+    model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+    api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+    api_key=os.getenv("OPENAI_API_KEY")        # e.g., "ollama" or your actual API key
+)
+
+# 2. Initialize TFrameXApp
+# You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+
+# 3. Define a simple agent
+# The @app.agent decorator registers this function as an agent configuration.
+# For LLMAgent (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+    name="FriendlyGreeterAgent",
+    system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+)
+async def friendly_greeter_placeholder():
+    pass
+
+# 4. Run the agent
+async def main():
+    # The run_context manages resources like LLM clients.
+    async with app.run_context() as rt:
+        user_query = Message(role="user", content="Hi there, TFrameX!")
+        
+        print(f"Sending message to 'FriendlyGreeterAgent': '{user_query.content}'")
+        
+        # Call the agent by its registered name.
+        agent_response = await rt.call_agent("FriendlyGreeterAgent", user_query)
+        
+        print(f"\nAgent Response:")
+        print(f"  Role: {agent_response.role}")
+        print(f"  Content: {agent_response.content}")
+
+if __name__ == "__main__":
+    if not llm_config.api_base_url:
+        print("[ERROR] LLM API base URL is not configured. ")
+        print("Please set OPENAI_API_BASE in your .env file or in the script.")
+    else:
+        print("--- Running TFrameX Basic Agent Example ---")
+        asyncio.run(main())
+
+--- Code Block 17 ---
+python my_first_agent.py
+
+--- Code Block 18 ---
+tool_agent_example.py
+
+--- Code Block 19 ---
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+load_dotenv()
+
+llm_config = OpenAIChatLLM(
+    model_name=os.getenv("OPENAI_MODEL_NAME"),
+    api_base_url=os.getenv("OPENAI_API_BASE"),
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+app = TFrameXApp(default_llm=llm_config)
+
+# Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+    print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+    return a + b
+
+# Define an agent that can use this tool
+@app.agent(
+    name="CalculatorAgent",
+    system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+    tools=["add_numbers"] # Make the tool available to this agent
+)
+async def calculator_agent_placeholder():
+    pass
+
+async def main_tool_example():
+    async with app.run_context() as rt:
+        # The LLM should decide to use the tool based on the prompt
+        user_query = Message(role="user", content="What is 5 plus 7?")
+        print(f"Sending message to 'CalculatorAgent': '{user_query.content}'")
+        agent_response = await rt.call_agent("CalculatorAgent", user_query)
+        
+        print(f"\nAgent Response (CalculatorAgent):")
+        print(f"  Content: {agent_response.content}") # Expected: "12" or similar
+
+if __name__ == "__main__":
+    if not llm_config.api_base_url:
+        print("[ERROR] LLM API base URL is not configured.")
+    else:
+        print("\n--- Running TFrameX Tool Agent Example ---")
+        asyncio.run(main_tool_example())
+
+--- Code Block 20 ---
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+load_dotenv()
+
+llm_config = OpenAIChatLLM(
+    model_name=os.getenv("OPENAI_MODEL_NAME"),
+    api_base_url=os.getenv("OPENAI_API_BASE"),
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+app = TFrameXApp(default_llm=llm_config)
+
+# Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+    print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+    return a + b
+
+# Define an agent that can use this tool
+@app.agent(
+    name="CalculatorAgent",
+    system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+    tools=["add_numbers"] # Make the tool available to this agent
+)
+async def calculator_agent_placeholder():
+    pass
+
+async def main_tool_example():
+    async with app.run_context() as rt:
+        # The LLM should decide to use the tool based on the prompt
+        user_query = Message(role="user", content="What is 5 plus 7?")
+        print(f"Sending message to 'CalculatorAgent': '{user_query.content}'")
+        agent_response = await rt.call_agent("CalculatorAgent", user_query)
+        
+        print(f"\nAgent Response (CalculatorAgent):")
+        print(f"  Content: {agent_response.content}") # Expected: "12" or similar
+
+if __name__ == "__main__":
+    if not llm_config.api_base_url:
+        print("[ERROR] LLM API base URL is not configured.")
+    else:
+        print("\n--- Running TFrameX Tool Agent Example ---")
+        asyncio.run(main_tool_example())
+
+--- Code Block 21 ---
+python tool_agent_example.py
+
+--- Code Block 22 ---
+add_numbers

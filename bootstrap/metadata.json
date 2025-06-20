@@ -1,866 +1,152 @@
 {
-  "site": "bootstrap",
-  "total_files": 143,
-  "processed_files": 143,
-  "total_content_length": 943553,
-  "files": [
-    {
-      "filename": "001_examples_carousel.txt",
-      "title": "Example headline.",
-      "url": "https://getbootstrap.com/docs/5.3/examples/carousel",
-      "content_length": 1422
-    },
-    {
-      "filename": "002_getting-started_browsers-devices.txt",
-      "title": "Supported browsers",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/browsers-devices",
-      "content_length": 4094
-    },
-    {
-      "filename": "003_helpers_icon-link.txt",
-      "title": "The icon link helper component modifies our default link styles to enhance their appearance and quickly align any pairing of icon and text. Alignment is set via inline flexbox styling and a default",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/icon-link",
-      "content_length": 4008
-    },
-    {
-      "filename": "004_components_buttons.txt",
-      "title": "Base class",
-      "url": "https://getbootstrap.com/docs/5.3/components/buttons",
-      "content_length": 18106
-    },
-    {
-      "filename": "005_layout_gutters.txt",
-      "title": "How they work",
-      "url": "https://getbootstrap.com/docs/5.3/layout/gutters",
-      "content_length": 3783
-    },
-    {
-      "filename": "006_layout_columns.txt",
-      "title": "Heads up!",
-      "url": "https://getbootstrap.com/docs/5.3/layout/columns",
-      "content_length": 9973
-    },
-    {
-      "filename": "007_components_alerts.txt",
-      "title": "Examples",
-      "url": "https://getbootstrap.com/docs/5.3/components/alerts",
-      "content_length": 13357
-    },
-    {
-      "filename": "008_getting-started_accessibility.txt",
-      "title": "Overview and limitations",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/accessibility",
-      "content_length": 3352
-    },
-    {
-      "filename": "009_examples_checkout-rtl.txt",
-      "title": "\u0646\u0645\u0648\u0630\u062c \u0625\u062a\u0645\u0627\u0645 \u0627\u0644\u0634\u0631\u0627\u0621",
-      "url": "https://getbootstrap.com/docs/5.3/examples/checkout-rtl",
-      "content_length": 1067
-    },
-    {
-      "filename": "010_extend_approach.txt",
-      "title": "While the getting started pages provide an introductory tour of the project and what it offers, this document focuses on",
-      "url": "https://getbootstrap.com/docs/5.3/extend/approach",
-      "content_length": 6740
-    },
-    {
-      "filename": "011_examples_cheatsheet.txt",
-      "title": "Contents",
-      "url": "https://getbootstrap.com/docs/5.3/examples/cheatsheet",
-      "content_length": 11089
-    },
-    {
-      "filename": "012_utilities_overflow.txt",
-      "title": "Overflow",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/overflow",
-      "content_length": 2119
-    },
-    {
-      "filename": "013_components_spinners.txt",
-      "title": "About",
-      "url": "https://getbootstrap.com/docs/5.3/components/spinners",
-      "content_length": 7143
-    },
-    {
-      "filename": "014_forms_input-group.txt",
-      "title": "Basic example",
-      "url": "https://getbootstrap.com/docs/5.3/forms/input-group",
-      "content_length": 11513
-    },
-    {
-      "filename": "015_layout_css-grid.txt",
-      "title": "Heads up\u2014our CSS Grid system is experimental and opt-in as of v5.1.0!",
-      "url": "https://getbootstrap.com/docs/5.3/layout/css-grid",
-      "content_length": 8038
-    },
-    {
-      "filename": "016_getting-started_introduction.txt",
-      "title": "Quick start",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/introduction",
-      "content_length": 6073
-    },
-    {
-      "filename": "017_examples_cheatsheet-rtl.txt",
-      "title": "\u0627\u0644\u0645\u062d\u062a\u0648\u0649",
-      "url": "https://getbootstrap.com/docs/5.3/examples/cheatsheet-rtl",
-      "content_length": 10918
-    },
-    {
-      "filename": "018_getting-started_parcel.txt",
-      "title": "Want to skip to the end?",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/parcel",
-      "content_length": 5735
-    },
-    {
-      "filename": "019_examples_album-rtl.txt",
-      "title": "\u0645\u062b\u0627\u0644 \u0627\u0644\u0623\u0644\u0628\u0648\u0645",
-      "url": "https://getbootstrap.com/docs/5.3/examples/album-rtl",
-      "content_length": 1281
-    },
-    {
-      "filename": "020_components_progress.txt",
-      "title": "New markup in v5.3.0 \u2014",
-      "url": "https://getbootstrap.com/docs/5.3/components/progress",
-      "content_length": 8642
-    },
-    {
-      "filename": "021_examples_blog-rtl.txt",
-      "title": "\u0639\u0646\u0648\u0627\u0646 \u062a\u062f\u0648\u064a\u0646\u0629 \u0645\u0645\u064a\u0632\u0629 \u0623\u0637\u0648\u0644",
-      "url": "https://getbootstrap.com/docs/5.3/examples/blog-rtl",
-      "content_length": 7598
-    },
-    {
-      "filename": "022_layout_utilities.txt",
-      "title": "Changing",
-      "url": "https://getbootstrap.com/docs/5.3/layout/utilities",
-      "content_length": 1330
-    },
-    {
-      "filename": "023_getting-started_contents.txt",
-      "title": "Compiled Bootstrap",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/contents",
-      "content_length": 2683
-    },
-    {
-      "filename": "024_components_card.txt",
-      "title": "About",
-      "url": "https://getbootstrap.com/docs/5.3/components/card",
-      "content_length": 33033
-    },
-    {
-      "filename": "025_components_navs-tabs.txt",
-      "title": "Base nav",
-      "url": "https://getbootstrap.com/docs/5.3/components/navs-tabs",
-      "content_length": 28901
-    },
-    {
-      "filename": "026_migration.txt",
-      "title": "Dependencies",
-      "url": "https://getbootstrap.com/docs/5.3/migration",
-      "content_length": 37533
-    },
-    {
-      "filename": "027_about_team.txt",
-      "title": "Mark Otto",
-      "url": "https://getbootstrap.com/docs/5.3/about/team",
-      "content_length": 433
-    },
-    {
-      "filename": "028_extend_icons.txt",
-      "title": "",
-      "url": "https://getbootstrap.com/docs/5.3/extend/icons",
-      "content_length": 1265
-    },
-    {
-      "filename": "029_components_breadcrumb.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/components/breadcrumb",
-      "content_length": 4321
-    },
-    {
-      "filename": "030_components_badge.txt",
-      "title": "Examples",
-      "url": "https://getbootstrap.com/docs/5.3/components/badge",
-      "content_length": 4635
-    },
-    {
-      "filename": "031_utilities_sizing.txt",
-      "title": "Relative to the parent",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/sizing",
-      "content_length": 1852
-    },
-    {
-      "filename": "032_utilities_spacing.txt",
-      "title": "Margin and padding",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/spacing",
-      "content_length": 6561
-    },
-    {
-      "filename": "033_utilities_shadows.txt",
-      "title": "Examples",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/shadows",
-      "content_length": 1109
-    },
-    {
-      "filename": "034_layout_breakpoints.txt",
-      "title": "Core concepts",
-      "url": "https://getbootstrap.com/docs/5.3/layout/breakpoints",
-      "content_length": 4840
-    },
-    {
-      "filename": "035_customize_sass.txt",
-      "title": "Utilize our source Sass files to take advantage of variables, maps, mixins, and more.",
-      "url": "https://getbootstrap.com/docs/5.3/customize/sass",
-      "content_length": 12023
-    },
-    {
-      "filename": "036_examples_jumbotrons.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/jumbotrons",
-      "content_length": 834
-    },
-    {
-      "filename": "037_content_images.txt",
-      "title": "Responsive images",
-      "url": "https://getbootstrap.com/docs/5.3/content/images",
-      "content_length": 1487
-    },
-    {
-      "filename": "038_components_dropdowns.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/components/dropdowns",
-      "content_length": 35835
-    },
-    {
-      "filename": "039_examples_sidebars.txt",
-      "title": "Sidebars examples",
-      "url": "https://getbootstrap.com/docs/5.3/examples/sidebars",
-      "content_length": 1543
-    },
-    {
-      "filename": "041_examples_dashboard-rtl.txt",
-      "title": "\u0644\u0648\u062d\u0629 \u0627\u0644\u0642\u064a\u0627\u062f\u0629",
-      "url": "https://getbootstrap.com/docs/5.3/examples/dashboard-rtl",
-      "content_length": 570
-    },
-    {
-      "filename": "042_utilities_borders.txt",
-      "title": "Border",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/borders",
-      "content_length": 11658
-    },
-    {
-      "filename": "043_forms_form-control.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/forms/form-control",
-      "content_length": 8564
-    },
-    {
-      "filename": "044_getting-started_rfs.txt",
-      "title": "What is RFS?",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/rfs",
-      "content_length": 2030
-    },
-    {
-      "filename": "045_components_placeholders.txt",
-      "title": "About",
-      "url": "https://getbootstrap.com/docs/5.3/components/placeholders",
-      "content_length": 3667
-    },
-    {
-      "filename": "046_components_scrollspy.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/scrollspy",
-      "content_length": 15685
-    },
-    {
-      "filename": "047_examples_navbars-offcanvas.txt",
-      "title": "Navbar with offcanvas examples",
-      "url": "https://getbootstrap.com/docs/5.3/examples/navbars-offcanvas",
-      "content_length": 404
-    },
-    {
-      "filename": "048_examples_dropdowns.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/dropdowns",
-      "content_length": 514
-    },
-    {
-      "filename": "049_forms_select.txt",
-      "title": "Default",
-      "url": "https://getbootstrap.com/docs/5.3/forms/select",
-      "content_length": 3879
-    },
-    {
-      "filename": "050_components_close-button.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/components/close-button",
-      "content_length": 2555
-    },
-    {
-      "filename": "051_examples_navbar-static.txt",
-      "title": "Navbar example",
-      "url": "https://getbootstrap.com/docs/5.3/examples/navbar-static",
-      "content_length": 211
-    },
-    {
-      "filename": "052_customize_overview.txt",
-      "title": "Sass",
-      "url": "https://getbootstrap.com/docs/5.3/customize/overview",
-      "content_length": 2706
-    },
-    {
-      "filename": "053_customize_optimize.txt",
-      "title": "Lean Sass imports",
-      "url": "https://getbootstrap.com/docs/5.3/customize/optimize",
-      "content_length": 5706
-    },
-    {
-      "filename": "054_layout_z-index.txt",
-      "title": "Several Bootstrap components utilize",
-      "url": "https://getbootstrap.com/docs/5.3/layout/z-index",
-      "content_length": 1275
-    },
-    {
-      "filename": "056_utilities_text.txt",
-      "title": "Text alignment",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/text",
-      "content_length": 10086
-    },
-    {
-      "filename": "059_examples_dashboard.txt",
-      "title": "Dashboard",
-      "url": "https://getbootstrap.com/docs/5.3/examples/dashboard",
-      "content_length": 717
-    },
-    {
-      "filename": "060_customize_options.txt",
-      "title": "Customize Bootstrap with our built-in custom variables file and easily toggle global CSS preferences with new",
-      "url": "https://getbootstrap.com/docs/5.3/customize/options",
-      "content_length": 2569
-    },
-    {
-      "filename": "061_examples_starter-template.txt",
-      "title": "Get started with Bootstrap",
-      "url": "https://getbootstrap.com/docs/5.3/examples/starter-template",
-      "content_length": 516
-    },
-    {
-      "filename": "062_utilities_object-fit.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/object-fit",
-      "content_length": 1765
-    },
-    {
-      "filename": "063_examples_cover.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/cover",
-      "content_length": 222
-    },
-    {
-      "filename": "064_components_navbar.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/navbar",
-      "content_length": 28303
-    },
-    {
-      "filename": "065_helpers_stacks.txt",
-      "title": "Stacks offer a shortcut for applying a number of flexbox properties to quickly and easily create layouts in Bootstrap. All credit for the concept and implementation goes to the open source",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/stacks",
-      "content_length": 1985
-    },
-    {
-      "filename": "066_customize_components.txt",
-      "title": "Base classes",
-      "url": "https://getbootstrap.com/docs/5.3/customize/components",
-      "content_length": 4568
-    },
-    {
-      "filename": "067_getting-started_download.txt",
-      "title": "Compiled CSS and JS",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/download",
-      "content_length": 5404
-    },
-    {
-      "filename": "068_examples_list-groups.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/list-groups",
-      "content_length": 1080
-    },
-    {
-      "filename": "069_utilities_api.txt",
-      "title": "official Sass docs",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/api",
-      "content_length": 12603
-    },
-    {
-      "filename": "070_components_offcanvas.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/offcanvas",
-      "content_length": 17147
-    },
-    {
-      "filename": "071_about_brand.txt",
-      "title": "Have a need for Bootstrap\u2019s brand resources? Great! We have only a few guidelines we follow, and in turn ask you to follow as well.",
-      "url": "https://getbootstrap.com/docs/5.3/about/brand",
-      "content_length": 439
-    },
-    {
-      "filename": "072_helpers_colored-links.txt",
-      "title": "Link colors",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/colored-links",
-      "content_length": 2649
-    },
-    {
-      "filename": "073_examples_offcanvas-navbar.txt",
-      "title": "Since 2011",
-      "url": "https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar",
-      "content_length": 686
-    },
-    {
-      "filename": "075_helpers_ratio.txt",
-      "title": "About",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/ratio",
-      "content_length": 1985
-    },
-    {
-      "filename": "076_helpers_color-background.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/color-background",
-      "content_length": 2355
-    },
-    {
-      "filename": "077_helpers_position.txt",
-      "title": "Fixed top",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/position",
-      "content_length": 1685
-    },
-    {
-      "filename": "078_components_popovers.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/components/popovers",
-      "content_length": 19922
-    },
-    {
-      "filename": "079_forms_validation.txt",
-      "title": "",
-      "url": "https://getbootstrap.com/docs/5.3/forms/validation",
-      "content_length": 20436
-    },
-    {
-      "filename": "080_examples_sticky-footer.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/sticky-footer",
-      "content_length": 191
-    },
-    {
-      "filename": "081_forms_floating-labels.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/forms/floating-labels",
-      "content_length": 6250
-    },
-    {
-      "filename": "082_about_license.txt",
-      "title": "It requires you to:",
-      "url": "https://getbootstrap.com/docs/5.3/about/license",
-      "content_length": 1298
-    },
-    {
-      "filename": "083_utilities_colors.txt",
-      "title": "Accessibility tip:",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/colors",
-      "content_length": 9152
-    },
-    {
-      "filename": "084_helpers_text-truncation.txt",
-      "title": "For longer content, you can add a",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/text-truncation",
-      "content_length": 538
-    },
-    {
-      "filename": "085_components_modal.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/modal",
-      "content_length": 23327
-    },
-    {
-      "filename": "086_examples_carousel-rtl.txt",
-      "title": "\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u062b\u0627\u0644.",
-      "url": "https://getbootstrap.com/docs/5.3/examples/carousel-rtl",
-      "content_length": 2336
-    },
-    {
-      "filename": "087_utilities_link.txt",
-      "title": "Link opacity",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/link",
-      "content_length": 5498
-    },
-    {
-      "filename": "088_examples_blog.txt",
-      "title": "Title of a longer featured blog post",
-      "url": "https://getbootstrap.com/docs/5.3/examples/blog",
-      "content_length": 5445
-    },
-    {
-      "filename": "089_components_carousel.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/carousel",
-      "content_length": 20828
-    },
-    {
-      "filename": "090_utilities_z-index.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/z-index",
-      "content_length": 1377
-    },
-    {
-      "filename": "091_utilities_interactions.txt",
-      "title": "Text selection",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/interactions",
-      "content_length": 2280
-    },
-    {
-      "filename": "092_forms_range.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/forms/range",
-      "content_length": 2801
-    },
-    {
-      "filename": "093_examples_buttons.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/buttons",
-      "content_length": 204
-    },
-    {
-      "filename": "094_examples_pricing.txt",
-      "title": "Free",
-      "url": "https://getbootstrap.com/docs/5.3/examples/pricing",
-      "content_length": 375
-    },
-    {
-      "filename": "095_forms_layout.txt",
-      "title": "Forms",
-      "url": "https://getbootstrap.com/docs/5.3/forms/layout",
-      "content_length": 9918
-    },
-    {
-      "filename": "096_utilities_position.txt",
-      "title": "Position values",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/position",
-      "content_length": 4850
-    },
-    {
-      "filename": "097_examples_jumbotron.txt",
-      "title": "Custom jumbotron",
-      "url": "https://getbootstrap.com/docs/5.3/examples/jumbotron",
-      "content_length": 688
-    },
-    {
-      "filename": "098_utilities_flex.txt",
-      "title": "Enable flex behaviors",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/flex",
-      "content_length": 15916
-    },
-    {
-      "filename": "099_layout_containers.txt",
-      "title": "How they work",
-      "url": "https://getbootstrap.com/docs/5.3/layout/containers",
-      "content_length": 2813
-    },
-    {
-      "filename": "100_components_pagination.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/components/pagination",
-      "content_length": 7423
-    },
-    {
-      "filename": "101_utilities_background.txt",
-      "title": "Accessibility tip:",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/background",
-      "content_length": 10800
-    },
-    {
-      "filename": "102_helpers_stretched-link.txt",
-      "title": ".stretched-link",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/stretched-link",
-      "content_length": 3872
-    },
-    {
-      "filename": "103_getting-started_javascript.txt",
-      "title": "Individual or compiled",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/javascript",
-      "content_length": 12612
-    },
-    {
-      "filename": "104_utilities_visibility.txt",
-      "title": "Set the",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/visibility",
-      "content_length": 710
-    },
-    {
-      "filename": "105_customize_css-variables.txt",
-      "title": "CSS custom properties (variables)",
-      "url": "https://getbootstrap.com/docs/5.3/customize/css-variables",
-      "content_length": 8038
-    },
-    {
-      "filename": "106_about_translations.txt",
-      "title": "Community members have translated Bootstrap\u2019s documentation into various languages. None are officially supported and they may not always be up-to-date.",
-      "url": "https://getbootstrap.com/docs/5.3/about/translations",
-      "content_length": 300
-    },
-    {
-      "filename": "107_utilities_vertical-align.txt",
-      "title": "Change the alignment of elements with the",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/vertical-align",
-      "content_length": 1215
-    },
-    {
-      "filename": "108_content_tables.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/content/tables",
-      "content_length": 15738
-    },
-    {
-      "filename": "109_forms_overview.txt",
-      "title": "Form control",
-      "url": "https://getbootstrap.com/docs/5.3/forms/overview",
-      "content_length": 5828
-    },
-    {
-      "filename": "110_utilities_opacity.txt",
-      "title": "opacity",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/opacity",
-      "content_length": 527
-    },
-    {
-      "filename": "111_helpers_vertical-rule.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/vertical-rule",
-      "content_length": 713
-    },
-    {
-      "filename": "112_examples_navbar-fixed.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/navbar-fixed",
-      "content_length": 215
-    },
-    {
-      "filename": "113_customize_color.txt",
-      "title": "Colors",
-      "url": "https://getbootstrap.com/docs/5.3/customize/color",
-      "content_length": 8953
-    },
-    {
-      "filename": "114_examples_heroes.txt",
-      "title": "Heroes examples",
-      "url": "https://getbootstrap.com/docs/5.3/examples/heroes",
-      "content_length": 1865
-    },
-    {
-      "filename": "115_examples.txt",
-      "title": "Starters",
-      "url": "https://getbootstrap.com/docs/5.3/examples/",
-      "content_length": 1260
-    },
-    {
-      "filename": "116_components_collapse.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/collapse",
-      "content_length": 10985
-    },
-    {
-      "filename": "117_content_typography.txt",
-      "title": "Global settings",
-      "url": "https://getbootstrap.com/docs/5.3/content/typography",
-      "content_length": 11033
-    },
-    {
-      "filename": "118_components_tooltips.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/components/tooltips",
-      "content_length": 18000
-    },
-    {
-      "filename": "119_content_reboot.txt",
-      "title": "Approach",
-      "url": "https://getbootstrap.com/docs/5.3/content/reboot",
-      "content_length": 13182
-    },
-    {
-      "filename": "121_components_button-group.txt",
-      "title": "Basic example",
-      "url": "https://getbootstrap.com/docs/5.3/components/button-group",
-      "content_length": 8452
-    },
-    {
-      "filename": "122_utilities_display.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/display",
-      "content_length": 3644
-    },
-    {
-      "filename": "123_getting-started_webpack.txt",
-      "title": "Want to skip to the end?",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/webpack",
-      "content_length": 10994
-    },
-    {
-      "filename": "124_helpers_clearfix.txt",
-      "title": "Easily clear",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/clearfix",
-      "content_length": 707
-    },
-    {
-      "filename": "125_utilities_float.txt",
-      "title": "Overview",
-      "url": "https://getbootstrap.com/docs/5.3/utilities/float",
-      "content_length": 1859
-    },
-    {
-      "filename": "126_examples_grid.txt",
-      "title": "Basic grid layouts to get you familiar with building within the Bootstrap grid system.",
-      "url": "https://getbootstrap.com/docs/5.3/examples/grid",
-      "content_length": 3414
-    },
-    {
-      "filename": "127_layout_grid.txt",
-      "title": "Example",
-      "url": "https://getbootstrap.com/docs/5.3/layout/grid",
-      "content_length": 11575
-    },
-    {
-      "filename": "128_examples_checkout.txt",
-      "title": "Checkout form",
-      "url": "https://getbootstrap.com/docs/5.3/examples/checkout",
-      "content_length": 1090
-    },
-    {
-      "filename": "129_forms_checks-radios.txt",
-      "title": "Approach",
-      "url": "https://getbootstrap.com/docs/5.3/forms/checks-radios",
-      "content_length": 15158
-    },
-    {
-      "filename": "130_examples_badges.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/badges",
-      "content_length": 343
-    },
-    {
-      "filename": "131_examples_album.txt",
-      "title": "Album example",
-      "url": "https://getbootstrap.com/docs/5.3/examples/album",
-      "content_length": 1737
-    },
-    {
-      "filename": "132_examples_masonry.txt",
-      "title": "Integrate",
-      "url": "https://getbootstrap.com/docs/5.3/examples/masonry",
-      "content_length": 1440
-    },
-    {
-      "filename": "133_helpers_focus-ring.txt",
-      "title": ".focus-ring",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/focus-ring",
-      "content_length": 3598
-    },
-    {
-      "filename": "134_components_toasts.txt",
-      "title": "",
-      "url": "https://getbootstrap.com/docs/5.3/components/toasts",
-      "content_length": 16615
-    },
-    {
-      "filename": "135_components_accordion.txt",
-      "title": "How it works",
-      "url": "https://getbootstrap.com/docs/5.3/components/accordion",
-      "content_length": 19037
-    },
-    {
-      "filename": "136_examples_navbars.txt",
-      "title": "Matching .container-xl...",
-      "url": "https://getbootstrap.com/docs/5.3/examples/navbars",
-      "content_length": 425
-    },
-    {
-      "filename": "137_examples_navbar-bottom.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/navbar-bottom",
-      "content_length": 145
-    },
-    {
-      "filename": "139_getting-started_rtl.txt",
-      "title": "Get familiar",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/rtl",
-      "content_length": 7754
-    },
-    {
-      "filename": "140_getting-started_vite.txt",
-      "title": "Want to skip to the end?",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/vite",
-      "content_length": 5791
-    },
-    {
-      "filename": "141_examples_product.txt",
-      "title": "Designed for engineers",
-      "url": "https://getbootstrap.com/docs/5.3/examples/product",
-      "content_length": 463
-    },
-    {
-      "filename": "142_customize_color-modes.txt",
-      "title": "Try it yourself!",
-      "url": "https://getbootstrap.com/docs/5.3/customize/color-modes",
-      "content_length": 18119
-    },
-    {
-      "filename": "143_about_overview.txt",
-      "title": "Team",
-      "url": "https://getbootstrap.com/docs/5.3/about/overview",
-      "content_length": 2055
-    },
-    {
-      "filename": "144_examples_features.txt",
-      "title": "Features examples",
-      "url": "https://getbootstrap.com/docs/5.3/examples/features",
-      "content_length": 2503
-    },
-    {
-      "filename": "145_components_list-group.txt",
-      "title": "Basic example",
-      "url": "https://getbootstrap.com/docs/5.3/components/list-group",
-      "content_length": 23428
-    },
-    {
-      "filename": "146_getting-started_contribute.txt",
-      "title": "Tooling setup",
-      "url": "https://getbootstrap.com/docs/5.3/getting-started/contribute",
-      "content_length": 3517
-    },
-    {
-      "filename": "147_examples_sticky-footer-navbar.txt",
-      "title": "Sticky footer with fixed navbar",
-      "url": "https://getbootstrap.com/docs/5.3/examples/sticky-footer-navbar",
-      "content_length": 256
-    },
-    {
-      "filename": "149_examples_modals.txt",
-      "title": "Toggle theme",
-      "url": "https://getbootstrap.com/docs/5.3/examples/modals",
-      "content_length": 645
-    },
-    {
-      "filename": "150_content_figures.txt",
-      "title": "Anytime you need to display a piece of content\u2014like an image with an optional caption, consider using a",
-      "url": "https://getbootstrap.com/docs/5.3/content/figures",
-      "content_length": 951
-    },
-    {
-      "filename": "151_helpers_visually-hidden.txt",
-      "title": "Visually hide an element while still allowing it to be exposed to assistive technologies (such as screen readers) with",
-      "url": "https://getbootstrap.com/docs/5.3/helpers/visually-hidden",
-      "content_length": 881
-    }
-  ]
+  "site_name": "bootstrap",
+  "generated_at": "2025-06-19T21:28:25.296313",
+  "files_processed": 143,
+  "total_characters": 941629,
+  "source_files": [
+    "001_examples_carousel.txt",
+    "002_getting-started_browsers-devices.txt",
+    "003_helpers_icon-link.txt",
+    "004_components_buttons.txt",
+    "005_layout_gutters.txt",
+    "006_layout_columns.txt",
+    "007_components_alerts.txt",
+    "008_getting-started_accessibility.txt",
+    "009_examples_checkout-rtl.txt",
+    "010_extend_approach.txt",
+    "011_examples_cheatsheet.txt",
+    "012_utilities_overflow.txt",
+    "013_components_spinners.txt",
+    "014_forms_input-group.txt",
+    "015_layout_css-grid.txt",
+    "016_getting-started_introduction.txt",
+    "017_examples_cheatsheet-rtl.txt",
+    "018_getting-started_parcel.txt",
+    "019_examples_album-rtl.txt",
+    "020_components_progress.txt",
+    "021_examples_blog-rtl.txt",
+    "022_layout_utilities.txt",
+    "023_getting-started_contents.txt",
+    "024_components_card.txt",
+    "025_components_navs-tabs.txt",
+    "026_migration.txt",
+    "027_about_team.txt",
+    "028_extend_icons.txt",
+    "029_components_breadcrumb.txt",
+    "030_components_badge.txt",
+    "031_utilities_sizing.txt",
+    "032_utilities_spacing.txt",
+    "033_utilities_shadows.txt",
+    "034_layout_breakpoints.txt",
+    "035_customize_sass.txt",
+    "036_examples_jumbotrons.txt",
+    "037_content_images.txt",
+    "038_components_dropdowns.txt",
+    "039_examples_sidebars.txt",
+    "041_examples_dashboard-rtl.txt",
+    "042_utilities_borders.txt",
+    "043_forms_form-control.txt",
+    "044_getting-started_rfs.txt",
+    "045_components_placeholders.txt",
+    "046_components_scrollspy.txt",
+    "047_examples_navbars-offcanvas.txt",
+    "048_examples_dropdowns.txt",
+    "049_forms_select.txt",
+    "050_components_close-button.txt",
+    "051_examples_navbar-static.txt",
+    "052_customize_overview.txt",
+    "053_customize_optimize.txt",
+    "054_layout_z-index.txt",
+    "056_utilities_text.txt",
+    "059_examples_dashboard.txt",
+    "060_customize_options.txt",
+    "061_examples_starter-template.txt",
+    "062_utilities_object-fit.txt",
+    "063_examples_cover.txt",
+    "064_components_navbar.txt",
+    "065_helpers_stacks.txt",
+    "066_customize_components.txt",
+    "067_getting-started_download.txt",
+    "068_examples_list-groups.txt",
+    "069_utilities_api.txt",
+    "070_components_offcanvas.txt",
+    "071_about_brand.txt",
+    "072_helpers_colored-links.txt",
+    "073_examples_offcanvas-navbar.txt",
+    "075_helpers_ratio.txt",
+    "076_helpers_color-background.txt",
+    "077_helpers_position.txt",
+    "078_components_popovers.txt",
+    "079_forms_validation.txt",
+    "080_examples_sticky-footer.txt",
+    "081_forms_floating-labels.txt",
+    "082_about_license.txt",
+    "083_utilities_colors.txt",
+    "084_helpers_text-truncation.txt",
+    "085_components_modal.txt",
+    "086_examples_carousel-rtl.txt",
+    "087_utilities_link.txt",
+    "088_examples_blog.txt",
+    "089_components_carousel.txt",
+    "090_utilities_z-index.txt",
+    "091_utilities_interactions.txt",
+    "092_forms_range.txt",
+    "093_examples_buttons.txt",
+    "094_examples_pricing.txt",
+    "095_forms_layout.txt",
+    "096_utilities_position.txt",
+    "097_examples_jumbotron.txt",
+    "098_utilities_flex.txt",
+    "099_layout_containers.txt",
+    "100_components_pagination.txt",
+    "101_utilities_background.txt",
+    "102_helpers_stretched-link.txt",
+    "103_getting-started_javascript.txt",
+    "104_utilities_visibility.txt",
+    "105_customize_css-variables.txt",
+    "106_about_translations.txt",
+    "107_utilities_vertical-align.txt",
+    "108_content_tables.txt",
+    "109_forms_overview.txt",
+    "110_utilities_opacity.txt",
+    "111_helpers_vertical-rule.txt",
+    "112_examples_navbar-fixed.txt",
+    "113_customize_color.txt",
+    "114_examples_heroes.txt",
+    "115_examples.txt",
+    "116_components_collapse.txt",
+    "117_content_typography.txt",
+    "118_components_tooltips.txt",
+    "119_content_reboot.txt",
+    "121_components_button-group.txt",
+    "122_utilities_display.txt",
+    "123_getting-started_webpack.txt",
+    "124_helpers_clearfix.txt",
+    "125_utilities_float.txt",
+    "126_examples_grid.txt",
+    "127_layout_grid.txt",
+    "128_examples_checkout.txt",
+    "129_forms_checks-radios.txt",
+    "130_examples_badges.txt",
+    "131_examples_album.txt",
+    "132_examples_masonry.txt",
+    "133_helpers_focus-ring.txt",
+    "134_components_toasts.txt",
+    "135_components_accordion.txt",
+    "136_examples_navbars.txt",
+    "137_examples_navbar-bottom.txt",
+    "139_getting-started_rtl.txt",
+    "140_getting-started_vite.txt",
+    "141_examples_product.txt",
+    "142_customize_color-modes.txt",
+    "143_about_overview.txt",
+    "144_examples_features.txt",
+    "145_components_list-group.txt",
+    "146_getting-started_contribute.txt",
+    "147_examples_sticky-footer-navbar.txt",
+    "149_examples_modals.txt",
+    "150_content_figures.txt",
+    "151_helpers_visually-hidden.txt"
+  ],
+  "llms_file_size": 946003
 }

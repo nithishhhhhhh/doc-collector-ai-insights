@@ -1,0 +1,19 @@
+{
+  "site_name": "TFrameX",
+  "generated_at": "2025-06-19T21:31:11.095743",
+  "files_processed": 9,
+  "total_characters": 26687,
+  "source_files": [
+    "001_tesslate-forge.txt",
+    "002_tframex_core-concepts_agent-as-tool.txt",
+    "003_index.txt",
+    "004_guide.txt",
+    "005_research.txt",
+    "006_tesslate-studio.txt",
+    "007_models_overview.txt",
+    "008_tframex_introduction.txt",
+    "009_getting-started.txt"
+  ],
+  "llms_file_size": 27618,
+  "source_url": "https://tframex.tesslate.com/"
+}

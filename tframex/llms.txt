@@ -1,0 +1,607 @@
+# TFRAMEX DOCUMENTATION
+Generated: 2025-06-19 21:31:11
+Files processed: 9
+Total characters: 26,687
+Source: https://tframex.tesslate.com/
+
+## OVERVIEW
+This file contains the complete TFrameX documentation, minified and optimized for LLM consumption.
+TFrameX is a powerful framework for building AI agents with various patterns, tools, and workflows.
+All content has been cleaned, deduplicated, and formatted for maximum information density.
+
+Key concepts covered:
+- **Patterns**: SequentialPattern, RouterPattern, ConditionalPattern, LoopPattern
+- **Agents**: AI agent creation and management
+- **Tools**: Built-in and custom tools for agent workflows
+- **Framework**: Core TFrameX architecture and usage
+
+---
+
+
+## 001 TESSLATE-FORGE
+Tesslate Forge
+Ultra Low-Cost Model Fine-Tuning & Custom AI Solutions.
+Tesslate Forge represents our affordable model fine-tuning service and professional solutions arm. Leveraging the power of TFrameX, Tesslate Studio, and our deep expertise in AI, we provide cost-effective ways to create specialized models and build tailored AI systems that solve complex business challenges.
+Ultra Low-Cost Model Fine-Tuning
+Our revolutionary approach to model fine-tuning makes customized AI models accessible to everyone. With Tesslate Forge, you can create specialized models at a fraction of the cost of traditional fine-tuning services.
+Affordable Pricing
+Fine-tune models starting at just a fraction of traditional costs, making specialized AI accessible to startups and small businesses.
+Simplified Process
+Our streamlined workflow requires minimal technical expertise. Simply provide your data and requirements, and we handle the rest.
+Rapid Turnaround
+Get your custom-tuned model in days, not weeks, with our optimized fine-tuning pipeline and dedicated infrastructure.
+Expert Guidance
+Our team provides consultation on data preparation, model selection, and evaluation to ensure optimal results for your use case.
+Enterprise AI Solutions
+Custom **Agent** Development:
+Building specialized TFrameX agents and flows designed specifically for your unique workflows and data sources.
+Model Fine-Tuning & Optimization:
+Adapting foundation models or our open-source models (UIGen, Tessa, Synthia) to excel at your specific tasks and industry domain.
+Enterprise AI Integration:
+Seamlessly integrating AI capabilities into your existing systems, databases, and business processes.
+AI Strategy & Consultation:
+Providing expert guidance to help you identify opportunities for AI-driven innovation and develop a roadmap for successful implementation.
+Whether you need an affordable custom-tuned model, want to automate complex processes, gain new insights from your data, or create novel AI-powered products, Tesslate Forge is your trusted partner for turning ambitious AI visions into reality.
+View Fine-Tuning Pricing
+Contact Us for Enterprise Solutions
+
+## 002 TFRAMEX CORE-CONCEPTS AGENT-AS-TOOL
+TFrameX Core Concepts
+Understanding the fundamental building blocks of the TFrameX framework.
+TFrameX is built around several key concepts that work together to create powerful AI applications. Expand each section below to learn more about these core components.
+**Agent**s
+The intelligent actors in TFrameX, capable of reasoning, using tools, and interacting. They are the workhorses of your AI applications.
+**Tool**s
+Functions that grant agents external capabilities, like API access, database queries, or custom computations.
+Flows & FlowContext
+Orchestrate sequences of agent actions and pattern executions to achieve complex goals.
+Interaction **Pattern**s
+Pre-defined, reusable structures for common multi-agent collaborations and task processing logic within Flows.
+LLM Integration
+Pluggable wrappers for Large Language Models, making TFrameX adaptable to various LLM providers and local setups.
+Memory Management
+Enabling agents to recall past interactions and maintain context throughout conversations or tasks.
+MCP Integration
+Connect TFrameX agents to external services and capabilities using the Multi-Capability Protocol.
+**Agent**-as-**Tool** (Hierarchical **Agent**s)
+A powerful paradigm where 'supervisor' agents can delegate tasks to 'specialist' agents by calling them like tools.
+Messages
+The primary data structure for communication between users, agents, and tools.
+
+## 003 INDEX
+TFrameX: Build Advanced **Agent**ic Systems
+The extensible task and flow orchestration framework by Tesslate. Design, build, and deploy sophisticated multi-agent applications with ease.
+Get Started with TFrameX
+Explore Core Concepts
+Why TFrameX?
+TFrameX empowers you to move beyond simple prompt-response interactions and construct complex, dynamic workflows where intelligent agents collaborate, use tools, and adapt to intricate tasks. It's designed for developers looking to build next-generation AI applications.
+Intelligent **Agent**s
+Define specialized agents with unique prompts, tools, and LLMs.
+Learn more →
+Seamless **Tool** Integration
+Equip agents with custom Python tools using simple decorators.
+Learn more →
+Powerful Flow Orchestration
+Design complex workflows with Sequential, Parallel, Router, and Discussion patterns.
+Learn more →
+**Agent**-as-**Tool** Paradigm
+Enable agents to call other agents, creating hierarchical structures.
+Learn more →
+Our Products
+TFrameX Library
+The core Python framework for building and orchestrating LLM agents and flows.
+Explore TFrameX
+Tesslate Studio
+A visual environment for designing, testing, and deploying TFrameX agents and flows.
+Explore Tesslate
+Tesslate Forge
+Your partner for custom enterprise AI solutions and model fine-tuning, built on TFrameX.
+Explore Tesslate
+
+## 004 GUIDE
+404
+Page Not Found
+Oops! The page you're looking for doesn't seem to exist. It might have been moved, deleted, or perhaps you mistyped the URL.
+Go Back to Homepage
+
+## 005 RESEARCH
+Our Research
+Explore the latest findings, publications, and innovations from the Tesslate AI team.
+At Tesslate, we are committed to advancing the frontiers of artificial intelligence, particularly in the areas of agentic systems, LLM orchestration, and human-AI collaboration. Our research informs the development of TFrameX and our other products.
+Coming Soon
+By Tesslate AI Research Team - 2025
+Multi-**Agent** Systems
+LLM Orchestration
+**Framework**
+More research papers and articles will be posted here as they are published.
+
+## 006 TESSLATE-STUDIO
+Tesslate Studio
+Your Integrated Development Environment for Advanced AI **Agent**s.
+Tesslate Studio is a comprehensive platform designed to accelerate the development, testing, and deployment of sophisticated AI agents and applications built with TFrameX. It combines visual design tools with powerful backend management features, enabling both technical and non-technical users to create complex AI systems.
+By leveraging conversational AI, Tesslate Studio allows you to describe your desired application in natural language, and it will orchestrate the necessary agents to build, test, and deploy your software solution.
+Core Components of Tesslate Studio:
+TFrameX Builder:
+A visual drag-and-drop interface for designing agentic flows, configuring agents, and managing tools. (See
+TFrameX Builder
+for details).
+**Agent** Playground:
+An interactive environment to test individual agents or entire flows, inspect message histories, and debug tool calls in real-time.
+Conversational Development:
+Describe your application requirements in natural language, and let our specialized agents generate, refine, and test code for you.
+Resource Management:
+Easily connect to databases, APIs, and other external services that your AI applications need to access.
+Model Management:
+(Planned) Connect and manage various LLMs, fine-tune models, and evaluate their performance for specific tasks.
+Version Control:
+(Planned) Integrated version control for your agent configurations, flows, and generated code with easy rollback capabilities.
+Deployment & Monitoring:
+(Planned) **Tool**s for packaging and deploying TFrameX applications, along with monitoring dashboards for observing agent performance and resource usage.
+How Tesslate Studio Works
+Describe
+Tell Tesslate Studio what you want to build using natural language. Describe features, requirements, and desired technologies.
+Orchestrate
+Behind the scenes, specialized TFrameX agents collaborate to design, code, test, and refine your application based on your specifications.
+Deploy
+Review the generated solution, make adjustments through conversation, and deploy your application with minimal technical overhead.
+Tesslate Studio aims to be the central hub for your AI agent development lifecycle, from initial concept to production deployment, making advanced AI application development accessible to everyone.
+Request Early Access (Coming Soon)
+
+## 007 MODELS OVERVIEW
+Our Models on Hugging Face
+Tesslate is proud to contribute to the open-source AI community by sharing powerful and specialized models.
+We believe in the power of open collaboration to accelerate innovation in AI. Our model families, available on Hugging Face, are designed to tackle specific challenges and empower developers and researchers worldwide.
+These models are often the backbone of agents built with TFrameX and can be fine-tuned or used directly within your applications.
+Visit Tesslate on Hugging Face
+Model Families
+UIGen
+A family of models specialized in understanding and generating user interface components and layouts.
+Common Use Cases:
+UI mockups from text
+Code generation for UI elements
+Visual design assistance
+Tessa
+Versatile and adaptable language models designed for a wide range of natural language understanding and generation tasks.
+Common Use Cases:
+Advanced chatbots
+Content creation
+Complex reasoning tasks
+Synthia
+Models focused on generating high-quality synthetic data for training other AI models and for data augmentation.
+Common Use Cases:
+Synthetic dataset creation
+Anonymized data generation
+AI model training
+
+## 008 TFRAMEX INTRODUCTION
+TFrameX: Orchestrate Intelligence
+The Extensible Python **Framework** for Building Advanced, Multi-**Agent** LLM Applications with Sophisticated Flow Control and **Tool** Integration.
+Explore Core Concepts
+Quick Start Guide
+What is TFrameX?
+Unlocking the potential of collaborative AI agents.
+TFrameX is a Python library meticulously designed by Tesslate to empower developers in building, orchestrating, and managing complex applications driven by Large Language Models (LLMs). It provides a robust and extensible foundation for creating systems where multiple AI agents can collaborate, utilize tools, follow intricate workflows, and adapt to dynamic tasks.
+The core philosophy behind TFrameX is to offer a structured yet highly flexible approach to agentic AI development. It moves beyond simple prompt-chaining, enabling you to define sophisticated interactions, manage state, and integrate diverse capabilities into cohesive, intelligent systems.
+Why TFrameX? The Advantage.
+Sophisticated **Agent** Definition
+Craft specialized agents with unique personas (system prompts), dedicated LLMs, specific toolsets, and independent memory stores. Tailor each agent precisely for its role.
+Seamless & Extensible **Tool**ing
+Effortlessly integrate Python functions as tools for your agents using a simple decorator. TFrameX handles schema generation, enabling agents to interact with APIs, databases, or any custom logic.
+Advanced Flow Orchestration
+Design intricate workflows using the 'Flow' concept. Chain agents and powerful '**Pattern**s' (Sequential, Parallel, Router, Discussion) to control the logic and data progression in your applications.
+Powerful Interaction **Pattern**s
+Utilize pre-built patterns for common multi-agent collaborations like debates, parallel task processing, and conditional routing, simplifying the design of complex interactions.
+**Agent**-as-**Tool** Paradigm
+A cornerstone of TFrameX: enable 'supervisor' agents to call other 'specialist' agents as tools. This facilitates hierarchical task decomposition and advanced delegation.
+Flexible LLM & Memory Backend
+Start with OpenAI-compatible LLMs (including local servers like Ollama) and InMemoryMemory. Extend to custom LLM wrappers and persistent memory stores as needed.
+Who is TFrameX For?
+AI Application Developers:
+Building complex chatbots, AI assistants, or automated systems requiring multiple LLM interactions.
+Researchers:
+Exploring multi-agent systems, collaborative AI, and advanced LLM reasoning patterns.
+Enterprise Teams:
+Looking to integrate sophisticated AI automation into existing workflows and systems.
+Hobbyists & Innovators:
+Experimenting with the cutting edge of LLM capabilities and agentic design.
+"TFrameX is built on the principle that the next generation of AI applications will be powered by a symphony of specialized agents working in concert. We provide the conductor's baton." - Tesslate
+Get Started with TFrameX Now
+Understand the Core Concepts
+
+## 009 GETTING-STARTED
+Getting Started with TFrameX
+Your journey to building powerful agentic systems begins here. Follow these steps to get TFrameX up and running.
+Prerequisites
+Python 3.8 or higher installed.
+Access to an LLM:
+An OpenAI API key, OR
+A locally running LLM server (e.g.,
+Ollama
+, LiteLLM) that exposes an OpenAI-compatible API.
+Basic understanding of Python and asynchronous programming (
+async
+await
+Step 1: Installation
+Install TFrameX using pip. We recommend using a virtual environment.
+pip install tframex
+Alternatively, for faster environment management, you can use
+## Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+This will install TFrameX and its core dependencies.
+Step 2: Environment Configuration
+TFrameX needs to know how to connect to your LLM. Create a file named
+.env
+in the root of your project directory and add your LLM API details. TFrameX uses
+python-dotenv
+to load these variables automatically.
+## .env
+## Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+## Example for OpenAI API
+## OPENAI_API_KEY="your_actual_openai_api_key"
+## OPENAI_MODEL_NAME="gpt-4-turbo"
+## OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+Important LLM Setup:
+If using a local server like Ollama, ensure it's running and the specified model (e.g.,
+llama3
+) has been pulled (
+ollama pull llama3
+). If using OpenAI, ensure your API key has credits.
+Step 3: Your First TFrameX **Agent**
+Create a Python file (e.g.,
+my_first_agent.py
+) and paste the following code. This example defines a simple "Greeter" agent.
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+## Load environment variables from .env file
+load_dotenv()
+## 1. Configure your LLM
+## TFrameXApp will use these environment variables if not explicitly passed.
+## Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+api_key=os.getenv("OPENAI_API_KEY") # e.g., "ollama" or your actual API key
+## 2. Initialize TFrameXApp
+## You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+## 3. Define a simple agent
+## The @app.agent decorator registers this function as an agent configuration.
+## For LLM**Agent** (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+name="FriendlyGreeter**Agent**",
+system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+async def friendly_greeter_placeholder():
+pass
+## 4. Run the agent
+async def main():
+## The run_context manages resources like LLM clients.
+async with app.run_context() as rt:
+user_query = Message(role="user", content="Hi there, TFrameX!")
+print(f"Sending message to 'FriendlyGreeter**Agent**': '{user_query.content}'")
+## Call the agent by its registered name.
+agent_response = await rt.call_agent("FriendlyGreeter**Agent**", user_query)
+print(f"\n**Agent** Response:")
+print(f" Role: {agent_response.role}")
+print(f" Content: {agent_response.content}")
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured. ")
+print("Please set OPENAI_API_BASE in your .env file or in the script.")
+else:
+print("--- Running TFrameX Basic **Agent** Example ---")
+asyncio.run(main())
+Run the script from your terminal:
+python my_first_agent.py
+If your LLM is configured correctly and running, you should see a friendly greeting from your agent printed to the console!
+Step 4: Adding a **Tool** to an **Agent**
+Let's enhance our setup by creating an agent that uses a tool. Create a new file (e.g.,
+tool_agent_example.py
+) or modify the previous one:
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+load_dotenv()
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME"),
+api_base_url=os.getenv("OPENAI_API_BASE"),
+api_key=os.getenv("OPENAI_API_KEY")
+app = TFrameXApp(default_llm=llm_config)
+## Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+return a + b
+## Define an agent that can use this tool
+@app.agent(
+name="Calculator**Agent**",
+system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+tools=["add_numbers"] # Make the tool available to this agent
+async def calculator_agent_placeholder():
+pass
+async def main_tool_example():
+async with app.run_context() as rt:
+## The LLM should decide to use the tool based on the prompt
+user_query = Message(role="user", content="What is 5 plus 7?")
+print(f"Sending message to 'Calculator**Agent**': '{user_query.content}'")
+agent_response = await rt.call_agent("Calculator**Agent**", user_query)
+print(f"\n**Agent** Response (Calculator**Agent**):")
+print(f" Content: {agent_response.content}") # Expected: "12" or similar
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured.")
+else:
+print("\n--- Running TFrameX **Tool** **Agent** Example ---")
+asyncio.run(main_tool_example())
+Run this script:
+python tool_agent_example.py
+You should see output indicating the
+add_numbers
+tool was executed, and the agent should respond with the calculated sum. This demonstrates the LLM deciding to use a tool based on the system prompt and user query.
+Congratulations & Next Steps!
+You've successfully installed TFrameX, configured your LLM, and run your first basic and tool-using agents! You're now equipped to explore the more advanced capabilities of the framework.
+Dive deeper into
+Core Concepts
+to understand **Agent**s, **Tool**s, Flows, and **Pattern**s in detail.
+Explore the
+TFrameX Library documentation
+for comprehensive API references.
+Check out more examples in the TFrameX GitHub repository (link can be found in the footer).
+Start building your own sophisticated agentic applications!
+
+pip install tframex
+
+pip install tframex
+
+## Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+
+## Using uv (recommended for speed)
+uv venv
+source .venv/bin/activate # or .venv\Scripts\Activate.ps1 on PowerShell
+uv pip install tframex
+
+python-dotenv
+
+## .env
+## Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+
+## Example for OpenAI API
+## OPENAI_API_KEY="your_actual_openai_api_key"
+## OPENAI_MODEL_NAME="gpt-4-turbo"
+## OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+
+## .env
+## Example for Ollama (running locally)
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama" # Some local servers use a placeholder
+OPENAI_MODEL_NAME="llama3" # Or your preferred model served by Ollama
+
+## Example for OpenAI API
+## OPENAI_API_KEY="your_actual_openai_api_key"
+## OPENAI_MODEL_NAME="gpt-4-turbo"
+## OPENAI_API_BASE="https://api.openai.com/v1" # Often optional if using official OpenAI lib
+
+ollama pull llama3
+
+my_first_agent.py
+
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+## Load environment variables from .env file
+load_dotenv()
+
+## 1. Configure your LLM
+## TFrameXApp will use these environment variables if not explicitly passed.
+## Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+api_key=os.getenv("OPENAI_API_KEY") # e.g., "ollama" or your actual API key
+)
+
+## 2. Initialize TFrameXApp
+## You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+
+## 3. Define a simple agent
+## The @app.agent decorator registers this function as an agent configuration.
+## For LLM**Agent** (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+name="FriendlyGreeter**Agent**",
+system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+)
+async def friendly_greeter_placeholder():
+pass
+
+## 4. Run the agent
+async def main():
+# The run_context manages resources like LLM clients.
+async with app.run_context() as rt:
+user_query = Message(role="user", content="Hi there, TFrameX!")
+
+print(f"Sending message to 'FriendlyGreeter**Agent**': '{user_query.content}'")
+
+# Call the agent by its registered name.
+agent_response = await rt.call_agent("FriendlyGreeter**Agent**", user_query)
+
+print(f"\n**Agent** Response:")
+print(f" Role: {agent_response.role}")
+print(f" Content: {agent_response.content}")
+
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured. ")
+print("Please set OPENAI_API_BASE in your .env file or in the script.")
+else:
+print("--- Running TFrameX Basic **Agent** Example ---")
+asyncio.run(main())
+
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+## Load environment variables from .env file
+load_dotenv()
+
+## 1. Configure your LLM
+## TFrameXApp will use these environment variables if not explicitly passed.
+## Ensure your LLM (e.g., Ollama with 'llama3' model pulled) is running.
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo"),
+api_base_url=os.getenv("OPENAI_API_BASE"), # e.g., "http://localhost:11434/v1" for Ollama
+api_key=os.getenv("OPENAI_API_KEY") # e.g., "ollama" or your actual API key
+)
+
+## 2. Initialize TFrameXApp
+## You can provide a default LLM for all agents, or configure per-agent.
+app = TFrameXApp(default_llm=llm_config)
+
+## 3. Define a simple agent
+## The @app.agent decorator registers this function as an agent configuration.
+## For LLM**Agent** (the default), the function body is often just 'pass' as TFrameX handles the logic.
+@app.agent(
+name="FriendlyGreeter**Agent**",
+system_prompt="You are a cheerful assistant. Greet the user warmly and ask how you can help today."
+)
+async def friendly_greeter_placeholder():
+pass
+
+## 4. Run the agent
+async def main():
+# The run_context manages resources like LLM clients.
+async with app.run_context() as rt:
+user_query = Message(role="user", content="Hi there, TFrameX!")
+
+print(f"Sending message to 'FriendlyGreeter**Agent**': '{user_query.content}'")
+
+# Call the agent by its registered name.
+agent_response = await rt.call_agent("FriendlyGreeter**Agent**", user_query)
+
+print(f"\n**Agent** Response:")
+print(f" Role: {agent_response.role}")
+print(f" Content: {agent_response.content}")
+
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured. ")
+print("Please set OPENAI_API_BASE in your .env file or in the script.")
+else:
+print("--- Running TFrameX Basic **Agent** Example ---")
+asyncio.run(main())
+
+python my_first_agent.py
+
+tool_agent_example.py
+
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+load_dotenv()
+
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME"),
+api_base_url=os.getenv("OPENAI_API_BASE"),
+api_key=os.getenv("OPENAI_API_KEY")
+)
+app = TFrameXApp(default_llm=llm_config)
+
+## Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+return a + b
+
+## Define an agent that can use this tool
+@app.agent(
+name="Calculator**Agent**",
+system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+tools=["add_numbers"] # Make the tool available to this agent
+)
+async def calculator_agent_placeholder():
+pass
+
+async def main_tool_example():
+async with app.run_context() as rt:
+# The LLM should decide to use the tool based on the prompt
+user_query = Message(role="user", content="What is 5 plus 7?")
+print(f"Sending message to 'Calculator**Agent**': '{user_query.content}'")
+agent_response = await rt.call_agent("Calculator**Agent**", user_query)
+
+print(f"\n**Agent** Response (Calculator**Agent**):")
+print(f" Content: {agent_response.content}") # Expected: "12" or similar
+
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured.")
+else:
+print("\n--- Running TFrameX **Tool** **Agent** Example ---")
+asyncio.run(main_tool_example())
+
+import asyncio
+import os
+from dotenv import load_dotenv
+from tframex import TFrameXApp, OpenAIChatLLM, Message
+
+load_dotenv()
+
+llm_config = OpenAIChatLLM(
+model_name=os.getenv("OPENAI_MODEL_NAME"),
+api_base_url=os.getenv("OPENAI_API_BASE"),
+api_key=os.getenv("OPENAI_API_KEY")
+)
+app = TFrameXApp(default_llm=llm_config)
+
+## Define a tool
+@app.tool(description="Calculates the sum of two numbers.")
+async def add_numbers(a: int, b: int) -> int:
+print(f"TOOL EXECUTED: add_numbers(a={a}, b={b})")
+return a + b
+
+## Define an agent that can use this tool
+@app.agent(
+name="Calculator**Agent**",
+system_prompt="You are a calculator. Use the 'add_numbers' tool to perform additions. Respond with only the result if a calculation is done.",
+tools=["add_numbers"] # Make the tool available to this agent
+)
+async def calculator_agent_placeholder():
+pass
+
+async def main_tool_example():
+async with app.run_context() as rt:
+# The LLM should decide to use the tool based on the prompt
+user_query = Message(role="user", content="What is 5 plus 7?")
+print(f"Sending message to 'Calculator**Agent**': '{user_query.content}'")
+agent_response = await rt.call_agent("Calculator**Agent**", user_query)
+
+print(f"\n**Agent** Response (Calculator**Agent**):")
+print(f" Content: {agent_response.content}") # Expected: "12" or similar
+
+if __name__ == "__main__":
+if not llm_config.api_base_url:
+print("[ERROR] LLM API base URL is not configured.")
+else:
+print("\n--- Running TFrameX **Tool** **Agent** Example ---")
+asyncio.run(main_tool_example())
+
+python tool_agent_example.py
+
+add_numbers

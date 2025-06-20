@@ -1,1226 +1,212 @@
 {
-  "site": "figma",
-  "total_files": 203,
-  "processed_files": 203,
-  "total_content_length": 948267,
-  "files": [
-    {
-      "filename": "001_Optimize_design_files_for_developer_handoff.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040521453-Optimize-design-files-for-developer-handoff",
-      "content_length": 3088
-    },
-    {
-      "filename": "002_Guide_to_Dev_Mode.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode",
-      "content_length": 11447
-    },
-    {
-      "filename": "003_Use_AI_tools_in_Figma_Design.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/23870272542231-Use-AI-tools-in-Figma-Design",
-      "content_length": 4249
-    },
-    {
-      "filename": "004_Import_files_to_the_file_browser.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041003114-Import-files-to-the-file-browser",
-      "content_length": 1070
-    },
-    {
-      "filename": "005_Guide_to_variables_in_Figma.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma",
-      "content_length": 6182
-    },
-    {
-      "filename": "006_Arrange_layers_with_Smart_selection.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450233-Arrange-layers-with-Smart-selection",
-      "content_length": 6952
-    },
-    {
-      "filename": "007_Set_prototype_device_and_background_settings.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/21158597546391-Set-prototype-device-and-background-settings",
-      "content_length": 2708
-    },
-    {
-      "filename": "008_Use_videos_in_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/8878274530455-Use-videos-in-prototypes",
-      "content_length": 5803
-    },
-    {
-      "filename": "009_Find_assets_and_designs_using_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24037716110615-Find-assets-and-designs-using-AI",
-      "content_length": 3901
-    },
-    {
-      "filename": "010_See_viewer_history_for_your_files.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/29638316371479-See-viewer-history-for-your-files",
-      "content_length": 2028
-    },
-    {
-      "filename": "011_Publish_a_library.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360025508373-Publish-a-library",
-      "content_length": 4713
-    },
-    {
-      "filename": "012_Dev_Mode_ready_for_dev_view.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/23918228264855-Dev-Mode-ready-for-dev-view",
-      "content_length": 3018
-    },
-    {
-      "filename": "013_category_figma_design.txt",
-      "title": "Tour the interface",
-      "url": "https://help.figma.com/hc/en-us/categories/360002042553-Figma-Design",
-      "content_length": 6481
-    },
-    {
-      "filename": "014_Rename_Layers.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039958934-Rename-Layers",
-      "content_length": 5487
-    },
-    {
-      "filename": "015_Prototype_easing_and_spring_animations.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360051748654-Prototype-easing-and-spring-animations",
-      "content_length": 5970
-    },
-    {
-      "filename": "016_Create_and_manage_prototype_flows.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039823894-Create-and-manage-prototype-flows",
-      "content_length": 5412
-    },
-    {
-      "filename": "017_Edit_main_components.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360038665934-Edit-main-components",
-      "content_length": 3659
-    },
-    {
-      "filename": "018_About_Figma_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24039793359767-About-Figma-AI",
-      "content_length": 4898
-    },
-    {
-      "filename": "019_Explore_design_files.txt",
-      "title": "In this guide, we\u2019ll cover the basics of working with design files in Figma Design.",
-      "url": "https://help.figma.com/hc/en-us/articles/15297425105303-Explore-design-files",
-      "content_length": 14612
-    },
-    {
-      "filename": "020_State_management_for_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/14397859494295-State-management-for-prototypes",
-      "content_length": 7546
-    },
-    {
-      "filename": "021_Use_OpenType_features.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/4913951097367-Use-OpenType-features",
-      "content_length": 1914
-    },
-    {
-      "filename": "022_Edit_objects_on_the_canvas_in_bulk.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/21635177948567-Edit-objects-on-the-canvas-in-bulk",
-      "content_length": 2726
-    },
-    {
-      "filename": "023_Figma_for_VS_Code.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15023121296151-Figma-for-VS-Code",
-      "content_length": 3528
-    },
-    {
-      "filename": "024_Use_code_snippets_in_Dev_Mode.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15023202277399-Use-code-snippets-in-Dev-Mode",
-      "content_length": 4488
-    },
-    {
-      "filename": "025_Create_and_apply_text_styles.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957034-Create-and-apply-text-styles",
-      "content_length": 4807
-    },
-    {
-      "filename": "026_Explore_text_properties.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039956634-Explore-text-properties",
-      "content_length": 18977
-    },
-    {
-      "filename": "027_Add_comments_to_files.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041068574-Add-comments-to-files",
-      "content_length": 5466
-    },
-    {
-      "filename": "028_Make_interactions_with_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24004778051479-Make-interactions-with-AI",
-      "content_length": 2241
-    },
-    {
-      "filename": "029_Use_variable_fonts.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/5579502031511-Use-variable-fonts",
-      "content_length": 5431
-    },
-    {
-      "filename": "030_Guide_to_prototyping_in_Figma.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040314193-Guide-to-prototyping-in-Figma",
-      "content_length": 6564
-    },
-    {
-      "filename": "031_Play_your_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040318013-Play-your-prototypes",
-      "content_length": 12056
-    },
-    {
-      "filename": "032_Prototype_scroll_and_overflow_behavior.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039818734-Prototype-scroll-and-overflow-behavior",
-      "content_length": 7524
-    },
-    {
-      "filename": "033_Use_icon_fonts.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040449513-Use-icon-fonts",
-      "content_length": 2345
-    },
-    {
-      "filename": "034_Detach_an_instance_from_the_component.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038665754-Detach-an-instance-from-the-component",
-      "content_length": 1544
-    },
-    {
-      "filename": "035_Link_Dev_resources_to_layers_in_Dev_Mode.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15023231995927-Link-Dev-resources-to-layers-in-Dev-Mode",
-      "content_length": 1472
-    },
-    {
-      "filename": "036_Use_blend_modes_to_create_unique_effects.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040667874-Use-blend-modes-to-create-unique-effects",
-      "content_length": 2287
-    },
-    {
-      "filename": "037_Apply_and_adjust_stroke_properties.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360049283914-Apply-and-adjust-stroke-properties",
-      "content_length": 12375
-    },
-    {
-      "filename": "038_Organize_your_canvas_with_sections.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/9771500257687-Organize-your-canvas-with-sections",
-      "content_length": 3450
-    },
-    {
-      "filename": "039_Copy_and_paste_objects.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/4409078832791-Copy-and-paste-objects",
-      "content_length": 8957
-    },
-    {
-      "filename": "040_Crop_an_image.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040675194-Crop-an-image",
-      "content_length": 1537
-    },
-    {
-      "filename": "041_Prototype_triggers.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040035834-Prototype-triggers",
-      "content_length": 6282
-    },
-    {
-      "filename": "042_Advanced_prototyping_examples.txt",
-      "title": "Advanced prototyping features (such as",
-      "url": "https://help.figma.com/hc/en-us/articles/17146044893591-Advanced-prototyping-examples",
-      "content_length": 9907
-    },
-    {
-      "filename": "043_Navigate_designs_in_Dev_Mode.txt",
-      "title": "Dev Mode is out of beta",
-      "url": "https://help.figma.com/hc/en-us/articles/15023152204951-Navigate-designs-in-Dev-Mode",
-      "content_length": 2227
-    },
-    {
-      "filename": "044_Remove_your_access_to_a_library.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038743894-Remove-your-access-to-a-library",
-      "content_length": 1370
-    },
-    {
-      "filename": "045_Draw_with_illustration_tools.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/31440438150935-Draw-with-illustration-tools",
-      "content_length": 2450
-    },
-    {
-      "filename": "046_Modes_for_variables.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables",
-      "content_length": 10484
-    },
-    {
-      "filename": "047_Comment_on_prototypes.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039824594-Comment-on-prototypes",
-      "content_length": 3006
-    },
-    {
-      "filename": "048_Guide_to_imports_in_Figma_Design.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040027794-Guide-to-imports-in-Figma-Design",
-      "content_length": 1092
-    },
-    {
-      "filename": "049_Export_from_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040028114-Export-from-Figma-Design",
-      "content_length": 4741
-    },
-    {
-      "filename": "050_Dev_Mode_for_admins.txt",
-      "title": "",
-      "url": "https://help.figma.com/hc/en-us/articles/19813618057623-Dev-Mode-for-admins",
-      "content_length": 2455
-    },
-    {
-      "filename": "051_Use_Jambot_in_FigJam.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/16783866441111-Use-Jambot-in-FigJam",
-      "content_length": 2985
-    },
-    {
-      "filename": "052_Add_prototype_connections_from_main_components.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/4404380377367-Add-prototype-connections-from-main-components",
-      "content_length": 1692
-    },
-    {
-      "filename": "053_Multiple_actions_and_conditionals.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/15253220891799-Multiple-actions-and-conditionals",
-      "content_length": 4282
-    },
-    {
-      "filename": "054_Rewrite_translate_and_shorten_text_with_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24004868368919-Rewrite-translate-and-shorten-text-with-AI",
-      "content_length": 2583
-    },
-    {
-      "filename": "055_Add_text_in_Chinese_Japanese_and_Korean.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040449673-Add-text-in-Chinese-Japanese-and-Korean",
-      "content_length": 2857
-    },
-    {
-      "filename": "056_Variable_modes_in_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/15253268379799-Variable-modes-in-prototypes",
-      "content_length": 5849
-    },
-    {
-      "filename": "057_Create_custom_shapes_with_the_shape_builder_tool.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/31616004109847-Create-custom-shapes-with-the-shape-builder-tool",
-      "content_length": 1372
-    },
-    {
-      "filename": "058_Frames_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041539473-Frames-in-Figma-Design",
-      "content_length": 8987
-    },
-    {
-      "filename": "059_Guide_to_components_in_Figma.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038662654-Guide-to-components-in-Figma",
-      "content_length": 1390
-    },
-    {
-      "filename": "060_Apply_variables_to_designs.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs",
-      "content_length": 8144
-    },
-    {
-      "filename": "061_Create_and_use_variants.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360056440594-Create-and-use-variants",
-      "content_length": 12482
-    },
-    {
-      "filename": "062_Compare_changes_in_Dev_Mode.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15023193382935-Compare-changes-in-Dev-Mode",
-      "content_length": 3400
-    },
-    {
-      "filename": "063_Guide_to_auto_layout.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout",
-      "content_length": 15497
-    },
-    {
-      "filename": "064_Code_Connect.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect",
-      "content_length": 3632
-    },
-    {
-      "filename": "065_Share_a_branch.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5665697002263-Share-a-branch",
-      "content_length": 2194
-    },
-    {
-      "filename": "066_Guide_to_comments_in_Figma.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039825314-Guide-to-comments-in-Figma",
-      "content_length": 2187
-    },
-    {
-      "filename": "067_Use_the_actions_menu_in_Figma_Design.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/23570416033943-Use-the-actions-menu-in-Figma-Design",
-      "content_length": 4840
-    },
-    {
-      "filename": "068_Explore_Figma_Draw.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/31440394517143-Explore-Figma-Draw",
-      "content_length": 1420
-    },
-    {
-      "filename": "069_Swap_style_and_component_libraries.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/4404856784663-Swap-style-and-component-libraries",
-      "content_length": 7987
-    },
-    {
-      "filename": "070_View_layer_outlines_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/5724448965527-View-layer-outlines-in-Figma-Design",
-      "content_length": 1130
-    },
-    {
-      "filename": "071_Create_and_insert_component_instances.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039150173-Create-and-insert-component-instances",
-      "content_length": 3969
-    },
-    {
-      "filename": "072_Create_layout_guides.txt",
-      "title": "Note",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450513-Create-layout-guides",
-      "content_length": 8625
-    },
-    {
-      "filename": "073_Create_bulleted_and_numbered_lists.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040449773-Create-bulleted-and-numbered-lists",
-      "content_length": 4519
-    },
-    {
-      "filename": "074_Set_small_and_big_nudge_values.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/4404575206295-Set-small-and-big-nudge-values",
-      "content_length": 648
-    },
-    {
-      "filename": "075_Apply_styles_to_layers_and_objects.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040316193-Apply-styles-to-layers-and-objects",
-      "content_length": 3576
-    },
-    {
-      "filename": "076_Create_and_manage_variables_and_collections.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections",
-      "content_length": 8740
-    },
-    {
-      "filename": "077_Variables_in_Dev_Mode.txt",
-      "title": "",
-      "url": "https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode",
-      "content_length": 3825
-    },
-    {
-      "filename": "078_Preserve_scroll_position_in_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360051747774-Preserve-scroll-position-in-prototypes",
-      "content_length": 5179
-    },
-    {
-      "filename": "079_Use_cursor_chat_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/4403130802199-Use-cursor-chat-in-Figma-Design",
-      "content_length": 2089
-    },
-    {
-      "filename": "080_Toggle_auto_layout_on_designs.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/5731482952599-Toggle-auto-layout-on-designs",
-      "content_length": 3739
-    },
-    {
-      "filename": "081_Guide_to_libraries_in_Figma.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041051154-Guide-to-libraries-in-Figma",
-      "content_length": 5242
-    },
-    {
-      "filename": "082_View_layers_and_pages_in_the_left_sidebar.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039831974-View-layers-and-pages-in-the-left-sidebar",
-      "content_length": 4857
-    },
-    {
-      "filename": "083_Convert_text_to_vector_paths.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360047239073-Convert-text-to-vector-paths",
-      "content_length": 1977
-    },
-    {
-      "filename": "084_Adjust_text_dimensions_and_resizing.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/27378154668951-Adjust-text-dimensions-and-resizing",
-      "content_length": 3767
-    },
-    {
-      "filename": "085_Add_images_and_videos_in_bulk.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041089973-Add-images-and-videos-in-bulk",
-      "content_length": 1679
-    },
-    {
-      "filename": "086_Add_guides_to_the_canvas_or_frames.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040449713-Add-guides-to-the-canvas-or-frames",
-      "content_length": 1828
-    },
-    {
-      "filename": "087_Explore_component_properties.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties",
-      "content_length": 16968
-    },
-    {
-      "filename": "088_Make_boards_and_diagrams_with_FigJam_AI.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/18706554628119-Make-boards-and-diagrams-with-FigJam-AI",
-      "content_length": 3330
-    },
-    {
-      "filename": "089_Review_and_accept_library_updates.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039234193-Review-and-accept-library-updates",
-      "content_length": 2438
-    },
-    {
-      "filename": "090_Export_formats_and_settings.txt",
-      "title": "Figma Design supports a variety of export formats and settings. Use this article to determine which format best suits your needs.",
-      "url": "https://help.figma.com/hc/en-us/articles/13402894554519-Export-formats-and-settings",
-      "content_length": 10615
-    },
-    {
-      "filename": "091_Create_multi_dimensional_auto_layout_flows.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/31441443713047-Create-multi-dimensional-auto-layout-flows",
-      "content_length": 3926
-    },
-    {
-      "filename": "092_Apply_paints_with_the_color_picker.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041003774-Apply-paints-with-the-color-picker",
-      "content_length": 4632
-    },
-    {
-      "filename": "093_View_prototype_connections.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/4411431245335-View-prototype-connections",
-      "content_length": 3413
-    },
-    {
-      "filename": "094_Paints_in_Figma.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041003694-Paints-in-Figma",
-      "content_length": 3006
-    },
-    {
-      "filename": "095_Add_right_to_left_text.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/4972283635863-Add-right-to-left-text",
-      "content_length": 5724
-    },
-    {
-      "filename": "096_Arc_tool_create_arcs_semi_circles_and_rings.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450173-Arc-tool-create-arcs-semi-circles-and-rings",
-      "content_length": 1502
-    },
-    {
-      "filename": "097_Use_animated_GIFs_in_prototypes.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041486873-Use-animated-GIFs-in-prototypes",
-      "content_length": 2312
-    },
-    {
-      "filename": "098_Use_the_horizontal_and_vertical_flows_in_auto_layout.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/31289464393751-Use-the-horizontal-and-vertical-flows-in-auto-layout",
-      "content_length": 9938
-    },
-    {
-      "filename": "099_Dev_Mode_statuses_and_notifications.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/26781702258583-Dev-Mode-statuses-and-notifications",
-      "content_length": 5322
-    },
-    {
-      "filename": "100_Upload_an_image_as_a_fill.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041090073-Upload-an-image-as-a-fill",
-      "content_length": 1012
-    },
-    {
-      "filename": "101_Manage_email_notifications_for_comments_on_files.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041547813-Manage-email-notifications-for-comments-on-files",
-      "content_length": 1904
-    },
-    {
-      "filename": "102_Adjust_tone_using_Figma_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24244814883735-Adjust-tone-using-Figma-AI",
-      "content_length": 1080
-    },
-    {
-      "filename": "103_Lock_and_unlock_layers.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041596573-Lock-and-unlock-layers",
-      "content_length": 1493
-    },
-    {
-      "filename": "104_Import_Sketch_files.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040514273-Import-Sketch-files",
-      "content_length": 4106
-    },
-    {
-      "filename": "105_Use_First_Draft_with_Figma_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/23955143044247-Use-First-Draft-with-Figma-AI",
-      "content_length": 4343
-    },
-    {
-      "filename": "106_Enable_a_library_for_a_team.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039234953-Enable-a-library-for-a-team",
-      "content_length": 3481
-    },
-    {
-      "filename": "107_Create_patterns_with_transforms.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/31440427042839-Create-patterns-with-transforms",
-      "content_length": 1682
-    },
-    {
-      "filename": "108_Add_images_and_videos_to_design_files.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040028034-Add-images-and-videos-to-design-files",
-      "content_length": 2892
-    },
-    {
-      "filename": "109_Find_and_replace_in_Figma.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/9141292269847-Find-and-replace-in-Figma",
-      "content_length": 1850
-    },
-    {
-      "filename": "110_Adjust_corner_radius_and_smoothing.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360050986854-Adjust-corner-radius-and-smoothing",
-      "content_length": 4306
-    },
-    {
-      "filename": "111_Use_variables_in_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/14506587589399-Use-variables-in-prototypes",
-      "content_length": 9178
-    },
-    {
-      "filename": "112_Measure_distances_between_layers.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039956974-Measure-distances-between-layers",
-      "content_length": 3908
-    },
-    {
-      "filename": "113_Add_a_font_to_Figma_Design.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039956894-Add-a-font-to-Figma-Design",
-      "content_length": 3082
-    },
-    {
-      "filename": "114_Edit_instances_with_component_properties.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/8883757553943-Edit-instances-with-component-properties",
-      "content_length": 2484
-    },
-    {
-      "filename": "115_Sketch_on_the_canvas_with_the_pencil_tool.txt",
-      "title": "Use the pencil tool to sketch on the canvas or other objects. It's a great way to call attention to something on the canvas or draw something fun.",
-      "url": "https://help.figma.com/hc/en-us/articles/4402723791511-Sketch-on-the-canvas-with-the-pencil-tool",
-      "content_length": 1613
-    },
-    {
-      "filename": "116_Connect_your_prototype.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040315773-Connect-your-prototype",
-      "content_length": 7337
-    },
-    {
-      "filename": "117_Smart_animate_layers_between_frames.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039818874-Smart-animate-layers-between-frames",
-      "content_length": 10515
-    },
-    {
-      "filename": "118_Prototype_actions.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040035874-Prototype-actions",
-      "content_length": 5822
-    },
-    {
-      "filename": "119_Prototype_animations.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040522373-Prototype-animations",
-      "content_length": 1554
-    },
-    {
-      "filename": "120_Incomplete_merges_or_updates.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/5691750511383-Incomplete-merges-or-updates",
-      "content_length": 3177
-    },
-    {
-      "filename": "121_Make_or_edit_an_image_with_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24004542669463-Make-or-edit-an-image-with-AI",
-      "content_length": 3514
-    },
-    {
-      "filename": "122_Save_a_local_copy_of_files.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/8403626871063-Save-a-local-copy-of-files",
-      "content_length": 1709
-    },
-    {
-      "filename": "123_Masks.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450253-Masks",
-      "content_length": 5376
-    },
-    {
-      "filename": "124_Paste_images_in_the_canvas.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040615014-Paste-images-in-the-canvas",
-      "content_length": 2225
-    },
-    {
-      "filename": "125_Color_models_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360043042113-Color-models-in-Figma-Design",
-      "content_length": 4691
-    },
-    {
-      "filename": "126_Use_the_grid_auto_layout_flow.txt",
-      "title": "\ud83d\udea7 Grid in auto layout is currently in",
-      "url": "https://help.figma.com/hc/en-us/articles/31289469907863-Use-the-grid-auto-layout-flow",
-      "content_length": 7064
-    },
-    {
-      "filename": "127_Request_a_branch_review.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5691414603543-Request-a-branch-review",
-      "content_length": 3864
-    },
-    {
-      "filename": "128_Apply_constraints_to_define_how_layers_resize.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957734-Apply-constraints-to-define-how-layers-resize",
-      "content_length": 3979
-    },
-    {
-      "filename": "129_Create_interactive_components_with_variants.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360061175334-Create-interactive-components-with-variants",
-      "content_length": 8680
-    },
-    {
-      "filename": "130_Set_custom_thumbnails_for_files.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038511413-Set-custom-thumbnails-for-files",
-      "content_length": 2154
-    },
-    {
-      "filename": "131_Browse_and_apply_fonts.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041308034-Browse-and-apply-fonts",
-      "content_length": 1689
-    },
-    {
-      "filename": "132_Create_overlays_in_your_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039818254-Create-overlays-in-your-prototypes",
-      "content_length": 4968
-    },
-    {
-      "filename": "133_Shape_tools.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450133-Shape-tools",
-      "content_length": 5004
-    },
-    {
-      "filename": "134_Present_to_collaborators_using_spotlight.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040322673-Present-to-collaborators-using-spotlight",
-      "content_length": 3370
-    },
-    {
-      "filename": "135_Unpublish_a_library.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039236853-Unpublish-a-library",
-      "content_length": 1307
-    },
-    {
-      "filename": "136_Dev_Mode_focus_view.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/23919923330455-Dev-Mode-focus-view",
-      "content_length": 4407
-    },
-    {
-      "filename": "137_Adjust_the_properties_of_an_image.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041098433-Adjust-the-properties-of-an-image",
-      "content_length": 7245
-    },
-    {
-      "filename": "138_Add_measurements_and_annotate_designs.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/20774752502935-Add-measurements-and-annotate-designs",
-      "content_length": 4055
-    },
-    {
-      "filename": "139_Styles_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039238753-Styles-in-Figma-Design",
-      "content_length": 1172
-    },
-    {
-      "filename": "140_Use_expressions_in_prototypes.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/15253194385943-Use-expressions-in-prototypes",
-      "content_length": 7591
-    },
-    {
-      "filename": "141_Navigating_UI3_Figma_s_new_UI.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/23954856027159-Navigating-UI3-Figma-s-new-UI",
-      "content_length": 8705
-    },
-    {
-      "filename": "142_AI_text_suggestions.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/31326388366871-AI-text-suggestions",
-      "content_length": 1065
-    },
-    {
-      "filename": "143_Adjust_your_zoom_and_view_options.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041065034-Adjust-your-zoom-and-view-options",
-      "content_length": 6490
-    },
-    {
-      "filename": "144_Start_designing_with_UI_kits.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/24037724065943-Start-designing-with-UI-kits",
-      "content_length": 5719
-    },
-    {
-      "filename": "145_View_and_manage_comments.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041547593-View-and-manage-comments",
-      "content_length": 5957
-    },
-    {
-      "filename": "146_Add_links_to_text.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360045942953-Add-links-to-text",
-      "content_length": 4450
-    },
-    {
-      "filename": "147_Add_fills_to_text_and_shape_layers.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040623954-Add-fills-to-text-and-shape-layers",
-      "content_length": 2160
-    },
-    {
-      "filename": "148_Use_sections_in_prototyping.txt",
-      "title": "Sections",
-      "url": "https://help.figma.com/hc/en-us/articles/16194160540567-Use-sections-in-prototyping",
-      "content_length": 2272
-    },
-    {
-      "filename": "149_View_prototypes_on_a_mobile_device.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040321093-View-prototypes-on-a-mobile-device",
-      "content_length": 5415
-    },
-    {
-      "filename": "150_Present_prototypes_offline.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/26463081577367-Present-prototypes-offline",
-      "content_length": 1127
-    },
-    {
-      "filename": "151_Review_branch_changes.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5693123873687-Review-branch-changes",
-      "content_length": 4575
-    },
-    {
-      "filename": "152_Sort_and_summarize_stickies_with_FigJam_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/18711926790423-Sort-and-summarize-stickies-with-FigJam-AI",
-      "content_length": 1884
-    },
-    {
-      "filename": "153_Parent_child_and_sibling_relationships.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039959014-Parent-child-and-sibling-relationships",
-      "content_length": 3261
-    },
-    {
-      "filename": "154_Add_or_remove_a_library_from_a_design_file.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/1500008731201-Add-or-remove-a-library-from-a-design-file",
-      "content_length": 3170
-    },
-    {
-      "filename": "155_Sample_colors_with_the_eyedropper_tool.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/27643269375767-Sample-colors-with-the-eyedropper-tool",
-      "content_length": 3341
-    },
-    {
-      "filename": "156_Hide_styles_components_and_variables_when_publishing.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039238193-Hide-styles-components-and-variables-when-publishing",
-      "content_length": 4337
-    },
-    {
-      "filename": "157_Enable_access_to_libraries_in_your_drafts.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038743434-Enable-access-to-libraries-in-your-drafts",
-      "content_length": 1846
-    },
-    {
-      "filename": "158_Merge_branch_into_main_file.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5691189138839-Merge-branch-into-main-file",
-      "content_length": 3199
-    },
-    {
-      "filename": "159_Adjust_alignment_rotation_position_and_dimensions.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039956914-Adjust-alignment-rotation-position-and-dimensions",
-      "content_length": 17808
-    },
-    {
-      "filename": "160_Apply_effects_to_layers.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041488473-Apply-effects-to-layers",
-      "content_length": 11256
-    },
-    {
-      "filename": "161_Manage_Dev_Mode_settings_for_an_organization.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/22927410880535-Manage-Dev-Mode-settings-for-an-organization",
-      "content_length": 5278
-    },
-    {
-      "filename": "162_Guide_to_inspecting.txt",
-      "title": "Inspecting designs helps developers or other stakeholders understand the structure and properties of a design so they can more easily translate it to code.",
-      "url": "https://help.figma.com/hc/en-us/articles/22012921621015-Guide-to-inspecting",
-      "content_length": 12787
-    },
-    {
-      "filename": "163_Edit_vector_layers.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957634-Edit-vector-layers",
-      "content_length": 3789
-    },
-    {
-      "filename": "164_View_and_adjust_colors_in_a_mixed_selection.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360042553434-View-and-adjust-colors-in-a-mixed-selection",
-      "content_length": 2601
-    },
-    {
-      "filename": "165_Name_and_organize_components.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038663994-Name-and-organize-components",
-      "content_length": 3689
-    },
-    {
-      "filename": "166_Change_the_background_color_of_the_canvas.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041064814-Change-the-background-color-of-the-canvas",
-      "content_length": 1151
-    },
-    {
-      "filename": "167_Flatten_layers.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/30101373312279-Flatten-layers",
-      "content_length": 1041
-    },
-    {
-      "filename": "168_Rename_layers_with_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/24004711129879-Rename-layers-with-AI",
-      "content_length": 2581
-    },
-    {
-      "filename": "169_Get_updates_from_main_files.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5665728006423-Get-updates-from-main-files",
-      "content_length": 3958
-    },
-    {
-      "filename": "170_Apply_changes_to_instances.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039150733-Apply-changes-to-instances",
-      "content_length": 4594
-    },
-    {
-      "filename": "171_Scale_layers_while_maintaining_proportions.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040451453-Scale-layers-while-maintaining-proportions",
-      "content_length": 2116
-    },
-    {
-      "filename": "172_Boolean_operations.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957534-Boolean-operations",
-      "content_length": 3807
-    },
-    {
-      "filename": "173_Design_prototype_and_explore_layer_properties_in_the_right_sidebar.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039832014-Design-prototype-and-explore-layer-properties-in-the-right-sidebar",
-      "content_length": 5004
-    },
-    {
-      "filename": "174_Move_published_components.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/4404848314647-Move-published-components",
-      "content_length": 10503
-    },
-    {
-      "filename": "175_View_and_manage_branches.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/5668839659415-View-and-manage-branches",
-      "content_length": 3106
-    },
-    {
-      "filename": "176_Copy_and_paste_properties_between_layers.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/4412765442967-Copy-and-paste-properties-between-layers",
-      "content_length": 1512
-    },
-    {
-      "filename": "177_Add_descriptions_to_styles_components_and_variables.txt",
-      "title": "",
-      "url": "https://help.figma.com/hc/en-us/articles/7938814091287-Add-descriptions-to-styles-components-and-variables",
-      "content_length": 7545
-    },
-    {
-      "filename": "178_Get_started_with_Apple_s_UI_kit.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/24037833895831-Get-started-with-Apple-s-UI-kit",
-      "content_length": 2393
-    },
-    {
-      "filename": "179_Use_patterns_as_a_fill_or_stroke.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/31616030150167-Use-patterns-as-a-fill-or-stroke",
-      "content_length": 908
-    },
-    {
-      "filename": "180_Generate_a_slide_deck_outline_from_a_FigJam_board_using_Figma_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/25968453273495-Generate-a-slide-deck-outline-from-a-FigJam-board-using-Figma-AI",
-      "content_length": 2149
-    },
-    {
-      "filename": "181_Access_design_tools_from_the_toolbar.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041064174-Access-design-tools-from-the-toolbar",
-      "content_length": 3745
-    },
-    {
-      "filename": "182_Guide_to_the_Dev_Mode_MCP_Server.txt",
-      "title": "\ud83d\udea7 The Dev Mode MCP Server is currently in",
-      "url": "https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server",
-      "content_length": 11101
-    },
-    {
-      "filename": "183_Control_AI_features_and_content_training_settings.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/17725942479127-Control-AI-features-and-content-training-settings",
-      "content_length": 8671
-    },
-    {
-      "filename": "184_Vector_networks.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040450213-Vector-networks",
-      "content_length": 3848
-    },
-    {
-      "filename": "185_Identify_matching_objects.txt",
-      "title": "Matching objects are identical objects that exist across more than one frame. For example, many app designs use an identical header across the top of each frame.",
-      "url": "https://help.figma.com/hc/en-us/articles/21523793229463-Identify-matching-objects",
-      "content_length": 3319
-    },
-    {
-      "filename": "186_Move_or_edit_comments.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360041547853-Move-or-edit-comments",
-      "content_length": 2688
-    },
-    {
-      "filename": "187_Swap_components_and_instances.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039150413-Swap-components-and-instances",
-      "content_length": 4605
-    },
-    {
-      "filename": "188_The_difference_between_variables_and_styles.txt",
-      "title": "As Figma extends its feature set with variables, you might be wondering: What is the difference between variables and styles? When should I choose one over the other? Are styles becoming obsolete?",
-      "url": "https://help.figma.com/hc/en-us/articles/15871097384471-The-difference-between-variables-and-styles",
-      "content_length": 7417
-    },
-    {
-      "filename": "189_Add_emojis_and_smart_symbols_to_text.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957174-Add-emojis-and-smart-symbols-to-text",
-      "content_length": 1773
-    },
-    {
-      "filename": "190_Overview_of_variables_collections_and_modes.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes",
-      "content_length": 6166
-    },
-    {
-      "filename": "191_Guide_to_branching.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360063144053-Guide-to-branching",
-      "content_length": 6125
-    },
-    {
-      "filename": "192_Guide_to_text_in_Figma_Design.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039956434-Guide-to-text-in-Figma-Design",
-      "content_length": 6549
-    },
-    {
-      "filename": "193_Manage_and_share_styles.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039820134-Manage-and-share-styles",
-      "content_length": 10414
-    },
-    {
-      "filename": "194_Keyboard_shortcuts_in_Figma.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360040328653-Keyboard-shortcuts-in-Figma",
-      "content_length": 1773
-    },
-    {
-      "filename": "195_The_difference_between_frames_and_groups.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039832054-The-difference-between-frames-and-groups",
-      "content_length": 1616
-    },
-    {
-      "filename": "196_Create_components_to_reuse_in_designs.txt",
-      "title": "Who can use this feature",
-      "url": "https://help.figma.com/hc/en-us/articles/360038663154-Create-components-to-reuse-in-designs",
-      "content_length": 4205
-    },
-    {
-      "filename": "197_Replace_text_content_with_AI.txt",
-      "title": "Note:",
-      "url": "https://help.figma.com/hc/en-us/articles/23796390206743-Replace-text-content-with-AI",
-      "content_length": 1781
-    },
-    {
-      "filename": "198_Accessible_prototypes_in_Figma.txt",
-      "title": "Accessible prototypes in Figma allow you to navigate through content using a screen reader. To use accessibility mode in a prototype, you\u2019ll first need to install a supported screen reader.",
-      "url": "https://help.figma.com/hc/en-us/articles/7810391964695-Accessible-prototypes-in-Figma",
-      "content_length": 3231
-    },
-    {
-      "filename": "199_Select_layers_and_objects.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040449873-Select-layers-and-objects",
-      "content_length": 8628
-    },
-    {
-      "filename": "200_Copy_assets_between_design_tools.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360040030374-Copy-assets-between-design-tools",
-      "content_length": 1648
-    },
-    {
-      "filename": "201_Combine_layout_guides_and_constraints.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360039957934-Combine-layout-guides-and-constraints",
-      "content_length": 2988
-    },
-    {
-      "filename": "202_Create_color_text_effect_and_layout_guide_styles.txt",
-      "title": "Before you start",
-      "url": "https://help.figma.com/hc/en-us/articles/360038746534-Create-color-text-effect-and-layout-guide-styles",
-      "content_length": 3086
-    },
-    {
-      "filename": "203_Toggle_visibility_to_hide_layers.txt",
-      "title": "Before you Start",
-      "url": "https://help.figma.com/hc/en-us/articles/360041112614-Toggle-visibility-to-hide-layers",
-      "content_length": 1439
-    }
-  ]
+  "site_name": "figma",
+  "generated_at": "2025-06-19T21:28:25.413550",
+  "files_processed": 203,
+  "total_characters": 941554,
+  "source_files": [
+    "001_Optimize_design_files_for_developer_handoff.txt",
+    "002_Guide_to_Dev_Mode.txt",
+    "003_Use_AI_tools_in_Figma_Design.txt",
+    "004_Import_files_to_the_file_browser.txt",
+    "005_Guide_to_variables_in_Figma.txt",
+    "006_Arrange_layers_with_Smart_selection.txt",
+    "007_Set_prototype_device_and_background_settings.txt",
+    "008_Use_videos_in_prototypes.txt",
+    "009_Find_assets_and_designs_using_AI.txt",
+    "010_See_viewer_history_for_your_files.txt",
+    "011_Publish_a_library.txt",
+    "012_Dev_Mode_ready_for_dev_view.txt",
+    "013_category_figma_design.txt",
+    "014_Rename_Layers.txt",
+    "015_Prototype_easing_and_spring_animations.txt",
+    "016_Create_and_manage_prototype_flows.txt",
+    "017_Edit_main_components.txt",
+    "018_About_Figma_AI.txt",
+    "019_Explore_design_files.txt",
+    "020_State_management_for_prototypes.txt",
+    "021_Use_OpenType_features.txt",
+    "022_Edit_objects_on_the_canvas_in_bulk.txt",
+    "023_Figma_for_VS_Code.txt",
+    "024_Use_code_snippets_in_Dev_Mode.txt",
+    "025_Create_and_apply_text_styles.txt",
+    "026_Explore_text_properties.txt",
+    "027_Add_comments_to_files.txt",
+    "028_Make_interactions_with_AI.txt",
+    "029_Use_variable_fonts.txt",
+    "030_Guide_to_prototyping_in_Figma.txt",
+    "031_Play_your_prototypes.txt",
+    "032_Prototype_scroll_and_overflow_behavior.txt",
+    "033_Use_icon_fonts.txt",
+    "034_Detach_an_instance_from_the_component.txt",
+    "035_Link_Dev_resources_to_layers_in_Dev_Mode.txt",
+    "036_Use_blend_modes_to_create_unique_effects.txt",
+    "037_Apply_and_adjust_stroke_properties.txt",
+    "038_Organize_your_canvas_with_sections.txt",
+    "039_Copy_and_paste_objects.txt",
+    "040_Crop_an_image.txt",
+    "041_Prototype_triggers.txt",
+    "042_Advanced_prototyping_examples.txt",
+    "043_Navigate_designs_in_Dev_Mode.txt",
+    "044_Remove_your_access_to_a_library.txt",
+    "045_Draw_with_illustration_tools.txt",
+    "046_Modes_for_variables.txt",
+    "047_Comment_on_prototypes.txt",
+    "048_Guide_to_imports_in_Figma_Design.txt",
+    "049_Export_from_Figma_Design.txt",
+    "050_Dev_Mode_for_admins.txt",
+    "051_Use_Jambot_in_FigJam.txt",
+    "052_Add_prototype_connections_from_main_components.txt",
+    "053_Multiple_actions_and_conditionals.txt",
+    "054_Rewrite_translate_and_shorten_text_with_AI.txt",
+    "055_Add_text_in_Chinese_Japanese_and_Korean.txt",
+    "056_Variable_modes_in_prototypes.txt",
+    "057_Create_custom_shapes_with_the_shape_builder_tool.txt",
+    "058_Frames_in_Figma_Design.txt",
+    "059_Guide_to_components_in_Figma.txt",
+    "060_Apply_variables_to_designs.txt",
+    "061_Create_and_use_variants.txt",
+    "062_Compare_changes_in_Dev_Mode.txt",
+    "063_Guide_to_auto_layout.txt",
+    "064_Code_Connect.txt",
+    "065_Share_a_branch.txt",
+    "066_Guide_to_comments_in_Figma.txt",
+    "067_Use_the_actions_menu_in_Figma_Design.txt",
+    "068_Explore_Figma_Draw.txt",
+    "069_Swap_style_and_component_libraries.txt",
+    "070_View_layer_outlines_in_Figma_Design.txt",
+    "071_Create_and_insert_component_instances.txt",
+    "072_Create_layout_guides.txt",
+    "073_Create_bulleted_and_numbered_lists.txt",
+    "074_Set_small_and_big_nudge_values.txt",
+    "075_Apply_styles_to_layers_and_objects.txt",
+    "076_Create_and_manage_variables_and_collections.txt",
+    "077_Variables_in_Dev_Mode.txt",
+    "078_Preserve_scroll_position_in_prototypes.txt",
+    "079_Use_cursor_chat_in_Figma_Design.txt",
+    "080_Toggle_auto_layout_on_designs.txt",
+    "081_Guide_to_libraries_in_Figma.txt",
+    "082_View_layers_and_pages_in_the_left_sidebar.txt",
+    "083_Convert_text_to_vector_paths.txt",
+    "084_Adjust_text_dimensions_and_resizing.txt",
+    "085_Add_images_and_videos_in_bulk.txt",
+    "086_Add_guides_to_the_canvas_or_frames.txt",
+    "087_Explore_component_properties.txt",
+    "088_Make_boards_and_diagrams_with_FigJam_AI.txt",
+    "089_Review_and_accept_library_updates.txt",
+    "090_Export_formats_and_settings.txt",
+    "091_Create_multi_dimensional_auto_layout_flows.txt",
+    "092_Apply_paints_with_the_color_picker.txt",
+    "093_View_prototype_connections.txt",
+    "094_Paints_in_Figma.txt",
+    "095_Add_right_to_left_text.txt",
+    "096_Arc_tool_create_arcs_semi_circles_and_rings.txt",
+    "097_Use_animated_GIFs_in_prototypes.txt",
+    "098_Use_the_horizontal_and_vertical_flows_in_auto_layout.txt",
+    "099_Dev_Mode_statuses_and_notifications.txt",
+    "100_Upload_an_image_as_a_fill.txt",
+    "101_Manage_email_notifications_for_comments_on_files.txt",
+    "102_Adjust_tone_using_Figma_AI.txt",
+    "103_Lock_and_unlock_layers.txt",
+    "104_Import_Sketch_files.txt",
+    "105_Use_First_Draft_with_Figma_AI.txt",
+    "106_Enable_a_library_for_a_team.txt",
+    "107_Create_patterns_with_transforms.txt",
+    "108_Add_images_and_videos_to_design_files.txt",
+    "109_Find_and_replace_in_Figma.txt",
+    "110_Adjust_corner_radius_and_smoothing.txt",
+    "111_Use_variables_in_prototypes.txt",
+    "112_Measure_distances_between_layers.txt",
+    "113_Add_a_font_to_Figma_Design.txt",
+    "114_Edit_instances_with_component_properties.txt",
+    "115_Sketch_on_the_canvas_with_the_pencil_tool.txt",
+    "116_Connect_your_prototype.txt",
+    "117_Smart_animate_layers_between_frames.txt",
+    "118_Prototype_actions.txt",
+    "119_Prototype_animations.txt",
+    "120_Incomplete_merges_or_updates.txt",
+    "121_Make_or_edit_an_image_with_AI.txt",
+    "122_Save_a_local_copy_of_files.txt",
+    "123_Masks.txt",
+    "124_Paste_images_in_the_canvas.txt",
+    "125_Color_models_in_Figma_Design.txt",
+    "126_Use_the_grid_auto_layout_flow.txt",
+    "127_Request_a_branch_review.txt",
+    "128_Apply_constraints_to_define_how_layers_resize.txt",
+    "129_Create_interactive_components_with_variants.txt",
+    "130_Set_custom_thumbnails_for_files.txt",
+    "131_Browse_and_apply_fonts.txt",
+    "132_Create_overlays_in_your_prototypes.txt",
+    "133_Shape_tools.txt",
+    "134_Present_to_collaborators_using_spotlight.txt",
+    "135_Unpublish_a_library.txt",
+    "136_Dev_Mode_focus_view.txt",
+    "137_Adjust_the_properties_of_an_image.txt",
+    "138_Add_measurements_and_annotate_designs.txt",
+    "139_Styles_in_Figma_Design.txt",
+    "140_Use_expressions_in_prototypes.txt",
+    "141_Navigating_UI3_Figma_s_new_UI.txt",
+    "142_AI_text_suggestions.txt",
+    "143_Adjust_your_zoom_and_view_options.txt",
+    "144_Start_designing_with_UI_kits.txt",
+    "145_View_and_manage_comments.txt",
+    "146_Add_links_to_text.txt",
+    "147_Add_fills_to_text_and_shape_layers.txt",
+    "148_Use_sections_in_prototyping.txt",
+    "149_View_prototypes_on_a_mobile_device.txt",
+    "150_Present_prototypes_offline.txt",
+    "151_Review_branch_changes.txt",
+    "152_Sort_and_summarize_stickies_with_FigJam_AI.txt",
+    "153_Parent_child_and_sibling_relationships.txt",
+    "154_Add_or_remove_a_library_from_a_design_file.txt",
+    "155_Sample_colors_with_the_eyedropper_tool.txt",
+    "156_Hide_styles_components_and_variables_when_publishing.txt",
+    "157_Enable_access_to_libraries_in_your_drafts.txt",
+    "158_Merge_branch_into_main_file.txt",
+    "159_Adjust_alignment_rotation_position_and_dimensions.txt",
+    "160_Apply_effects_to_layers.txt",
+    "161_Manage_Dev_Mode_settings_for_an_organization.txt",
+    "162_Guide_to_inspecting.txt",
+    "163_Edit_vector_layers.txt",
+    "164_View_and_adjust_colors_in_a_mixed_selection.txt",
+    "165_Name_and_organize_components.txt",
+    "166_Change_the_background_color_of_the_canvas.txt",
+    "167_Flatten_layers.txt",
+    "168_Rename_layers_with_AI.txt",
+    "169_Get_updates_from_main_files.txt",
+    "170_Apply_changes_to_instances.txt",
+    "171_Scale_layers_while_maintaining_proportions.txt",
+    "172_Boolean_operations.txt",
+    "173_Design_prototype_and_explore_layer_properties_in_the_right_sidebar.txt",
+    "174_Move_published_components.txt",
+    "175_View_and_manage_branches.txt",
+    "176_Copy_and_paste_properties_between_layers.txt",
+    "177_Add_descriptions_to_styles_components_and_variables.txt",
+    "178_Get_started_with_Apple_s_UI_kit.txt",
+    "179_Use_patterns_as_a_fill_or_stroke.txt",
+    "180_Generate_a_slide_deck_outline_from_a_FigJam_board_using_Figma_AI.txt",
+    "181_Access_design_tools_from_the_toolbar.txt",
+    "182_Guide_to_the_Dev_Mode_MCP_Server.txt",
+    "183_Control_AI_features_and_content_training_settings.txt",
+    "184_Vector_networks.txt",
+    "185_Identify_matching_objects.txt",
+    "186_Move_or_edit_comments.txt",
+    "187_Swap_components_and_instances.txt",
+    "188_The_difference_between_variables_and_styles.txt",
+    "189_Add_emojis_and_smart_symbols_to_text.txt",
+    "190_Overview_of_variables_collections_and_modes.txt",
+    "191_Guide_to_branching.txt",
+    "192_Guide_to_text_in_Figma_Design.txt",
+    "193_Manage_and_share_styles.txt",
+    "194_Keyboard_shortcuts_in_Figma.txt",
+    "195_The_difference_between_frames_and_groups.txt",
+    "196_Create_components_to_reuse_in_designs.txt",
+    "197_Replace_text_content_with_AI.txt",
+    "198_Accessible_prototypes_in_Figma.txt",
+    "199_Select_layers_and_objects.txt",
+    "200_Copy_assets_between_design_tools.txt",
+    "201_Combine_layout_guides_and_constraints.txt",
+    "202_Create_color_text_effect_and_layout_guide_styles.txt",
+    "203_Toggle_visibility_to_hide_layers.txt"
+  ],
+  "llms_file_size": 949994
 }

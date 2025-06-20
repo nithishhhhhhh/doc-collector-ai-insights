@@ -1,0 +1,756 @@
+URL: https://fastapi.tiangolo.com/fastapi-people/
+================================================================================
+
+FastAPI People¶
+===============
+
+FastAPI People
+FastAPI has an amazing community that welcomes people from all backgrounds.
+Creator
+Hey! 👋
+This is me:
+@tiangolo
+Answers: 1898
+Pull Requests: 747
+I'm the creator of
+FastAPI
+. You can read more about that in
+Help FastAPI - Get Help - Connect with the author
+.
+...But here I want to show you the community.
+FastAPI
+receives a lot of support from the community. And I want to highlight their contributions.
+These are the people that:
+Help others with questions in GitHub
+.
+Create Pull Requests
+.
+Review Pull Requests,
+especially important for translations
+.
+Help
+manage the repository
+(team members).
+All these tasks help maintain the repository.
+A round of applause to them. 👏 🙇
+Team
+This is the current list of team members. 😎
+They have different levels of involvement and permissions, they can perform
+repository management tasks
+and together we
+manage the FastAPI repository
+.
+@tiangolo
+@Kludex
+@alejsdev
+@svlandeg
+@YuriiMotov
+@patrick91
+@luzzodev
+Although the team members have the permissions to perform privileged tasks, all the
+help from others maintaining FastAPI
+is very much appreciated! 🙇‍♂️
+FastAPI Experts
+These are the users that have been
+helping others the most with questions in GitHub
+. 🙇
+They have proven to be
+FastAPI Experts
+by helping many others. ✨
+Tip
+You could become an official FastAPI Expert too!
+Just
+help others with questions in GitHub
+. 🤓
+You can see the
+FastAPI Experts
+for:
+Last Month
+🤓
+3 Months
+😎
+6 Months
+🧐
+1 Year
+🧑‍🔬
+All Time
+🧙
+FastAPI Experts - Last Month
+These are the users that have been
+helping others the most with questions in GitHub
+during the last month. 🤓
+@YuriiMotov
+Questions replied: 9
+@luzzodev
+Questions replied: 8
+@alv2017
+Questions replied: 3
+@sachinh35
+Questions replied: 2
+@KianAnbarestani
+Questions replied: 2
+FastAPI Experts - 3 Months
+These are the users that have been
+helping others the most with questions in GitHub
+during the last 3 months. 😎
+@luzzodev
+Questions replied: 25
+@YuriiMotov
+Questions replied: 24
+@alv2017
+Questions replied: 22
+@jgould22
+Questions replied: 13
+@Kludex
+Questions replied: 10
+@yauhen-sobaleu
+Questions replied: 9
+@JavierSanchezCastro
+Questions replied: 7
+@sachinh35
+Questions replied: 3
+@SobikXexe
+Questions replied: 3
+FastAPI Experts - 6 Months
+These are the users that have been
+helping others the most with questions in GitHub
+during the last 6 months. 🧐
+@luzzodev
+Questions replied: 57
+@YuriiMotov
+Questions replied: 56
+@Kludex
+Questions replied: 34
+@alv2017
+Questions replied: 25
+@jgould22
+Questions replied: 17
+@sehraramiz
+Questions replied: 11
+@JavierSanchezCastro
+Questions replied: 9
+@yauhen-sobaleu
+Questions replied: 9
+@estebanx64
+Questions replied: 7
+@yvallois
+Questions replied: 7
+FastAPI Experts - 1 Year
+These are the users that have been
+helping others the most with questions in GitHub
+during the last year. 🧑‍🔬
+@YuriiMotov
+Questions replied: 172
+@Kludex
+Questions replied: 63
+@luzzodev
+Questions replied: 61
+@sinisaos
+Questions replied: 41
+@JavierSanchezCastro
+Questions replied: 33
+@jgould22
+Questions replied: 27
+@alv2017
+Questions replied: 25
+@ceb10n
+Questions replied: 15
+@estebanx64
+Questions replied: 13
+@n8sty
+Questions replied: 13
+@Kfir-G
+Questions replied: 13
+@sehraramiz
+Questions replied: 11
+@PhysicallyActive
+Questions replied: 11
+@mattmess1221
+Questions replied: 11
+@yauhen-sobaleu
+Questions replied: 9
+@AIdjis
+Questions replied: 8
+@yvallois
+Questions replied: 7
+@hasansezertasan
+Questions replied: 5
+@gustavosett
+Questions replied: 5
+FastAPI Experts - All Time
+Here are the all time
+FastAPI Experts
+. 🤓🤯
+These are the users that have
+helped others the most with questions in GitHub
+through
+all time
+. 🧙
+@Kludex
+Questions replied: 655
+@jgould22
+Questions replied: 263
+@YuriiMotov
+Questions replied: 247
+@dmontagu
+Questions replied: 240
+@Mause
+Questions replied: 219
+@ycd
+Questions replied: 217
+@JarroVGIT
+Questions replied: 192
+@euri10
+Questions replied: 153
+@iudeen
+Questions replied: 128
+@phy25
+Questions replied: 126
+@JavierSanchezCastro
+Questions replied: 91
+@raphaelauv
+Questions replied: 83
+@ghandic
+Questions replied: 71
+@ArcLightSlavik
+Questions replied: 71
+@n8sty
+Questions replied: 67
+@luzzodev
+Questions replied: 61
+@falkben
+Questions replied: 59
+@acidjunk
+Questions replied: 50
+@yinziyan1206
+Questions replied: 49
+@sm-Fifteen
+Questions replied: 49
+@adriangb
+Questions replied: 46
+@insomnes
+Questions replied: 45
+@Dustyposa
+Questions replied: 45
+@odiseo0
+Questions replied: 43
+@frankie567
+Questions replied: 43
+@sinisaos
+Questions replied: 41
+@includeamin
+Questions replied: 40
+@chbndrhnns
+Questions replied: 37
+@STeveShary
+Questions replied: 37
+@krishnardt
+Questions replied: 35
+@panla
+Questions replied: 32
+@prostomarkeloff
+Questions replied: 28
+@hasansezertasan
+Questions replied: 27
+@dbanty
+Questions replied: 26
+@alv2017
+Questions replied: 25
+@wshayes
+Questions replied: 25
+@SirTelemak
+Questions replied: 23
+@connebs
+Questions replied: 22
+@nymous
+Questions replied: 22
+@chrisK824
+Questions replied: 22
+@rafsaf
+Questions replied: 21
+@ebottos94
+Questions replied: 20
+@nsidnev
+Questions replied: 20
+@chris-allnutt
+Questions replied: 20
+@estebanx64
+Questions replied: 19
+@zoliknemet
+Questions replied: 18
+@sehraramiz
+Questions replied: 18
+@retnikt
+Questions replied: 18
+Top Contributors
+Here are the
+Top Contributors
+. 👷
+These users have
+created the most Pull Requests
+that have been
+merged
+.
+They have contributed source code, documentation, etc. 📦
+@alejsdev
+Pull Requests: 47
+@Kludex
+Pull Requests: 23
+@dmontagu
+Pull Requests: 17
+@euri10
+Pull Requests: 13
+@kantandane
+Pull Requests: 13
+@nilslindemann
+Pull Requests: 11
+@zhaohan-dong
+Pull Requests: 11
+@mariacamilagl
+Pull Requests: 9
+@handabaldeep
+Pull Requests: 9
+@vishnuvskvkl
+Pull Requests: 8
+@svlandeg
+Pull Requests: 7
+@alissadb
+Pull Requests: 6
+@wshayes
+Pull Requests: 5
+@samuelcolvin
+Pull Requests: 5
+@waynerv
+Pull Requests: 5
+@krishnamadhavan
+Pull Requests: 5
+@alv2017
+Pull Requests: 5
+@jekirl
+Pull Requests: 4
+@hitrust
+Pull Requests: 4
+@ShahriyarR
+Pull Requests: 4
+@adriangb
+Pull Requests: 4
+@iudeen
+Pull Requests: 4
+@philipokiokio
+Pull Requests: 4
+@AlexWendland
+Pull Requests: 4
+@divums
+Pull Requests: 3
+@prostomarkeloff
+Pull Requests: 3
+@nsidnev
+Pull Requests: 3
+@pawamoy
+Pull Requests: 3
+@patrickmckenna
+Pull Requests: 3
+@hukkin
+Pull Requests: 3
+@marcosmmb
+Pull Requests: 3
+@Serrones
+Pull Requests: 3
+@uriyyo
+Pull Requests: 3
+@andrew222651
+Pull Requests: 3
+@rkbeatss
+Pull Requests: 3
+@asheux
+Pull Requests: 3
+@n25a
+Pull Requests: 3
+@ghandic
+Pull Requests: 3
+@TeoZosa
+Pull Requests: 3
+@graingert
+Pull Requests: 3
+@jaystone776
+Pull Requests: 3
+@zanieb
+Pull Requests: 3
+@MicaelJarniac
+Pull Requests: 3
+@papb
+Pull Requests: 3
+@musicinmybrain
+Pull Requests: 3
+@gitworkflows
+Pull Requests: 3
+There are hundreds of other contributors, you can see them all in the
+FastAPI GitHub Contributors page
+. 👷
+Top Translators
+These are the
+Top Translators
+. 🌐
+These users have created the most Pull Requests with
+translations to other languages
+that have been
+merged
+.
+@nilslindemann
+Translations: 120
+@jaystone776
+Translations: 46
+@ceb10n
+Translations: 27
+@valentinDruzhinin
+Translations: 24
+@tokusumi
+Translations: 23
+@SwftAlpc
+Translations: 23
+@hasansezertasan
+Translations: 22
+@waynerv
+Translations: 20
+@AlertRED
+Translations: 16
+@hard-coders
+Translations: 15
+@Joao-Pedro-P-Holanda
+Translations: 14
+@codingjenny
+Translations: 14
+@Xewus
+Translations: 13
+@Zhongheng-Cheng
+Translations: 13
+@Smlep
+Translations: 11
+@marcelomarkus
+Translations: 11
+@KaniKim
+Translations: 10
+@Vincy1230
+Translations: 9
+@rjNemo
+Translations: 8
+@xzmeng
+Translations: 8
+@pablocm83
+Translations: 8
+@ptt3199
+Translations: 7
+@batlopes
+Translations: 6
+@lucasbalieiro
+Translations: 6
+@Alexandrhub
+Translations: 6
+@Serrones
+Translations: 5
+@RunningIkkyu
+Translations: 5
+@Attsun1031
+Translations: 5
+@NinaHwang
+Translations: 5
+@rostik1410
+Translations: 5
+@alv2017
+Translations: 5
+@komtaki
+Translations: 4
+@JulianMaurin
+Translations: 4
+@stlucasgarcia
+Translations: 4
+@ComicShrimp
+Translations: 4
+@BilalAlpaslan
+Translations: 4
+@axel584
+Translations: 4
+@tamtam-fitness
+Translations: 4
+@Limsunoh
+Translations: 4
+@kwang1215
+Translations: 4
+@k94-ishi
+Translations: 4
+@jfunez
+Translations: 3
+@ycd
+Translations: 3
+@mariacamilagl
+Translations: 3
+@maoyibo
+Translations: 3
+@blt232018
+Translations: 3
+@magiskboy
+Translations: 3
+@luccasmmg
+Translations: 3
+@lbmendes
+Translations: 3
+Top Translation Reviewers
+These users are the
+Top Translation Reviewers
+. 🕵️
+I only speak a few languages (and not very well 😅). So, the reviewers are the ones that have the
+power to approve translations
+of the documentation. Without them, there wouldn't be documentation in several other languages.
+@s111d
+Reviews: 147
+@Xewus
+Reviews: 140
+@sodaMelon
+Reviews: 125
+@ceb10n
+Reviews: 112
+@tokusumi
+Reviews: 104
+@hasansezertasan
+Reviews: 95
+@hard-coders
+Reviews: 92
+@alv2017
+Reviews: 88
+@nazarepiedady
+Reviews: 83
+@AlertRED
+Reviews: 81
+@Alexandrhub
+Reviews: 68
+@waynerv
+Reviews: 63
+@cassiobotaro
+Reviews: 62
+@mattwang44
+Reviews: 59
+@Laineyzhang55
+Reviews: 48
+@Kludex
+Reviews: 47
+@komtaki
+Reviews: 45
+@rostik1410
+Reviews: 42
+@svlandeg
+Reviews: 42
+@alperiox
+Reviews: 42
+@Rishat-F
+Reviews: 42
+@Winand
+Reviews: 40
+@solomein-sv
+Reviews: 38
+@JavierSanchezCastro
+Reviews: 38
+@stlucasgarcia
+Reviews: 36
+@SwftAlpc
+Reviews: 36
+@alejsdev
+Reviews: 36
+@timothy-jeong
+Reviews: 36
+@nilslindemann
+Reviews: 35
+@rjNemo
+Reviews: 34
+@codingjenny
+Reviews: 34
+@mezgoodle
+Reviews: 33
+@akarev0
+Reviews: 33
+@romashevchenko
+Reviews: 32
+@LorhanSohaky
+Reviews: 30
+@Vincy1230
+Reviews: 30
+@black-redoc
+Reviews: 29
+@pedabraham
+Reviews: 28
+@Smlep
+Reviews: 28
+@dedkot01
+Reviews: 28
+@hsuanchi
+Reviews: 28
+@dpinezich
+Reviews: 28
+@maoyibo
+Reviews: 27
+@0417taehyun
+Reviews: 27
+@BilalAlpaslan
+Reviews: 26
+@junah201
+Reviews: 26
+@zy7y
+Reviews: 25
+@mycaule
+Reviews: 25
+@Aruelius
+Reviews: 24
+Sponsors
+These are the
+Sponsors
+. 😎
+They are supporting my work with
+FastAPI
+(and others), mainly through
+GitHub Sponsors
+.
+Gold Sponsors
+Silver Sponsors
+Bronze Sponsors
+Individual Sponsors
+@Nixtla
+@subtotal
+@mercedes-benz
+@marvin-robot
+@Ponte-Energy-Partners
+@BoostryJP
+@acsone
+@Trivie
+@takashi-yoneya
+@mainframeindustries
+@yasyf
+@alixlahuec
+@primer-io
+@upciti
+@samuelcolvin
+@otosky
+@ramonalmeidam
+@ashi-agrawal
+@RaamEEIL
+@ehaca
+@raphaellaude
+@timlrx
+@Leay15
+@ProteinQure
+@kaoru0310
+@DelfinaCare
+@Karine-Bauch
+@eruditis
+@jugeeem
+@logic-automation
+@roboflow
+@dudikbender
+@patsatsia
+@anthonycepeda
+@patricioperezv
+@chickenandstats
+@dodo5522
+@knallgelb
+@dblackrun
+@zsinx6
+@kennywakeland
+@aacayaco
+@anomaly
+@mj0331
+@gorhack
+@Ryandaydev
+@vincentkoc
+@jstanden
+@paulcwatts
+@andreaso
+@robintw
+@pamelafox
+@ericof
+@wshayes
+@koxudaxi
+@falkben
+@mintuhouse
+@TrevorBenson
+@wdwinslow
+@catherinenelson1
+@jsoques
+@joeds13
+@dannywade
+@khadrawy
+@mjohnsey
+@jaredtrog
+@oliverxchen
+@ternaus
+@eseglem
+@FernandoCelmer
+@Rehket
+@hiancdtrsnm
+@jpizquierdo
+@pawamoy
+@bnkc
+@petercool
+@siavashyj
+@mobyw
+@ArtyomVancyan
+@caviri
+@hgalytoby
+@browniebroke
+@joshuatz
+@SebTota
+@nisutec
+@hoenie-ams
+@joerambo
+@rlnchow
+@engineerjoe440
+@lukzmu
+@conservative-dude
+@CR1337
+@PunRabbit
+@PelicanQ
+@miguelgr
+@WillHogan
+@my3
+@leobiscassi
+@Alisa-lisa
+@ddanier
+@bryanculbertson
+@slafs
+@ceb10n
+@tochikuji
+@moonape1226
+@msehnout
+@xncbf
+@DMantis
+@hard-coders
+@supdann
+@mntolia
+@pheanex
+@Zuzah
+@artempronevskiy
+@TheR1D
+@danielunderwood
+@rangulvers
+@sdevkota
+@brizzbuzz
+@Baghdady92
+@KentShikama
+@katnoria
+@harsh183
+@hcristea
+@andrecorumba
+@rwxd
+@morzan1001
+@sadikkuzu
+@Olegt0rr
+@larsyngvelundin
+@one-st-one
+@federicsp
+@Toothwitch
+@andreagrandi
+About the data - technical details
+The main intention of this page is to highlight the effort of the community to help others.
+Especially including efforts that are normally less visible, and in many cases more arduous, like helping others with questions and reviewing Pull Requests with translations.
+The data is calculated each month, you can read the
+source code here
+.
+Here I'm also highlighting contributions from sponsors.
+I also reserve the right to update the algorithm, sections, thresholds, etc (just in case 🤷).

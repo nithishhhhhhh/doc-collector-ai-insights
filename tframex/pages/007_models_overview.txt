@@ -1,0 +1,28 @@
+URL: https://tframex.tesslate.com/models/overview
+SCRAPED: 2025-06-19 21:25:50
+============================================================
+
+Our Models on Hugging Face
+Tesslate is proud to contribute to the open-source AI community by sharing powerful and specialized models.
+We believe in the power of open collaboration to accelerate innovation in AI. Our model families, available on Hugging Face, are designed to tackle specific challenges and empower developers and researchers worldwide.
+These models are often the backbone of agents built with TFrameX and can be fine-tuned or used directly within your applications.
+Visit Tesslate on Hugging Face
+Model Families
+UIGen
+A family of models specialized in understanding and generating user interface components and layouts.
+Common Use Cases:
+UI mockups from text
+Code generation for UI elements
+Visual design assistance
+Tessa
+Versatile and adaptable language models designed for a wide range of natural language understanding and generation tasks.
+Common Use Cases:
+Advanced chatbots
+Content creation
+Complex reasoning tasks
+Synthia
+Models focused on generating high-quality synthetic data for training other AI models and for data augmentation.
+Common Use Cases:
+Synthetic dataset creation
+Anonymized data generation
+AI model training

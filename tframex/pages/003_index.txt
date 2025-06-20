@@ -1,0 +1,32 @@
+URL: https://tframex.tesslate.com/
+SCRAPED: 2025-06-19 21:25:09
+============================================================
+
+TFrameX: Build Advanced Agentic Systems
+The extensible task and flow orchestration framework by Tesslate. Design, build, and deploy sophisticated multi-agent applications with ease.
+Get Started with TFrameX
+Explore Core Concepts
+Why TFrameX?
+TFrameX empowers you to move beyond simple prompt-response interactions and construct complex, dynamic workflows where intelligent agents collaborate, use tools, and adapt to intricate tasks. It's designed for developers looking to build next-generation AI applications.
+Intelligent Agents
+Define specialized agents with unique prompts, tools, and LLMs.
+Learn more →
+Seamless Tool Integration
+Equip agents with custom Python tools using simple decorators.
+Learn more →
+Powerful Flow Orchestration
+Design complex workflows with Sequential, Parallel, Router, and Discussion patterns.
+Learn more →
+Agent-as-Tool Paradigm
+Enable agents to call other agents, creating hierarchical structures.
+Learn more →
+Our Products
+TFrameX Library
+The core Python framework for building and orchestrating LLM agents and flows.
+Explore TFrameX
+Tesslate Studio
+A visual environment for designing, testing, and deploying TFrameX agents and flows.
+Explore Tesslate
+Tesslate Forge
+Your partner for custom enterprise AI solutions and model fine-tuning, built on TFrameX.
+Explore Tesslate

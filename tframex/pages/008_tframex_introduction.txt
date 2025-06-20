@@ -1,0 +1,37 @@
+URL: https://tframex.tesslate.com/tframex/introduction
+SCRAPED: 2025-06-19 21:26:00
+============================================================
+
+TFrameX: Orchestrate Intelligence
+The Extensible Python Framework for Building Advanced, Multi-Agent LLM Applications with Sophisticated Flow Control and Tool Integration.
+Explore Core Concepts
+Quick Start Guide
+What is TFrameX?
+Unlocking the potential of collaborative AI agents.
+TFrameX is a Python library meticulously designed by Tesslate to empower developers in building, orchestrating, and managing complex applications driven by Large Language Models (LLMs). It provides a robust and extensible foundation for creating systems where multiple AI agents can collaborate, utilize tools, follow intricate workflows, and adapt to dynamic tasks.
+The core philosophy behind TFrameX is to offer a structured yet highly flexible approach to agentic AI development. It moves beyond simple prompt-chaining, enabling you to define sophisticated interactions, manage state, and integrate diverse capabilities into cohesive, intelligent systems.
+Why TFrameX? The Advantage.
+Sophisticated Agent Definition
+Craft specialized agents with unique personas (system prompts), dedicated LLMs, specific toolsets, and independent memory stores. Tailor each agent precisely for its role.
+Seamless & Extensible Tooling
+Effortlessly integrate Python functions as tools for your agents using a simple decorator. TFrameX handles schema generation, enabling agents to interact with APIs, databases, or any custom logic.
+Advanced Flow Orchestration
+Design intricate workflows using the 'Flow' concept. Chain agents and powerful 'Patterns' (Sequential, Parallel, Router, Discussion) to control the logic and data progression in your applications.
+Powerful Interaction Patterns
+Utilize pre-built patterns for common multi-agent collaborations like debates, parallel task processing, and conditional routing, simplifying the design of complex interactions.
+Agent-as-Tool Paradigm
+A cornerstone of TFrameX: enable 'supervisor' agents to call other 'specialist' agents as tools. This facilitates hierarchical task decomposition and advanced delegation.
+Flexible LLM & Memory Backend
+Start with OpenAI-compatible LLMs (including local servers like Ollama) and InMemoryMemory. Extend to custom LLM wrappers and persistent memory stores as needed.
+Who is TFrameX For?
+AI Application Developers:
+Building complex chatbots, AI assistants, or automated systems requiring multiple LLM interactions.
+Researchers:
+Exploring multi-agent systems, collaborative AI, and advanced LLM reasoning patterns.
+Enterprise Teams:
+Looking to integrate sophisticated AI automation into existing workflows and systems.
+Hobbyists & Innovators:
+Experimenting with the cutting edge of LLM capabilities and agentic design.
+"TFrameX is built on the principle that the next generation of AI applications will be powered by a symphony of specialized agents working in concert. We provide the conductor's baton." - Tesslate
+Get Started with TFrameX Now
+Understand the Core Concepts
