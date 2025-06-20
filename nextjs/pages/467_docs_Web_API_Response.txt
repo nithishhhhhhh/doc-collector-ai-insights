@@ -1,0 +1,239 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Response
+SCRAPED: 2025-06-19 18:03:58
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 5 ---
+FetchEvent.respondWith
+--- END CODE BLOCK ---
+interface of the
+Fetch API
+represents the response to a request.
+You can create a new
+--- CODE BLOCK 9 ---
+Response.body
+--- END CODE BLOCK ---
+object using the
+--- CODE BLOCK 10 ---
+ReadableStream
+--- END CODE BLOCK ---
+constructor, but you are more likely to encounter a
+--- CODE BLOCK 11 ---
+Response.bodyUsed
+--- END CODE BLOCK ---
+object being returned as the result of another API operation—for example, a service worker
+--- CODE BLOCK 12 ---
+Response.headers
+--- END CODE BLOCK ---
+, or a simple
+--- CODE BLOCK 14 ---
+Response.ok
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 17 ---
+Response.redirected
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 18 ---
+Response.status
+--- END CODE BLOCK ---
+object.
+Instance properties
+--- CODE BLOCK 20 ---
+Response.statusText
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 23 ---
+Response.type
+--- END CODE BLOCK ---
+of the body contents.
+--- CODE BLOCK 26 ---
+Response.url
+--- END CODE BLOCK ---
+Read only
+Stores a boolean value that declares whether the body has been used in a response yet.
+--- CODE BLOCK 27 ---
+Response.error()
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 29 ---
+Response.redirect()
+--- END CODE BLOCK ---
+object associated with the response.
+--- CODE BLOCK 30 ---
+Response.json()
+--- END CODE BLOCK ---
+Read only
+A boolean indicating whether the response was successful (status in the range
+--- CODE BLOCK 32 ---
+Response.arrayBuffer()
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+) or not.
+--- CODE BLOCK 34 ---
+Response.blob()
+--- END CODE BLOCK ---
+Read only
+Indicates whether or not the response is the result of a redirect (that is, its URL list has more than one entry).
+--- CODE BLOCK 36 ---
+Response.bytes()
+--- END CODE BLOCK ---
+Read only
+The status code of the response. (This will be
+--- CODE BLOCK 38 ---
+Response.clone()
+--- END CODE BLOCK ---
+for a success).
+--- CODE BLOCK 40 ---
+Response.formData()
+--- END CODE BLOCK ---
+Read only
+The status message corresponding to the status code. (e.g.,
+--- CODE BLOCK 42 ---
+Response.json()
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+Response.text()
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+Response.blob
+--- END CODE BLOCK ---
+Read only
+The type of the response (e.g.,
+--- CODE BLOCK 50 ---
+const image = document.querySelector(".my-image");
+fetch("flowers.jpg")
+.then((response) => response.blob())
+.then((blob) => {
+const objectURL = URL.createObjectURL(blob);
+image.src = objectURL;
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+const image = document.querySelector(".my-image");
+fetch("flowers.jpg")
+.then((response) => response.blob())
+.then((blob) => {
+const objectURL = URL.createObjectURL(blob);
+image.src = objectURL;
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+const response = new Response();
+--- END CODE BLOCK ---
+Read only
+The URL of the response.
+Static methods
+--- CODE BLOCK 55 ---
+const response = new Response();
+--- END CODE BLOCK ---
+Returns a new
+--- CODE BLOCK 56 ---
+// Function to fetch JSON using PHP
+const getJSON = async () => {
+// Generate the Response object
+const response = await fetch("getJSON.php");
+if (response.ok) {
+// Get JSON value from the response body
+return response.json();
+throw new Error("*** PHP file not found");
+// Call the function and output value or error message to console
+getJSON()
+.then((result) => console.log(result))
+.catch((error) => console.error(error));
+--- END CODE BLOCK ---
+object associated with a network error.
+--- CODE BLOCK 57 ---
+// Function to fetch JSON using PHP
+const getJSON = async () => {
+// Generate the Response object
+const response = await fetch("getJSON.php");
+if (response.ok) {
+// Get JSON value from the response body
+return response.json();
+throw new Error("*** PHP file not found");
+// Call the function and output value or error message to console
+getJSON()
+.then((result) => console.log(result))
+.catch((error) => console.error(error));
+--- END CODE BLOCK ---
+Returns a new response with a different URL.
+[CODE_BLOCK_30]
+Returns a new
+[CODE_BLOCK_31]
+object for returning the provided JSON encoded data.
+Instance methods
+[CODE_BLOCK_32]
+Returns a promise that resolves with an
+[CODE_BLOCK_33]
+representation of the response body.
+[CODE_BLOCK_34]
+Returns a promise that resolves with a
+[CODE_BLOCK_35]
+representation of the response body.
+[CODE_BLOCK_36]
+Returns a promise that resolves with a
+[CODE_BLOCK_37]
+representation of the response body.
+[CODE_BLOCK_38]
+Creates a clone of a
+[CODE_BLOCK_39]
+object.
+[CODE_BLOCK_40]
+Returns a promise that resolves with a
+[CODE_BLOCK_41]
+representation of the response body.
+[CODE_BLOCK_42]
+Returns a promise that resolves with the result of parsing the response body text as
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+Returns a promise that resolves with a text representation of the response body.
+Examples
+Fetching an image
+In our
+basic fetch example
+run example live
+) we use a simple
+[CODE_BLOCK_45]
+call to grab an image and display it in an
+[CODE_BLOCK_46]
+element.
+[CODE_BLOCK_47]
+call returns a promise, which resolves to the
+[CODE_BLOCK_48]
+object associated with the resource fetch operation.
+You'll notice that since we are requesting an image, we need to run
+[CODE_BLOCK_49]
+to give the response its correct MIME type.
+Copy to Clipboard
+[CODE_BLOCK_50]
+You can also use the
+[CODE_BLOCK_52]
+constructor to create your own custom
+[CODE_BLOCK_53]
+object:
+Copy to Clipboard
+[CODE_BLOCK_54]
+A PHP Call
+Here we call a PHP program file that generates a JSON string, displaying the result as a JSON value.
+Copy to Clipboard
+[CODE_BLOCK_56]
+Specifications
+Specification
+Fetch
+response-class
+Browser compatibility
+See also
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

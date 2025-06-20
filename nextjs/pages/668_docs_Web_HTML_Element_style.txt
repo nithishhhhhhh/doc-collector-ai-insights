@@ -1,0 +1,260 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTML/Element/style
+SCRAPED: 2025-06-19 18:25:25
+================================================================================
+
+--- CODE BLOCK 3 ---
+<style>
+color: #26b72b;
+code {
+font-weight: bold;
+</style>
+This text will be green. Inline styles take precedence over CSS included
+externally.
+</p>
+<p style="color: blue">
+The <code>style</code> attribute can override it, though.
+</p>
+--- END CODE BLOCK ---
+HTML
+element contains style information for a document, or part of a document. It contains CSS, which is applied to the contents of the document containing the
+--- CODE BLOCK 4 ---
+<style>
+color: #26b72b;
+code {
+font-weight: bold;
+</style>
+This text will be green. Inline styles take precedence over CSS included
+externally.
+</p>
+<p style="color: blue">
+The <code>style</code> attribute can override it, though.
+</p>
+--- END CODE BLOCK ---
+element.
+Try it
+--- CODE BLOCK 5 ---
+color: #f00;
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+background-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Test page</title>
+<style>
+color: red;
+</style>
+</head>
+<body>
+<p>This is my paragraph.</p>
+</body>
+</html>
+--- END CODE BLOCK ---
+element must be included inside the
+--- CODE BLOCK 29 ---
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Test page</title>
+<style>
+color: white;
+background-color: blue;
+padding: 5px;
+border: 1px solid black;
+</style>
+<style>
+color: blue;
+background-color: yellow;
+</style>
+</head>
+<body>
+<p>This is my paragraph.</p>
+</body>
+</html>
+--- END CODE BLOCK ---
+of the document. In general, it is better to put your styles in external stylesheets and apply them using
+--- CODE BLOCK 30 ---
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Test page</title>
+<style>
+color: white;
+background-color: blue;
+padding: 5px;
+border: 1px solid black;
+</style>
+<style>
+color: blue;
+background-color: yellow;
+</style>
+</head>
+<body>
+<p>This is my paragraph.</p>
+</body>
+</html>
+--- END CODE BLOCK ---
+elements.
+If you include multiple
+--- CODE BLOCK 33 ---
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Test page</title>
+<style>
+color: white;
+background-color: blue;
+padding: 5px;
+border: 1px solid black;
+</style>
+<style media="all and (max-width: 500px)">
+color: blue;
+background-color: yellow;
+</style>
+</head>
+<body>
+<p>This is my paragraph.</p>
+</body>
+</html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Test page</title>
+<style>
+color: white;
+background-color: blue;
+padding: 5px;
+border: 1px solid black;
+</style>
+<style media="all and (max-width: 500px)">
+color: blue;
+background-color: yellow;
+</style>
+</head>
+<body>
+<p>This is my paragraph.</p>
+</body>
+</html>
+--- END CODE BLOCK ---
+elements in your document, they will be applied to the DOM in the order they are included in the document — make sure you include them in the correct order, to avoid unexpected cascade issues.
+In the same manner as
+--- CODE BLOCK 38 ---
+HTMLStyleElement
+--- END CODE BLOCK ---
+elements,
+[CODE_BLOCK_13]
+elements can include
+[CODE_BLOCK_14]
+attributes that contain
+media queries
+, allowing you to selectively apply internal stylesheets to your document depending on media features such as viewport width.
+Attributes
+This element includes the
+global attributes
+[CODE_BLOCK_15]
+This attribute explicitly indicates that certain operations should be blocked on the fetching of critical subresources.
+[CODE_BLOCK_16]
+-ed stylesheets are generally considered as critical subresources, whereas
+[CODE_BLOCK_17]
+and fonts are not. The operations that are to be blocked must be a space-separated list of blocking tokens listed below.
+[CODE_BLOCK_18]
+: The rendering of content on the screen is blocked.
+[CODE_BLOCK_19]
+This attribute defines which media the style should be applied to. Its value is a
+media query
+, which defaults to
+[CODE_BLOCK_20]
+if the attribute is missing.
+[CODE_BLOCK_21]
+A cryptographic nonce (number used once) used to allow inline styles in a
+style-src Content-Security-Policy
+. The server must generate a unique nonce value each time it transmits a policy. It is critical to provide a nonce that cannot be guessed as bypassing a resource's policy is otherwise trivial.
+[CODE_BLOCK_22]
+This attribute specifies
+alternative style sheet
+sets.
+Deprecated attributes
+[CODE_BLOCK_23]
+Deprecated
+This attribute should not be provided: if it is, the only permitted values are the empty string or a case-insensitive match for
+[CODE_BLOCK_24]
+Examples
+A basic stylesheet
+In the following example, we apply a short stylesheet to a document:
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_25]
+Result
+play
+Multiple style elements
+In this example we've included two
+[CODE_BLOCK_27]
+elements — notice how the conflicting declarations in the later
+[CODE_BLOCK_28]
+element override those in the earlier one, if they have equal
+specificity
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_29]
+Result
+play
+Including a media query
+In this example we build on the previous one, including a
+[CODE_BLOCK_31]
+attribute on the second
+[CODE_BLOCK_32]
+element so it is only applied when the viewport is less than 500px in width.
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_33]
+Result
+play
+Technical summary
+Content categories
+Metadata content
+Permitted content
+Text content matching the
+[CODE_BLOCK_35]
+attribute, that is
+[CODE_BLOCK_36]
+Tag omission
+Neither tag is omissible.
+Permitted parents
+Any element that accepts
+metadata content
+Implicit ARIA role
+No corresponding role
+Permitted ARIA roles
+[CODE_BLOCK_37]
+permitted
+DOM interface
+[CODE_BLOCK_38]
+Specifications
+Specification
+HTML
+the-style-element
+Browser compatibility
+See also
+[CODE_BLOCK_39]
+element, which allows us to apply external stylesheets to a document.
+Alternative Style Sheets
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 7, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

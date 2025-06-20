@@ -1,0 +1,475 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
+SCRAPED: 2025-06-19 17:46:01
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+File-system conventions
+Metadata Files
+sitemap.xml
+sitemap.xml
+--- CODE BLOCK 1 ---
+sitemap.(xml|js|ts)
+--- END CODE BLOCK ---
+is a special file that matches the
+Sitemaps XML format
+to help search engine crawlers index your site more efficiently.
+Sitemap files (.xml)
+For smaller applications, you can create a
+--- CODE BLOCK 2 ---
+sitemap.xml
+--- END CODE BLOCK ---
+file and place it in the root of your
+--- CODE BLOCK 4 ---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://acme.com</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://acme.com/about</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://acme.com/blog</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+directory.
+app/sitemap.xml
+--- CODE BLOCK 5 ---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://acme.com</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://acme.com/about</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://acme.com/blog</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+Generating a sitemap using code (.js, .ts)
+You can use the
+--- CODE BLOCK 9 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://acme.com',
+lastModified: new Date(),
+changeFrequency: 'yearly',
+priority: 1,
+url: 'https://acme.com/about',
+lastModified: new Date(),
+changeFrequency: 'monthly',
+priority: 0.8,
+url: 'https://acme.com/blog',
+lastModified: new Date(),
+changeFrequency: 'weekly',
+priority: 0.5,
+--- END CODE BLOCK ---
+file convention to programmatically
+generate
+a sitemap by exporting a default function that returns an array of URLs. If using TypeScript, a
+--- CODE BLOCK 10 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://acme.com',
+lastModified: new Date(),
+changeFrequency: 'yearly',
+priority: 1,
+url: 'https://acme.com/about',
+lastModified: new Date(),
+changeFrequency: 'monthly',
+priority: 0.8,
+url: 'https://acme.com/blog',
+lastModified: new Date(),
+changeFrequency: 'weekly',
+priority: 0.5,
+--- END CODE BLOCK ---
+type is available.
+Good to know
+--- CODE BLOCK 11 ---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://acme.com</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://acme.com/about</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://acme.com/blog</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+is a special Route Handler that is cached by default unless it uses a
+Dynamic API
+dynamic config
+option.
+app/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 12 ---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://acme.com</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://acme.com/about</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://acme.com/blog</loc>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+Output:
+acme.com/sitemap.xml
+--- CODE BLOCK 15 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://example.com',
+lastModified: '2021-01-01',
+changeFrequency: 'weekly',
+priority: 0.5,
+images: ['https://example.com/image.jpg'],
+--- END CODE BLOCK ---
+Image Sitemaps
+You can use
+--- CODE BLOCK 17 ---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+<url>
+<loc>https://example.com</loc>
+<image:image>
+<image:loc>https://example.com/image.jpg</image:loc>
+</image:image>
+<lastmod>2021-01-01</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+property to create image sitemaps. Learn more details in the
+Google Developer Docs
+app/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://example.com',
+lastModified: '2021-01-01',
+changeFrequency: 'weekly',
+priority: 0.5,
+videos: [
+title: 'example',
+thumbnail_loc: 'https://example.com/image.jpg',
+description: 'this is the description',
+--- END CODE BLOCK ---
+Output:
+acme.com/sitemap.xml
+--- CODE BLOCK 21 ---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+<url>
+<loc>https://example.com</loc>
+<video:video>
+<video:title>example</video:title>
+<video:thumbnail_loc>https://example.com/image.jpg</video:thumbnail_loc>
+<video:description>this is the description</video:description>
+</video:video>
+<lastmod>2021-01-01</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+Video Sitemaps
+You can use
+--- CODE BLOCK 23 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://acme.com',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es',
+de: 'https://acme.com/de',
+url: 'https://acme.com/about',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es/about',
+de: 'https://acme.com/de/about',
+url: 'https://acme.com/blog',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es/blog',
+de: 'https://acme.com/de/blog',
+--- END CODE BLOCK ---
+property to create video sitemaps. Learn more details in the
+Google Developer Docs
+app/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 24 ---
+import type { MetadataRoute } from 'next'
+export default function sitemap(): MetadataRoute.Sitemap {
+return [
+url: 'https://acme.com',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es',
+de: 'https://acme.com/de',
+url: 'https://acme.com/about',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es/about',
+de: 'https://acme.com/de/about',
+url: 'https://acme.com/blog',
+lastModified: new Date(),
+alternates: {
+languages: {
+es: 'https://acme.com/es/blog',
+de: 'https://acme.com/de/blog',
+--- END CODE BLOCK ---
+Output:
+acme.com/sitemap.xml
+--- CODE BLOCK 26 ---
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<url>
+<loc>https://acme.com</loc>
+<xhtml:link
+rel="alternate"
+hreflang="es"
+href="https://acme.com/es"/>
+<xhtml:link
+rel="alternate"
+hreflang="de"
+href="https://acme.com/de"/>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+</url>
+<url>
+<loc>https://acme.com/about</loc>
+<xhtml:link
+rel="alternate"
+hreflang="es"
+href="https://acme.com/es/about"/>
+<xhtml:link
+rel="alternate"
+hreflang="de"
+href="https://acme.com/de/about"/>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+</url>
+<url>
+<loc>https://acme.com/blog</loc>
+<xhtml:link
+rel="alternate"
+hreflang="es"
+href="https://acme.com/es/blog"/>
+<xhtml:link
+rel="alternate"
+hreflang="de"
+href="https://acme.com/de/blog"/>
+<lastmod>2023-04-06T15:02:24.021Z</lastmod>
+</url>
+</urlset>
+--- END CODE BLOCK ---
+Generate a localized Sitemap
+app/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+app/sitemap.xml
+--- END CODE BLOCK ---
+Output:
+acme.com/sitemap.xml
+--- CODE BLOCK 30 ---
+generateSitemaps
+--- END CODE BLOCK ---
+Generating multiple sitemaps
+While a single sitemap will work for most applications. For large web applications, you may need to split a sitemap into multiple files.
+There are two ways you can create multiple sitemaps:
+By nesting
+--- CODE BLOCK 34 ---
+import type { MetadataRoute } from 'next'
+import { BASE_URL } from '@/app/lib/constants'
+export async function generateSitemaps() {
+// Fetch the total number of products and calculate the number of sitemaps needed
+return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
+export default async function sitemap({
+}: {
+id: number
+}): Promise<MetadataRoute.Sitemap> {
+// Google's limit is 50,000 URLs per sitemap
+const start = id * 50000
+const end = start + 50000
+const products = await getProducts(
+`SELECT id, date FROM products WHERE id BETWEEN ${start} AND ${end}`
+return products.map((product) => ({
+url: `${BASE_URL}/product/${product.id}`,
+lastModified: product.date,
+--- END CODE BLOCK ---
+inside multiple route segments e.g.
+--- CODE BLOCK 35 ---
+import type { MetadataRoute } from 'next'
+import { BASE_URL } from '@/app/lib/constants'
+export async function generateSitemaps() {
+// Fetch the total number of products and calculate the number of sitemaps needed
+return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
+export default async function sitemap({
+}: {
+id: number
+}): Promise<MetadataRoute.Sitemap> {
+// Google's limit is 50,000 URLs per sitemap
+const start = id * 50000
+const end = start + 50000
+const products = await getProducts(
+`SELECT id, date FROM products WHERE id BETWEEN ${start} AND ${end}`
+return products.map((product) => ({
+url: `${BASE_URL}/product/${product.id}`,
+lastModified: product.date,
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+/.../sitemap/[id]
+--- END CODE BLOCK ---
+By using the
+--- CODE BLOCK 37 ---
+/product/sitemap/1.xml
+--- END CODE BLOCK ---
+function.
+For example, to split a sitemap using
+--- CODE BLOCK 38 ---
+generateSitemaps
+--- END CODE BLOCK ---
+, return an array of objects with the sitemap
+--- CODE BLOCK 39 ---
+sitemap.(xml|ts|js)
+--- END CODE BLOCK ---
+. Then, use the
+--- CODE BLOCK 40 ---
+type Sitemap = Array<{
+url: string
+lastModified?: string | Date
+changeFrequency?:
+| 'always'
+| 'hourly'
+| 'daily'
+| 'weekly'
+| 'monthly'
+| 'yearly'
+| 'never'
+priority?: number
+alternates?: {
+languages?: Languages<string>
+--- END CODE BLOCK ---
+to generate the unique sitemaps.
+app/product/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 41 ---
+type Sitemap = Array<{
+url: string
+lastModified?: string | Date
+changeFrequency?:
+| 'always'
+| 'hourly'
+| 'daily'
+| 'weekly'
+| 'monthly'
+| 'yearly'
+| 'never'
+priority?: number
+alternates?: {
+languages?: Languages<string>
+--- END CODE BLOCK ---
+Your generated sitemaps will be available at
+[CODE_BLOCK_36]
+. For example,
+[CODE_BLOCK_37]
+See the
+[CODE_BLOCK_38]
+API reference
+for more information.
+Returns
+The default function exported from
+[CODE_BLOCK_39]
+should return an array of objects with the following properties:
+[CODE_BLOCK_40]
+Version History
+Version
+Changes
+[CODE_BLOCK_42]
+Add localizations support.
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+attributes to sitemaps.
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+introduced.
+Next Steps
+Learn how to use the generateSitemaps function.
+generateSitemaps
+Learn how to use the generateSiteMaps function to create multiple sitemaps for your application.
+Was this helpful?
+supported.
+Send

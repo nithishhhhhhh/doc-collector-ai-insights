@@ -1,0 +1,249 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/get-server-side-props
+SCRAPED: 2025-06-19 17:48:16
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+getServerSideProps
+You are currently viewing the documentation for Pages Router.
+getServerSideProps
+When exporting a function called
+--- CODE BLOCK 1 ---
+getServerSideProps
+--- END CODE BLOCK ---
+(Server-Side Rendering) from a page, Next.js will pre-render this page on each request using the data returned by
+--- CODE BLOCK 2 ---
+getServerSideProps
+--- END CODE BLOCK ---
+. This is useful if you want to fetch data that changes often, and have the page update to show the most current data.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+type Repo = {
+name: string
+stargazers_count: number
+export const getServerSideProps = (async () => {
+// Fetch data from external API
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const repo: Repo = await res.json()
+// Pass data to the page via props
+return { props: { repo } }
+}) satisfies GetServerSideProps<{ repo: Repo }>
+export default function Page({
+repo,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+return (
+<main>
+<p>{repo.stargazers_count}</p>
+</main>
+--- END CODE BLOCK ---
+You can import modules in top-level scope for use in
+--- CODE BLOCK 5 ---
+getServerSideProps
+--- END CODE BLOCK ---
+. Imports used will
+not be bundled for the client-side
+. This means you can write
+server-side code directly in
+--- CODE BLOCK 6 ---
+getServerSideProps
+--- END CODE BLOCK ---
+, including fetching data from your database.
+Context parameter
+--- CODE BLOCK 12 ---
+{ id: ... }
+--- END CODE BLOCK ---
+parameter is an object containing the following keys:
+Name
+Description
+--- CODE BLOCK 24 ---
+previewData
+--- END CODE BLOCK ---
+If this page uses a
+dynamic route
+--- CODE BLOCK 26 ---
+setPreviewData
+--- END CODE BLOCK ---
+contains the route parameters. If the page name is
+--- CODE BLOCK 31 ---
+resolvedUrl
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 36 ---
+defaultLocale
+--- END CODE BLOCK ---
+will look like
+--- CODE BLOCK 37 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+JSON.stringify
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+export async function getServerSideProps(context) {
+return {
+props: { message: `Next.js is awesome` }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+IncomingMessage object
+, with an additional
+--- CODE BLOCK 42 ---
+export async function getServerSideProps(context) {
+return {
+props: { message: `Next.js is awesome` }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+prop, which is an object with string keys mapping to string values of cookies.
+--- CODE BLOCK 46 ---
+notFound: true
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+export async function getServerSideProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+notFound: true,
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+response object
+--- CODE BLOCK 49 ---
+export async function getServerSideProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+notFound: true,
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+An object representing the query string, including dynamic route parameters.
+--- CODE BLOCK 52 ---
+{ destination: string, permanent: boolean }
+--- END CODE BLOCK ---
+(Deprecated for
+--- CODE BLOCK 56 ---
+export async function getServerSideProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+redirect: {
+destination: '/',
+permanent: false,
+return {
+props: {}, // will be passed to the page component as props
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+export async function getServerSideProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+redirect: {
+destination: '/',
+permanent: false,
+return {
+props: {}, // will be passed to the page component as props
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+defaultLocale
+--- END CODE BLOCK ---
+if the page is in the
+Preview Mode
+--- CODE BLOCK 65 ---
+getServerSideProps
+--- END CODE BLOCK ---
+otherwise.
+[CODE_BLOCK_24]
+(Deprecated for
+[CODE_BLOCK_25]
+) The
+preview
+data set by
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+if the page is in the
+Draft Mode
+[CODE_BLOCK_30]
+otherwise.
+[CODE_BLOCK_31]
+A normalized version of the request
+[CODE_BLOCK_32]
+that strips the
+[CODE_BLOCK_33]
+prefix for client transitions and includes original query values.
+[CODE_BLOCK_34]
+Contains the active locale (if enabled).
+[CODE_BLOCK_35]
+Contains all supported locales (if enabled).
+[CODE_BLOCK_36]
+Contains the configured default locale (if enabled).
+getServerSideProps return values
+[CODE_BLOCK_37]
+function should return an object with
+any one of the following
+properties:
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+object is a key-value pair, where each value is received by the page component. It should be a
+serializable object
+so that any props passed, could be serialized with
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+boolean allows the page to return a
+[CODE_BLOCK_45]
+status and
+404 Page
+. With
+[CODE_BLOCK_46]
+, the page will return a
+[CODE_BLOCK_47]
+even if there was a successfully generated page before. This is meant to support use cases like user-generated content getting removed by its author.
+[CODE_BLOCK_48]
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+object allows redirecting to internal and external resources. It should match the shape of
+[CODE_BLOCK_52]
+. In some rare cases, you might need to assign a custom status code for older
+[CODE_BLOCK_53]
+clients to properly redirect. In these cases, you can use the
+[CODE_BLOCK_54]
+property instead of the
+[CODE_BLOCK_55]
+property, but not both.
+[CODE_BLOCK_56]
+Version History
+Version
+Changes
+[CODE_BLOCK_58]
+App Router
+is now stable with simplified data fetching
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+, and
+[CODE_BLOCK_63]
+options added.
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+introduced.
+Was this helpful?
+supported.
+Send

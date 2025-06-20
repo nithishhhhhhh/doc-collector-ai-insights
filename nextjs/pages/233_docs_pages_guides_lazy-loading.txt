@@ -1,0 +1,172 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/lazy-loading
+SCRAPED: 2025-06-19 17:36:41
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Lazy Loading
+You are currently viewing the documentation for Pages Router.
+How to lazy load Client Components and libraries
+Lazy loading
+in Next.js helps improve the initial loading performance of an application by decreasing the amount of JavaScript needed to render a route.
+It allows you to defer loading of
+Client Components
+and imported libraries, and only include them in the client bundle when they're needed. For example, you might want to defer loading a modal until a user clicks to open it.
+There are two ways you can implement lazy loading in Next.js:
+Using
+Dynamic Imports
+with
+--- CODE BLOCK 1 ---
+next/dynamic
+--- END CODE BLOCK ---
+Using
+--- CODE BLOCK 2 ---
+React.lazy()
+--- END CODE BLOCK ---
+with
+Suspense
+By default, Server Components are automatically
+code split
+, and you can use
+streaming
+to progressively send pieces of UI from the server to the client. Lazy loading applies to Client Components.
+--- CODE BLOCK 3 ---
+next/dynamic
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+next/dynamic
+--- END CODE BLOCK ---
+is a composite of
+--- CODE BLOCK 5 ---
+React.lazy()
+--- END CODE BLOCK ---
+Suspense
+. It behaves the same way in the
+--- CODE BLOCK 8 ---
+next/dynamic
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+import dynamic from 'next/dynamic'
+const DynamicHeader = dynamic(() => import('../components/header'), {
+loading: () => <p>Loading...</p>,
+export default function Home() {
+return <DynamicHeader />
+--- END CODE BLOCK ---
+directories to allow for incremental migration.
+Examples
+By using
+--- CODE BLOCK 13 ---
+import dynamic from 'next/dynamic'
+const DynamicHeader = dynamic(() => import('../components/header'), {
+loading: () => <p>Loading...</p>,
+export default function Home() {
+return <DynamicHeader />
+--- END CODE BLOCK ---
+, the header component will not be included in the page's initial JavaScript bundle. The page will render the Suspense
+--- CODE BLOCK 14 ---
+import('path/to/component')
+--- END CODE BLOCK ---
+first, followed by the
+--- CODE BLOCK 21 ---
+export function Hello() {
+return <p>Hello!</p>
+// pages/index.js
+import dynamic from 'next/dynamic'
+const DynamicComponent = dynamic(() =>
+import('../components/hello').then((mod) => mod.Hello)
+--- END CODE BLOCK ---
+component when the
+--- CODE BLOCK 22 ---
+export function Hello() {
+return <p>Hello!</p>
+// pages/index.js
+import dynamic from 'next/dynamic'
+const DynamicComponent = dynamic(() =>
+import('../components/hello').then((mod) => mod.Hello)
+--- END CODE BLOCK ---
+boundary is resolved.
+--- CODE BLOCK 25 ---
+'use client'
+import dynamic from 'next/dynamic'
+const DynamicHeader = dynamic(() => import('../components/header'), {
+ssr: false,
+--- END CODE BLOCK ---
+Good to know
+: In
+--- CODE BLOCK 28 ---
+import { useState } from 'react'
+const names = ['Tim', 'Joe', 'Bel', 'Lee']
+export default function Page() {
+const [results, setResults] = useState()
+return (
+<div>
+<input
+type="text"
+placeholder="Search"
+onChange={async (e) => {
+const { value } = e.currentTarget
+// Dynamically load fuse.js
+const Fuse = (await import('fuse.js')).default
+const fuse = new Fuse(names)
+setResults(fuse.search(value))
+<pre>Results: {JSON.stringify(results, null, 2)}</pre>
+</div>
+--- END CODE BLOCK ---
+, the path must be explicitly written. It can't be a template string nor a variable. Furthermore the
+--- CODE BLOCK 29 ---
+import { useState } from 'react'
+const names = ['Tim', 'Joe', 'Bel', 'Lee']
+export default function Page() {
+const [results, setResults] = useState()
+return (
+<div>
+<input
+type="text"
+placeholder="Search"
+onChange={async (e) => {
+const { value } = e.currentTarget
+// Dynamically load fuse.js
+const Fuse = (await import('fuse.js')).default
+const fuse = new Fuse(names)
+setResults(fuse.search(value))
+<pre>Results: {JSON.stringify(results, null, 2)}</pre>
+</div>
+--- END CODE BLOCK ---
+has to be inside the
+[CODE_BLOCK_16]
+call for Next.js to be able to match webpack bundles / module ids to the specific
+[CODE_BLOCK_17]
+call and preload them before rendering.
+[CODE_BLOCK_18]
+can't be used inside of React rendering as it needs to be marked in the top level of the module for preloading to work, similar to
+[CODE_BLOCK_19]
+With named exports
+To dynamically import a named export, you can return it from the
+Promise
+returned by
+[CODE_BLOCK_20]
+components/hello.js
+[CODE_BLOCK_21]
+With no SSR
+To dynamically load a component on the client side, you can use the
+[CODE_BLOCK_23]
+option to disable server-rendering. This is useful if an external dependency or component relies on browser APIs like
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+With external libraries
+This example uses the external library
+[CODE_BLOCK_27]
+for fuzzy search. The module is only loaded in the browser after the user types in the search input.
+[CODE_BLOCK_28]
+Was this helpful?
+supported.
+Send

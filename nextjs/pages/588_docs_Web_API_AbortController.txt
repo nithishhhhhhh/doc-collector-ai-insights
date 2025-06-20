@@ -1,0 +1,182 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/AbortController
+SCRAPED: 2025-06-19 18:17:09
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+AbortController
+--- END CODE BLOCK ---
+interface represents a controller object that allows you to abort one or more Web requests as and when desired.
+You can create a new
+--- CODE BLOCK 2 ---
+AbortController
+--- END CODE BLOCK ---
+object using the
+--- CODE BLOCK 3 ---
+AbortController()
+--- END CODE BLOCK ---
+constructor. Communicating with an asynchronous operation is done using an
+--- CODE BLOCK 4 ---
+AbortSignal
+--- END CODE BLOCK ---
+object.
+Constructor
+--- CODE BLOCK 5 ---
+AbortController()
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 6 ---
+AbortController
+--- END CODE BLOCK ---
+object instance.
+Instance properties
+--- CODE BLOCK 7 ---
+AbortController.signal
+--- END CODE BLOCK ---
+Read only
+Returns an
+--- CODE BLOCK 8 ---
+AbortSignal
+--- END CODE BLOCK ---
+object instance, which can be used to communicate with, or to abort, an asynchronous operation.
+Instance methods
+--- CODE BLOCK 9 ---
+AbortController.abort()
+--- END CODE BLOCK ---
+Aborts an asynchronous operation before it has completed. This is able to abort
+fetch requests
+, consumption of any response bodies, and streams.
+Examples
+Note:
+There are additional examples in the
+--- CODE BLOCK 10 ---
+AbortSignal
+--- END CODE BLOCK ---
+reference.
+In the following snippet, we aim to download a video using the
+Fetch API
+We first create a controller using the
+--- CODE BLOCK 11 ---
+AbortController()
+--- END CODE BLOCK ---
+constructor, then grab a reference to its associated
+--- CODE BLOCK 12 ---
+AbortSignal
+--- END CODE BLOCK ---
+object using the
+--- CODE BLOCK 13 ---
+AbortController.signal
+--- END CODE BLOCK ---
+property.
+When the
+fetch request
+is initiated, we pass in the
+--- CODE BLOCK 14 ---
+AbortSignal
+--- END CODE BLOCK ---
+as an option inside the request's options object (the
+--- CODE BLOCK 16 ---
+AbortController.abort()
+--- END CODE BLOCK ---
+below). This associates the signal and controller with the fetch request and allows us to abort it by calling
+--- CODE BLOCK 19 ---
+DOMException
+--- END CODE BLOCK ---
+, as seen below in the second event listener.
+When
+--- CODE BLOCK 21 ---
+let controller;
+const url = "video.mp4";
+const downloadBtn = document.querySelector(".download");
+const abortBtn = document.querySelector(".abort");
+downloadBtn.addEventListener("click", fetchVideo);
+abortBtn.addEventListener("click", () => {
+if (controller) {
+controller.abort();
+console.log("Download aborted");
+async function fetchVideo() {
+controller = new AbortController();
+const signal = controller.signal;
+try {
+const response = await fetch(url, { signal });
+console.log("Download complete", response);
+// process response further
+} catch (err) {
+console.error(`Download error: ${err.message}`);
+--- END CODE BLOCK ---
+is called, the
+--- CODE BLOCK 22 ---
+let controller;
+const url = "video.mp4";
+const downloadBtn = document.querySelector(".download");
+const abortBtn = document.querySelector(".abort");
+downloadBtn.addEventListener("click", fetchVideo);
+abortBtn.addEventListener("click", () => {
+if (controller) {
+controller.abort();
+console.log("Download aborted");
+async function fetchVideo() {
+controller = new AbortController();
+const signal = controller.signal;
+try {
+const response = await fetch(url, { signal });
+console.log("Download complete", response);
+// process response further
+} catch (err) {
+console.error(`Download error: ${err.message}`);
+--- END CODE BLOCK ---
+promise rejects with a
+--- CODE BLOCK 25 ---
+async function get() {
+const controller = new AbortController();
+const request = new Request("https://example.org/get", {
+signal: controller.signal,
+const response = await fetch(request);
+controller.abort();
+// The next line will throw `AbortError`
+const text = await response.text();
+console.log(text);
+--- END CODE BLOCK ---
+named
+--- CODE BLOCK 26 ---
+async function get() {
+const controller = new AbortController();
+const request = new Request("https://example.org/get", {
+signal: controller.signal,
+const response = await fetch(request);
+controller.abort();
+// The next line will throw `AbortError`
+const text = await response.text();
+console.log(text);
+--- END CODE BLOCK ---
+Copy to Clipboard
+[CODE_BLOCK_21]
+If the request is aborted after the
+[CODE_BLOCK_23]
+call has been fulfilled but before the response body has been read, then attempting to read the response body will reject with an
+[CODE_BLOCK_24]
+exception.
+Copy to Clipboard
+[CODE_BLOCK_25]
+You can find a
+full working example on GitHub
+; you can also see it
+running live
+Specifications
+Specification
+interface-abortcontroller
+Browser compatibility
+See also
+Fetch API
+Abortable Fetch
+by Jake Archibald
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jul 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

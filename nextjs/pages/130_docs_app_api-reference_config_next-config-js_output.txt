@@ -1,0 +1,202 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/output
+SCRAPED: 2025-06-19 17:24:24
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+output
+output
+During a build, Next.js will automatically trace each page and its dependencies to determine all of the files that are needed for deploying a production version of your application.
+This feature helps reduce the size of deployments drastically. Previously, when deploying with Docker you would need to have all files from your package's
+--- CODE BLOCK 1 ---
+dependencies
+--- END CODE BLOCK ---
+installed to run
+--- CODE BLOCK 6 ---
+@vercel/nft
+--- END CODE BLOCK ---
+. Starting with Next.js 12, you can leverage Output File Tracing in the
+--- CODE BLOCK 10 ---
+.next/next-server.js.nft.json
+--- END CODE BLOCK ---
+directory to only include the necessary files.
+Furthermore, this removes the need for the deprecated
+--- CODE BLOCK 15 ---
+node_modules
+--- END CODE BLOCK ---
+target which can cause various issues and also creates unnecessary duplication.
+How it Works
+During
+--- CODE BLOCK 16 ---
+next.config.js
+--- END CODE BLOCK ---
+, Next.js will use
+--- CODE BLOCK 17 ---
+module.exports = {
+output: 'standalone',
+--- END CODE BLOCK ---
+to statically analyze
+--- CODE BLOCK 18 ---
+module.exports = {
+output: 'standalone',
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+.next/standalone
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 20 ---
+node_modules
+--- END CODE BLOCK ---
+usage to determine all files that a page might load.
+Next.js' production server is also traced for its needed files and output at
+--- CODE BLOCK 24 ---
+.next/static
+--- END CODE BLOCK ---
+which can be leveraged in production.
+To leverage the
+--- CODE BLOCK 25 ---
+standalone/public
+--- END CODE BLOCK ---
+files emitted to the
+--- CODE BLOCK 26 ---
+standalone/.next/static
+--- END CODE BLOCK ---
+output directory, you can read the list of files in each trace that are relative to the
+--- CODE BLOCK 30 ---
+cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
+--- END CODE BLOCK ---
+file and then copy them to your deployment location.
+Automatically Copying Traced Files
+Next.js can automatically create a
+--- CODE BLOCK 31 ---
+cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
+--- END CODE BLOCK ---
+folder that copies only the necessary files for a production deployment including select files in
+--- CODE BLOCK 33 ---
+node .next/standalone/server.js
+--- END CODE BLOCK ---
+To leverage this automatic copying you can enable it in your
+--- CODE BLOCK 34 ---
+node .next/standalone/server.js
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 38 ---
+PORT=8080 HOSTNAME=0.0.0.0 node server.js
+--- END CODE BLOCK ---
+This will create a folder at
+--- CODE BLOCK 40 ---
+next build packages/web-app
+--- END CODE BLOCK ---
+which can then be deployed on its own without installing
+--- CODE BLOCK 41 ---
+packages/web-app
+--- END CODE BLOCK ---
+Additionally, a minimal
+--- CODE BLOCK 42 ---
+outputFileTracingRoot
+--- END CODE BLOCK ---
+file is also output which can be used instead of
+--- CODE BLOCK 43 ---
+next.config.js
+--- END CODE BLOCK ---
+. This minimal server does not copy the
+--- CODE BLOCK 44 ---
+module.exports = {
+// this includes files from the monorepo base two directories up
+outputFileTracingRoot: path.join(__dirname, '../../'),
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+module.exports = {
+// this includes files from the monorepo base two directories up
+outputFileTracingRoot: path.join(__dirname, '../../'),
+--- END CODE BLOCK ---
+folders by default as these should ideally be handled by a CDN instead, although these folders can be copied to the
+--- CODE BLOCK 46 ---
+outputFileTracingExcludes
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+outputFileTracingIncludes
+--- END CODE BLOCK ---
+folders manually, after which
+--- CODE BLOCK 48 ---
+next.config.js
+--- END CODE BLOCK ---
+file will serve these automatically.
+To copy these manually, you can use the
+--- CODE BLOCK 49 ---
+module.exports = {
+outputFileTracingExcludes: {
+'/api/hello': ['./un-necessary-folder/**/*'],
+outputFileTracingIncludes: {
+'/api/another': ['./necessary-folder/**/*'],
+'/api/login/\\[\\[\\.\\.\\.slug\\]\\]': [
+'./node_modules/aws-crt/dist/bin/**/*',
+--- END CODE BLOCK ---
+command-line tool after you
+--- CODE BLOCK 50 ---
+module.exports = {
+outputFileTracingExcludes: {
+'/api/hello': ['./un-necessary-folder/**/*'],
+outputFileTracingIncludes: {
+'/api/another': ['./necessary-folder/**/*'],
+'/api/login/\\[\\[\\.\\.\\.slug\\]\\]': [
+'./node_modules/aws-crt/dist/bin/**/*',
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 51 ---
+outputFileTracingIncludes
+--- END CODE BLOCK ---
+To start your minimal
+[CODE_BLOCK_32]
+file locally, run the following command:
+Terminal
+[CODE_BLOCK_33]
+Good to know
+If your project needs to listen to a specific port or hostname, you can define
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+environment variables before running
+[CODE_BLOCK_37]
+. For example, run
+[CODE_BLOCK_38]
+to start the server on
+[CODE_BLOCK_39]
+Caveats
+While tracing in monorepo setups, the project directory is used for tracing by default. For
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+would be the tracing root and any files outside of that folder will not be included. To include files outside of this folder you can set
+[CODE_BLOCK_42]
+in your
+[CODE_BLOCK_43]
+packages/web-app/next.config.js
+[CODE_BLOCK_44]
+There are some cases in which Next.js might fail to include required files, or might incorrectly include unused files. In those cases, you can leverage
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+respectively in
+[CODE_BLOCK_48]
+. Each config accepts an object with
+minimatch globs
+for the key to match specific pages and a value of an array with globs relative to the project's root to either include or exclude in the trace.
+next.config.js
+[CODE_BLOCK_49]
+Note:
+The key of
+[CODE_BLOCK_51]
+[CODE_BLOCK_52]
+is a
+glob
+, so special characters need to be escaped.
+Was this helpful?
+supported.
+Send

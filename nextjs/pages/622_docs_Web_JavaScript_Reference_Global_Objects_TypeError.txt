@@ -1,0 +1,120 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
+SCRAPED: 2025-06-19 18:20:31
+================================================================================
+
+--- CODE BLOCK 4 ---
+structuredClone()
+--- END CODE BLOCK ---
+object represents an error when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type.
+--- CODE BLOCK 5 ---
+postMessage()
+--- END CODE BLOCK ---
+may be thrown when:
+an operand or argument passed to a function is incompatible with the type expected by that operator or function; or
+when attempting to modify a value that cannot be changed; or
+when attempting to use a value in an inappropriate way.
+--- CODE BLOCK 8 ---
+TypeError()
+--- END CODE BLOCK ---
+is a
+serializable object
+, so it can be cloned with
+--- CODE BLOCK 11 ---
+TypeError.prototype
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 13 ---
+TypeError.prototype.constructor
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+TypeError.prototype.name
+--- END CODE BLOCK ---
+is a subclass of
+--- CODE BLOCK 17 ---
+TypeError.prototype.name
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 18 ---
+"TypeError"
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 20 ---
+try {
+null.f();
+} catch (e) {
+console.log(e instanceof TypeError); // true
+console.log(e.message); // "null has no properties"
+console.log(e.name); // "TypeError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+object.
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 21 ---
+try {
+null.f();
+} catch (e) {
+console.log(e instanceof TypeError); // true
+console.log(e.message); // "null has no properties"
+console.log(e.name); // "TypeError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 22 ---
+try {
+throw new TypeError("Hello");
+} catch (e) {
+console.log(e instanceof TypeError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "TypeError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 23 ---
+try {
+throw new TypeError("Hello");
+} catch (e) {
+console.log(e instanceof TypeError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "TypeError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+instances.
+[CODE_BLOCK_13]
+The constructor function that created the instance object. For
+[CODE_BLOCK_14]
+instances, the initial value is the
+[CODE_BLOCK_15]
+constructor.
+[CODE_BLOCK_16]
+Represents the name for the type of error. For
+[CODE_BLOCK_17]
+, the initial value is
+[CODE_BLOCK_18]
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_19]
+Examples
+Catching a TypeError
+Copy to Clipboard
+[CODE_BLOCK_20]
+Creating a TypeError
+Copy to Clipboard
+[CODE_BLOCK_22]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-native-error-types-used-in-this-standard-typeerror
+Browser compatibility
+See also
+[CODE_BLOCK_24]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 26, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

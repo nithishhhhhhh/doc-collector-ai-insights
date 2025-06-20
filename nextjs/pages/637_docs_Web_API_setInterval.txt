@@ -1,0 +1,389 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/setInterval
+SCRAPED: 2025-06-19 18:22:03
+================================================================================
+
+--- CODE BLOCK 1 ---
+setInterval()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+setInterval(code)
+setInterval(code, delay)
+setInterval(func)
+setInterval(func, delay)
+setInterval(func, delay, arg1)
+setInterval(func, delay, arg1, arg2)
+setInterval(func, delay, arg1, arg2, /* …, */ argN)
+--- END CODE BLOCK ---
+interface repeatedly calls a function or executes a code snippet, with a fixed time delay between each call.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+setInterval(code)
+setInterval(code, delay)
+setInterval(func)
+setInterval(func, delay)
+setInterval(func, delay, arg1)
+setInterval(func, delay, arg1, arg2)
+setInterval(func, delay, arg1, arg2, /* …, */ argN)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 17 ---
+clearInterval()
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+setInterval()
+--- END CODE BLOCK ---
+to be executed every
+--- CODE BLOCK 19 ---
+setTimeout()
+--- END CODE BLOCK ---
+milliseconds. The first execution happens after
+--- CODE BLOCK 20 ---
+clearInterval()
+--- END CODE BLOCK ---
+milliseconds.
+--- CODE BLOCK 21 ---
+clearTimeout()
+--- END CODE BLOCK ---
+An optional syntax allows you to include a string instead of a function, which is compiled and executed every
+--- CODE BLOCK 24 ---
+setInterval()
+--- END CODE BLOCK ---
+milliseconds.
+This syntax is
+not recommended
+for the same reasons that make using
+--- CODE BLOCK 25 ---
+const intervalID = setInterval(myCallback, 500, "Parameter 1", "Parameter 2");
+function myCallback(a, b) {
+// Your code here
+// Parameters are purely optional.
+console.log(a);
+console.log(b);
+--- END CODE BLOCK ---
+a security risk.
+--- CODE BLOCK 26 ---
+const intervalID = setInterval(myCallback, 500, "Parameter 1", "Parameter 2");
+function myCallback(a, b) {
+// Your code here
+// Parameters are purely optional.
+console.log(a);
+console.log(b);
+--- END CODE BLOCK ---
+Optional
+The time, in milliseconds (thousandths of a second), the timer should delay in between executions of the specified function or code. Defaults to 0 if not specified.
+Delay restrictions
+below for details on the permitted range of
+--- CODE BLOCK 27 ---
+flashtext()
+--- END CODE BLOCK ---
+values.
+--- CODE BLOCK 28 ---
+<div id="my_box">
+<h3>Hello World</h3>
+</div>
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+--- END CODE BLOCK ---
+, …,
+--- CODE BLOCK 29 ---
+<div id="my_box">
+<h3>Hello World</h3>
+</div>
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+--- END CODE BLOCK ---
+Optional
+Additional arguments which are passed through to the function specified by
+func
+once the timer expires.
+Return value
+--- CODE BLOCK 30 ---
+.go {
+color: green;
+.stop {
+color: red;
+--- END CODE BLOCK ---
+method returns a positive integer (typically within the range of 1 to 2,147,483,647) that uniquely identifies the interval timer created by the call. This identifier, often referred to as an "interval ID", can be passed to
+--- CODE BLOCK 31 ---
+.go {
+color: green;
+.stop {
+color: red;
+--- END CODE BLOCK ---
+to stop the repeated execution of the specified function.
+Within the same global environment (e.g., a particular window or worker), the interval ID is ensured to remain unique and is not reused for any new interval timer as long as the original timer is still active. However, different global environments maintain their own independent pools of interval IDs.
+Be aware that
+--- CODE BLOCK 32 ---
+// variable to store our intervalID
+let intervalId;
+function changeColor() {
+// check if an interval has already been set up
+intervalId ??= setInterval(flashText, 1000);
+function flashText() {
+const oElem = document.getElementById("my_box");
+oElem.className = oElem.className === "go" ? "stop" : "go";
+function stopTextColor() {
+clearInterval(intervalId);
+// release our intervalId from the variable
+intervalId = null;
+document.getElementById("start").addEventListener("click", changeColor);
+document.getElementById("stop").addEventListener("click", stopTextColor);
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+// variable to store our intervalID
+let intervalId;
+function changeColor() {
+// check if an interval has already been set up
+intervalId ??= setInterval(flashText, 1000);
+function flashText() {
+const oElem = document.getElementById("my_box");
+oElem.className = oElem.className === "go" ? "stop" : "go";
+function stopTextColor() {
+clearInterval(intervalId);
+// release our intervalId from the variable
+intervalId = null;
+document.getElementById("start").addEventListener("click", changeColor);
+document.getElementById("stop").addEventListener("click", stopTextColor);
+--- END CODE BLOCK ---
+share the same pool of IDs, and that
+--- CODE BLOCK 34 ---
+setInterval()
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+setInterval()
+--- END CODE BLOCK ---
+can technically be used interchangeably.
+For clarity, however, you should try to always match them to avoid confusion when maintaining your code.
+Note:
+--- CODE BLOCK 42 ---
+setTimeout()
+--- END CODE BLOCK ---
+argument is converted to a signed 32-bit integer.
+This effectively limits
+--- CODE BLOCK 43 ---
+setInterval()
+--- END CODE BLOCK ---
+to 2147483647 ms, roughly 24.8 days, since it's specified as a signed integer in the IDL.
+Examples
+Example 1: Basic syntax
+The following example demonstrates
+--- CODE BLOCK 44 ---
+myArray = ["zero", "one", "two"];
+myArray.myMethod = function (sProperty) {
+alert(arguments.length > 0 ? this[sProperty] : this);
+myArray.myMethod(); // prints "zero,one,two"
+myArray.myMethod(1); // prints "one"
+setTimeout(myArray.myMethod, 1000); // prints "[object Window]" after 1 second
+setTimeout(myArray.myMethod, 1500, "1"); // prints "undefined" after 1.5 seconds
+// Passing the 'this' object with .call won't work
+// because this will change the value of this inside setTimeout itself
+// while we want to change the value of this inside myArray.myMethod.
+// In fact, it will be an error because setTimeout code expects this to be the window object:
+setTimeout.call(myArray, myArray.myMethod, 2000); // error: "NS_ERROR_XPC_BAD_OP_ON_WN_PROTO: Illegal operation on WrappedNative prototype object"
+setTimeout.call(myArray, myArray.myMethod, 2500, 2); // same error
+--- END CODE BLOCK ---
+'s basic syntax.
+Copy to Clipboard
+--- CODE BLOCK 45 ---
+myArray = ["zero", "one", "two"];
+myArray.myMethod = function (sProperty) {
+alert(arguments.length > 0 ? this[sProperty] : this);
+myArray.myMethod(); // prints "zero,one,two"
+myArray.myMethod(1); // prints "one"
+setTimeout(myArray.myMethod, 1000); // prints "[object Window]" after 1 second
+setTimeout(myArray.myMethod, 1500, "1"); // prints "undefined" after 1.5 seconds
+// Passing the 'this' object with .call won't work
+// because this will change the value of this inside setTimeout itself
+// while we want to change the value of this inside myArray.myMethod.
+// In fact, it will be an error because setTimeout code expects this to be the window object:
+setTimeout.call(myArray, myArray.myMethod, 2000); // error: "NS_ERROR_XPC_BAD_OP_ON_WN_PROTO: Illegal operation on WrappedNative prototype object"
+setTimeout.call(myArray, myArray.myMethod, 2500, 2); // same error
+--- END CODE BLOCK ---
+Example 2: Alternating two colors
+The following example calls the
+--- CODE BLOCK 50 ---
+Function.prototype.bind()
+--- END CODE BLOCK ---
+function once a second until
+the Stop button is pressed.
+HTML
+html
+Copy to Clipboard
+play
+--- CODE BLOCK 53 ---
+setInterval()
+--- END CODE BLOCK ---
+Copy to Clipboard
+play
+--- CODE BLOCK 55 ---
+setTimeout()
+--- END CODE BLOCK ---
+JavaScript
+Copy to Clipboard
+play
+--- CODE BLOCK 57 ---
+setInterval()
+--- END CODE BLOCK ---
+Result
+play
+The "this" problem
+When you pass a method to
+--- CODE BLOCK 60 ---
+setTimeout()
+--- END CODE BLOCK ---
+or any other function, it is invoked with the wrong
+--- CODE BLOCK 61 ---
+setInterval()
+--- END CODE BLOCK ---
+value.
+This problem is explained in detail in the
+JavaScript reference
+Explanation
+Code executed by
+--- CODE BLOCK 62 ---
+setTimeout()
+--- END CODE BLOCK ---
+runs in a separate execution context than
+the function from which it was called. As a consequence, the
+--- CODE BLOCK 63 ---
+(function loop() {
+setTimeout(() => {
+// Your logic here
+loop();
+}, delay);
+})();
+--- END CODE BLOCK ---
+keyword for the called function is set to the
+--- CODE BLOCK 64 ---
+(function loop() {
+setTimeout(() => {
+// Your logic here
+loop();
+}, delay);
+})();
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+setTimeout()
+--- END CODE BLOCK ---
+) object, it is not the same as the
+--- CODE BLOCK 68 ---
+setInterval
+--- END CODE BLOCK ---
+value for the
+function that called
+--- CODE BLOCK 70 ---
+Window.clearInterval()
+--- END CODE BLOCK ---
+. See the following example (which uses
+--- CODE BLOCK 71 ---
+WorkerGlobalScope.setInterval()
+--- END CODE BLOCK ---
+instead of
+--- CODE BLOCK 72 ---
+Window.setTimeout()
+--- END CODE BLOCK ---
+– the problem, in fact,
+is the same for both timers):
+Copy to Clipboard
+--- CODE BLOCK 73 ---
+Window.requestAnimationFrame()
+--- END CODE BLOCK ---
+As you can see there are no ways to pass the
+[CODE_BLOCK_46]
+object to the callback
+function in the legacy JavaScript.
+A possible solution
+All modern JavaScript runtimes (in browsers and elsewhere) support
+arrow functions
+, with lexical
+[CODE_BLOCK_47]
+— allowing us to write
+[CODE_BLOCK_48]
+if we're inside the
+[CODE_BLOCK_49]
+method.
+If you need to support IE, use the
+[CODE_BLOCK_50]
+method, which lets you specify the value that should be used as
+[CODE_BLOCK_51]
+for all calls to a given function. That lets you easily bypass problems where it's unclear what
+[CODE_BLOCK_52]
+will be, depending on the context from which your function was called.
+Usage notes
+[CODE_BLOCK_53]
+function is commonly used to set a delay for functions
+that are executed again and again, such as animations. You can cancel the interval using
+[CODE_BLOCK_54]
+If you wish to have your function called
+once
+after the specified delay, use
+[CODE_BLOCK_55]
+Delay restrictions
+It's possible for intervals to be nested; that is, the callback for
+[CODE_BLOCK_56]
+can in turn call
+[CODE_BLOCK_57]
+to start another
+interval running, even though the first one is still going. To mitigate the potential
+impact this can have on performance, once intervals are nested beyond five levels deep,
+the browser will automatically enforce a 4 ms minimum value for the interval. Attempts
+to specify a value less than 4 ms in deeply-nested calls to
+[CODE_BLOCK_58]
+will be pinned to 4 ms.
+Browsers may enforce even more stringent minimum values for the interval under some
+circumstances, although these should not be common. Note also that the actual amount of
+time that elapses between calls to the callback may be longer than the given
+[CODE_BLOCK_59]
+; see
+Reasons for delays longer than specified
+for examples.
+Ensure that execution duration is shorter than interval frequency
+If there is a possibility that your logic could take longer to execute than the
+interval time, it is recommended that you recursively call a named function using
+[CODE_BLOCK_60]
+. For example, if
+using
+[CODE_BLOCK_61]
+to poll a remote server every 5 seconds, network
+latency, an unresponsive server, and a host of other issues could prevent the request
+from completing in its allotted time. As such, you may find yourself with queued up XHR
+requests that won't necessarily return in order.
+In these cases, a recursive
+[CODE_BLOCK_62]
+pattern is preferred:
+Copy to Clipboard
+[CODE_BLOCK_63]
+In the above snippet, a named function
+[CODE_BLOCK_65]
+is declared and is
+immediately executed.
+[CODE_BLOCK_66]
+is recursively called inside
+[CODE_BLOCK_67]
+after the logic has completed executing. While this pattern
+does not guarantee execution on a fixed interval, it does guarantee that the previous
+interval has completed before recursing.
+Specifications
+Specification
+HTML
+dom-setinterval-dev
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_68]
+which allows passing arguments to the callback in
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 23, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

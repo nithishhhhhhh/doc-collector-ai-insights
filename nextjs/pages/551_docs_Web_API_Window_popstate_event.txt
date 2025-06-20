@@ -1,0 +1,327 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Window/popstate_event
+SCRAPED: 2025-06-19 18:13:18
+================================================================================
+
+--- CODE BLOCK 3 ---
+history.pushState()
+--- END CODE BLOCK ---
+event of the
+--- CODE BLOCK 4 ---
+addEventListener()
+--- END CODE BLOCK ---
+interface is fired when the active history entry changes while the user navigates the session history. It changes the current history entry to that of the last page the user visited or, if
+--- CODE BLOCK 5 ---
+addEventListener("popstate", (event) => { })
+onpopstate = (event) => { }
+--- END CODE BLOCK ---
+has been used to add a history entry to the history stack, that history entry is used instead.
+Syntax
+Use the event name in methods like
+--- CODE BLOCK 6 ---
+addEventListener("popstate", (event) => { })
+onpopstate = (event) => { }
+--- END CODE BLOCK ---
+, or set an event handler property.
+Copy to Clipboard
+--- CODE BLOCK 7 ---
+PopStateEvent
+--- END CODE BLOCK ---
+Event type
+--- CODE BLOCK 10 ---
+pushState()
+--- END CODE BLOCK ---
+. Inherits from
+--- CODE BLOCK 11 ---
+replaceState()
+--- END CODE BLOCK ---
+Event
+PopStateEvent
+Event properties
+--- CODE BLOCK 14 ---
+HTMLBodyElement
+--- END CODE BLOCK ---
+Read only
+Returns a copy of the information that was provided to
+--- CODE BLOCK 15 ---
+HTMLFrameSetElement
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+SVGSVGElement
+--- END CODE BLOCK ---
+Event handler aliases
+In addition to the
+--- CODE BLOCK 17 ---
+history.pushState()
+--- END CODE BLOCK ---
+interface, the event handler property
+--- CODE BLOCK 18 ---
+history.replaceState()
+--- END CODE BLOCK ---
+is also available on the following elements:
+--- CODE BLOCK 22 ---
+history.pushState()
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+history.replaceState()
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+history.back()
+--- END CODE BLOCK ---
+The history stack
+If the history entry being activated was created by a call to
+--- CODE BLOCK 27 ---
+history.forward()
+--- END CODE BLOCK ---
+or was affected by a call to
+--- CODE BLOCK 31 ---
+window.location
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 33 ---
+setTimeout()
+--- END CODE BLOCK ---
+event's
+--- CODE BLOCK 34 ---
+window.onpopstate = () => setTimeout(doSomeThing, 0);
+--- END CODE BLOCK ---
+property contains a copy of the history entry's state object.
+These methods and their corresponding events can be used to add data to the history stack which can be used to reconstruct a dynamically generated page, or to otherwise alter the state of the content being presented while remaining on the same
+--- CODE BLOCK 43 ---
+DOMContentLoaded
+--- END CODE BLOCK ---
+Note that just calling
+--- CODE BLOCK 46 ---
+pushState()
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+replaceState()
+--- END CODE BLOCK ---
+won't trigger a
+--- CODE BLOCK 48 ---
+document.title
+--- END CODE BLOCK ---
+event. The
+--- CODE BLOCK 52 ---
+autocomplete
+--- END CODE BLOCK ---
+event will be triggered by doing a browser action such as a click on the back or forward button (or calling
+--- CODE BLOCK 57 ---
+PageTransitionEvent
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+History.state
+--- END CODE BLOCK ---
+in JavaScript).
+Browsers tend to handle the
+--- CODE BLOCK 71 ---
+http://example.com/example.html
+--- END CODE BLOCK ---
+event differently on page load. Chrome (prior to v34) and Safari always emit a
+--- CODE BLOCK 72 ---
+window.addEventListener("popstate", (event) => {
+console.log(
+`location: ${document.location}, state: ${JSON.stringify(event.state)}`,
+history.pushState({ page: 1 }, "title 1", "?page=1");
+history.pushState({ page: 2 }, "title 2", "?page=2");
+history.replaceState({ page: 3 }, "title 3", "?page=3");
+history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // Logs "location: http://example.com/example.html, state: null"
+history.go(2); // Logs "location: http://example.com/example.html?page=3, state: {"page":3}"
+--- END CODE BLOCK ---
+event on page load, but Firefox doesn't.
+Note:
+When writing functions that process
+--- CODE BLOCK 73 ---
+window.addEventListener("popstate", (event) => {
+console.log(
+`location: ${document.location}, state: ${JSON.stringify(event.state)}`,
+history.pushState({ page: 1 }, "title 1", "?page=1");
+history.pushState({ page: 2 }, "title 2", "?page=2");
+history.replaceState({ page: 3 }, "title 3", "?page=3");
+history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // Logs "location: http://example.com/example.html, state: null"
+history.go(2); // Logs "location: http://example.com/example.html?page=3, state: {"page":3}"
+--- END CODE BLOCK ---
+event it is important to take into account that properties like
+--- CODE BLOCK 75 ---
+window.onpopstate = (event) => {
+console.log(
+`location: ${document.location}, state: ${JSON.stringify(event.state)}`,
+history.pushState({ page: 1 }, "title 1", "?page=1");
+history.pushState({ page: 2 }, "title 2", "?page=2");
+history.replaceState({ page: 3 }, "title 3", "?page=3");
+history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // Logs "location: http://example.com/example.html, state: null"
+history.go(2); // Logs "location: http://example.com/example.html?page=3, state: {"page":3}"
+--- END CODE BLOCK ---
+will already reflect the state change (if it affected the current URL), but
+--- CODE BLOCK 76 ---
+window.onpopstate = (event) => {
+console.log(
+`location: ${document.location}, state: ${JSON.stringify(event.state)}`,
+history.pushState({ page: 1 }, "title 1", "?page=1");
+history.pushState({ page: 2 }, "title 2", "?page=2");
+history.replaceState({ page: 3 }, "title 3", "?page=3");
+history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
+history.back(); // Logs "location: http://example.com/example.html, state: null"
+history.go(2); // Logs "location: http://example.com/example.html?page=3, state: {"page":3}"
+--- END CODE BLOCK ---
+might still not. If the goal is to catch the moment when the new document state is already fully in place, a zero-delay
+--- CODE BLOCK 77 ---
+http://example.com/example.html
+--- END CODE BLOCK ---
+method call should be used to effectively put its inner
+callback
+function that does the processing at the end of the browser event loop:
+--- CODE BLOCK 79 ---
+history.back()
+--- END CODE BLOCK ---
+When popstate is sent
+It's important to first understand that — to combat unwanted pop-ups — browsers may not fire the
+[CODE_BLOCK_35]
+event at all unless the page has been interacted with.
+This section describes the steps that browsers follow in the cases where they
+potentially fire the
+[CODE_BLOCK_36]
+event (that is, in the cases where the page has been interacted with).
+When a navigation occurs — either due to the user triggering the browser's
+Back
+button or otherwise — the
+[CODE_BLOCK_37]
+event is near the end of the process to navigate to the new location. It happens after the new location has loaded (if needed), displayed, made visible, and so on — after the
+[CODE_BLOCK_38]
+event is sent, but before the persisted user state information is restored and the
+[CODE_BLOCK_39]
+event is sent.
+To better understand when the
+[CODE_BLOCK_40]
+event is fired, consider this simplified sequence of events that occurs when the current history entry changes due to either the user navigating the site or the history being traversed programmatically. Here, the transition is changing the current history entry to one we'll refer to as
+new-entry
+. The current page's session history stack entry will be referred to as
+current-entry
+new-entry
+doesn't currently contain an existing
+[CODE_BLOCK_41]
+, fetch the content and create its
+[CODE_BLOCK_42]
+before continuing. This will eventually send events such as
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+to the
+[CODE_BLOCK_45]
+containing the document, but the steps below will continue to execute in the meantime.
+current-entry
+'s title wasn't set using one of the History API methods (
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+), set the entry's title to the string returned by its
+[CODE_BLOCK_48]
+attribute.
+If the browser has state information it wishes to store with the
+current-entry
+before navigating away from it, it then does so. The entry is now said to have "persisted user state." This information the browser might add to the history session entry may include, for instance, the document's scroll position, the values of form inputs, and other such data.
+new-entry
+has a different
+[CODE_BLOCK_49]
+object than
+current-entry
+, the browsing context is updated so that its
+[CODE_BLOCK_50]
+property refers to the document referred to by
+new-entry
+, and the context's name is updated to match the context name of the now-current document.
+Each form control within
+new-entry
+[CODE_BLOCK_51]
+that has
+[CODE_BLOCK_52]
+configured with its autofill field name set to
+[CODE_BLOCK_53]
+is reset. See
+The HTML autocomplete attribute
+for more about the autocomplete field names and how autocomplete works.
+new-entry
+'s document is already fully loaded and ready—that is, its
+[CODE_BLOCK_54]
+[CODE_BLOCK_55]
+—and the document is not already visible, it's made visible and the
+[CODE_BLOCK_56]
+event is fired at the document with the
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+attribute set to
+[CODE_BLOCK_59]
+The document's
+[CODE_BLOCK_60]
+is set to that of
+new-entry
+If the history traversal is being performed with replacement enabled, the entry immediately prior to the destination entry (taking into account the
+[CODE_BLOCK_61]
+parameter on methods such as
+[CODE_BLOCK_62]
+) is removed from the history stack.
+If the
+new-entry
+doesn't have persisted user state and its URL's fragment is non-
+[CODE_BLOCK_63]
+, the document is scrolled to that fragment.
+Next,
+current-entry
+is set to
+new-entry
+. The destination entry is now considered to be current.
+new-entry
+has serialized state information saved with it, that information is deserialized into
+[CODE_BLOCK_64]
+; otherwise,
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+If the value of
+[CODE_BLOCK_67]
+changed, the
+[CODE_BLOCK_68]
+event is sent to the document.
+Any persisted user state is restored, if the browser chooses to do so.
+If the original and new entries shared the same document, but had different fragments in their URLs, send the
+[CODE_BLOCK_69]
+event to the window.
+As you can see, the
+[CODE_BLOCK_70]
+event is nearly the last thing done in the process of navigating pages in this way.
+Examples
+A page at
+[CODE_BLOCK_71]
+running the following code will generate logs as indicated:
+Copy to Clipboard
+[CODE_BLOCK_72]
+The same example using the
+[CODE_BLOCK_74]
+event handler property:
+Copy to Clipboard
+[CODE_BLOCK_75]
+Note that even though the original history entry (for
+[CODE_BLOCK_77]
+) has no state object associated with it, a
+[CODE_BLOCK_78]
+event is still fired when we activate that entry after the second call to
+[CODE_BLOCK_79]
+Specifications
+Specification
+HTML
+event-popstate
+HTML
+handler-window-onpopstate
+Browser compatibility
+See also
+Manipulating the browser history (the History API)
+Window:
+[CODE_BLOCK_80]
+event
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 1, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

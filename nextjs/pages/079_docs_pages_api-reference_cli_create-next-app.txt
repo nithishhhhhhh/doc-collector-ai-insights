@@ -1,0 +1,158 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/cli/create-next-app
+SCRAPED: 2025-06-19 17:18:22
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+create-next-app CLI
+You are currently viewing the documentation for Pages Router.
+create-next-app CLI
+--- CODE BLOCK 1 ---
+create-next-app
+--- END CODE BLOCK ---
+CLI allow you to create a new Next.js application using the default template or an
+example
+from a public GitHub repository. It is the easiest way to get started with Next.js.
+Basic usage:
+Terminal
+--- CODE BLOCK 2 ---
+npx create-next-app@latest [project-name] [options]
+--- END CODE BLOCK ---
+Reference
+The following options are available:
+Options
+Description
+--- CODE BLOCK 9 ---
+--no-eslint
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+--typescript
+--- END CODE BLOCK ---
+Show all available options
+--- CODE BLOCK 13 ---
+--javascript
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+--turbopack
+--- END CODE BLOCK ---
+Output the version number
+--- CODE BLOCK 21 ---
+--import-alias <alias-to-configure>
+--- END CODE BLOCK ---
+Negate default options. E.g.
+--- CODE BLOCK 28 ---
+--example [name] [github-url]
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+--example-path <path-to-example>
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+--reset-preferences
+--- END CODE BLOCK ---
+Initialize as a TypeScript project (default)
+--- CODE BLOCK 31 ---
+--skip-install
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+npx create-next-app@latest
+--- END CODE BLOCK ---
+Initialize as a JavaScript project
+--- CODE BLOCK 34 ---
+npx create-next-app@latest
+--- END CODE BLOCK ---
+Initialize with Tailwind CSS config (default)
+--- CODE BLOCK 35 ---
+What is your project named?  my-app
+Would you like to use TypeScript?  No / Yes
+Would you like to use ESLint?  No / Yes
+Would you like to use Tailwind CSS?  No / Yes
+Would you like your code inside a `src/` directory?  No / Yes
+Would you like to use App Router? (recommended)  No / Yes
+Would you like to use Turbopack for `next dev`?  No / Yes
+Would you like to customize the import alias (`@/*` by default)?  No / Yes
+--- END CODE BLOCK ---
+Initialize with ESLint config
+--- CODE BLOCK 36 ---
+What is your project named?  my-app
+Would you like to use TypeScript?  No / Yes
+Would you like to use ESLint?  No / Yes
+Would you like to use Tailwind CSS?  No / Yes
+Would you like your code inside a `src/` directory?  No / Yes
+Would you like to use App Router? (recommended)  No / Yes
+Would you like to use Turbopack for `next dev`?  No / Yes
+Would you like to customize the import alias (`@/*` by default)?  No / Yes
+--- END CODE BLOCK ---
+Initialize as an App Router project
+--- CODE BLOCK 38 ---
+npx create-next-app@latest --example [example-name] [your-project-name]
+--- END CODE BLOCK ---
+Initialize a project with only route handlers
+--- CODE BLOCK 39 ---
+npx create-next-app@latest --example [example-name] [your-project-name]
+--- END CODE BLOCK ---
+Initialize inside a
+--- CODE BLOCK 41 ---
+npx create-next-app@latest --example "https://github.com/.../" [your-project-name]
+--- END CODE BLOCK ---
+directory
+--- CODE BLOCK 42 ---
+npx create-next-app@latest --example "https://github.com/.../" [your-project-name]
+--- END CODE BLOCK ---
+Enable Turbopack by default for development
+[CODE_BLOCK_21]
+Specify import alias to use (default "@/*")
+[CODE_BLOCK_22]
+Initialize an empty project
+[CODE_BLOCK_23]
+Explicitly tell the CLI to bootstrap the application using npm
+[CODE_BLOCK_24]
+Explicitly tell the CLI to bootstrap the application using pnpm
+[CODE_BLOCK_25]
+Explicitly tell the CLI to bootstrap the application using Yarn
+[CODE_BLOCK_26]
+Explicitly tell the CLI to bootstrap the application using Bun
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+An example to bootstrap the app with
+[CODE_BLOCK_29]
+Specify the path to the example separately
+[CODE_BLOCK_30]
+Explicitly tell the CLI to reset any stored preferences
+[CODE_BLOCK_31]
+Explicitly tell the CLI to skip installing packages
+[CODE_BLOCK_32]
+Use previous preferences or defaults for all options
+Examples
+With the default template
+To create a new app using the default template, run the following command in your terminal:
+Terminal
+[CODE_BLOCK_33]
+You will then be asked the following prompts:
+Terminal
+[CODE_BLOCK_35]
+Once you've answered the prompts, a new project will be created with your chosen configuration.
+With an official Next.js example
+To create a new app using an official Next.js example, use the
+[CODE_BLOCK_37]
+flag. For example:
+Terminal
+[CODE_BLOCK_38]
+You can view a list of all available examples along with setup instructions in the
+Next.js repository
+With any public GitHub example
+To create a new app using any public GitHub example, use the
+[CODE_BLOCK_40]
+option with the GitHub repo's URL. For example:
+Terminal
+[CODE_BLOCK_41]
+Was this helpful?
+supported.
+Send

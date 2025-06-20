@@ -1,0 +1,23 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/multi-tenant
+SCRAPED: 2025-06-19 17:18:57
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Multi-tenant
+How to build multi-tenant apps in Next.js
+If you are looking to build a single Next.js application that serves multiple tenants, we have
+built an example
+showing our recommended architecture.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,172 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/routing/custom-document
+SCRAPED: 2025-06-19 17:17:39
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Routing
+Custom Document
+You are currently viewing the documentation for Pages Router.
+Custom Document
+A custom
+--- CODE BLOCK 5 ---
+pages/_document
+--- END CODE BLOCK ---
+can update the
+--- CODE BLOCK 6 ---
+import { Html, Head, Main, NextScript } from 'next/document'
+export default function Document() {
+return (
+<Html lang="en">
+<Head />
+<body>
+<Main />
+<NextScript />
+</body>
+</Html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+import { Html, Head, Main, NextScript } from 'next/document'
+export default function Document() {
+return (
+<Html lang="en">
+<Head />
+<body>
+<Main />
+<NextScript />
+</body>
+</Html>
+--- END CODE BLOCK ---
+tags used to render a
+Page
+To override the default
+--- CODE BLOCK 13 ---
+<NextScript />
+--- END CODE BLOCK ---
+, create the file
+--- CODE BLOCK 24 ---
+getStaticProps
+--- END CODE BLOCK ---
+as shown below:
+pages/_document.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 25 ---
+getServerSideProps
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 30 ---
+import Document, {
+Html,
+Head,
+Main,
+NextScript,
+DocumentContext,
+DocumentInitialProps,
+} from 'next/document'
+class MyDocument extends Document {
+static async getInitialProps(
+ctx: DocumentContext
+): Promise<DocumentInitialProps> {
+const originalRenderPage = ctx.renderPage
+// Run the React rendering logic synchronously
+ctx.renderPage = () =>
+originalRenderPage({
+// Useful for wrapping the whole react tree
+enhanceApp: (App) => App,
+// Useful for wrapping in a per-page basis
+enhanceComponent: (Component) => Component,
+// Run the parent `getInitialProps`, it now includes the custom `renderPage`
+const initialProps = await Document.getInitialProps(ctx)
+return initialProps
+render() {
+return (
+<Html lang="en">
+<Head />
+<body>
+<Main />
+<NextScript />
+</body>
+</Html>
+export default MyDocument
+--- END CODE BLOCK ---
+is only rendered on the server, so event handlers like
+--- CODE BLOCK 31 ---
+getInitialProps
+--- END CODE BLOCK ---
+cannot be used in this file.
+--- CODE BLOCK 35 ---
+getInitialProps
+--- END CODE BLOCK ---
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+are required for the page to be properly rendered.
+Caveats
+[CODE_BLOCK_14]
+component used in
+[CODE_BLOCK_15]
+is not the same as
+[CODE_BLOCK_16]
+. The
+[CODE_BLOCK_17]
+component used here should only be used for any
+[CODE_BLOCK_18]
+code that is common for all pages. For all other cases, such as
+[CODE_BLOCK_19]
+tags, we recommend using
+[CODE_BLOCK_20]
+in your pages or components.
+React components outside of
+[CODE_BLOCK_21]
+will not be initialized by the browser. Do
+add application logic here or custom CSS (like
+[CODE_BLOCK_22]
+). If you need shared components in all your pages (like a menu or a toolbar), read
+Layouts
+instead.
+[CODE_BLOCK_23]
+currently does not support Next.js
+Data Fetching methods
+like
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+Customizing
+[CODE_BLOCK_26]
+Customizing
+[CODE_BLOCK_27]
+is advanced and only needed for libraries like CSS-in-JS to support server-side rendering. This is not needed for built-in
+[CODE_BLOCK_28]
+support.
+We do not recommend using this pattern.
+Instead, consider
+incrementally adopting
+the App Router, which allows you to more easily fetch data for pages and layouts.
+pages/_document.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_29]
+Good to know
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+is not called during client-side transitions.
+[CODE_BLOCK_33]
+object for
+[CODE_BLOCK_34]
+is equivalent to the one received in
+[CODE_BLOCK_35]
+, with the addition of
+[CODE_BLOCK_36]
+Was this helpful?
+supported.
+Send

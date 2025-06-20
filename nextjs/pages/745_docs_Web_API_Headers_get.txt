@@ -1,0 +1,94 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Headers/get
+SCRAPED: 2025-06-19 18:34:17
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 14 ---
+const myHeaders = new Headers(); // Currently empty
+myHeaders.get("Not-Set"); // Returns null
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 15 ---
+const myHeaders = new Headers(); // Currently empty
+myHeaders.get("Not-Set"); // Returns null
+--- END CODE BLOCK ---
+interface
+returns a byte string of all the values of a header within a
+--- CODE BLOCK 16 ---
+Headers.append
+--- END CODE BLOCK ---
+object
+with a given name. If the requested header doesn't exist in the
+--- CODE BLOCK 18 ---
+myHeaders.append("Content-Type", "image/jpeg");
+myHeaders.get("Content-Type"); // Returns "image/jpeg"
+--- END CODE BLOCK ---
+object, it returns
+--- CODE BLOCK 19 ---
+myHeaders.append("Content-Type", "image/jpeg");
+myHeaders.get("Content-Type"); // Returns "image/jpeg"
+--- END CODE BLOCK ---
+For security reasons, some headers can only be controlled by the user agent. These
+headers include the
+forbidden request headers
+forbidden response header names
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 20 ---
+myHeaders.append("Accept-Encoding", "deflate");
+myHeaders.append("Accept-Encoding", "gzip");
+myHeaders.get("Accept-Encoding"); // Returns "deflate, gzip"
+myHeaders
+.get("Accept-Encoding")
+.split(",")
+.map((v) => v.trimStart()); // Returns [ "deflate", "gzip" ]
+--- END CODE BLOCK ---
+Parameters
+[CODE_BLOCK_8]
+The name of the HTTP header whose values you want to retrieve from the
+[CODE_BLOCK_9]
+object. If the given name is not the name of an HTTP header, this
+method throws a
+[CODE_BLOCK_10]
+. The name is case-insensitive.
+Return value
+[CODE_BLOCK_11]
+sequence representing the values of the retrieved header or
+[CODE_BLOCK_12]
+if this header is not set.
+Examples
+Creating an empty
+[CODE_BLOCK_13]
+object is simple:
+Copy to Clipboard
+[CODE_BLOCK_14]
+You could add a header to this using
+[CODE_BLOCK_16]
+, then retrieve it
+using
+[CODE_BLOCK_17]
+Copy to Clipboard
+[CODE_BLOCK_18]
+If the header has multiple values associated with it, the byte string will contain all
+the values, in the order they were added to the Headers object:
+Copy to Clipboard
+[CODE_BLOCK_20]
+Specifications
+Specification
+Fetch
+ref-for-dom-headers-get①
+Browser compatibility
+See also
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

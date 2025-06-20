@@ -1,0 +1,527 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import
+SCRAPED: 2025-06-19 17:54:27
+================================================================================
+
+The static
+--- CODE BLOCK 3 ---
+type="module"
+--- END CODE BLOCK ---
+declaration is used to import read-only live
+bindings
+which are
+exported
+by another module. The imported bindings are called
+live bindings
+because they are updated by the module that exported the binding, but cannot be re-assigned by the importing module.
+In order to use the
+--- CODE BLOCK 6 ---
+type="module"
+--- END CODE BLOCK ---
+declaration in a source file, the file must be interpreted by the runtime as a
+module
+. In HTML, this is done by adding
+--- CODE BLOCK 7 ---
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { default as alias } from "module-name";
+import { export1, export2 } from "module-name";
+import { export1, export2 as alias2, /* … */ } from "module-name";
+import { "string name" as alias } from "module-name";
+import defaultExport, { export1, /* … */ } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+--- END CODE BLOCK ---
+to the
+--- CODE BLOCK 8 ---
+import defaultExport from "module-name";
+import * as name from "module-name";
+import { export1 } from "module-name";
+import { export1 as alias1 } from "module-name";
+import { default as alias } from "module-name";
+import { export1, export2 } from "module-name";
+import { export1, export2 as alias2, /* … */ } from "module-name";
+import { "string name" as alias } from "module-name";
+import defaultExport, { export1, /* … */ } from "module-name";
+import defaultExport, * as name from "module-name";
+import "module-name";
+--- END CODE BLOCK ---
+tag. Modules are automatically interpreted in
+strict mode
+There is also a function-like dynamic
+--- CODE BLOCK 9 ---
+defaultExport
+--- END CODE BLOCK ---
+, which does not require scripts of
+--- CODE BLOCK 10 ---
+module-name
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 11 ---
+import.meta.url
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+"module-name"
+--- END CODE BLOCK ---
+Name that will refer to the default export from the module. Must be a valid JavaScript identifier.
+--- CODE BLOCK 21 ---
+type="module"
+--- END CODE BLOCK ---
+The module to import from. Only single quoted and double quoted string literals are allowed. The evaluation of the specifier is host-specified. Most hosts align with browsers and resolve the specifiers as URLs relative to the current module URL (see
+--- CODE BLOCK 23 ---
+new Function
+--- END CODE BLOCK ---
+). Node, bundlers, and other non-browser environments often define their own features on top of this, so you should find documentation for them to understand the exact rules. The
+module specifier resolution
+section also has more information.
+--- CODE BLOCK 24 ---
+SyntaxError
+--- END CODE BLOCK ---
+Name of the module object that will be used as a kind of namespace when referring to the imports. Must be a valid JavaScript identifier.
+--- CODE BLOCK 33 ---
+import { export1, export2 } from "module-name";
+--- END CODE BLOCK ---
+Name of the exports to be imported. The name can be either an identifier or a string literal, depending on what
+--- CODE BLOCK 34 ---
+import defaultExport from "module-name";
+--- END CODE BLOCK ---
+declares to export. If it is a string literal, it must be aliased to a valid identifier.
+--- CODE BLOCK 35 ---
+import * as name from "module-name";
+--- END CODE BLOCK ---
+Names that will refer to the named imports. Must be a valid JavaScript identifier.
+--- CODE BLOCK 36 ---
+import "module-name";
+--- END CODE BLOCK ---
+may be followed by a set of
+import attributes
+, starting with the
+--- CODE BLOCK 39 ---
+export * from "another.js"
+--- END CODE BLOCK ---
+keyword.
+Description
+--- CODE BLOCK 42 ---
+import { myExport } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+declarations can only be present in modules, and only at the top-level (i.e., not inside blocks, functions, etc.). If an
+--- CODE BLOCK 43 ---
+import { myExport } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+declaration is encountered in non-module contexts (for example,
+--- CODE BLOCK 44 ---
+import { foo, bar } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+tags without
+--- CODE BLOCK 45 ---
+import { foo, bar } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+import { reallyReallyLongModuleExportName as shortName } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+import { reallyReallyLongModuleExportName as shortName } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+, which all have "script" or "function body" as parsing goals), a
+--- CODE BLOCK 49 ---
+// /modules/my-module.js
+const a = 1;
+export { a as "a-b" };
+--- END CODE BLOCK ---
+is thrown. To load modules in non-module contexts, use the
+dynamic import
+syntax instead.
+All imported bindings cannot be in the same scope as any other declaration, including
+--- CODE BLOCK 50 ---
+// /modules/my-module.js
+const a = 1;
+export { a as "a-b" };
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+import { "a-b" as a } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+import { "a-b" as a } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+import { x, y } from "mod"
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+import defaultExport from "mod"
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 57 ---
+defaultExport
+--- END CODE BLOCK ---
+declaration.
+--- CODE BLOCK 58 ---
+import myDefault from "/modules/my-module.js";
+--- END CODE BLOCK ---
+declarations are designed to be syntactically rigid (for example, only string literal specifiers, only permitted at the top-level, all bindings must be identifiers), which allows modules to be statically analyzed and linked before getting evaluated. This is the key to making modules asynchronous by nature, powering features like
+top-level await
+Forms of import declarations
+There are four forms of
+--- CODE BLOCK 59 ---
+import myDefault from "/modules/my-module.js";
+--- END CODE BLOCK ---
+declarations:
+Named import
+--- CODE BLOCK 60 ---
+import myDefault, * as myModule from "/modules/my-module.js";
+// myModule.default and myDefault point to the same binding
+--- END CODE BLOCK ---
+Default import
+--- CODE BLOCK 61 ---
+import myDefault, * as myModule from "/modules/my-module.js";
+// myModule.default and myDefault point to the same binding
+--- END CODE BLOCK ---
+Namespace import
+--- CODE BLOCK 62 ---
+import myDefault, { foo, bar } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+Side effect import
+--- CODE BLOCK 63 ---
+import myDefault, { foo, bar } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+Below are examples to clarify the syntax.
+Named import
+Given a value named
+--- CODE BLOCK 66 ---
+import { default as myDefault } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+which has been exported from the module
+--- CODE BLOCK 67 ---
+import { default as myDefault } from "/modules/my-module.js";
+--- END CODE BLOCK ---
+either implicitly as
+--- CODE BLOCK 69 ---
+/modules/my-module.js
+--- END CODE BLOCK ---
+or explicitly using the
+--- CODE BLOCK 70 ---
+import * as myModule from "/modules/my-module.js";
+--- END CODE BLOCK ---
+statement, this inserts
+--- CODE BLOCK 71 ---
+import * as myModule from "/modules/my-module.js";
+--- END CODE BLOCK ---
+into the current scope.
+Copy to Clipboard
+--- CODE BLOCK 73 ---
+doAllTheAmazingThings()
+--- END CODE BLOCK ---
+You can import multiple names from the same module.
+Copy to Clipboard
+--- CODE BLOCK 75 ---
+myModule.doAllTheAmazingThings();
+--- END CODE BLOCK ---
+You can rename an export when importing it. For example, this inserts
+--- CODE BLOCK 80 ---
+import "/modules/my-module.js";
+--- END CODE BLOCK ---
+into the current scope.
+Copy to Clipboard
+--- CODE BLOCK 81 ---
+import "/modules/my-module.js";
+--- END CODE BLOCK ---
+A module may also export a member as a string literal which is not a valid identifier, in which case you must alias it in order to use it in the current module.
+Copy to Clipboard
+--- CODE BLOCK 83 ---
+myModule.doAllTheAmazingThings(); // myModule.doAllTheAmazingThings is imported by the next line
+import * as myModule from "/modules/my-module.js";
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 89 ---
+utils/index.js
+--- END CODE BLOCK ---
+Note:
+--- CODE BLOCK 91 ---
+// main.js
+const utils = require("./utils"); // Omit the "index.js" file name
+const utils = require("./utils/index"); // Omit only the ".js" extension
+const utils = require("./utils/index.js"); // The most explicit form
+--- END CODE BLOCK ---
+is not equivalent to
+--- CODE BLOCK 92 ---
+import x from "./utils"
+--- END CODE BLOCK ---
+and then destructuring
+--- CODE BLOCK 94 ---
+utils/index.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+import x from "./utils"
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 100 ---
+text/javascript
+--- END CODE BLOCK ---
+. Named and default imports are distinct syntaxes in JavaScript modules.
+Default import
+Default exports need to be imported with the corresponding default import syntax. This version directly imports the default:
+Copy to Clipboard
+--- CODE BLOCK 101 ---
+application/json
+--- END CODE BLOCK ---
+Since the default export doesn't explicitly specify a name, you can give the identifier any name you like.
+It is also possible to specify a default import with namespace imports or named imports. In such cases, the default import will have to be declared first. For instance:
+Copy to Clipboard
+--- CODE BLOCK 103 ---
+// HTTP URLs
+import x from "https://example.com/x.js";
+// Data URLs
+import x from "data:text/javascript,export default 42;";
+// Data URLs for JSON modules
+import x from 'data:application/json,{"foo":42}' with { type: "json" };
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 105 ---
+text/javascript
+--- END CODE BLOCK ---
+Importing a name called
+--- CODE BLOCK 110 ---
+node_modules
+--- END CODE BLOCK ---
+has the same effect as a default import. It is necessary to alias the name because
+--- CODE BLOCK 111 ---
+import x from "foo"
+--- END CODE BLOCK ---
+is a reserved word.
+Copy to Clipboard
+--- CODE BLOCK 113 ---
+node_modules
+--- END CODE BLOCK ---
+Namespace import
+The following code inserts
+--- CODE BLOCK 115 ---
+// getPrimes.js
+* Returns a list of prime numbers that are smaller than `max`.
+export function getPrimes(max) {
+const isPrime = Array.from({ length: max }, () => true);
+isPrime[0] = isPrime[1] = false;
+isPrime[2] = true;
+for (let i = 2; i * i < max; i++) {
+if (isPrime[i]) {
+for (let j = i ** 2; j < max; j += i) {
+isPrime[j] = false;
+return [...isPrime.entries()]
+.filter(([, isPrime]) => isPrime)
+.map(([number]) => number);
+--- END CODE BLOCK ---
+into the current scope, containing all the exports from the module located at
+--- CODE BLOCK 116 ---
+// getPrimes.js
+* Returns a list of prime numbers that are smaller than `max`.
+export function getPrimes(max) {
+const isPrime = Array.from({ length: max }, () => true);
+isPrime[0] = isPrime[1] = false;
+isPrime[2] = true;
+for (let i = 2; i * i < max; i++) {
+if (isPrime[i]) {
+for (let j = i ** 2; j < max; j += i) {
+isPrime[j] = false;
+return [...isPrime.entries()]
+.filter(([, isPrime]) => isPrime)
+.map(([number]) => number);
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 117 ---
+import { getPrimes } from "/modules/getPrimes.js";
+console.log(getPrimes(10)); // [2, 3, 5, 7]
+--- END CODE BLOCK ---
+Here,
+--- CODE BLOCK 119 ---
+// my-module.js
+export let myValue = 1;
+setTimeout(() => {
+myValue = 2;
+}, 500);
+--- END CODE BLOCK ---
+represents a
+namespace
+object which contains all exports as properties. For example, if the module imported above includes an export
+--- CODE BLOCK 120 ---
+// my-module.js
+export let myValue = 1;
+setTimeout(() => {
+myValue = 2;
+}, 500);
+--- END CODE BLOCK ---
+, you would call it like this:
+Copy to Clipboard
+--- CODE BLOCK 121 ---
+// main.js
+import { myValue } from "/modules/my-module.js";
+import * as myModule from "/modules/my-module.js";
+console.log(myValue); // 1
+console.log(myModule.myValue); // 1
+setTimeout(() => {
+console.log(myValue); // 2; my-module has updated its value
+console.log(myModule.myValue); // 2
+myValue = 3; // TypeError: Assignment to constant variable.
+// The importing module can only read the value but can't re-assign it.
+}, 1000);
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+import.meta
+--- END CODE BLOCK ---
+is a
+sealed
+object with
+[CODE_BLOCK_77]
+prototype
+. The default export available as a key called
+[CODE_BLOCK_78]
+. For more information, see
+module namespace object
+Note:
+JavaScript does not have wildcard imports like
+[CODE_BLOCK_79]
+, because of the high possibility of name conflicts.
+Import a module for its side effects only
+Import an entire module for side effects only, without importing anything. This runs
+the module's global code, but doesn't actually import any values.
+Copy to Clipboard
+[CODE_BLOCK_80]
+This is often used for
+polyfills
+, which mutate the global variables.
+Hoisting
+Import declarations are
+hoisted
+. In this case, that means that the identifiers the imports introduce are available in the entire module scope, and their side effects are produced before the rest of the module's code runs.
+Copy to Clipboard
+[CODE_BLOCK_82]
+Module specifier resolution
+The ECMAScript specification does not define how module specifiers are resolved and leaves it to the host environment (e.g., browsers, Node.js, Deno). Browser behavior is specified by
+the HTML spec
+, and this has become the
+de facto
+baseline for all environments.
+There are three types of specifiers widely recognized, as implemented by the HTML spec, Node, and many others:
+Relative specifiers
+that start with
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+, or
+[CODE_BLOCK_86]
+, which are resolved relative to the current module URL.
+Absolute specifiers
+that are parsable URLs, which are resolved as-is.
+Bare specifiers
+that are not one of the above.
+The most notable caveat for relative specifiers, especially for people familiar with the
+CommonJS
+conventions, is that browsers forbid one specifier to implicitly resolve to many potential candidates. In CommonJS, if you have
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+, then all of the following will import the "default export" from
+[CODE_BLOCK_89]
+Copy to Clipboard
+[CODE_BLOCK_90]
+On the web, this is costly because if you write
+[CODE_BLOCK_92]
+, the browser needs to send requests to
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+, and potentially many other URLs until it finds an importable module. Therefore, in the HTML spec, the specifier by default can only be a URL resolved relative to the current module URL. You cannot omit the file extension or the
+[CODE_BLOCK_96]
+file name. This behavior has been inherited by Node's ESM implementation, but it is not a part of the ECMAScript specification.
+Note that this does not mean that
+[CODE_BLOCK_97]
+never works on the web. The browser still sends a request to that URL, and if the server can respond with the correct content, the import will succeed. This requires the server to implement some custom resolution logic, because usually extension-less requests are understood as requests for HTML files.
+Absolute specifiers can be any kind of
+that resolve to importable source code. Most notably:
+HTTP URLs
+are always supported on the web since most scripts already have HTTP URLs. It's supported natively by Deno (which initially predicated its entire module system on HTTP URLs), but it only has experimental support in Node via
+custom HTTPS loaders
+[CODE_BLOCK_98]
+URLs are supported by many non-browser runtimes such as Node, since scripts there already have
+[CODE_BLOCK_99]
+URLs, but they are not supported by browsers due to security reasons.
+Data URLs
+are supported by many runtimes including browsers, Node, Deno, etc. They are useful for embedding small modules directly into the source code. Supported
+MIME types
+are those that designate importable source code, such as
+[CODE_BLOCK_100]
+for JavaScript,
+[CODE_BLOCK_101]
+for JSON modules,
+[CODE_BLOCK_102]
+for WebAssembly modules, etc. (They may still require
+import attributes
+Copy to Clipboard
+[CODE_BLOCK_103]
+[CODE_BLOCK_105]
+data URLs are still interpreted as modules, but they cannot use relative imports — because the
+[CODE_BLOCK_106]
+URL scheme is not hierarchical. That is,
+[CODE_BLOCK_107]
+will throw an error because the relative specifier
+[CODE_BLOCK_108]
+cannot be resolved.
+[CODE_BLOCK_109]
+URLs
+resolve to built-in Node.js modules. They are supported by Node and other runtimes that claim compatibility with Node, such as Bun.
+Bare specifiers, popularized by CommonJS, are resolved within the
+[CODE_BLOCK_110]
+directory. For example, if you have
+[CODE_BLOCK_111]
+, then the runtime will look for the
+[CODE_BLOCK_112]
+package within any
+[CODE_BLOCK_113]
+directory in the parent directories of the current module. This behavior can be reproduced in browsers using
+import maps
+, which also enable you to customize resolution in other ways.
+The module resolution algorithm can also be executed programmatically using the
+[CODE_BLOCK_114]
+function defined by the HTML spec.
+Examples
+Standard Import
+In this example, we create a re-usable module that exports a function to get all primes within a given range.
+Copy to Clipboard
+[CODE_BLOCK_115]
+Copy to Clipboard
+[CODE_BLOCK_117]
+Imported values can only be modified by the exporter
+The identifier being imported is a
+live binding
+, because the module exporting it may re-assign it and the imported value would change. However, the module importing it cannot re-assign it. Still, any module holding an exported object can mutate the object, and the mutated value can be observed by all other modules importing the same value.
+You can also observe the new value through the
+module namespace object
+Copy to Clipboard
+[CODE_BLOCK_119]
+Copy to Clipboard
+[CODE_BLOCK_121]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-imports
+Browser compatibility
+See also
+[CODE_BLOCK_123]
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+Import attributes
+Previewing ES6 Modules and more from ES2015, ES2016 and beyond
+on blogs.windows.com (2016)
+ES6 in Depth: Modules
+on hacks.mozilla.org (2015)
+ES modules: A cartoon deep-dive
+on hacks.mozilla.org (2018)
+Exploring JS, Ch.16: Modules
+by Dr. Axel Rauschmayer
+Export and Import
+on javascript.info
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

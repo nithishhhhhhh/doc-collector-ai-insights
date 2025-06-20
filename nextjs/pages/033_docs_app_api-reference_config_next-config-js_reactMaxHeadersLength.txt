@@ -1,0 +1,41 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/reactMaxHeadersLength
+SCRAPED: 2025-06-19 17:12:51
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+reactMaxHeadersLength
+reactMaxHeadersLength
+During static rendering, React can emit headers that can be added to the response. These can be used to improve performance by allowing the browser to preload resources like fonts, scripts, and stylesheets. The default value is
+--- CODE BLOCK 2 ---
+reactMaxHeadersLength
+--- END CODE BLOCK ---
+, but you can override this value by configuring the
+--- CODE BLOCK 3 ---
+next.config.js
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 4 ---
+module.exports = {
+reactMaxHeadersLength: 1000,
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 5 ---
+module.exports = {
+reactMaxHeadersLength: 1000,
+--- END CODE BLOCK ---
+Good to know
+: This option is only available in App Router.
+Depending on the type of proxy between the browser and the server, the headers can be truncated. For example, if you are using a reverse proxy that doesn't support long headers, you should set a lower value to ensure that the headers are not truncated.
+Was this helpful?
+supported.
+Send

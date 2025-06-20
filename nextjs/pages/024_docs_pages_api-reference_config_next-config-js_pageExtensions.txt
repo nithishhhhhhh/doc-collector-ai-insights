@@ -1,0 +1,101 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/pageExtensions
+SCRAPED: 2025-06-19 17:11:47
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+pageExtensions
+You are currently viewing the documentation for Pages Router.
+pageExtensions
+You can extend the default Page extensions (
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+pageExtensions
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+module.exports = {
+pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+module.exports = {
+pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
+--- END CODE BLOCK ---
+) used by Next.js. Inside
+--- CODE BLOCK 9 ---
+middleware.js
+--- END CODE BLOCK ---
+, add the
+--- CODE BLOCK 10 ---
+instrumentation.js
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 11 ---
+pages/_document.js
+--- END CODE BLOCK ---
+Changing these values affects
+Next.js pages, including the following:
+--- CODE BLOCK 16 ---
+middleware.page.ts
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+instrumentation.page.ts
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+_app.page.ts
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+pageExtensions
+--- END CODE BLOCK ---
+For example, if you reconfigure
+--- CODE BLOCK 23 ---
+module.exports = {
+pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
+--- END CODE BLOCK ---
+page extensions to
+--- CODE BLOCK 24 ---
+module.exports = {
+pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
+--- END CODE BLOCK ---
+, you would need to rename pages like
+--- CODE BLOCK 27 ---
+MyPage.page.tsx
+--- END CODE BLOCK ---
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+Including non-page files in the
+[CODE_BLOCK_19]
+directory
+You can colocate test files or other files used by components in the
+[CODE_BLOCK_20]
+directory. Inside
+[CODE_BLOCK_21]
+, add the
+[CODE_BLOCK_22]
+config:
+next.config.js
+[CODE_BLOCK_23]
+Then, rename your pages to have a file extension that includes
+[CODE_BLOCK_25]
+(e.g. rename
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+). Ensure you rename
+Next.js pages, including the files mentioned above.
+Was this helpful?
+supported.
+Send

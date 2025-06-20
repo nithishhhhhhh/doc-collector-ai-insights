@@ -1,0 +1,91 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Window/crypto
+SCRAPED: 2025-06-19 18:19:04
+================================================================================
+
+--- CODE BLOCK 4 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+read-only property of the
+--- CODE BLOCK 7 ---
+getRandomValues()
+--- END CODE BLOCK ---
+interface returns the
+--- CODE BLOCK 10 ---
+getRandomValues()
+--- END CODE BLOCK ---
+object for this window's scope. This object gives web pages access to certain cryptographic related services.
+Although the property itself is read-only, all of its methods (and the methods of its
+child object,
+--- CODE BLOCK 11 ---
+globalThis.genRandomNumbers = () => {
+const array = new Uint32Array(10);
+globalThis.crypto.getRandomValues(array);
+const randText = document.getElementById("myRandText");
+randText.textContent = `The random numbers are: ${array.join(" ")}`;
+--- END CODE BLOCK ---
+) are not read-only, and therefore vulnerable
+to attack by
+polyfill
+Although
+--- CODE BLOCK 12 ---
+globalThis.genRandomNumbers = () => {
+const array = new Uint32Array(10);
+globalThis.crypto.getRandomValues(array);
+const randText = document.getElementById("myRandText");
+randText.textContent = `The random numbers are: ${array.join(" ")}`;
+--- END CODE BLOCK ---
+is available on all windows, the returned
+--- CODE BLOCK 13 ---
+<p id="myRandText">The random numbers are:</p>
+<button type="button" onClick="genRandomNumbers()">
+Generate 10 random numbers
+</button>
+--- END CODE BLOCK ---
+object only has one usable feature in insecure contexts: the
+--- CODE BLOCK 14 ---
+<p id="myRandText">The random numbers are:</p>
+<button type="button" onClick="genRandomNumbers()">
+Generate 10 random numbers
+</button>
+--- END CODE BLOCK ---
+method. In general, you should use this API only in secure contexts.
+Value
+An instance of the
+--- CODE BLOCK 16 ---
+WorkerGlobalScope.crypto
+--- END CODE BLOCK ---
+interface, providing access to general-purpose cryptography and a strong random-number generator.
+Examples
+This example uses the
+[CODE_BLOCK_9]
+property to access the
+[CODE_BLOCK_10]
+method.
+JavaScript
+Copy to Clipboard
+play
+[CODE_BLOCK_11]
+HTML
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_13]
+Result
+play
+Specifications
+Specification
+Web Cryptography Level 2
+dom-windoworworkerglobalscope-crypto
+Browser compatibility
+See also
+[CODE_BLOCK_15]
+interface
+[CODE_BLOCK_16]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 16, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

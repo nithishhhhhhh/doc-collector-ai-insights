@@ -1,0 +1,124 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/not-found
+SCRAPED: 2025-06-19 17:50:11
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+not-found.js
+not-found.js
+not-found
+file is used to render UI when the
+--- CODE BLOCK 4 ---
+import Link from 'next/link'
+export default function NotFound() {
+return (
+<div>
+<h2>Not Found</h2>
+<p>Could not find requested resource</p>
+<Link href="/">Return Home</Link>
+</div>
+--- END CODE BLOCK ---
+function is thrown within a route segment. Along with serving a custom UI, Next.js will return a
+--- CODE BLOCK 5 ---
+import Link from 'next/link'
+export default function NotFound() {
+return (
+<div>
+<h2>Not Found</h2>
+<p>Could not find requested resource</p>
+<Link href="/">Return Home</Link>
+</div>
+--- END CODE BLOCK ---
+HTTP status code for streamed responses, and
+--- CODE BLOCK 6 ---
+not-found.js
+--- END CODE BLOCK ---
+for non-streamed responses.
+app/not-found.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 8 ---
+app/not-found.js
+--- END CODE BLOCK ---
+Reference
+Props
+--- CODE BLOCK 12 ---
+import Link from 'next/link'
+import { headers } from 'next/headers'
+export default async function NotFound() {
+const headersList = await headers()
+const domain = headersList.get('host')
+const data = await getSiteData(domain)
+return (
+<div>
+<h2>Not Found: {data.name}</h2>
+<p>Could not find requested resource</p>
+View <Link href="/blog">all posts</Link>
+</p>
+</div>
+--- END CODE BLOCK ---
+components do not accept any props.
+Good to know
+: In addition to catching expected
+--- CODE BLOCK 13 ---
+import Link from 'next/link'
+import { headers } from 'next/headers'
+export default async function NotFound() {
+const headersList = await headers()
+const domain = headersList.get('host')
+const data = await getSiteData(domain)
+return (
+<div>
+<h2>Not Found: {data.name}</h2>
+<p>Could not find requested resource</p>
+View <Link href="/blog">all posts</Link>
+</p>
+</div>
+--- END CODE BLOCK ---
+errors, the root
+--- CODE BLOCK 14 ---
+usePathname
+--- END CODE BLOCK ---
+file also handles any unmatched URLs for your whole application. This means users that visit a URL that is not handled by your app will be shown the UI exported by the
+--- CODE BLOCK 16 ---
+app/not-found
+--- END CODE BLOCK ---
+file.
+Examples
+Data Fetching
+By default,
+[CODE_BLOCK_10]
+is a Server Component. You can mark it as
+[CODE_BLOCK_11]
+to fetch and display data:
+app/not-found.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_12]
+If you need to use Client Component hooks like
+[CODE_BLOCK_14]
+to display content based on the path, you must fetch data on the client-side instead.
+Version History
+Version
+Changes
+[CODE_BLOCK_15]
+Root
+[CODE_BLOCK_16]
+handles global unmatched URLs.
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+introduced.
+Was this helpful?
+supported.
+Send

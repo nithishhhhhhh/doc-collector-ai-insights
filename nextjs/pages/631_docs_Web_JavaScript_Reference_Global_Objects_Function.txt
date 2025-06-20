@@ -1,0 +1,193 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Function
+SCRAPED: 2025-06-19 18:21:27
+================================================================================
+
+--- CODE BLOCK 8 ---
+Function.prototype
+--- END CODE BLOCK ---
+object provides methods for
+functions
+. In JavaScript, every function is actually a
+--- CODE BLOCK 10 ---
+Function.prototype.arguments
+--- END CODE BLOCK ---
+object.
+Constructor
+--- CODE BLOCK 14 ---
+Function.prototype.caller
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 17 ---
+Function.prototype.constructor
+--- END CODE BLOCK ---
+object. Calling the constructor directly can create functions dynamically but suffers from security and similar (but far less significant) performance issues to
+--- CODE BLOCK 21 ---
+displayName
+--- END CODE BLOCK ---
+. However, unlike
+--- CODE BLOCK 26 ---
+Function.prototype.apply()
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 28 ---
+Function.prototype.bind()
+--- END CODE BLOCK ---
+constructor creates functions that execute in the global scope only.
+Instance properties
+These properties are defined on
+--- CODE BLOCK 30 ---
+Function.prototype.call()
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 32 ---
+Function.prototype.toString()
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 33 ---
+Object.prototype.toString
+--- END CODE BLOCK ---
+Deprecated
+Non-standard
+Represents the arguments passed to this function. For
+strict
+, arrow, async, and generator functions, accessing the
+--- CODE BLOCK 34 ---
+Function.prototype[Symbol.hasInstance]()
+--- END CODE BLOCK ---
+property throws a
+--- CODE BLOCK 39 ---
+// Create a global property with `var`
+var x = 10;
+function createFunction1() {
+const x = 20;
+return new Function("return x;"); // this `x` refers to global `x`
+function createFunction2() {
+const x = 20;
+function f() {
+return x; // this `x` refers to the local `x` above
+return f;
+const f1 = createFunction1();
+console.log(f1()); // 10
+const f2 = createFunction2();
+console.log(f2()); // 20
+--- END CODE BLOCK ---
+. Use the
+--- CODE BLOCK 40 ---
+// Create a global property with `var`
+var x = 10;
+function createFunction1() {
+const x = 20;
+return new Function("return x;"); // this `x` refers to global `x`
+function createFunction2() {
+const x = 20;
+function f() {
+return x; // this `x` refers to the local `x` above
+return f;
+const f1 = createFunction1();
+console.log(f1()); // 10
+const f2 = createFunction2();
+console.log(f2()); // 20
+--- END CODE BLOCK ---
+object inside function closures instead.
+--- CODE BLOCK 42 ---
+ReferenceError
+--- END CODE BLOCK ---
+Deprecated
+Non-standard
+Represents the function that invoked this function. For
+strict
+, arrow, async, and generator functions, accessing the
+--- CODE BLOCK 47 ---
+AsyncFunction
+--- END CODE BLOCK ---
+property throws a
+--- CODE BLOCK 48 ---
+AsyncGeneratorFunction
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+GeneratorFunction
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+[CODE_BLOCK_18]
+instances, the initial value is the
+[CODE_BLOCK_19]
+constructor.
+These properties are own properties of each
+[CODE_BLOCK_20]
+instance.
+[CODE_BLOCK_21]
+Non-standard
+Optional
+The display name of the function.
+[CODE_BLOCK_22]
+Specifies the number of arguments expected by the function.
+[CODE_BLOCK_23]
+The name of the function.
+[CODE_BLOCK_24]
+Used when the function is used as a constructor with the
+[CODE_BLOCK_25]
+operator. It will become the new object's prototype.
+Instance methods
+[CODE_BLOCK_26]
+Calls a function with a given
+[CODE_BLOCK_27]
+value and optional arguments provided as an array (or an
+array-like object
+[CODE_BLOCK_28]
+Creates a new function that, when called, has its
+[CODE_BLOCK_29]
+keyword set to a provided value, optionally with a given sequence of arguments preceding any provided when the new function is called.
+[CODE_BLOCK_30]
+Calls a function with a given
+[CODE_BLOCK_31]
+value and optional arguments.
+[CODE_BLOCK_32]
+Returns a string representing the source code of the function.
+Overrides the
+[CODE_BLOCK_33]
+method.
+[CODE_BLOCK_34]
+Specifies the default procedure for determining if a constructor function recognizes an object as one of the constructor's instances. Called by the
+[CODE_BLOCK_35]
+operator.
+Examples
+Difference between Function constructor and function declaration
+Functions created with the
+[CODE_BLOCK_36]
+constructor do not create closures to their creation contexts; they always are created in the global scope. When running them, they will only be able to access their own local variables and global ones, not the ones from the scope in which the
+[CODE_BLOCK_37]
+constructor was created. This is different from using
+[CODE_BLOCK_38]
+with code for a function expression.
+Copy to Clipboard
+[CODE_BLOCK_39]
+While this code works in web browsers,
+[CODE_BLOCK_41]
+will produce a
+[CODE_BLOCK_42]
+in Node.js, as
+[CODE_BLOCK_43]
+will not be found. This is because the top-level scope in Node is not the global scope, and
+[CODE_BLOCK_44]
+will be local to the module.
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-function-objects
+Browser compatibility
+See also
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+expression
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+Functions
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jul 15, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

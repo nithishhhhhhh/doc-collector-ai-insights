@@ -1,0 +1,55 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/typescript
+SCRAPED: 2025-06-19 17:50:26
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+typescript
+typescript
+Next.js fails your
+production build
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+) when TypeScript errors are present in your project.
+If you'd like Next.js to dangerously produce production code even when your application has errors, you can disable the built-in type checking step.
+If disabled, be sure you are running type checks as part of your build or deploy process, otherwise this can be very dangerous.
+Open
+--- CODE BLOCK 3 ---
+ignoreBuildErrors
+--- END CODE BLOCK ---
+and enable the
+--- CODE BLOCK 5 ---
+module.exports = {
+typescript: {
+// !! WARN !!
+// Dangerously allow production builds to successfully complete even if
+// your project has type errors.
+// !! WARN !!
+ignoreBuildErrors: true,
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 6 ---
+module.exports = {
+typescript: {
+// !! WARN !!
+// Dangerously allow production builds to successfully complete even if
+// your project has type errors.
+// !! WARN !!
+ignoreBuildErrors: true,
+--- END CODE BLOCK ---
+config:
+next.config.js
+[CODE_BLOCK_5]
+Was this helpful?
+supported.
+Send

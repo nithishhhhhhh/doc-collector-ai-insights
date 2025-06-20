@@ -1,0 +1,1120 @@
+SOURCE URL: https://jestjs.io/docs/cli#reference
+SCRAPED: 2025-06-19 17:58:32
+================================================================================
+
+Version: 30.0
+On this page
+--- CODE BLOCK 2 ---
+jest --help
+--- END CODE BLOCK ---
+command line runner has a number of useful options. You can run
+--- CODE BLOCK 5 ---
+jest my-test #orjest path/to/my-test.js
+--- END CODE BLOCK ---
+to view all available options. Many of the options shown below can also be used together to run tests exactly the way you want. Every one of Jest's
+Configuration
+options can also be specified through the CLI.
+Here is a brief overview:
+Running from the command line
+Run all tests (default):
+--- CODE BLOCK 6 ---
+jest my-test #orjest path/to/my-test.js
+--- END CODE BLOCK ---
+Run only the tests that were specified with a pattern or filename:
+--- CODE BLOCK 10 ---
+path/to/fileB.js
+--- END CODE BLOCK ---
+Run tests related to changed files based on hg/git (uncommitted files):
+--- CODE BLOCK 12 ---
+jest --findRelatedTests path/to/fileA.js path/to/fileB.js
+--- END CODE BLOCK ---
+Run tests related to
+--- CODE BLOCK 16 ---
+jest -t name-of-spec
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+jest --watch #runs jest -o by defaultjest --watchAll #runs all tests
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+jest --watch #runs jest -o by defaultjest --watchAll #runs all tests
+--- END CODE BLOCK ---
+Run tests that match this spec name (match against the name in
+--- CODE BLOCK 20 ---
+jest -u -t="ColorPicker"
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+npm test -- -u -t="ColorPicker"
+--- END CODE BLOCK ---
+, basically).
+--- CODE BLOCK 22 ---
+npm test -- -u -t="ColorPicker"
+--- END CODE BLOCK ---
+Run watch mode:
+--- CODE BLOCK 24 ---
+yarn test -u -t="ColorPicker"
+--- END CODE BLOCK ---
+Watch mode also enables to specify the name or path to a file to focus on a specific set of tests.
+Using with package manager
+If you run Jest via your package manager, you can still pass the command line arguments directly as Jest arguments.
+Instead of:
+--- CODE BLOCK 26 ---
+pnpm test -u -t="ColorPicker"
+--- END CODE BLOCK ---
+you can use:
+Yarn
+pnpm
+--- CODE BLOCK 28 ---
+jest --collect-coveragejest --collectCoverage
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+jest --update-snapshot --detectOpenHandles
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+--bail[=<n>]
+--- END CODE BLOCK ---
+Camelcase & dashed args support
+Jest supports both camelcase and dashed arg formats. The following examples will have an equal result:
+--- CODE BLOCK 35 ---
+--changedSince
+--- END CODE BLOCK ---
+Arguments can also be mixed:
+--- CODE BLOCK 38 ---
+--clearMocks
+--- END CODE BLOCK ---
+Options
+note
+CLI options take precedence over values from the
+Configuration
+Camelcase & dashed args support
+Options
+Reference
+--- CODE BLOCK 41 ---
+--config=<path>
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+--coverage[=<boolean>]
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+--coverageDirectory=<path>
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+--coverageProvider=<provider>
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+--detectOpenHandles
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+--env=<environment>
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+--errorOnDeprecated
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+--filter=<file>
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+--findRelatedTests <spaceSeparatedListOfSourceFiles>
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+--forceExit
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+--ignoreProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+--injectGlobals
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+--lastCommit
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+--listTests
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+--logHeapUsage
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+--maxConcurrency=<num>
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+--maxWorkers=<num>|<string>
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+--noStackTrace
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+--onlyChanged
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+--onlyFailures
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+--openHandlesTimeout=<milliseconds>
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+--outputFile=<filename>
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+--passWithNoTests
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+--projects <path1> ... <pathN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 70 ---
+--randomize
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+--reporters
+--- END CODE BLOCK ---
+--- CODE BLOCK 72 ---
+--resetMocks
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+--restoreMocks
+--- END CODE BLOCK ---
+--- CODE BLOCK 75 ---
+--runInBand
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+--runTestsByPath
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+--seed=<num>
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+--selectProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+--setupFilesAfterEnv <path1> ... <pathN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+--showConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 84 ---
+--testEnvironmentOptions=<json string>
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+--testLocationInResults
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+--testMatch glob1 ... globN
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+--testNamePattern=<regex>
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+--testPathIgnorePatterns=<regex>|[array]
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+--testPathPatterns=<regex>
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+--testRunner=<path>
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+--testSequencer=<path>
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+--testTimeout=<number>
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+--updateSnapshot
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+--useStderr
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+--waitForUnhandledRejections
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+--workerThreads
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+jest <regexForTestFiles>
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+jest "my.*(complex)?pattern"
+--- END CODE BLOCK ---
+--- CODE BLOCK 108 ---
+--bail[=<n>]
+--- END CODE BLOCK ---
+--- CODE BLOCK 114 ---
+--showConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+cacheDirectory
+--- END CODE BLOCK ---
+--- CODE BLOCK 116 ---
+--clearCache
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+--changedFilesWithAncestor
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+--onlyChanged
+--- END CODE BLOCK ---
+--- CODE BLOCK 119 ---
+--changedSince
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+--onlyChanged
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+--updateSnapshot
+--- END CODE BLOCK ---
+--- CODE BLOCK 123 ---
+--clearCache
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+cacheDirectory
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+jest --showConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 126 ---
+--clearMocks
+--- END CODE BLOCK ---
+--- CODE BLOCK 127 ---
+jest.clearAllMocks()
+--- END CODE BLOCK ---
+--- CODE BLOCK 128 ---
+--collectCoverageFrom=<glob>
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+FORCE_COLOR=true
+--- END CODE BLOCK ---
+--- CODE BLOCK 132 ---
+FORCE_COLOR=false
+--- END CODE BLOCK ---
+--- CODE BLOCK 133 ---
+FORCE_COLOR
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+--config=<path>
+--- END CODE BLOCK ---
+--- CODE BLOCK 138 ---
+--coverage[=<boolean>]
+--- END CODE BLOCK ---
+--- CODE BLOCK 139 ---
+--collectCoverage
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+--coverageDirectory=<path>
+--- END CODE BLOCK ---
+Reference
+--- CODE BLOCK 142 ---
+--coverageProvider=<provider>
+--- END CODE BLOCK ---
+When you run
+--- CODE BLOCK 146 ---
+--detectOpenHandles
+--- END CODE BLOCK ---
+with an argument, that argument is treated as a regular expression to match against files in your project. It is possible to run test suites by providing a pattern. Only the files that the pattern matches will be picked up and executed. Depending on your terminal, you may need to quote this argument:
+--- CODE BLOCK 147 ---
+--forceExit
+--- END CODE BLOCK ---
+. On Windows, you will need to use
+--- CODE BLOCK 148 ---
+--runInBand
+--- END CODE BLOCK ---
+as a path separator or escape
+--- CODE BLOCK 149 ---
+async_hooks
+--- END CODE BLOCK ---
+--- CODE BLOCK 150 ---
+--env=<environment>
+--- END CODE BLOCK ---
+--- CODE BLOCK 153 ---
+path/to/my-environment.js
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 154 ---
+--errorOnDeprecated
+--- END CODE BLOCK ---
+. Exit the test suite immediately upon
+--- CODE BLOCK 157 ---
+--filter=<file>
+--- END CODE BLOCK ---
+number of failing test suite. Defaults to
+--- CODE BLOCK 158 ---
+{ filtered: Array<string> }
+--- END CODE BLOCK ---
+--- CODE BLOCK 159 ---
+// This filter when applied will only run tests ending in .spec.js (not the best way to do it, but it's just an example):const filteringFunction = testPath => testPath.endsWith('.spec.js');module.exports = testPaths => {  const allowedPaths = testPaths.filter(filteringFunction); // ["path1.spec.js", "path2.spec.js", etc]  return {    filtered: allowedPaths,  };};
+--- END CODE BLOCK ---
+Whether to use the cache. Defaults to true. Disable the cache using
+--- CODE BLOCK 160 ---
+// This filter when applied will only run tests ending in .spec.js (not the best way to do it, but it's just an example):const filteringFunction = testPath => testPath.endsWith('.spec.js');module.exports = testPaths => {  const allowedPaths = testPaths.filter(filteringFunction); // ["path1.spec.js", "path2.spec.js", etc]  return {    filtered: allowedPaths,  };};
+--- END CODE BLOCK ---
+caution
+The cache should only be disabled if you are experiencing caching related problems. On average, disabling the cache makes Jest at least two times slower.
+If you want to inspect the cache, use
+--- CODE BLOCK 161 ---
+--findRelatedTests <spaceSeparatedListOfSourceFiles>
+--- END CODE BLOCK ---
+and look at the
+--- CODE BLOCK 163 ---
+--collectCoverageFrom
+--- END CODE BLOCK ---
+value. If you need to clear the cache, use
+--- CODE BLOCK 164 ---
+--forceExit
+--- END CODE BLOCK ---
+--- CODE BLOCK 165 ---
+--detectOpenHandles
+--- END CODE BLOCK ---
+Runs tests related to the current changes and the changes made in the last commit. Behaves similarly to
+--- CODE BLOCK 167 ---
+--ignoreProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 168 ---
+displayName
+--- END CODE BLOCK ---
+Runs tests related to the changes since the provided branch or commit hash. If the current branch has diverged from the given branch, then only changes made locally will be tested. Behaves similarly to
+--- CODE BLOCK 169 ---
+displayName
+--- END CODE BLOCK ---
+--- CODE BLOCK 170 ---
+--injectGlobals
+--- END CODE BLOCK ---
+When this option is provided, Jest will assume it is running in a CI environment. This changes the behavior when a new snapshot is encountered. Instead of the regular behavior of storing a new snapshot automatically, it will fail the test and require Jest to be run with
+--- CODE BLOCK 176 ---
+@jest/globals
+--- END CODE BLOCK ---
+--- CODE BLOCK 177 ---
+import {expect, jest, test} from '@jest/globals';jest.useFakeTimers();test('some test', () => {  expect(Date.now()).toBe(0);});
+--- END CODE BLOCK ---
+Deletes the Jest cache directory and then exits without running tests. Will delete
+--- CODE BLOCK 178 ---
+import {expect, jest, test} from '@jest/globals';jest.useFakeTimers();test('some test', () => {  expect(Date.now()).toBe(0);});
+--- END CODE BLOCK ---
+if the option is passed, or Jest's default cache directory. The default cache directory can be found by calling
+--- CODE BLOCK 179 ---
+jest-circus
+--- END CODE BLOCK ---
+caution
+Clearing the cache will reduce performance.
+--- CODE BLOCK 181 ---
+--lastCommit
+--- END CODE BLOCK ---
+Automatically clear mock calls, instances, contexts and results before every test. Equivalent to calling
+--- CODE BLOCK 182 ---
+--onlyChanged
+--- END CODE BLOCK ---
+before each test. This does not remove any mock implementation that may have been provided.
+--- CODE BLOCK 183 ---
+--listTests
+--- END CODE BLOCK ---
+A glob pattern relative to
+--- CODE BLOCK 184 ---
+--logHeapUsage
+--- END CODE BLOCK ---
+matching the files that coverage info needs to be collected from.
+--- CODE BLOCK 185 ---
+--runInBand
+--- END CODE BLOCK ---
+Forces test results output highlighting even if stdout is not a TTY.
+note
+Alternatively you can set the environment variable
+--- CODE BLOCK 186 ---
+--expose-gc
+--- END CODE BLOCK ---
+to forcefully enable or
+--- CODE BLOCK 187 ---
+--maxConcurrency=<num>
+--- END CODE BLOCK ---
+to disable colorized output. The use of
+--- CODE BLOCK 188 ---
+test.concurrent
+--- END CODE BLOCK ---
+overrides all other color support checks.
+--- CODE BLOCK 189 ---
+--maxWorkers=<num>|<string>
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 191 ---
+--maxWorkers=50%
+--- END CODE BLOCK ---
+. The path to a Jest config file specifying how to find and execute tests. If no
+--- CODE BLOCK 192 ---
+--noStackTrace
+--- END CODE BLOCK ---
+is set in the config, the directory containing the config file is assumed to be the
+--- CODE BLOCK 194 ---
+node-notifier
+--- END CODE BLOCK ---
+for the project. This can also be a JSON-encoded value which Jest will use as configuration.
+--- CODE BLOCK 195 ---
+--onlyChanged
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 197 ---
+--onlyFailures
+--- END CODE BLOCK ---
+. Indicates that test coverage information should be collected and reported in the output. Optionally pass
+--- CODE BLOCK 199 ---
+--openHandlesTimeout=<milliseconds>
+--- END CODE BLOCK ---
+to override option set in configuration.
+--- CODE BLOCK 200 ---
+--detectOpenHandles
+--- END CODE BLOCK ---
+The directory where Jest should output its coverage files.
+--- CODE BLOCK 201 ---
+--forceExit
+--- END CODE BLOCK ---
+Indicates which provider should be used to instrument code for coverage. Allowed values are
+--- CODE BLOCK 204 ---
+--outputFile=<filename>
+--- END CODE BLOCK ---
+(default) or
+--- CODE BLOCK 206 ---
+--passWithNoTests
+--- END CODE BLOCK ---
+--- CODE BLOCK 207 ---
+--projects <path1> ... <pathN>
+--- END CODE BLOCK ---
+Print debugging info about your Jest config.
+--- CODE BLOCK 209 ---
+--randomize
+--- END CODE BLOCK ---
+Attempt to collect and print open handles preventing Jest from exiting cleanly. Use this in cases where you need to use
+--- CODE BLOCK 210 ---
+--seed=<num>
+--- END CODE BLOCK ---
+in order for Jest to exit to potentially track down the reason. This implies
+--- CODE BLOCK 212 ---
+jest --randomize --seed 1234
+--- END CODE BLOCK ---
+, making tests run serially. Implemented using
+--- CODE BLOCK 213 ---
+jest --randomize --seed 1234
+--- END CODE BLOCK ---
+. This option has a significant performance penalty and should only be used for debugging.
+--- CODE BLOCK 214 ---
+jest-circus
+--- END CODE BLOCK ---
+The test environment used for all tests. This can point to any file or node module. Examples:
+--- CODE BLOCK 215 ---
+--reporters
+--- END CODE BLOCK ---
+--- CODE BLOCK 216 ---
+jest --reporters="default" --reporters="jest-junit"
+--- END CODE BLOCK ---
+--- CODE BLOCK 217 ---
+--resetMocks
+--- END CODE BLOCK ---
+--- CODE BLOCK 218 ---
+jest.resetAllMocks()
+--- END CODE BLOCK ---
+Make calling deprecated APIs throw helpful error messages. Useful for easing the upgrade process.
+--- CODE BLOCK 219 ---
+--restoreMocks
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 220 ---
+jest.restoreAllMocks()
+--- END CODE BLOCK ---
+. Use this flag to show full diffs and errors instead of a patch.
+--- CODE BLOCK 222 ---
+--runInBand
+--- END CODE BLOCK ---
+Path to a module exporting a filtering function. This asynchronous function receives a list of test paths which can be manipulated to exclude tests from running and must return an object with shape
+--- CODE BLOCK 224 ---
+--runTestsByPath
+--- END CODE BLOCK ---
+containing the tests that should be run by Jest. Especially useful when used in conjunction with a testing infrastructure to filter known broken tests.
+my-filter.js
+--- CODE BLOCK 225 ---
+__tests__└── t1.test.js # test└── t2.test.js # test
+--- END CODE BLOCK ---
+--- CODE BLOCK 227 ---
+jest --runTestsByPath __tests__/t
+--- END CODE BLOCK ---
+Find and run the tests that cover a space separated list of source files that were passed in as arguments. Useful for pre-commit hook integration to run the minimal amount of tests necessary. Can be used together with
+--- CODE BLOCK 228 ---
+jest --runTestsByPath __tests__/t
+--- END CODE BLOCK ---
+to include a test coverage for the source files, no duplicate
+--- CODE BLOCK 229 ---
+No tests found
+--- END CODE BLOCK ---
+arguments needed.
+--- CODE BLOCK 230 ---
+No tests found
+--- END CODE BLOCK ---
+Force Jest to exit after all tests have completed running. This is useful when resources set up by test code cannot be adequately cleaned up.
+caution
+This feature is an escape-hatch. If Jest doesn't exit at the end of a test run, it means external resources are still being held on to or timers are still pending in your code. It is advised to tear down external resources after each test to make sure Jest can shut down cleanly. You can use
+--- CODE BLOCK 231 ---
+jest --runTestsByPath __tests__/t1.test.js
+--- END CODE BLOCK ---
+to help track it down.
+--- CODE BLOCK 232 ---
+jest --runTestsByPath __tests__/t1.test.js
+--- END CODE BLOCK ---
+Show the help information, similar to this page.
+--- CODE BLOCK 233 ---
+PASS __tests__/t1.test.js
+--- END CODE BLOCK ---
+Ignore the tests of the specified projects. Jest uses the attribute
+--- CODE BLOCK 234 ---
+PASS __tests__/t1.test.js
+--- END CODE BLOCK ---
+in the configuration to identify each project. If you use this option, you should provide a
+--- CODE BLOCK 235 ---
+--seed=<num>
+--- END CODE BLOCK ---
+to all your projects.
+--- CODE BLOCK 236 ---
+jest.getSeed()
+--- END CODE BLOCK ---
+Insert Jest's globals (
+--- CODE BLOCK 237 ---
+-0x80000000
+--- END CODE BLOCK ---
+--- CODE BLOCK 239 ---
+-2147483648
+--- END CODE BLOCK ---
+--- CODE BLOCK 242 ---
+2 ** 31 - 1
+--- END CODE BLOCK ---
+--- CODE BLOCK 243 ---
+jest --seed=1324
+--- END CODE BLOCK ---
+etc.) into the global environment. If you set this to
+--- CODE BLOCK 244 ---
+jest --seed=1324
+--- END CODE BLOCK ---
+, you should import from
+--- CODE BLOCK 246 ---
+--randomize
+--- END CODE BLOCK ---
+, e.g.
+--- CODE BLOCK 248 ---
+--selectProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+note
+This option is only supported using the default
+--- CODE BLOCK 250 ---
+displayName
+--- END CODE BLOCK ---
+test runner.
+--- CODE BLOCK 251 ---
+--setupFilesAfterEnv <path1> ... <pathN>
+--- END CODE BLOCK ---
+Prints the test results in JSON. This mode will send all other test output and user messages to stderr.
+--- CODE BLOCK 253 ---
+(?<shardIndex>\d+)/(?<shardCount>\d+)
+--- END CODE BLOCK ---
+Run all tests affected by file changes in the last commit made. Behaves similarly to
+--- CODE BLOCK 261 ---
+testSequencer
+--- END CODE BLOCK ---
+--- CODE BLOCK 263 ---
+jest --shard=1/3jest --shard=2/3jest --shard=3/3
+--- END CODE BLOCK ---
+Lists all test files that Jest will run given the arguments, and exits.
+--- CODE BLOCK 264 ---
+jest --shard=1/3jest --shard=2/3jest --shard=3/3
+--- END CODE BLOCK ---
+Logs the heap usage after every test. Useful to debug memory leaks. Use together with
+--- CODE BLOCK 265 ---
+--showConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 267 ---
+--seed=<num>
+--- END CODE BLOCK ---
+in node.
+--- CODE BLOCK 270 ---
+--testEnvironmentOptions=<json string>
+--- END CODE BLOCK ---
+Prevents Jest from executing more than the specified amount of tests at the same time. Only affects tests that use
+--- CODE BLOCK 271 ---
+testEnvironment
+--- END CODE BLOCK ---
+--- CODE BLOCK 272 ---
+--testLocationInResults
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 276 ---
+{  "column": 4,  "line": 5}
+--- END CODE BLOCK ---
+. Specifies the maximum number of workers the worker-pool will spawn for running tests. In single run mode, this defaults to the number of the cores available on your machine minus one for the main thread. In watch mode, this defaults to half of the available cores on your machine to ensure Jest is unobtrusive and does not grind your machine to a halt. It may be useful to adjust this in resource limited environments like CIs but the defaults should be adequate for most use-cases.
+For environments with variable CPUs available, you can use percentage based configuration:
+--- CODE BLOCK 277 ---
+{  "column": 4,  "line": 5}
+--- END CODE BLOCK ---
+--- CODE BLOCK 278 ---
+--testMatch glob1 ... globN
+--- END CODE BLOCK ---
+Disables stack trace in test results output.
+--- CODE BLOCK 280 ---
+--testNamePattern=<regex>
+--- END CODE BLOCK ---
+Activates native OS notifications for test results. Good for when you don't want your consciousness to be able to focus on anything except JavaScript testing. To display the notifications Jest needs the
+--- CODE BLOCK 282 ---
+'GET /api/posts with auth'
+--- END CODE BLOCK ---
+package, which must be installed separately.
+--- CODE BLOCK 283 ---
+jest -t=auth
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 284 ---
+--testPathIgnorePatterns=<regex>|[array]
+--- END CODE BLOCK ---
+. Attempts to identify which tests to run based on which files have changed in the current repository. Only works if you're running tests in a git/hg repository at the moment and requires a static dependency graph (ie. no dynamic requires).
+--- CODE BLOCK 285 ---
+--testPathPatterns
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 286 ---
+\(/node_modules/ /tests/e2e/\)
+--- END CODE BLOCK ---
+. Run tests that failed in the previous execution.
+--- CODE BLOCK 287 ---
+/node_modules/|/tests/e2e/
+--- END CODE BLOCK ---
+When
+--- CODE BLOCK 288 ---
+--testPathPatterns=<regex>
+--- END CODE BLOCK ---
+--- CODE BLOCK 292 ---
+--testRunner=<path>
+--- END CODE BLOCK ---
+disabled
+, Jest will print a warning if the process has not exited cleanly after this number of milliseconds. A value of
+--- CODE BLOCK 293 ---
+--testSequencer=<path>
+--- END CODE BLOCK ---
+disables the warning. Defaults to
+--- CODE BLOCK 294 ---
+testSequencer
+--- END CODE BLOCK ---
+--- CODE BLOCK 295 ---
+--testTimeout=<number>
+--- END CODE BLOCK ---
+Write test results to a file when the
+--- CODE BLOCK 296 ---
+--updateSnapshot
+--- END CODE BLOCK ---
+option is also specified. The returned JSON structure is documented in
+testResultsProcessor
+--- CODE BLOCK 298 ---
+--testNamePattern
+--- END CODE BLOCK ---
+Allows the test suite to pass when no files are found.
+--- CODE BLOCK 299 ---
+--useStderr
+--- END CODE BLOCK ---
+Run tests from one or more projects, found in the specified paths; also takes path globs. This option is the CLI equivalent of the
+--- CODE BLOCK 303 ---
+--waitForUnhandledRejections
+--- END CODE BLOCK ---
+configuration option.
+note
+If configuration files are found in the specified paths,
+projects specified within those configuration files will be run.
+--- CODE BLOCK 304 ---
+rejectionHandled
+--- END CODE BLOCK ---
+Shuffle the order of the tests within a file. The shuffling is based on the seed. See
+--- CODE BLOCK 305 ---
+uncaughtException
+--- END CODE BLOCK ---
+for more info.
+Seed value is displayed when this option is set. Equivalent to setting the CLI option
+--- CODE BLOCK 306 ---
+unhandledRejection
+--- END CODE BLOCK ---
+--- CODE BLOCK 310 ---
+--watch=false
+--- END CODE BLOCK ---
+note
+This option is only supported using the default
+--- CODE BLOCK 315 ---
+--watchAll=false
+--- END CODE BLOCK ---
+test runner.
+--- CODE BLOCK 320 ---
+--no-watchman
+--- END CODE BLOCK ---
+Run tests with specified reporters.
+Reporter options
+are not available via CLI. Example with multiple reporters:
+--- CODE BLOCK 321 ---
+--workerThreads
+--- END CODE BLOCK ---
+--- CODE BLOCK 322 ---
+workerThreads
+--- END CODE BLOCK ---
+Automatically reset mock state before every test. Equivalent to calling
+--- CODE BLOCK 323 ---
+jest <regexForTestFiles>
+--- END CODE BLOCK ---
+before each test. This will lead to any mocks having their fake implementations removed but does not restore their initial implementation.
+--- CODE BLOCK 324 ---
+--bail[=<n>]
+--- END CODE BLOCK ---
+Automatically restore mock state and implementation before every test. Equivalent to calling
+--- CODE BLOCK 326 ---
+--changedFilesWithAncestor
+--- END CODE BLOCK ---
+before each test. This will lead to any mocks having their fake implementations removed and restores their initial implementation.
+--- CODE BLOCK 327 ---
+--changedSince
+--- END CODE BLOCK ---
+A list of paths to directories that Jest should use to search for files in.
+--- CODE BLOCK 329 ---
+--clearCache
+--- END CODE BLOCK ---
+Alias:
+--- CODE BLOCK 330 ---
+--clearMocks
+--- END CODE BLOCK ---
+. Run all tests serially in the current process, rather than creating a worker pool of child processes that run tests. This can be useful for debugging.
+--- CODE BLOCK 331 ---
+--collectCoverageFrom=<glob>
+--- END CODE BLOCK ---
+Run only the tests that were specified with their exact paths. This avoids converting them into a regular expression and matching it against every single file.
+For example, given the following file structure:
+--- CODE BLOCK 333 ---
+--config=<path>
+--- END CODE BLOCK ---
+When ran with a pattern, no test is found:
+--- CODE BLOCK 335 ---
+--coverageDirectory=<path>
+--- END CODE BLOCK ---
+Output:
+--- CODE BLOCK 338 ---
+--detectOpenHandles
+--- END CODE BLOCK ---
+However, passing an exact path will execute only the given test:
+--- CODE BLOCK 340 ---
+--errorOnDeprecated
+--- END CODE BLOCK ---
+Output:
+--- CODE BLOCK 343 ---
+--findRelatedTests <spaceSeparatedListOfSourceFiles>
+--- END CODE BLOCK ---
+The default regex matching works fine on small runs, but becomes slow if provided with multiple patterns and/or against a lot of tests. This option replaces the regex matching logic and by that optimizes the time it takes Jest to filter specific test files.
+--- CODE BLOCK 346 ---
+--ignoreProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+Sets a seed value that can be retrieved in a test file via
+--- CODE BLOCK 347 ---
+--injectGlobals
+--- END CODE BLOCK ---
+. The seed value must be between
+--- CODE BLOCK 349 ---
+--lastCommit
+--- END CODE BLOCK ---
+--- CODE BLOCK 350 ---
+--listTests
+--- END CODE BLOCK ---
+inclusive (
+--- CODE BLOCK 351 ---
+--logHeapUsage
+--- END CODE BLOCK ---
+--- CODE BLOCK 352 ---
+--maxConcurrency=<num>
+--- END CODE BLOCK ---
+) and
+--- CODE BLOCK 353 ---
+--maxWorkers=<num>|<string>
+--- END CODE BLOCK ---
+--- CODE BLOCK 354 ---
+--noStackTrace
+--- END CODE BLOCK ---
+) in decimal).
+--- CODE BLOCK 356 ---
+--onlyChanged
+--- END CODE BLOCK ---
+If this option is not specified Jest will randomly generate the value. You can use the
+--- CODE BLOCK 358 ---
+--openHandlesTimeout=<milliseconds>
+--- END CODE BLOCK ---
+flag to print the seed in the test report summary.
+Jest uses the seed internally for shuffling the order in which test suites are run. If the
+--- CODE BLOCK 359 ---
+--outputFile=<filename>
+--- END CODE BLOCK ---
+option is used, the seed is also used for shuffling the order of tests within each
+--- CODE BLOCK 360 ---
+--passWithNoTests
+--- END CODE BLOCK ---
+block. When dealing with flaky tests, rerunning with the same seed might help reproduce the failure.
+--- CODE BLOCK 361 ---
+--projects <path1> ... <pathN>
+--- END CODE BLOCK ---
+Run the tests of the specified projects. Jest uses the attribute
+--- CODE BLOCK 362 ---
+--randomize
+--- END CODE BLOCK ---
+in the configuration to identify each project. If you use this option, you should provide a
+--- CODE BLOCK 363 ---
+--reporters
+--- END CODE BLOCK ---
+to all your projects.
+--- CODE BLOCK 364 ---
+--resetMocks
+--- END CODE BLOCK ---
+A list of paths to modules that run some code to configure or to set up the testing framework before each test. Beware that files imported by the setup scripts will not be mocked during testing.
+--- CODE BLOCK 365 ---
+--restoreMocks
+--- END CODE BLOCK ---
+The test suite shard to execute in a format of
+--- CODE BLOCK 367 ---
+--runInBand
+--- END CODE BLOCK ---
+--- CODE BLOCK 368 ---
+--runTestsByPath
+--- END CODE BLOCK ---
+describes which shard to select while
+--- CODE BLOCK 369 ---
+--seed=<num>
+--- END CODE BLOCK ---
+controls the number of shards the suite should be split into.
+--- CODE BLOCK 370 ---
+--selectProjects <project1> ... <projectN>
+--- END CODE BLOCK ---
+--- CODE BLOCK 371 ---
+--setupFilesAfterEnv <path1> ... <pathN>
+--- END CODE BLOCK ---
+have to be 1-based, positive numbers, and
+--- CODE BLOCK 373 ---
+--showConfig
+--- END CODE BLOCK ---
+has to be lower than or equal to
+--- CODE BLOCK 376 ---
+--testEnvironmentOptions=<json string>
+--- END CODE BLOCK ---
+When
+--- CODE BLOCK 377 ---
+--testLocationInResults
+--- END CODE BLOCK ---
+is specified the configured
+--- CODE BLOCK 378 ---
+--testMatch glob1 ... globN
+--- END CODE BLOCK ---
+has to implement a
+--- CODE BLOCK 379 ---
+--testNamePattern=<regex>
+--- END CODE BLOCK ---
+method.
+For example, to split the suite into three shards, each running one third of the tests:
+--- CODE BLOCK 380 ---
+--testPathIgnorePatterns=<regex>|[array]
+--- END CODE BLOCK ---
+--- CODE BLOCK 382 ---
+--testRunner=<path>
+--- END CODE BLOCK ---
+Print your Jest config and then exits.
+--- CODE BLOCK 383 ---
+--testSequencer=<path>
+--- END CODE BLOCK ---
+Prints the seed value in the test report summary. See
+--- CODE BLOCK 384 ---
+--testTimeout=<number>
+--- END CODE BLOCK ---
+for the details.
+Can also be set in configuration. See
+--- CODE BLOCK 385 ---
+--updateSnapshot
+--- END CODE BLOCK ---
+--- CODE BLOCK 386 ---
+--useStderr
+--- END CODE BLOCK ---
+Prevent tests from printing messages through the console.
+--- CODE BLOCK 389 ---
+--waitForUnhandledRejections
+--- END CODE BLOCK ---
+A JSON string with options that will be passed to the
+--- CODE BLOCK 393 ---
+--workerThreads
+--- END CODE BLOCK ---
+. The relevant options depend on the environment.
+[CODE_BLOCK_272]
+Adds a
+[CODE_BLOCK_273]
+field to test results. Useful if you want to report the location of a test in a reporter.
+note
+In the resulting object
+[CODE_BLOCK_274]
+is 0-indexed while
+[CODE_BLOCK_275]
+is not.
+[CODE_BLOCK_276]
+[CODE_BLOCK_278]
+The glob patterns Jest uses to detect test files. Please refer to the
+[CODE_BLOCK_279]
+configuration
+for details.
+[CODE_BLOCK_280]
+Alias:
+[CODE_BLOCK_281]
+. Run only tests with a name that matches the regex. For example, suppose you want to run only tests related to authorization which will have names like
+[CODE_BLOCK_282]
+, then you can use
+[CODE_BLOCK_283]
+The regex is matched against the full name, which is a combination of the test name and all its surrounding describe blocks.
+[CODE_BLOCK_284]
+A single or array of regexp pattern strings that are tested against all tests paths before executing the test. Contrary to
+[CODE_BLOCK_285]
+, it will only run those tests with a path that does not match with the provided regexp expressions.
+To pass as an array use escaped parentheses and space delimited regexps such as
+[CODE_BLOCK_286]
+. Alternatively, you can omit parentheses by combining regexps into a single regexp like
+[CODE_BLOCK_287]
+. These two examples are equivalent.
+[CODE_BLOCK_288]
+A regexp pattern string that is matched against all tests paths before executing the test. On Windows, you will need to use
+[CODE_BLOCK_289]
+as a path separator or escape
+[CODE_BLOCK_290]
+[CODE_BLOCK_291]
+[CODE_BLOCK_292]
+Lets you specify a custom test runner.
+[CODE_BLOCK_293]
+Lets you specify a custom test sequencer. Please refer to the
+[CODE_BLOCK_294]
+configuration
+for details.
+[CODE_BLOCK_295]
+Default timeout of a test in milliseconds. Default value: 5000.
+[CODE_BLOCK_296]
+Alias:
+[CODE_BLOCK_297]
+. Use this flag to re-record every snapshot that fails during this test run. Can be used together with a test suite pattern or with
+[CODE_BLOCK_298]
+to re-record snapshots.
+[CODE_BLOCK_299]
+Divert all output to stderr.
+[CODE_BLOCK_300]
+Display individual test results with the test suite hierarchy.
+[CODE_BLOCK_301]
+Alias:
+[CODE_BLOCK_302]
+. Print the version and exit.
+[CODE_BLOCK_303]
+Gives one event loop turn to handle
+[CODE_BLOCK_304]
+[CODE_BLOCK_305]
+[CODE_BLOCK_306]
+Without this flag Jest may report false-positive errors (e.g. actually handled rejection reported) or not report actually unhandled rejection (or report it for different test case).
+This option may add a noticeable overhead for fast test suites.
+[CODE_BLOCK_307]
+Watch files for changes and rerun tests related to changed files. If you want to re-run all tests when a file has changed, use the
+[CODE_BLOCK_308]
+option instead.
+[CODE_BLOCK_309]
+[CODE_BLOCK_310]
+) to explicitly disable the watch mode if it was enabled using
+[CODE_BLOCK_311]
+. In most CI environments, this is automatically handled for you.
+[CODE_BLOCK_312]
+Watch files for changes and rerun all tests when something changes. If you want to re-run only the tests that depend on the changed files, use the
+[CODE_BLOCK_313]
+option.
+[CODE_BLOCK_314]
+[CODE_BLOCK_315]
+) to explicitly disable the watch mode if it was enabled using
+[CODE_BLOCK_316]
+. In most CI environments, this is automatically handled for you.
+[CODE_BLOCK_317]
+Whether to use
+[CODE_BLOCK_318]
+for file crawling. Defaults to
+[CODE_BLOCK_319]
+. Disable using
+[CODE_BLOCK_320]
+[CODE_BLOCK_321]
+Whether to use
+worker threads
+for parallelization.
+Child processes
+are used by default.
+caution
+This is
+experimental feature
+. See the
+[CODE_BLOCK_322]
+configuration option
+for more details.
+Running from the command line
+Using with package manager
+Camelcase & dashed args support
+Options
+Reference
+[CODE_BLOCK_323]
+[CODE_BLOCK_324]
+[CODE_BLOCK_325]
+[CODE_BLOCK_326]
+[CODE_BLOCK_327]
+[CODE_BLOCK_328]
+[CODE_BLOCK_329]
+[CODE_BLOCK_330]
+[CODE_BLOCK_331]
+[CODE_BLOCK_332]
+[CODE_BLOCK_333]
+[CODE_BLOCK_334]
+[CODE_BLOCK_335]
+[CODE_BLOCK_336]
+[CODE_BLOCK_337]
+[CODE_BLOCK_338]
+[CODE_BLOCK_339]
+[CODE_BLOCK_340]
+[CODE_BLOCK_341]
+[CODE_BLOCK_342]
+[CODE_BLOCK_343]
+[CODE_BLOCK_344]
+[CODE_BLOCK_345]
+[CODE_BLOCK_346]
+[CODE_BLOCK_347]
+[CODE_BLOCK_348]
+[CODE_BLOCK_349]
+[CODE_BLOCK_350]
+[CODE_BLOCK_351]
+[CODE_BLOCK_352]
+[CODE_BLOCK_353]
+[CODE_BLOCK_354]
+[CODE_BLOCK_355]
+[CODE_BLOCK_356]
+[CODE_BLOCK_357]
+[CODE_BLOCK_358]
+[CODE_BLOCK_359]
+[CODE_BLOCK_360]
+[CODE_BLOCK_361]
+[CODE_BLOCK_362]
+[CODE_BLOCK_363]
+[CODE_BLOCK_364]
+[CODE_BLOCK_365]
+[CODE_BLOCK_366]
+[CODE_BLOCK_367]
+[CODE_BLOCK_368]
+[CODE_BLOCK_369]
+[CODE_BLOCK_370]
+[CODE_BLOCK_371]
+[CODE_BLOCK_372]
+[CODE_BLOCK_373]
+[CODE_BLOCK_374]
+[CODE_BLOCK_375]
+[CODE_BLOCK_376]
+[CODE_BLOCK_377]
+[CODE_BLOCK_378]
+[CODE_BLOCK_379]
+[CODE_BLOCK_380]
+[CODE_BLOCK_381]
+[CODE_BLOCK_382]
+[CODE_BLOCK_383]
+[CODE_BLOCK_384]
+[CODE_BLOCK_385]
+[CODE_BLOCK_386]
+[CODE_BLOCK_387]
+[CODE_BLOCK_388]
+[CODE_BLOCK_389]
+[CODE_BLOCK_390]
+[CODE_BLOCK_391]
+[CODE_BLOCK_392]
+[CODE_BLOCK_393]

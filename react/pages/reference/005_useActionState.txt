@@ -1,0 +1,54 @@
+URL: https://react.dev/reference/react/useActionState
+Section: Reference
+============================================================
+
+# useActionState
+# useActionState
+useActionState is a Hook that allows you to update state based on the result of a form action.
+``````
+### Note
+In earlier React Canary versions, this API was part of React DOM and called useFormState.
+- Reference useActionState(action, initialState, permalink?)
+- Usage Using information returned by a form action
+- Troubleshooting My action can no longer read the submitted form data
+- useActionState(action, initialState, permalink?)
+- Using information returned by a form action
+- My action can no longer read the submitted form data
+## Reference
+### useActionState(action, initialState, permalink?)
+Call useActionState at the top level of your component to create component state that is updated when a form action is invoked. You pass useActionState an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state and whether the Action is still pending. The latest form state is also passed to the function that you provided.
+``````
+The form state is the value returned by the action when the form was last submitted. If the form has not yet been submitted, it is the initial state that you pass.
+If used with a Server Function, useActionState allows the server’s response from submitting the form to be shown even before hydration has completed.
+See more examples below.
+#### Parameters
+- fn: The function to be called when the form is submitted or button pressed. When the function is called, it will receive the previous state of the form (initially the initialState that you pass, subsequently its previous return value) as its initial argument, followed by the arguments that a form action normally receives.
+- initialState: The value you want the state to be initially. It can be any serializable value. This argument is ignored after the action is first invoked.
+- optional permalink: A string containing the unique page URL that this form modifies. For use on pages with dynamic content (eg: feeds) in conjunction with progressive enhancement: if fn is a server function and the form is submitted before the JavaScript bundle loads, the browser will navigate to the specified permalink URL, rather than the current page’s URL. Ensure that the same form component is rendered on the destination page (including the same action fn and permalink) so that React knows how to pass the state through. Once the form has been hydrated, this parameter has no effect.
+#### Returns
+useActionState returns an array with the following values:
+- The current state. During the first render, it will match the initialState you have passed. After the action is invoked, it will match the value returned by the action.
+- A new action that you can pass as the action prop to your form component or formAction prop to any button component within the form. The action can also be called manually within startTransition.
+- The isPending flag that tells you whether there is a pending Transition.
+#### Caveats
+- When used with a framework that supports React Server Components, useActionState lets you make forms interactive before JavaScript has executed on the client. When used without Server Components, it is equivalent to component local state.
+- The function passed to useActionState receives an extra argument, the previous or initial state, as its first argument. This makes its signature different than if it were used directly as a form action without using useActionState.
+## Usage
+### Using information returned by a form action
+Call useActionState at the top level of your component to access the return value of an action from the last time a form was submitted.
+``````
+useActionState returns an array with the following items:
+- The current state of the form, which is initially set to the initial state you provided, and after the form is submitted is set to the return value of the action you provided.
+- A new action that you pass to <form> as its action prop or call manually within startTransition.
+- A pending state that you can utilise while your action is processing.
+When the form is submitted, the action function that you provided will be called. Its return value will become the new current state of the form.
+The action that you provide will also receive a new first argument, namely the current state of the form. The first time the form is submitted, this will be the initial state you provided, while with subsequent submissions, it will be the return value from the last time the action was called. The rest of the arguments are the same as if useActionState had not been used.
+``````
+#### Display information after submitting a form
+#### Example 1 of 2: Display form errors
+To display messages such as an error message or toast that’s returned by a Server Function, wrap the action in a call to useActionState.
+``````
+## Troubleshooting
+### My action can no longer read the submitted form data
+When you wrap an action with useActionState, it gets an extra argument as its first argument. The submitted form data is therefore its second argument instead of its first as it would usually be. The new first argument that gets added is the current state of the form.
+``````

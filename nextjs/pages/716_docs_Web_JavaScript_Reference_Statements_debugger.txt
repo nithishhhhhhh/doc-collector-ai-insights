@@ -1,0 +1,46 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/debugger
+SCRAPED: 2025-06-19 18:31:19
+================================================================================
+
+--- CODE BLOCK 5 ---
+function potentiallyBuggyCode() {
+debugger;
+// do potentially buggy stuff to examine, step through, etc.
+--- END CODE BLOCK ---
+statement invokes any available debugging
+functionality, such as setting a breakpoint. If no debugging functionality is available,
+this statement has no effect.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 6 ---
+function potentiallyBuggyCode() {
+debugger;
+// do potentially buggy stuff to examine, step through, etc.
+--- END CODE BLOCK ---
+Examples
+Using the debugger statement
+The following example shows code where a
+[CODE_BLOCK_4]
+statement has been
+inserted, to invoke a debugger (if one exists) when the function is called.
+Copy to Clipboard
+[CODE_BLOCK_5]
+When the debugger is invoked, execution is paused at the
+[CODE_BLOCK_7]
+statement. It is like a breakpoint in the script source.
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-debugger-statement
+Browser compatibility
+See also
+The Firefox JavaScript Debugger¶
+in the Firefox source docs
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Aug 24, 2023
+MDN contributors
+View this page on GitHub
+Report a problem with this content

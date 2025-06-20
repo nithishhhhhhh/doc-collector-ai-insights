@@ -1,0 +1,84 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Infinity
+SCRAPED: 2025-06-19 18:23:25
+================================================================================
+
+--- CODE BLOCK 2 ---
+const maxNumber = 10 ** 1000; // Max positive number
+if (maxNumber === Infinity) {
+console.log("Let's call it Infinity!");
+// Expected output: "Let's call it Infinity!"
+console.log(1 / maxNumber);
+// Expected output: 0
+--- END CODE BLOCK ---
+global property is a numeric value representing infinity.
+Try it
+--- CODE BLOCK 3 ---
+const maxNumber = 10 ** 1000; // Max positive number
+if (maxNumber === Infinity) {
+console.log("Let's call it Infinity!");
+// Expected output: "Let's call it Infinity!"
+console.log(1 / maxNumber);
+// Expected output: 0
+--- END CODE BLOCK ---
+Value
+The same number value as
+--- CODE BLOCK 8 ---
+Number.POSITIVE_INFINITY
+--- END CODE BLOCK ---
+Property attributes of
+--- CODE BLOCK 9 ---
+console.log(Infinity); /* Infinity */
+console.log(Infinity + 1); /* Infinity */
+console.log(10 ** 1000); /* Infinity */
+console.log(Math.log(0)); /* -Infinity */
+console.log(1 / Infinity); /* 0 */
+console.log(1 / 0); /* Infinity */
+--- END CODE BLOCK ---
+Writable
+Enumerable
+Configurable
+Description
+--- CODE BLOCK 10 ---
+console.log(Infinity); /* Infinity */
+console.log(Infinity + 1); /* Infinity */
+console.log(10 ** 1000); /* Infinity */
+console.log(Math.log(0)); /* -Infinity */
+console.log(1 / Infinity); /* 0 */
+console.log(1 / 0); /* Infinity */
+--- END CODE BLOCK ---
+is a property of the
+global object
+. In other words, it is a variable in global scope.
+The value
+--- CODE BLOCK 11 ---
+Number.NEGATIVE_INFINITY
+--- END CODE BLOCK ---
+(positive infinity) is greater than any other number.
+This value behaves slightly differently than mathematical infinity; see
+--- CODE BLOCK 12 ---
+Number.POSITIVE_INFINITY
+--- END CODE BLOCK ---
+for details.
+Examples
+Using Infinity
+Copy to Clipboard
+--- CODE BLOCK 13 ---
+Number.isFinite
+--- END CODE BLOCK ---
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-value-properties-of-the-global-object-infinity
+Browser compatibility
+See also
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 27, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

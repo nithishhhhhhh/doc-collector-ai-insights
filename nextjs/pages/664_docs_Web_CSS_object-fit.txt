@@ -1,0 +1,198 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/CSS/object-fit
+SCRAPED: 2025-06-19 18:24:54
+================================================================================
+
+--- CODE BLOCK 7 ---
+<fencedframe>
+--- END CODE BLOCK ---
+property sets how the content of a
+replaced element
+, such as an
+--- CODE BLOCK 8 ---
+object-position
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+object-fit: fill;
+--- END CODE BLOCK ---
+, should be resized to fit its container.
+Note:
+--- CODE BLOCK 10 ---
+object-fit: fill;
+--- END CODE BLOCK ---
+property has no effect on
+--- CODE BLOCK 11 ---
+object-fit: contain;
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+object-fit: contain;
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 13 ---
+object-fit: cover;
+--- END CODE BLOCK ---
+elements.
+You can alter the alignment of the replaced element's content object within the element's box using the
+--- CODE BLOCK 14 ---
+object-fit: cover;
+--- END CODE BLOCK ---
+property.
+Try it
+--- CODE BLOCK 15 ---
+object-fit: none;
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+object-fit: scale-down;
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+<section id="default-example">
+<img
+class="transition-all"
+id="example-element"
+src="/shared-assets/images/examples/plumeria-146x200.jpg" />
+</section>
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+#example-element {
+height: 100%;
+width: 100%;
+border: 2px dotted #888;
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+object-fit: contain;
+object-fit: cover;
+object-fit: fill;
+object-fit: none;
+object-fit: scale-down;
+/* Global values */
+object-fit: inherit;
+object-fit: initial;
+object-fit: revert;
+object-fit: revert-layer;
+object-fit: unset;
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+object-fit =   fill        |  contain     |  cover       |  none        |  scale-down
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+<section>
+<h2>object-fit: fill</h2>
+<img class="fill" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<img class="fill narrow" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<h2>object-fit: contain</h2>
+<img class="contain" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<img class="contain narrow" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<h2>object-fit: cover</h2>
+<img class="cover" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<img class="cover narrow" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<h2>object-fit: none</h2>
+<img class="none" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<img class="none narrow" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<h2>object-fit: scale-down</h2>
+<img class="scale-down" src="mdn_logo_only_color.png" alt="MDN Logo" />
+<img class="scale-down narrow" src="mdn_logo_only_color.png" alt="MDN Logo" />
+</section>
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 38 ---
+h2 {
+font-family:
+Courier New,
+monospace;
+font-size: 1em;
+margin: 1em 0 0.3em;
+img {
+width: 150px;
+height: 100px;
+border: 1px solid #000;
+margin: 10px 0;
+.narrow {
+width: 100px;
+height: 150px;
+.fill {
+object-fit: fill;
+.contain {
+object-fit: contain;
+.cover {
+object-fit: cover;
+.none {
+object-fit: none;
+.scale-down {
+object-fit: scale-down;
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+image-orientation
+--- END CODE BLOCK ---
+property is specified as a single keyword chosen from the list of values below.
+Values
+--- CODE BLOCK 41 ---
+image-rendering
+--- END CODE BLOCK ---
+The replaced content is scaled to maintain its
+aspect ratio
+while fitting within the element's content box. The entire object is made to fill the box, while preserving its aspect ratio, so the object will be
+"letterboxed"
+"pillarboxed"
+if its aspect ratio does not match the aspect ratio of the box.
+--- CODE BLOCK 42 ---
+image-resolution
+--- END CODE BLOCK ---
+The replaced content is sized to maintain its aspect ratio while filling the element's entire content box. If the object's aspect ratio does not match the aspect ratio of its box, then the object will be clipped to fit.
+--- CODE BLOCK 43 ---
+background-size
+--- END CODE BLOCK ---
+The replaced content is sized to fill the element's content box. The entire object will completely fill the box. If the object's
+aspect ratio
+does not match the aspect ratio of its box, then the object will be stretched to fit.
+[CODE_BLOCK_29]
+The replaced content is not resized.
+[CODE_BLOCK_30]
+The content is sized as if
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+were specified, whichever would result in a smaller concrete object size.
+Formal definition
+Initial value
+[CODE_BLOCK_33]
+Applies to
+replaced elements
+Inherited
+Computed value
+as specified
+Animation type
+discrete
+Formal syntax
+[CODE_BLOCK_34]
+Examples
+Setting object-fit for an image
+HTML
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_35]
+Copy to Clipboard
+play
+[CODE_BLOCK_37]
+Result
+play
+Specifications
+Specification
+CSS Images Module Level 3
+the-object-fit
+Browser compatibility
+See also
+Other image-related CSS properties:
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+Understanding aspect ratios
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 14, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

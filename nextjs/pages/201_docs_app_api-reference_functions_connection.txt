@@ -1,0 +1,76 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/connection
+SCRAPED: 2025-06-19 17:32:52
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+connection
+connection
+--- CODE BLOCK 1 ---
+connection()
+--- END CODE BLOCK ---
+function allows you to indicate rendering should wait for an incoming user request before continuing.
+It's useful when a component doesn’t use
+Dynamic APIs
+, but you want it to be dynamically rendered at runtime and not statically rendered at build time. This usually occurs when you access external information that you intentionally want to change the result of a render, such as
+--- CODE BLOCK 2 ---
+Math.random()
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+import { connection } from 'next/server'
+export default async function Page() {
+await connection()
+// Everything below will be excluded from prerendering
+const rand = Math.random()
+return <span>{rand}</span>
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 5 ---
+import { connection } from 'next/server'
+export default async function Page() {
+await connection()
+// Everything below will be excluded from prerendering
+const rand = Math.random()
+return <span>{rand}</span>
+--- END CODE BLOCK ---
+Reference
+Type
+--- CODE BLOCK 7 ---
+function connection(): Promise<void>
+--- END CODE BLOCK ---
+Parameters
+The function does not accept any parameters.
+Returns
+The function returns a
+[CODE_BLOCK_8]
+Promise. It is not meant to be consumed.
+Good to know
+[CODE_BLOCK_9]
+replaces
+[CODE_BLOCK_10]
+to better align with the future of Next.js.
+The function is only necessary when dynamic rendering is required and common Dynamic APIs are not used.
+Version History
+Version
+Changes
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+stabilized.
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+introduced.
+Was this helpful?
+supported.
+Send

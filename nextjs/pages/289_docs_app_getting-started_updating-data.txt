@@ -1,0 +1,377 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/updating-data
+SCRAPED: 2025-06-19 17:43:24
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Updating Data
+Updating Data
+You can update data in Next.js using React's
+Server Functions
+. This page will go through how you can
+create
+invoke
+Server Functions.
+What are Server Functions?
+Server Function
+is an asynchronous function that runs on the server. They can be called from client through a network request, which is why they must be asynchronous.
+In an
+--- CODE BLOCK 2 ---
+startTransition
+--- END CODE BLOCK ---
+or mutation context, they are also called
+Server Actions
+By convention, a Server Action is an async function used with
+--- CODE BLOCK 9 ---
+export async function createPost(formData: FormData) {
+'use server'
+const title = formData.get('title')
+const content = formData.get('content')
+// Update data
+// Revalidate cache
+export async function deletePost(formData: FormData) {
+'use server'
+const id = formData.get('id')
+// Update data
+// Revalidate cache
+--- END CODE BLOCK ---
+. This happens automatically when the function is:
+Passed to a
+--- CODE BLOCK 10 ---
+export async function createPost(formData: FormData) {
+'use server'
+const title = formData.get('title')
+const content = formData.get('content')
+// Update data
+// Revalidate cache
+export async function deletePost(formData: FormData) {
+'use server'
+const id = formData.get('id')
+// Update data
+// Revalidate cache
+--- END CODE BLOCK ---
+using the
+--- CODE BLOCK 11 ---
+"use server"
+--- END CODE BLOCK ---
+prop.
+Passed to a
+--- CODE BLOCK 12 ---
+export default function Page() {
+// Server Action
+async function createPost(formData: FormData) {
+'use server'
+// ...
+return <></>
+--- END CODE BLOCK ---
+using the
+--- CODE BLOCK 13 ---
+export default function Page() {
+// Server Action
+async function createPost(formData: FormData) {
+'use server'
+// ...
+return <></>
+--- END CODE BLOCK ---
+prop.
+In Next.js, Server Actions integrate with the framework's
+caching
+architecture. When an action is invoked, Next.js can return both the updated UI and new data in a single server roundtrip.
+Behind the scenes, actions use the
+--- CODE BLOCK 14 ---
+"use server"
+--- END CODE BLOCK ---
+method, and only this HTTP method can invoke them.
+Creating Server Functions
+A Server Function can be defined by using the
+--- CODE BLOCK 15 ---
+'use server'
+export async function createPost() {}
+--- END CODE BLOCK ---
+directive. You can place the directive at the top of an
+asynchronous
+function to mark the function as a Server Function, or at the top of a separate file to mark all exports of that file.
+app/lib/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 16 ---
+'use server'
+export async function createPost() {}
+--- END CODE BLOCK ---
+Server Components
+Server Functions can be inlined in Server Components by adding the
+--- CODE BLOCK 18 ---
+'use client'
+import { createPost } from '@/app/actions'
+export function Button() {
+return <button formAction={createPost}>Create</button>
+--- END CODE BLOCK ---
+directive to the top of the function body:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+<ClientComponent updateItemAction={updateItem} />
+--- END CODE BLOCK ---
+Good to know:
+Server Components support progressive enhancement by default, meaning forms that call Server Actions will be submitted even if JavaScript hasn't loaded yet or is disabled.
+Client Components
+It's not possible to define Server Functions in Client Components. However, you can invoke them in Client Components by importing them from a file that has the
+--- CODE BLOCK 21 ---
+'use client'
+export default function ClientComponent({
+updateItemAction,
+}: {
+updateItemAction: (formData: FormData) => void
+}) {
+return <form action={updateItemAction}>{/* ... */}</form>
+--- END CODE BLOCK ---
+directive at the top of it:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 22 ---
+'use client'
+export default function ClientComponent({
+updateItemAction,
+}: {
+updateItemAction: (formData: FormData) => void
+}) {
+return <form action={updateItemAction}>{/* ... */}</form>
+--- END CODE BLOCK ---
+app/ui/button.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+import { createPost } from '@/app/actions'
+export function Form() {
+return (
+<form action={createPost}>
+<input type="text" name="title" />
+<input type="text" name="content" />
+<button type="submit">Create</button>
+</form>
+--- END CODE BLOCK ---
+Good to know:
+In Client Components, forms invoking Server Actions will queue submissions if JavaScript isn't loaded yet, and will be prioritized for hydration. After hydration, the browser does not refresh on form submission.
+Passing actions as props
+You can also pass an action to a Client Component as a prop:
+--- CODE BLOCK 30 ---
+'use server'
+export async function createPost(formData: FormData) {
+const title = formData.get('title')
+const content = formData.get('content')
+// Update data
+// Revalidate cache
+--- END CODE BLOCK ---
+app/client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 33 ---
+'use client'
+import { incrementLike } from './actions'
+import { useState } from 'react'
+export default function LikeButton({ initialLikes }: { initialLikes: number }) {
+const [likes, setLikes] = useState(initialLikes)
+return (
+<p>Total Likes: {likes}</p>
+<button
+onClick={async () => {
+const updatedLikes = await incrementLike()
+setLikes(updatedLikes)
+Like
+</button>
+--- END CODE BLOCK ---
+Invoking Server Functions
+There are two main ways you can invoke a Server Function:
+Forms
+in Server and Client Components
+Event Handlers
+useEffect
+in Client Components
+Forms
+React extends the HTML
+--- CODE BLOCK 36 ---
+'use client'
+import { useActionState, startTransition } from 'react'
+import { createPost } from '@/app/actions'
+import { LoadingSpinner } from '@/app/ui/loading-spinner'
+export function Button() {
+const [state, action, pending] = useActionState(createPost, false)
+return (
+<button onClick={() => startTransition(action)}>
+{pending ? <LoadingSpinner /> : 'Create Post'}
+</button>
+--- END CODE BLOCK ---
+element to allow Server Function to be invoked with the HTML
+--- CODE BLOCK 37 ---
+'use client'
+import { useActionState, startTransition } from 'react'
+import { createPost } from '@/app/actions'
+import { LoadingSpinner } from '@/app/ui/loading-spinner'
+export function Button() {
+const [state, action, pending] = useActionState(createPost, false)
+return (
+<button onClick={() => startTransition(action)}>
+{pending ? <LoadingSpinner /> : 'Create Post'}
+</button>
+--- END CODE BLOCK ---
+prop.
+When invoked in a form, the function automatically receives the
+--- CODE BLOCK 38 ---
+revalidatePath
+--- END CODE BLOCK ---
+object. You can extract the data using the native
+--- CODE BLOCK 39 ---
+revalidateTag
+--- END CODE BLOCK ---
+methods
+app/ui/form.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 40 ---
+import { revalidatePath } from 'next/cache'
+export async function createPost(formData: FormData) {
+'use server'
+// Update data
+// ...
+revalidatePath('/posts')
+--- END CODE BLOCK ---
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 43 ---
+'use server'
+import { redirect } from 'next/navigation'
+export async function createPost(formData: FormData) {
+// Update data
+// ...
+redirect('/posts')
+--- END CODE BLOCK ---
+Event Handlers
+You can invoke a Server Function in a Client Component by using event handlers such as
+--- CODE BLOCK 49 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function exampleAction() {
+const cookieStore = await cookies()
+// Get cookie
+cookieStore.get('name')?.value
+// Set cookie
+cookieStore.set('name', 'Delba')
+// Delete cookie
+cookieStore.delete('name')
+--- END CODE BLOCK ---
+app/like-button.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 50 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function exampleAction() {
+const cookieStore = await cookies()
+// Get cookie
+cookieStore.get('name')?.value
+// Set cookie
+cookieStore.set('name', 'Delba')
+// Delete cookie
+cookieStore.delete('name')
+--- END CODE BLOCK ---
+Examples
+Showing a pending state
+While executing a Server Function, you can show a loading indicator with React's
+--- CODE BLOCK 54 ---
+'use client'
+import { incrementViews } from './actions'
+import { useState, useEffect, useTransition } from 'react'
+export default function ViewCount({ initialViews }: { initialViews: number }) {
+const [views, setViews] = useState(initialViews)
+const [isPending, startTransition] = useTransition()
+useEffect(() => {
+startTransition(async () => {
+const updatedViews = await incrementViews()
+setViews(updatedViews)
+}, [])
+// You can use `isPending` to give users feedback
+return <p>Total Views: {views}</p>
+--- END CODE BLOCK ---
+hook. This hook returns a
+[CODE_BLOCK_35]
+boolean:
+app/ui/button.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_36]
+Revalidating
+After performing an update, you can revalidate the Next.js cache and show the updated data by calling
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+within the Server Function:
+app/lib/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_40]
+Redirecting
+You may want to redirect the user to a different page after performing an update. You can do this by calling
+[CODE_BLOCK_42]
+within the Server Function:
+app/lib/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_43]
+Cookies
+You can
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+, and
+[CODE_BLOCK_47]
+cookies inside a Server Action using the
+[CODE_BLOCK_48]
+API:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_49]
+useEffect
+You can use the React
+[CODE_BLOCK_51]
+hook to invoke a Server Action when the component mounts or a dependency changes. This is useful for mutations that depend on global events or need to be triggered automatically. For example,
+[CODE_BLOCK_52]
+for app shortcuts, an intersection observer hook for infinite scrolling, or when the component mounts to update a view count:
+app/view-count.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_53]
+API Reference
+Learn more about the features mentioned in this page by reading the API Reference.
+revalidatePath
+API Reference for the revalidatePath function.
+revalidateTag
+API Reference for the revalidateTag function.
+redirect
+API Reference for the redirect function.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,13 @@
+URL: https://react.dev/reference/react-dom/static
+Section: Reference
+============================================================
+
+# Static React DOM APIs
+# Static React DOM APIs
+The react-dom/static APIs let you generate static HTML for React components. They have limited functionality compared to the streaming APIs. A framework may call them for you. Most of your components don’t need to import or use them.
+## Static APIs for Web Streams
+These methods are only available in the environments with Web Streams, which includes browsers, Deno, and some modern edge runtimes:
+- prerender renders a React tree to static HTML with a Readable Web Stream.
+## Static APIs for Node.js Streams
+These methods are only available in the environments with Node.js Streams:
+- prerenderToNodeStream renders a React tree to static HTML with a Node.js Stream.

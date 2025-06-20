@@ -1,0 +1,478 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+SCRAPED: 2025-06-19 18:17:42
+================================================================================
+
+--- CODE BLOCK 2 ---
+console.log(parseInt("123"));
+// 123 (default base-10)
+console.log(parseInt("123", 10));
+// 123 (explicitly specify base-10)
+console.log(parseInt("   123 "));
+// 123 (whitespace is ignored)
+console.log(parseInt("077"));
+// 77 (leading zeros are ignored)
+console.log(parseInt("1.9"));
+// 1 (decimal part is truncated)
+console.log(parseInt("ff", 16));
+// 255 (lower-case hexadecimal)
+console.log(parseInt("0xFF", 16));
+// 255 (upper-case hexadecimal with "0x" prefix)
+console.log(parseInt("xyz"));
+// NaN (input can't be converted to an integer)
+--- END CODE BLOCK ---
+function parses a string argument and returns an integer of the specified
+radix
+(the base in mathematical numeral systems).
+Try it
+--- CODE BLOCK 3 ---
+console.log(parseInt("123"));
+// 123 (default base-10)
+console.log(parseInt("123", 10));
+// 123 (explicitly specify base-10)
+console.log(parseInt("   123 "));
+// 123 (whitespace is ignored)
+console.log(parseInt("077"));
+// 77 (leading zeros are ignored)
+console.log(parseInt("1.9"));
+// 1 (decimal part is truncated)
+console.log(parseInt("ff", 16));
+// 255 (lower-case hexadecimal)
+console.log(parseInt("0xFF", 16));
+// 255 (upper-case hexadecimal with "0x" prefix)
+console.log(parseInt("xyz"));
+// NaN (input can't be converted to an integer)
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+parseInt(string)
+parseInt(string, radix)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 23 ---
+parseInt("42")
+--- END CODE BLOCK ---
+A string starting with an integer. Leading
+whitespace
+in this argument is ignored.
+--- CODE BLOCK 24 ---
+parseFloat("42")
+--- END CODE BLOCK ---
+Optional
+An integer between
+--- CODE BLOCK 76 ---
+parseInt("2", 2)
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+parseFloat()
+--- END CODE BLOCK ---
+that represents the
+radix
+(the base in mathematical numeral systems) of the
+--- CODE BLOCK 82 ---
+parseInt("1e3", 10)
+--- END CODE BLOCK ---
+. It is converted to a
+32-bit integer
+; if it's nonzero and outside the range of [2, 36] after conversion, the function will always return
+--- CODE BLOCK 89 ---
+Number.isNaN
+--- END CODE BLOCK ---
+. If
+--- CODE BLOCK 98 ---
+Math.trunc()
+--- END CODE BLOCK ---
+or not provided, the radix will be inferred based on
+--- CODE BLOCK 99 ---
+thatNumber.toString(radix)
+--- END CODE BLOCK ---
+'s value. Be careful — this does
+always default to
+--- CODE BLOCK 104 ---
+parseInt("0xF", 16);
+parseInt("F", 16);
+parseInt("17", 8);
+parseInt("015", 10);
+parseInt("15,123", 10);
+parseInt("FXX123", 16);
+parseInt("1111", 2);
+parseInt("15 * 3", 10);
+parseInt("15e2", 10);
+parseInt("15px", 10);
+parseInt("12", 13);
+--- END CODE BLOCK ---
+! The
+description below
+explains in more detail what happens when
+--- CODE BLOCK 105 ---
+parseInt("0xF", 16);
+parseInt("F", 16);
+parseInt("17", 8);
+parseInt("015", 10);
+parseInt("15,123", 10);
+parseInt("FXX123", 16);
+parseInt("1111", 2);
+parseInt("15 * 3", 10);
+parseInt("15e2", 10);
+parseInt("15px", 10);
+parseInt("12", 13);
+--- END CODE BLOCK ---
+is not provided.
+Return value
+An integer parsed from the given
+--- CODE BLOCK 107 ---
+parseInt("Hello", 8); // Not a number at all
+parseInt("546", 2); // Digits other than 0 or 1 are invalid for binary radix
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 108 ---
+parseInt("Hello", 8); // Not a number at all
+parseInt("546", 2); // Digits other than 0 or 1 are invalid for binary radix
+--- END CODE BLOCK ---
+when
+--- CODE BLOCK 110 ---
+parseInt("-F", 16);
+parseInt("-0F", 16);
+parseInt("-0XF", 16);
+parseInt("-17", 8);
+parseInt("-15", 10);
+parseInt("-1111", 2);
+parseInt("-15e1", 10);
+parseInt("-12", 13);
+--- END CODE BLOCK ---
+as a 32-bit integer is smaller than
+--- CODE BLOCK 111 ---
+parseInt("-F", 16);
+parseInt("-0F", 16);
+parseInt("-0XF", 16);
+parseInt("-17", 8);
+parseInt("-15", 10);
+parseInt("-1111", 2);
+parseInt("-15e1", 10);
+parseInt("-12", 13);
+--- END CODE BLOCK ---
+or bigger than
+--- CODE BLOCK 113 ---
+parseInt("0e0", 16);
+--- END CODE BLOCK ---
+, or
+the first non-whitespace character cannot be converted to a number.
+Note:
+JavaScript does not have the distinction of "floating point numbers" and "integers" on the language level.
+--- CODE BLOCK 114 ---
+parseInt("0e0", 16);
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+parseInt("900719925474099267n");
+// 900719925474099300
+--- END CODE BLOCK ---
+only differ in their parsing behavior, but not necessarily their return values. For example,
+--- CODE BLOCK 119 ---
+parseInt("900719925474099267n");
+// 900719925474099300
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+BigInt("900719925474099267");
+// 900719925474099267n
+--- END CODE BLOCK ---
+would return the same value: a
+--- CODE BLOCK 123 ---
+BigInt("900719925474099267");
+// 900719925474099267n
+--- END CODE BLOCK ---
+Description
+--- CODE BLOCK 125 ---
+parseInt("123_456"); // 123
+--- END CODE BLOCK ---
+function
+converts its first argument to a string
+, parses that string, then returns an integer or
+--- CODE BLOCK 126 ---
+parseInt("123_456"); // 123
+--- END CODE BLOCK ---
+If not
+--- CODE BLOCK 129 ---
+parseInt(null, 36); // 1112745: The string "null" is 1112745 in base 36
+parseInt(undefined, 36); // 86464843759093: The string "undefined" is 86464843759093 in base 36
+--- END CODE BLOCK ---
+, the return value will be the integer that is the first argument taken as a number in the specified
+--- CODE BLOCK 130 ---
+parseInt(null, 36); // 1112745: The string "null" is 1112745 in base 36
+parseInt(undefined, 36); // 86464843759093: The string "undefined" is 86464843759093 in base 36
+--- END CODE BLOCK ---
+. (For example, a
+--- CODE BLOCK 132 ---
+Math.trunc()
+--- END CODE BLOCK ---
+--- CODE BLOCK 133 ---
+parseInt(15.99, 10); // 15
+parseInt(-15.1, 10); // -15
+--- END CODE BLOCK ---
+converts from a decimal number,
+--- CODE BLOCK 134 ---
+parseInt(15.99, 10); // 15
+parseInt(-15.1, 10); // -15
+--- END CODE BLOCK ---
+converts from octal,
+--- CODE BLOCK 143 ---
+parseInt(4.7 * 1e22, 10); // Very large number becomes 4
+parseInt(0.00000000000434, 10); // Very small number becomes 4
+parseInt(0.0000001, 10); // 1
+parseInt(0.000000123, 10); // 1
+parseInt(1e-7, 10); // 1
+parseInt(1000000000000000000000, 10); // 1
+parseInt(123000000000000000000000, 10); // 1
+parseInt(1e21, 10); // 1
+--- END CODE BLOCK ---
+from hexadecimal, and so on.)
+--- CODE BLOCK 144 ---
+parseInt(4.7 * 1e22, 10); // Very large number becomes 4
+parseInt(0.00000000000434, 10); // Very small number becomes 4
+parseInt(0.0000001, 10); // 1
+parseInt(0.000000123, 10); // 1
+parseInt(1e-7, 10); // 1
+parseInt(1000000000000000000000, 10); // 1
+parseInt(123000000000000000000000, 10); // 1
+parseInt(1e21, 10); // 1
+--- END CODE BLOCK ---
+argument is
+converted to a number
+. If it's unprovided, or if the value becomes 0,
+--- CODE BLOCK 145 ---
+parseFloat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 147 ---
+Number.parseFloat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 148 ---
+Number.parseInt()
+--- END CODE BLOCK ---
+is coerced to
+--- CODE BLOCK 150 ---
+Number.prototype.toString()
+--- END CODE BLOCK ---
+), JavaScript assumes the following:
+If the input
+--- CODE BLOCK 151 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+, with leading whitespace and possible
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+signs removed, begins with
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+(a zero, followed by lowercase or uppercase X),
+[CODE_BLOCK_44]
+is assumed to be
+[CODE_BLOCK_45]
+and the rest of the string is parsed as a hexadecimal number.
+If the input
+[CODE_BLOCK_46]
+begins with any other value, the radix is
+[CODE_BLOCK_47]
+(decimal).
+Note:
+Other prefixes like
+[CODE_BLOCK_48]
+, which are valid in
+number literals
+, are treated as normal digits by
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+does
+treat strings beginning with a
+[CODE_BLOCK_51]
+character as octal values either. The only prefix that
+[CODE_BLOCK_52]
+recognizes is
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+for hexadecimal values — everything else is parsed as a decimal value if
+[CODE_BLOCK_55]
+is missing.
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+can be used instead to parse these prefixes.
+If the radix is
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+allows the string to be optionally prefixed by
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+after the optional sign character (
+[CODE_BLOCK_62]
+[CODE_BLOCK_63]
+If the radix value (coerced if necessary) is not in range [2, 36] (inclusive)
+[CODE_BLOCK_64]
+returns
+[CODE_BLOCK_65]
+For radices above
+[CODE_BLOCK_66]
+, letters of the English alphabet indicate numerals greater than
+[CODE_BLOCK_67]
+. For example, for hexadecimal numbers (base
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+through
+[CODE_BLOCK_70]
+are used. The letters are case-insensitive.
+[CODE_BLOCK_71]
+understands exactly two signs:
+[CODE_BLOCK_72]
+for positive, and
+[CODE_BLOCK_73]
+for negative. It is done as an initial step in the parsing after whitespace is removed. If no signs are found, the algorithm moves to the following step; otherwise, it removes the sign and runs the number-parsing on the rest of the string.
+[CODE_BLOCK_74]
+encounters a character in the input string that is not a valid numeral in the specified
+[CODE_BLOCK_75]
+, it ignores it and all succeeding characters and returns the integer value parsed up to that point. For example,
+[CODE_BLOCK_76]
+returns
+[CODE_BLOCK_77]
+because
+[CODE_BLOCK_78]
+is not a valid numeral in the binary number system. Likewise, although
+[CODE_BLOCK_79]
+technically encodes an integer (and will be correctly parsed to the integer
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+returns
+[CODE_BLOCK_83]
+, because
+[CODE_BLOCK_84]
+is not a valid numeral in base 10. Because
+[CODE_BLOCK_85]
+is not a numeral either, the return value will always be an integer.
+If the first character cannot be converted to a number with the radix in use,
+[CODE_BLOCK_86]
+returns
+[CODE_BLOCK_87]
+. Leading whitespace is allowed.
+For arithmetic purposes, the
+[CODE_BLOCK_88]
+value is not a number in any radix. You can call the
+[CODE_BLOCK_89]
+function to determine if the result of
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+. If
+[CODE_BLOCK_92]
+is passed on to arithmetic operations, the operation result will also be
+[CODE_BLOCK_93]
+Because large numbers use the
+[CODE_BLOCK_94]
+character in their string representation (e.g.,
+[CODE_BLOCK_95]
+for 6.022 × 10
+), using
+[CODE_BLOCK_96]
+to truncate numbers will produce unexpected results when used on very large or very small numbers.
+[CODE_BLOCK_97]
+should
+be used as a substitute for
+[CODE_BLOCK_98]
+To convert a number to its string literal in a particular radix, use
+[CODE_BLOCK_99]
+Because
+[CODE_BLOCK_100]
+returns a number, it may suffer from loss of precision if the integer represented by the string is
+outside the safe range
+. The
+[CODE_BLOCK_101]
+function supports parsing integers of arbitrary length accurately, by returning a
+[CODE_BLOCK_102]
+Examples
+Using parseInt()
+The following examples all return
+[CODE_BLOCK_103]
+Copy to Clipboard
+[CODE_BLOCK_104]
+The following examples all return
+[CODE_BLOCK_106]
+Copy to Clipboard
+[CODE_BLOCK_107]
+The following examples all return
+[CODE_BLOCK_109]
+Copy to Clipboard
+[CODE_BLOCK_110]
+The following example returns
+[CODE_BLOCK_112]
+Copy to Clipboard
+[CODE_BLOCK_113]
+[CODE_BLOCK_115]
+does not handle
+[CODE_BLOCK_116]
+values. It stops at the
+[CODE_BLOCK_117]
+character, and treats the preceding string as a normal integer, with possible loss of precision.
+Copy to Clipboard
+[CODE_BLOCK_118]
+You should pass the string to the
+[CODE_BLOCK_120]
+function instead, without the trailing
+[CODE_BLOCK_121]
+character.
+Copy to Clipboard
+[CODE_BLOCK_122]
+[CODE_BLOCK_124]
+doesn't work with
+numeric separators
+Copy to Clipboard
+[CODE_BLOCK_125]
+Using parseInt() on non-strings
+[CODE_BLOCK_127]
+can have interesting results when working on non-strings combined with a high radix; for example,
+[CODE_BLOCK_128]
+(which makes all alphanumeric characters valid numeric digits).
+Copy to Clipboard
+[CODE_BLOCK_129]
+In general, it's a bad idea to use
+[CODE_BLOCK_131]
+on non-strings, especially to use it as a substitution for
+[CODE_BLOCK_132]
+. It may work on small numbers:
+Copy to Clipboard
+[CODE_BLOCK_133]
+However, it only happens to work because the string representation of these numbers uses basic fractional notation (
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+), where
+[CODE_BLOCK_137]
+stops at the decimal point. Numbers greater than or equal to 1e+21 or less than or equal to 1e-7 use exponential notation (
+[CODE_BLOCK_138]
+[CODE_BLOCK_139]
+) in their string representation, and
+[CODE_BLOCK_140]
+will stop at the
+[CODE_BLOCK_141]
+character or decimal point, which always comes after the first digit. This means for large and small numbers,
+[CODE_BLOCK_142]
+will return a one-digit integer:
+Copy to Clipboard
+[CODE_BLOCK_143]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-parseint-string-radix
+Browser compatibility
+See also
+[CODE_BLOCK_145]
+[CODE_BLOCK_146]
+constructor
+[CODE_BLOCK_147]
+[CODE_BLOCK_148]
+[CODE_BLOCK_149]
+[CODE_BLOCK_150]
+[CODE_BLOCK_151]
+[CODE_BLOCK_152]
+constructor
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

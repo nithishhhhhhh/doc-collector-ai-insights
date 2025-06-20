@@ -1,0 +1,87 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/TextDecoderStream
+SCRAPED: 2025-06-19 18:19:21
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+TextDecoderStream
+--- END CODE BLOCK ---
+interface of the
+Encoding API
+converts a stream of text in a binary encoding, such as UTF-8 etc., to a stream of strings.
+It is the streaming equivalent of
+--- CODE BLOCK 2 ---
+TextDecoder
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 3 ---
+TextDecoderStream()
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 4 ---
+TextDecoderStream
+--- END CODE BLOCK ---
+object.
+Instance properties
+--- CODE BLOCK 5 ---
+TextDecoderStream.encoding
+--- END CODE BLOCK ---
+Read only
+An encoding.
+--- CODE BLOCK 6 ---
+TextDecoderStream.fatal
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 8 ---
+TextDecoderStream.ignoreBOM
+--- END CODE BLOCK ---
+indicating if the error mode is fatal.
+--- CODE BLOCK 10 ---
+TextDecoderStream.readable
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 11 ---
+ReadableStream
+--- END CODE BLOCK ---
+indicating whether the byte order mark is ignored.
+--- CODE BLOCK 12 ---
+TextDecoderStream.writable
+--- END CODE BLOCK ---
+Read only
+Returns the
+--- CODE BLOCK 13 ---
+WritableStream
+--- END CODE BLOCK ---
+instance controlled by this object.
+--- CODE BLOCK 14 ---
+TextDecoderStream
+--- END CODE BLOCK ---
+Read only
+Returns the
+--- CODE BLOCK 15 ---
+TextEncoderStream
+--- END CODE BLOCK ---
+instance controlled by this object.
+Examples
+Examples of streaming structured data and HTML
+An example of fetch request streams which uses
+[CODE_BLOCK_14]
+Specifications
+Specification
+Encoding
+interface-textdecoderstream
+Browser compatibility
+See also
+[CODE_BLOCK_15]
+Streams API Concepts
+Experimenting with the Streams API
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

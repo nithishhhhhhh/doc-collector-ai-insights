@@ -1,0 +1,104 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/ppr
+SCRAPED: 2025-06-19 17:45:33
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+Partial Prerendering (PPR) enables you to combine static and dynamic components together in the same route. Learn more about
+Using Partial Prerendering
+Incremental Adoption (Version 15)
+In Next.js 15, you can incrementally adopt Partial Prerendering in
+layouts
+pages
+by setting the
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 3 ---
+incremental
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+experimental_ppr
+--- END CODE BLOCK ---
+, and exporting the
+--- CODE BLOCK 5 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+ppr: 'incremental',
+export default nextConfig
+--- END CODE BLOCK ---
+route config option
+at the top of the file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+ppr: 'incremental',
+export default nextConfig
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 8 ---
+import { Suspense } from "react"
+import { StaticComponent, DynamicComponent, Fallback } from "@/app/ui"
+export const experimental_ppr = true
+export default function Page() {
+return {
+<StaticComponent />
+<Suspense fallback={<Fallback />}>
+<DynamicComponent />
+</Suspense>
+--- END CODE BLOCK ---
+Good to know
+Routes that don't have
+--- CODE BLOCK 11 ---
+experimental_ppr
+--- END CODE BLOCK ---
+will default to
+--- CODE BLOCK 12 ---
+experimental_ppr
+--- END CODE BLOCK ---
+and will not be prerendered using PPR. You need to explicitly opt-in to PPR for each route.
+--- CODE BLOCK 15 ---
+incremental
+--- END CODE BLOCK ---
+will apply to all children of the route segment, including nested layouts and pages. You don't have to add it to every file, only the top segment of a route.
+To disable PPR for children segments, you can set
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+in the child segment.
+Version
+Changes
+[CODE_BLOCK_14]
+experimental
+[CODE_BLOCK_15]
+value introduced
+[CODE_BLOCK_16]
+experimental
+[CODE_BLOCK_17]
+introduced
+Learn more about Partial Prerendering
+Partial Prerendering
+Learn how to use Partial Prerendering and combine the benefits of static and dynamic rendering.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,642 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#runtime
+SCRAPED: 2025-06-19 18:02:32
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+Route Segment Config
+Route Segment Config
+The options outlined on this page are disabled if the
+--- CODE BLOCK 2 ---
+experimental_ppr
+--- END CODE BLOCK ---
+flag is on, and will eventually be deprecated in the future.
+The Route Segment options allows you to configure the behavior of a
+Page
+Layout
+, or
+Route Handler
+by directly exporting the following variables:
+Option
+Type
+Default
+--- CODE BLOCK 5 ---
+'auto' | 'force-dynamic' | 'error' | 'force-static'
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+dynamicParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+false | 0 | number
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+'auto' | 'default-cache' | 'only-cache' | 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+'nodejs' | 'edge'
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+preferredRegion
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+'auto' | 'global' | 'home' | string | string[]
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+maxDuration
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+experimental_ppr
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+export const experimental_ppr = true
+// true | false
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+export const experimental_ppr = true
+// true | false
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+export const dynamic = 'auto'
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+export const dynamic = 'auto'
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+'force-dynamic'
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+{ cache: 'no-store', next: { revalidate: 0 } }
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+export const fetchCache = 'force-no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+getStaticProps()
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+{ cache: 'force-cache' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+fetchCache = 'only-cache', dynamicParams = false
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+dynamic = 'error'
+--- END CODE BLOCK ---
+Set by deployment platform
+Options
+--- CODE BLOCK 48 ---
+dynamicParams
+--- END CODE BLOCK ---
+Enable
+Partial Prerendering (PPR)
+for a layout or page.
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 51 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+'force-static'
+--- END CODE BLOCK ---
+Change the dynamic behavior of a layout or page to fully static or fully dynamic.
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 56 ---
+useSearchParams()
+--- END CODE BLOCK ---
+Good to know
+: The new model in the
+--- CODE BLOCK 59 ---
+revalidateTag
+--- END CODE BLOCK ---
+directory favors granular caching control at the
+--- CODE BLOCK 60 ---
+force-static
+--- END CODE BLOCK ---
+request level over the binary all-or-nothing model of
+--- CODE BLOCK 61 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+getStaticProps
+--- END CODE BLOCK ---
+at the page-level in the
+--- CODE BLOCK 63 ---
+dynamic: 'force-dynamic'
+--- END CODE BLOCK ---
+directory. The
+--- CODE BLOCK 64 ---
+dynamic: 'error'
+--- END CODE BLOCK ---
+option is a way to opt back in to the previous model as a convenience and provides a simpler migration path.
+--- CODE BLOCK 65 ---
+dynamicParams
+--- END CODE BLOCK ---
+(default): The default option to cache as much as possible without preventing any components from opting into dynamic behavior.
+--- CODE BLOCK 66 ---
+export const dynamicParams = true // true | false,
+--- END CODE BLOCK ---
+: Force
+dynamic rendering
+, which will result in routes being rendered for each user at request time. This option is equivalent to:
+Setting the option of every
+--- CODE BLOCK 67 ---
+export const dynamicParams = true // true | false,
+--- END CODE BLOCK ---
+request in a layout or page to
+--- CODE BLOCK 69 ---
+generateStaticParams
+--- END CODE BLOCK ---
+Setting the segment config to
+--- CODE BLOCK 71 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 72 ---
+fallback: true | false | blocking
+--- END CODE BLOCK ---
+: Force static rendering and cache the data of a layout or page by causing an error if any components use
+Dynamic APIs
+or uncached data. This option is equivalent to:
+--- CODE BLOCK 73 ---
+getStaticPaths
+--- END CODE BLOCK ---
+in the
+--- CODE BLOCK 75 ---
+generateStaticParams
+--- END CODE BLOCK ---
+directory.
+Setting the option of every
+--- CODE BLOCK 76 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+request in a layout or page to
+--- CODE BLOCK 77 ---
+dynamicParams = true
+--- END CODE BLOCK ---
+Setting the segment config to
+--- CODE BLOCK 81 ---
+export const revalidate = false
+// false | 0 | number
+--- END CODE BLOCK ---
+--- CODE BLOCK 82 ---
+export const revalidate = false
+// false | 0 | number
+--- END CODE BLOCK ---
+changes the default of
+--- CODE BLOCK 86 ---
+'force-cache'
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 87 ---
+revalidate: Infinity
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+cache: 'no-store'
+--- END CODE BLOCK ---
+. You can opt back into dynamically rendering pages for dynamic params not generated by
+--- CODE BLOCK 90 ---
+revalidate: 0
+--- END CODE BLOCK ---
+by manually setting
+--- CODE BLOCK 97 ---
+'force-cache'
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+revalidate = 600
+--- END CODE BLOCK ---
+: Force static rendering and cache the data of a layout or page by forcing
+--- CODE BLOCK 102 ---
+revalidate = 60 * 10
+--- END CODE BLOCK ---
+--- CODE BLOCK 103 ---
+runtime = 'edge'
+--- END CODE BLOCK ---
+--- CODE BLOCK 114 ---
+export const fetchCache = 'auto'
+// 'auto' | 'default-cache' | 'only-cache'
+// 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
+--- END CODE BLOCK ---
+to return empty values. It is possible to
+--- CODE BLOCK 115 ---
+export const fetchCache = 'auto'
+// 'auto' | 'default-cache' | 'only-cache'
+// 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+'default-cache'
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 124 ---
+'force-cache'
+--- END CODE BLOCK ---
+, in pages or layouts rendered with
+--- CODE BLOCK 126 ---
+'only-cache'
+--- END CODE BLOCK ---
+Good to know
+Instructions on
+how to migrate
+from
+--- CODE BLOCK 128 ---
+cache: 'force-cache'
+--- END CODE BLOCK ---
+--- CODE BLOCK 130 ---
+cache: 'no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+'force-cache'
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+'force-cache'
+--- END CODE BLOCK ---
+can be found in the
+upgrade guide
+--- CODE BLOCK 136 ---
+'default-no-store'
+--- END CODE BLOCK ---
+Control what happens when a dynamic segment is visited that was not generated with
+generateStaticParams
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 142 ---
+'only-no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 146 ---
+cache: 'force-cache'
+--- END CODE BLOCK ---
+(default): Dynamic segments not included in
+--- CODE BLOCK 147 ---
+'force-no-store'
+--- END CODE BLOCK ---
+are generated on demand.
+--- CODE BLOCK 153 ---
+'force-cache'
+--- END CODE BLOCK ---
+: Dynamic segments not included in
+--- CODE BLOCK 154 ---
+'only-cache'
+--- END CODE BLOCK ---
+will return a 404.
+Good to know
+This option replaces the
+--- CODE BLOCK 155 ---
+'force-cache'
+--- END CODE BLOCK ---
+option of
+--- CODE BLOCK 156 ---
+'force-cache'
+--- END CODE BLOCK ---
+in the
+--- CODE BLOCK 157 ---
+'only-no-store'
+--- END CODE BLOCK ---
+directory.
+To statically render all paths the first time they're visited, you'll need to return an empty array in
+--- CODE BLOCK 158 ---
+'force-no-store'
+--- END CODE BLOCK ---
+or utilize
+--- CODE BLOCK 159 ---
+'force-no-store'
+--- END CODE BLOCK ---
+When
+--- CODE BLOCK 164 ---
+'only-cache'
+--- END CODE BLOCK ---
+, the segment uses
+Streaming Server Rendering
+--- CODE BLOCK 165 ---
+'only-no-store'
+--- END CODE BLOCK ---
+Set the default revalidation time for a layout or page. This option does not override the
+--- CODE BLOCK 166 ---
+'force-cache'
+--- END CODE BLOCK ---
+value set by individual
+--- CODE BLOCK 167 ---
+'force-no-store'
+--- END CODE BLOCK ---
+requests.
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 168 ---
+'default-no-store'
+--- END CODE BLOCK ---
+--- CODE BLOCK 174 ---
+export const runtime = 'nodejs'
+// 'nodejs' | 'edge'
+--- END CODE BLOCK ---
+(default): The default heuristic to cache any
+--- CODE BLOCK 177 ---
+preferredRegion
+--- END CODE BLOCK ---
+requests that set their
+--- CODE BLOCK 178 ---
+export const preferredRegion = 'auto'
+// 'auto' | 'global' | 'home' | ['iad1', 'sfo1']
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 179 ---
+export const preferredRegion = 'auto'
+// 'auto' | 'global' | 'home' | ['iad1', 'sfo1']
+--- END CODE BLOCK ---
+or are discovered before a
+Dynamic API
+is used. Semantically equivalent to
+--- CODE BLOCK 180 ---
+preferredRegion
+--- END CODE BLOCK ---
+which effectively means the resource should be cached indefinitely. It is still possible for individual
+--- CODE BLOCK 181 ---
+preferredRegion
+--- END CODE BLOCK ---
+requests to use
+--- CODE BLOCK 183 ---
+maxDuration
+--- END CODE BLOCK ---
+--- CODE BLOCK 184 ---
+maxDuration
+--- END CODE BLOCK ---
+to avoid being cached and make the route dynamically rendered. Or set
+--- CODE BLOCK 186 ---
+export const maxDuration = 5
+--- END CODE BLOCK ---
+to a positive number lower than the route default to increase the revalidation frequency of a route.
+--- CODE BLOCK 187 ---
+export const maxDuration = 5
+--- END CODE BLOCK ---
+: Ensure a layout or page is always
+dynamically rendered
+even if no Dynamic APIs or uncached data fetches are discovered. This option changes the default of
+--- CODE BLOCK 188 ---
+maxDuration
+--- END CODE BLOCK ---
+requests that do not set a
+--- CODE BLOCK 189 ---
+generateStaticParams
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 190 ---
+generateStaticParams
+--- END CODE BLOCK ---
+but leaves
+--- CODE BLOCK 192 ---
+export const runtime = "experimental-edge"
+--- END CODE BLOCK ---
+requests that opt into
+[CODE_BLOCK_97]
+or use a positive
+[CODE_BLOCK_98]
+as is.
+[CODE_BLOCK_99]
+: (in seconds) Set the default revalidation frequency of a layout or page to
+[CODE_BLOCK_100]
+seconds.
+Good to know
+The revalidate value needs to be statically analyzable. For example
+[CODE_BLOCK_101]
+is valid, but
+[CODE_BLOCK_102]
+is not.
+The revalidate value is not available when using
+[CODE_BLOCK_103]
+In Development, Pages are
+always
+rendered on-demand and are never cached. This allows you to see changes immediately without waiting for a revalidation period to pass.
+Revalidation Frequency
+The lowest
+[CODE_BLOCK_104]
+across each layout and page of a single route will determine the revalidation frequency of the
+entire
+route. This ensures that child pages are revalidated as frequently as their parent layouts.
+Individual
+[CODE_BLOCK_105]
+requests can set a lower
+[CODE_BLOCK_106]
+than the route's default
+[CODE_BLOCK_107]
+to increase the revalidation frequency of the entire route. This allows you to dynamically opt-in to more frequent revalidation for certain routes based on some criteria.
+[CODE_BLOCK_108]
+This is an advanced option that should only be used if you specifically need to override the default behavior.
+By default, Next.js
+will cache
+[CODE_BLOCK_109]
+requests that are reachable
+before
+Dynamic APIs
+are used and
+will not cache
+[CODE_BLOCK_110]
+requests that are discovered
+after
+Dynamic APIs are used.
+[CODE_BLOCK_111]
+allows you to override the default
+[CODE_BLOCK_112]
+option of all
+[CODE_BLOCK_113]
+requests in a layout or page.
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_114]
+[CODE_BLOCK_116]
+(default): The default option to cache
+[CODE_BLOCK_117]
+requests before Dynamic APIs with the
+[CODE_BLOCK_118]
+option they provide and not cache
+[CODE_BLOCK_119]
+requests after Dynamic APIs.
+[CODE_BLOCK_120]
+: Allow any
+[CODE_BLOCK_121]
+option to be passed to
+[CODE_BLOCK_122]
+but if no option is provided then set the
+[CODE_BLOCK_123]
+option to
+[CODE_BLOCK_124]
+. This means that even
+[CODE_BLOCK_125]
+requests after Dynamic APIs are considered static.
+[CODE_BLOCK_126]
+: Ensure all
+[CODE_BLOCK_127]
+requests opt into caching by changing the default to
+[CODE_BLOCK_128]
+if no option is provided and causing an error if any
+[CODE_BLOCK_129]
+requests use
+[CODE_BLOCK_130]
+[CODE_BLOCK_131]
+: Ensure all
+[CODE_BLOCK_132]
+requests opt into caching by setting the
+[CODE_BLOCK_133]
+option of all
+[CODE_BLOCK_134]
+requests to
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+: Allow any
+[CODE_BLOCK_137]
+option to be passed to
+[CODE_BLOCK_138]
+but if no option is provided then set the
+[CODE_BLOCK_139]
+option to
+[CODE_BLOCK_140]
+. This means that even
+[CODE_BLOCK_141]
+requests before Dynamic APIs are considered dynamic.
+[CODE_BLOCK_142]
+: Ensure all
+[CODE_BLOCK_143]
+requests opt out of caching by changing the default to
+[CODE_BLOCK_144]
+if no option is provided and causing an error if any
+[CODE_BLOCK_145]
+requests use
+[CODE_BLOCK_146]
+[CODE_BLOCK_147]
+: Ensure all
+[CODE_BLOCK_148]
+requests opt out of caching by setting the
+[CODE_BLOCK_149]
+option of all
+[CODE_BLOCK_150]
+requests to
+[CODE_BLOCK_151]
+. This forces all
+[CODE_BLOCK_152]
+requests to be re-fetched every request even if they provide a
+[CODE_BLOCK_153]
+option.
+Cross-route segment behavior
+Any options set across each layout and page of a single route need to be compatible with each other.
+If both the
+[CODE_BLOCK_154]
+[CODE_BLOCK_155]
+are provided, then
+[CODE_BLOCK_156]
+wins. If both
+[CODE_BLOCK_157]
+[CODE_BLOCK_158]
+are provided, then
+[CODE_BLOCK_159]
+wins. The force option changes the behavior across the route so a single segment with
+[CODE_BLOCK_160]
+would prevent any errors caused by
+[CODE_BLOCK_161]
+The intention of the
+[CODE_BLOCK_162]
+[CODE_BLOCK_163]
+options is to guarantee the whole route is either fully static or fully dynamic. This means:
+A combination of
+[CODE_BLOCK_164]
+[CODE_BLOCK_165]
+in a single route is not allowed.
+A combination of
+[CODE_BLOCK_166]
+[CODE_BLOCK_167]
+in a single route is not allowed.
+A parent cannot provide
+[CODE_BLOCK_168]
+if a child provides
+[CODE_BLOCK_169]
+[CODE_BLOCK_170]
+since that could make the same fetch have different behavior.
+It is generally recommended to leave shared parent layouts as
+[CODE_BLOCK_171]
+and customize the options where child segments diverge.
+[CODE_BLOCK_172]
+We recommend using the Node.js runtime for rendering your application, and the Edge runtime for Middleware.
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_173]
+[CODE_BLOCK_175]
+(default)
+[CODE_BLOCK_176]
+[CODE_BLOCK_177]
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_178]
+Support for
+[CODE_BLOCK_180]
+, and regions supported, is dependent on your deployment platform.
+Good to know
+If a
+[CODE_BLOCK_181]
+is not specified, it will inherit the option of the nearest parent layout.
+The root layout defaults to
+[CODE_BLOCK_182]
+regions.
+[CODE_BLOCK_183]
+By default, Next.js does not limit the execution of server-side logic (rendering a page or handling an API).
+Deployment platforms can use
+[CODE_BLOCK_184]
+from the Next.js build output to add specific execution limits.
+Note
+: This setting requires Next.js
+[CODE_BLOCK_185]
+or higher.
+layout.tsx | page.tsx | route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_186]
+Good to know
+If using
+Server Actions
+, set the
+[CODE_BLOCK_188]
+at the page level to change the default timeout of all Server Actions used on the page.
+[CODE_BLOCK_189]
+[CODE_BLOCK_190]
+function can be used in combination with
+dynamic route segments
+to define the list of route segment parameters that will be statically generated at build time instead of on-demand at request time.
+See the
+API reference
+for more details.
+Version History
+Version
+[CODE_BLOCK_191]
+[CODE_BLOCK_192]
+deprecated. A
+codemod
+is available.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,410 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/PerformanceResourceTiming
+SCRAPED: 2025-06-19 18:32:33
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+interface enables retrieval and analysis of detailed network timing data regarding the loading of an application's resources. An application can use the timing metrics to determine, for example, the length of time it takes to fetch a specific resource, such as an
+--- CODE BLOCK 2 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+, image, or script.
+PerformanceEntry
+PerformanceResourceTiming
+Description
+The interface's properties create a resource loading timeline with high-resolution timestamps for network events such as redirect start and end times, fetch start, DNS lookup start and end times, response start and end times, and more. Additionally, the interface extends
+--- CODE BLOCK 6 ---
+connectStart
+--- END CODE BLOCK ---
+with other properties which provide data about the size of the fetched resource as well as the type of resource that initiated the fetch.
+Typical resource timing metrics
+The properties of this interface allow you to calculate certain resource timing metrics. Common use cases include:
+Measuring TCP handshake time (
+--- CODE BLOCK 7 ---
+domainLookupEnd
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+domainLookupStart
+--- END CODE BLOCK ---
+Measuring DNS lookup time (
+--- CODE BLOCK 9 ---
+redirectEnd
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+redirectStart
+--- END CODE BLOCK ---
+Measuring redirection time (
+--- CODE BLOCK 11 ---
+firstInterimResponseStart
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+finalResponseHeadersStart
+--- END CODE BLOCK ---
+Measuring interim request time (
+--- CODE BLOCK 13 ---
+responseStart
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+requestStart
+--- END CODE BLOCK ---
+Measuring request time (
+--- CODE BLOCK 15 ---
+requestStart
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+secureConnectionStart
+--- END CODE BLOCK ---
+Measuring TLS negotiation time (
+--- CODE BLOCK 17 ---
+responseEnd
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+workerStart
+--- END CODE BLOCK ---
+Measuring time to fetch (without redirects) (
+--- CODE BLOCK 21 ---
+decodedBodySize
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+encodedBodySize
+--- END CODE BLOCK ---
+Measuring ServiceWorker processing time (
+--- CODE BLOCK 23 ---
+transferSize
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+nextHopProtocol
+--- END CODE BLOCK ---
+Checking if content was compressed (
+--- CODE BLOCK 26 ---
+renderBlockingStatus
+--- END CODE BLOCK ---
+should not be
+--- CODE BLOCK 27 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+Checking if local caches were hit (
+--- CODE BLOCK 28 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+should be
+--- CODE BLOCK 29 ---
+PerformanceEntry.duration
+--- END CODE BLOCK ---
+Checking if modern and fast protocols are used (
+--- CODE BLOCK 31 ---
+responseEnd
+--- END CODE BLOCK ---
+should be HTTP/2 or HTTP/3)
+Checking if the correct resources are render-blocking (
+--- CODE BLOCK 33 ---
+PerformanceEntry.entryType
+--- END CODE BLOCK ---
+Instance properties
+Inherited from
+--- CODE BLOCK 35 ---
+PerformanceEntry.name
+--- END CODE BLOCK ---
+This interface extends the following
+--- CODE BLOCK 36 ---
+PerformanceEntry.startTime
+--- END CODE BLOCK ---
+properties for resource performance entry types by qualifying and constraining them as follows:
+--- CODE BLOCK 38 ---
+PerformanceResourceTiming.fetchStart
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 39 ---
+PerformanceResourceTiming.redirectStart
+--- END CODE BLOCK ---
+that is the difference between the
+--- CODE BLOCK 40 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+and the
+--- CODE BLOCK 41 ---
+PerformanceResourceTiming.redirectEnd
+--- END CODE BLOCK ---
+properties.
+--- CODE BLOCK 42 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+Returns
+--- CODE BLOCK 43 ---
+PerformanceResourceTiming.workerStart
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+Returns the resource's URL.
+--- CODE BLOCK 46 ---
+PerformanceResourceTiming.fetchStart
+--- END CODE BLOCK ---
+Read only
+Returns the
+--- CODE BLOCK 47 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+for the time a resource fetch started. This value is equivalent to
+--- CODE BLOCK 48 ---
+PerformanceResourceTiming.domainLookupStart
+--- END CODE BLOCK ---
+Timestamps
+The interface supports the following timestamp properties which you can see in the diagram and are listed in the order in which they are recorded for the fetching of a resource. An alphabetical listing is shown in the navigation, at left.
+--- CODE BLOCK 49 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 50 ---
+PerformanceResourceTiming.domainLookupEnd
+--- END CODE BLOCK ---
+that represents the start time of the fetch which initiates the redirect.
+--- CODE BLOCK 51 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 52 ---
+PerformanceResourceTiming.connectStart
+--- END CODE BLOCK ---
+immediately after receiving the last byte of the response of the last redirect.
+--- CODE BLOCK 53 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 54 ---
+PerformanceResourceTiming.secureConnectionStart
+--- END CODE BLOCK ---
+immediately before dispatching the
+--- CODE BLOCK 55 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+if a Service Worker thread is already running, or immediately before starting the Service Worker thread if it is not already running. If the resource is not intercepted by a Service Worker the property will always return 0.
+--- CODE BLOCK 56 ---
+PerformanceResourceTiming.connectEnd
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 57 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+immediately before the browser starts to fetch the resource.
+--- CODE BLOCK 58 ---
+PerformanceResourceTiming.requestStart
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 59 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+immediately before the browser starts the domain name lookup for the resource.
+--- CODE BLOCK 60 ---
+PerformanceResourceTiming.firstInterimResponseStart
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 61 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+representing the time immediately after the browser finishes the domain name lookup for the resource.
+--- CODE BLOCK 62 ---
+PerformanceResourceTiming.responseStart
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 63 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+immediately before the browser starts to establish the connection to the server to retrieve the resource.
+--- CODE BLOCK 64 ---
+PerformanceResourceTiming.finalResponseHeadersStart
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 65 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+immediately before the browser starts the handshake process to secure the current connection.
+--- CODE BLOCK 66 ---
+PerformanceResourceTiming.responseEnd
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 67 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+immediately after the browser finishes establishing the connection to the server to retrieve the resource.
+--- CODE BLOCK 68 ---
+PerformanceResourceTiming.contentType
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 69 ---
+PerformanceResourceTiming.decodedBodySize
+--- END CODE BLOCK ---
+immediately before the browser starts requesting the resource from the server.
+--- CODE BLOCK 70 ---
+PerformanceResourceTiming.deliveryType
+--- END CODE BLOCK ---
+Experimental
+Read only
+--- CODE BLOCK 71 ---
+PerformanceResourceTiming.encodedBodySize
+--- END CODE BLOCK ---
+that represents the interim response time (for example, 100 Continue or 103 Early Hints).
+--- CODE BLOCK 72 ---
+PerformanceResourceTiming.initiatorType
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 73 ---
+PerformanceResourceTiming.nextHopProtocol
+--- END CODE BLOCK ---
+immediately after the browser receives the first byte of the response from the server (which may be an interim response).
+--- CODE BLOCK 74 ---
+PerformanceResourceTiming.renderBlockingStatus
+--- END CODE BLOCK ---
+Experimental
+Read only
+--- CODE BLOCK 76 ---
+"non-blocking"
+--- END CODE BLOCK ---
+that represents the final headers response time (for example, 200 Success), after any interim response time.
+--- CODE BLOCK 77 ---
+PerformanceResourceTiming.responseStatus
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 78 ---
+PerformanceResourceTiming.transferSize
+--- END CODE BLOCK ---
+immediately after the browser receives the last byte of the resource or immediately before the transport connection is closed, whichever comes first.
+Additional resource information
+Additionally, this interface exposes the following properties containing more information about a resource:
+--- CODE BLOCK 79 ---
+PerformanceResourceTiming.serverTiming
+--- END CODE BLOCK ---
+Read only
+Experimental
+A string representing a minimized and standardized version of the MIME-type of the fetched resource.
+--- CODE BLOCK 80 ---
+PerformanceServerTiming
+--- END CODE BLOCK ---
+Read only
+A number that is the size (in octets) received from the fetch (HTTP or cache) of the message body, after removing any applied content encoding.
+--- CODE BLOCK 81 ---
+PerformanceResourceTiming.toJSON()
+--- END CODE BLOCK ---
+Experimental
+Read only
+Indicates how the resource was delivered — for example from the cache or from a navigational prefetch.
+--- CODE BLOCK 82 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+Read only
+A number representing the size (in octets) received from the fetch (HTTP or cache), of the payload body, before removing any applied content encodings.
+--- CODE BLOCK 83 ---
+PerformanceObserver
+--- END CODE BLOCK ---
+Read only
+A string representing the web platform feature that initiated the performance entry.
+--- CODE BLOCK 86 ---
+const observer = new PerformanceObserver((list) => {
+list.getEntries().forEach((entry) => {
+console.log(entry);
+observer.observe({ type: "resource", buffered: true });
+--- END CODE BLOCK ---
+Read only
+A string representing the network protocol used to fetch the resource, as identified by the
+ALPN Protocol ID (RFC7301)
+--- CODE BLOCK 87 ---
+const observer = new PerformanceObserver((list) => {
+list.getEntries().forEach((entry) => {
+console.log(entry);
+observer.observe({ type: "resource", buffered: true });
+--- END CODE BLOCK ---
+Read only
+A string representing the render-blocking status. Either
+--- CODE BLOCK 88 ---
+Performance.getEntriesByType()
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+const resources = performance.getEntriesByType("resource");
+resources.forEach((entry) => {
+console.log(entry);
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+const resources = performance.getEntriesByType("resource");
+resources.forEach((entry) => {
+console.log(entry);
+--- END CODE BLOCK ---
+Read only
+A number representing the HTTP response status code returned when fetching the resource.
+--- CODE BLOCK 93 ---
+Timing-Allow-Origin
+--- END CODE BLOCK ---
+Read only
+A number representing the size (in octets) of the fetched resource. The size includes the response header fields plus the response payload body.
+--- CODE BLOCK 94 ---
+https://developer.mozilla.org
+--- END CODE BLOCK ---
+Read only
+An array of
+--- CODE BLOCK 95 ---
+Timing-Allow-Origin: https://developer.mozilla.org
+--- END CODE BLOCK ---
+entries containing server timing metrics.
+Instance methods
+--- CODE BLOCK 96 ---
+Timing-Allow-Origin: https://developer.mozilla.org
+--- END CODE BLOCK ---
+Returns a JSON representation of the
+[CODE_BLOCK_82]
+object.
+Examples
+Logging resource timing information
+Example using a
+[CODE_BLOCK_83]
+, which notifies of new
+[CODE_BLOCK_84]
+performance entries as they are recorded in the browser's performance timeline. Use the
+[CODE_BLOCK_85]
+option to access entries from before the observer creation.
+Copy to Clipboard
+[CODE_BLOCK_86]
+Example using
+[CODE_BLOCK_88]
+, which only shows
+[CODE_BLOCK_89]
+performance entries present in the browser's performance timeline at the time you call this method:
+Copy to Clipboard
+[CODE_BLOCK_90]
+Security requirements
+Cross-origin timing information
+Many of the resource timing properties are restricted to return
+[CODE_BLOCK_92]
+or an empty string when the resource is a cross-origin request. To expose cross-origin timing information, the
+[CODE_BLOCK_93]
+HTTP response header needs to be set.
+For example, to allow
+[CODE_BLOCK_94]
+to see resource timing information, the cross-origin resource should send:
+http
+Copy to Clipboard
+[CODE_BLOCK_95]
+Specifications
+Specification
+Resource Timing
+resources-included-in-the-performanceresourcetiming-interface
+Browser compatibility
+See also
+Resource timing (Overview)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jan 21, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

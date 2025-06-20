@@ -1,0 +1,119 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath
+SCRAPED: 2025-06-19 17:48:59
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+basePath
+basePath
+To deploy a Next.js application under a sub-path of a domain you can use the
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+config option.
+--- CODE BLOCK 7 ---
+module.exports = {
+basePath: '/docs',
+--- END CODE BLOCK ---
+allows you to set a path prefix for the application. For example, to use
+--- CODE BLOCK 8 ---
+module.exports = {
+basePath: '/docs',
+--- END CODE BLOCK ---
+instead of
+--- CODE BLOCK 10 ---
+next/router
+--- END CODE BLOCK ---
+(an empty string, the default), open
+--- CODE BLOCK 13 ---
+/docs/about
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 16 ---
+export default function HomePage() {
+return (
+<Link href="/about">About Page</Link>
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 17 ---
+export default function HomePage() {
+return (
+<Link href="/about">About Page</Link>
+--- END CODE BLOCK ---
+Good to know
+: This value must be set at build time and cannot be changed without re-building as the value is inlined in the client-side bundles.
+Links
+When linking to other pages using
+--- CODE BLOCK 19 ---
+<a href="/docs/about">About Page</a>
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+/docs/me.png
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+import Image from 'next/image'
+function Home() {
+return (
+<h1>My Homepage</h1>
+<Image
+src="/docs/me.png"
+alt="Picture of the author"
+width={500}
+height={500}
+<p>Welcome to my homepage!</p>
+export default Home
+--- END CODE BLOCK ---
+will be automatically applied.
+For example, using
+--- CODE BLOCK 28 ---
+import Image from 'next/image'
+function Home() {
+return (
+<h1>My Homepage</h1>
+<Image
+src="/docs/me.png"
+alt="Picture of the author"
+width={500}
+height={500}
+<p>Welcome to my homepage!</p>
+export default Home
+--- END CODE BLOCK ---
+will automatically become
+[CODE_BLOCK_13]
+when
+[CODE_BLOCK_14]
+is set to
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+Output html:
+[CODE_BLOCK_18]
+This makes sure that you don't have to change all links in your application when changing the
+[CODE_BLOCK_20]
+value.
+Images
+When using the
+[CODE_BLOCK_21]
+component, you will need to add the
+[CODE_BLOCK_22]
+in front of
+[CODE_BLOCK_23]
+For example, using
+[CODE_BLOCK_24]
+will properly serve your image when
+[CODE_BLOCK_25]
+is set to
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Was this helpful?
+supported.
+Send

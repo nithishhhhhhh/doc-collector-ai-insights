@@ -1,0 +1,47 @@
+URL: https://react.dev/reference/react/Fragment
+Section: Reference
+============================================================
+
+# <Fragment> (<>...</>)
+# <Fragment> (<>...</>)
+<Fragment>, often used via <>...</> syntax, lets you group elements without a wrapper node.
+``````
+- Reference <Fragment>
+- Usage Returning multiple elements Assigning multiple elements to a variable Grouping elements with text Rendering a list of Fragments
+- <Fragment>
+- Returning multiple elements
+- Assigning multiple elements to a variable
+- Grouping elements with text
+- Rendering a list of Fragments
+## Reference
+### <Fragment>
+Wrap elements in <Fragment> to group them together in situations where you need a single element. Grouping elements in Fragment has no effect on the resulting DOM; it is the same as if the elements were not grouped. The empty JSX tag <></> is shorthand for <Fragment></Fragment> in most cases.
+#### Props
+- optional key: Fragments declared with the explicit <Fragment> syntax may have keys.
+#### Caveats
+- If you want to pass key to a Fragment, you can’t use the <>...</> syntax. You have to explicitly import Fragment from 'react' and render <Fragment key={yourKey}>...</Fragment>.
+- React does not reset state when you go from rendering <><Child /></> to [<Child />] or back, or when you go from rendering <><Child /></> to <Child /> and back. This only works a single level deep: for example, going from <><><Child /></></> to <Child /> resets the state. See the precise semantics here.
+If you want to pass key to a Fragment, you can’t use the <>...</> syntax. You have to explicitly import Fragment from 'react' and render <Fragment key={yourKey}>...</Fragment>.
+React does not reset state when you go from rendering <><Child /></> to [<Child />] or back, or when you go from rendering <><Child /></> to <Child /> and back. This only works a single level deep: for example, going from <><><Child /></></> to <Child /> resets the state. See the precise semantics here.
+## Usage
+### Returning multiple elements
+Use Fragment, or the equivalent <>...</> syntax, to group multiple elements together. You can use it to put multiple elements in any place where a single element can go. For example, a component can only return one element, but by using a Fragment you can group multiple elements together and then return them as a group:
+``````
+Fragments are useful because grouping elements with a Fragment has no effect on layout or styles, unlike if you wrapped the elements in another container like a DOM element. If you inspect this example with the browser tools, you’ll see that all <h1> and <article> DOM nodes appear as siblings without wrappers around them:
+``````
+##### Deep Dive
+#### How to write a Fragment without the special syntax?
+The example above is equivalent to importing Fragment from React:
+``````
+Usually you won’t need this unless you need to pass a key to your Fragment.
+### Assigning multiple elements to a variable
+Like any other element, you can assign Fragment elements to variables, pass them as props, and so on:
+``````
+### Grouping elements with text
+You can use Fragment to group text together with components:
+``````
+### Rendering a list of Fragments
+Here’s a situation where you need to write Fragment explicitly instead of using the <></> syntax. When you render multiple elements in a loop, you need to assign a key to each element. If the elements within the loop are Fragments, you need to use the normal JSX element syntax in order to provide the key attribute:
+``````
+You can inspect the DOM to verify that there are no wrapper elements around the Fragment children:
+``````

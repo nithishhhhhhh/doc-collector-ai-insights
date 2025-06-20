@@ -1,0 +1,241 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/generate-image-metadata
+SCRAPED: 2025-06-19 17:35:30
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+generateImageMetadata
+generateImageMetadata
+You can use
+--- CODE BLOCK 1 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+to generate different versions of one image or return multiple images for one route segment. This is useful for when you want to avoid hard-coding metadata values, such as for icons.
+Parameters
+--- CODE BLOCK 2 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+function accepts the following parameters:
+--- CODE BLOCK 4 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+(optional)
+An object containing the
+dynamic route parameters
+object from the root segment down to the segment
+--- CODE BLOCK 5 ---
+export function generateImageMetadata({
+params,
+}: {
+params: { slug: string }
+}) {
+// ...
+--- END CODE BLOCK ---
+is called from.
+icon.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 6 ---
+export function generateImageMetadata({
+params,
+}: {
+params: { slug: string }
+}) {
+// ...
+--- END CODE BLOCK ---
+Route
+--- CODE BLOCK 11 ---
+app/shop/[slug]/icon.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+{ slug: '1' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+app/shop/[tag]/[item]/icon.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+{ tag: '1', item: '2' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+{ width: number; height: number }
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+contentType
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+import { ImageResponse } from 'next/og'
+export function generateImageMetadata() {
+return [
+contentType: 'image/png',
+size: { width: 48, height: 48 },
+id: 'small',
+contentType: 'image/png',
+size: { width: 72, height: 72 },
+id: 'medium',
+export default function Icon({ id }: { id: string }) {
+return new ImageResponse(
+<div
+style={{
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+fontSize: 88,
+background: '#000',
+color: '#fafafa',
+Icon {id}
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+import { ImageResponse } from 'next/og'
+export function generateImageMetadata() {
+return [
+contentType: 'image/png',
+size: { width: 48, height: 48 },
+id: 'small',
+contentType: 'image/png',
+size: { width: 72, height: 72 },
+id: 'medium',
+export default function Icon({ id }: { id: string }) {
+return new ImageResponse(
+<div
+style={{
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+fontSize: 88,
+background: '#000',
+color: '#fafafa',
+Icon {id}
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+import { ImageResponse } from 'next/og'
+import { getCaptionForImage, getOGImages } from '@/app/utils/images'
+export async function generateImageMetadata({
+params,
+}: {
+params: { id: string }
+}) {
+const images = await getOGImages(params.id)
+return images.map((image, idx) => ({
+id: idx,
+size: { width: 1200, height: 600 },
+alt: image.text,
+contentType: 'image/png',
+export default async function Image({
+params,
+}: {
+params: { id: string }
+id: number
+}) {
+const productId = (await params).id
+const imageId = id
+const text = await getCaptionForImage(productId, imageId)
+return new ImageResponse(
+<div
+style={
+// ...
+{text}
+</div>
+--- END CODE BLOCK ---
+Returns
+--- CODE BLOCK 34 ---
+import { ImageResponse } from 'next/og'
+import { getCaptionForImage, getOGImages } from '@/app/utils/images'
+export async function generateImageMetadata({
+params,
+}: {
+params: { id: string }
+}) {
+const images = await getOGImages(params.id)
+return images.map((image, idx) => ({
+id: idx,
+size: { width: 1200, height: 600 },
+alt: image.text,
+contentType: 'image/png',
+export default async function Image({
+params,
+}: {
+params: { id: string }
+id: number
+}) {
+const productId = (await params).id
+const imageId = id
+const text = await getCaptionForImage(productId, imageId)
+return new ImageResponse(
+<div
+style={
+// ...
+{text}
+</div>
+--- END CODE BLOCK ---
+function should return an
+--- CODE BLOCK 36 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+of objects containing the image's metadata such as
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+. In addition, each item
+must
+include an
+[CODE_BLOCK_21]
+value which will be passed to the props of the image generating function.
+Image Metadata Object
+Type
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+(required)
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+icon.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_30]
+Examples
+Using external data
+This example uses the
+[CODE_BLOCK_32]
+object and external data to generate multiple
+Open Graph images
+for a route segment.
+app/products/[id]/opengraph-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_33]
+Version History
+Version
+Changes
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+introduced.
+Next Steps
+View all the Metadata API options.
+Metadata Files
+API documentation for the metadata file conventions.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,354 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/cacheLife
+SCRAPED: 2025-06-19 17:26:12
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+cacheLife
+cacheLife
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+function is used to set the cache lifetime of a function or component. It should be used alongside the
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+directive, and within the scope of the function or component.
+Usage
+To use
+--- CODE BLOCK 7 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+, enable the
+--- CODE BLOCK 9 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife('hours')
+return <div>Page</div>
+--- END CODE BLOCK ---
+flag
+in your
+--- CODE BLOCK 10 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife('hours')
+return <div>Page</div>
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 31 ---
+next.config.ts
+--- END CODE BLOCK ---
+Then, import and invoke the
+--- CODE BLOCK 44 ---
+next.config.ts
+--- END CODE BLOCK ---
+function within the scope of the function or component:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 49 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+cacheLife: {
+biweekly: {
+stale: 60 * 60 * 24 * 14, // 14 days
+revalidate: 60 * 60 * 24, // 1 day
+expire: 60 * 60 * 24 * 14, // 14 days
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Reference
+Default cache profiles
+Next.js provides a set of named cache profiles modeled on various timescales. If you don't specify a cache profile in the
+--- CODE BLOCK 51 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife('biweekly')
+return <div>Page</div>
+--- END CODE BLOCK ---
+function alongside the
+--- CODE BLOCK 52 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife('biweekly')
+return <div>Page</div>
+--- END CODE BLOCK ---
+directive, Next.js will automatically apply the
+--- CODE BLOCK 53 ---
+const nextConfig = {
+experimental: {
+dynamicIO: true,
+cacheLife: {
+days: {
+stale: 3600, // 1 hour
+revalidate: 900, // 15 minutes
+expire: 86400, // 1 day
+module.exports = nextConfig
+--- END CODE BLOCK ---
+cache profile.
+However, we recommend always adding a cache profile when using the
+--- CODE BLOCK 54 ---
+const nextConfig = {
+experimental: {
+dynamicIO: true,
+cacheLife: {
+days: {
+stale: 3600, // 1 hour
+revalidate: 900, // 15 minutes
+expire: 86400, // 1 day
+module.exports = nextConfig
+--- END CODE BLOCK ---
+directive to explicitly define caching behavior.
+Profile
+--- CODE BLOCK 56 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife({
+stale: 3600, // 1 hour
+revalidate: 900, // 15 minutes
+expire: 86400, // 1 day
+return <div>Page</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+'use cache'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export default async function Page() {
+cacheLife({
+stale: 3600, // 1 hour
+revalidate: 900, // 15 minutes
+expire: 86400, // 1 day
+return <div>Page</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+next.config.ts
+--- END CODE BLOCK ---
+Description
+--- CODE BLOCK 65 ---
+cacheLife(”default”)
+--- END CODE BLOCK ---
+5 minutes
+15 minutes
+1 year
+Default profile, suitable for content that doesn't need frequent updates
+--- CODE BLOCK 67 ---
+// Parent component
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+import { ChildComponent } from './child'
+export async function ParentComponent() {
+'use cache'
+cacheLife('days')
+return (
+<div>
+<ChildComponent />
+</div>
+--- END CODE BLOCK ---
+1 second
+1 second
+For rapidly changing content requiring near real-time updates
+--- CODE BLOCK 68 ---
+// Parent component
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+import { ChildComponent } from './child'
+export async function ParentComponent() {
+'use cache'
+cacheLife('days')
+return (
+<div>
+<ChildComponent />
+</div>
+--- END CODE BLOCK ---
+5 minutes
+1 minute
+1 hour
+For content that updates frequently within an hour
+--- CODE BLOCK 69 ---
+// Child component
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export async function ChildComponent() {
+'use cache'
+cacheLife('hours')
+return <div>Child Content</div>
+// This component's cache will respect the shorter 'hours' profile
+--- END CODE BLOCK ---
+5 minutes
+1 hour
+1 day
+For content that updates daily but can be slightly stale
+--- CODE BLOCK 70 ---
+// Child component
+import { unstable_cacheLife as cacheLife } from 'next/cache'
+export async function ChildComponent() {
+'use cache'
+cacheLife('hours')
+return <div>Child Content</div>
+// This component's cache will respect the shorter 'hours' profile
+--- END CODE BLOCK ---
+5 minutes
+1 day
+1 week
+For content that updates weekly but can be a day old
+[CODE_BLOCK_23]
+5 minutes
+1 week
+30 days
+For content that updates monthly but can be a week old
+[CODE_BLOCK_24]
+5 minutes
+30 days
+1 year
+For very stable content that rarely needs updating
+The string values used to reference cache profiles don't carry inherent meaning; instead they serve as semantic labels. This allows you to better understand and manage your cached content within your codebase.
+Good to know:
+Updating the
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+config options also updates the
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+properties of the
+[CODE_BLOCK_29]
+cache profile.
+Custom cache profiles
+You can configure custom cache profiles by adding them to the
+[CODE_BLOCK_30]
+option in your
+[CODE_BLOCK_31]
+file.
+Cache profiles are objects that contain the following properties:
+Property
+Value
+Description
+Requirement
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+Duration the client should cache a value without checking the server.
+Optional
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+Frequency at which the cache should refresh on the server; stale values may be served while revalidating.
+Optional
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+Maximum duration for which a value can remain stale before switching to dynamic fetching; must be longer than
+[CODE_BLOCK_38]
+Optional - Must be longer than
+[CODE_BLOCK_39]
+The "stale" property differs from the
+[CODE_BLOCK_40]
+setting in that it specifically controls client-side router caching. While
+[CODE_BLOCK_41]
+is a global setting that affects all instances of both dynamic and static data, the
+[CODE_BLOCK_42]
+configuration allows you to define "stale" times on a per-function or per-route basis.
+Good to know
+: The “stale” property does not set the
+[CODE_BLOCK_43]
+header. It instead controls the client-side router cache.
+Examples
+Defining reusable cache profiles
+You can create a reusable cache profile by defining them in your
+[CODE_BLOCK_44]
+file. Choose a name that suits your use case and set values for the
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+, and
+[CODE_BLOCK_47]
+properties. You can create as many custom cache profiles as needed. Each profile can be referenced by its name as a string value passed to the
+[CODE_BLOCK_48]
+function.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_49]
+The example above caches for 14 days, checks for updates daily, and expires the cache after 14 days. You can then reference this profile throughout your application by its name:
+app/page.tsx
+[CODE_BLOCK_51]
+Overriding the default cache profiles
+While the default cache profiles provide a useful way to think about how fresh or stale any given part of cacheable output can be, you may prefer different named profiles to better align with your applications caching strategies.
+You can override the default named cache profiles by creating a new configuration with the same name as the defaults.
+The example below shows how to override the default “days” cache profile:
+next.config.ts
+[CODE_BLOCK_53]
+Defining cache profiles inline
+For specific use cases, you can set a custom cache profile by passing an object to the
+[CODE_BLOCK_55]
+function:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_56]
+This inline cache profile will only be applied to the function or file it was created in. If you want to reuse the same profile throughout your application, you can
+add the configuration
+to the
+[CODE_BLOCK_58]
+property of your
+[CODE_BLOCK_59]
+file.
+Nested usage of
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+When defining multiple caching behaviors in the same route or component tree, if the inner caches specify their own
+[CODE_BLOCK_62]
+profile, the outer cache will respect the shortest cache duration among them.
+This applies only if the outer cache does not have its own explicit
+[CODE_BLOCK_63]
+profile defined.
+For example, if you add the
+[CODE_BLOCK_64]
+directive to your page, without specifying a cache profile, the default cache profile will be applied implicitly (
+[CODE_BLOCK_65]
+). If a component imported into the page also uses the
+[CODE_BLOCK_66]
+directive with its own cache profile, the outer and inner cache profiles are compared, and shortest duration set in the profiles will be applied.
+app/components/parent.tsx
+[CODE_BLOCK_67]
+And in a separate file, we defined the Child component that was imported:
+app/components/child.tsx
+[CODE_BLOCK_69]
+Related
+View related API references.
+dynamicIO
+Learn how to enable the dynamicIO flag in Next.js.
+use cache
+Learn how to use the use cache directive to cache data in your Next.js application.
+revalidateTag
+API Reference for the revalidateTag function.
+cacheTag
+Learn how to use the cacheTag function to manage cache invalidation in your Next.js application.
+Was this helpful?
+supported.
+Send

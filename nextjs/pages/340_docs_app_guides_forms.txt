@@ -1,0 +1,434 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/forms
+SCRAPED: 2025-06-19 17:49:28
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Forms
+How to create forms with Server Actions
+React Server Actions are
+Server Functions
+that execute on the server. They can be called in Server and Client Components to handle form submissions. This guide will walk you through how to create forms in Next.js with Server Actions.
+How it works
+React extends the HTML
+--- CODE BLOCK 5 ---
+export default function Page() {
+async function createInvoice(formData: FormData) {
+'use server'
+const rawFormData = {
+customerId: formData.get('customerId'),
+amount: formData.get('amount'),
+status: formData.get('status'),
+// mutate data
+// revalidate the cache
+return <form action={createInvoice}>...</form>
+--- END CODE BLOCK ---
+element to allow Server Actions to be invoked with the
+--- CODE BLOCK 6 ---
+export default function Page() {
+async function createInvoice(formData: FormData) {
+'use server'
+const rawFormData = {
+customerId: formData.get('customerId'),
+amount: formData.get('amount'),
+status: formData.get('status'),
+// mutate data
+// revalidate the cache
+return <form action={createInvoice}>...</form>
+--- END CODE BLOCK ---
+attribute.
+When used in a form, the function automatically receives the
+--- CODE BLOCK 8 ---
+Object.fromEntries()
+--- END CODE BLOCK ---
+object. You can then extract the data using the native
+--- CODE BLOCK 9 ---
+const rawFormData = Object.fromEntries(formData)
+--- END CODE BLOCK ---
+methods
+app/invoices/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 13 ---
+'use client'
+import { updateUser } from './actions'
+export function UserProfile({ userId }: { userId: string }) {
+const updateUserWithId = updateUser.bind(null, userId)
+return (
+<form action={updateUserWithId}>
+<input type="text" name="name" />
+<button type="submit">Update User Name</button>
+</form>
+--- END CODE BLOCK ---
+Good to know:
+When working with forms that have multiple fields, you can use the
+--- CODE BLOCK 16 ---
+'use server'
+export async function updateUser(userId: string, formData: FormData) {}
+--- END CODE BLOCK ---
+method with JavaScript's
+--- CODE BLOCK 17 ---
+'use server'
+export async function updateUser(userId: string, formData: FormData) {}
+--- END CODE BLOCK ---
+. For example:
+--- CODE BLOCK 18 ---
+<input type="hidden" name="userId" value={userId} />
+--- END CODE BLOCK ---
+Passing additional arguments
+Outside of form fields, you can pass additional arguments to a Server Function using the JavaScript
+--- CODE BLOCK 21 ---
+type="email"
+--- END CODE BLOCK ---
+method. For example, to pass the
+--- CODE BLOCK 22 ---
+'use server'
+import { z } from 'zod'
+const schema = z.object({
+email: z.string({
+invalid_type_error: 'Invalid Email',
+export default async function createUser(formData: FormData) {
+const validatedFields = schema.safeParse({
+email: formData.get('email'),
+// Return early if the form data is invalid
+if (!validatedFields.success) {
+return {
+errors: validatedFields.error.flatten().fieldErrors,
+// Mutate data
+--- END CODE BLOCK ---
+argument to the
+--- CODE BLOCK 23 ---
+'use server'
+import { z } from 'zod'
+const schema = z.object({
+email: z.string({
+invalid_type_error: 'Invalid Email',
+export default async function createUser(formData: FormData) {
+const validatedFields = schema.safeParse({
+email: formData.get('email'),
+// Return early if the form data is invalid
+if (!validatedFields.success) {
+return {
+errors: validatedFields.error.flatten().fieldErrors,
+// Mutate data
+--- END CODE BLOCK ---
+Server Function:
+app/client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 25 ---
+useActionState
+--- END CODE BLOCK ---
+The Server Function will receive the
+--- CODE BLOCK 28 ---
+initialState
+--- END CODE BLOCK ---
+as an additional argument:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 29 ---
+'use server'
+import { z } from 'zod'
+export async function createUser(initialState: any, formData: FormData) {
+const validatedFields = schema.safeParse({
+email: formData.get('email'),
+// ...
+--- END CODE BLOCK ---
+Good to know
+An alternative is to pass arguments as hidden input fields in the form (e.g.
+--- CODE BLOCK 32 ---
+'use client'
+import { useActionState } from 'react'
+import { createUser } from '@/app/actions'
+const initialState = {
+message: '',
+export function Signup() {
+const [state, formAction, pending] = useActionState(createUser, initialState)
+return (
+<form action={formAction}>
+<label htmlFor="email">Email</label>
+<input type="text" id="email" name="email" required />
+{/* ... */}
+<p aria-live="polite">{state?.message}</p>
+<button disabled={pending}>Sign up</button>
+</form>
+--- END CODE BLOCK ---
+). However, the value will be part of the rendered HTML and will not be encoded.
+--- CODE BLOCK 33 ---
+'use client'
+import { useActionState } from 'react'
+import { createUser } from '@/app/actions'
+const initialState = {
+message: '',
+export function Signup() {
+const [state, formAction, pending] = useActionState(createUser, initialState)
+return (
+<form action={formAction}>
+<label htmlFor="email">Email</label>
+<input type="text" id="email" name="email" required />
+{/* ... */}
+<p aria-live="polite">{state?.message}</p>
+<button disabled={pending}>Sign up</button>
+</form>
+--- END CODE BLOCK ---
+works in both Server and Client Components and supports progressive enhancement.
+Form validation
+Forms can be validated on the client or server.
+client-side validation
+, you can use the HTML attributes like
+--- CODE BLOCK 34 ---
+useActionState
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+'use client'
+import { useActionState } from 'react'
+import { createUser } from '@/app/actions'
+export function Signup() {
+const [state, formAction, pending] = useActionState(createUser, initialState)
+return (
+<form action={formAction}>
+{/* Other form elements */}
+<button disabled={pending}>Sign up</button>
+</form>
+--- END CODE BLOCK ---
+for basic validation.
+server-side validation
+, you can use a library like
+to validate the form fields. For example:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 37 ---
+'use client'
+import { useActionState } from 'react'
+import { createUser } from '@/app/actions'
+export function Signup() {
+const [state, formAction, pending] = useActionState(createUser, initialState)
+return (
+<form action={formAction}>
+{/* Other form elements */}
+<button disabled={pending}>Sign up</button>
+</form>
+--- END CODE BLOCK ---
+Validation errors
+To display validation errors or messages, turn the component that defines the
+--- CODE BLOCK 39 ---
+'use client'
+import { useFormStatus } from 'react-dom'
+export function SubmitButton() {
+const { pending } = useFormStatus()
+return (
+<button disabled={pending} type="submit">
+Sign Up
+</button>
+--- END CODE BLOCK ---
+into a Client Component and use React
+--- CODE BLOCK 40 ---
+'use client'
+import { useFormStatus } from 'react-dom'
+export function SubmitButton() {
+const { pending } = useFormStatus()
+return (
+<button disabled={pending} type="submit">
+Sign Up
+</button>
+--- END CODE BLOCK ---
+When using
+--- CODE BLOCK 41 ---
+SubmitButton
+--- END CODE BLOCK ---
+, the Server function signature will change to receive a new
+--- CODE BLOCK 42 ---
+import { SubmitButton } from './button'
+import { createUser } from '@/app/actions'
+export function Signup() {
+return (
+<form action={createUser}>
+{/* Other form elements */}
+<SubmitButton />
+</form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+import { SubmitButton } from './button'
+import { createUser } from '@/app/actions'
+export function Signup() {
+return (
+<form action={createUser}>
+{/* Other form elements */}
+<SubmitButton />
+</form>
+--- END CODE BLOCK ---
+parameter as its first argument.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 44 ---
+useFormStatus
+--- END CODE BLOCK ---
+You can then conditionally render the error message based on the
+--- CODE BLOCK 47 ---
+'use client'
+import { useOptimistic } from 'react'
+import { send } from './actions'
+type Message = {
+message: string
+export function Thread({ messages }: { messages: Message[] }) {
+const [optimisticMessages, addOptimisticMessage] = useOptimistic<
+Message[],
+string
+>(messages, (state, newMessage) => [...state, { message: newMessage }])
+const formAction = async (formData: FormData) => {
+const message = formData.get('message') as string
+addOptimisticMessage(message)
+await send(message)
+return (
+<div>
+{optimisticMessages.map((m, i) => (
+<div key={i}>{m.message}</div>
+<form action={formAction}>
+<input type="text" name="message" />
+<button type="submit">Send</button>
+</form>
+</div>
+--- END CODE BLOCK ---
+object.
+app/ui/signup.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 48 ---
+'use client'
+import { useOptimistic } from 'react'
+import { send } from './actions'
+type Message = {
+message: string
+export function Thread({ messages }: { messages: Message[] }) {
+const [optimisticMessages, addOptimisticMessage] = useOptimistic<
+Message[],
+string
+>(messages, (state, newMessage) => [...state, { message: newMessage }])
+const formAction = async (formData: FormData) => {
+const message = formData.get('message') as string
+addOptimisticMessage(message)
+await send(message)
+return (
+<div>
+{optimisticMessages.map((m, i) => (
+<div key={i}>{m.message}</div>
+<form action={formAction}>
+<input type="text" name="message" />
+<button type="submit">Send</button>
+</form>
+</div>
+--- END CODE BLOCK ---
+Pending states
+--- CODE BLOCK 52 ---
+<input type="image">
+--- END CODE BLOCK ---
+hook exposes a
+--- CODE BLOCK 56 ---
+requestSubmit()
+--- END CODE BLOCK ---
+boolean that can be used to show a loading indicator or disable the submit button while the action is being executed.
+app/ui/signup.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 60 ---
+'use client'
+export function Entry() {
+const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+if (
+(e.ctrlKey || e.metaKey) &&
+(e.key === 'Enter' || e.key === 'NumpadEnter')
+e.preventDefault()
+e.currentTarget.form?.requestSubmit()
+return (
+<div>
+<textarea name="entry" rows={20} required onKeyDown={handleKeyDown} />
+</div>
+--- END CODE BLOCK ---
+Alternatively, you can use the
+[CODE_BLOCK_38]
+hook to show a loading indicator while the action is being executed. When using this hook, you'll need to create a separate component to render the loading indicator. For example, to disable the button when the action is pending:
+app/ui/button.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_39]
+You can then nest the
+[CODE_BLOCK_41]
+component inside the form:
+app/ui/signup.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_42]
+Good to know:
+In React 19,
+[CODE_BLOCK_44]
+includes additional keys on the returned object, like data, method, and action. If you are not using React 19, only the
+[CODE_BLOCK_45]
+key is available.
+Optimistic updates
+You can use the React
+[CODE_BLOCK_46]
+hook to optimistically update the UI before the Server Function finishes executing, rather than waiting for the response:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_47]
+Nested form elements
+You can call Server Actions in elements nested inside
+[CODE_BLOCK_49]
+such as
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+, and
+[CODE_BLOCK_52]
+. These elements accept the
+[CODE_BLOCK_53]
+prop or event handlers.
+This is useful in cases where you want to call multiple Server Actions within a form. For example, you can create a specific
+[CODE_BLOCK_54]
+element for saving a post draft in addition to publishing it. See the
+React
+[CODE_BLOCK_55]
+docs
+for more information.
+Programmatic form submission
+You can trigger a form submission programmatically using the
+[CODE_BLOCK_56]
+method. For example, when the user submits a form using the
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+keyboard shortcut, you can listen for the
+[CODE_BLOCK_59]
+event:
+app/entry.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_60]
+This will trigger the submission of the nearest
+[CODE_BLOCK_62]
+ancestor, which will invoke the Server Function.
+Was this helpful?
+supported.
+Send

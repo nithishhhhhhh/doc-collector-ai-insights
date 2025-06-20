@@ -1,0 +1,151 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/BigUint64Array
+SCRAPED: 2025-06-19 18:19:56
+================================================================================
+
+--- CODE BLOCK 1 ---
+BigUint64Array
+--- END CODE BLOCK ---
+typed array represents an array of 64-bit unsigned integers in the platform byte order. If control over byte order is needed, use
+--- CODE BLOCK 4 ---
+BigUint64Array
+--- END CODE BLOCK ---
+instead. The contents are initialized to
+--- CODE BLOCK 6 ---
+BigUint64Array()
+--- END CODE BLOCK ---
+unless initialization data is explicitly provided. Once established, you can reference elements in the array using the object's methods, or using standard array index syntax (that is, using bracket notation).
+--- CODE BLOCK 7 ---
+BigUint64Array
+--- END CODE BLOCK ---
+is a subclass of the hidden
+--- CODE BLOCK 9 ---
+BigUint64Array.BYTES_PER_ELEMENT
+--- END CODE BLOCK ---
+class.
+Constructor
+--- CODE BLOCK 11 ---
+BigUint64Array
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 14 ---
+BigUint64Array.prototype
+--- END CODE BLOCK ---
+object.
+Static properties
+Also inherits static properties from its parent
+--- CODE BLOCK 15 ---
+BigUint64Array
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+BigUint64Array.prototype.BYTES_PER_ELEMENT
+--- END CODE BLOCK ---
+Returns a number value of the element size.
+--- CODE BLOCK 18 ---
+BigUint64Array
+--- END CODE BLOCK ---
+in the case of
+--- CODE BLOCK 19 ---
+BigUint64Array.prototype.constructor
+--- END CODE BLOCK ---
+Static methods
+Inherits static methods from its parent
+--- CODE BLOCK 20 ---
+BigUint64Array
+--- END CODE BLOCK ---
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 21 ---
+BigUint64Array
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 23 ---
+// From a length
+const biguint64 = new BigUint64Array(2);
+biguint64[0] = 42n;
+console.log(biguint64[0]); // 42n
+console.log(biguint64.length); // 2
+console.log(biguint64.BYTES_PER_ELEMENT); // 8
+// From an array
+const x = new BigUint64Array([21n, 31n]);
+console.log(x[1]); // 31n
+// From another TypedArray
+const y = new BigUint64Array(x);
+console.log(y[0]); // 21n
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(64);
+const z = new BigUint64Array(buffer, 8, 4);
+console.log(z.byteOffset); // 8
+// From an iterable
+const iterable = (function* () {
+yield* [1n, 2n, 3n];
+})();
+const biguint64FromIterable = new BigUint64Array(iterable);
+console.log(biguint64FromIterable);
+// BigUint64Array [1n, 2n, 3n]
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 24 ---
+// From a length
+const biguint64 = new BigUint64Array(2);
+biguint64[0] = 42n;
+console.log(biguint64[0]); // 42n
+console.log(biguint64.length); // 2
+console.log(biguint64.BYTES_PER_ELEMENT); // 8
+// From an array
+const x = new BigUint64Array([21n, 31n]);
+console.log(x[1]); // 31n
+// From another TypedArray
+const y = new BigUint64Array(x);
+console.log(y[0]); // 21n
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(64);
+const z = new BigUint64Array(buffer, 8, 4);
+console.log(z.byteOffset); // 8
+// From an iterable
+const iterable = (function* () {
+yield* [1n, 2n, 3n];
+})();
+const biguint64FromIterable = new BigUint64Array(iterable);
+console.log(biguint64FromIterable);
+// BigUint64Array [1n, 2n, 3n]
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 26 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Returns a number value of the element size.
+[CODE_BLOCK_17]
+in the case of a
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+The constructor function that created the instance object. For
+[CODE_BLOCK_20]
+instances, the initial value is the
+[CODE_BLOCK_21]
+constructor.
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_22]
+Examples
+Different ways to create a BigUint64Array
+Copy to Clipboard
+[CODE_BLOCK_23]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-typedarray-objects
+Browser compatibility
+See also
+JavaScript typed arrays
+guide
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 12, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

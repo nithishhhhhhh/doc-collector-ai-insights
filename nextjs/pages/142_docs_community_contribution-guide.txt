@@ -1,0 +1,572 @@
+SOURCE URL: https://nextjs.org/docs/community/contribution-guide
+SCRAPED: 2025-06-19 17:25:50
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+Community
+Contribution Guide
+Docs Contribution Guide
+Welcome to the Next.js Docs Contribution Guide! We're excited to have you here.
+This page provides instructions on how to edit the Next.js documentation. Our goal is to ensure that everyone in the community feels empowered to contribute and improve our docs.
+Why Contribute?
+Open-source work is never done, and neither is documentation. Contributing to docs is a good way for beginners to get involved in open-source and for experienced developers to clarify more complex topics while sharing their knowledge with the community.
+By contributing to the Next.js docs, you're helping us build a more robust learning resource for all developers. Whether you've found a typo, a confusing section, or you've realized that a particular topic is missing, your contributions are welcomed and appreciated.
+How to Contribute
+The docs content can be found on the
+Next.js repo
+. To contribute, you can edit the files directly on GitHub or clone the repo and edit the files locally.
+GitHub Workflow
+If you're new to GitHub, we recommend reading the
+GitHub Open Source Guide
+to learn how to fork a repository, create a branch, and submit a pull request.
+Good to know
+: The underlying docs code lives in a private codebase that is synced to the Next.js public repo. This means that you can't preview the docs locally. However, you'll see your changes on
+nextjs.org
+after merging a pull request.
+Writing MDX
+The docs are written in
+, a markdown format that supports JSX syntax. This allows us to embed React components in the docs. See the
+GitHub Markdown Guide
+for a quick overview of markdown syntax.
+VSCode
+Previewing Changes Locally
+VSCode has a built-in markdown previewer that you can use to see your edits locally. To enable the previewer for MDX files, you'll need to add a configuration option to your user settings.
+Open the command palette (
+--- CODE BLOCK 2 ---
+Ctrl + Shift + P
+--- END CODE BLOCK ---
+on Mac or
+--- CODE BLOCK 3 ---
+Preferences: Open User Settings (JSON)
+--- END CODE BLOCK ---
+on Windows) and search from
+--- CODE BLOCK 4 ---
+settings.json
+--- END CODE BLOCK ---
+Then, add the following line to your
+--- CODE BLOCK 5 ---
+"files.associations": {
+"*.mdx": "markdown"
+--- END CODE BLOCK ---
+file:
+settings.json
+--- CODE BLOCK 6 ---
+"files.associations": {
+"*.mdx": "markdown"
+--- END CODE BLOCK ---
+Next, open the command palette again, and search for
+--- CODE BLOCK 8 ---
+Markdown: Open Preview to the Side
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+pnpm prettier-fix
+--- END CODE BLOCK ---
+. This will open a preview window where you can see your formatted changes.
+Extensions
+We also recommend the following extensions for VSCode users:
+: Intellisense and syntax highlighting for MDX.
+Prettier
+: Format MDX files on save.
+Review Process
+Once you've submitted your contribution, the Next.js or Developer Experience teams will review your changes, provide feedback, and merge the pull request when it's ready.
+Please let us know if you have any questions or need further assistance in your PR's comments. Thank you for contributing to the Next.js docs and being a part of our community!
+Tip:
+--- CODE BLOCK 12 ---
+04-functions
+├── after.mdx
+├── cacheLife.mdx
+├── cacheTag.mdx
+└── ...
+--- END CODE BLOCK ---
+to run Prettier before submitting your PR.
+File Structure
+The docs use
+file-system routing
+. Each folder and files inside
+--- CODE BLOCK 13 ---
+04-functions
+├── after.mdx
+├── cacheLife.mdx
+├── cacheTag.mdx
+└── ...
+--- END CODE BLOCK ---
+represent a route segment. These segments are used to generate the URL paths, navigation, and breadcrumbs.
+The file structure reflects the navigation that you see on the site, and by default, navigation items are sorted alphabetically. However, we can change the order of the items by prepending a two-digit number (
+--- CODE BLOCK 14 ---
+01-routing
+├── 01-defining-routes.mdx
+├── 02-pages.mdx
+├── 03-layouts-and-templates.mdx
+└── ...
+--- END CODE BLOCK ---
+) to the folder or file name.
+For example, in the
+functions API Reference
+, the pages are sorted alphabetically because it makes it easier for developers to find a specific function:
+--- CODE BLOCK 15 ---
+01-routing
+├── 01-defining-routes.mdx
+├── 02-pages.mdx
+├── 03-layouts-and-templates.mdx
+└── ...
+--- END CODE BLOCK ---
+But, in the
+routing section
+, the files are prefixed with a two-digit number, sorted in the order developers should learn these concepts:
+--- CODE BLOCK 21 ---
+description
+--- END CODE BLOCK ---
+To quickly find a page, you can use
+--- CODE BLOCK 23 ---
+title: Page Title
+description: Page Description
+--- END CODE BLOCK ---
+(Mac) or
+--- CODE BLOCK 24 ---
+title: Page Title
+description: Page Description
+--- END CODE BLOCK ---
+(Windows) to open the search bar on VSCode. Then, type the slug of the page you're looking for. E.g.
+--- CODE BLOCK 30 ---
+experimental
+--- END CODE BLOCK ---
+Why not use a manifest?
+We considered using a manifest file (another popular way to generate the docs navigation), but we found that a manifest would quickly get out of sync with the files. File-system routing forces us to think about the structure of the docs and feels more native to Next.js.
+Metadata
+Each page has a metadata block at the top of the file separated by three dashes.
+Required Fields
+The following fields are
+required
+Field
+Description
+--- CODE BLOCK 34 ---
+nav_title: Nav Item Title
+source: app/building-your-application/optimizing/images
+related:
+description: See the image component API reference.
+links:
+- app/api-reference/components/image
+version: experimental
+--- END CODE BLOCK ---
+The page's
+--- CODE BLOCK 35 ---
+nav_title: Nav Item Title
+source: app/building-your-application/optimizing/images
+related:
+description: See the image component API reference.
+links:
+- app/api-reference/components/image
+version: experimental
+--- END CODE BLOCK ---
+title, used for SEO and OG Images.
+--- CODE BLOCK 42 ---
+app/.../link.mdx
+--- END CODE BLOCK ---
+The page's description, used in the
+--- CODE BLOCK 43 ---
+pages/.../link.mdx
+--- END CODE BLOCK ---
+tag for SEO.
+required-fields.mdx
+--- CODE BLOCK 44 ---
+title: <Link>
+description: API reference for the <Link> component.
+This API reference will help you understand how to use the props
+and configuration options available for the Link Component.
+--- END CODE BLOCK ---
+It's good practice to limit the page title to 2-3 words (e.g. Optimizing Images) and the description to 1-2 sentences (e.g. Learn how to optimize images in Next.js).
+Optional Fields
+The following fields are
+optional
+Field
+Description
+--- CODE BLOCK 46 ---
+title: <Link>
+description: API reference for the <Link> component.
+source: app/api-reference/components/link
+{/* DO NOT EDIT THIS PAGE. */}
+{/* The content of this page is pulled from the source above. */}
+--- END CODE BLOCK ---
+Overrides the page's title in the navigation. This is useful when the page's title is too long to fit. If not provided, the
+--- CODE BLOCK 47 ---
+title: <Link>
+description: API reference for the <Link> component.
+source: app/api-reference/components/link
+{/* DO NOT EDIT THIS PAGE. */}
+{/* The content of this page is pulled from the source above. */}
+--- END CODE BLOCK ---
+field is used.
+--- CODE BLOCK 51 ---
+<PagesOnly>
+--- END CODE BLOCK ---
+Pulls content into a shared page. See
+Shared Pages
+--- CODE BLOCK 52 ---
+This content is shared between App and Pages.
+<PagesOnly>
+This content will only be shown on the Pages docs.
+</PagesOnly>
+This content is shared between App and Pages.
+--- END CODE BLOCK ---
+A list of related pages at the bottom of the document. These will automatically be turned into cards. See
+Related Links
+--- CODE BLOCK 53 ---
+This content is shared between App and Pages.
+<PagesOnly>
+This content will only be shown on the Pages docs.
+</PagesOnly>
+This content is shared between App and Pages.
+--- END CODE BLOCK ---
+A stage of development. e.g.
+--- CODE BLOCK 57 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+```bash filename="Terminal"
+npx create-next-app
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+```bash filename="Terminal"
+npx create-next-app
+--- END CODE BLOCK ---
+optional-fields.mdx
+--- CODE BLOCK 68 ---
+```tsx filename="app/page.tsx" switcher
+```jsx filename="app/page.js" switcher
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+highlight={1}
+--- END CODE BLOCK ---
+--- CODE BLOCK 72 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+Docs
+Since most of the features in the
+App Router
+Pages Router
+are completely different, their docs for each are kept in separate sections (
+--- CODE BLOCK 73 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+highlight={1,3}
+--- END CODE BLOCK ---
+). However, there are a few features that are shared between them.
+Shared Pages
+To avoid content duplication and risk the content becoming out of sync, we use the
+--- CODE BLOCK 75 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+field to pull content from one page into another. For example, the
+--- CODE BLOCK 76 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+component behaves
+mostly
+the same in
+Pages
+. Instead of duplicating the content, we can pull the content from
+--- CODE BLOCK 77 ---
+highlight={1-5}
+--- END CODE BLOCK ---
+into
+--- CODE BLOCK 78 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+app/.../link.mdx
+--- CODE BLOCK 79 ---
+import Link from 'next/link'
+export default function Page() {
+return <Link href="/about">About</Link>
+--- END CODE BLOCK ---
+pages/.../link.mdx
+--- CODE BLOCK 81 ---
+<Check size={18} />
+<Cross size={18} />
+--- END CODE BLOCK ---
+We can therefore edit the content in one place and have it reflected in both sections.
+Shared Content
+In shared pages, sometimes there might be content that is
+App Router
+Pages Router
+specific. For example, the
+--- CODE BLOCK 83 ---
+> **Good to know**: This is a single line note.
+> **Good to know**:
+> - We also use this format for multi-line notes.
+> - There are sometimes multiple items worth knowing or keeping in mind.
+--- END CODE BLOCK ---
+component has a
+--- CODE BLOCK 85 ---
+related:
+description: Learn how to quickly get started with your first application.
+links:
+- app/building-your-application/routing/defining-routes
+- app/building-your-application/data-fetching
+- app/api-reference/file-conventions/page
+--- END CODE BLOCK ---
+prop that is only available in
+Pages
+but not in
+To make sure the content only shows in the correct router, we can wrap content blocks in an
+--- CODE BLOCK 86 ---
+related:
+description: Learn how to quickly get started with your first application.
+links:
+- app/building-your-application/routing/defining-routes
+- app/building-your-application/data-fetching
+- app/api-reference/file-conventions/page
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+description
+--- END CODE BLOCK ---
+components:
+app/.../link.mdx
+--- CODE BLOCK 90 ---
+app/api-reference/file-conventions/page
+--- END CODE BLOCK ---
+You'll likely use these components for examples and code blocks.
+Code Blocks
+Code blocks should contain a minimum working example that can be copied and pasted. This means that the code should be able to run without any additional configuration.
+For example, if you're showing how to use the
+--- CODE BLOCK 94 ---
+<AppOnly />
+--- END CODE BLOCK ---
+component, you should include the
+[CODE_BLOCK_55]
+statement and the
+[CODE_BLOCK_56]
+component itself.
+app/page.tsx
+[CODE_BLOCK_57]
+Always run examples locally before committing them. This will ensure that the code is up-to-date and working.
+Language and Filename
+Code blocks should have a header that includes the language and the
+[CODE_BLOCK_59]
+. Add a
+[CODE_BLOCK_60]
+prop to render a special Terminal icon that helps orientate users where to input the command. For example:
+code-example.mdx
+[CODE_BLOCK_61]
+Most examples in the docs are written in
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+, and a few in
+[CODE_BLOCK_65]
+. However, you can use any supported language, here's the
+full list
+When writing JavaScript code blocks, we use the following language and extension combinations.
+Language
+Extension
+JavaScript files with JSX code
+```jsx
+JavaScript files without JSX
+```js
+TypeScript files with JSX
+```tsx
+.tsx
+TypeScript files without JSX
+```ts
+Good to know
+Make sure to use
+[CODE_BLOCK_66]
+extension with
+code at JavaScript files.
+For example, ```jsx filename="app/layout.js"
+TS and JS Switcher
+Add a language switcher to toggle between TypeScript and JavaScript. Code blocks should be TypeScript first with a JavaScript version to accommodate users.
+Currently, we write TS and JS examples one after the other, and link them with
+[CODE_BLOCK_67]
+prop:
+code-example.mdx
+[CODE_BLOCK_68]
+Good to know
+: We plan to automatically compile TypeScript snippets to JavaScript in the future. In the meantime, you can use
+transform.tools
+Line Highlighting
+Code lines can be highlighted. This is useful when you want to draw attention to a specific part of the code. You can highlight lines by passing a number to the
+[CODE_BLOCK_70]
+prop.
+Single Line:
+[CODE_BLOCK_71]
+app/page.tsx
+[CODE_BLOCK_72]
+Multiple Lines:
+[CODE_BLOCK_74]
+app/page.tsx
+[CODE_BLOCK_75]
+Range of Lines:
+[CODE_BLOCK_77]
+app/page.tsx
+[CODE_BLOCK_78]
+Icons
+The following icons are available for use in the docs:
+mdx-icon.mdx
+[CODE_BLOCK_80]
+Output:
+We do not use emojis in the docs.
+Notes
+For information that is important but not critical, use notes. Notes are a good way to add information without distracting the user from the main content.
+notes.mdx
+[CODE_BLOCK_82]
+Output:
+Good to know
+: This is a single line note.
+Good to know
+We also use this format for multi-line notes.
+There are sometimes multiple items worth knowing or keeping in mind.
+Related Links
+Related Links guide the user's learning journey by adding links to logical next steps.
+Links will be displayed in cards under the main content of the page.
+Links will be automatically generated for pages that have child pages.
+Create related links using the
+[CODE_BLOCK_84]
+field in the page's metadata.
+example.mdx
+[CODE_BLOCK_85]
+Nested Fields
+Field
+Required?
+Description
+[CODE_BLOCK_87]
+Optional
+The title of the card list. Defaults to
+Next Steps
+[CODE_BLOCK_88]
+Optional
+The description of the card list.
+[CODE_BLOCK_89]
+Required
+A list of links to other doc pages. Each list item should be a relative URL path (without a leading slash) e.g.
+[CODE_BLOCK_90]
+Diagrams
+Diagrams are a great way to explain complex concepts. We use
+Figma
+to create diagrams, following Vercel's design guide.
+The diagrams currently live in the
+[CODE_BLOCK_91]
+folder in our private Next.js site. If you'd like to update or add a diagram, please open a
+GitHub issue
+with your ideas.
+Custom Components and HTML
+These are the React Components available for the docs:
+[CODE_BLOCK_92]
+(next/image),
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+, and
+[CODE_BLOCK_96]
+. We do not allow raw HTML in the docs besides the
+[CODE_BLOCK_97]
+tag.
+If you have ideas for new components, please open a
+GitHub issue
+Style Guide
+This section contains guidelines for writing docs for those who are new to technical writing.
+Page Templates
+While we don't have a strict template for pages, there are page sections you'll see repeated across the docs:
+Overview:
+The first paragraph of a page should tell the user what the feature is and what it's used for. Followed by a minimum working example or its API reference.
+Convention:
+If the feature has a convention, it should be explained here.
+Examples
+: Show how the feature can be used with different use cases.
+API Tables
+: API Pages should have an overview table at the of the page with jump-to-section links (when possible).
+Next Steps (Related Links)
+: Add links to related pages to guide the user's learning journey.
+Feel free to add these sections as needed.
+Page Types
+Docs pages are also split into two categories: Conceptual and Reference.
+Conceptual
+pages are used to explain a concept or feature. They are usually longer and contain more information than reference pages. In the Next.js docs, conceptual pages are found in the
+Building Your Application
+section.
+Reference
+pages are used to explain a specific API. They are usually shorter and more focused. In the Next.js docs, reference pages are found in the
+API Reference
+section.
+Good to know
+: Depending on the page you're contributing to, you may need to follow a different voice and style. For example, conceptual pages are more instructional and use the word
+to address the user. Reference pages are more technical, they use more imperative words like "create, update, accept" and tend to omit the word
+Voice
+Here are some guidelines to maintain a consistent style and voice across the docs:
+Write clear, concise sentences. Avoid tangents.
+If you find yourself using a lot of commas, consider breaking the sentence into multiple sentences or use a list.
+Swap out complex words for simpler ones. For example,
+instead of
+utilize
+Be mindful with the word
+this
+. It can be ambiguous and confusing, don't be afraid to repeat the subject of the sentence if unclear.
+For example,
+Next.js uses React
+instead of
+Next.js uses this
+Use an active voice instead of passive. An active sentence is easier to read.
+For example,
+Next.js uses React
+instead of
+React is used by Next.js
+. If you find yourself using words like
+you may be using a passive voice.
+Avoid using words like
+easy
+quick
+simple
+just
+, etc. This is subjective and can be discouraging to users.
+Avoid negative words like
+don't
+can't
+won't
+, etc. This can be discouraging to readers.
+For example,
+"You can use the
+[CODE_BLOCK_98]
+component to create links between pages"
+instead of
+"Don't use the
+[CODE_BLOCK_99]
+tag to create links between pages"
+Write in second person (you/your). This is more personal and engaging.
+Use gender-neutral language. Use
+developers
+users
+, or
+readers
+, when referring to the audience.
+If adding code examples, ensure they are properly formatted and working.
+While these guidelines are not exhaustive, they should help you get started. If you'd like to dive deeper into technical writing, check out the
+Google Technical Writing Course
+Thank you for contributing to the docs and being part of the Next.js community!
+Was this helpful?
+supported.
+Send

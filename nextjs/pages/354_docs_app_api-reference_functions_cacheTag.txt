@@ -1,0 +1,187 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/cacheTag
+SCRAPED: 2025-06-19 17:51:09
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+cacheTag
+cacheTag
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 4 ---
+next.config.js
+--- END CODE BLOCK ---
+function allows you to tag cached data for on-demand invalidation. By associating tags with cache entries, you can selectively purge or revalidate specific cache entries without affecting other cached data.
+Usage
+To use
+--- CODE BLOCK 5 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+, enable the
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+flag
+in your
+--- CODE BLOCK 8 ---
+import { unstable_cacheTag as cacheTag } from 'next/cache'
+export async function getData() {
+'use cache'
+cacheTag('my-data')
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+import { unstable_cacheTag as cacheTag } from 'next/cache'
+export async function getData() {
+'use cache'
+cacheTag('my-data')
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+'use server'
+import { revalidateTag } from 'next/cache'
+export default async function submit() {
+await addPost()
+revalidateTag('my-data')
+--- END CODE BLOCK ---
+function takes a single string value, or a string array.
+app/data.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 12 ---
+'use server'
+import { revalidateTag } from 'next/cache'
+export default async function submit() {
+await addPost()
+revalidateTag('my-data')
+--- END CODE BLOCK ---
+You can then purge the cache on-demand using
+--- CODE BLOCK 15 ---
+cacheTag('tag-one', 'tag-two')
+--- END CODE BLOCK ---
+API in another function, for example, a
+route handler
+Server Action
+app/action.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 17 ---
+import { unstable_cacheTag as cacheTag } from 'next/cache'
+interface BookingsProps {
+type: string
+export async function Bookings({ type = 'haircut' }: BookingsProps) {
+'use cache'
+cacheTag('bookings-data')
+async function getBookingsData() {
+const data = await fetch(`/api/bookings?type=${encodeURIComponent(type)}`)
+return data
+return //...
+--- END CODE BLOCK ---
+Good to know
+Idempotent Tags
+: Applying the same tag multiple times has no additional effect.
+Multiple Tags
+: You can assign multiple tags to a single cache entry by passing an array to
+--- CODE BLOCK 19 ---
+import { unstable_cacheTag as cacheTag } from 'next/cache'
+interface BookingsProps {
+type: string
+export async function Bookings({ type = 'haircut' }: BookingsProps) {
+async function getBookingsData() {
+'use cache'
+const data = await fetch(`/api/bookings?type=${encodeURIComponent(type)}`)
+cacheTag('bookings-data', data.id)
+return data
+return //...
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+import { unstable_cacheTag as cacheTag } from 'next/cache'
+interface BookingsProps {
+type: string
+export async function Bookings({ type = 'haircut' }: BookingsProps) {
+async function getBookingsData() {
+'use cache'
+const data = await fetch(`/api/bookings?type=${encodeURIComponent(type)}`)
+cacheTag('bookings-data', data.id)
+return data
+return //...
+--- END CODE BLOCK ---
+Examples
+Tagging components or functions
+Tag your cached data by calling
+--- CODE BLOCK 22 ---
+'use server'
+import { revalidateTag } from 'next/cache'
+export async function updateBookings() {
+await updateBookingData()
+revalidateTag('bookings-data')
+--- END CODE BLOCK ---
+within a cached function or component:
+app/components/bookings.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 23 ---
+'use server'
+import { revalidateTag } from 'next/cache'
+export async function updateBookings() {
+await updateBookingData()
+revalidateTag('bookings-data')
+--- END CODE BLOCK ---
+Creating tags from external data
+You can use the data returned from an async function to tag the cache entry.
+app/components/bookings.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_19]
+Invalidating tagged cache
+Using
+[CODE_BLOCK_21]
+, you can invalidate the cache for a specific tag when needed:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_22]
+Related
+View related API references.
+dynamicIO
+Learn how to enable the dynamicIO flag in Next.js.
+use cache
+Learn how to use the use cache directive to cache data in your Next.js application.
+revalidateTag
+API Reference for the revalidateTag function.
+cacheLife
+Learn how to use the cacheLife function to set the cache expiration time for a cached function or component.
+Was this helpful?
+supported.
+Send

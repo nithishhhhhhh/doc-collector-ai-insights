@@ -1,0 +1,773 @@
+SOURCE URL: https://www.typescriptlang.org/docs/handbook/2/functions.html#never
+SCRAPED: 2025-06-19 18:11:42
+================================================================================
+
+Was this page helpful?
+More on Functions
+Functions are the basic building block of any application, whether they’re local functions, imported from another module, or methods on a class.
+They’re also values, and just like other values, TypeScript has many ways to describe how functions can be called.
+Let’s learn about how to write types that describe functions.
+Function Type Expressions
+The simplest way to describe a function is with a
+function type expression
+These types are syntactically similar to arrow functions:
+--- CODE BLOCK 1 ---
+tsfunction greeter(fn: (a: string) => void) {  fn("Hello, World");} function printToConsole(s: string) {  console.log(s);} greeter(printToConsole);Try
+--- END CODE BLOCK ---
+The syntax
+--- CODE BLOCK 3 ---
+(a: string) => void
+--- END CODE BLOCK ---
+means “a function with one parameter, named
+--- CODE BLOCK 7 ---
+(string) => void
+--- END CODE BLOCK ---
+, of type
+--- CODE BLOCK 10 ---
+tstype GreetFunction = (a: string) => void;function greeter(fn: GreetFunction) {  // ...}Try
+--- END CODE BLOCK ---
+, that doesn’t have a return value”.
+Just like with function declarations, if a parameter type isn’t specified, it’s implicitly
+--- CODE BLOCK 11 ---
+type GreetFunction = (a: string) => void;function greeter(fn: GreetFunction) {  // ...}
+--- END CODE BLOCK ---
+Note that the parameter name is
+required
+. The function type
+--- CODE BLOCK 12 ---
+tstype DescribableFunction = {  description: string;  (someArg: number): boolean;};function doSomething(fn: DescribableFunction) {  console.log(fn.description + " returned " + fn(6));} function myFunc(someArg: number) {  return someArg > 3;}myFunc.description = "default description"; doSomething(myFunc);Try
+--- END CODE BLOCK ---
+means “a function with a parameter named
+--- CODE BLOCK 13 ---
+type DescribableFunction = {  description: string;  (someArg: number): boolean;};function doSomething(fn: DescribableFunction) {  console.log(fn.description + " returned " + fn(6));} function myFunc(someArg: number) {  return someArg > 3;}myFunc.description = "default description"; doSomething(myFunc);
+--- END CODE BLOCK ---
+of type
+--- CODE BLOCK 18 ---
+tstype SomeConstructor = {  new (s: string): SomeObject;};function fn(ctor: SomeConstructor) {  return new ctor("hello");}Try
+--- END CODE BLOCK ---
+Of course, we can use a type alias to name a function type:
+--- CODE BLOCK 19 ---
+type SomeConstructor = {  new (s: string): SomeObject;};function fn(ctor: SomeConstructor) {  return new ctor("hello");}
+--- END CODE BLOCK ---
+Call Signatures
+In JavaScript, functions can have properties in addition to being callable.
+However, the function type expression syntax doesn’t allow for declaring properties.
+If we want to describe something callable with properties, we can write a
+call signature
+in an object type:
+--- CODE BLOCK 23 ---
+interface CallOrConstruct {  (n?: number): string;  new (s: string): Date;} function fn(ctor: CallOrConstruct) {  // Passing an argument of type `number` to `ctor` matches it against  // the first definition in the `CallOrConstruct` interface.  console.log(ctor(10));               (parameter) ctor: CallOrConstruct
+(n?: number) => string   // Similarly, passing an argument of type `string` to `ctor` matches it  // against the second definition in the `CallOrConstruct` interface.  console.log(new ctor("10"));                   (parameter) ctor: CallOrConstruct
+new (s: string) => Date} fn(Date);
+--- END CODE BLOCK ---
+Note that the syntax is slightly different compared to a function type expression - use
+--- CODE BLOCK 25 ---
+function firstElement(arr: any[]) {  return arr[0];}
+--- END CODE BLOCK ---
+between the parameter list and the return type rather than
+--- CODE BLOCK 27 ---
+tsfunction firstElement<Type>(arr: Type[]): Type | undefined {  return arr[0];}Try
+--- END CODE BLOCK ---
+Construct Signatures
+JavaScript functions can also be invoked with the
+--- CODE BLOCK 28 ---
+function firstElement<Type>(arr: Type[]): Type | undefined {  return arr[0];}
+--- END CODE BLOCK ---
+operator.
+TypeScript refers to these as
+constructors
+because they usually create a new object.
+You can write a
+construct signature
+by adding the
+--- CODE BLOCK 30 ---
+ts// s is of type 'string'const s = firstElement(["a", "b", "c"]);// n is of type 'number'const n = firstElement([1, 2, 3]);// u is of type undefinedconst u = firstElement([]);Try
+--- END CODE BLOCK ---
+keyword in front of a call signature:
+--- CODE BLOCK 31 ---
+// s is of type 'string'const s = firstElement(["a", "b", "c"]);// n is of type 'number'const n = firstElement([1, 2, 3]);// u is of type undefinedconst u = firstElement([]);
+--- END CODE BLOCK ---
+Some objects, like JavaScript’s
+--- CODE BLOCK 35 ---
+function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {  return arr.map(func);} // Parameter 'n' is of type 'string'// 'parsed' is of type 'number[]'const parsed = map(["1", "2", "3"], (n) => parseInt(n));
+--- END CODE BLOCK ---
+object, can be called with or without
+--- CODE BLOCK 42 ---
+tsfunction longest<Type extends { length: number }>(a: Type, b: Type) {  if (a.length >= b.length) {    return a;  } else {    return b;  }} // longerArray is of type 'number[]'const longerArray = longest([1, 2], [1, 2, 3]);// longerString is of type 'alice' | 'bob'const longerString = longest("alice", "bob");// Error! Numbers don't have a 'length' propertyconst notOK = longest(10, 100);Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.2345Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.Try
+--- END CODE BLOCK ---
+You can combine call and construct signatures in the same type arbitrarily:
+--- CODE BLOCK 43 ---
+function longest<Type extends { length: number }>(a: Type, b: Type) {  if (a.length >= b.length) {    return a;  } else {    return b;  }} // longerArray is of type 'number[]'const longerArray = longest([1, 2], [1, 2, 3]);// longerString is of type 'alice' | 'bob'const longerString = longest("alice", "bob");// Error! Numbers don't have a 'length' propertyconst notOK = longest(10, 100);Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.2345Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.
+--- END CODE BLOCK ---
+Generic Functions
+It’s common to write a function where the types of the input relate to the type of the output, or where the types of two inputs are related in some way.
+Let’s consider for a moment a function that returns the first element of an array:
+--- CODE BLOCK 50 ---
+longerArray
+--- END CODE BLOCK ---
+This function does its job, but unfortunately has the return type
+--- CODE BLOCK 52 ---
+longest(10, 100)
+--- END CODE BLOCK ---
+It’d be better if the function returned the type of the array element.
+In TypeScript,
+generics
+are used when we want to describe a correspondence between two values.
+We do this by declaring a
+type parameter
+in the function signature:
+--- CODE BLOCK 55 ---
+tsfunction minimumLength<Type extends { length: number }>(  obj: Type,  minimum: number): Type {  if (obj.length >= minimum) {    return obj;  } else {    return { length: minimum };Type '{ length: number; }' is not assignable to type 'Type'.
+'{ length: number; }' is assignable to the constraint of type 'Type', but 'Type' could be instantiated with a different subtype of constraint '{ length: number; }'.2322Type '{ length: number; }' is not assignable to type 'Type'.
+'{ length: number; }' is assignable to the constraint of type 'Type', but 'Type' could be instantiated with a different subtype of constraint '{ length: number; }'.  }}Try
+--- END CODE BLOCK ---
+By adding a type parameter
+--- CODE BLOCK 58 ---
+{ length: number }
+--- END CODE BLOCK ---
+to this function and using it in two places, we’ve created a link between the input of the function (the array) and the output (the return value).
+Now when we call it, a more specific type comes out:
+--- CODE BLOCK 60 ---
+ts// 'arr' gets value { length: 6 }const arr = minimumLength([1, 2, 3], 6);// and crashes here because arrays have// a 'slice' method, but not the returned object!console.log(arr.slice(0));Try
+--- END CODE BLOCK ---
+Inference
+Note that we didn’t have to specify
+--- CODE BLOCK 62 ---
+tsfunction combine<Type>(arr1: Type[], arr2: Type[]): Type[] {  return arr1.concat(arr2);}Try
+--- END CODE BLOCK ---
+in this sample.
+The type was
+inferred
+- chosen automatically - by TypeScript.
+We can use multiple type parameters as well.
+For example, a standalone version of
+--- CODE BLOCK 63 ---
+function combine<Type>(arr1: Type[], arr2: Type[]): Type[] {  return arr1.concat(arr2);}
+--- END CODE BLOCK ---
+would look like this:
+--- CODE BLOCK 64 ---
+tsconst arr = combine([1, 2, 3], ["hello"]);Type 'string' is not assignable to type 'number'.2322Type 'string' is not assignable to type 'number'.Try
+--- END CODE BLOCK ---
+Note that in this example, TypeScript could infer both the type of the
+--- CODE BLOCK 67 ---
+tsconst arr = combine<string | number>([1, 2, 3], ["hello"]);Try
+--- END CODE BLOCK ---
+type parameter (from the given
+--- CODE BLOCK 68 ---
+const arr = combine<string | number>([1, 2, 3], ["hello"]);
+--- END CODE BLOCK ---
+array), as well as the
+--- CODE BLOCK 69 ---
+tsfunction firstElement1<Type>(arr: Type[]) {  return arr[0];} function firstElement2<Type extends any[]>(arr: Type) {  return arr[0];} // a: number (good)const a = firstElement1([1, 2, 3]);// b: any (bad)const b = firstElement2([1, 2, 3]);Try
+--- END CODE BLOCK ---
+type parameter based on the return value of the function expression (
+--- CODE BLOCK 70 ---
+function firstElement1<Type>(arr: Type[]) {  return arr[0];} function firstElement2<Type extends any[]>(arr: Type) {  return arr[0];} // a: number (good)const a = firstElement1([1, 2, 3]);// b: any (bad)const b = firstElement2([1, 2, 3]);
+--- END CODE BLOCK ---
+Constraints
+We’ve written some generic functions that can work on
+kind of value.
+Sometimes we want to relate two values, but can only operate on a certain subset of values.
+In this case, we can use a
+constraint
+to limit the kinds of types that a type parameter can accept.
+Let’s write a function that returns the longer of two values.
+To do this, we need a
+--- CODE BLOCK 71 ---
+firstElement1
+--- END CODE BLOCK ---
+property that’s a number.
+constrain
+the type parameter to that type by writing an
+--- CODE BLOCK 73 ---
+firstElement2
+--- END CODE BLOCK ---
+clause:
+--- CODE BLOCK 76 ---
+tsfunction filter1<Type>(arr: Type[], func: (arg: Type) => boolean): Type[] {  return arr.filter(func);} function filter2<Type, Func extends (arg: Type) => boolean>(  arr: Type[],  func: Func): Type[] {  return arr.filter(func);}Try
+--- END CODE BLOCK ---
+There are a few interesting things to note in this example.
+We allowed TypeScript to
+infer
+the return type of
+--- CODE BLOCK 80 ---
+tsfunction greet<Str extends string>(s: Str) {  console.log("Hello, " + s);} greet("world");Try
+--- END CODE BLOCK ---
+Return type inference also works on generic functions.
+Because we constrained
+--- CODE BLOCK 81 ---
+function greet<Str extends string>(s: Str) {  console.log("Hello, " + s);} greet("world");
+--- END CODE BLOCK ---
+--- CODE BLOCK 82 ---
+tsfunction greet(s: string) {  console.log("Hello, " + s);}Try
+--- END CODE BLOCK ---
+, we were allowed to access the
+--- CODE BLOCK 83 ---
+function greet(s: string) {  console.log("Hello, " + s);}
+--- END CODE BLOCK ---
+property of the
+--- CODE BLOCK 88 ---
+tsfunction f(n: number) {  console.log(n.toFixed()); // 0 arguments  console.log(n.toFixed(3)); // 1 argument}Try
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+function f(n: number) {  console.log(n.toFixed()); // 0 arguments  console.log(n.toFixed(3)); // 1 argument}
+--- END CODE BLOCK ---
+parameters.
+Without the type constraint, we wouldn’t be able to access those properties because the values might have been some other type without a length property.
+The types of
+--- CODE BLOCK 91 ---
+tsfunction f(x?: number) {  // ...}f(); // OKf(10); // OKTry
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+function f(x?: number) {  // ...}f(); // OKf(10); // OK
+--- END CODE BLOCK ---
+were inferred based on the arguments.
+Remember, generics are all about relating two or more values with the same type!
+Finally, just as we’d like, the call to
+--- CODE BLOCK 95 ---
+number | undefined
+--- END CODE BLOCK ---
+is rejected because the
+--- CODE BLOCK 97 ---
+tsfunction f(x = 10) {  // ...}Try
+--- END CODE BLOCK ---
+type doesn’t have a
+--- CODE BLOCK 98 ---
+function f(x = 10) {  // ...}
+--- END CODE BLOCK ---
+property.
+Working with Constrained Values
+Here’s a common error when working with generic constraints:
+--- CODE BLOCK 105 ---
+ts// All OKf();f(10);f(undefined);Try
+--- END CODE BLOCK ---
+It might look like this function is OK -
+--- CODE BLOCK 107 ---
+tsfunction myForEach(arr: any[], callback: (arg: any, index?: number) => void) {  for (let i = 0; i < arr.length; i++) {    callback(arr[i], i);  }}Try
+--- END CODE BLOCK ---
+is constrained to
+--- CODE BLOCK 108 ---
+function myForEach(arr: any[], callback: (arg: any, index?: number) => void) {  for (let i = 0; i < arr.length; i++) {    callback(arr[i], i);  }}
+--- END CODE BLOCK ---
+, and the function either returns
+--- CODE BLOCK 110 ---
+tsmyForEach([1, 2, 3], (a) => console.log(a));myForEach([1, 2, 3], (a, i) => console.log(a, i));Try
+--- END CODE BLOCK ---
+or a value matching that constraint.
+The problem is that the function promises to return the
+same
+kind of object as was passed in, not just
+some
+object matching the constraint.
+If this code were legal, you could write code that definitely wouldn’t work:
+--- CODE BLOCK 111 ---
+myForEach([1, 2, 3], (a) => console.log(a));myForEach([1, 2, 3], (a, i) => console.log(a, i));
+--- END CODE BLOCK ---
+Specifying Type Arguments
+TypeScript can usually infer the intended type arguments in a generic call, but not always.
+For example, let’s say you wrote a function to combine two arrays:
+--- CODE BLOCK 114 ---
+function myForEach(arr: any[], callback: (arg: any, index?: number) => void) {  for (let i = 0; i < arr.length; i++) {    // I don't feel like providing the index today    callback(arr[i]);  }}
+--- END CODE BLOCK ---
+Normally it would be an error to call this function with mismatched arrays:
+--- CODE BLOCK 116 ---
+myForEach([1, 2, 3], (a, i) => {  console.log(i.toFixed());'i' is possibly 'undefined'.18048'i' is possibly 'undefined'.});
+--- END CODE BLOCK ---
+If you intended to do this, however, you could manually specify
+--- CODE BLOCK 119 ---
+function makeDate(timestamp: number): Date;function makeDate(m: number, d: number, y: number): Date;function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {  if (d !== undefined && y !== undefined) {    return new Date(y, mOrTimestamp, d);  } else {    return new Date(mOrTimestamp);  }}const d1 = makeDate(12345678);const d2 = makeDate(5, 5, 5);const d3 = makeDate(1, 3);No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.2575No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+tsfunction fn(x: string): void;function fn() {  // ...}// Expected to be able to call with zero argumentsfn();Expected 1 arguments, but got 0.2554Expected 1 arguments, but got 0.Try
+--- END CODE BLOCK ---
+Guidelines for Writing Good Generic Functions
+Writing generic functions is fun, and it can be easy to get carried away with type parameters.
+Having too many type parameters or using constraints where they aren’t needed can make inference less successful, frustrating callers of your function.
+Push Type Parameters Down
+Here are two ways of writing a function that appear similar:
+--- CODE BLOCK 122 ---
+tsfunction fn(x: boolean): void;// Argument type isn't rightfunction fn(x: string): void;This overload signature is not compatible with its implementation signature.2394This overload signature is not compatible with its implementation signature.function fn(x: boolean) {}Try
+--- END CODE BLOCK ---
+These might seem identical at first glance, but
+--- CODE BLOCK 124 ---
+tsfunction fn(x: string): string;// Return type isn't rightfunction fn(x: number): boolean;This overload signature is not compatible with its implementation signature.2394This overload signature is not compatible with its implementation signature.function fn(x: string | number) {  return "oops";}Try
+--- END CODE BLOCK ---
+is a much better way to write this function.
+Its inferred return type is
+--- CODE BLOCK 125 ---
+function fn(x: string): string;// Return type isn't rightfunction fn(x: number): boolean;This overload signature is not compatible with its implementation signature.2394This overload signature is not compatible with its implementation signature.function fn(x: string | number) {  return "oops";}
+--- END CODE BLOCK ---
+, but
+--- CODE BLOCK 126 ---
+tsfunction len(s: string): number;function len(arr: any[]): number;function len(x: any) {  return x.length;}Try
+--- END CODE BLOCK ---
+’s inferred return type is
+--- CODE BLOCK 127 ---
+function len(s: string): number;function len(arr: any[]): number;function len(x: any) {  return x.length;}
+--- END CODE BLOCK ---
+because TypeScript has to resolve the
+--- CODE BLOCK 128 ---
+tslen(""); // OKlen([0]); // OKlen(Math.random() > 0.5 ? "hello" : [0]);No overload matches this call.
+Overload 1 of 2, '(s: string): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'string'.
+Type 'number[]' is not assignable to type 'string'.
+Overload 2 of 2, '(arr: any[]): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'any[]'.
+Type 'string' is not assignable to type 'any[]'.2769No overload matches this call.
+Overload 1 of 2, '(s: string): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'string'.
+Type 'number[]' is not assignable to type 'string'.
+Overload 2 of 2, '(arr: any[]): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'any[]'.
+Type 'string' is not assignable to type 'any[]'.Try
+--- END CODE BLOCK ---
+expression using the constraint type, rather than “waiting” to resolve the element during a call.
+Rule
+: When possible, use the type parameter itself rather than constraining it
+Use Fewer Type Parameters
+Here’s another pair of similar functions:
+--- CODE BLOCK 129 ---
+len(""); // OKlen([0]); // OKlen(Math.random() > 0.5 ? "hello" : [0]);No overload matches this call.
+Overload 1 of 2, '(s: string): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'string'.
+Type 'number[]' is not assignable to type 'string'.
+Overload 2 of 2, '(arr: any[]): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'any[]'.
+Type 'string' is not assignable to type 'any[]'.2769No overload matches this call.
+Overload 1 of 2, '(s: string): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'string'.
+Type 'number[]' is not assignable to type 'string'.
+Overload 2 of 2, '(arr: any[]): number', gave the following error.
+Argument of type 'number[] | "hello"' is not assignable to parameter of type 'any[]'.
+Type 'string' is not assignable to type 'any[]'.
+--- END CODE BLOCK ---
+We’ve created a type parameter
+--- CODE BLOCK 131 ---
+function len(x: any[] | string) {  return x.length;}
+--- END CODE BLOCK ---
+that
+doesn’t relate two values
+That’s always a red flag, because it means callers wanting to specify type arguments have to manually specify an extra type argument for no reason.
+--- CODE BLOCK 134 ---
+tsconst user = {  id: 123,   admin: false,  becomeAdmin: function () {    this.admin = true;  },};Try
+--- END CODE BLOCK ---
+doesn’t do anything but make the function harder to read and reason about!
+Rule
+: Always use as few type parameters as possible
+Type Parameters Should Appear Twice
+Sometimes we forget that a function might not need to be generic:
+--- CODE BLOCK 135 ---
+const user = {  id: 123,   admin: false,  becomeAdmin: function () {    this.admin = true;  },};
+--- END CODE BLOCK ---
+We could just as easily have written a simpler version:
+--- CODE BLOCK 143 ---
+tsinterface DB {  filterUsers(filter: (this: User) => boolean): User[];} const db = getDB();const admins = db.filterUsers(function (this: User) {  return this.admin;});Try
+--- END CODE BLOCK ---
+Remember, type parameters are for
+relating the types of multiple values
+If a type parameter is only used once in the function signature, it’s not relating anything.
+This includes the inferred return type; for example, if
+--- CODE BLOCK 146 ---
+tsinterface DB {  filterUsers(filter: (this: User) => boolean): User[];} const db = getDB();const admins = db.filterUsers(() => this.admin);The containing arrow function captures the global value of 'this'.Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.70417017The containing arrow function captures the global value of 'this'.Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.Try
+--- END CODE BLOCK ---
+was part of the inferred return type of
+--- CODE BLOCK 147 ---
+interface DB {  filterUsers(filter: (this: User) => boolean): User[];} const db = getDB();const admins = db.filterUsers(() => this.admin);The containing arrow function captures the global value of 'this'.Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.70417017The containing arrow function captures the global value of 'this'.Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.
+--- END CODE BLOCK ---
+, it would be relating the argument and return types, so would be used
+twice
+despite appearing only once in the written code.
+Rule
+: If a type parameter only appears in one location, strongly reconsider if you actually need it
+Optional Parameters
+Functions in JavaScript often take a variable number of arguments.
+For example, the
+--- CODE BLOCK 151 ---
+ts// The inferred return type is voidfunction noop() {  return;}Try
+--- END CODE BLOCK ---
+method of
+--- CODE BLOCK 152 ---
+// The inferred return type is voidfunction noop() {  return;}
+--- END CODE BLOCK ---
+takes an optional digit count:
+--- CODE BLOCK 173 ---
+Object.prototype
+--- END CODE BLOCK ---
+We can model this in TypeScript by marking the parameter as
+optional
+with
+--- CODE BLOCK 175 ---
+Object.keys
+--- END CODE BLOCK ---
+--- CODE BLOCK 181 ---
+tsfunction f1(a: any) {  a.b(); // OK}function f2(a: unknown) {  a.b();'a' is of type 'unknown'.18046'a' is of type 'unknown'.}Try
+--- END CODE BLOCK ---
+Although the parameter is specified as type
+--- CODE BLOCK 184 ---
+tsfunction safeParse(s: string): unknown {  return JSON.parse(s);} // Need to be careful with 'obj'!const obj = safeParse(someRandomString);Try
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 185 ---
+function safeParse(s: string): unknown {  return JSON.parse(s);} // Need to be careful with 'obj'!const obj = safeParse(someRandomString);
+--- END CODE BLOCK ---
+parameter will actually have the type
+--- CODE BLOCK 187 ---
+tsfunction fail(msg: string): never {  throw new Error(msg);}Try
+--- END CODE BLOCK ---
+because unspecified parameters in JavaScript get the value
+--- CODE BLOCK 188 ---
+function fail(msg: string): never {  throw new Error(msg);}
+--- END CODE BLOCK ---
+You can also provide a parameter
+default
+--- CODE BLOCK 191 ---
+tsfunction fn(x: string | number) {  if (typeof x === "string") {    // do something  } else if (typeof x === "number") {    // do something else  } else {    x; // has type 'never'!  }}Try
+--- END CODE BLOCK ---
+Now in the body of
+--- CODE BLOCK 200 ---
+tsfunction doSomething(f: Function) {  return f(1, 2, 3);}Try
+--- END CODE BLOCK ---
+--- CODE BLOCK 201 ---
+function doSomething(f: Function) {  return f(1, 2, 3);}
+--- END CODE BLOCK ---
+will have type
+--- CODE BLOCK 205 ---
+tsfunction multiply(n: number, ...m: number[]) {  return m.map((x) => n * x);}// 'a' gets value [10, 20, 30, 40]const a = multiply(10, 1, 2, 3, 4);Try
+--- END CODE BLOCK ---
+because any
+--- CODE BLOCK 206 ---
+function multiply(n: number, ...m: number[]) {  return m.map((x) => n * x);}// 'a' gets value [10, 20, 30, 40]const a = multiply(10, 1, 2, 3, 4);
+--- END CODE BLOCK ---
+argument will be replaced with
+--- CODE BLOCK 212 ---
+tsconst arr1 = [1, 2, 3];const arr2 = [4, 5, 6];arr1.push(...arr2);Try
+--- END CODE BLOCK ---
+Note that when a parameter is optional, callers can always pass
+--- CODE BLOCK 213 ---
+const arr1 = [1, 2, 3];const arr2 = [4, 5, 6];arr1.push(...arr2);
+--- END CODE BLOCK ---
+, as this simply simulates a “missing” argument:
+--- CODE BLOCK 214 ---
+ts// Inferred type is number[] -- "an array with zero or more numbers",// not specifically two numbersconst args = [8, 5];const angle = Math.atan2(...args);A spread argument must either have a tuple type or be passed to a rest parameter.2556A spread argument must either have a tuple type or be passed to a rest parameter.Try
+--- END CODE BLOCK ---
+Optional Parameters in Callbacks
+Once you’ve learned about optional parameters and function type expressions, it’s very easy to make the following mistakes when writing functions that invoke callbacks:
+--- CODE BLOCK 217 ---
+ts// Inferred as 2-length tupleconst args = [8, 5] as const;// OKconst angle = Math.atan2(...args);Try
+--- END CODE BLOCK ---
+What people usually intend when writing
+--- CODE BLOCK 219 ---
+downlevelIteration
+--- END CODE BLOCK ---
+as an optional parameter is that they want both of these calls to be legal:
+--- CODE BLOCK 220 ---
+jsfunction sum({ a, b, c }) {  console.log(a + b + c);}sum({ a: 10, b: 3, c: 9 });
+--- END CODE BLOCK ---
+What this
+actually
+means is that
+--- CODE BLOCK 222 ---
+tsfunction sum({ a, b, c }: { a: number; b: number; c: number }) {  console.log(a + b + c);}Try
+--- END CODE BLOCK ---
+might get invoked with one argument
+In other words, the function definition says that the implementation might look like this:
+--- CODE BLOCK 223 ---
+function sum({ a, b, c }: { a: number; b: number; c: number }) {  console.log(a + b + c);}
+--- END CODE BLOCK ---
+In turn, TypeScript will enforce this meaning and issue errors that aren’t really possible:
+--- CODE BLOCK 225 ---
+// Same as prior exampletype ABC = { a: number; b: number; c: number };function sum({ a, b, c }: ABC) {  console.log(a + b + c);}
+--- END CODE BLOCK ---
+In JavaScript, if you call a function with more arguments than there are parameters, the extra arguments are simply ignored.
+TypeScript behaves the same way.
+Functions with fewer parameters (of the same types) can always take the place of functions with more parameters.
+Rule
+: When writing a function type for a callback,
+never
+write an optional parameter unless you intend to
+call
+the function without passing that argument
+Function Overloads
+Some JavaScript functions can be called in a variety of argument counts and types.
+For example, you might write a function to produce a
+--- CODE BLOCK 232 ---
+tstype voidFunc = () => void; const f1: voidFunc = () => {  return true;}; const f2: voidFunc = () => true; const f3: voidFunc = function () {  return true;};Try
+--- END CODE BLOCK ---
+that takes either a timestamp (one argument) or a month/day/year specification (three arguments).
+In TypeScript, we can specify a function that can be called in different ways by writing
+overload signatures
+To do this, write some number of function signatures (usually two or more), followed by the body of the function:
+--- CODE BLOCK 233 ---
+type voidFunc = () => void; const f1: voidFunc = () => {  return true;}; const f2: voidFunc = () => true; const f3: voidFunc = function () {  return true;};
+--- END CODE BLOCK ---
+In this example, we wrote two overloads: one accepting one argument, and another accepting three arguments.
+These first two signatures are called the
+overload signatures
+Then, we wrote a function implementation with a compatible signature.
+Functions have an
+implementation
+signature, but this signature can’t be called directly.
+Even though we wrote a function with two optional parameters after the required one, it can’t be called with two parameters!
+Overload Signatures and the Implementation Signature
+This is a common source of confusion.
+Often people will write code like this and not understand why there is an error:
+--- CODE BLOCK 236 ---
+const v1 = f1(); const v2 = f2(); const v3 = f3();
+--- END CODE BLOCK ---
+Again, the signature used to write the function body can’t be “seen” from the outside.
+The signature of the
+implementation
+is not visible from the outside.
+When writing an overloaded function, you should always have
+or more signatures above the implementation of the function.
+The implementation signature must also be
+compatible
+with the overload signatures.
+For example, these functions have errors because the implementation signature doesn’t match the overloads in a correct way:
+--- CODE BLOCK 238 ---
+Array.prototype.forEach
+--- END CODE BLOCK ---
+--- CODE BLOCK 241 ---
+const src = [1, 2, 3];const dst = [0]; src.forEach((el) => dst.push(el));
+--- END CODE BLOCK ---
+Writing Good Overloads
+Like generics, there are a few guidelines you should follow when using function overloads.
+Following these principles will make your function easier to call, easier to understand, and easier to implement.
+Let’s consider a function that returns the length of a string or an array:
+--- CODE BLOCK 244 ---
+function f2(): void {  // @ts-expect-error  return true;} const f3 = function (): void {  // @ts-expect-error  return true;};
+--- END CODE BLOCK ---
+This function is fine; we can invoke it with strings or arrays.
+However, we can’t invoke it with a value that might be a string
+an array, because TypeScript can only resolve a function call to a single overload:
+[CODE_BLOCK_128]
+Because both overloads have the same argument count and same return type, we can instead write a non-overloaded version of the function:
+[CODE_BLOCK_130]
+This is much better!
+Callers can invoke this with either sort of value, and as an added bonus, we don’t have to figure out a correct implementation signature.
+Always prefer parameters with union types instead of overloads when possible
+Declaring
+[CODE_BLOCK_132]
+in a Function
+TypeScript will infer what the
+[CODE_BLOCK_133]
+should be in a function via code flow analysis, for example in the following:
+[CODE_BLOCK_134]
+TypeScript understands that the function
+[CODE_BLOCK_136]
+has a corresponding
+[CODE_BLOCK_137]
+which is the outer object
+[CODE_BLOCK_138]
+[CODE_BLOCK_139]
+, can be enough for a lot of cases, but there are a lot of cases where you need more control over what object
+[CODE_BLOCK_140]
+represents. The JavaScript specification states that you cannot have a parameter called
+[CODE_BLOCK_141]
+, and so TypeScript uses that syntax space to let you declare the type for
+[CODE_BLOCK_142]
+in the function body.
+[CODE_BLOCK_143]
+This pattern is common with callback-style APIs, where another object typically controls when your function is called. Note that you need to use
+[CODE_BLOCK_145]
+and not arrow functions to get this behavior:
+[CODE_BLOCK_146]
+Other Types to Know About
+There are some additional types you’ll want to recognize that appear often when working with function types.
+Like all types, you can use them everywhere, but these are especially relevant in the context of functions.
+[CODE_BLOCK_148]
+[CODE_BLOCK_149]
+represents the return value of functions which don’t return a value.
+It’s the inferred type any time a function doesn’t have any
+[CODE_BLOCK_150]
+statements, or doesn’t return any explicit value from those return statements:
+[CODE_BLOCK_151]
+In JavaScript, a function that doesn’t return any value will implicitly return the value
+[CODE_BLOCK_153]
+However,
+[CODE_BLOCK_154]
+[CODE_BLOCK_155]
+are not the same thing in TypeScript.
+There are further details at the end of this chapter.
+[CODE_BLOCK_156]
+is not the same as
+[CODE_BLOCK_157]
+[CODE_BLOCK_158]
+The special type
+[CODE_BLOCK_159]
+refers to any value that isn’t a primitive (
+[CODE_BLOCK_160]
+[CODE_BLOCK_161]
+[CODE_BLOCK_162]
+[CODE_BLOCK_163]
+[CODE_BLOCK_164]
+[CODE_BLOCK_165]
+, or
+[CODE_BLOCK_166]
+This is different from the
+empty object type
+[CODE_BLOCK_167]
+, and also different from the global type
+[CODE_BLOCK_168]
+It’s very likely you will never use
+[CODE_BLOCK_169]
+[CODE_BLOCK_170]
+is not
+[CODE_BLOCK_171]
+Always
+[CODE_BLOCK_172]
+Note that in JavaScript, function values are objects: They have properties, have
+[CODE_BLOCK_173]
+in their prototype chain, are
+[CODE_BLOCK_174]
+, you can call
+[CODE_BLOCK_175]
+on them, and so on.
+For this reason, function types are considered to be
+[CODE_BLOCK_176]
+s in TypeScript.
+[CODE_BLOCK_177]
+[CODE_BLOCK_178]
+type represents
+value.
+This is similar to the
+[CODE_BLOCK_179]
+type, but is safer because it’s not legal to do anything with an
+[CODE_BLOCK_180]
+value:
+[CODE_BLOCK_181]
+This is useful when describing function types because you can describe functions that accept any value without having
+[CODE_BLOCK_183]
+values in your function body.
+Conversely, you can describe a function that returns a value of unknown type:
+[CODE_BLOCK_184]
+[CODE_BLOCK_186]
+Some functions
+never
+return a value:
+[CODE_BLOCK_187]
+[CODE_BLOCK_189]
+type represents values which are
+never
+observed.
+In a return type, this means that the function throws an exception or terminates execution of the program.
+[CODE_BLOCK_190]
+also appears when TypeScript determines there’s nothing left in a union.
+[CODE_BLOCK_191]
+[CODE_BLOCK_193]
+The global type
+[CODE_BLOCK_194]
+describes properties like
+[CODE_BLOCK_195]
+[CODE_BLOCK_196]
+[CODE_BLOCK_197]
+, and others present on all function values in JavaScript.
+It also has the special property that values of type
+[CODE_BLOCK_198]
+can always be called; these calls return
+[CODE_BLOCK_199]
+[CODE_BLOCK_200]
+This is an
+untyped function call
+and is generally best avoided because of the unsafe
+[CODE_BLOCK_202]
+return type.
+If you need to accept an arbitrary function but don’t intend to call it, the type
+[CODE_BLOCK_203]
+is generally safer.
+Rest Parameters and Arguments
+Background Reading:
+Rest Parameters
+Spread Syntax
+Rest Parameters
+In addition to using optional parameters or overloads to make functions that can accept a variety of fixed argument counts, we can also define functions that take an
+unbounded
+number of arguments using
+rest parameters
+A rest parameter appears after all other parameters, and uses the
+[CODE_BLOCK_204]
+syntax:
+[CODE_BLOCK_205]
+In TypeScript, the type annotation on these parameters is implicitly
+[CODE_BLOCK_207]
+instead of
+[CODE_BLOCK_208]
+, and any type annotation given must be of the form
+[CODE_BLOCK_209]
+[CODE_BLOCK_210]
+, or a tuple type (which we’ll learn about later).
+Rest Arguments
+Conversely, we can
+provide
+a variable number of arguments from an iterable object (for example, an array) using the spread syntax.
+For example, the
+[CODE_BLOCK_211]
+method of arrays takes any number of arguments:
+[CODE_BLOCK_212]
+Note that in general, TypeScript does not assume that arrays are immutable.
+This can lead to some surprising behavior:
+[CODE_BLOCK_214]
+The best fix for this situation depends a bit on your code, but in general a
+[CODE_BLOCK_216]
+context is the most straightforward solution:
+[CODE_BLOCK_217]
+Using rest arguments may require turning on
+[CODE_BLOCK_219]
+when targeting older runtimes.
+Parameter Destructuring
+Background Reading:
+Destructuring Assignment
+You can use parameter destructuring to conveniently unpack objects provided as an argument into one or more local variables in the function body.
+In JavaScript, it looks like this:
+[CODE_BLOCK_220]
+The type annotation for the object goes after the destructuring syntax:
+[CODE_BLOCK_222]
+This can look a bit verbose, but you can use a named type here as well:
+[CODE_BLOCK_224]
+Assignability of Functions
+Return type
+[CODE_BLOCK_226]
+[CODE_BLOCK_227]
+return type for functions can produce some unusual, but expected behavior.
+Contextual typing with a return type of
+[CODE_BLOCK_228]
+does
+force functions to
+return something. Another way to say this is a contextual function type with a
+[CODE_BLOCK_229]
+return type (
+[CODE_BLOCK_230]
+), when implemented, can return
+other value, but it will be ignored.
+Thus, the following implementations of the type
+[CODE_BLOCK_231]
+are valid:
+[CODE_BLOCK_232]
+And when the return value of one of these functions is assigned to another variable, it will retain the type of
+[CODE_BLOCK_234]
+[CODE_BLOCK_235]
+This behavior exists so that the following code is valid even though
+[CODE_BLOCK_237]
+returns a number and the
+[CODE_BLOCK_238]
+method expects a function with a return type of
+[CODE_BLOCK_239]
+[CODE_BLOCK_240]
+There is one other special case to be aware of, when a literal function definition has a
+[CODE_BLOCK_242]
+return type, that function must
+return anything.
+[CODE_BLOCK_243]
+For more on
+[CODE_BLOCK_245]
+please refer to these other documentation entries:
+FAQ - “Why are functions returning non-void assignable to function returning void?”
+Narrowing
+Understand how TypeScript uses JavaScript knowledge to reduce the amount of type syntax in your projects.
+Object Types
+How TypeScript describes the shapes of JavaScript objects.
+The TypeScript docs are an open source project. Help us improve these pages
+by sending a Pull Request
+Contributors to this page:
+Last updated: Jun 19, 2025
+This page loaded in 0.293 seconds.

@@ -1,0 +1,381 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/edge
+SCRAPED: 2025-06-19 17:17:10
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+API Reference
+Edge Runtime
+Edge Runtime
+Next.js has two server runtimes you can use in your application:
+Node.js Runtime
+(default), which has access to all Node.js APIs and is used for rendering your application.
+Edge Runtime
+which contains a more limited
+set of APIs
+, used in
+Middleware
+Caveats
+The Edge Runtime does not support all Node.js APIs. Some packages may not work as expected.
+The Edge Runtime does not support Incremental Static Regeneration (ISR).
+Both runtimes can support
+streaming
+depending on your deployment adapter.
+Reference
+The Edge Runtime supports the following APIs:
+Network APIs
+Description
+--- CODE BLOCK 9 ---
+URLSearchParams
+--- END CODE BLOCK ---
+Represents a blob
+--- CODE BLOCK 13 ---
+TextDecoder
+--- END CODE BLOCK ---
+Fetches a resource
+--- CODE BLOCK 14 ---
+TextDecoderStream
+--- END CODE BLOCK ---
+Represents a fetch event
+--- CODE BLOCK 15 ---
+TextEncoder
+--- END CODE BLOCK ---
+Represents a file
+--- CODE BLOCK 16 ---
+TextEncoderStream
+--- END CODE BLOCK ---
+Represents form data
+--- CODE BLOCK 17 ---
+ReadableStream
+--- END CODE BLOCK ---
+Represents HTTP headers
+--- CODE BLOCK 18 ---
+ReadableStreamBYOBReader
+--- END CODE BLOCK ---
+Represents an HTTP request
+--- CODE BLOCK 19 ---
+ReadableStreamDefaultReader
+--- END CODE BLOCK ---
+Represents an HTTP response
+--- CODE BLOCK 20 ---
+TransformStream
+--- END CODE BLOCK ---
+Represents URL search parameters
+--- CODE BLOCK 21 ---
+WritableStream
+--- END CODE BLOCK ---
+Represents a websocket connection
+Encoding APIs
+Description
+--- CODE BLOCK 22 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+Decodes a base-64 encoded string
+--- CODE BLOCK 25 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+Encodes a string in base-64
+--- CODE BLOCK 26 ---
+AbortController
+--- END CODE BLOCK ---
+Decodes a Uint8Array into a string
+--- CODE BLOCK 28 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Chainable decoder for streams
+--- CODE BLOCK 31 ---
+BigInt64Array
+--- END CODE BLOCK ---
+Encodes a string into a Uint8Array
+--- CODE BLOCK 32 ---
+BigUint64Array
+--- END CODE BLOCK ---
+Chainable encoder for streams
+Stream APIs
+Description
+--- CODE BLOCK 36 ---
+clearInterval
+--- END CODE BLOCK ---
+Represents a readable stream
+--- CODE BLOCK 37 ---
+setInterval()
+--- END CODE BLOCK ---
+Represents a reader of a ReadableStream
+--- CODE BLOCK 38 ---
+clearTimeout
+--- END CODE BLOCK ---
+Represents a reader of a ReadableStream
+--- CODE BLOCK 39 ---
+setTimeout()
+--- END CODE BLOCK ---
+Represents a transform stream
+--- CODE BLOCK 42 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Represents a writable stream
+--- CODE BLOCK 46 ---
+decodeURIComponent
+--- END CODE BLOCK ---
+Represents a writer of a WritableStream
+Crypto APIs
+Description
+--- CODE BLOCK 47 ---
+encodeURIComponent
+--- END CODE BLOCK ---
+Provides access to the cryptographic functionality of the platform
+--- CODE BLOCK 48 ---
+DOMException
+--- END CODE BLOCK ---
+Represents a cryptographic key
+--- CODE BLOCK 50 ---
+encodeURIComponent
+--- END CODE BLOCK ---
+Provides access to common cryptographic primitives, like hashing, signing, encryption or decryption
+Web Standard APIs
+Description
+--- CODE BLOCK 54 ---
+Float32Array
+--- END CODE BLOCK ---
+Allows you to abort one or more DOM requests as and when desired
+--- CODE BLOCK 55 ---
+Float64Array
+--- END CODE BLOCK ---
+Represents an array of values
+--- CODE BLOCK 74 ---
+queueMicrotask
+--- END CODE BLOCK ---
+Represents a generic, fixed-length raw binary data buffer
+--- CODE BLOCK 76 ---
+ReferenceError
+--- END CODE BLOCK ---
+Provides atomic operations as static methods
+--- CODE BLOCK 80 ---
+setInterval
+--- END CODE BLOCK ---
+Represents a whole number with arbitrary precision
+--- CODE BLOCK 82 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+Represents a typed array of 64-bit signed integers
+--- CODE BLOCK 84 ---
+structuredClone
+--- END CODE BLOCK ---
+Represents a typed array of 64-bit unsigned integers
+--- CODE BLOCK 86 ---
+SyntaxError
+--- END CODE BLOCK ---
+Represents a logical entity and can have two values:
+--- CODE BLOCK 89 ---
+Uint8ClampedArray
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+Uint32Array
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+URLSearchParams
+--- END CODE BLOCK ---
+Cancels a timed, repeating action which was previously established by a call to
+--- CODE BLOCK 97 ---
+WebAssembly
+--- END CODE BLOCK ---
+--- CODE BLOCK 98 ---
+AsyncLocalStorage
+--- END CODE BLOCK ---
+Cancels a timed, repeating action which was previously established by a call to
+--- CODE BLOCK 99 ---
+process.env
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+node_modules
+--- END CODE BLOCK ---
+Provides access to the browser's debugging console
+--- CODE BLOCK 105 ---
+new Function(evalString)
+--- END CODE BLOCK ---
+Represents a generic view of an
+--- CODE BLOCK 106 ---
+WebAssembly.compile
+--- END CODE BLOCK ---
+--- CODE BLOCK 107 ---
+WebAssembly.instantiate
+--- END CODE BLOCK ---
+Represents a single moment in time in a platform-independent format
+--- CODE BLOCK 108 ---
+export const config = {
+unstable_allowDynamic: [
+// allows a single file
+'/lib/utilities.js',
+// use a glob to allow anything in the function-bind 3rd party module
+'**/node_modules/function-bind/**',
+--- END CODE BLOCK ---
+Decodes a Uniform Resource Identifier (URI) previously created by
+--- CODE BLOCK 109 ---
+export const config = {
+unstable_allowDynamic: [
+// allows a single file
+'/lib/utilities.js',
+// use a glob to allow anything in the function-bind 3rd party module
+'**/node_modules/function-bind/**',
+--- END CODE BLOCK ---
+or by a similar routine
+--- CODE BLOCK 110 ---
+unstable_allowDynamic
+--- END CODE BLOCK ---
+Decodes a Uniform Resource Identifier (URI) component previously created by
+[CODE_BLOCK_47]
+or by a similar routine
+[CODE_BLOCK_48]
+Represents an error that occurs in the DOM
+[CODE_BLOCK_49]
+Encodes a Uniform Resource Identifier (URI) by replacing each instance of certain characters by one, two, three, or four escape sequences representing the UTF-8 encoding of the character
+[CODE_BLOCK_50]
+Encodes a Uniform Resource Identifier (URI) component by replacing each instance of certain characters by one, two, three, or four escape sequences representing the UTF-8 encoding of the character
+[CODE_BLOCK_51]
+Represents an error when trying to execute a statement or accessing a property
+[CODE_BLOCK_52]
+Represents an error that occurs regarding the global function
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+Represents a typed array of 32-bit floating point numbers
+[CODE_BLOCK_55]
+Represents a typed array of 64-bit floating point numbers
+[CODE_BLOCK_56]
+Represents a function
+[CODE_BLOCK_57]
+Represents the mathematical Infinity value
+[CODE_BLOCK_58]
+Represents a typed array of 8-bit signed integers
+[CODE_BLOCK_59]
+Represents a typed array of 16-bit signed integers
+[CODE_BLOCK_60]
+Represents a typed array of 32-bit signed integers
+[CODE_BLOCK_61]
+Provides access to internationalization and localization functionality
+[CODE_BLOCK_62]
+Determines whether a value is a finite number
+[CODE_BLOCK_63]
+Determines whether a value is
+[CODE_BLOCK_64]
+or not
+[CODE_BLOCK_65]
+Provides functionality to convert JavaScript values to and from the JSON format
+[CODE_BLOCK_66]
+Represents a collection of values, where each value may occur only once
+[CODE_BLOCK_67]
+Provides access to mathematical functions and constants
+[CODE_BLOCK_68]
+Represents a numeric value
+[CODE_BLOCK_69]
+Represents the object that is the base of all JavaScript objects
+[CODE_BLOCK_70]
+Parses a string argument and returns a floating point number
+[CODE_BLOCK_71]
+Parses a string argument and returns an integer of the specified radix
+[CODE_BLOCK_72]
+Represents the eventual completion (or failure) of an asynchronous operation, and its resulting value
+[CODE_BLOCK_73]
+Represents an object that is used to define custom behavior for fundamental operations (e.g. property lookup, assignment, enumeration, function invocation, etc)
+[CODE_BLOCK_74]
+Queues a microtask to be executed
+[CODE_BLOCK_75]
+Represents an error when a value is not in the set or range of allowed values
+[CODE_BLOCK_76]
+Represents an error when a non-existent variable is referenced
+[CODE_BLOCK_77]
+Provides methods for interceptable JavaScript operations
+[CODE_BLOCK_78]
+Represents a regular expression, allowing you to match combinations of characters
+[CODE_BLOCK_79]
+Represents a collection of values, where each value may occur only once
+[CODE_BLOCK_80]
+Repeatedly calls a function, with a fixed time delay between each call
+[CODE_BLOCK_81]
+Calls a function or evaluates an expression after a specified number of milliseconds
+[CODE_BLOCK_82]
+Represents a generic, fixed-length raw binary data buffer
+[CODE_BLOCK_83]
+Represents a sequence of characters
+[CODE_BLOCK_84]
+Creates a deep copy of a value
+[CODE_BLOCK_85]
+Represents a unique and immutable data type that is used as the key of an object property
+[CODE_BLOCK_86]
+Represents an error when trying to interpret syntactically invalid code
+[CODE_BLOCK_87]
+Represents an error when a value is not of the expected type
+[CODE_BLOCK_88]
+Represents a typed array of 8-bit unsigned integers
+[CODE_BLOCK_89]
+Represents a typed array of 8-bit unsigned integers clamped to 0-255
+[CODE_BLOCK_90]
+Represents a typed array of 32-bit unsigned integers
+[CODE_BLOCK_91]
+Represents an error when a global URI handling function was used in a wrong way
+[CODE_BLOCK_92]
+Represents an object providing static methods used for creating object URLs
+[CODE_BLOCK_93]
+Represents a URL pattern
+[CODE_BLOCK_94]
+Represents a collection of key/value pairs
+[CODE_BLOCK_95]
+Represents a collection of key/value pairs in which the keys are weakly referenced
+[CODE_BLOCK_96]
+Represents a collection of objects in which each object may occur only once
+[CODE_BLOCK_97]
+Provides access to WebAssembly
+Next.js Specific Polyfills
+[CODE_BLOCK_98]
+Environment Variables
+You can use
+[CODE_BLOCK_99]
+to access
+Environment Variables
+for both
+[CODE_BLOCK_100]
+[CODE_BLOCK_101]
+Unsupported APIs
+The Edge Runtime has some restrictions including:
+Native Node.js APIs
+are not supported
+. For example, you can't read or write to the filesystem.
+[CODE_BLOCK_102]
+be used, as long as they implement ES Modules and do not use native Node.js APIs.
+Calling
+[CODE_BLOCK_103]
+directly is
+not allowed
+. Use ES Modules instead.
+The following JavaScript language features are disabled, and
+will not work:
+Description
+[CODE_BLOCK_104]
+Evaluates JavaScript code represented as a string
+[CODE_BLOCK_105]
+Creates a new function with the code provided as an argument
+[CODE_BLOCK_106]
+Compiles a WebAssembly module from a buffer source
+[CODE_BLOCK_107]
+Compiles and instantiates a WebAssembly module from a buffer source
+In rare cases, your code could contain (or import) some dynamic code evaluation statements which
+can not be reached at runtime
+and which can not be removed by treeshaking.
+You can relax the check to allow specific files with your Middleware configuration:
+middleware.ts
+[CODE_BLOCK_108]
+[CODE_BLOCK_110]
+is a
+glob
+, or an array of globs, ignoring dynamic code evaluation for specific files. The globs are relative to your application root folder.
+Be warned that if these statements are executed on the Edge,
+they will throw and cause a runtime error
+Was this helpful?
+supported.
+Send

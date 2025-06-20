@@ -1,0 +1,162 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/testing/vitest
+SCRAPED: 2025-06-19 17:46:44
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Testing
+Vitest
+You are currently viewing the documentation for Pages Router.
+How to set up Vitest with Next.js
+Vite and React Testing Library are frequently used together for
+Unit Testing
+. This guide will show you how to setup Vitest with Next.js and write your first tests.
+Good to know:
+Since
+--- CODE BLOCK 3 ---
+create-next-app
+--- END CODE BLOCK ---
+Server Components are new to the React ecosystem, Vitest currently does not support them. While you can still run
+unit tests
+for synchronous Server and Client Components, we recommend using
+E2E tests
+--- CODE BLOCK 4 ---
+npx create-next-app@latest --example with-vitest with-vitest-app
+--- END CODE BLOCK ---
+components.
+Quickstart
+You can use
+--- CODE BLOCK 5 ---
+npx create-next-app@latest --example with-vitest with-vitest-app
+--- END CODE BLOCK ---
+with the Next.js
+with-vitest
+example to quickly get started:
+Terminal
+--- CODE BLOCK 7 ---
+# Using TypeScript
+npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/dom vite-tsconfig-paths
+# Using JavaScript
+npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/dom
+--- END CODE BLOCK ---
+Manual Setup
+To manually set up Vitest, install
+--- CODE BLOCK 9 ---
+vitest.config.mts|js
+--- END CODE BLOCK ---
+and the following packages as dev dependencies:
+Terminal
+--- CODE BLOCK 10 ---
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
+export default defineConfig({
+plugins: [tsconfigPaths(), react()],
+test: {
+environment: 'jsdom',
+--- END CODE BLOCK ---
+Create a
+--- CODE BLOCK 13 ---
+package.json
+--- END CODE BLOCK ---
+file in the root of your project, and add the following options:
+vitest.config.mts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"test": "vitest"
+--- END CODE BLOCK ---
+For more information on configuring Vitest, please refer to the
+Vitest Configuration
+docs.
+Then, add a
+--- CODE BLOCK 16 ---
+npm run test
+--- END CODE BLOCK ---
+script to your
+--- CODE BLOCK 18 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<div>
+<h1>Home</h1>
+<Link href="/about">About</Link>
+</div>
+--- END CODE BLOCK ---
+package.json
+--- CODE BLOCK 19 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<div>
+<h1>Home</h1>
+<Link href="/about">About</Link>
+</div>
+--- END CODE BLOCK ---
+When you run
+--- CODE BLOCK 21 ---
+import { expect, test } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import Page from '../pages/index'
+test('Page', () => {
+render(<Page />)
+expect(screen.getByRole('heading', { level: 1, name: 'Home' })).toBeDefined()
+--- END CODE BLOCK ---
+, Vitest will
+watch
+for changes in your project by default.
+Creating your first Vitest Unit Test
+Check that everything is working by creating a test to check if the
+--- CODE BLOCK 22 ---
+npm run test
+# or
+yarn test
+# or
+pnpm test
+# or
+bun test
+--- END CODE BLOCK ---
+component successfully renders a heading:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 23 ---
+npm run test
+# or
+yarn test
+# or
+pnpm test
+# or
+bun test
+--- END CODE BLOCK ---
+__tests__/index.test.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_20]
+Running your tests
+Then, run the following command to run your tests:
+Terminal
+[CODE_BLOCK_22]
+Additional Resources
+You may find these resources helpful:
+Next.js with Vitest example
+Vitest Docs
+React Testing Library Docs
+Was this helpful?
+supported.
+Send

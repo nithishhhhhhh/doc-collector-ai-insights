@@ -1,0 +1,418 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer
+SCRAPED: 2025-06-19 18:20:08
+================================================================================
+
+--- CODE BLOCK 1 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+object is used to represent a generic raw binary data buffer, similar to the
+--- CODE BLOCK 2 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+object, but in a way that they can be used to create views on shared memory. A
+--- CODE BLOCK 3 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+is not a
+Transferable Object
+, unlike an
+--- CODE BLOCK 4 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+which is transferable.
+Description
+To share memory using
+--- CODE BLOCK 5 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects from one agent in the cluster to another (an agent is either the web page's main program or one of its web workers),
+--- CODE BLOCK 6 ---
+postMessage
+--- END CODE BLOCK ---
+structured cloning
+is used.
+The structured clone algorithm accepts
+--- CODE BLOCK 7 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects and typed arrays mapped onto
+--- CODE BLOCK 8 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects. In both cases, the
+--- CODE BLOCK 9 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+object is transmitted to the receiver resulting in a new, private
+--- CODE BLOCK 10 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+object in the receiving agent (just as for
+--- CODE BLOCK 11 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+). However, the shared data block referenced by the two
+--- CODE BLOCK 12 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects is the same data block, and a side effect to the block in one agent will eventually become visible in the other agent.
+Copy to Clipboard
+--- CODE BLOCK 13 ---
+const sab = new SharedArrayBuffer(1024);
+worker.postMessage(sab);
+--- END CODE BLOCK ---
+Shared memory can be created and updated simultaneously in workers or the main thread. Depending on the system (the CPU, the OS, the Browser) it can take a while until the change is propagated to all contexts. To synchronize,
+atomic
+operations are needed.
+--- CODE BLOCK 15 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects are used by some web APIs, such as:
+--- CODE BLOCK 16 ---
+WebGLRenderingContext.bufferData()
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+WebGLRenderingContext.bufferSubData()
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+WebGL2RenderingContext.getBufferSubData()
+--- END CODE BLOCK ---
+Security requirements
+Shared memory and high-resolution timers were effectively
+disabled at the start of 2018
+in light of
+Spectre
+In 2020, a new, secure approach has been standardized to re-enable shared memory.
+To use shared memory your document must be in a
+secure context
+cross-origin isolated
+You can use the
+--- CODE BLOCK 19 ---
+Window.crossOriginIsolated
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+WorkerGlobalScope.crossOriginIsolated
+--- END CODE BLOCK ---
+properties to check if the document is cross-origin isolated:
+Copy to Clipboard
+--- CODE BLOCK 21 ---
+const myWorker = new Worker("worker.js");
+if (crossOriginIsolated) {
+const buffer = new SharedArrayBuffer(16);
+myWorker.postMessage(buffer);
+} else {
+const buffer = new ArrayBuffer(16);
+myWorker.postMessage(buffer);
+--- END CODE BLOCK ---
+When cross-origin isolated,
+--- CODE BLOCK 23 ---
+postMessage()
+--- END CODE BLOCK ---
+no longer throws for
+--- CODE BLOCK 24 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects, and shared memory across threads is therefore available.
+API availability
+Depending on whether the above security measures are taken, the various memory-sharing APIs have different availabilities:
+--- CODE BLOCK 26 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+object is always available.
+--- CODE BLOCK 27 ---
+WebAssembly.Memory
+--- END CODE BLOCK ---
+objects are in principle always available, but unfortunately the constructor on the global object is hidden, unless the two headers mentioned above are set, for compatibility with web content. There is hope that this restriction can be removed in the future.
+--- CODE BLOCK 28 ---
+postMessage()
+--- END CODE BLOCK ---
+can still be used to get an instance.
+Unless the two headers mentioned above are set, the various
+--- CODE BLOCK 29 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+APIs will throw for
+--- CODE BLOCK 30 ---
+postMessage()
+--- END CODE BLOCK ---
+objects. If they are set,
+--- CODE BLOCK 32 ---
+WebAssembly.Memory
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+postMessage()
+--- END CODE BLOCK ---
+objects and dedicated workers will function and allow for memory sharing.
+WebAssembly shared memory
+--- CODE BLOCK 37 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+objects can be created with the
+--- CODE BLOCK 40 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+constructor flag. When this flag is set to
+--- CODE BLOCK 41 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+, the constructed
+--- CODE BLOCK 42 ---
+WebAssembly.Memory
+--- END CODE BLOCK ---
+object can be shared between workers via
+--- CODE BLOCK 43 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+, just like
+--- CODE BLOCK 44 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+, and the backing
+--- CODE BLOCK 45 ---
+maxByteLength
+--- END CODE BLOCK ---
+of the
+--- CODE BLOCK 46 ---
+SharedArrayBuffer()
+--- END CODE BLOCK ---
+object is a
+--- CODE BLOCK 47 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+. Therefore, the requirements listed above for sharing a
+--- CODE BLOCK 49 ---
+maxByteLength
+--- END CODE BLOCK ---
+between workers also apply to sharing a
+--- CODE BLOCK 50 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+The WebAssembly Threads proposal also defines a new set of
+atomic
+instructions. Just as
+--- CODE BLOCK 52 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+and its methods are unconditionally enabled (and only sharing between threads is gated on the new headers), the WebAssembly atomic instructions are also unconditionally allowed.
+Growing SharedArrayBuffers
+--- CODE BLOCK 53 ---
+WebAssembly.Memory.prototype.grow()
+--- END CODE BLOCK ---
+objects can be made growable by including the
+--- CODE BLOCK 54 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+option when calling the
+--- CODE BLOCK 55 ---
+SharedArrayBuffer()
+--- END CODE BLOCK ---
+constructor. You can query whether a
+--- CODE BLOCK 56 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+is growable and what its maximum size is by accessing its
+--- CODE BLOCK 57 ---
+SharedArrayBuffer[Symbol.species]
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+properties, respectively. You can assign a new size to a growable
+--- CODE BLOCK 59 ---
+SharedArrayBuffer.prototype
+--- END CODE BLOCK ---
+with a
+--- CODE BLOCK 60 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+call. New bytes are initialized to 0.
+These features make growing
+--- CODE BLOCK 61 ---
+SharedArrayBuffer.prototype.byteLength
+--- END CODE BLOCK ---
+s more efficient — otherwise, you have to make a copy of the buffer with a new size. It also gives JavaScript parity with WebAssembly in this regard (Wasm linear memory can be resized with
+--- CODE BLOCK 62 ---
+SharedArrayBuffer.prototype.grow()
+--- END CODE BLOCK ---
+For security reasons,
+--- CODE BLOCK 63 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+s cannot be reduced in size, only grown.
+Constructor
+--- CODE BLOCK 64 ---
+SharedArrayBuffer.prototype.constructor
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 65 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+object.
+Static properties
+--- CODE BLOCK 66 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+Returns the constructor used to construct return values from
+--- CODE BLOCK 67 ---
+SharedArrayBuffer.prototype.growable
+--- END CODE BLOCK ---
+methods.
+Instance properties
+These properties are defined on
+--- CODE BLOCK 69 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 71 ---
+SharedArrayBuffer.prototype.maxByteLength
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 72 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+The size, in bytes, of the array. This is established when the array is constructed and can only be changed using the
+--- CODE BLOCK 73 ---
+SharedArrayBuffer.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+method if the
+--- CODE BLOCK 74 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+is growable.
+--- CODE BLOCK 75 ---
+"SharedArrayBuffer"
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 76 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 77 ---
+SharedArrayBuffer.prototype.grow()
+--- END CODE BLOCK ---
+constructor.
+--- CODE BLOCK 78 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+Read-only. Returns
+--- CODE BLOCK 79 ---
+SharedArrayBuffer.prototype.slice()
+--- END CODE BLOCK ---
+if the
+--- CODE BLOCK 80 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+can be grown, or
+--- CODE BLOCK 81 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+if not.
+--- CODE BLOCK 86 ---
+const sab = new SharedArrayBuffer(1024);
+--- END CODE BLOCK ---
+The read-only maximum length, in bytes, that the
+--- CODE BLOCK 87 ---
+const sab = new SharedArrayBuffer(1024);
+--- END CODE BLOCK ---
+can be grown to. This is established when the array is constructed and cannot be changed.
+--- CODE BLOCK 88 ---
+sab.slice(); // SharedArrayBuffer { byteLength: 1024 }
+sab.slice(2); // SharedArrayBuffer { byteLength: 1022 }
+sab.slice(-2); // SharedArrayBuffer { byteLength: 2 }
+sab.slice(0, 1); // SharedArrayBuffer { byteLength: 1 }
+--- END CODE BLOCK ---
+The initial value of the
+--- CODE BLOCK 89 ---
+sab.slice(); // SharedArrayBuffer { byteLength: 1024 }
+sab.slice(2); // SharedArrayBuffer { byteLength: 1022 }
+sab.slice(-2); // SharedArrayBuffer { byteLength: 2 }
+sab.slice(0, 1); // SharedArrayBuffer { byteLength: 1 }
+--- END CODE BLOCK ---
+property is the string
+--- CODE BLOCK 90 ---
+const canvas = document.querySelector("canvas");
+const gl = canvas.getContext("webgl");
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, sab, gl.STATIC_DRAW);
+--- END CODE BLOCK ---
+. This property is used in
+--- CODE BLOCK 91 ---
+const canvas = document.querySelector("canvas");
+const gl = canvas.getContext("webgl");
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, sab, gl.STATIC_DRAW);
+--- END CODE BLOCK ---
+Instance methods
+--- CODE BLOCK 93 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Grows the
+--- CODE BLOCK 94 ---
+Cross-Origin-Opener-Policy
+--- END CODE BLOCK ---
+to the specified size, in bytes.
+--- CODE BLOCK 95 ---
+Cross-Origin-Embedder-Policy
+--- END CODE BLOCK ---
+Returns a new
+--- CODE BLOCK 96 ---
+Cross-Origin-Resource-Policy
+--- END CODE BLOCK ---
+whose contents are a copy of this
+--- CODE BLOCK 97 ---
+Window.crossOriginIsolated
+--- END CODE BLOCK ---
+'s bytes from
+--- CODE BLOCK 98 ---
+WorkerGlobalScope.crossOriginIsolated
+--- END CODE BLOCK ---
+, inclusive, up to
+[CODE_BLOCK_83]
+, exclusive. If either
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+is negative, it refers to an index from the end of the array, as opposed to from the beginning.
+Examples
+Creating a new SharedArrayBuffer
+Copy to Clipboard
+[CODE_BLOCK_86]
+Slicing the SharedArrayBuffer
+Copy to Clipboard
+[CODE_BLOCK_88]
+Using it in a WebGL buffer
+Copy to Clipboard
+[CODE_BLOCK_90]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-sharedarraybuffer-objects
+Browser compatibility
+See also
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+JavaScript typed arrays
+guide
+Web Workers
+Shared Memory – a brief tutorial
+in the TC39 ecmascript-sharedmem proposal
+A Taste of JavaScript's New Parallel Primitives
+on hacks.mozilla.org (2016)
+COOP and COEP explained
+by the Chrome team (2020)
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+SharedArrayBuffer updates in Android Chrome 88 and Desktop Chrome 92
+on developer.chrome.com (2021)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

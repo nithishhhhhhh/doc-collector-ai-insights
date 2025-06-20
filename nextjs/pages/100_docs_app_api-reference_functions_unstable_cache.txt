@@ -1,0 +1,130 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/unstable_cache
+SCRAPED: 2025-06-19 17:20:51
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+unstable_cache
+unstable_cache
+Warning:
+This API will be replaced by
+--- CODE BLOCK 2 ---
+unstable_cache
+--- END CODE BLOCK ---
+when it reaches stability.
+--- CODE BLOCK 3 ---
+import { getUser } from './data';
+import { unstable_cache } from 'next/cache';
+const getCachedUser = unstable_cache(
+async (id) => getUser(id),
+['my-app-user']
+export default async function Component({ userID }) {
+const user = await getCachedUser(userID);
+--- END CODE BLOCK ---
+allows you to cache the results of expensive operations, like database queries, and reuse them across multiple requests.
+--- CODE BLOCK 4 ---
+import { getUser } from './data';
+import { unstable_cache } from 'next/cache';
+const getCachedUser = unstable_cache(
+async (id) => getUser(id),
+['my-app-user']
+export default async function Component({ userID }) {
+const user = await getCachedUser(userID);
+--- END CODE BLOCK ---
+Good to know
+Accessing dynamic data sources such as
+--- CODE BLOCK 9 ---
+const data = unstable_cache(fetchData, keyParts, options)()
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+unstable_cache
+--- END CODE BLOCK ---
+inside a cache scope is not supported. If you need this data inside a cached function use
+--- CODE BLOCK 18 ---
+revalidateTag()
+--- END CODE BLOCK ---
+outside of the cached function and pass the required dynamic data in as an argument.
+This API uses Next.js' built-in
+Data Cache
+to persist the result across requests and deployments.
+Parameters
+--- CODE BLOCK 19 ---
+revalidatePath()
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+import { unstable_cache } from 'next/cache'
+export default async function Page({
+params,
+}: {
+params: Promise<{ userId: string }>
+}) {
+const { userId } = await params
+const getCachedUser = unstable_cache(
+async () => {
+return { id: userId }
+[userId], // add the user ID to the cache key
+tags: ['users'],
+revalidate: 60,
+//...
+--- END CODE BLOCK ---
+: This is an asynchronous function that fetches the data you want to cache. It must be a function that returns a
+--- CODE BLOCK 22 ---
+import { unstable_cache } from 'next/cache'
+export default async function Page({
+params,
+}: {
+params: Promise<{ userId: string }>
+}) {
+const { userId } = await params
+const getCachedUser = unstable_cache(
+async () => {
+return { id: userId }
+[userId], // add the user ID to the cache key
+tags: ['users'],
+revalidate: 60,
+//...
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+unstable_cache
+--- END CODE BLOCK ---
+: This is an extra array of keys that further adds identification to the cache. By default,
+[CODE_BLOCK_13]
+already uses the arguments and the stringified version of your function as the cache key. It is optional in most cases; the only time you need to use it is when you use external variables without passing them as parameters. However, it is important to add closures used within the function if you do not pass them as parameters.
+[CODE_BLOCK_14]
+: This is an object that controls how the cache behaves. It can contain the following properties:
+[CODE_BLOCK_15]
+: An array of tags that can be used to control cache invalidation. Next.js will not use this to uniquely identify the function.
+[CODE_BLOCK_16]
+: The number of seconds after which the cache should be revalidated. Omit or pass
+[CODE_BLOCK_17]
+to cache indefinitely or until matching
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+methods are called.
+Returns
+[CODE_BLOCK_20]
+returns a function that when invoked, returns a Promise that resolves to the cached data. If the data is not in the cache, the provided function will be invoked, and its result will be cached and returned.
+Example
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_21]
+Version History
+Version
+Changes
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+introduced.
+Was this helpful?
+supported.
+Send

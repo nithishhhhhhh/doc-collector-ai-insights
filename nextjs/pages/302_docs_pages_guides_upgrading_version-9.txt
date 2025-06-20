@@ -1,0 +1,329 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/upgrading/version-9
+SCRAPED: 2025-06-19 17:44:57
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Upgrading
+Version 9
+You are currently viewing the documentation for Pages Router.
+How to upgrade to version 9
+To upgrade to version 9, run the following command:
+Terminal
+--- CODE BLOCK 1 ---
+npm i next@9
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 3 ---
+yarn add next@9
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 5 ---
+pnpm up next@9
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 7 ---
+bun add next@9
+--- END CODE BLOCK ---
+Good to know:
+If you are using TypeScript, ensure you also upgrade
+--- CODE BLOCK 9 ---
+@types/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+@types/react-dom
+--- END CODE BLOCK ---
+to their corresponding versions.
+Check your Custom App File (
+--- CODE BLOCK 11 ---
+pages/_app.js
+--- END CODE BLOCK ---
+If you previously copied the
+Custom
+--- CODE BLOCK 13 ---
+getInitialProps
+--- END CODE BLOCK ---
+example, you may be able to remove your
+--- CODE BLOCK 14 ---
+getInitialProps
+--- END CODE BLOCK ---
+Removing
+--- CODE BLOCK 15 ---
+pages/_app.js
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 16 ---
+getInitialProps
+--- END CODE BLOCK ---
+(when possible) is important to leverage new Next.js features!
+The following
+--- CODE BLOCK 17 ---
+class MyApp extends App {
+// Remove me, I do nothing!
+static async getInitialProps({ Component, ctx }) {
+let pageProps = {}
+if (Component.getInitialProps) {
+pageProps = await Component.getInitialProps(ctx)
+return { pageProps }
+render() {
+// ... etc
+--- END CODE BLOCK ---
+does nothing and may be removed:
+--- CODE BLOCK 18 ---
+class MyApp extends App {
+// Remove me, I do nothing!
+static async getInitialProps({ Component, ctx }) {
+let pageProps = {}
+if (Component.getInitialProps) {
+pageProps = await Component.getInitialProps(ctx)
+return { pageProps }
+render() {
+// ... etc
+--- END CODE BLOCK ---
+Breaking Changes
+--- CODE BLOCK 20 ---
+@zeit/next-typescript
+--- END CODE BLOCK ---
+is no longer necessary
+Next.js will now ignore usage
+--- CODE BLOCK 21 ---
+next.config.js
+--- END CODE BLOCK ---
+and warn you to remove it. Please remove this plugin from your
+--- CODE BLOCK 22 ---
+@zeit/next-typescript/babel
+--- END CODE BLOCK ---
+Remove references to
+--- CODE BLOCK 24 ---
+fork-ts-checker-webpack-plugin
+--- END CODE BLOCK ---
+from your custom
+--- CODE BLOCK 25 ---
+next.config.js
+--- END CODE BLOCK ---
+(if present).
+The usage of
+--- CODE BLOCK 27 ---
+@types/next
+--- END CODE BLOCK ---
+should also be removed from your
+--- CODE BLOCK 28 ---
+import { NextContext } from 'next'
+import { NextAppContext, DefaultAppIProps } from 'next/app'
+import { NextDocumentContext, DefaultDocumentIProps } from 'next/document'
+--- END CODE BLOCK ---
+TypeScript Definitions are published with the
+--- CODE BLOCK 29 ---
+import { NextContext } from 'next'
+import { NextAppContext, DefaultAppIProps } from 'next/app'
+import { NextDocumentContext, DefaultDocumentIProps } from 'next/document'
+--- END CODE BLOCK ---
+package, so you need to uninstall
+--- CODE BLOCK 30 ---
+import { NextPageContext } from 'next'
+import { AppContext, AppInitialProps } from 'next/app'
+import { DocumentContext, DocumentInitialProps } from 'next/document'
+--- END CODE BLOCK ---
+as they would conflict.
+The following types are different:
+This list was created by the community to help you upgrade, if you find other differences please send a pull-request to this list to help other users.
+From:
+--- CODE BLOCK 31 ---
+import { NextPageContext } from 'next'
+import { AppContext, AppInitialProps } from 'next/app'
+import { DocumentContext, DocumentInitialProps } from 'next/document'
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+export const config ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+import dynamic from 'next/dynamic'
+const DynamicComponentWithCustomLoading = dynamic(
+() => import('../components/hello2'),
+loading: () => <p>Loading</p>,
+--- END CODE BLOCK ---
+key is now an export on a page
+You may no longer export a custom variable named
+--- CODE BLOCK 40 ---
+import dynamic from 'next/dynamic'
+const DynamicComponentWithCustomLoading = dynamic(
+() => import('../components/hello2'),
+loading: () => <p>Loading</p>,
+--- END CODE BLOCK ---
+from a page (i.e.
+--- CODE BLOCK 43 ---
+curl -L https://github.com/vercel/next-codemod/archive/master.tar.gz | tar -xz --strip=2 next-codemod-master/transforms/withamp-to-config.js npx jscodeshift -t ./withamp-to-config.js pages/**/*.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+curl -L https://github.com/vercel/next-codemod/archive/master.tar.gz | tar -xz --strip=2 next-codemod-master/transforms/withamp-to-config.js npx jscodeshift -t ./withamp-to-config.js pages/**/*.js
+--- END CODE BLOCK ---
+This exported variable is now used to specify page-level Next.js configuration like Opt-in AMP and API Route features.
+You must rename a non-Next.js-purposed
+--- CODE BLOCK 45 ---
+import { withAmp } from 'next/amp'
+function Home() {
+return <h1>My AMP Page</h1>
+export default withAmp(Home)
+// or
+export default withAmp(Home, { hybrid: true })
+--- END CODE BLOCK ---
+export to something different.
+--- CODE BLOCK 46 ---
+import { withAmp } from 'next/amp'
+function Home() {
+return <h1>My AMP Page</h1>
+export default withAmp(Home)
+// or
+export default withAmp(Home, { hybrid: true })
+--- END CODE BLOCK ---
+no longer renders "loading..." by default while loading
+Dynamic components will not render anything by default while loading. You can still customize this behavior by setting the
+--- CODE BLOCK 47 ---
+export default function Home() {
+return <h1>My AMP Page</h1>
+export const config = {
+amp: true,
+// or
+amp: 'hybrid',
+--- END CODE BLOCK ---
+property:
+--- CODE BLOCK 48 ---
+export default function Home() {
+return <h1>My AMP Page</h1>
+export const config = {
+amp: true,
+// or
+amp: 'hybrid',
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+pages/about.js
+--- END CODE BLOCK ---
+has been removed in favor of an exported configuration object
+Next.js now has the concept of page-level configuration, so the
+--- CODE BLOCK 52 ---
+out/about/index.html
+--- END CODE BLOCK ---
+higher-order component has been removed for consistency.
+This change can be
+automatically migrated by running the following commands in the root of your Next.js project:
+Terminal
+--- CODE BLOCK 53 ---
+out/about.html
+--- END CODE BLOCK ---
+To perform this migration by hand, or view what the codemod will produce, see below:
+Before
+--- CODE BLOCK 55 ---
+module.exports = {
+trailingSlash: true,
+--- END CODE BLOCK ---
+After
+--- CODE BLOCK 59 ---
+next/dynamic
+--- END CODE BLOCK ---
+--- CODE BLOCK 63 ---
+import dynamic from 'next/dynamic'
+const HelloBundle = dynamic({
+modules: () => {
+const components = {
+Hello1: () => import('../components/hello1').then((m) => m.default),
+Hello2: () => import('../components/hello2').then((m) => m.default),
+return components
+render: (props, { Hello1, Hello2 }) => (
+<div>
+<h1>{props.title}</h1>
+<Hello1 />
+<Hello2 />
+</div>
+function DynamicBundle() {
+return <HelloBundle title="Dynamic Bundle" />
+export default DynamicBundle
+--- END CODE BLOCK ---
+no longer exports pages as
+--- CODE BLOCK 64 ---
+import dynamic from 'next/dynamic'
+const HelloBundle = dynamic({
+modules: () => {
+const components = {
+Hello1: () => import('../components/hello1').then((m) => m.default),
+Hello2: () => import('../components/hello2').then((m) => m.default),
+return components
+render: (props, { Hello1, Hello2 }) => (
+<div>
+<h1>{props.title}</h1>
+<Hello1 />
+<Hello2 />
+</div>
+function DynamicBundle() {
+return <HelloBundle title="Dynamic Bundle" />
+export default DynamicBundle
+--- END CODE BLOCK ---
+Previously, exporting
+--- CODE BLOCK 65 ---
+import dynamic from 'next/dynamic'
+const Hello1 = dynamic(() => import('../components/hello1'))
+const Hello2 = dynamic(() => import('../components/hello2'))
+function HelloBundle({ title }) {
+return (
+<div>
+<h1>{title}</h1>
+<Hello1 />
+<Hello2 />
+</div>
+function DynamicBundle() {
+return <HelloBundle title="Dynamic Bundle" />
+export default DynamicBundle
+--- END CODE BLOCK ---
+would result in
+--- CODE BLOCK 66 ---
+import dynamic from 'next/dynamic'
+const Hello1 = dynamic(() => import('../components/hello1'))
+const Hello2 = dynamic(() => import('../components/hello2'))
+function HelloBundle({ title }) {
+return (
+<div>
+<h1>{title}</h1>
+<Hello1 />
+<Hello2 />
+</div>
+function DynamicBundle() {
+return <HelloBundle title="Dynamic Bundle" />
+export default DynamicBundle
+--- END CODE BLOCK ---
+. This behavior has been changed to result in
+[CODE_BLOCK_53]
+You can revert to the previous behavior by creating a
+[CODE_BLOCK_54]
+with the following content:
+next.config.js
+[CODE_BLOCK_55]
+[CODE_BLOCK_57]
+is treated differently
+Pages in
+[CODE_BLOCK_58]
+are now considered
+API Routes
+Pages in this directory will no longer contain a client-side bundle.
+Deprecated Features
+[CODE_BLOCK_59]
+has deprecated loading multiple modules at once
+The ability to load multiple modules at once has been deprecated in
+[CODE_BLOCK_60]
+to be closer to React's implementation (
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+Updating code that relies on this behavior is relatively straightforward! We've provided an example of a before/after to help you migrate your application:
+Before
+[CODE_BLOCK_63]
+After
+[CODE_BLOCK_65]
+Was this helpful?
+supported.
+Send

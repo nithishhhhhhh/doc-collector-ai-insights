@@ -1,0 +1,79 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/rendering/server-side-rendering
+SCRAPED: 2025-06-19 17:14:40
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Rendering
+Server-side Rendering (SSR)
+You are currently viewing the documentation for Pages Router.
+Server-side Rendering (SSR)
+Also referred to as "SSR" or "Dynamic Rendering".
+If a page uses
+Server-side Rendering
+, the page HTML is generated on
+each request
+To use Server-side Rendering for a page, you need to
+--- CODE BLOCK 3 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+getServerSideProps
+--- END CODE BLOCK ---
+function called
+--- CODE BLOCK 6 ---
+export default function Page({ data }) {
+// Render data...
+// This gets called on every request
+export async function getServerSideProps() {
+// Fetch data from external API
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+// Pass data to the page via props
+return { props: { data } }
+--- END CODE BLOCK ---
+. This function will be called by the server on every request.
+For example, suppose that your page needs to pre-render frequently updated data (fetched from an external API). You can write
+--- CODE BLOCK 7 ---
+export default function Page({ data }) {
+// Render data...
+// This gets called on every request
+export async function getServerSideProps() {
+// Fetch data from external API
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+// Pass data to the page via props
+return { props: { data } }
+--- END CODE BLOCK ---
+which fetches this data and passes it to
+--- CODE BLOCK 8 ---
+getServerSideProps
+--- END CODE BLOCK ---
+like below:
+--- CODE BLOCK 9 ---
+getStaticProps
+--- END CODE BLOCK ---
+As you can see,
+--- CODE BLOCK 11 ---
+getServerSideProps
+--- END CODE BLOCK ---
+is similar to
+[CODE_BLOCK_9]
+, but the difference is that
+[CODE_BLOCK_10]
+is run on every request instead of on build time.
+To learn more about how
+[CODE_BLOCK_11]
+works, check out our
+Data Fetching documentation
+Was this helpful?
+supported.
+Send

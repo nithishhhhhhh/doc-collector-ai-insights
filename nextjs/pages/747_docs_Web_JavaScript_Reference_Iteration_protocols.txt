@@ -1,0 +1,1120 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols
+SCRAPED: 2025-06-19 18:34:28
+================================================================================
+
+Iteration protocols
+aren't new built-ins or syntax, but
+protocols
+. These protocols can be implemented by any object by following some conventions.
+There are two protocols: The
+iterable protocol
+and the
+iterator protocol
+The iterable protocol
+The iterable protocol
+allows JavaScript objects to define or customize their iteration behavior, such as what values are looped over in a
+--- CODE BLOCK 5 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+construct. Some built-in types are
+built-in iterables
+with a default iteration behavior, such as
+--- CODE BLOCK 6 ---
+[Symbol.iterator]
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+Symbol.iterator
+--- END CODE BLOCK ---
+, while other types (such as
+--- CODE BLOCK 8 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+) are not.
+In order to be
+iterable
+, an object must implement the
+--- CODE BLOCK 10 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+method, meaning that the object (or one of the objects up its
+prototype chain
+) must have a property with a
+--- CODE BLOCK 15 ---
+IteratorResult
+--- END CODE BLOCK ---
+key which is available via constant
+--- CODE BLOCK 20 ---
+"iterator.next() returned a non-object value"
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+IteratorResult
+--- END CODE BLOCK ---
+A zero-argument function that returns an object, conforming to the
+iterator protocol
+Whenever an object needs to be iterated (such as at the beginning of a
+--- CODE BLOCK 33 ---
+{ done: false, value: undefined }
+--- END CODE BLOCK ---
+loop), its
+--- CODE BLOCK 40 ---
+return(value)
+--- END CODE BLOCK ---
+method is called with no arguments, and the returned
+iterator
+is used to obtain the values to be iterated.
+Note that when this zero-argument function is called, it is invoked as a method on the iterable object. Therefore inside of the function, the
+--- CODE BLOCK 41 ---
+throw(exception)
+--- END CODE BLOCK ---
+keyword can be used to access the properties of the iterable object, to decide what to provide during the iteration.
+This function can be an ordinary function, or it can be a generator function, so that when invoked, an iterator object is returned. Inside of this generator function, each entry can be provided by using
+--- CODE BLOCK 42 ---
+return(value)
+--- END CODE BLOCK ---
+The iterator protocol
+The iterator protocol
+defines a standard way to produce a sequence of values (either finite or infinite), and potentially a return value when all values have been generated.
+An object is an iterator when it implements a
+--- CODE BLOCK 43 ---
+IteratorResult
+--- END CODE BLOCK ---
+method with the following semantics:
+--- CODE BLOCK 52 ---
+throw(exception)
+--- END CODE BLOCK ---
+A function that accepts zero or one argument and returns an object conforming to the
+--- CODE BLOCK 53 ---
+IteratorResult
+--- END CODE BLOCK ---
+interface (see below). If a non-object value gets returned (such as
+--- CODE BLOCK 62 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+// Satisfies both the Iterator Protocol and Iterable
+const myIterator = {
+next() {
+// …
+[Symbol.iterator]() {
+return this;
+--- END CODE BLOCK ---
+) when a built-in language feature (such as
+--- CODE BLOCK 65 ---
+// Satisfies both the Iterator Protocol and Iterable
+const myIterator = {
+next() {
+// …
+[Symbol.iterator]() {
+return this;
+--- END CODE BLOCK ---
+) is using the iterator, a
+--- CODE BLOCK 66 ---
+const aGeneratorObject = (function* () {
+yield 1;
+yield 2;
+yield 3;
+})();
+console.log(typeof aGeneratorObject.next);
+// "function" — it has a next method (which returns the right result), so it's an iterator
+console.log(typeof aGeneratorObject[Symbol.iterator]);
+// "function" — it has an [Symbol.iterator] method (which returns the right iterator), so it's an iterable
+console.log(aGeneratorObject[Symbol.iterator]() === aGeneratorObject);
+// true — its [Symbol.iterator] method returns itself (an iterator), so it's an iterable iterator
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+const aGeneratorObject = (function* () {
+yield 1;
+yield 2;
+yield 3;
+})();
+console.log(typeof aGeneratorObject.next);
+// "function" — it has a next method (which returns the right result), so it's an iterator
+console.log(typeof aGeneratorObject[Symbol.iterator]);
+// "function" — it has an [Symbol.iterator] method (which returns the right iterator), so it's an iterable
+console.log(aGeneratorObject[Symbol.iterator]() === aGeneratorObject);
+// true — its [Symbol.iterator] method returns itself (an iterator), so it's an iterable iterator
+--- END CODE BLOCK ---
+) will be thrown.
+All iterator protocol methods (
+--- CODE BLOCK 68 ---
+Iterator.prototype
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 71 ---
+iterable[Symbol.iterator]()
+--- END CODE BLOCK ---
+) are expected to return an object implementing the
+--- CODE BLOCK 72 ---
+Set.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+interface. It must have the following properties:
+--- CODE BLOCK 73 ---
+[Symbol.asyncIterator]()
+--- END CODE BLOCK ---
+Optional
+A boolean that's
+--- CODE BLOCK 75 ---
+IteratorResult
+--- END CODE BLOCK ---
+if the iterator was able to produce the next value in the sequence. (This is equivalent to not specifying the
+--- CODE BLOCK 76 ---
+return(value)
+--- END CODE BLOCK ---
+property altogether.)
+Has the value
+--- CODE BLOCK 77 ---
+IteratorResult
+--- END CODE BLOCK ---
+if the iterator has completed its sequence. In this case,
+--- CODE BLOCK 78 ---
+throw(exception)
+--- END CODE BLOCK ---
+optionally specifies the return value of the iterator.
+--- CODE BLOCK 79 ---
+IteratorResult
+--- END CODE BLOCK ---
+Optional
+Any JavaScript value returned by the iterator. Can be omitted when
+--- CODE BLOCK 86 ---
+Intl.Segmenter.prototype.segment()
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+In practice, neither property is strictly required; if an object without either property is returned, it's effectively equivalent to
+--- CODE BLOCK 91 ---
+ReadableStream
+--- END CODE BLOCK ---
+If an iterator returns a result with
+--- CODE BLOCK 92 ---
+Symbol.asyncIterator
+--- END CODE BLOCK ---
+, any subsequent calls to
+--- CODE BLOCK 94 ---
+[Symbol.iterator]() { return this; }
+--- END CODE BLOCK ---
+are expected to return
+--- CODE BLOCK 97 ---
+console.log([][Symbol.iterator]());
+Array Iterator {}
+[[Prototype]]: Array Iterator     ==> This is the prototype shared by all array iterators
+next: ƒ next()
+Symbol(Symbol.toStringTag): "Array Iterator"
+[[Prototype]]: Object           ==> This is the prototype shared by all built-in iterators
+Symbol(Symbol.iterator): ƒ [Symbol.iterator]()
+[[Prototype]]: Object         ==> This is Object.prototype
+--- END CODE BLOCK ---
+as well, although this is not enforced on the language level.
+--- CODE BLOCK 102 ---
+Promise.all()
+--- END CODE BLOCK ---
+method can receive a value which will be made available to the method body. No built-in language feature will pass any value. The value passed to the
+--- CODE BLOCK 103 ---
+Promise.allSettled()
+--- END CODE BLOCK ---
+method of
+generators
+will become the value of the corresponding
+--- CODE BLOCK 104 ---
+Promise.race()
+--- END CODE BLOCK ---
+expression.
+Optionally, the iterator can also implement the
+--- CODE BLOCK 105 ---
+Promise.any()
+--- END CODE BLOCK ---
+--- CODE BLOCK 106 ---
+Array.from()
+--- END CODE BLOCK ---
+methods, which, when called, tells the iterator that the caller is done with iterating it and can perform any necessary cleanup (such as closing database connection).
+--- CODE BLOCK 107 ---
+Object.groupBy()
+--- END CODE BLOCK ---
+Optional
+A function that accepts zero or one argument and returns an object conforming to the
+--- CODE BLOCK 108 ---
+Map.groupBy()
+--- END CODE BLOCK ---
+interface, typically with
+--- CODE BLOCK 109 ---
+const myObj = {};
+new WeakSet(
+(function* () {
+yield {};
+yield myObj;
+yield {};
+})(),
+).has(myObj); // true
+--- END CODE BLOCK ---
+equal to the
+--- CODE BLOCK 110 ---
+const myObj = {};
+new WeakSet(
+(function* () {
+yield {};
+yield myObj;
+yield {};
+})(),
+).has(myObj); // true
+--- END CODE BLOCK ---
+passed in and
+--- CODE BLOCK 113 ---
+for (const value of ["a", "b", "c"]) {
+console.log(value);
+// "a"
+// "b"
+// "c"
+console.log([..."abc"]); // ["a", "b", "c"]
+function* gen() {
+yield* ["a", "b", "c"];
+console.log(gen().next()); // { value: "a", done: false }
+[a, b, c] = new Set(["a", "b", "c"]);
+console.log(a); // "a"
+--- END CODE BLOCK ---
+equal to
+--- CODE BLOCK 114 ---
+for (const value of ["a", "b", "c"]) {
+console.log(value);
+// "a"
+// "b"
+// "c"
+console.log([..."abc"]); // ["a", "b", "c"]
+function* gen() {
+yield* ["a", "b", "c"];
+console.log(gen().next()); // { value: "a", done: false }
+[a, b, c] = new Set(["a", "b", "c"]);
+console.log(a); // "a"
+--- END CODE BLOCK ---
+. Calling this method tells the iterator that the caller does not intend to make any more
+--- CODE BLOCK 121 ---
+const obj = {
+[Symbol.iterator]() {
+let i = 0;
+return {
+next() {
+i++;
+console.log("Returning", i);
+if (i === 3) return { done: true, value: i };
+return { done: false, value: i };
+return() {
+console.log("Closing");
+return { done: true };
+const [a] = obj;
+// Returning 1
+// Closing
+const [b, c, d] = obj;
+// Returning 1
+// Returning 2
+// Returning 3
+// Already reached the end (the last call returned `done: true`),
+// so `return` is not called
+console.log([b, c, d]); // [1, 2, undefined]; the value associated with `done: true` is not reachable
+for (const b of obj) {
+break;
+// Returning 1
+// Closing
+--- END CODE BLOCK ---
+calls and can perform any cleanup actions. When built-in language features call
+--- CODE BLOCK 122 ---
+const obj = {
+[Symbol.iterator]() {
+let i = 0;
+return {
+next() {
+i++;
+console.log("Returning", i);
+if (i === 3) return { done: true, value: i };
+return { done: false, value: i };
+return() {
+console.log("Closing");
+return { done: true };
+const [a] = obj;
+// Returning 1
+// Closing
+const [b, c, d] = obj;
+// Returning 1
+// Returning 2
+// Returning 3
+// Already reached the end (the last call returned `done: true`),
+// so `return` is not called
+console.log([b, c, d]); // [1, 2, undefined]; the value associated with `done: true` is not reachable
+for (const b of obj) {
+break;
+// Returning 1
+// Closing
+--- END CODE BLOCK ---
+for cleanup,
+--- CODE BLOCK 123 ---
+for await...of
+--- END CODE BLOCK ---
+is always
+--- CODE BLOCK 126 ---
+[Symbol.asyncIterator]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 127 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+Optional
+A function that accepts zero or one argument and returns an object conforming to the
+--- CODE BLOCK 128 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+interface, typically with
+--- CODE BLOCK 129 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+equal to
+--- CODE BLOCK 130 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+. Calling this method tells the iterator that the caller detects an error condition, and
+--- CODE BLOCK 132 ---
+const nonWellFormedIterable = { [Symbol.iterator]: 1 };
+[...nonWellFormedIterable]; // TypeError: nonWellFormedIterable is not iterable
+nonWellFormedIterable[Symbol.iterator] = () => 1;
+[...nonWellFormedIterable]; // TypeError: [Symbol.iterator]() returned a non-object value
+nonWellFormedIterable[Symbol.iterator] = () => ({});
+[...nonWellFormedIterable]; // TypeError: nonWellFormedIterable[Symbol.iterator]().next is not a function
+--- END CODE BLOCK ---
+is typically an
+--- CODE BLOCK 133 ---
+const nonWellFormedIterable = { [Symbol.iterator]: 1 };
+[...nonWellFormedIterable]; // TypeError: nonWellFormedIterable is not iterable
+nonWellFormedIterable[Symbol.iterator] = () => 1;
+[...nonWellFormedIterable]; // TypeError: [Symbol.iterator]() returned a non-object value
+nonWellFormedIterable[Symbol.iterator] = () => ({});
+[...nonWellFormedIterable]; // TypeError: nonWellFormedIterable[Symbol.iterator]().next is not a function
+--- END CODE BLOCK ---
+instance. No built-in language feature calls
+--- CODE BLOCK 134 ---
+[Symbol.asyncIterator]()
+--- END CODE BLOCK ---
+for cleanup purposes — it's a special feature of generators for the symmetry of
+--- CODE BLOCK 137 ---
+[Symbol.iterator]
+--- END CODE BLOCK ---
+--- CODE BLOCK 138 ---
+[Symbol.asyncIterator]
+--- END CODE BLOCK ---
+Note:
+It is not possible to know reflectively (i.e., without actually calling
+--- CODE BLOCK 155 ---
+try {
+for (const value of iterable) {
+// …
+} catch (e) {
+// Handle the error
+--- END CODE BLOCK ---
+and validating the returned result) whether a particular object implements the iterator protocol.
+It is very easy to make an iterator also iterable: just implement an
+--- CODE BLOCK 156 ---
+try {
+for (const value of iterable) {
+// …
+} catch (e) {
+// Handle the error
+--- END CODE BLOCK ---
+method that returns
+--- CODE BLOCK 163 ---
+function* gen() {
+try {
+yield doSomething();
+yield doSomethingElse();
+} finally {
+cleanup();
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 164 ---
+function* gen() {
+try {
+yield doSomething();
+yield doSomethingElse();
+} finally {
+cleanup();
+--- END CODE BLOCK ---
+Such object is called an
+iterable iterator
+. Doing so allows an iterator to be consumed by the various syntaxes expecting iterables — therefore, it is seldom useful to implement the Iterator Protocol without also implementing Iterable. (In fact, almost all syntaxes and APIs expect
+iterables
+, not
+iterators
+.) The
+generator object
+is an example:
+Copy to Clipboard
+--- CODE BLOCK 167 ---
+doSomethingElse()
+--- END CODE BLOCK ---
+All built-in iterators inherit from
+--- CODE BLOCK 180 ---
+for await...of
+--- END CODE BLOCK ---
+, which implements the
+--- CODE BLOCK 181 ---
+Array.fromAsync
+--- END CODE BLOCK ---
+method as returning
+--- CODE BLOCK 185 ---
+{ done: true, value: undefined }
+--- END CODE BLOCK ---
+, so that built-in iterators are also iterable.
+However, when possible, it's better for
+--- CODE BLOCK 188 ---
+{ done: true, value: undefined }
+--- END CODE BLOCK ---
+to return different iterators that always start from the beginning, like
+--- CODE BLOCK 195 ---
+const myIterable = {
+*[Symbol.iterator]() {
+yield 1;
+yield 2;
+yield 3;
+console.log([...myIterable]); // [1, 2, 3]
+--- END CODE BLOCK ---
+does.
+The async iterator and async iterable protocols
+There are another pair of protocols used for async iteration, named
+async iterator
+async iterable
+protocols. They have very similar interfaces compared to the iterable and iterator protocols, except that each return value from the calls to the iterator methods is wrapped in a promise.
+An object implements the async iterable protocol when it implements the following methods:
+--- CODE BLOCK 196 ---
+const myIterable = {
+*[Symbol.iterator]() {
+yield 1;
+yield 2;
+yield 3;
+console.log([...myIterable]); // [1, 2, 3]
+--- END CODE BLOCK ---
+A zero-argument function that returns an object, conforming to the async iterator protocol.
+An object implements the async iterator protocol when it implements the following methods:
+--- CODE BLOCK 197 ---
+function makeIterator(array) {
+let nextIndex = 0;
+return {
+next() {
+return nextIndex < array.length
+value: array[nextIndex++],
+done: false,
+done: true,
+const it = makeIterator(["yo", "ya"]);
+console.log(it.next().value); // 'yo'
+console.log(it.next().value); // 'ya'
+console.log(it.next().done); // true
+--- END CODE BLOCK ---
+A function that accepts zero or one argument and returns a promise. The promise fulfills to an object conforming to the
+--- CODE BLOCK 198 ---
+function makeIterator(array) {
+let nextIndex = 0;
+return {
+next() {
+return nextIndex < array.length
+value: array[nextIndex++],
+done: false,
+done: true,
+const it = makeIterator(["yo", "ya"]);
+console.log(it.next().value); // 'yo'
+console.log(it.next().value); // 'ya'
+console.log(it.next().done); // true
+--- END CODE BLOCK ---
+interface, and the properties have the same semantics as those of the sync iterator's.
+--- CODE BLOCK 199 ---
+function idMaker() {
+let index = 0;
+return {
+next() {
+return {
+value: index++,
+done: false,
+const it = idMaker();
+console.log(it.next().value); // 0
+console.log(it.next().value); // 1
+console.log(it.next().value); // 2
+// …
+--- END CODE BLOCK ---
+Optional
+A function that accepts zero or one argument and returns a promise. The promise fulfills to an object conforming to the
+--- CODE BLOCK 200 ---
+function idMaker() {
+let index = 0;
+return {
+next() {
+return {
+value: index++,
+done: false,
+const it = idMaker();
+console.log(it.next().value); // 0
+console.log(it.next().value); // 1
+console.log(it.next().value); // 2
+// …
+--- END CODE BLOCK ---
+interface, and the properties have the same semantics as those of the sync iterator's.
+--- CODE BLOCK 201 ---
+function* makeGenerator(array) {
+let nextIndex = 0;
+while (nextIndex < array.length) {
+yield array[nextIndex++];
+const gen = makeGenerator(["yo", "ya"]);
+console.log(gen.next().value); // 'yo'
+console.log(gen.next().value); // 'ya'
+console.log(gen.next().done); // true
+function* idMaker() {
+let index = 0;
+while (true) {
+yield index++;
+const it = idMaker();
+console.log(it.next().value); // 0
+console.log(it.next().value); // 1
+console.log(it.next().value); // 2
+// …
+--- END CODE BLOCK ---
+Optional
+A function that accepts zero or one argument and returns a promise. The promise fulfills to an object conforming to the
+--- CODE BLOCK 202 ---
+function* makeGenerator(array) {
+let nextIndex = 0;
+while (nextIndex < array.length) {
+yield array[nextIndex++];
+const gen = makeGenerator(["yo", "ya"]);
+console.log(gen.next().value); // 'yo'
+console.log(gen.next().value); // 'ya'
+console.log(gen.next().done); // true
+function* idMaker() {
+let index = 0;
+while (true) {
+yield index++;
+const it = idMaker();
+console.log(it.next().value); // 0
+console.log(it.next().value); // 1
+console.log(it.next().value); // 2
+// …
+--- END CODE BLOCK ---
+interface, and the properties have the same semantics as those of the sync iterator's.
+Interactions between the language and iteration protocols
+The language specifies APIs that either produce or consume iterables and iterators.
+Built-in iterables
+--- CODE BLOCK 203 ---
+class SimpleClass {
+#data;
+constructor(data) {
+this.#data = data;
+[Symbol.iterator]() {
+// Use a new index for each iterator. This makes multiple
+// iterations over the iterable safe for non-trivial cases,
+// such as use of break or nested looping over the same iterable.
+let index = 0;
+return {
+// Note: using an arrow function allows `this` to point to the
+// one of `[Symbol.iterator]()` instead of `next()`
+next: () => {
+if (index >= this.#data.length) {
+return { done: true };
+return { value: this.#data[index++], done: false };
+const simple = new SimpleClass([1, 2, 3, 4, 5]);
+for (const val of simple) {
+console.log(val); // 1 2 3 4 5
+--- END CODE BLOCK ---
+--- CODE BLOCK 204 ---
+class SimpleClass {
+#data;
+constructor(data) {
+this.#data = data;
+[Symbol.iterator]() {
+// Use a new index for each iterator. This makes multiple
+// iterations over the iterable safe for non-trivial cases,
+// such as use of break or nested looping over the same iterable.
+let index = 0;
+return {
+// Note: using an arrow function allows `this` to point to the
+// one of `[Symbol.iterator]()` instead of `next()`
+next: () => {
+if (index >= this.#data.length) {
+return { done: true };
+return { value: this.#data[index++], done: false };
+const simple = new SimpleClass([1, 2, 3, 4, 5]);
+for (const val of simple) {
+console.log(val); // 1 2 3 4 5
+--- END CODE BLOCK ---
+--- CODE BLOCK 206 ---
+const someString = "hi";
+console.log(typeof someString[Symbol.iterator]); // "function"
+--- END CODE BLOCK ---
+--- CODE BLOCK 207 ---
+const someString = "hi";
+console.log(typeof someString[Symbol.iterator]); // "function"
+--- END CODE BLOCK ---
+--- CODE BLOCK 209 ---
+const iterator = someString[Symbol.iterator]();
+console.log(`${iterator}`); // "[object String Iterator]"
+console.log(iterator.next()); // { value: "h", done: false }
+console.log(iterator.next()); // { value: "i", done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 210 ---
+const iterator = someString[Symbol.iterator]();
+console.log(`${iterator}`); // "[object String Iterator]"
+console.log(iterator.next()); // { value: "h", done: false }
+console.log(iterator.next()); // { value: "i", done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+--- END CODE BLOCK ---
+(returned by
+--- CODE BLOCK 211 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+) are all built-in iterables, because each of their
+--- CODE BLOCK 212 ---
+// need to construct a String object explicitly to avoid auto-boxing
+const someString = new String("hi");
+someString[Symbol.iterator] = function () {
+return {
+// this is the iterator object, returning a single element (the string "bye")
+next() {
+return this._first
+? { value: "bye", done: (this._first = false) }
+: { done: true };
+_first: true,
+--- END CODE BLOCK ---
+objects implements an
+--- CODE BLOCK 213 ---
+// need to construct a String object explicitly to avoid auto-boxing
+const someString = new String("hi");
+someString[Symbol.iterator] = function () {
+return {
+// this is the iterator object, returning a single element (the string "bye")
+next() {
+return this._first
+? { value: "bye", done: (this._first = false) }
+: { done: true };
+_first: true,
+--- END CODE BLOCK ---
+method. In addition, the
+--- CODE BLOCK 214 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+object and some DOM collection types such as
+--- CODE BLOCK 215 ---
+console.log([...someString]); // ["bye"]
+console.log(`${someString}`); // "hi"
+--- END CODE BLOCK ---
+are also iterables.
+There is no object in the core JavaScript language that is async iterable. Some web APIs, such as
+--- CODE BLOCK 216 ---
+console.log([...someString]); // ["bye"]
+console.log(`${someString}`); // "hi"
+--- END CODE BLOCK ---
+, have the
+--- CODE BLOCK 217 ---
+URLSearchParams
+--- END CODE BLOCK ---
+method set by default.
+Generator functions
+return
+generator objects
+, which are iterable iterators.
+Async generator functions
+return
+async generator objects
+, which are async iterable iterators.
+The iterators returned from built-in iterables actually all inherit from a common class
+--- CODE BLOCK 218 ---
+const searchParams = new URLSearchParams(
+"deleteme1=value1&key2=value2&key3=value3",
+// Delete unwanted keys
+for (const [key, value] of searchParams) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+searchParams.delete(key);
+// Output:
+// deleteme1
+// key3
+--- END CODE BLOCK ---
+, which implements the aforementioned
+--- CODE BLOCK 219 ---
+const searchParams = new URLSearchParams(
+"deleteme1=value1&key2=value2&key3=value3",
+// Delete unwanted keys
+for (const [key, value] of searchParams) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+searchParams.delete(key);
+// Output:
+// deleteme1
+// key3
+--- END CODE BLOCK ---
+method, making them all iterable iterators. The
+--- CODE BLOCK 221 ---
+URLSearchParams
+--- END CODE BLOCK ---
+class also provides additional
+helper methods
+in addition to the
+--- CODE BLOCK 227 ---
+const myMap = new Map([
+["deleteme1", "value1"],
+["key2", "value2"],
+["key3", "value3"],
+for (const [key, value] of myMap) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+myMap.delete(key);
+// Output:
+// deleteme1
+// key2
+// key3
+--- END CODE BLOCK ---
+method required by the iterator protocol. You can inspect an iterator's prototype chain by logging it in a graphical console.
+--- CODE BLOCK 228 ---
+const myMap = new Map([
+["deleteme1", "value1"],
+["key2", "value2"],
+["key3", "value3"],
+for (const [key, value] of myMap) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+myMap.delete(key);
+// Output:
+// deleteme1
+// key2
+// key3
+--- END CODE BLOCK ---
+Built-in APIs accepting iterables
+There are many APIs that accept iterables. Some examples include:
+--- CODE BLOCK 230 ---
+const tombstone = Symbol("tombstone");
+class MyIterable {
+#data;
+constructor(data) {
+this.#data = data;
+delete(deletedKey) {
+for (let i = 0; i < this.#data.length; i++) {
+if (this.#data[i][0] === deletedKey) {
+this.#data[i] = tombstone;
+return true;
+return false;
+*[Symbol.iterator]() {
+for (const data of this.#data) {
+if (data !== tombstone) {
+yield data;
+const myIterable = new MyIterable([
+["deleteme1", "value1"],
+["key2", "value2"],
+["key3", "value3"],
+for (const [key, value] of myIterable) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+myIterable.delete(key);
+--- END CODE BLOCK ---
+--- CODE BLOCK 231 ---
+const tombstone = Symbol("tombstone");
+class MyIterable {
+#data;
+constructor(data) {
+this.#data = data;
+delete(deletedKey) {
+for (let i = 0; i < this.#data.length; i++) {
+if (this.#data[i][0] === deletedKey) {
+this.#data[i] = tombstone;
+return true;
+return false;
+*[Symbol.iterator]() {
+for (const data of this.#data) {
+if (data !== tombstone) {
+yield data;
+const myIterable = new MyIterable([
+["deleteme1", "value1"],
+["key2", "value2"],
+["key3", "value3"],
+for (const [key, value] of myIterable) {
+console.log(key);
+if (key.startsWith("deleteme")) {
+myIterable.delete(key);
+--- END CODE BLOCK ---
+--- CODE BLOCK 233 ---
+Symbol.iterator
+--- END CODE BLOCK ---
+[CODE_BLOCK_101]
+[CODE_BLOCK_102]
+[CODE_BLOCK_103]
+[CODE_BLOCK_104]
+[CODE_BLOCK_105]
+[CODE_BLOCK_106]
+[CODE_BLOCK_107]
+[CODE_BLOCK_108]
+Copy to Clipboard
+[CODE_BLOCK_109]
+Syntaxes expecting iterables
+Some statements and expressions expect iterables, for example the
+[CODE_BLOCK_111]
+loops,
+array and parameter spreading
+[CODE_BLOCK_112]
+, and
+array destructuring
+Copy to Clipboard
+[CODE_BLOCK_113]
+When built-in syntaxes are iterating an iterator, and the last result's
+[CODE_BLOCK_115]
+[CODE_BLOCK_116]
+(i.e., the iterator is able to produce more values) but no more values are needed, the
+[CODE_BLOCK_117]
+method will get called if present. This can happen, for example, if a
+[CODE_BLOCK_118]
+[CODE_BLOCK_119]
+is encountered in a
+[CODE_BLOCK_120]
+loop, or if all identifiers are already bound in an array destructuring.
+Copy to Clipboard
+[CODE_BLOCK_121]
+[CODE_BLOCK_123]
+loop and
+[CODE_BLOCK_124]
+async generator functions
+(but not
+sync generator functions
+) are the only ways to interact with async iterables. Using
+[CODE_BLOCK_125]
+, array spreading, etc. on an async iterable that's not also a sync iterable (i.e., it has
+[CODE_BLOCK_126]
+but no
+[CODE_BLOCK_127]
+) will throw a TypeError: x is not iterable.
+Error handling
+Because iteration involves transferring control back and forth between the iterator and the consumer, error handling happens in both ways: how the consumer handles errors thrown by the iterator, and how the iterator handles errors thrown by the consumer. When you are using one of the built-in ways of iteration, the language may also throw errors because the iterable breaks certain invariants. We will describe how built-in syntaxes generate and handle errors, which can be used as a guideline for your own code if you are manually stepping the iterator.
+Non-well-formed iterables
+Errors may happen when acquiring the iterator from the iterable. The language invariant enforced here is that the iterable must produce a valid iterator:
+It has a callable
+[CODE_BLOCK_128]
+method.
+[CODE_BLOCK_129]
+method returns an object.
+The object returned by
+[CODE_BLOCK_130]
+has a callable
+[CODE_BLOCK_131]
+method.
+When using built-in syntax to initiate iteration on a non-well-formed iterable, a TypeError is thrown.
+Copy to Clipboard
+[CODE_BLOCK_132]
+For async iterables, if its
+[CODE_BLOCK_134]
+property has value
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+, JavaScript falls back to using the
+[CODE_BLOCK_137]
+property instead (and wraps the resulting iterator into an async iterator by
+forwarding
+the methods). Otherwise, the
+[CODE_BLOCK_138]
+property must conform to the above invariants too.
+This type of errors can be prevented by first validating the iterable before attempting to iterate it. However, it's fairly rare because usually you know the type of the object you are iterating over. If you are receiving this iterable from some other code, you should just let the error propagate to the caller so they know an invalid input was provided.
+Errors during iteration
+Most errors happen when stepping the iterator (calling
+[CODE_BLOCK_139]
+). The language invariant enforced here is that the
+[CODE_BLOCK_140]
+method must return an object (for async iterators, an object after awaiting). Otherwise, a TypeError is thrown.
+If the invariant is broken or the
+[CODE_BLOCK_141]
+method throws an error (for async iterators, it may also return a rejected promise), the error is propagated to the caller. For built-in syntaxes, the iteration in progress is aborted without retrying or cleanup (with the assumption that if the
+[CODE_BLOCK_142]
+method threw the error, then it has cleaned up already). If you are manually calling
+[CODE_BLOCK_143]
+, you may catch the error and retry calling
+[CODE_BLOCK_144]
+, but in general you should assume the iterator is already closed.
+If the caller decides to exit iteration for any reason other than the errors in the previous paragraph, such as when it enters an error state in its own code (for example, while handling an invalid value produced by the iterator), it should call the
+[CODE_BLOCK_145]
+method on the iterator, if one exists. This allows the iterator to perform any cleanup. The
+[CODE_BLOCK_146]
+method is only called for premature exits—if
+[CODE_BLOCK_147]
+returns
+[CODE_BLOCK_148]
+, the
+[CODE_BLOCK_149]
+method is not called, with the assumption that the iterator has already cleaned up.
+[CODE_BLOCK_150]
+method might be invalid too! The language also enforces that the
+[CODE_BLOCK_151]
+method must return an object and throws a TypeError otherwise. If the
+[CODE_BLOCK_152]
+method throws an error, the error is propagated to the caller. However, if the
+[CODE_BLOCK_153]
+method is called because the caller encountered an error in its own code, then this error overrides the error thrown by the
+[CODE_BLOCK_154]
+method.
+Usually, the caller implements error handling like this:
+Copy to Clipboard
+[CODE_BLOCK_155]
+[CODE_BLOCK_157]
+will be able to catch errors thrown when
+[CODE_BLOCK_158]
+is not a valid iterable, when
+[CODE_BLOCK_159]
+throws an error, when
+[CODE_BLOCK_160]
+throws an error (if the
+[CODE_BLOCK_161]
+loop exits early), and when the
+[CODE_BLOCK_162]
+loop body throws an error.
+Most iterators are implemented with generator functions, so we will demonstrate how generator functions typically handle errors:
+Copy to Clipboard
+[CODE_BLOCK_163]
+The lack of
+[CODE_BLOCK_165]
+here causes errors thrown by
+[CODE_BLOCK_166]
+[CODE_BLOCK_167]
+to propagate to the caller of
+[CODE_BLOCK_168]
+. If these errors are caught within the generator function (which is equally advisable), the generator function can decide to continue yielding values or to exit early. However, the
+[CODE_BLOCK_169]
+block is necessary for generators that keep open resources. The
+[CODE_BLOCK_170]
+block is guaranteed to run, either when the last
+[CODE_BLOCK_171]
+is called or when
+[CODE_BLOCK_172]
+is called.
+Forwarding errors
+Some built-in syntaxes wrap an iterator into another iterator. They include the iterator produced by
+[CODE_BLOCK_173]
+iterator helper methods
+[CODE_BLOCK_174]
+[CODE_BLOCK_175]
+[CODE_BLOCK_176]
+[CODE_BLOCK_177]
+, and
+[CODE_BLOCK_178]
+[CODE_BLOCK_179]
+, and a hidden wrapper when you use async iteration (
+[CODE_BLOCK_180]
+[CODE_BLOCK_181]
+) on sync iterators. The wrapped iterator is then responsible for forwarding errors between the inner iterator and the caller.
+All wrapper iterators directly forward the
+[CODE_BLOCK_182]
+method of the inner iterator, including its return value and thrown errors.
+Wrapper iterators generally directly forward the
+[CODE_BLOCK_183]
+method of the inner iterator. If the
+[CODE_BLOCK_184]
+method doesn't exist on the inner iterator, it returns
+[CODE_BLOCK_185]
+instead. In the case of iterator helpers: if the iterator helper's
+[CODE_BLOCK_186]
+method has not been called, after trying to call
+[CODE_BLOCK_187]
+on the inner iterator, the current iterator always returns
+[CODE_BLOCK_188]
+. This is consistent with generator functions where execution hasn't entered the
+[CODE_BLOCK_189]
+expression yet.
+[CODE_BLOCK_190]
+is the only built-in syntax that forwards the
+[CODE_BLOCK_191]
+method of the inner iterator. For information on how
+[CODE_BLOCK_192]
+forwards the
+[CODE_BLOCK_193]
+[CODE_BLOCK_194]
+methods, see its own reference.
+Examples
+User-defined iterables
+You can make your own iterables like this:
+Copy to Clipboard
+[CODE_BLOCK_195]
+Basic iterator
+Iterators are stateful by nature. If you don't define it as a
+generator function
+(as the example above shows), you would likely want to encapsulate the state in a closure.
+Copy to Clipboard
+[CODE_BLOCK_197]
+Infinite iterator
+Copy to Clipboard
+[CODE_BLOCK_199]
+Defining an iterable with a generator
+Copy to Clipboard
+[CODE_BLOCK_201]
+Defining an iterable with a class
+State encapsulation can be done with
+private properties
+as well.
+Copy to Clipboard
+[CODE_BLOCK_203]
+Overriding built-in iterables
+For example, a
+[CODE_BLOCK_205]
+is a built-in iterable object:
+Copy to Clipboard
+[CODE_BLOCK_206]
+[CODE_BLOCK_208]
+default iterator
+returns the string's code points one by one:
+Copy to Clipboard
+[CODE_BLOCK_209]
+You can redefine the iteration behavior by supplying our own
+[CODE_BLOCK_211]
+Copy to Clipboard
+[CODE_BLOCK_212]
+Notice how redefining
+[CODE_BLOCK_214]
+affects the behavior of built-in constructs that use the iteration protocol:
+Copy to Clipboard
+[CODE_BLOCK_215]
+Concurrent modifications when iterating
+Almost all iterables have the same underlying semantic: they don't copy the data at the time when iteration starts. Rather, they keep a pointer and move it around. Therefore, if you add, delete, or modify elements in the collection while iterating over the collection, you may inadvertently change whether other
+unchanged
+elements in the collection are visited. This is very similar to how
+iterative array methods
+work.
+Consider the following case using a
+[CODE_BLOCK_217]
+Copy to Clipboard
+[CODE_BLOCK_218]
+Note how it never logs
+[CODE_BLOCK_220]
+. This is because a
+[CODE_BLOCK_221]
+is underlyingly a list of key-value pairs. When
+[CODE_BLOCK_222]
+is visited and deleted, all other entries are shifted to the left by one, so
+[CODE_BLOCK_223]
+occupies the position that
+[CODE_BLOCK_224]
+used to be in, and when the pointer moves to the next key, it lands on
+[CODE_BLOCK_225]
+Certain iterable implementations avoid this problem by setting "tombstone" values to avoid shifting the remaining values. Consider the similar code using a
+[CODE_BLOCK_226]
+Copy to Clipboard
+[CODE_BLOCK_227]
+Note how it logs all keys. This is because
+[CODE_BLOCK_229]
+doesn't shift the remaining keys when one is deleted. If you want to implement something similar, here's how it may look:
+Copy to Clipboard
+[CODE_BLOCK_230]
+Warning:
+Concurrent modifications, in general, are very bug-prone and confusing. Unless you know precisely how the iterable is implemented, it's best to avoid modifying the collection while iterating over it.
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-iteration
+See also
+Iterators and generators
+guide
+[CODE_BLOCK_232]
+[CODE_BLOCK_233]
+[CODE_BLOCK_234]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 27, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

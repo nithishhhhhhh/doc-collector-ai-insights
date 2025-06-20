@@ -1,0 +1,321 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/draft-mode
+SCRAPED: 2025-06-19 17:44:14
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Draft Mode
+You are currently viewing the documentation for Pages Router.
+How to preview content with Draft Mode in Next.js
+In the
+Pages documentation
+and the
+Data Fetching documentation
+, we talked about how to pre-render a page at build time (
+Static Generation
+) using
+--- CODE BLOCK 1 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 2 ---
+getStaticPaths
+--- END CODE BLOCK ---
+Static Generation is useful when your pages fetch data from a headless CMS. However, it’s not ideal when you’re writing a draft on your headless CMS and want to view the draft immediately on your page. You’d want Next.js to render these pages at
+request time
+instead of build time and fetch the draft content instead of the published content. You’d want Next.js to bypass Static Generation only for this specific case.
+Next.js has a feature called
+Draft Mode
+which solves this problem. Here are instructions on how to use it.
+Step 1: Create and access the API route
+Take a look at the
+API Routes documentation
+first if you’re not familiar with Next.js API Routes.
+First, create the
+API route
+. It can have any name - e.g.
+--- CODE BLOCK 3 ---
+pages/api/draft.ts
+--- END CODE BLOCK ---
+In this API route, you need to call
+--- CODE BLOCK 4 ---
+setDraftMode
+--- END CODE BLOCK ---
+on the response object.
+--- CODE BLOCK 5 ---
+export default function handler(req, res) {
+// ...
+res.setDraftMode({ enable: true })
+// ...
+--- END CODE BLOCK ---
+This will set a
+cookie
+to enable draft mode. Subsequent requests containing this cookie will trigger
+Draft Mode
+changing the behavior for statically generated pages (more on this later).
+You can test this manually by creating an API route like below and accessing it from your browser manually:
+pages/api/draft.ts
+--- CODE BLOCK 7 ---
+// simple example for testing it manually from your browser.
+export default function handler(req, res) {
+res.setDraftMode({ enable: true })
+res.end('Draft mode is enabled')
+--- END CODE BLOCK ---
+If you open your browser’s developer tools and visit
+--- CODE BLOCK 11 ---
+__prerender_bypass
+--- END CODE BLOCK ---
+, you’ll notice a
+--- CODE BLOCK 12 ---
+pages/api/draft.ts
+--- END CODE BLOCK ---
+response header with a cookie named
+--- CODE BLOCK 13 ---
+https://<your-site>/api/draft?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+Securely accessing it from your Headless CMS
+In practice, you’d want to call this API route
+securely
+from your headless CMS. The specific steps will vary depending on which headless CMS you’re using, but here are some common steps you could take.
+These steps assume that the headless CMS you’re using supports setting
+custom draft URLs
+. If it doesn’t, you can still use this method to secure your draft URLs, but you’ll need to construct and access the draft URL manually.
+First
+, you should create a
+secret token string
+using a token generator of your choice. This secret will only be known by your Next.js app and your headless CMS. This secret prevents people who don’t have access to your CMS from accessing draft URLs.
+Second
+, if your headless CMS supports setting custom draft URLs, specify the following as the draft URL. This assumes that your draft API route is located at
+--- CODE BLOCK 14 ---
+https://<your-site>/api/draft?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 15 ---
+<your-site>
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+&slug=/posts/{entry.fields.slug}
+--- END CODE BLOCK ---
+should be your deployment domain.
+--- CODE BLOCK 23 ---
+res.setDraftMode
+--- END CODE BLOCK ---
+should be replaced with the secret token you generated.
+--- CODE BLOCK 25 ---
+export default async (req, res) => {
+// Check the secret and next parameters
+// This secret should only be known to this API route and the CMS
+if (req.query.secret !== 'MY_SECRET_TOKEN' || !req.query.slug) {
+return res.status(401).json({ message: 'Invalid token' })
+// Fetch the headless CMS to check if the provided `slug` exists
+// getPostBySlug would implement the required fetching logic to the headless CMS
+const post = await getPostBySlug(req.query.slug)
+// If the slug doesn't exist prevent draft mode from being enabled
+if (!post) {
+return res.status(401).json({ message: 'Invalid slug' })
+// Enable Draft Mode by setting the cookie
+res.setDraftMode({ enable: true })
+// Redirect to the path from the fetched post
+// We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
+res.redirect(post.slug)
+--- END CODE BLOCK ---
+should be the path for the page that you want to view. If you want to view
+--- CODE BLOCK 26 ---
+export default async (req, res) => {
+// Check the secret and next parameters
+// This secret should only be known to this API route and the CMS
+if (req.query.secret !== 'MY_SECRET_TOKEN' || !req.query.slug) {
+return res.status(401).json({ message: 'Invalid token' })
+// Fetch the headless CMS to check if the provided `slug` exists
+// getPostBySlug would implement the required fetching logic to the headless CMS
+const post = await getPostBySlug(req.query.slug)
+// If the slug doesn't exist prevent draft mode from being enabled
+if (!post) {
+return res.status(401).json({ message: 'Invalid slug' })
+// Enable Draft Mode by setting the cookie
+res.setDraftMode({ enable: true })
+// Redirect to the path from the fetched post
+// We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
+res.redirect(post.slug)
+--- END CODE BLOCK ---
+, then you should use
+--- CODE BLOCK 27 ---
+getStaticProps
+--- END CODE BLOCK ---
+Your headless CMS might allow you to include a variable in the draft URL so that
+--- CODE BLOCK 28 ---
+getStaticProps
+--- END CODE BLOCK ---
+can be set dynamically based on the CMS’s data like so:
+--- CODE BLOCK 29 ---
+getStaticProps
+--- END CODE BLOCK ---
+Finally
+, in the draft API route:
+Check that the secret matches and that the
+--- CODE BLOCK 30 ---
+res.setDraftMode
+--- END CODE BLOCK ---
+parameter exists (if not, the request should fail).
+Call
+--- CODE BLOCK 31 ---
+getStaticProps
+--- END CODE BLOCK ---
+Then redirect the browser to the path specified by
+--- CODE BLOCK 33 ---
+context.draftMode
+--- END CODE BLOCK ---
+. (The following example uses a
+307 redirect
+--- CODE BLOCK 35 ---
+export async function getStaticProps(context) {
+if (context.draftMode) {
+// dynamic data
+--- END CODE BLOCK ---
+If it succeeds, then the browser will be redirected to the path you want to view with the draft mode cookie.
+Step 2: Update
+--- CODE BLOCK 37 ---
+res.setDraftMode
+--- END CODE BLOCK ---
+The next step is to update
+--- CODE BLOCK 38 ---
+context.draftMode
+--- END CODE BLOCK ---
+to support draft mode.
+If you request a page which has
+--- CODE BLOCK 40 ---
+getStaticPaths
+--- END CODE BLOCK ---
+with the cookie set (via
+--- CODE BLOCK 41 ---
+context.params
+--- END CODE BLOCK ---
+), then
+--- CODE BLOCK 42 ---
+getStaticProps
+--- END CODE BLOCK ---
+will be called at
+request time
+(instead of at build time).
+Furthermore, it will be called with a
+--- CODE BLOCK 43 ---
+context.draftMode
+--- END CODE BLOCK ---
+object where
+--- CODE BLOCK 44 ---
+export async function getStaticProps(context) {
+const url = context.draftMode
+? 'https://draft.example.com'
+: 'https://production.example.com'
+const res = await fetch(url)
+// ...
+--- END CODE BLOCK ---
+will be
+--- CODE BLOCK 45 ---
+export async function getStaticProps(context) {
+const url = context.draftMode
+? 'https://draft.example.com'
+: 'https://production.example.com'
+const res = await fetch(url)
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+https://<your-site>/api/draft?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+We used
+--- CODE BLOCK 50 ---
+setDraftMode({ enable: false })
+--- END CODE BLOCK ---
+in the draft API route, so
+--- CODE BLOCK 51 ---
+export default function handler(req, res) {
+res.setDraftMode({ enable: false })
+--- END CODE BLOCK ---
+will be
+--- CODE BLOCK 52 ---
+export default function handler(req, res) {
+res.setDraftMode({ enable: false })
+--- END CODE BLOCK ---
+If you’re also using
+--- CODE BLOCK 53 ---
+/api/disable-draft
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 55 ---
+prefetch={false}
+--- END CODE BLOCK ---
+will also be available.
+Fetch draft data
+You can update
+--- CODE BLOCK 56 ---
+getServerSideProps
+--- END CODE BLOCK ---
+to fetch different data based on
+--- CODE BLOCK 57 ---
+getServerSideProps
+--- END CODE BLOCK ---
+For example, your headless CMS might have a different API endpoint for draft posts. If so, you can modify the API endpoint URL like below:
+--- CODE BLOCK 60 ---
+Cache-Control
+--- END CODE BLOCK ---
+That’s it! If you access the draft API route (with
+--- CODE BLOCK 63 ---
+export default function myApiRoute(req, res) {
+if (req.draftMode) {
+// get draft data
+--- END CODE BLOCK ---
+[CODE_BLOCK_47]
+) from your headless CMS or manually, you should now be able to see the draft content. And if you update your draft without publishing, you should be able to view the draft.
+Set this as the draft URL on your headless CMS or access manually, and you should be able to see the draft.
+Terminal
+[CODE_BLOCK_48]
+More Details
+Clear the Draft Mode cookie
+By default, the Draft Mode session ends when the browser is closed.
+To clear the Draft Mode cookie manually, create an API route that calls
+[CODE_BLOCK_50]
+pages/api/disable-draft.ts
+[CODE_BLOCK_51]
+Then, send a request to
+[CODE_BLOCK_53]
+to invoke the API Route. If calling this route using
+[CODE_BLOCK_54]
+, you must pass
+[CODE_BLOCK_55]
+to prevent accidentally deleting the cookie on prefetch.
+Works with
+[CODE_BLOCK_56]
+Draft Mode works with
+[CODE_BLOCK_57]
+, and is available as a
+[CODE_BLOCK_58]
+key in the
+[CODE_BLOCK_59]
+object.
+Good to know
+: You shouldn't set the
+[CODE_BLOCK_60]
+header when using Draft Mode because it cannot be bypassed. Instead, we recommend using
+Works with API Routes
+API Routes will have access to
+[CODE_BLOCK_61]
+on the request object. For example:
+[CODE_BLOCK_62]
+Unique per
+[CODE_BLOCK_64]
+A new bypass cookie value will be generated each time you run
+[CODE_BLOCK_65]
+This ensures that the bypass cookie can’t be guessed.
+Good to know
+: To test Draft Mode locally over HTTP, your browser will need to allow third-party cookies and local storage access.
+Was this helpful?
+supported.
+Send

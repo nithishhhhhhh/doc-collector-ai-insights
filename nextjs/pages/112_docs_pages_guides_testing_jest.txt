@@ -1,0 +1,459 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/testing/jest
+SCRAPED: 2025-06-19 17:22:16
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Testing
+Jest
+You are currently viewing the documentation for Pages Router.
+How to set up Jest with Next.js
+Jest and React Testing Library are frequently used together for
+Unit Testing
+Snapshot Testing
+. This guide will show you how to set up Jest with Next.js and write your first tests.
+Good to know:
+Since
+--- CODE BLOCK 3 ---
+create-next-app
+--- END CODE BLOCK ---
+Server Components are new to the React ecosystem, Jest currently does not support them. While you can still run
+unit tests
+for synchronous Server and Client Components, we recommend using an
+E2E tests
+--- CODE BLOCK 4 ---
+npx create-next-app@latest --example with-jest with-jest-app
+--- END CODE BLOCK ---
+components.
+Quickstart
+You can use
+--- CODE BLOCK 5 ---
+npx create-next-app@latest --example with-jest with-jest-app
+--- END CODE BLOCK ---
+with the Next.js
+with-jest
+example to quickly get started:
+Terminal
+--- CODE BLOCK 7 ---
+npm install -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+# or
+yarn add -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+# or
+pnpm install -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+--- END CODE BLOCK ---
+Manual setup
+Since the release of
+Next.js 12
+, Next.js now has built-in configuration for Jest.
+To set up Jest, install
+--- CODE BLOCK 9 ---
+npm init jest@latest
+# or
+yarn create jest@latest
+# or
+pnpm create jest@latest
+--- END CODE BLOCK ---
+and the following packages as dev dependencies:
+Terminal
+--- CODE BLOCK 10 ---
+npm init jest@latest
+# or
+yarn create jest@latest
+# or
+pnpm create jest@latest
+--- END CODE BLOCK ---
+Generate a basic Jest configuration file by running the following command:
+Terminal
+--- CODE BLOCK 13 ---
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
+const createJestConfig = nextJest({
+// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+dir: './',
+// Add any custom config to be passed to Jest
+const config: Config = {
+coverageProvider: 'v8',
+testEnvironment: 'jsdom',
+// Add more setup options before each test is run
+// setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config)
+--- END CODE BLOCK ---
+This will take you through a series of prompts to setup Jest for your project, including automatically creating a
+--- CODE BLOCK 18 ---
+.module.css
+--- END CODE BLOCK ---
+file.
+Update your config file to use
+--- CODE BLOCK 21 ---
+process.env
+--- END CODE BLOCK ---
+. This transformer has all the necessary configuration options for Jest to work with Next.js:
+jest.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 22 ---
+node_modules
+--- END CODE BLOCK ---
+Under the hood,
+--- CODE BLOCK 25 ---
+jest.config.ts
+--- END CODE BLOCK ---
+is automatically configuring Jest for you, including:
+Setting up
+--- CODE BLOCK 27 ---
+identity-obj-proxy
+--- END CODE BLOCK ---
+using the
+Next.js Compiler
+Auto mocking stylesheets (
+--- CODE BLOCK 28 ---
+module.exports = {
+collectCoverage: true,
+// on node 14.x coverage provider v8 offers good speed and more or less good report
+coverageProvider: 'v8',
+collectCoverageFrom: [
+'**/*.{js,jsx,ts,tsx}',
+'!**/*.d.ts',
+'!**/node_modules/**',
+'!<rootDir>/out/**',
+'!<rootDir>/.next/**',
+'!<rootDir>/*.config.js',
+'!<rootDir>/coverage/**',
+moduleNameMapper: {
+// Handle CSS imports (with CSS modules)
+// https://jestjs.io/docs/webpack#mocking-css-modules
+'^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+// Handle CSS imports (without CSS modules)
+'^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
+// Handle image imports
+// https://jestjs.io/docs/webpack#handling-static-assets
+'^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': `<rootDir>/__mocks__/fileMock.js`,
+// Handle module aliases
+'^@/components/(.*)$': '<rootDir>/components/$1',
+// Handle @next/font
+'@next/font/(.*)': `<rootDir>/__mocks__/nextFontMock.js`,
+// Handle next/font
+'next/font/(.*)': `<rootDir>/__mocks__/nextFontMock.js`,
+// Disable server-only
+'server-only': `<rootDir>/__mocks__/empty.js`,
+// Add more setup options before each test is run
+// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+testEnvironment: 'jsdom',
+transform: {
+// Use babel-jest to transpile tests with the next/babel preset
+// https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
+'^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+transformIgnorePatterns: [
+'/node_modules/',
+'^.+\\.module\\.(css|sass|scss)$',
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+module.exports = {
+collectCoverage: true,
+// on node 14.x coverage provider v8 offers good speed and more or less good report
+coverageProvider: 'v8',
+collectCoverageFrom: [
+'**/*.{js,jsx,ts,tsx}',
+'!**/*.d.ts',
+'!**/node_modules/**',
+'!<rootDir>/out/**',
+'!<rootDir>/.next/**',
+'!<rootDir>/*.config.js',
+'!<rootDir>/coverage/**',
+moduleNameMapper: {
+// Handle CSS imports (with CSS modules)
+// https://jestjs.io/docs/webpack#mocking-css-modules
+'^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+// Handle CSS imports (without CSS modules)
+'^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
+// Handle image imports
+// https://jestjs.io/docs/webpack#handling-static-assets
+'^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': `<rootDir>/__mocks__/fileMock.js`,
+// Handle module aliases
+'^@/components/(.*)$': '<rootDir>/components/$1',
+// Handle @next/font
+'@next/font/(.*)': `<rootDir>/__mocks__/nextFontMock.js`,
+// Handle next/font
+'next/font/(.*)': `<rootDir>/__mocks__/nextFontMock.js`,
+// Disable server-only
+'server-only': `<rootDir>/__mocks__/empty.js`,
+// Add more setup options before each test is run
+// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+testEnvironment: 'jsdom',
+transform: {
+// Use babel-jest to transpile tests with the next/babel preset
+// https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
+'^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+transformIgnorePatterns: [
+'/node_modules/',
+'^.+\\.module\\.(css|sass|scss)$',
+--- END CODE BLOCK ---
+, and their scss variants), image imports and
+--- CODE BLOCK 31 ---
+fileMock.js
+--- END CODE BLOCK ---
+Loading
+--- CODE BLOCK 32 ---
+styleMock.js
+--- END CODE BLOCK ---
+(and all variants) into
+--- CODE BLOCK 34 ---
+module.exports = 'test-file-stub'
+--- END CODE BLOCK ---
+Ignoring
+--- CODE BLOCK 35 ---
+module.exports = 'test-file-stub'
+--- END CODE BLOCK ---
+from test resolving and transforms.
+Ignoring
+--- CODE BLOCK 36 ---
+module.exports = {}
+--- END CODE BLOCK ---
+from test resolving.
+Loading
+--- CODE BLOCK 37 ---
+module.exports = {}
+--- END CODE BLOCK ---
+for flags that enable SWC transforms.
+Good to know
+: To test environment variables directly, load them manually in a separate setup script or in your
+--- CODE BLOCK 38 ---
+nextFontMock.js
+--- END CODE BLOCK ---
+file. For more information, please see
+Test Environment Variables
+Setting up Jest (with Babel)
+If you opt out of the
+Next.js Compiler
+and use Babel instead, you will need to manually configure Jest and install
+--- CODE BLOCK 40 ---
+module.exports = new Proxy(
+get: function getter() {
+return () => ({
+className: 'className',
+variable: 'variable',
+style: { fontFamily: 'fontFamily' },
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+module.exports = new Proxy(
+get: function getter() {
+return () => ({
+className: 'className',
+variable: 'variable',
+style: { fontFamily: 'fontFamily' },
+--- END CODE BLOCK ---
+in addition to the packages above.
+Here are the recommended options to configure Jest for Next.js:
+jest.config.js
+--- CODE BLOCK 42 ---
+jsconfig.json
+--- END CODE BLOCK ---
+You can learn more about each configuration option in the
+Jest docs
+. We also recommend reviewing
+--- CODE BLOCK 44 ---
+jest.config.js
+--- END CODE BLOCK ---
+configuration
+to see how Next.js configures Jest.
+Handling stylesheets and image imports
+Stylesheets and images aren't used in the tests but importing them may cause errors, so they will need to be mocked.
+Create the mock files referenced in the configuration above -
+--- CODE BLOCK 45 ---
+"compilerOptions": {
+"module": "esnext",
+"moduleResolution": "bundler",
+"baseUrl": "./",
+"paths": {
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+"compilerOptions": {
+"module": "esnext",
+"moduleResolution": "bundler",
+"baseUrl": "./",
+"paths": {
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+- inside a
+--- CODE BLOCK 47 ---
+moduleNameMapper: {
+// ...
+'^@/components/(.*)$': '<rootDir>/components/$1',
+--- END CODE BLOCK ---
+directory:
+__mocks__/fileMock.js
+--- CODE BLOCK 48 ---
+moduleNameMapper: {
+// ...
+'^@/components/(.*)$': '<rootDir>/components/$1',
+--- END CODE BLOCK ---
+__mocks__/styleMock.js
+--- CODE BLOCK 50 ---
+.toBeInTheDocument()
+--- END CODE BLOCK ---
+For more information on handling static assets, please refer to the
+Jest Docs
+Handling Fonts
+To handle fonts, create the
+--- CODE BLOCK 52 ---
+setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+--- END CODE BLOCK ---
+file inside the
+--- CODE BLOCK 54 ---
+import '@testing-library/jest-dom'
+--- END CODE BLOCK ---
+directory, and add the following configuration:
+__mocks__/nextFontMock.js
+--- CODE BLOCK 55 ---
+import '@testing-library/jest-dom'
+--- END CODE BLOCK ---
+Optional: Handling Absolute Imports and Module Path Aliases
+If your project is using
+Module Path Aliases
+, you will need to configure Jest to resolve the imports by matching the paths option in the
+--- CODE BLOCK 58 ---
+@testing-library/jest-dom
+--- END CODE BLOCK ---
+file with the
+--- CODE BLOCK 59 ---
+@testing-library/jest-dom/extend-expect
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 61 ---
+package.json
+--- END CODE BLOCK ---
+file. For example:
+tsconfig.json or jsconfig.json
+--- CODE BLOCK 63 ---
+package.json
+--- END CODE BLOCK ---
+jest.config.js
+--- CODE BLOCK 65 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"test": "jest",
+"test:watch": "jest --watch"
+--- END CODE BLOCK ---
+Optional: Extend Jest with custom matchers
+--- CODE BLOCK 69 ---
+export default function Home() {
+return <h1>Home</h1>
+--- END CODE BLOCK ---
+includes a set of convenient
+custom matchers
+such as
+--- CODE BLOCK 70 ---
+export default function Home() {
+return <h1>Home</h1>
+--- END CODE BLOCK ---
+making it easier to write tests. You can import the custom matchers for every test by adding the following option to the Jest configuration file:
+jest.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 71 ---
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import Home from '../pages/index'
+describe('Home', () => {
+it('renders a heading', () => {
+render(<Home />)
+const heading = screen.getByRole('heading', { level: 1 })
+expect(heading).toBeInTheDocument()
+--- END CODE BLOCK ---
+Then, inside
+--- CODE BLOCK 73 ---
+import { render } from '@testing-library/react'
+import Home from '../pages/index'
+it('renders homepage unchanged', () => {
+const { container } = render(<Home />)
+expect(container).toMatchSnapshot()
+--- END CODE BLOCK ---
+, add the following import:
+jest.setup.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 74 ---
+import { render } from '@testing-library/react'
+import Home from '../pages/index'
+it('renders homepage unchanged', () => {
+const { container } = render(<Home />)
+expect(container).toMatchSnapshot()
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 76 ---
+npm run test
+# or
+yarn test
+# or
+pnpm test
+--- END CODE BLOCK ---
+was removed in
+[CODE_BLOCK_57]
+, so if you are using
+[CODE_BLOCK_58]
+before version 6, you will need to import
+[CODE_BLOCK_59]
+instead.
+If you need to add more setup options before each test, you can add them to the
+[CODE_BLOCK_60]
+file above.
+Add a test script to
+[CODE_BLOCK_61]
+Finally, add a Jest
+[CODE_BLOCK_62]
+script to your
+[CODE_BLOCK_63]
+file:
+package.json
+[CODE_BLOCK_64]
+[CODE_BLOCK_66]
+will re-run tests when a file is changed. For more Jest CLI options, please refer to the
+Jest Docs
+Creating your first test
+Your project is now ready to run tests. Create a folder called
+[CODE_BLOCK_67]
+in your project's root directory.
+For example, we can add a test to check if the
+[CODE_BLOCK_68]
+component successfully renders a heading:
+[CODE_BLOCK_69]
+__tests__/index.test.js
+[CODE_BLOCK_71]
+Optionally, add a
+snapshot test
+to keep track of any unexpected changes in your component:
+__tests__/snapshot.js
+[CODE_BLOCK_73]
+Good to know
+: Test files should not be included inside the Pages Router because any files inside the Pages Router are considered routes.
+Running your tests
+Then, run the following command to run your tests:
+Terminal
+[CODE_BLOCK_75]
+Additional Resources
+For further reading, you may find these resources helpful:
+Next.js with Jest example
+Jest Docs
+React Testing Library Docs
+Testing Playground
+- use good testing practices to match elements.
+Was this helpful?
+supported.
+Send

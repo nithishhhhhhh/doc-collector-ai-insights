@@ -1,0 +1,388 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons
+SCRAPED: 2025-06-19 17:43:59
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+File-system conventions
+Metadata Files
+favicon, icon, and apple-icon
+favicon, icon, and apple-icon
+--- CODE BLOCK 27 ---
+favicon.ico
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+<link rel="icon" href="/favicon.ico" sizes="any" />
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 30 ---
+<link rel="icon" href="/favicon.ico" sizes="any" />
+--- END CODE BLOCK ---
+file conventions allow you to set icons for your application.
+They are useful for adding app icons that appear in places like web browser tabs, phone home screens, and search engine results.
+There are two ways to set app icons:
+Using image files (.ico, .jpg, .png)
+Using code to generate an icon (.js, .ts, .tsx)
+Image files (.ico, .jpg, .png)
+Use an image file to set an app icon by placing a
+--- CODE BLOCK 32 ---
+icon.(ico|jpg|jpeg|png|svg)
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+<link
+rel="icon"
+href="/icon?<generated>"
+type="image/<generated>"
+sizes="<generated>"
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 34 ---
+<link
+rel="icon"
+href="/icon?<generated>"
+type="image/<generated>"
+sizes="<generated>"
+--- END CODE BLOCK ---
+image file within your
+--- CODE BLOCK 36 ---
+apple-icon.(jpg|jpeg|png)
+--- END CODE BLOCK ---
+directory.
+--- CODE BLOCK 37 ---
+<link
+rel="apple-touch-icon"
+href="/apple-icon?<generated>"
+type="image/<generated>"
+sizes="<generated>"
+--- END CODE BLOCK ---
+image can only be located in the top level of
+--- CODE BLOCK 38 ---
+<link
+rel="apple-touch-icon"
+href="/apple-icon?<generated>"
+type="image/<generated>"
+sizes="<generated>"
+--- END CODE BLOCK ---
+Next.js will evaluate the file and automatically add the appropriate tags to your app's
+--- CODE BLOCK 49 ---
+type="image/png"
+--- END CODE BLOCK ---
+element.
+File convention
+Supported file types
+Valid locations
+--- CODE BLOCK 50 ---
+sizes="32x32"
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+sizes="any"
+--- END CODE BLOCK ---
+--- CODE BLOCK 63 ---
+ImageResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+import { ImageResponse } from 'next/og'
+// Image metadata
+export const size = {
+width: 32,
+height: 32,
+export const contentType = 'image/png'
+// Image generation
+export default function Icon() {
+return new ImageResponse(
+// ImageResponse JSX element
+<div
+style={{
+fontSize: 24,
+background: 'black',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+color: 'white',
+</div>
+// ImageResponse options
+// For convenience, we can re-use the exported icons size metadata
+// config to also set the ImageResponse's width and height.
+...size,
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+import { ImageResponse } from 'next/og'
+// Image metadata
+export const size = {
+width: 32,
+height: 32,
+export const contentType = 'image/png'
+// Image generation
+export default function Icon() {
+return new ImageResponse(
+// ImageResponse JSX element
+<div
+style={{
+fontSize: 24,
+background: 'black',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+color: 'white',
+</div>
+// ImageResponse options
+// For convenience, we can re-use the exported icons size metadata
+// config to also set the ImageResponse's width and height.
+...size,
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+<link rel="icon" href="/icon?<generated>" type="image/png" sizes="32x32" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+<link rel="icon" href="/icon?<generated>" type="image/png" sizes="32x32" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+--- CODE BLOCK 75 ---
+export default function Icon({ params }: { params: { slug: string } }) {
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+export default function Icon({ params }: { params: { slug: string } }) {
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+app/shop/icon.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+app/shop/[slug]/icon.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+{ slug: '1' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 84 ---
+app/shop/[tag]/[item]/icon.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+{ tag: '1', item: '2' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Add a
+--- CODE BLOCK 91 ---
+ReadableStream
+--- END CODE BLOCK ---
+image file to the root
+--- CODE BLOCK 93 ---
+ImageResponse
+--- END CODE BLOCK ---
+route segment.
+<head> output
+--- CODE BLOCK 95 ---
+contentType
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+contentType
+--- END CODE BLOCK ---
+Add an
+--- CODE BLOCK 103 ---
+export const size = { width: 32, height: 32 }
+export default function Icon() {}
+--- END CODE BLOCK ---
+image file.
+<head> output
+--- CODE BLOCK 104 ---
+export const size = { width: 32, height: 32 }
+export default function Icon() {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 106 ---
+<link rel="icon" sizes="32x32" />
+--- END CODE BLOCK ---
+Add an
+--- CODE BLOCK 107 ---
+contentType
+--- END CODE BLOCK ---
+image file.
+<head> output
+--- CODE BLOCK 108 ---
+export const contentType = 'image/png'
+export default function Icon() {}
+--- END CODE BLOCK ---
+Good to know
+You can set multiple icons by adding a number suffix to the file name. For example,
+--- CODE BLOCK 110 ---
+<link rel="icon" type="image/png" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 111 ---
+<link rel="icon" type="image/png" />
+--- END CODE BLOCK ---
+, etc. Numbered files will sort lexically.
+Favicons can only be set in the root
+[CODE_BLOCK_41]
+segment. If you need more granularity, you can use
+[CODE_BLOCK_42]
+The appropriate
+[CODE_BLOCK_43]
+tags and attributes such as
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+, and
+[CODE_BLOCK_47]
+are determined by the icon type and metadata of the evaluated file.
+For example, a 32 by 32px
+[CODE_BLOCK_48]
+file will have
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+attributes.
+[CODE_BLOCK_51]
+is added to icons when the extension is
+[CODE_BLOCK_52]
+or the image size of the file is not determined. More details in this
+favicon handbook
+Generate icons using code (.js, .ts, .tsx)
+In addition to using
+literal image files
+, you can programmatically
+generate
+icons using code.
+Generate an app icon by creating an
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+route that default exports a function.
+File convention
+Supported file types
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+The easiest way to generate an icon is to use the
+[CODE_BLOCK_63]
+API from
+[CODE_BLOCK_64]
+app/icon.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_65]
+<head> output
+[CODE_BLOCK_67]
+Good to know
+By default, generated icons are
+statically optimized
+(generated at build time and cached) unless they use
+Dynamic APIs
+or uncached data.
+You can generate multiple icons in the same file using
+[CODE_BLOCK_69]
+You cannot generate a
+[CODE_BLOCK_70]
+icon. Use
+[CODE_BLOCK_71]
+or a
+favicon.ico
+file instead.
+App icons are special Route Handlers that are cached by default unless they use a
+Dynamic API
+dynamic config
+option.
+Props
+The default export function receives the following props:
+[CODE_BLOCK_72]
+(optional)
+An object containing the
+dynamic route parameters
+object from the root segment down to the segment
+[CODE_BLOCK_73]
+[CODE_BLOCK_74]
+is colocated in.
+app/shop/[slug]/icon.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_75]
+Route
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+Returns
+The default export function should return a
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+Good to know
+[CODE_BLOCK_93]
+satisfies this return type.
+Config exports
+You can optionally configure the icon's metadata by exporting
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+variables from the
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+route.
+Option
+Type
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+[CODE_BLOCK_100]
+[CODE_BLOCK_101]
+image MIME type
+[CODE_BLOCK_102]
+icon.tsx | apple-icon.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_103]
+<head> output
+[CODE_BLOCK_105]
+[CODE_BLOCK_107]
+icon.tsx | apple-icon.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_108]
+<head> output
+[CODE_BLOCK_110]
+Route Segment Config
+[CODE_BLOCK_112]
+[CODE_BLOCK_113]
+are specialized
+Route Handlers
+that can use the same
+route segment configuration
+options as Pages and Layouts.
+Version History
+Version
+Changes
+[CODE_BLOCK_114]
+[CODE_BLOCK_115]
+[CODE_BLOCK_116]
+[CODE_BLOCK_117]
+introduced
+Was this helpful?
+supported.
+Send

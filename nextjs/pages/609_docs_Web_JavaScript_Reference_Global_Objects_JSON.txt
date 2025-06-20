@@ -1,0 +1,375 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON
+SCRAPED: 2025-06-19 18:19:16
+================================================================================
+
+--- CODE BLOCK 10 ---
+SyntaxError
+--- END CODE BLOCK ---
+namespace object contains static methods for parsing values from and converting values to
+JavaScript Object Notation
+JSON
+Description
+Unlike most global objects,
+--- CODE BLOCK 12 ---
+JSON-text = object / array
+begin-array     = ws %x5B ws  ; [ left square bracket
+begin-object    = ws %x7B ws  ; { left curly bracket
+end-array       = ws %x5D ws  ; ] right square bracket
+end-object      = ws %x7D ws  ; } right curly bracket
+name-separator  = ws %x3A ws  ; : colon
+value-separator = ws %x2C ws  ; , comma
+ws = *(
+%x20 /              ; Space
+%x09 /              ; Horizontal tab
+%x0A /              ; Line feed or New line
+%x0D                ; Carriage return
+value = false / null / true / object / array / number / string
+false = %x66.61.6c.73.65   ; false
+null  = %x6e.75.6c.6c      ; null
+true  = %x74.72.75.65      ; true
+object = begin-object [ member *( value-separator member ) ]
+end-object
+member = string name-separator value
+array = begin-array [ value *( value-separator value ) ] end-array
+number = [ minus ] int [ frac ] [ exp ]
+decimal-point = %x2E       ; .
+digit1-9 = %x31-39         ; 1-9
+e = %x65 / %x45            ; e E
+exp = e [ minus / plus ] 1*DIGIT
+frac = decimal-point 1*DIGIT
+int = zero / ( digit1-9 *DIGIT )
+minus = %x2D               ; -
+plus = %x2B                ; +
+zero = %x30                ; 0
+string = quotation-mark *char quotation-mark
+char = unescaped /
+escape (
+%x22 /          ; "    quotation mark  U+0022
+%x5C /          ; \    reverse solidus U+005C
+%x2F /          ; /    solidus         U+002F
+%x62 /          ; b    backspace       U+0008
+%x66 /          ; f    form feed       U+000C
+%x6E /          ; n    line feed       U+000A
+%x72 /          ; r    carriage return U+000D
+%x74 /          ; t    tab             U+0009
+%x75 4HEXDIG )  ; uXXXX                U+XXXX
+escape = %x5C              ; \
+quotation-mark = %x22      ; "
+unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
+HEXDIG = DIGIT / %x41-46 / %x61-66   ; 0-9, A-F, or a-f
+; HEXDIG equivalent to HEXDIG rule in [RFC5234]
+DIGIT = %x30-39            ; 0-9
+; DIGIT equivalent to DIGIT rule in [RFC5234]
+--- END CODE BLOCK ---
+is not a constructor. You cannot use it with the
+--- CODE BLOCK 15 ---
+JSON[Symbol.toStringTag]
+--- END CODE BLOCK ---
+operator
+or invoke the
+--- CODE BLOCK 16 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+object as a function. All properties and methods of
+--- CODE BLOCK 18 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+are static (just like the
+--- CODE BLOCK 19 ---
+JSON.isRawJSON()
+--- END CODE BLOCK ---
+object).
+JavaScript and JSON differences
+JSON is a syntax for serializing objects, arrays, numbers, strings, booleans, and
+--- CODE BLOCK 20 ---
+JSON.rawJSON()
+--- END CODE BLOCK ---
+. It is based upon JavaScript syntax, but is distinct from JavaScript: most of JavaScript is
+JSON. For example:
+Objects and Arrays
+Property names must be double-quoted strings;
+trailing commas
+are forbidden.
+Numbers
+Leading zeros are prohibited. A decimal point must be followed by at least one digit.
+--- CODE BLOCK 21 ---
+JSON.parse()
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+JSON.rawJSON()
+--- END CODE BLOCK ---
+are unsupported.
+Any JSON text is a valid JavaScript expression, but only after the
+JSON superset
+revision. Before the revision, U+2028 LINE SEPARATOR and U+2029 PARAGRAPH SEPARATOR are allowed in string literals and property keys in JSON; but the same use in JavaScript string literals is a
+--- CODE BLOCK 23 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+Other differences include allowing only double-quoted strings and no support for
+--- CODE BLOCK 24 ---
+"browsers": {
+"firefox": {
+"name": "Firefox",
+"pref_url": "about:config",
+"releases": {
+"1": {
+"release_date": "2004-11-09",
+"status": "retired",
+"engine": "Gecko",
+"engine_version": "1.7"
+--- END CODE BLOCK ---
+or comments. For those who wish to use a more human-friendly configuration format based on JSON, there is
+JSON5
+, used by the Babel compiler, and the more commonly used
+YAML
+The same text may represent different values in JavaScript object literals vs. JSON as well. For more information, see
+Object literal syntax vs. JSON
+Full JSON grammar
+Valid JSON syntax is formally defined by the following grammar, expressed in
+ABNF
+, and copied from
+IETF JSON standard (RFC)
+--- CODE BLOCK 25 ---
+"browsers": {
+"firefox": {
+"name": "Firefox",
+"pref_url": "about:config",
+"releases": {
+"1": {
+"release_date": "2004-11-09",
+"status": "retired",
+"engine": "Gecko",
+"engine_version": "1.7"
+--- END CODE BLOCK ---
+Insignificant
+whitespace
+may be present anywhere except within a
+--- CODE BLOCK 26 ---
+JSON.parse()
+--- END CODE BLOCK ---
+(numbers must contain no whitespace) or
+--- CODE BLOCK 27 ---
+const jsonText = `{
+"browsers": {
+"firefox": {
+"name": "Firefox",
+"pref_url": "about:config",
+"releases": {
+"1": {
+"release_date": "2004-11-09",
+"status": "retired",
+"engine": "Gecko",
+"engine_version": "1.7"
+console.log(JSON.parse(jsonText));
+--- END CODE BLOCK ---
+(where it is interpreted as the corresponding character in the string, or would cause an error). The tab (U+0009), carriage return (U+000D), line feed (U+000A), and space (U+0020) characters are the only valid whitespace characters.
+Static properties
+--- CODE BLOCK 28 ---
+const jsonText = `{
+"browsers": {
+"firefox": {
+"name": "Firefox",
+"pref_url": "about:config",
+"releases": {
+"1": {
+"release_date": "2004-11-09",
+"status": "retired",
+"engine": "Gecko",
+"engine_version": "1.7"
+console.log(JSON.parse(jsonText));
+--- END CODE BLOCK ---
+The initial value of the
+--- CODE BLOCK 29 ---
+12345678901234567890 === 12345678901234567000
+--- END CODE BLOCK ---
+property is the string
+--- CODE BLOCK 30 ---
+12345678901234567890
+--- END CODE BLOCK ---
+. This property is used in
+--- CODE BLOCK 32 ---
+const data = {
+// Using a BigInt here to store the exact value,
+// but it can also be a custom high-precision number library,
+// if the number might not be an integer.
+gross_gdp: 12345678901234567890n,
+--- END CODE BLOCK ---
+Static methods
+--- CODE BLOCK 33 ---
+const data = {
+// Using a BigInt here to store the exact value,
+// but it can also be a custom high-precision number library,
+// if the number might not be an integer.
+gross_gdp: 12345678901234567890n,
+--- END CODE BLOCK ---
+Tests whether a value is an object returned by
+--- CODE BLOCK 34 ---
+JSON.stringify
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+JSON.stringify
+--- END CODE BLOCK ---
+Parse a piece of string text as JSON, optionally transforming the produced value and its properties, and return the value.
+--- CODE BLOCK 38 ---
+JSON.parse("12345678901234567890")
+--- END CODE BLOCK ---
+Creates a "raw JSON" object containing a piece of JSON text. When serialized to JSON, the raw JSON object is treated as if it is already a piece of JSON. This text is required to be valid JSON.
+--- CODE BLOCK 39 ---
+12345678901234568000
+--- END CODE BLOCK ---
+Return a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner.
+Examples
+Example JSON
+json
+Copy to Clipboard
+--- CODE BLOCK 45 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+You can use the
+--- CODE BLOCK 47 ---
+// Using toJSON() method
+BigInt.prototype.toJSON = function () {
+return this.toString();
+const str1 = JSON.stringify(data);
+// Using JSON.stringify() with replacer
+const str2 = JSON.stringify(data, (key, value) => {
+if (key === "gross_gdp") {
+return value.toString();
+return value;
+--- END CODE BLOCK ---
+method to convert the above JSON string into a JavaScript object:
+Copy to Clipboard
+--- CODE BLOCK 48 ---
+{"gross_gdp":"12345678901234567890"}
+--- END CODE BLOCK ---
+Lossless number serialization
+JSON can contain number literals of arbitrary precision. However, it is not possible to represent all JSON numbers exactly in JavaScript, because JavaScript uses floating point representation which has a fixed precision. For example,
+--- CODE BLOCK 50 ---
+// Using toJSON() method
+BigInt.prototype.toJSON = function () {
+return JSON.rawJSON(this.toString());
+const str1 = JSON.stringify(data);
+// Using JSON.stringify() with replacer
+const str2 = JSON.stringify(data, (key, value) => {
+if (key === "gross_gdp") {
+return JSON.rawJSON(value.toString());
+return value;
+--- END CODE BLOCK ---
+in JavaScript because they have the same floating point representation. This means there is no JavaScript number that corresponds precisely to the
+--- CODE BLOCK 51 ---
+// Using toJSON() method
+BigInt.prototype.toJSON = function () {
+return JSON.rawJSON(this.toString());
+const str1 = JSON.stringify(data);
+// Using JSON.stringify() with replacer
+const str2 = JSON.stringify(data, (key, value) => {
+if (key === "gross_gdp") {
+return JSON.rawJSON(value.toString());
+return value;
+--- END CODE BLOCK ---
+JSON number.
+Let's assume you have a exact representation of some number (either via
+--- CODE BLOCK 52 ---
+JSON.rawJSON
+--- END CODE BLOCK ---
+or a custom library):
+Copy to Clipboard
+--- CODE BLOCK 53 ---
+{"gross_gdp":12345678901234567890}
+--- END CODE BLOCK ---
+You want to serialize it and then parse to the same exact number. There are several difficulties:
+On the serialization side, in order to obtain a number in JSON, you have to pass a number to
+--- CODE BLOCK 56 ---
+context.source
+--- END CODE BLOCK ---
+, either via the
+--- CODE BLOCK 57 ---
+JSON.parse()
+--- END CODE BLOCK ---
+function or via the
+--- CODE BLOCK 59 ---
+const parsedData = JSON.parse(str, (key, value, context) => {
+if (key === "gross_gdp") {
+// Or use the constructor of your custom high-precision number library
+return BigInt(context.source);
+return value;
+// { gross_gdp: 12345678901234567890n }
+--- END CODE BLOCK ---
+method. But, in either case, you have already lost precision during number conversion. If you pass a string to
+--- CODE BLOCK 60 ---
+const parsedData = JSON.parse(str, (key, value, context) => {
+if (key === "gross_gdp") {
+// Or use the constructor of your custom high-precision number library
+return BigInt(context.source);
+return value;
+// { gross_gdp: 12345678901234567890n }
+--- END CODE BLOCK ---
+, it will be serialized as a string, not a number.
+On the parsing side, not all numbers can be represented exactly. For example,
+[CODE_BLOCK_38]
+returns
+[CODE_BLOCK_39]
+because the number is rounded to the nearest representable number. Even if you use a
+[CODE_BLOCK_40]
+function, the number will already be rounded before the
+[CODE_BLOCK_41]
+function is called.
+There are, in general, two ways to ensure that numbers are losslessly converted to JSON and parsed back: one involves a JSON number, another involves a JSON string. JSON is a
+communication format
+, so if you use JSON, you are likely communicating with another system (HTTP request, storing in database, etc.). The best solution to choose depends on the recipient system.
+Using JSON strings
+If the recipient system does not have same JSON-handling capabilities as JavaScript, and does not support high precision numbers, you may want to serialize the number as a string, and then handle it as a string on the recipient side. This is also the only option in older JavaScript.
+To specify how custom data types (including
+[CODE_BLOCK_42]
+) should be serialized to JSON, either add a
+[CODE_BLOCK_43]
+method to your data type, or use the
+[CODE_BLOCK_44]
+function of
+[CODE_BLOCK_45]
+Copy to Clipboard
+[CODE_BLOCK_46]
+In either case, the JSON text will look like
+[CODE_BLOCK_48]
+, where the value is a string, not a number. Then, on the recipient side, you can parse the JSON and handle the string.
+Using JSON numbers
+If the recipient of this message natively supports high precision numbers (such as Python integers), passing numbers as JSON numbers is obviously better, because they can directly parse to the high precision type instead of parsing a string from JSON, and then parsing a number from the string. In JavaScript, you can serialize arbitrary data types to JSON numbers without producing a number value first (resulting in loss of precision) by using
+[CODE_BLOCK_49]
+to precisely specify what the JSON source text should be.
+Copy to Clipboard
+[CODE_BLOCK_50]
+The text passed to
+[CODE_BLOCK_52]
+is treated as if it is already a piece of JSON, so it won't be serialized again as a string. Therefore, the JSON text will look like
+[CODE_BLOCK_53]
+, where the value is a number. This JSON can then be parsed by the recipient without any extra processing, provided that the recipient system does not have the same precision limitations as JavaScript.
+When parsing JSON containing high-precision numbers in JavaScript, take extra care because when
+[CODE_BLOCK_54]
+invokes the
+[CODE_BLOCK_55]
+function, the value you receive is already parsed (and has lost precision). You can use the
+[CODE_BLOCK_56]
+parameter of the
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+function to re-parse the number yourself.
+Copy to Clipboard
+[CODE_BLOCK_59]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-json-object
+Browser compatibility
+See also
+JSON Diff
+JSON Beautifier/editor
+JSON Parser
+JSON Validator
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jan 20, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

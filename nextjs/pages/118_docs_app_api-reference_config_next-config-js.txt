@@ -1,0 +1,318 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js
+SCRAPED: 2025-06-19 17:22:59
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Configuration
+next.config.js
+next.config.js
+Next.js can be configured through a
+--- CODE BLOCK 1 ---
+next.config.js
+--- END CODE BLOCK ---
+file in the root of your project directory (for example, by
+--- CODE BLOCK 2 ---
+package.json
+--- END CODE BLOCK ---
+) with a default export.
+next.config.js
+--- CODE BLOCK 3 ---
+// @ts-check
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+/* config options here */
+module.exports = nextConfig
+--- END CODE BLOCK ---
+ECMAScript Modules
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+is a regular Node.js module, not a JSON file. It gets used by the Next.js server and build phases, and it's not included in the browser build.
+If you need
+ECMAScript modules
+, you can use
+--- CODE BLOCK 6 ---
+next.config.mjs
+--- END CODE BLOCK ---
+next.config.mjs
+--- CODE BLOCK 7 ---
+// @ts-check
+* @type {import('next').NextConfig}
+const nextConfig = {
+/* config options here */
+export default nextConfig
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 9 ---
+next.config
+--- END CODE BLOCK ---
+with the
+--- CODE BLOCK 13 ---
+// @ts-check
+export default (phase, { defaultConfig }) => {
+* @type {import('next').NextConfig}
+const nextConfig = {
+/* config options here */
+return nextConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+// @ts-check
+export default (phase, { defaultConfig }) => {
+* @type {import('next').NextConfig}
+const nextConfig = {
+/* config options here */
+return nextConfig
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 15 ---
+// @ts-check
+module.exports = async (phase, { defaultConfig }) => {
+* @type {import('next').NextConfig}
+const nextConfig = {
+/* config options here */
+return nextConfig
+--- END CODE BLOCK ---
+extensions are currently
+supported.
+Configuration as a Function
+You can also use a function:
+next.config.mjs
+--- CODE BLOCK 16 ---
+// @ts-check
+module.exports = async (phase, { defaultConfig }) => {
+* @type {import('next').NextConfig}
+const nextConfig = {
+/* config options here */
+return nextConfig
+--- END CODE BLOCK ---
+Async Configuration
+Since Next.js 12.1.0, you can use an async function:
+next.config.js
+--- CODE BLOCK 19 ---
+// @ts-check
+const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
+module.exports = (phase, { defaultConfig }) => {
+if (phase === PHASE_DEVELOPMENT_SERVER) {
+return {
+/* development only config options here */
+return {
+/* config options for all phases except development here */
+--- END CODE BLOCK ---
+Phase
+--- CODE BLOCK 21 ---
+next.config.ts
+--- END CODE BLOCK ---
+is the current context in which the configuration is loaded. You can see the
+available phases
+. Phases can be imported from
+--- CODE BLOCK 22 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+/* config options here */
+export default nextConfig
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 23 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+/* config options here */
+export default nextConfig
+--- END CODE BLOCK ---
+TypeScript
+If you are using TypeScript in your project, you can use
+--- CODE BLOCK 25 ---
+next.config.js
+--- END CODE BLOCK ---
+to use TypeScript in your configuration:
+next.config.ts
+--- CODE BLOCK 26 ---
+next/experimental/testing/server
+--- END CODE BLOCK ---
+The commented lines are the place where you can put the configs allowed by
+--- CODE BLOCK 28 ---
+unstable_getResponseFromNextConfig
+--- END CODE BLOCK ---
+, which are
+defined in this file
+However, none of the configs are required, and it's not necessary to understand what each config does. Instead, search for the features you need to enable or modify in this section and they will show you what to do.
+Avoid using new JavaScript features not available in your target Node.js version.
+--- CODE BLOCK 32 ---
+next.config.js
+--- END CODE BLOCK ---
+will not be parsed by Webpack or Babel.
+This page documents all the available configuration options:
+Unit Testing (experimental)
+Starting in Next.js 15.1, the
+--- CODE BLOCK 33 ---
+NextResponse
+--- END CODE BLOCK ---
+package contains utilities to help unit test
+--- CODE BLOCK 34 ---
+unstable_getResponseFromNextConfig
+--- END CODE BLOCK ---
+files.
+--- CODE BLOCK 35 ---
+next.config.js
+--- END CODE BLOCK ---
+function runs the
+--- CODE BLOCK 36 ---
+import {
+getRedirectUrl,
+unstable_getResponseFromNextConfig,
+} from 'next/experimental/testing/server'
+const response = await unstable_getResponseFromNextConfig({
+url: 'https://nextjs.org/test',
+nextConfig: {
+async redirects() {
+return [{ source: '/test', destination: '/test2', permanent: false }]
+expect(response.status).toEqual(307)
+expect(getRedirectUrl(response)).toEqual('https://nextjs.org/test2')
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+import {
+getRedirectUrl,
+unstable_getResponseFromNextConfig,
+} from 'next/experimental/testing/server'
+const response = await unstable_getResponseFromNextConfig({
+url: 'https://nextjs.org/test',
+nextConfig: {
+async redirects() {
+return [{ source: '/test', destination: '/test2', permanent: false }]
+expect(response.status).toEqual(307)
+expect(getRedirectUrl(response)).toEqual('https://nextjs.org/test2')
+--- END CODE BLOCK ---
+, and
+[CODE_BLOCK_31]
+functions from
+[CODE_BLOCK_32]
+with the provided request information and returns
+[CODE_BLOCK_33]
+with the results of the routing.
+The response from
+[CODE_BLOCK_34]
+only considers
+[CODE_BLOCK_35]
+fields and does not consider middleware or filesystem routes, so the result in production may be different than the unit test.
+[CODE_BLOCK_36]
+allowedDevOrigins
+Use `allowedDevOrigins` to configure additional origins that can request the dev server.
+appDir
+Enable the App Router to use layouts, streaming, and more.
+assetPrefix
+Learn how to use the assetPrefix config option to configure your CDN.
+authInterrupts
+Learn how to enable the experimental `authInterrupts` configuration option to use `forbidden` and `unauthorized`.
+basePath
+Use `basePath` to deploy a Next.js application under a sub-path of a domain.
+cacheLife
+Learn how to set up cacheLife configurations in Next.js.
+compress
+Next.js provides gzip compression to compress rendered content and static files, it only works with the server target. Learn more about it here.
+crossOrigin
+Use the `crossOrigin` option to add a crossOrigin tag on the `script` tags generated by `next/script`.
+cssChunking
+Use the `cssChunking` option to control how CSS files are chunked in your Next.js application.
+devIndicators
+Configuration options for the on-screen indicator that gives context about the current route you're viewing during development.
+distDir
+Set a custom build directory to use instead of the default .next directory.
+dynamicIO
+Learn how to enable the dynamicIO flag in Next.js.
+Learn to add and access environment variables in your Next.js application at build time.
+eslint
+Next.js reports ESLint errors and warnings during builds by default. Learn how to opt-out of this behavior here.
+expireTime
+Customize stale-while-revalidate expire time for ISR enabled pages.
+exportPathMap
+Customize the pages that will be exported as HTML files when using `next export`.
+generateBuildId
+Configure the build id, which is used to identify the current build in which your application is being served.
+generateEtags
+Next.js will generate etags for every page by default. Learn more about how to disable etag generation here.
+headers
+Add custom HTTP headers to your Next.js app.
+htmlLimitedBots
+Specify a list of user agents that should receive blocking metadata.
+httpAgentOptions
+Next.js will automatically use HTTP Keep-Alive by default. Learn more about how to disable HTTP Keep-Alive here.
+images
+Custom configuration for the next/image loader
+cacheHandler
+Configure the Next.js cache used for storing and revalidating data to use any external service like Redis, Memcached, or others.
+inlineCss
+Enable inline CSS support.
+logging
+Configure how data fetches are logged to the console when running Next.js in development mode.
+mdxRs
+Use the new Rust compiler to compile MDX files in the App Router.
+onDemandEntries
+Configure how Next.js will dispose and keep in memory pages created in development.
+optimizePackageImports
+API Reference for optimizePackageImports Next.js Config Option
+output
+Next.js automatically traces which files are needed by each page to allow for easy deployment of your application. Learn how it works here.
+pageExtensions
+Extend the default page extensions used by Next.js when resolving pages in the Pages Router.
+poweredByHeader
+Next.js will add the `x-powered-by` header by default. Learn to opt-out of it here.
+Learn how to enable Partial Prerendering in Next.js.
+productionBrowserSourceMaps
+Enables browser source map generation during the production build.
+reactCompiler
+Enable the React Compiler to automatically optimize component rendering.
+reactMaxHeadersLength
+The maximum length of the headers that are emitted by React and added to the response.
+reactStrictMode
+The complete Next.js runtime is now Strict Mode-compliant, learn how to opt-in
+redirects
+Add redirects to your Next.js app.
+rewrites
+Add rewrites to your Next.js app.
+sassOptions
+Configure Sass options.
+serverActions
+Configure Server Actions behavior in your Next.js application.
+serverComponentsHmrCache
+Configure whether fetch responses in Server Components are cached across HMR refresh requests.
+serverExternalPackages
+Opt-out specific dependencies from the Server Components bundling and use native Node.js `require`.
+staleTimes
+Learn how to override the invalidation time of the Client Router Cache.
+staticGeneration*
+Learn how to configure static generation in your Next.js application.
+taint
+Enable tainting Objects and Values.
+trailingSlash
+Configure Next.js pages to resolve with or without a trailing slash.
+transpilePackages
+Automatically transpile and bundle dependencies from local packages (like monorepos) or from external dependencies (`node_modules`).
+turbopack
+Configure Next.js with Turbopack-specific options
+typedRoutes
+Enable experimental support for statically typed links.
+typescript
+Next.js reports TypeScript errors by default. Learn to opt-out of this behavior here.
+urlImports
+Configure Next.js to allow importing modules from external URLs.
+useCache
+Learn how to enable the useCache flag in Next.js.
+useLightningcss
+Enable experimental support for Lightning CSS.
+viewTransition
+Enable ViewTransition API from React in App Router
+webpack
+Learn how to customize the webpack config used by Next.js
+webVitalsAttribution
+Learn how to use the webVitalsAttribution option to pinpoint the source of Web Vitals issues.
+Was this helpful?
+supported.
+Send

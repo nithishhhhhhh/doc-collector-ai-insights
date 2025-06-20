@@ -1,0 +1,422 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/third-party-libraries
+SCRAPED: 2025-06-19 17:26:48
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Third Party Libraries
+You are currently viewing the documentation for Pages Router.
+How to optimize third-party libraries
+--- CODE BLOCK 1 ---
+@next/third-parties
+--- END CODE BLOCK ---
+is a library that provides a collection of components and utilities that improve the performance and developer experience of loading popular third-party libraries in your Next.js application.
+All third-party integrations provided by
+--- CODE BLOCK 2 ---
+@next/third-parties
+--- END CODE BLOCK ---
+have been optimized for performance and ease of use.
+Getting Started
+To get started, install the
+--- CODE BLOCK 3 ---
+@next/third-parties
+--- END CODE BLOCK ---
+library:
+Terminal
+--- CODE BLOCK 4 ---
+npm install @next/third-parties@latest next@latest
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+@next/third-parties
+--- END CODE BLOCK ---
+is currently an
+experimental
+library under active development. We recommend installing it with the
+latest
+canary
+flags while we work on adding more third-party integrations.
+Google Third-Parties
+All supported third-party libraries from Google can be imported from
+--- CODE BLOCK 7 ---
+@next/third-parties/google
+--- END CODE BLOCK ---
+Google Tag Manager
+--- CODE BLOCK 8 ---
+GoogleTagManager
+--- END CODE BLOCK ---
+component can be used to instantiate a
+Google Tag Manager
+container to your page. By default, it fetches the original inline script after hydration occurs on the page.
+To load Google Tag Manager for all routes, include the component directly in your custom
+--- CODE BLOCK 10 ---
+import { GoogleTagManager } from '@next/third-parties/google'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Component {...pageProps} />
+<GoogleTagManager gtmId="GTM-XYZ" />
+--- END CODE BLOCK ---
+pass in your GTM container ID:
+pages/_app.js
+--- CODE BLOCK 11 ---
+import { GoogleTagManager } from '@next/third-parties/google'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Component {...pageProps} />
+<GoogleTagManager gtmId="GTM-XYZ" />
+--- END CODE BLOCK ---
+To load Google Tag Manager for a single route, include the component in your page file:
+pages/index.js
+--- CODE BLOCK 13 ---
+import { GoogleTagManager } from '@next/third-parties/google'
+export default function Page() {
+return <GoogleTagManager gtmId="GTM-XYZ" />
+--- END CODE BLOCK ---
+Sending Events
+--- CODE BLOCK 16 ---
+<GoogleTagManager />
+--- END CODE BLOCK ---
+function can be used to track user interactions on your page by sending events
+using the
+--- CODE BLOCK 17 ---
+import { sendGTMEvent } from '@next/third-parties/google'
+export function EventButton() {
+return (
+<div>
+<button
+onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'xyz' })}
+Send Event
+</button>
+</div>
+--- END CODE BLOCK ---
+object. For this function to work, the
+--- CODE BLOCK 18 ---
+import { sendGTMEvent } from '@next/third-parties/google'
+export function EventButton() {
+return (
+<div>
+<button
+onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'xyz' })}
+Send Event
+</button>
+</div>
+--- END CODE BLOCK ---
+component must be
+included in either a parent layout, page, or component, or directly in the same file.
+pages/index.js
+--- CODE BLOCK 20 ---
+gtmScriptUrl
+--- END CODE BLOCK ---
+Refer to the Tag Manager
+developer
+documentation
+to learn about the
+different variables and events that can be passed into the function.
+Server-side Tagging
+If you're using a server-side tag manager and serving
+--- CODE BLOCK 24 ---
+https://www.googletagmanager.com/gtm.js
+--- END CODE BLOCK ---
+scripts from your tagging server you can
+--- CODE BLOCK 26 ---
+dataLayerName
+--- END CODE BLOCK ---
+option to specify the URL of the script.
+Options
+Options to pass to the Google Tag Manager. For a full list of options, read the
+Google Tag Manager
+docs
+Name
+Type
+Description
+--- CODE BLOCK 31 ---
+gtm_preview
+--- END CODE BLOCK ---
+Required
+Your GTM container ID. Usually starts with
+--- CODE BLOCK 32 ---
+GoogleAnalytics
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+import { GoogleAnalytics } from '@next/third-parties/google'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Component {...pageProps} />
+<GoogleAnalytics gaId="G-XYZ" />
+--- END CODE BLOCK ---
+Optional
+GTM script URL. Defaults to
+--- CODE BLOCK 37 ---
+import { GoogleAnalytics } from '@next/third-parties/google'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Component {...pageProps} />
+<GoogleAnalytics gaId="G-XYZ" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+import { GoogleAnalytics } from '@next/third-parties/google'
+export default function Page() {
+return <GoogleAnalytics gaId="G-XYZ" />
+--- END CODE BLOCK ---
+Optional
+Data layer object to instantiate the container with.
+--- CODE BLOCK 39 ---
+import { GoogleAnalytics } from '@next/third-parties/google'
+export default function Page() {
+return <GoogleAnalytics gaId="G-XYZ" />
+--- END CODE BLOCK ---
+Optional
+Name of the data layer. Defaults to
+--- CODE BLOCK 40 ---
+sendGAEvent
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+<GoogleAnalytics />
+--- END CODE BLOCK ---
+Optional
+Value of authentication parameter (
+--- CODE BLOCK 43 ---
+import { sendGAEvent } from '@next/third-parties/google'
+export function EventButton() {
+return (
+<div>
+<button
+onClick={() => sendGAEvent('event', 'buttonClicked', { value: 'xyz' })}
+Send Event
+</button>
+</div>
+--- END CODE BLOCK ---
+) for environment snippets.
+--- CODE BLOCK 44 ---
+import { sendGAEvent } from '@next/third-parties/google'
+export function EventButton() {
+return (
+<div>
+<button
+onClick={() => sendGAEvent('event', 'buttonClicked', { value: 'xyz' })}
+Send Event
+</button>
+</div>
+--- END CODE BLOCK ---
+Optional
+Value of preview parameter (
+--- CODE BLOCK 45 ---
+<GoogleAnalytics>
+--- END CODE BLOCK ---
+) for environment snippets.
+Google Analytics
+--- CODE BLOCK 48 ---
+dataLayerName
+--- END CODE BLOCK ---
+component can be used to include
+Google Analytics
+to your page via the Google tag
+--- CODE BLOCK 51 ---
+GoogleMapsEmbed
+--- END CODE BLOCK ---
+). By default, it fetches the original scripts after hydration occurs on the page.
+Recommendation
+: If Google Tag Manager is already included in your application, you can
+configure Google Analytics directly using it, rather than including Google Analytics as a separate
+component. Refer to the
+documentation
+to learn more about the differences between Tag Manager and
+--- CODE BLOCK 53 ---
+import { GoogleMapsEmbed } from '@next/third-parties/google'
+export default function Page() {
+return (
+<GoogleMapsEmbed
+apiKey="XYZ"
+height={200}
+width="100%"
+mode="place"
+q="Brooklyn+Bridge,New+York,NY"
+--- END CODE BLOCK ---
+To load Google Analytics for all routes, include the component directly in your custom
+--- CODE BLOCK 54 ---
+import { GoogleMapsEmbed } from '@next/third-parties/google'
+export default function Page() {
+return (
+<GoogleMapsEmbed
+apiKey="XYZ"
+height={200}
+width="100%"
+mode="place"
+q="Brooklyn+Bridge,New+York,NY"
+--- END CODE BLOCK ---
+pass in your measurement ID:
+pages/_app.js
+--- CODE BLOCK 62 ---
+allowfullscreen
+--- END CODE BLOCK ---
+To load Google Analytics for a single route, include the component in your page file:
+pages/index.js
+--- CODE BLOCK 71 ---
+lite-youtube-embed
+--- END CODE BLOCK ---
+Sending Events
+--- CODE BLOCK 73 ---
+import { YouTubeEmbed } from '@next/third-parties/google'
+export default function Page() {
+return <YouTubeEmbed videoid="ogfYd705cRs" height={400} params="controls=0" />
+--- END CODE BLOCK ---
+function can be used to measure user interactions on your page by sending events
+using the
+--- CODE BLOCK 81 ---
+params="controls=0&start=10&end=30"
+--- END CODE BLOCK ---
+object. For this function to work, the
+[CODE_BLOCK_42]
+component must be
+included in either a parent layout, page, or component, or directly in the same file.
+pages/index.js
+[CODE_BLOCK_43]
+Refer to the Google Analytics
+developer
+documentation
+to learn
+more about event parameters.
+Tracking Pageviews
+Google Analytics automatically tracks pageviews when the browser history state changes. This means
+that client-side navigations between Next.js routes will send pageview data without any configuration.
+To ensure that client-side navigations are being measured correctly, verify that the
+“Enhanced
+Measurement”
+property is
+enabled in your Admin panel and the
+“Page changes based on browser history events”
+checkbox is
+selected.
+Note
+: If you decide to manually send pageview events, make sure to disable the default
+pageview measurement to avoid having duplicate data. Refer to the Google Analytics
+developer
+documentation
+to learn more.
+Options
+Options to pass to the
+[CODE_BLOCK_45]
+component.
+Name
+Type
+Description
+[CODE_BLOCK_46]
+Required
+Your
+measurement ID
+. Usually starts with
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+Optional
+Name of the data layer. Defaults to
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+Optional
+nonce
+Google Maps Embed
+[CODE_BLOCK_51]
+component can be used to add a
+Google Maps
+Embed
+to your page. By
+default, it uses the
+[CODE_BLOCK_52]
+attribute to lazy-load the embed below the fold.
+pages/index.js
+[CODE_BLOCK_53]
+Options
+Options to pass to the Google Maps Embed. For a full list of options, read the
+Google Map Embed
+docs
+Name
+Type
+Description
+[CODE_BLOCK_55]
+Required
+Your api key.
+[CODE_BLOCK_56]
+Required
+Map mode
+[CODE_BLOCK_57]
+Optional
+Height of the embed. Defaults to
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+Optional
+Width of the embed. Defaults to
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+Optional
+Pass styles to the iframe.
+[CODE_BLOCK_62]
+Optional
+Property to allow certain map parts to go full screen.
+[CODE_BLOCK_63]
+Optional
+Defaults to lazy. Consider changing if you know your embed will be above the fold.
+[CODE_BLOCK_64]
+Optional
+Defines map marker location.
+This may be required depending on the map mode
+[CODE_BLOCK_65]
+Optional
+Defines the center of the map view.
+[CODE_BLOCK_66]
+Optional
+Sets initial zoom level of the map.
+[CODE_BLOCK_67]
+Optional
+Defines type of map tiles to load.
+[CODE_BLOCK_68]
+Optional
+Defines the language to use for UI elements and for the display of labels on map tiles.
+[CODE_BLOCK_69]
+Optional
+Defines the appropriate borders and labels to display, based on geo-political sensitivities.
+YouTube Embed
+[CODE_BLOCK_70]
+component can be used to load and display a YouTube embed. This component loads
+faster by using
+[CODE_BLOCK_71]
+under the
+hood.
+pages/index.js
+[CODE_BLOCK_72]
+Options
+Name
+Type
+Description
+[CODE_BLOCK_74]
+Required
+YouTube video id.
+[CODE_BLOCK_75]
+Optional
+Width of the video container. Defaults to
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+Optional
+Height of the video container. Defaults to
+[CODE_BLOCK_78]
+[CODE_BLOCK_79]
+Optional
+A visually hidden label for the play button for accessibility.
+[CODE_BLOCK_80]
+Optional
+The video player params defined
+here
+Params are passed as a query param string.
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+Optional
+Used to apply styles to the video container.
+Was this helpful?
+supported.
+Send

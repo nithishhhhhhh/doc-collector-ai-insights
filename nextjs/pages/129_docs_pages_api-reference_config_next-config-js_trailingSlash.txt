@@ -1,0 +1,86 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/trailingSlash
+SCRAPED: 2025-06-19 17:24:17
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+trailingSlash
+You are currently viewing the documentation for Pages Router.
+trailingSlash
+By default Next.js will redirect URLs with trailing slashes to their counterpart without a trailing slash. For example
+--- CODE BLOCK 3 ---
+next.config.js
+--- END CODE BLOCK ---
+will redirect to
+--- CODE BLOCK 4 ---
+trailingSlash
+--- END CODE BLOCK ---
+. You can configure this behavior to act the opposite way, where URLs without trailing slashes are redirected to their counterparts with trailing slashes.
+Open
+--- CODE BLOCK 5 ---
+module.exports = {
+trailingSlash: true,
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 6 ---
+module.exports = {
+trailingSlash: true,
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 9 ---
+trailingSlash: true
+--- END CODE BLOCK ---
+With this option set, URLs like
+--- CODE BLOCK 12 ---
+images/photos/picture.png
+--- END CODE BLOCK ---
+will redirect to
+--- CODE BLOCK 13 ---
+.well-known/subfolder/config.json
+--- END CODE BLOCK ---
+When using
+--- CODE BLOCK 14 ---
+output: "export"
+--- END CODE BLOCK ---
+, certain URLs are exceptions and will not have a trailing slash appended:
+Static file URLs, such as files with extensions.
+Any paths under
+--- CODE BLOCK 16 ---
+/about/index.html
+--- END CODE BLOCK ---
+For example, the following URLs will remain unchanged:
+--- CODE BLOCK 17 ---
+/about.html
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+trailingSlash
+--- END CODE BLOCK ---
+, and
+[CODE_BLOCK_13]
+When used with
+[CODE_BLOCK_14]
+configuration, the
+[CODE_BLOCK_15]
+page will output
+[CODE_BLOCK_16]
+(instead of the default
+[CODE_BLOCK_17]
+Version History
+Version
+Changes
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+added.
+Was this helpful?
+supported.
+Send

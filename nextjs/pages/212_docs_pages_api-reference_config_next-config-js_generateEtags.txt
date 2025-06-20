@@ -1,0 +1,38 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/generateEtags
+SCRAPED: 2025-06-19 17:34:11
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+generateEtags
+You are currently viewing the documentation for Pages Router.
+generateEtags
+Next.js will generate
+etags
+for every page by default. You may want to disable etag generation for HTML pages depending on your cache strategy.
+Open
+--- CODE BLOCK 1 ---
+next.config.js
+--- END CODE BLOCK ---
+and disable the
+--- CODE BLOCK 2 ---
+generateEtags
+--- END CODE BLOCK ---
+option:
+next.config.js
+--- CODE BLOCK 3 ---
+module.exports = {
+generateEtags: false,
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

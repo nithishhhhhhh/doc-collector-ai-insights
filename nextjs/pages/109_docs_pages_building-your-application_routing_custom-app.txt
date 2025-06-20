@@ -1,0 +1,134 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/routing/custom-app
+SCRAPED: 2025-06-19 17:21:55
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Routing
+Custom App
+You are currently viewing the documentation for Pages Router.
+Custom App
+Next.js uses the
+--- CODE BLOCK 4 ---
+import type { AppProps } from 'next/app'
+export default function MyApp({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+component to initialize pages. You can override it and control the page initialization and:
+Create a shared layout between page changes
+Inject additional data into pages
+Add global CSS
+Usage
+To override the default
+--- CODE BLOCK 5 ---
+import type { AppProps } from 'next/app'
+export default function MyApp({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+, create the file
+--- CODE BLOCK 14 ---
+pages/_app.js
+--- END CODE BLOCK ---
+as shown below:
+pages/_app.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 16 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+getInitialProps
+--- END CODE BLOCK ---
+prop is the active
+--- CODE BLOCK 20 ---
+getInitialProps
+--- END CODE BLOCK ---
+, so whenever you navigate between routes,
+--- CODE BLOCK 22 ---
+getStaticProps
+--- END CODE BLOCK ---
+will change to the new
+--- CODE BLOCK 23 ---
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
+type AppOwnProps = { example: string }
+export default function MyApp({
+Component,
+pageProps,
+example,
+}: AppProps & AppOwnProps) {
+return (
+<p>Data: {example}</p>
+<Component {...pageProps} />
+MyApp.getInitialProps = async (
+context: AppContext
+): Promise<AppOwnProps & AppInitialProps> => {
+const ctx = await App.getInitialProps(context)
+return { ...ctx, example: 'data' }
+--- END CODE BLOCK ---
+. Therefore, any props you send to
+--- CODE BLOCK 24 ---
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
+type AppOwnProps = { example: string }
+export default function MyApp({
+Component,
+pageProps,
+example,
+}: AppProps & AppOwnProps) {
+return (
+<p>Data: {example}</p>
+<Component {...pageProps} />
+MyApp.getInitialProps = async (
+context: AppContext
+): Promise<AppOwnProps & AppInitialProps> => {
+const ctx = await App.getInitialProps(context)
+return { ...ctx, example: 'data' }
+--- END CODE BLOCK ---
+will be received by the
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+is an object with the initial props that were preloaded for your page by one of our
+data fetching methods
+, otherwise it's an empty object.
+Good to know
+If your app is running and you added a custom
+[CODE_BLOCK_13]
+, you'll need to restart the development server. Only required if
+[CODE_BLOCK_14]
+didn't exist before.
+[CODE_BLOCK_15]
+does not support Next.js
+Data Fetching methods
+like
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+with
+[CODE_BLOCK_19]
+Using
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+will disable
+Automatic Static Optimization
+for pages without
+[CODE_BLOCK_22]
+We do not recommend using this pattern.
+Instead, consider
+incrementally adopting
+the App Router, which allows you to more easily fetch data for pages and layouts.
+pages/_app.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_23]
+Was this helpful?
+supported.
+Send

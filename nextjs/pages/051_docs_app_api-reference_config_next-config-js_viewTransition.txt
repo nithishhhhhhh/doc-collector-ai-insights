@@ -1,0 +1,75 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/viewTransition
+SCRAPED: 2025-06-19 17:15:01
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+viewTransition
+viewTransition
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+--- CODE BLOCK 1 ---
+viewTransition
+--- END CODE BLOCK ---
+is an experimental flag that enables the new experimental
+View Transitions API
+in React. This API allows you to leverage the native View Transitions browser API to create seamless transitions between UI states.
+To enable this feature, you need to set the
+--- CODE BLOCK 2 ---
+viewTransition
+--- END CODE BLOCK ---
+property to
+--- CODE BLOCK 4 ---
+next.config.js
+--- END CODE BLOCK ---
+in your
+--- CODE BLOCK 5 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+experimental: {
+viewTransition: true,
+module.exports = nextConfig
+--- END CODE BLOCK ---
+file.
+next.config.js
+--- CODE BLOCK 6 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+experimental: {
+viewTransition: true,
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Important Notice: This feature is not developed or maintained by the Next.js team — it is an experimental API from the React team. It is still in
+early stages
+not recommended for production use
+. The implementation is still being iterated on, and its behavior may change in future React releases.
+Enabling this feature requires understanding the experimental nature of the API. To fully grasp its behavior, refer to the
+React pull request
+and related discussions.
+Usage
+Once enabled, you can import the
+--- CODE BLOCK 8 ---
+import { unstable_ViewTransition as ViewTransition } from 'react'
+--- END CODE BLOCK ---
+component from React in your application:
+--- CODE BLOCK 9 ---
+import { unstable_ViewTransition as ViewTransition } from 'react'
+--- END CODE BLOCK ---
+However, documentation and examples are currently limited, and you will need to refer directly to React’s source code and discussions to understand how this works.
+Live Demo
+Check out our
+Next.js View Transition Demo
+to see this feature in action.
+As this API evolves, we will update our documentation and share more examples. However, for now, we strongly advise against using this feature in production.
+Was this helpful?
+supported.
+Send

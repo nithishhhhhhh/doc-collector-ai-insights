@@ -1,0 +1,51 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/distDir
+SCRAPED: 2025-06-19 17:25:00
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+distDir
+distDir
+You can specify a name to use for a custom build directory to use instead of
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+Open
+--- CODE BLOCK 4 ---
+module.exports = {
+distDir: 'build',
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 5 ---
+module.exports = {
+distDir: 'build',
+--- END CODE BLOCK ---
+config:
+next.config.js
+[CODE_BLOCK_4]
+Now if you run
+[CODE_BLOCK_6]
+Next.js will use
+[CODE_BLOCK_7]
+instead of the default
+[CODE_BLOCK_8]
+folder.
+[CODE_BLOCK_9]
+should not
+leave your project directory. For example,
+[CODE_BLOCK_10]
+is an
+invalid
+directory.
+Was this helpful?
+supported.
+Send

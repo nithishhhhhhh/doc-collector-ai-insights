@@ -1,0 +1,277 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/ReadableStream
+SCRAPED: 2025-06-19 18:22:27
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+ReadableStream
+--- END CODE BLOCK ---
+interface of the
+Streams API
+represents a readable stream of byte data. The
+Fetch API
+offers a concrete instance of a
+--- CODE BLOCK 2 ---
+ReadableStream
+--- END CODE BLOCK ---
+through the
+--- CODE BLOCK 5 ---
+ReadableStream
+--- END CODE BLOCK ---
+property of a
+--- CODE BLOCK 6 ---
+ReadableStream()
+--- END CODE BLOCK ---
+object.
+--- CODE BLOCK 7 ---
+ReadableStream.locked
+--- END CODE BLOCK ---
+is a
+transferable object
+Constructor
+--- CODE BLOCK 8 ---
+ReadableStream.from()
+--- END CODE BLOCK ---
+Creates and returns a readable stream object from the given handlers.
+Instance properties
+--- CODE BLOCK 9 ---
+ReadableStream
+--- END CODE BLOCK ---
+Read only
+Returns a boolean indicating whether or not the readable stream is locked to a reader.
+Static methods
+--- CODE BLOCK 10 ---
+ReadableStream.cancel()
+--- END CODE BLOCK ---
+Experimental
+Returns
+--- CODE BLOCK 13 ---
+ReadableStream.getReader()
+--- END CODE BLOCK ---
+from a provided iterable or async iterable object, such as an array, a set, an async generator, and so on.
+Instance methods
+--- CODE BLOCK 14 ---
+ReadableStream.pipeThrough()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 15 ---
+ReadableStream.pipeTo()
+--- END CODE BLOCK ---
+that resolves when the stream is canceled. Calling this method signals a loss of interest in the stream by a consumer. The supplied
+--- CODE BLOCK 16 ---
+WritableStream
+--- END CODE BLOCK ---
+argument will be given to the underlying source, which may or may not use it.
+--- CODE BLOCK 18 ---
+ReadableStream.tee()
+--- END CODE BLOCK ---
+Creates a reader and locks the stream to it. While the stream is locked, no other reader can be acquired until this one is released.
+--- CODE BLOCK 20 ---
+ReadableStream
+--- END CODE BLOCK ---
+Provides a chainable way of piping the current stream through a transform stream or any other writable/readable pair.
+--- CODE BLOCK 21 ---
+ReadableStream
+--- END CODE BLOCK ---
+Pipes the current ReadableStream to a given
+--- CODE BLOCK 22 ---
+for await...of
+--- END CODE BLOCK ---
+and returns a
+--- CODE BLOCK 23 ---
+const stream = new ReadableStream(getSomeSource());
+for await (const chunk of stream) {
+// Do something with each 'chunk'
+--- END CODE BLOCK ---
+that fulfills when the piping process completes successfully, or rejects if any errors were encountered.
+--- CODE BLOCK 24 ---
+const stream = new ReadableStream(getSomeSource());
+for await (const chunk of stream) {
+// Do something with each 'chunk'
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+{ preventCancel: true }
+--- END CODE BLOCK ---
+method
+tees
+this readable stream, returning a two-element array containing the two resulting branches as new
+--- CODE BLOCK 31 ---
+for await (const chunk of stream.values({ preventCancel: true })) {
+// Do something with 'chunk'
+break;
+// Acquire a reader for the stream and continue reading ...
+--- END CODE BLOCK ---
+instances. Each of those streams receives the same incoming data.
+Async iteration
+--- CODE BLOCK 32 ---
+for await (const chunk of stream.values({ preventCancel: true })) {
+// Do something with 'chunk'
+break;
+// Acquire a reader for the stream and continue reading ...
+--- END CODE BLOCK ---
+implements the
+async iterable protocol
+This enables asynchronous iteration over the chunks in a stream using the
+--- CODE BLOCK 34 ---
+ReadableStream
+--- END CODE BLOCK ---
+syntax:
+Copy to Clipboard
+--- CODE BLOCK 36 ---
+fetch("https://www.example.org")
+.then((response) => response.body)
+.then((rb) => {
+const reader = rb.getReader();
+return new ReadableStream({
+start(controller) {
+// The following function handles each data chunk
+function push() {
+// "done" is a Boolean and value a "Uint8Array"
+reader.read().then(({ done, value }) => {
+// If there is no more data to read
+if (done) {
+console.log("done", done);
+controller.close();
+return;
+// Get the data and send it to the browser via the controller
+controller.enqueue(value);
+// Check chunks by logging to the console
+console.log(done, value);
+push();
+push();
+.then((stream) =>
+// Respond with our stream
+new Response(stream, { headers: { "Content-Type": "text/html" } }).text(),
+.then((result) => {
+// Do things with result
+console.log(result);
+--- END CODE BLOCK ---
+The async iterator consumes the stream until it runs out of data or otherwise terminates.
+The loop can also exit early due to a
+--- CODE BLOCK 41 ---
+const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+const myReadableStream = ReadableStream.from(iteratorOrAsyncIterator);
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 44 ---
+function iteratorToStream(iterator) {
+return new ReadableStream({
+async pull(controller) {
+const { value, done } = await iterator.next();
+if (value) {
+controller.enqueue(value);
+if (done) {
+controller.close();
+--- END CODE BLOCK ---
+statement.
+While iterating, the stream is locked to prevent other consumers from acquiring a reader (attempting to iterate over a stream that is already locked will throw a
+--- CODE BLOCK 45 ---
+function iteratorToStream(iterator) {
+return new ReadableStream({
+async pull(controller) {
+const { value, done } = await iterator.next();
+if (value) {
+controller.enqueue(value);
+if (done) {
+controller.close();
+--- END CODE BLOCK ---
+This lock is released when the loop exits.
+By default, exiting the loop will also cancel the stream, so that it can no longer be used.
+To continue to use a stream after exiting the loop, pass
+--- CODE BLOCK 50 ---
+for await...of
+--- END CODE BLOCK ---
+to the stream's
+--- CODE BLOCK 51 ---
+const response = await fetch("https://www.example.org");
+let total = 0;
+// Iterate response.body (a ReadableStream) asynchronously
+for await (const chunk of response.body) {
+// Do something with each chunk
+// Here we just accumulate the size of the response.
+total += chunk.length;
+// Do something with the total
+console.log(total);
+--- END CODE BLOCK ---
+method:
+Copy to Clipboard
+--- CODE BLOCK 52 ---
+const response = await fetch("https://www.example.org");
+let total = 0;
+// Iterate response.body (a ReadableStream) asynchronously
+for await (const chunk of response.body) {
+// Do something with each chunk
+// Here we just accumulate the size of the response.
+total += chunk.length;
+// Do something with the total
+console.log(total);
+--- END CODE BLOCK ---
+Examples
+Fetch stream
+In the following example, an artificial
+[CODE_BLOCK_33]
+is created to stream HTML fragments fetched from another resource to the browser.
+It demonstrates the usage of a
+[CODE_BLOCK_34]
+in combination with a
+[CODE_BLOCK_35]
+Copy to Clipboard
+[CODE_BLOCK_36]
+Convert an iterator or async iterator to a stream
+[CODE_BLOCK_38]
+static method can convert an iterator, such as an
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+, or an
+(async) iterator
+to a readable stream:
+Copy to Clipboard
+[CODE_BLOCK_41]
+On browsers that don't support the
+[CODE_BLOCK_43]
+method you can instead create your own
+custom readable stream
+to achieve the same result:
+Copy to Clipboard
+[CODE_BLOCK_44]
+Warning:
+This example assumes that the return value (
+[CODE_BLOCK_46]
+when
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+), if present, is also a chunk to be enqueued. Some iterator APIs may use the return value for different purposes. You may need to adjust the code based on the API you are interacting with.
+Async iteration of a stream using for await...of
+This example shows how you can process the
+[CODE_BLOCK_49]
+response using a
+[CODE_BLOCK_50]
+loop to iterate through the arriving chunks.
+Copy to Clipboard
+[CODE_BLOCK_51]
+Specifications
+Specification
+Streams
+rs-class
+Browser compatibility
+See also
+Streams API concepts
+Using readable streams
+Using readable byte stream
+WHATWG Stream Visualizer
+, for a basic visualization of readable, writable, and transform streams.
+Web-streams-polyfill
+sd-streams
+- polyfills
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Aug 30, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

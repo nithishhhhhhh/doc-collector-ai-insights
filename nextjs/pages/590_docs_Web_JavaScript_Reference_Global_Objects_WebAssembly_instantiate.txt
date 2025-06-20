@@ -1,0 +1,342 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate
+SCRAPED: 2025-06-19 18:17:20
+================================================================================
+
+--- CODE BLOCK 1 ---
+WebAssembly.instantiate()
+--- END CODE BLOCK ---
+static method allows you to
+compile and instantiate WebAssembly code. This function has two overloads:
+The primary overload takes the WebAssembly binary code, in the form of a
+typed array
+--- CODE BLOCK 2 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+, and performs both compilation and instantiation in one
+step. The returned
+--- CODE BLOCK 4 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+resolves to both a compiled
+--- CODE BLOCK 5 ---
+WebAssembly.Instance
+--- END CODE BLOCK ---
+and its first
+--- CODE BLOCK 6 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+The secondary overload takes an already-compiled
+--- CODE BLOCK 11 ---
+WebAssembly.instantiateStreaming()
+--- END CODE BLOCK ---
+and returns a
+--- CODE BLOCK 12 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+that resolves to an
+--- CODE BLOCK 13 ---
+// Taking Wasm binary code
+WebAssembly.instantiate(bufferSource)
+WebAssembly.instantiate(bufferSource, importObject)
+WebAssembly.instantiate(bufferSource, importObject, compileOptions)
+// Taking a module object instance
+WebAssembly.instantiate(module)
+WebAssembly.instantiate(module, importObject)
+WebAssembly.instantiate(module, importObject, compileOptions)
+--- END CODE BLOCK ---
+of that
+--- CODE BLOCK 14 ---
+// Taking Wasm binary code
+WebAssembly.instantiate(bufferSource)
+WebAssembly.instantiate(bufferSource, importObject)
+WebAssembly.instantiate(bufferSource, importObject, compileOptions)
+// Taking a module object instance
+WebAssembly.instantiate(module)
+WebAssembly.instantiate(module, importObject)
+WebAssembly.instantiate(module, importObject, compileOptions)
+--- END CODE BLOCK ---
+. This overload is useful if the
+--- CODE BLOCK 15 ---
+bufferSource
+--- END CODE BLOCK ---
+has already
+been compiled.
+Warning:
+This method is not the most efficient way of fetching and
+instantiating Wasm modules. If at all possible, you should use the newer
+--- CODE BLOCK 16 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+method instead, which fetches,
+compiles, and instantiates a module all in one step, directly from the raw bytecode,
+so doesn't require conversion to an
+--- CODE BLOCK 18 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 19 ---
+importObject
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 22 ---
+WebAssembly.LinkError
+--- END CODE BLOCK ---
+typed array
+--- CODE BLOCK 23 ---
+compileOptions
+--- END CODE BLOCK ---
+containing the binary code of the Wasm module you want to
+compile.
+--- CODE BLOCK 25 ---
+"js-string"
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+importedStringConstants
+--- END CODE BLOCK ---
+object to be instantiated.
+--- CODE BLOCK 27 ---
+bufferSource
+--- END CODE BLOCK ---
+Optional
+An object containing the values to be imported into the newly-created
+--- CODE BLOCK 29 ---
+ResultObject
+--- END CODE BLOCK ---
+, such as functions or
+--- CODE BLOCK 31 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+objects.
+There must be one matching property for each declared import of the compiled module or
+else a
+--- CODE BLOCK 33 ---
+postMessage()
+--- END CODE BLOCK ---
+is thrown.
+--- CODE BLOCK 35 ---
+WebAssembly.Instance
+--- END CODE BLOCK ---
+Optional
+An object containing compilation options. Properties can include:
+--- CODE BLOCK 38 ---
+WebAssembly.Instance
+--- END CODE BLOCK ---
+Optional
+An array of strings that enables the usage of
+JavaScript builtins
+in the compiled Wasm module. The strings define the builtins you want to enable. Currently the only available value is
+--- CODE BLOCK 40 ---
+WebAssembly.CompileError
+--- END CODE BLOCK ---
+, which enables JavaScript string builtins.
+--- CODE BLOCK 41 ---
+WebAssembly.LinkError
+--- END CODE BLOCK ---
+Optional
+A string specifying a namespace for
+imported global string constants
+. This property needs to be specified if you wish to use imported global string constants in the Wasm module.
+Return value
+If a
+--- CODE BLOCK 42 ---
+WebAssembly.RuntimeError
+--- END CODE BLOCK ---
+is passed, returns a
+--- CODE BLOCK 43 ---
+WebAssembly.instantiateStreaming()
+--- END CODE BLOCK ---
+that resolves to a
+--- CODE BLOCK 44 ---
+instantiate()
+--- END CODE BLOCK ---
+which contains two
+fields:
+--- CODE BLOCK 45 ---
+WebAssembly.instantiate()
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+const importObject = {
+my_namespace: {
+imported_func(arg) {
+console.log(arg);
+fetch("simple.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.instantiate(bytes, importObject))
+.then((result) => result.instance.exports.exported_func());
+--- END CODE BLOCK ---
+object representing the compiled WebAssembly module. This
+--- CODE BLOCK 48 ---
+const importObject = {
+my_namespace: {
+imported_func(arg) {
+console.log(arg);
+fetch("simple.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.instantiate(bytes, importObject))
+.then((result) => result.instance.exports.exported_func());
+--- END CODE BLOCK ---
+can be instantiated again, shared via
+--- CODE BLOCK 49 ---
+WebAssembly.compileStreaming()
+--- END CODE BLOCK ---
+, or
+cached
+--- CODE BLOCK 50 ---
+postMessage()
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+const worker = new Worker("wasm_worker.js");
+WebAssembly.compileStreaming(fetch("simple.wasm")).then((mod) =>
+worker.postMessage(mod),
+--- END CODE BLOCK ---
+object that contains all the
+Exported WebAssembly functions
+If a
+--- CODE BLOCK 52 ---
+const worker = new Worker("wasm_worker.js");
+WebAssembly.compileStreaming(fetch("simple.wasm")).then((mod) =>
+worker.postMessage(mod),
+--- END CODE BLOCK ---
+is passed, returns a
+--- CODE BLOCK 53 ---
+wasm_worker.js
+--- END CODE BLOCK ---
+that resolves to an
+--- CODE BLOCK 54 ---
+WebAssembly.instantiate()
+--- END CODE BLOCK ---
+object.
+Exceptions
+If either of the parameters are not of the correct type or structure,
+the promise rejects with a
+--- CODE BLOCK 55 ---
+const importObject = {
+my_namespace: {
+imported_func(arg) {
+console.log(arg);
+onmessage = (e) => {
+console.log("module received from main thread");
+const mod = e.data;
+WebAssembly.instantiate(mod, importObject).then((instance) => {
+instance.exports.exported_func();
+--- END CODE BLOCK ---
+If the operation fails, the promise rejects with a
+--- CODE BLOCK 56 ---
+const importObject = {
+my_namespace: {
+imported_func(arg) {
+console.log(arg);
+onmessage = (e) => {
+console.log("module received from main thread");
+const mod = e.data;
+WebAssembly.instantiate(mod, importObject).then((instance) => {
+instance.exports.exported_func();
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+instantiate()
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 59 ---
+"hello world!"
+--- END CODE BLOCK ---
+, depending on the cause of the failure.
+Examples
+Note:
+You'll probably want to use
+--- CODE BLOCK 60 ---
+const importObject = {
+// Regular import
+m: {
+log: console.log,
+const compileOptions = {
+builtins: ["js-string"], // Enable JavaScript string builtins
+importedStringConstants: "string_constants", // Enable imported global string constants
+fetch("log-concat.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.instantiate(bytes, importObject, compileOptions))
+.then((result) => result.instance.exports.main());
+--- END CODE BLOCK ---
+in most cases, as it is more efficient than
+--- CODE BLOCK 61 ---
+const importObject = {
+// Regular import
+m: {
+log: console.log,
+const compileOptions = {
+builtins: ["js-string"], // Enable JavaScript string builtins
+importedStringConstants: "string_constants", // Enable imported global string constants
+fetch("log-concat.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.instantiate(bytes, importObject, compileOptions))
+.then((result) => result.instance.exports.main());
+--- END CODE BLOCK ---
+First overload example
+After fetching some WebAssembly bytecode using fetch, we compile and instantiate the
+module using the
+[CODE_BLOCK_45]
+function, importing a
+JavaScript function into the WebAssembly Module in the process. We then call an
+Exported WebAssembly function
+that is exported by the
+[CODE_BLOCK_46]
+Copy to Clipboard
+[CODE_BLOCK_47]
+Note:
+You can also find this example at
+index.html
+on GitHub (
+view it live also
+Second overload example
+The following example (see our
+index-compile.html
+demo on GitHub, and
+view it live
+also)
+compiles the loaded simple.wasm byte code using the
+[CODE_BLOCK_49]
+method and then sends it to a
+worker
+using
+[CODE_BLOCK_50]
+Copy to Clipboard
+[CODE_BLOCK_51]
+In the worker (see
+[CODE_BLOCK_53]
+we define an import object for the module to use, then set up an event handler to
+receive the module from the main thread. When the module is received, we create an
+instance from it using the
+[CODE_BLOCK_54]
+method and invoke an
+exported function from inside it.
+Copy to Clipboard
+[CODE_BLOCK_55]
+Enabling JavaScript builtins and global string imports
+This example enables JavaScript string builtins and imported global string constants when compiling and instantiating the Wasm module with
+[CODE_BLOCK_57]
+, before running the exported
+[CODE_BLOCK_58]
+function (which logs
+[CODE_BLOCK_59]
+to the console).
+See it running live
+Copy to Clipboard
+[CODE_BLOCK_60]
+Specifications
+Specification
+WebAssembly JavaScript Interface
+dom-webassembly-instantiate
+Browser compatibility
+See also
+WebAssembly
+overview
+WebAssembly concepts
+Using the WebAssembly JavaScript API
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 20, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

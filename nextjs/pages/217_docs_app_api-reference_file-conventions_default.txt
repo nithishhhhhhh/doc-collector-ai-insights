@@ -1,0 +1,120 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/default
+SCRAPED: 2025-06-19 17:34:47
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+default.js
+default.js
+--- CODE BLOCK 18 ---
+export default async function Default({
+params,
+}: {
+params: Promise<{ artist: string }>
+}) {
+const { artist } = await params
+--- END CODE BLOCK ---
+file is used to render a fallback within
+Parallel Routes
+when Next.js cannot recover a
+slot's
+active state after a full-page load.
+During
+soft navigation
+, Next.js keeps track of the active
+state
+(subpage) for each slot. However, for hard navigations (full-page load), Next.js cannot recover the active state. In this case, a
+--- CODE BLOCK 19 ---
+export default async function Default({
+params,
+}: {
+params: Promise<{ artist: string }>
+}) {
+const { artist } = await params
+--- END CODE BLOCK ---
+file can be rendered for subpages that don't match the current URL.
+Consider the following folder structure. The
+--- CODE BLOCK 21 ---
+app/[artist]/@sidebar/default.js
+--- END CODE BLOCK ---
+slot has a
+--- CODE BLOCK 23 ---
+Promise<{ artist: 'zack' }>
+--- END CODE BLOCK ---
+page, but
+--- CODE BLOCK 24 ---
+app/[artist]/[album]/@sidebar/default.js
+--- END CODE BLOCK ---
+does not.
+When navigating to
+--- CODE BLOCK 26 ---
+Promise<{ artist: 'zack', album: 'next' }>
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 28 ---
+async/await
+--- END CODE BLOCK ---
+slot will render the
+[CODE_BLOCK_8]
+page while maintaining the currently active page for the
+[CODE_BLOCK_9]
+slot.
+On refresh, Next.js will render a
+[CODE_BLOCK_10]
+[CODE_BLOCK_11]
+. If
+[CODE_BLOCK_12]
+doesn't exist, a
+[CODE_BLOCK_13]
+is rendered instead.
+Additionally, since
+[CODE_BLOCK_14]
+is an implicit slot, you also need to create a
+[CODE_BLOCK_15]
+file to render a fallback for
+[CODE_BLOCK_16]
+when Next.js cannot recover the active state of the parent page.
+Reference
+[CODE_BLOCK_17]
+(optional)
+A promise that resolves to an object containing the
+dynamic route parameters
+from the root segment down to the slot's subpages. For example:
+app/[artist]/@sidebar/default.js
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_18]
+Example
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+Since the
+[CODE_BLOCK_27]
+prop is a promise. You must use
+[CODE_BLOCK_28]
+or React's
+[CODE_BLOCK_29]
+function to access the values.
+In version 14 and earlier,
+[CODE_BLOCK_30]
+was a synchronous prop. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+Learn more about Parallel Routes
+Parallel Routes
+Simultaneously render one or more pages in the same view that can be navigated independently. A pattern for highly dynamic applications.
+Was this helpful?
+supported.
+Send

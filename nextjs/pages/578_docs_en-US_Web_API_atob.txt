@@ -1,0 +1,101 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/API/atob
+SCRAPED: 2025-06-19 18:16:10
+================================================================================
+
+--- CODE BLOCK 3 ---
+Window.btoa()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 5 ---
+Uint8Array.fromBase64()
+--- END CODE BLOCK ---
+interface decodes a
+string of data which has been encoded using
+Base64
+encoding. You can use
+--- CODE BLOCK 7 ---
+atob(encodedData)
+--- END CODE BLOCK ---
+method to encode and transmit
+data which may otherwise cause communication problems, then transmit it and use the
+--- CODE BLOCK 8 ---
+atob(encodedData)
+--- END CODE BLOCK ---
+method to decode the data again. For example, you can encode,
+transmit, and decode control characters such as
+ASCII
+values 0 through 31.
+Also consider using the
+--- CODE BLOCK 9 ---
+encodedData
+--- END CODE BLOCK ---
+method, which creates a
+--- CODE BLOCK 10 ---
+Window.btoa()
+--- END CODE BLOCK ---
+object from a base64-encoded string. It results in a byte array, which is easier to work with than a string containing raw bytes.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 11 ---
+encodedData
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 13 ---
+DOMException
+--- END CODE BLOCK ---
+A base64-encoded string, using the alphabet produced by
+--- CODE BLOCK 14 ---
+encodedData
+--- END CODE BLOCK ---
+Return value
+A binary string containing raw bytes decoded from
+--- CODE BLOCK 15 ---
+const encodedData = window.btoa("Hello, world"); // encode a string
+const decodedData = window.atob(encodedData); // decode the string
+--- END CODE BLOCK ---
+. Strings in JavaScript are encoded as UTF-16, so this means each character must have a code point less than 256, representing one byte of data.
+Exceptions
+--- CODE BLOCK 16 ---
+const encodedData = window.btoa("Hello, world"); // encode a string
+const decodedData = window.atob(encodedData); // decode the string
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+Window.btoa()
+--- END CODE BLOCK ---
+Thrown if
+--- CODE BLOCK 21 ---
+WorkerGlobalScope.atob()
+--- END CODE BLOCK ---
+is not valid base64.
+Examples
+Copy to Clipboard
+--- CODE BLOCK 22 ---
+Window.btoa()
+--- END CODE BLOCK ---
+For more examples, see the
+[CODE_BLOCK_17]
+method.
+Specifications
+Specification
+HTML
+dom-atob-dev
+Browser compatibility
+See also
+A polyfill of
+[CODE_BLOCK_18]
+is available in
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+URLs
+[CODE_BLOCK_21]
+: the same method, but in worker scopes.
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 17, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

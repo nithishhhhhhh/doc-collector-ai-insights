@@ -1,0 +1,288 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts
+SCRAPED: 2025-06-19 17:20:01
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Routing
+Pages and Layouts
+You are currently viewing the documentation for Pages Router.
+Pages and Layouts
+The Pages Router has a file-system based router built on the concept of pages.
+When a file is added to the
+--- CODE BLOCK 7 ---
+pages/about.js
+--- END CODE BLOCK ---
+directory, it's automatically available as a route.
+In Next.js, a
+page
+is a
+React Component
+exported from a
+--- CODE BLOCK 9 ---
+export default function About() {
+return <div>About</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+export default function About() {
+return <div>About</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+pages/index.js
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 14 ---
+pages/blog/index.js
+--- END CODE BLOCK ---
+file in the
+--- CODE BLOCK 16 ---
+pages/blog/first-post.js
+--- END CODE BLOCK ---
+directory. Each page is associated with a route based on its file name.
+Example
+: If you create
+--- CODE BLOCK 17 ---
+/blog/first-post
+--- END CODE BLOCK ---
+that exports a React component like below, it will be accessible at
+--- CODE BLOCK 18 ---
+pages/dashboard/settings/username.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+/dashboard/settings/username
+--- END CODE BLOCK ---
+Index routes
+The router will automatically route files named
+--- CODE BLOCK 23 ---
+import Navbar from './navbar'
+import Footer from './footer'
+export default function Layout({ children }) {
+return (
+<Navbar />
+<main>{children}</main>
+<Footer />
+--- END CODE BLOCK ---
+to the root of the directory.
+--- CODE BLOCK 24 ---
+import Navbar from './navbar'
+import Footer from './footer'
+export default function Layout({ children }) {
+return (
+<Navbar />
+<main>{children}</main>
+<Footer />
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+import Layout from '../components/layout'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Layout>
+<Component {...pageProps} />
+</Layout>
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+import Layout from '../components/layout'
+export default function MyApp({ Component, pageProps }) {
+return (
+<Layout>
+<Component {...pageProps} />
+</Layout>
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+import Layout from '../components/layout'
+import NestedLayout from '../components/nested-layout'
+export default function Page() {
+return (
+/** Your content */
+Page.getLayout = function getLayout(page) {
+return (
+<Layout>
+<NestedLayout>{page}</NestedLayout>
+</Layout>
+--- END CODE BLOCK ---
+Nested routes
+The router supports nested files. If you create a nested folder structure, files will automatically be routed in the same way still.
+--- CODE BLOCK 30 ---
+import Layout from '../components/layout'
+import NestedLayout from '../components/nested-layout'
+export default function Page() {
+return (
+/** Your content */
+Page.getLayout = function getLayout(page) {
+return (
+<Layout>
+<NestedLayout>{page}</NestedLayout>
+</Layout>
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+export default function MyApp({ Component, pageProps }) {
+// Use the layout defined at the page level, if available
+const getLayout = Component.getLayout ?? ((page) => page)
+return getLayout(<Component {...pageProps} />)
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+export default function MyApp({ Component, pageProps }) {
+// Use the layout defined at the page level, if available
+const getLayout = Component.getLayout ?? ((page) => page)
+return getLayout(<Component {...pageProps} />)
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+import type { ReactElement } from 'react'
+import Layout from '../components/layout'
+import NestedLayout from '../components/nested-layout'
+import type { NextPageWithLayout } from './_app'
+const Page: NextPageWithLayout = () => {
+return <p>hello world</p>
+Page.getLayout = function getLayout(page: ReactElement) {
+return (
+<Layout>
+<NestedLayout>{page}</NestedLayout>
+</Layout>
+export default Page
+--- END CODE BLOCK ---
+Pages with Dynamic Routes
+Next.js supports pages with dynamic routes. For example, if you create a file called
+--- CODE BLOCK 37 ---
+import type { ReactElement } from 'react'
+import Layout from '../components/layout'
+import NestedLayout from '../components/nested-layout'
+import type { NextPageWithLayout } from './_app'
+const Page: NextPageWithLayout = () => {
+return <p>hello world</p>
+Page.getLayout = function getLayout(page: ReactElement) {
+return (
+<Layout>
+<NestedLayout>{page}</NestedLayout>
+</Layout>
+export default Page
+--- END CODE BLOCK ---
+, then it will be accessible at
+--- CODE BLOCK 38 ---
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+getLayout?: (page: ReactElement) => ReactNode
+type AppPropsWithLayout = AppProps & {
+Component: NextPageWithLayout
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+// Use the layout defined at the page level, if available
+const getLayout = Component.getLayout ?? ((page) => page)
+return getLayout(<Component {...pageProps} />)
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+getLayout?: (page: ReactElement) => ReactNode
+type AppPropsWithLayout = AppProps & {
+Component: NextPageWithLayout
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+// Use the layout defined at the page level, if available
+const getLayout = Component.getLayout ?? ((page) => page)
+return getLayout(<Component {...pageProps} />)
+--- END CODE BLOCK ---
+, etc.
+To learn more about dynamic routing, check the
+Dynamic Routing documentation
+Layout Pattern
+The React model allows us to deconstruct a
+page
+into a series of components. Many of these components are often reused between pages. For example, you might have the same navigation bar and footer on every page.
+components/layout.js
+--- CODE BLOCK 41 ---
+getStaticProps
+--- END CODE BLOCK ---
+Examples
+Single Shared Layout with Custom App
+If you only have one layout for your entire application, you can create a
+Custom App
+and wrap your application with the layout. Since the
+--- CODE BLOCK 43 ---
+import useSWR from 'swr'
+import Navbar from './navbar'
+import Footer from './footer'
+export default function Layout({ children }) {
+const { data, error } = useSWR('/api/navigation', fetcher)
+if (error) return <div>Failed to load</div>
+if (!data) return <div>Loading...</div>
+return (
+<Navbar links={data.links} />
+<main>{children}</main>
+<Footer />
+--- END CODE BLOCK ---
+component is re-used when changing pages, its component state will be preserved (e.g. input values).
+pages/_app.js
+--- CODE BLOCK 44 ---
+import useSWR from 'swr'
+import Navbar from './navbar'
+import Footer from './footer'
+export default function Layout({ children }) {
+const { data, error } = useSWR('/api/navigation', fetcher)
+if (error) return <div>Failed to load</div>
+if (!data) return <div>Loading...</div>
+return (
+<Navbar links={data.links} />
+<main>{children}</main>
+<Footer />
+--- END CODE BLOCK ---
+Per-Page Layouts
+If you need multiple layouts, you can add a property
+[CODE_BLOCK_28]
+to your page, allowing you to return a React component for the layout. This allows you to define the layout on a
+per-page basis
+. Since we're returning a function, we can have complex nested layouts if desired.
+pages/index.js
+[CODE_BLOCK_29]
+pages/_app.js
+[CODE_BLOCK_31]
+When navigating between pages, we want to
+persist
+page state (input values, scroll position, etc.) for a Single-Page Application (SPA) experience.
+This layout pattern enables state persistence because the React component tree is maintained between page transitions. With the component tree, React can understand which elements have changed to preserve state.
+Good to know
+: This process is called
+reconciliation
+, which is how React understands which elements have changed.
+With TypeScript
+When using TypeScript, you must first create a new type for your pages which includes a
+[CODE_BLOCK_33]
+function. Then, you must create a new type for your
+[CODE_BLOCK_34]
+which overrides the
+[CODE_BLOCK_35]
+property to use the previously created type.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_36]
+pages/_app.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_38]
+Data Fetching
+Inside your layout, you can fetch data on the client-side using
+[CODE_BLOCK_40]
+or a library like
+. Because this file is not a
+Page
+, you cannot use
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+currently.
+components/layout.js
+[CODE_BLOCK_43]
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,41 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/appDir
+SCRAPED: 2025-06-19 17:09:08
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+appDir
+appDir
+This is a legacy API and no longer recommended. It's still supported for backward compatibility.
+Good to know
+: This option is
+no longer
+needed as of Next.js 13.4. The App Router is now stable.
+The App Router (
+[CODE_BLOCK_1]
+directory
+) enables support for
+layouts
+Server Components
+streaming
+, and
+colocated data fetching
+Using the
+[CODE_BLOCK_2]
+directory will automatically enable
+React Strict Mode
+. Learn how to
+incrementally adopt
+[CODE_BLOCK_3]
+Was this helpful?
+supported.
+Send

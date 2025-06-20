@@ -1,0 +1,81 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/TextEncoder
+SCRAPED: 2025-06-19 18:15:59
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+TextEncoder
+--- END CODE BLOCK ---
+interface takes a stream of code points as input and emits a stream of UTF-8 bytes.
+Constructor
+--- CODE BLOCK 2 ---
+TextEncoder()
+--- END CODE BLOCK ---
+Returns a newly constructed
+--- CODE BLOCK 3 ---
+TextEncoder
+--- END CODE BLOCK ---
+that will generate a byte stream with UTF-8 encoding.
+Instance properties
+--- CODE BLOCK 4 ---
+TextEncoder
+--- END CODE BLOCK ---
+interface doesn't inherit any properties.
+--- CODE BLOCK 5 ---
+TextEncoder.encoding
+--- END CODE BLOCK ---
+Read only
+Always returns
+--- CODE BLOCK 7 ---
+TextEncoder
+--- END CODE BLOCK ---
+Instance methods
+--- CODE BLOCK 8 ---
+TextEncoder.encode()
+--- END CODE BLOCK ---
+interface doesn't inherit any methods
+--- CODE BLOCK 10 ---
+TextEncoder.encodeInto()
+--- END CODE BLOCK ---
+Takes a string as input, and returns a
+--- CODE BLOCK 13 ---
+const encoder = new TextEncoder();
+const view = encoder.encode("€");
+console.log(view); // Uint8Array(3) [226, 130, 172]
+--- END CODE BLOCK ---
+containing UTF-8 encoded text.
+--- CODE BLOCK 14 ---
+const encoder = new TextEncoder();
+const view = encoder.encode("€");
+console.log(view); // Uint8Array(3) [226, 130, 172]
+--- END CODE BLOCK ---
+Takes a string to encode and a destination
+--- CODE BLOCK 15 ---
+TextDecoder
+--- END CODE BLOCK ---
+to put resulting UTF-8 encoded text into, and returns an object indicating the progress of the encoding.
+This is potentially more performant than the older
+[CODE_BLOCK_12]
+method.
+Examples
+Copy to Clipboard
+[CODE_BLOCK_13]
+Specifications
+Specification
+Encoding
+interface-textencoder
+Browser compatibility
+See also
+[CODE_BLOCK_15]
+interface describing the inverse operation.
+Node.js supports global export from v11.0.0
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

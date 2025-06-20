@@ -1,0 +1,411 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/environment-variables#test-environment-variables
+SCRAPED: 2025-06-19 17:58:19
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Environment Variables
+How to use environment variables in Next.js
+Next.js comes with built-in support for environment variables, which allows you to do the following:
+--- CODE BLOCK 2 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+to load environment variables
+Bundle environment variables for the browser by prefixing with
+--- CODE BLOCK 3 ---
+create-next-app
+--- END CODE BLOCK ---
+Warning:
+The default
+--- CODE BLOCK 7 ---
+process.env
+--- END CODE BLOCK ---
+template ensures all
+--- CODE BLOCK 8 ---
+DB_HOST=localhost
+DB_USER=myuser
+DB_PASS=mypassword
+--- END CODE BLOCK ---
+files are added to your
+--- CODE BLOCK 9 ---
+DB_HOST=localhost
+DB_USER=myuser
+DB_PASS=mypassword
+--- END CODE BLOCK ---
+. You almost never want to commit these files to your repository.
+Loading Environment Variables
+Next.js has built-in support for loading environment variables from
+--- CODE BLOCK 11 ---
+# .env
+# you can write with line breaks
+PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
+Kh9NV...
+-----END DSA PRIVATE KEY-----"
+# or with `\n` inside double quotes
+PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nKh9NV...\n-----END DSA PRIVATE KEY-----\n"
+--- END CODE BLOCK ---
+files into
+--- CODE BLOCK 12 ---
+# .env
+# you can write with line breaks
+PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
+Kh9NV...
+-----END DSA PRIVATE KEY-----"
+# or with `\n` inside double quotes
+PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nKh9NV...\n-----END DSA PRIVATE KEY-----\n"
+--- END CODE BLOCK ---
+.env
+--- CODE BLOCK 15 ---
+process.env.DB_HOST
+--- END CODE BLOCK ---
+Note
+: Next.js also supports multiline variables inside of your
+--- CODE BLOCK 17 ---
+process.env.DB_PASS
+--- END CODE BLOCK ---
+files:
+--- CODE BLOCK 18 ---
+export async function GET() {
+const db = await myDB.connect({
+host: process.env.DB_HOST,
+username: process.env.DB_USER,
+password: process.env.DB_PASS,
+// ...
+--- END CODE BLOCK ---
+Note
+: If you are using a
+--- CODE BLOCK 23 ---
+loadEnvConfig
+--- END CODE BLOCK ---
+folder, please note that Next.js will load the .env files
+only
+from the parent folder and
+from the
+--- CODE BLOCK 24 ---
+npm install @next/env
+--- END CODE BLOCK ---
+folder.
+This loads
+--- CODE BLOCK 25 ---
+npm install @next/env
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+import { loadEnvConfig } from '@next/env'
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 27 ---
+import { loadEnvConfig } from '@next/env'
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+--- END CODE BLOCK ---
+into the Node.js environment automatically allowing you to use them in
+Route Handlers
+For example:
+app/api/route.js
+--- CODE BLOCK 28 ---
+import './envConfig.ts'
+export default defineConfig({
+dbCredentials: {
+connectionString: process.env.DATABASE_URL!,
+--- END CODE BLOCK ---
+Loading Environment Variables with
+--- CODE BLOCK 33 ---
+TWITTER_USER=nextjs
+TWITTER_URL=https://x.com/$TWITTER_USER
+--- END CODE BLOCK ---
+If you need to load environment variables outside of the Next.js runtime, such as in a root config file for an ORM or test runner, you can use the
+--- CODE BLOCK 34 ---
+TWITTER_USER=nextjs
+TWITTER_URL=https://x.com/$TWITTER_USER
+--- END CODE BLOCK ---
+package.
+This package is used internally by Next.js to load environment variables from
+--- CODE BLOCK 35 ---
+process.env.TWITTER_URL
+--- END CODE BLOCK ---
+files.
+To use it, install the package and use the
+--- CODE BLOCK 36 ---
+https://x.com/nextjs
+--- END CODE BLOCK ---
+function to load the environment variables:
+--- CODE BLOCK 39 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+envConfig.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 41 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+Then, you can import the configuration where needed. For example:
+orm.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 43 ---
+NEXT_PUBLIC_ANALYTICS_ID=abcdefghijk
+--- END CODE BLOCK ---
+Referencing Other Variables
+Next.js will automatically expand variables that use
+--- CODE BLOCK 46 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+to reference other variables e.g.
+--- CODE BLOCK 47 ---
+import setupAnalyticsService from '../lib/my-analytics-service'
+// 'NEXT_PUBLIC_ANALYTICS_ID' can be used here as it's prefixed by 'NEXT_PUBLIC_'.
+// It will be transformed at build time to `setupAnalyticsService('abcdefghijk')`.
+setupAnalyticsService(process.env.NEXT_PUBLIC_ANALYTICS_ID)
+function HomePage() {
+return <h1>Hello World</h1>
+export default HomePage
+--- END CODE BLOCK ---
+inside of your
+--- CODE BLOCK 48 ---
+import setupAnalyticsService from '../lib/my-analytics-service'
+// 'NEXT_PUBLIC_ANALYTICS_ID' can be used here as it's prefixed by 'NEXT_PUBLIC_'.
+// It will be transformed at build time to `setupAnalyticsService('abcdefghijk')`.
+setupAnalyticsService(process.env.NEXT_PUBLIC_ANALYTICS_ID)
+function HomePage() {
+return <h1>Hello World</h1>
+export default HomePage
+--- END CODE BLOCK ---
+files. This allows you to reference other secrets. For example:
+.env
+--- CODE BLOCK 49 ---
+// This will NOT be inlined, because it uses a variable
+const varName = 'NEXT_PUBLIC_ANALYTICS_ID'
+setupAnalyticsService(process.env[varName])
+// This will NOT be inlined, because it uses a variable
+const env = process.env
+setupAnalyticsService(env.NEXT_PUBLIC_ANALYTICS_ID)
+--- END CODE BLOCK ---
+In the above example,
+--- CODE BLOCK 51 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+would be set to
+--- CODE BLOCK 53 ---
+import { connection } from 'next/server'
+export default async function Component() {
+await connection()
+// cookies, headers, and other Dynamic APIs
+// will also opt into dynamic rendering, meaning
+// this env variable is evaluated at runtime
+const value = process.env.MY_VALUE
+// ...
+--- END CODE BLOCK ---
+Good to know
+: If you need to use variable with a
+--- CODE BLOCK 54 ---
+import { connection } from 'next/server'
+export default async function Component() {
+await connection()
+// cookies, headers, and other Dynamic APIs
+// will also opt into dynamic rendering, meaning
+// this env variable is evaluated at runtime
+const value = process.env.MY_VALUE
+// ...
+--- END CODE BLOCK ---
+in the actual value, it needs to be escaped e.g.
+--- CODE BLOCK 56 ---
+runtimeConfig
+--- END CODE BLOCK ---
+Bundling Environment Variables for the Browser
+Non-
+--- CODE BLOCK 57 ---
+development
+--- END CODE BLOCK ---
+environment variables are only available in the Node.js environment, meaning they aren't accessible to the browser (the client runs in a different
+environment
+In order to make the value of an environment variable accessible in the browser, Next.js can "inline" a value, at build time, into the js bundle that is delivered to the client, replacing all references to
+--- CODE BLOCK 62 ---
+.env.development
+--- END CODE BLOCK ---
+with a hard-coded value. To tell it to do this, you just have to prefix the variable with
+--- CODE BLOCK 63 ---
+.env.production
+--- END CODE BLOCK ---
+. For example:
+Terminal
+--- CODE BLOCK 70 ---
+development
+--- END CODE BLOCK ---
+This will tell Next.js to replace all references to
+--- CODE BLOCK 76 ---
+.env*.local
+--- END CODE BLOCK ---
+in the Node.js environment with the value from the environment in which you run
+--- CODE BLOCK 78 ---
+loadEnvConfig
+--- END CODE BLOCK ---
+, allowing you to use it anywhere in your code. It will be inlined into any JavaScript sent to the browser.
+Note
+: After being built, your app will no longer respond to changes to these environment variables. For instance, if you use a Heroku pipeline to promote slugs built in one environment to another environment, or if you build and deploy a single Docker image to multiple environments, all
+--- CODE BLOCK 80 ---
+// The below can be used in a Jest global setup file or similar for your testing set-up
+import { loadEnvConfig } from '@next/env'
+export default async () => {
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+--- END CODE BLOCK ---
+variables will be frozen with the value evaluated at build time, so these values need to be set appropriately when the project is built. If you need access to runtime environment values, you'll have to setup your own API to provide them to the client (either on demand or during initialization).
+pages/index.js
+--- CODE BLOCK 81 ---
+// The below can be used in a Jest global setup file or similar for your testing set-up
+import { loadEnvConfig } from '@next/env'
+export default async () => {
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+--- END CODE BLOCK ---
+Note that dynamic lookups will
+be inlined, such as:
+--- CODE BLOCK 83 ---
+.env.$(NODE_ENV).local
+--- END CODE BLOCK ---
+Runtime Environment Variables
+Next.js can support both build time and runtime environment variables.
+By default, environment variables are only available on the server
+. To expose an environment variable to the browser, it must be prefixed with
+--- CODE BLOCK 90 ---
+development
+--- END CODE BLOCK ---
+. However, these public environment variables will be inlined into the JavaScript bundle during
+--- CODE BLOCK 91 ---
+.env.development.local
+--- END CODE BLOCK ---
+You can safely read environment variables on the server during dynamic rendering:
+app/page.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 93 ---
+.env.development.local
+--- END CODE BLOCK ---
+This allows you to use a singular Docker image that can be promoted through multiple environments with different values.
+Good to know:
+You can run code on server startup using the
+--- CODE BLOCK 101 ---
+development
+--- END CODE BLOCK ---
+function
+We do not recommend using the
+--- CODE BLOCK 106 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+option, as this does not work with the standalone output mode. Instead, we recommend
+incrementally adopting
+the App Router if you need this feature.
+Test Environment Variables
+Apart from
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+environments, there is a 3rd option available:
+[CODE_BLOCK_59]
+. In the same way you can set defaults for development or production environments, you can do the same with a
+[CODE_BLOCK_60]
+file for the
+[CODE_BLOCK_61]
+environment (though this one is not as common as the previous two). Next.js will not load environment variables from
+[CODE_BLOCK_62]
+[CODE_BLOCK_63]
+in the
+[CODE_BLOCK_64]
+environment.
+This one is useful when running tests with tools like
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+where you need to set specific environment vars only for testing purposes. Test default values will be loaded if
+[CODE_BLOCK_67]
+is set to
+[CODE_BLOCK_68]
+, though you usually don't need to do this manually as testing tools will address it for you.
+There is a small difference between
+[CODE_BLOCK_69]
+environment, and both
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+that you need to bear in mind:
+[CODE_BLOCK_72]
+won't be loaded, as you expect tests to produce the same results for everyone. This way every test execution will use the same env defaults across different executions by ignoring your
+[CODE_BLOCK_73]
+(which is intended to override the default set).
+Good to know
+: similar to Default Environment Variables,
+[CODE_BLOCK_74]
+file should be included in your repository, but
+[CODE_BLOCK_75]
+shouldn't, as
+[CODE_BLOCK_76]
+are intended to be ignored through
+[CODE_BLOCK_77]
+While running unit tests you can make sure to load your environment variables the same way Next.js does by leveraging the
+[CODE_BLOCK_78]
+function from the
+[CODE_BLOCK_79]
+package.
+[CODE_BLOCK_80]
+Environment Variable Load Order
+Environment variables are looked up in the following places, in order, stopping once the variable is found.
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+(Not checked when
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+For example, if
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+and you define a variable in both
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+, the value in
+[CODE_BLOCK_93]
+will be used.
+Good to know
+: The allowed values for
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+Good to know
+If you are using a
+[CODE_BLOCK_98]
+directory
+[CODE_BLOCK_99]
+files should remain in the root of your project.
+If the environment variable
+[CODE_BLOCK_100]
+is unassigned, Next.js automatically assigns
+[CODE_BLOCK_101]
+when running the
+[CODE_BLOCK_102]
+command, or
+[CODE_BLOCK_103]
+for all other commands.
+Version History
+Version
+Changes
+[CODE_BLOCK_104]
+Support
+[CODE_BLOCK_105]
+[CODE_BLOCK_106]
+introduced.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,107 @@
+SOURCE URL: https://nextjs.org/docs/messages/webpack5
+SCRAPED: 2025-06-19 18:14:05
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Docs
+Errors
+Webpack 5 Adoption
+Webpack 5 Adoption
+Why This Message Occurred
+Next.js has adopted webpack 5 as the default for compilation. We've spent a lot of effort into ensuring the transition from webpack 4 to 5 will be as smooth as possible.
+Your application currently has webpack 5 disabled using the
+--- CODE BLOCK 1 ---
+webpack5: false
+--- END CODE BLOCK ---
+flag which has been removed in Next.js 12:
+next.config.js
+--- CODE BLOCK 2 ---
+module.exports = {
+// Webpack 5 is enabled by default
+// You can still use webpack 4 while upgrading to the latest version of Next.js by adding the "webpack5: false" flag
+webpack5: false,
+--- END CODE BLOCK ---
+Using webpack 5 in your application has many benefits, notably:
+Improved Disk Caching:
+--- CODE BLOCK 5 ---
+new URL("file.png", import.meta.url)
+--- END CODE BLOCK ---
+is significantly faster on subsequent builds
+Improved Fast Refresh: Fast Refresh work is prioritized
+Improved Long Term Caching of Assets: Deterministic code output that is less likely to change between builds
+Improved Tree Shaking
+Support for assets using
+--- CODE BLOCK 6 ---
+new Worker(new URL("worker.js", import.meta.url))
+--- END CODE BLOCK ---
+Support for web workers using
+--- CODE BLOCK 9 ---
+package.json
+--- END CODE BLOCK ---
+Support for
+--- CODE BLOCK 10 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+next.config.js
+--- END CODE BLOCK ---
+field in
+--- CODE BLOCK 12 ---
+webpack5: false
+--- END CODE BLOCK ---
+In the past releases we have gradually rolled out webpack 5 to Next.js applications:
+In Next.js 10.2 we automatically opted-in applications without custom webpack configuration in
+--- CODE BLOCK 13 ---
+next.config.js
+--- END CODE BLOCK ---
+In Next.js 10.2 we automatically opted-in applications that do not have a
+--- CODE BLOCK 14 ---
+next-transpile-modules
+--- END CODE BLOCK ---
+In Next.js 11 webpack 5 was enabled by default for all applications. You could still opt-out and use webpack 4 to help with backwards compatibility using
+--- CODE BLOCK 15 ---
+@zeit/next-css
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+@zeit/next-sass
+--- END CODE BLOCK ---
+In Next.js 12 webpack 4 support was removed.
+Custom webpack configuration
+In case you do have custom webpack configuration, either through custom plugins or your own modifications you'll have to take a few steps to ensure your applications works with webpack 5.
+When using
+--- CODE BLOCK 17 ---
+@zeit/next-preact
+--- END CODE BLOCK ---
+make sure you use the latest version which includes
+this patch
+When using
+--- CODE BLOCK 18 ---
+@zeit/next-source-maps
+--- END CODE BLOCK ---
+[CODE_BLOCK_16]
+make sure you use the
+built-in CSS/Sass support
+instead
+When using
+[CODE_BLOCK_17]
+this example
+instead
+When using
+[CODE_BLOCK_18]
+use the
+built-in production Source Map support
+When using webpack plugins make sure they're upgraded to the latest version, in most cases the latest version will include webpack 5 support. In some cases these upgraded webpack plugins will only support webpack 5.
+Useful Links
+In case you're running into issues you can connect with the community in
+this help discussion
+Was this helpful?
+supported.
+Send

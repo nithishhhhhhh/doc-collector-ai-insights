@@ -1,0 +1,123 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/URIError
+SCRAPED: 2025-06-19 18:17:04
+================================================================================
+
+--- CODE BLOCK 3 ---
+structuredClone()
+--- END CODE BLOCK ---
+object represents an error when a global URI handling function was used in a wrong way.
+--- CODE BLOCK 4 ---
+postMessage()
+--- END CODE BLOCK ---
+is a
+serializable object
+, so it can be cloned with
+--- CODE BLOCK 10 ---
+URIError.prototype
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 12 ---
+URIError.prototype.constructor
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+URIError.prototype.name
+--- END CODE BLOCK ---
+is a subclass of
+--- CODE BLOCK 16 ---
+URIError.prototype.name
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 19 ---
+try {
+decodeURIComponent("%");
+} catch (e) {
+console.log(e instanceof URIError); // true
+console.log(e.message); // "malformed URI sequence"
+console.log(e.name); // "URIError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 20 ---
+try {
+decodeURIComponent("%");
+} catch (e) {
+console.log(e instanceof URIError); // true
+console.log(e.message); // "malformed URI sequence"
+console.log(e.name); // "URIError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+object.
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 21 ---
+try {
+throw new URIError("Hello");
+} catch (e) {
+console.log(e instanceof URIError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "URIError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 22 ---
+try {
+throw new URIError("Hello");
+} catch (e) {
+console.log(e instanceof URIError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "URIError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 24 ---
+decodeURI()
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 25 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 26 ---
+encodeURI()
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 27 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+constructor.
+[CODE_BLOCK_15]
+Represents the name for the type of error. For
+[CODE_BLOCK_16]
+, the initial value is
+[CODE_BLOCK_17]
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_18]
+Examples
+Catching an URIError
+Copy to Clipboard
+[CODE_BLOCK_19]
+Creating an URIError
+Copy to Clipboard
+[CODE_BLOCK_21]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-native-error-types-used-in-this-standard-urierror
+Browser compatibility
+See also
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 26, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

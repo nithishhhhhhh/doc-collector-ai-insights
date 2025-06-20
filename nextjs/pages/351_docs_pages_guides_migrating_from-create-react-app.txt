@@ -1,0 +1,839 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/migrating/from-create-react-app
+SCRAPED: 2025-06-19 17:50:47
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Migrating
+Create React App
+You are currently viewing the documentation for Pages Router.
+How to migrate from Create React App to Next.js
+This guide will help you migrate an existing Create React App (CRA) site to Next.js.
+Why Switch?
+There are several reasons why you might want to switch from Create React App to Next.js:
+Slow initial page loading time
+Create React App uses purely client-side rendering. Client-side only applications, also known as
+single-page applications (SPAs)
+, often experience slow initial page loading time. This happens due to a couple of reasons:
+The browser needs to wait for the React code and your entire application bundle to download and run before your code is able to send requests to load data.
+Your application code grows with every new feature and dependency you add.
+No automatic code splitting
+The previous issue of slow loading times can be somewhat mitigated with code splitting. However, if you try to do code splitting manually, you can inadvertently introduce network waterfalls. Next.js provides automatic code splitting and tree-shaking built into its router and build pipeline.
+Network waterfalls
+A common cause of poor performance occurs when applications make sequential client-server requests to fetch data. One pattern for data fetching in a
+is to render a placeholder, and then fetch data after the component has mounted. Unfortunately, a child component can only begin fetching data after its parent has finished loading its own data, resulting in a “waterfall” of requests.
+While client-side data fetching is supported in Next.js, Next.js also lets you move data fetching to the server. This often eliminates client-server waterfalls altogether.
+Fast and intentional loading states
+With built-in support for
+streaming through React Suspense
+, you can define which parts of your UI load first and in what order, without creating network waterfalls.
+This enables you to build pages that are faster to load and eliminate
+layout shifts
+Choose the data fetching strategy
+Depending on your needs, Next.js allows you to choose your data fetching strategy on a page or component-level basis. For example, you could fetch data from your CMS and render blog posts at build time (SSG) for quick load speeds, or fetch data at request time (SSR) when necessary.
+Middleware
+Next.js Middleware
+allows you to run code on the server before a request is completed. For instance, you can avoid a flash of unauthenticated content by redirecting a user to a login page in the middleware for authenticated-only pages. You can also use it for features like A/B testing, experimentation, and
+internationalization
+Built-in Optimizations
+Images
+fonts
+, and
+third-party scripts
+often have a large impact on an application’s performance. Next.js includes specialized components and APIs that automatically optimize them for you.
+Migration Steps
+Our goal is to get a working Next.js application as quickly as possible so that you can then adopt Next.js features incrementally. To begin with, we’ll treat your application as a purely client-side application (
+) without immediately replacing your existing router. This reduces complexity and merge conflicts.
+Note
+: If you are using advanced CRA configurations such as a custom
+--- CODE BLOCK 2 ---
+package.json
+--- END CODE BLOCK ---
+field in your
+--- CODE BLOCK 3 ---
+npm install next@latest
+--- END CODE BLOCK ---
+, a custom service worker, or specific Babel/webpack tweaks, please see the
+Additional Considerations
+section at the end of this guide for tips on replicating or adapting these features in Next.js.
+Step 1: Install the Next.js Dependency
+Install Next.js in your existing project:
+Terminal
+--- CODE BLOCK 4 ---
+npm install next@latest
+--- END CODE BLOCK ---
+Step 2: Create the Next.js Configuration File
+Create a
+--- CODE BLOCK 6 ---
+package.json
+--- END CODE BLOCK ---
+at the root of your project (same level as your
+--- CODE BLOCK 7 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+output: 'export', // Outputs a Single-Page Application (SPA)
+distDir: 'build', // Changes the build output directory to `build`
+export default nextConfig
+--- END CODE BLOCK ---
+). This file holds your
+Next.js configuration options
+next.config.ts
+--- CODE BLOCK 8 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+output: 'export', // Outputs a Single-Page Application (SPA)
+distDir: 'build', // Changes the build output directory to `build`
+export default nextConfig
+--- END CODE BLOCK ---
+Note
+: Using
+--- CODE BLOCK 10 ---
+public/index.html
+--- END CODE BLOCK ---
+means you’re doing a static export. You will
+have access to server-side features like SSR or APIs. You can remove this line to leverage Next.js server features.
+Step 3: Create the Root Layout
+A Next.js
+App Router
+application must include a
+root layout
+file, which is a
+React Server Component
+that will wrap all your pages.
+The closest equivalent of the root layout file in a CRA application is
+--- CODE BLOCK 20 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return '...'
+--- END CODE BLOCK ---
+, which includes your
+--- CODE BLOCK 21 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return '...'
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+<RootLayout>
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 24 ---
+body div#root
+--- END CODE BLOCK ---
+tags.
+Create a new
+--- CODE BLOCK 25 ---
+body noscript
+--- END CODE BLOCK ---
+directory inside your
+--- CODE BLOCK 26 ---
+<div id="root">{children}</div>
+--- END CODE BLOCK ---
+folder (or at your project root if you prefer
+--- CODE BLOCK 27 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<head>
+<meta charSet="UTF-8" />
+<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React App</title>
+<meta name="description" content="Web site created..." />
+</head>
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+at the root).
+Inside the
+--- CODE BLOCK 28 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<head>
+<meta charSet="UTF-8" />
+<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React App</title>
+<meta name="description" content="Web site created..." />
+</head>
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+directory, create a
+--- CODE BLOCK 29 ---
+public/manifest.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+<meta charset="UTF-8" />
+--- END CODE BLOCK ---
+) file:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 31 ---
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+--- END CODE BLOCK ---
+Now copy the content of your old
+--- CODE BLOCK 34 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<head>
+<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+<title>React App</title>
+<meta name="description" content="Web site created..." />
+</head>
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+into this
+--- CODE BLOCK 35 ---
+favicon.ico
+--- END CODE BLOCK ---
+component. Replace
+--- CODE BLOCK 42 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<head>
+<title>React App</title>
+<meta name="description" content="Web site created..." />
+</head>
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+(and
+--- CODE BLOCK 43 ---
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<head>
+<title>React App</title>
+<meta name="description" content="Web site created..." />
+</head>
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+) with
+--- CODE BLOCK 46 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'React App',
+description: 'Web site created with Next.js.',
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 47 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'React App',
+description: 'Web site created with Next.js.',
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+Good to know
+: Next.js ignores CRA’s
+--- CODE BLOCK 50 ---
+import '../index.css'
+export const metadata = {
+title: 'React App',
+description: 'Web site created with Next.js.',
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+, additional iconography, and
+testing configuration
+by default. If you need these, Next.js has support with its
+Metadata API
+Testing
+setup.
+Step 4: Metadata
+Next.js automatically includes the
+--- CODE BLOCK 51 ---
+import '../index.css'
+export const metadata = {
+title: 'React App',
+description: 'Web site created with Next.js.',
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<div id="root">{children}</div>
+</body>
+</html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+src/index.tsx
+--- END CODE BLOCK ---
+tags, so you can remove them from
+--- CODE BLOCK 56 ---
+[[...slug]]
+--- END CODE BLOCK ---
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 58 ---
+┣ [[...slug]]
+┃ ┗ page.tsx
+┣ layout.tsx
+--- END CODE BLOCK ---
+metadata files
+such as
+--- CODE BLOCK 61 ---
+export function generateStaticParams() {
+return [{ slug: [''] }]
+export default function Page() {
+return '...' // We'll update this
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+export function generateStaticParams() {
+return [{ slug: [''] }]
+export default function Page() {
+return '...' // We'll update this
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+app/[[...slug]]/
+--- END CODE BLOCK ---
+are automatically added to the application
+--- CODE BLOCK 67 ---
+'use client'
+import dynamic from 'next/dynamic'
+const App = dynamic(() => import('../../App'), { ssr: false })
+export function ClientOnly() {
+return <App />
+--- END CODE BLOCK ---
+tag as long as you have them placed into the top level of the
+--- CODE BLOCK 68 ---
+'use client'
+import dynamic from 'next/dynamic'
+const App = dynamic(() => import('../../App'), { ssr: false })
+export function ClientOnly() {
+return <App />
+--- END CODE BLOCK ---
+directory. After moving
+all supported files
+into the
+--- CODE BLOCK 69 ---
+'use client'
+--- END CODE BLOCK ---
+directory you can safely delete their
+--- CODE BLOCK 75 ---
+import { ClientOnly } from './client'
+export function generateStaticParams() {
+return [{ slug: [''] }]
+export default function Page() {
+return <ClientOnly />
+--- END CODE BLOCK ---
+tags:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 76 ---
+import { ClientOnly } from './client'
+export function generateStaticParams() {
+return [{ slug: [''] }]
+export default function Page() {
+return <ClientOnly />
+--- END CODE BLOCK ---
+Finally, Next.js can manage your last
+--- CODE BLOCK 78 ---
+import image from './img.png'
+export default function App() {
+return <img src={image} />
+--- END CODE BLOCK ---
+tags with the
+Metadata API
+. Move your final metadata info into an exported
+--- CODE BLOCK 93 ---
+// Before
+import logo from '/logo.png'
+// After
+import logo from '../public/logo.png'
+--- END CODE BLOCK ---
+object
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 94 ---
+// Before
+import logo from '/logo.png'
+// After
+import logo from '../public/logo.png'
+--- END CODE BLOCK ---
+With the above changes, you shifted from declaring everything in your
+--- CODE BLOCK 98 ---
+// Before
+<img src={logo} />
+// After
+<img src={logo.src} />
+--- END CODE BLOCK ---
+to using Next.js' convention-based approach built into the framework (
+Metadata API
+). This approach enables you to more easily improve your SEO and web shareability of your pages.
+Step 5: Styles
+Like CRA, Next.js supports
+CSS Modules
+out of the box. It also supports
+global CSS imports
+If you have a global CSS file, import it into your
+--- CODE BLOCK 99 ---
+public/logo.png
+--- END CODE BLOCK ---
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 103 ---
+next-env.d.ts
+--- END CODE BLOCK ---
+If you’re using Tailwind CSS, see our
+installation docs
+Step 6: Create the Entrypoint Page
+Create React App uses
+--- CODE BLOCK 106 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+--- CODE BLOCK 108 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+) as the entry point. In Next.js (App Router), each folder inside the
+--- CODE BLOCK 109 ---
+package.json
+--- END CODE BLOCK ---
+directory corresponds to a route, and each folder should have a
+--- CODE BLOCK 110 ---
+package.json
+--- END CODE BLOCK ---
+Since we want to keep the app as an SPA for now and intercept
+routes, we’ll use an
+optional catch-all route
+Create a
+--- CODE BLOCK 112 ---
+next-env.d.ts
+--- END CODE BLOCK ---
+directory inside
+--- CODE BLOCK 114 ---
+"scripts": {
+"dev": "next dev --turbopack",
+"build": "next build",
+"start": "npx serve@latest ./build"
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+"scripts": {
+"dev": "next dev --turbopack",
+"build": "next build",
+"start": "npx serve@latest ./build"
+--- END CODE BLOCK ---
+Add the following to
+--- CODE BLOCK 117 ---
+# ...
+.next
+next-env.d.ts
+--- END CODE BLOCK ---
+app/[[...slug]]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 118 ---
+npm run dev
+--- END CODE BLOCK ---
+This tells Next.js to generate a single route for the empty slug (
+--- CODE BLOCK 120 ---
+public/index.html
+--- END CODE BLOCK ---
+), effectively mapping
+routes to the same page. This page is a
+Server Component
+, prerendered into static HTML.
+Step 7: Add a Client-Only Entrypoint
+Next, we’ll embed your CRA’s root App component inside a
+Client Component
+so that all logic remains client-side. If this is your first time using Next.js, it's worth knowing that clients components (by default) are still prerendered on the server. You can think about them as having the additional capability of running client-side JavaScript.
+Create a
+--- CODE BLOCK 121 ---
+src/index.tsx
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+src/react-app-env.d.ts
+--- END CODE BLOCK ---
+) in
+--- CODE BLOCK 123 ---
+reportWebVitals
+--- END CODE BLOCK ---
+app/[[...slug]]/client.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 124 ---
+react-scripts
+--- END CODE BLOCK ---
+--- CODE BLOCK 128 ---
+package.json
+--- END CODE BLOCK ---
+directive makes this file a
+Client Component
+--- CODE BLOCK 130 ---
+next.config.ts
+--- END CODE BLOCK ---
+import with
+--- CODE BLOCK 131 ---
+import { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+basePath: '/my-subpath',
+// ...
+export default nextConfig
+--- END CODE BLOCK ---
+disables server-side rendering for the
+--- CODE BLOCK 132 ---
+import { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+basePath: '/my-subpath',
+// ...
+export default nextConfig
+--- END CODE BLOCK ---
+component, making it truly client-only (SPA).
+Now update your
+--- CODE BLOCK 133 ---
+Service Worker
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+serviceWorker.js
+--- END CODE BLOCK ---
+) to use your new component:
+app/[[...slug]]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 135 ---
+create-react-app
+--- END CODE BLOCK ---
+Step 8: Update Static Image Imports
+In CRA, importing an image file returns its public URL as a string:
+--- CODE BLOCK 138 ---
+next.config.ts
+--- END CODE BLOCK ---
+With Next.js, static image imports return an object. The object can then be used directly with the Next.js
+--- CODE BLOCK 140 ---
+import { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+async rewrites() {
+return [
+source: '/api/:path*',
+destination: 'https://your-backend.com/:path*',
+--- END CODE BLOCK ---
+component
+, or you can use the object's
+--- CODE BLOCK 141 ---
+next.config.ts
+--- END CODE BLOCK ---
+property with your existing
+--- CODE BLOCK 142 ---
+import { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+webpack: (config, { isServer }) => {
+// Modify the webpack config here
+return config
+export default nextConfig
+--- END CODE BLOCK ---
+tag.
+--- CODE BLOCK 143 ---
+import { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+webpack: (config, { isServer }) => {
+// Modify the webpack config here
+return config
+export default nextConfig
+--- END CODE BLOCK ---
+component has the added benefits of
+automatic image optimization
+. The
+--- CODE BLOCK 144 ---
+--turbopack
+--- END CODE BLOCK ---
+component automatically sets the
+--- CODE BLOCK 146 ---
+tsconfig.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 147 ---
+next-env.d.ts
+--- END CODE BLOCK ---
+attributes of the resulting
+--- CODE BLOCK 148 ---
+tsconfig.json
+--- END CODE BLOCK ---
+based on the image's dimensions. This prevents layout shifts when the image loads. However, this can cause issues if your app contains images with only one of their dimensions being styled without the other styled to
+--- CODE BLOCK 150 ---
+"include": ["next-env.d.ts", "app/**/*", "src/**/*"]
+--- END CODE BLOCK ---
+. When not styled to
+--- CODE BLOCK 151 ---
+"include": ["next-env.d.ts", "app/**/*", "src/**/*"]
+--- END CODE BLOCK ---
+, the dimension will default to the
+--- CODE BLOCK 152 ---
+next dev --turbopack
+--- END CODE BLOCK ---
+dimension attribute's value, which can cause the image to appear distorted.
+Keeping the
+--- CODE BLOCK 153 ---
+next dev --turbopack
+--- END CODE BLOCK ---
+tag will reduce the amount of changes in your application and prevent the above issues. You can then optionally later migrate to the
+--- CODE BLOCK 157 ---
+npx next lint
+--- END CODE BLOCK ---
+component to take advantage of optimizing images by
+configuring a loader
+, or moving to the default Next.js server which has automatic image optimization.
+Convert absolute import paths for images imported from
+--- CODE BLOCK 158 ---
+output: 'export'
+--- END CODE BLOCK ---
+into relative imports:
+--- CODE BLOCK 160 ---
+output: 'export'
+--- END CODE BLOCK ---
+Pass the image
+[CODE_BLOCK_95]
+property instead of the whole image object to your
+[CODE_BLOCK_96]
+tag:
+[CODE_BLOCK_97]
+Alternatively, you can reference the public URL for the image asset based on the filename. For example,
+[CODE_BLOCK_99]
+will serve the image at
+[CODE_BLOCK_100]
+for your application, which would be the
+[CODE_BLOCK_101]
+value.
+Warning:
+If you're using TypeScript, you might encounter type errors when accessing the
+[CODE_BLOCK_102]
+property. To fix them, you need to add
+[CODE_BLOCK_103]
+to the
+[CODE_BLOCK_104]
+array
+of your
+[CODE_BLOCK_105]
+file. Next.js will automatically generate this file when you run your application on step 9.
+Step 9: Migrate Environment Variables
+Next.js supports
+environment variables
+similarly to CRA but
+requires
+[CODE_BLOCK_106]
+prefix for any variable you want to expose in the browser.
+The main difference is the prefix used to expose environment variables on the client-side. Change all environment variables with the
+[CODE_BLOCK_107]
+prefix to
+[CODE_BLOCK_108]
+Step 10: Update Scripts in
+[CODE_BLOCK_109]
+Update your
+[CODE_BLOCK_110]
+scripts to use Next.js commands. Also, add
+[CODE_BLOCK_111]
+[CODE_BLOCK_112]
+to your
+[CODE_BLOCK_113]
+package.json
+[CODE_BLOCK_114]
+.gitignore
+[CODE_BLOCK_116]
+Now you can run:
+[CODE_BLOCK_118]
+Open
+http://localhost:3000
+. You should see your application now running on Next.js (in SPA mode).
+Step 11: Clean Up
+You can now remove artifacts that are specific to Create React App:
+[CODE_BLOCK_120]
+[CODE_BLOCK_121]
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+setup
+[CODE_BLOCK_124]
+dependency (uninstall it from
+[CODE_BLOCK_125]
+Additional Considerations
+Using a Custom
+[CODE_BLOCK_126]
+in CRA
+If you used the
+[CODE_BLOCK_127]
+field in your CRA
+[CODE_BLOCK_128]
+to serve the app under a specific subpath, you can replicate that in Next.js using the
+[CODE_BLOCK_129]
+configuration
+[CODE_BLOCK_130]
+next.config.ts
+[CODE_BLOCK_131]
+Handling a Custom
+[CODE_BLOCK_133]
+If you used CRA’s service worker (e.g.,
+[CODE_BLOCK_134]
+from
+[CODE_BLOCK_135]
+), you can learn how to create
+Progressive Web Applications (PWAs)
+with Next.js.
+Proxying API Requests
+If your CRA app used the
+[CODE_BLOCK_136]
+field in
+[CODE_BLOCK_137]
+to forward requests to a backend server, you can replicate this with
+Next.js rewrites
+[CODE_BLOCK_138]
+next.config.ts
+[CODE_BLOCK_139]
+Custom Webpack / Babel Config
+If you had a custom webpack or Babel configuration in CRA, you can extend Next.js’s config in
+[CODE_BLOCK_141]
+next.config.ts
+[CODE_BLOCK_142]
+Note
+: This will require disabling Turbopack by removing
+[CODE_BLOCK_144]
+from your
+[CODE_BLOCK_145]
+script.
+TypeScript Setup
+Next.js automatically sets up TypeScript if you have a
+[CODE_BLOCK_146]
+. Make sure
+[CODE_BLOCK_147]
+is listed in your
+[CODE_BLOCK_148]
+[CODE_BLOCK_149]
+array:
+[CODE_BLOCK_150]
+Bundler Compatibility
+Both Create React App and Next.js default to webpack for bundling. Next.js also offers
+Turbopack
+for faster local development with:
+[CODE_BLOCK_152]
+You can still provide a
+custom webpack configuration
+if you need to migrate advanced webpack settings from CRA.
+Next Steps
+If everything worked, you now have a functioning Next.js application running as a single-page application. You aren’t yet leveraging Next.js features like server-side rendering or file-based routing, but you can now do so incrementally:
+Migrate from React Router
+to the
+Next.js App Router
+for:
+Automatic code splitting
+Streaming server rendering
+React Server Components
+Optimize images
+with the
+[CODE_BLOCK_154]
+component
+Optimize fonts
+with
+[CODE_BLOCK_155]
+Optimize third-party scripts
+with the
+[CODE_BLOCK_156]
+component
+Enable ESLint
+with Next.js recommended rules by running
+[CODE_BLOCK_157]
+and configuring it to match your project’s needs
+Note
+: Using a static export (
+[CODE_BLOCK_158]
+does not currently support
+[CODE_BLOCK_159]
+hook or other server features. To use all Next.js features, remove
+[CODE_BLOCK_160]
+from your
+[CODE_BLOCK_161]
+Was this helpful?
+supported.
+Send

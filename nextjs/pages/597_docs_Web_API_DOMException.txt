@@ -1,0 +1,362 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/DOMException
+SCRAPED: 2025-06-19 18:18:06
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+DOMException
+--- END CODE BLOCK ---
+interface represents an abnormal event (called an
+exception
+) that occurs as a result of calling a method or accessing a property of a web API. This is how error conditions are described in web APIs.
+Each exception has a
+name
+, which is a short "PascalCase"-style string identifying the error or abnormal condition.
+--- CODE BLOCK 2 ---
+DOMException
+--- END CODE BLOCK ---
+is a
+Serializable object
+, so it can be cloned with
+--- CODE BLOCK 3 ---
+structuredClone()
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 4 ---
+postMessage()
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 5 ---
+DOMException()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 6 ---
+DOMException
+--- END CODE BLOCK ---
+object with a specified message and name.
+Instance properties
+--- CODE BLOCK 7 ---
+DOMException.code
+--- END CODE BLOCK ---
+Deprecated
+Read only
+Returns one of the legacy error code constants, or
+--- CODE BLOCK 9 ---
+DOMException.message
+--- END CODE BLOCK ---
+if none match.
+--- CODE BLOCK 10 ---
+DOMException.name
+--- END CODE BLOCK ---
+Read only
+Returns a string representing a message or description associated with the given
+error name
+--- CODE BLOCK 12 ---
+DOMSTRING_SIZE_ERR
+--- END CODE BLOCK ---
+Read only
+Returns a string that contains one of the strings associated with an
+error name
+Error names
+Common error names are listed here. Some APIs define their own sets of names, so this is not necessarily a complete list.
+Note that the following deprecated historical errors don't have an error name but instead have only a legacy constant code value and a legacy constant name:
+Legacy code value:
+--- CODE BLOCK 14 ---
+NO_DATA_ALLOWED_ERR
+--- END CODE BLOCK ---
+, legacy constant name:
+--- CODE BLOCK 16 ---
+VALIDATION_ERR
+--- END CODE BLOCK ---
+Legacy code value:
+--- CODE BLOCK 17 ---
+IndexSizeError
+--- END CODE BLOCK ---
+, legacy constant name:
+--- CODE BLOCK 20 ---
+INDEX_SIZE_ERR
+--- END CODE BLOCK ---
+Legacy code value:
+--- CODE BLOCK 21 ---
+HierarchyRequestError
+--- END CODE BLOCK ---
+, legacy constant name:
+--- CODE BLOCK 23 ---
+HIERARCHY_REQUEST_ERR
+--- END CODE BLOCK ---
+Note:
+Because historically the errors were identified by a numeric value that corresponded with a named variable defined to have that value, some of the entries below indicate the legacy code value and constant name that were used in the past.
+--- CODE BLOCK 24 ---
+WrongDocumentError
+--- END CODE BLOCK ---
+The index is not in the allowed range. For example, this can be thrown by the
+--- CODE BLOCK 27 ---
+WRONG_DOCUMENT_ERR
+--- END CODE BLOCK ---
+object. (Legacy code value:
+--- CODE BLOCK 28 ---
+InvalidCharacterError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 30 ---
+INVALID_CHARACTER_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+NoModificationAllowedError
+--- END CODE BLOCK ---
+The node tree hierarchy is not correct. (Legacy code value:
+--- CODE BLOCK 33 ---
+NO_MODIFICATION_ALLOWED_ERR
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 34 ---
+NotFoundError
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+NOT_FOUND_ERR
+--- END CODE BLOCK ---
+The object is in the wrong
+--- CODE BLOCK 37 ---
+NotSupportedError
+--- END CODE BLOCK ---
+. (Legacy code value:
+--- CODE BLOCK 39 ---
+NOT_SUPPORTED_ERR
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 40 ---
+InvalidStateError
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+INVALID_STATE_ERR
+--- END CODE BLOCK ---
+The string contains invalid characters. (Legacy code value:
+--- CODE BLOCK 43 ---
+InUseAttributeError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 45 ---
+INUSE_ATTRIBUTE_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+SyntaxError
+--- END CODE BLOCK ---
+The object cannot be modified. (Legacy code value:
+--- CODE BLOCK 49 ---
+InvalidModificationError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 51 ---
+INVALID_MODIFICATION_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+NamespaceError
+--- END CODE BLOCK ---
+The object cannot be found here. (Legacy code value:
+--- CODE BLOCK 54 ---
+NAMESPACE_ERR
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 55 ---
+InvalidAccessError
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+INVALID_ACCESS_ERR
+--- END CODE BLOCK ---
+The operation is not supported. (Legacy code value:
+--- CODE BLOCK 58 ---
+TypeMismatchError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 60 ---
+TYPE_MISMATCH_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+DOMException
+--- END CODE BLOCK ---
+The object is in an invalid state. (Legacy code value:
+--- CODE BLOCK 63 ---
+SecurityError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 65 ---
+SECURITY_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+NetworkError
+--- END CODE BLOCK ---
+The attribute is in use. (Legacy code value:
+--- CODE BLOCK 68 ---
+NETWORK_ERR
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 72 ---
+URLMismatchError
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+URL_MISMATCH_ERR
+--- END CODE BLOCK ---
+The string did not match the expected pattern. (Legacy code value:
+--- CODE BLOCK 75 ---
+QuotaExceededError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 77 ---
+QUOTA_EXCEEDED_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+TimeoutError
+--- END CODE BLOCK ---
+The object cannot be modified in this way. (Legacy code value:
+--- CODE BLOCK 80 ---
+TIMEOUT_ERR
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 81 ---
+InvalidNodeTypeError
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+INVALID_NODE_TYPE_ERR
+--- END CODE BLOCK ---
+The operation is not allowed by Namespaces in XML. (Legacy code value:
+--- CODE BLOCK 84 ---
+DataCloneError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 86 ---
+DATA_CLONE_ERR
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+EncodingError
+--- END CODE BLOCK ---
+The object does not support the operation or argument. (Legacy code value:
+--- CODE BLOCK 88 ---
+NotReadableError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 89 ---
+UnknownError
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+ConstraintError
+--- END CODE BLOCK ---
+Deprecated
+The type of the object does not match the expected type. (Legacy code value:
+--- CODE BLOCK 92 ---
+TransactionInactiveError
+--- END CODE BLOCK ---
+and legacy constant name:
+--- CODE BLOCK 93 ---
+ReadOnlyError
+--- END CODE BLOCK ---
+) This value is deprecated; the JavaScript
+--- CODE BLOCK 94 ---
+VersionError
+--- END CODE BLOCK ---
+exception is now raised instead of a
+--- CODE BLOCK 95 ---
+OperationError
+--- END CODE BLOCK ---
+with this value.
+--- CODE BLOCK 96 ---
+NotAllowedError
+--- END CODE BLOCK ---
+The operation is insecure. (Legacy code value:
+--- CODE BLOCK 97 ---
+DOMException
+--- END CODE BLOCK ---
+and legacy constant name:
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+Experimental
+A network error occurred. (Legacy code value:
+[CODE_BLOCK_67]
+and legacy constant name:
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+Experimental
+The operation was aborted. (Legacy code value:
+[CODE_BLOCK_70]
+and legacy constant name:
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+Experimental
+The given URL does not match another URL. (Legacy code value:
+[CODE_BLOCK_73]
+and legacy constant name:
+[CODE_BLOCK_74]
+[CODE_BLOCK_75]
+Experimental
+The quota has been exceeded. (Legacy code value:
+[CODE_BLOCK_76]
+and legacy constant name:
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+The operation timed out. (Legacy code value:
+[CODE_BLOCK_79]
+and legacy constant name:
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+Experimental
+The node is incorrect or has an incorrect ancestor for this operation. (Legacy code value:
+[CODE_BLOCK_82]
+and legacy constant name:
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+Experimental
+The object can not be cloned. (Legacy code value:
+[CODE_BLOCK_85]
+and legacy constant name:
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+Experimental
+The encoding or decoding operation failed (No legacy code value and constant name).
+[CODE_BLOCK_88]
+Experimental
+The input/output read operation failed (No legacy code value and constant name).
+[CODE_BLOCK_89]
+Experimental
+The operation failed for an unknown transient reason (e.g., out of memory) (No legacy code value and constant name).
+[CODE_BLOCK_90]
+Experimental
+A mutation operation in a transaction failed because a constraint was not satisfied (No legacy code value and constant name).
+[CODE_BLOCK_91]
+Experimental
+Provided data is inadequate (No legacy code value and constant name).
+[CODE_BLOCK_92]
+Experimental
+A request was placed against a transaction that is currently not active or is finished (No legacy code value and constant name).
+[CODE_BLOCK_93]
+Experimental
+The mutating operation was attempted in a "readonly" transaction (No legacy code value and constant name).
+[CODE_BLOCK_94]
+Experimental
+An attempt was made to open a database using a lower version than the existing version (No legacy code value and constant name).
+[CODE_BLOCK_95]
+Experimental
+The operation failed for an operation-specific reason (No legacy code value and constant name).
+[CODE_BLOCK_96]
+The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission (No legacy code value and constant name).
+Specifications
+Specification
+Web IDL
+idl-DOMException
+Browser compatibility
+See also
+A polyfill of
+[CODE_BLOCK_97]
+is available in
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

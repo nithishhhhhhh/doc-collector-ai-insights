@@ -1,0 +1,493 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+SCRAPED: 2025-06-19 18:17:35
+================================================================================
+
+--- CODE BLOCK 4 ---
+Symbol.for("key")
+--- END CODE BLOCK ---
+is a built-in object whose constructor returns a
+--- CODE BLOCK 6 ---
+Symbol.for("key")
+--- END CODE BLOCK ---
+primitive
+— also called a
+Symbol value
+or just a
+Symbol
+— that's guaranteed to be unique. Symbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, and which are hidden from any mechanisms other code will typically use to access the object. That enables a form of weak
+encapsulation
+, or a weak form of
+information hiding
+Every
+--- CODE BLOCK 8 ---
+const sym1 = Symbol();
+const sym2 = Symbol("foo");
+const sym3 = Symbol("foo");
+--- END CODE BLOCK ---
+call is guaranteed to return a unique Symbol. Every
+--- CODE BLOCK 9 ---
+const sym1 = Symbol();
+const sym2 = Symbol("foo");
+const sym3 = Symbol("foo");
+--- END CODE BLOCK ---
+call will always return the same Symbol for a given value of
+--- CODE BLOCK 10 ---
+Symbol("foo")
+--- END CODE BLOCK ---
+. When
+--- CODE BLOCK 12 ---
+Symbol("foo") === Symbol("foo"); // false
+--- END CODE BLOCK ---
+is called, if a Symbol with the given key can be found in the global Symbol registry, that Symbol is returned. Otherwise, a new Symbol is created, added to the global Symbol registry under the given key, and returned.
+Description
+To create a new primitive Symbol, you write
+--- CODE BLOCK 13 ---
+Symbol("foo") === Symbol("foo"); // false
+--- END CODE BLOCK ---
+with an optional string as its description:
+Copy to Clipboard
+--- CODE BLOCK 16 ---
+const sym = new Symbol(); // TypeError
+--- END CODE BLOCK ---
+The above code creates three new Symbols. Note that
+--- CODE BLOCK 19 ---
+new Boolean
+--- END CODE BLOCK ---
+does not coerce the string
+--- CODE BLOCK 24 ---
+const sym = Symbol("foo");
+typeof sym; // "symbol"
+const symObj = Object(sym);
+typeof symObj; // "object"
+--- END CODE BLOCK ---
+into a Symbol. It creates a new Symbol each time:
+Copy to Clipboard
+--- CODE BLOCK 25 ---
+const sym = Symbol("foo");
+typeof sym; // "symbol"
+const symObj = Object(sym);
+typeof symObj; // "object"
+--- END CODE BLOCK ---
+The following syntax with the
+--- CODE BLOCK 31 ---
+Symbol.for()
+--- END CODE BLOCK ---
+operator will throw a
+--- CODE BLOCK 32 ---
+Symbol.keyFor()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 35 ---
+Symbol.for(tokenString)
+--- END CODE BLOCK ---
+This prevents authors from creating an explicit
+--- CODE BLOCK 38 ---
+Symbol.keyFor(Symbol.for("tokenString")) === "tokenString"; // true
+--- END CODE BLOCK ---
+wrapper object instead of a new Symbol value and might be surprising as creating explicit wrapper objects around primitive data types is generally possible (for example,
+--- CODE BLOCK 39 ---
+Symbol.keyFor(Symbol.for("tokenString")) === "tokenString"; // true
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+FinalizationRegistry
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+Symbol.hasInstance
+--- END CODE BLOCK ---
+If you really want to create a
+--- CODE BLOCK 47 ---
+JSON.stringify
+--- END CODE BLOCK ---
+wrapper object, you can use the
+--- CODE BLOCK 52 ---
+@@<symbol-name>
+--- END CODE BLOCK ---
+function:
+Copy to Clipboard
+--- CODE BLOCK 53 ---
+Symbol.hasInstance
+--- END CODE BLOCK ---
+Because symbols are the only primitive data type that has reference identity (that is, you cannot create the same symbol twice), they behave like objects in some way. For example, they are garbage collectable and can therefore be stored in
+--- CODE BLOCK 55 ---
+Array.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+Array.prototype[@@iterator]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+Array.prototype
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 61 ---
+FinalizationRegistry
+--- END CODE BLOCK ---
+objects.
+Shared Symbols in the global Symbol registry
+The above syntax using the
+--- CODE BLOCK 62 ---
+Object.getOwnPropertySymbols()
+--- END CODE BLOCK ---
+function will create a Symbol whose value remains unique throughout the lifetime of the program. To create Symbols available across files and even across realms (each of which has its own global scope), use the methods
+--- CODE BLOCK 65 ---
+Symbol.hasInstance
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+Symbol.asyncIterator
+--- END CODE BLOCK ---
+to set and retrieve Symbols from the global Symbol registry.
+Note that the "global Symbol registry" is only a fictitious concept and may not correspond to any internal data structure in the JavaScript engine — and even if such a registry exists, its content is not available to the JavaScript code, except through the
+--- CODE BLOCK 67 ---
+for await...of
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+Symbol.hasInstance
+--- END CODE BLOCK ---
+methods.
+The method
+--- CODE BLOCK 70 ---
+Symbol.isConcatSpreadable
+--- END CODE BLOCK ---
+takes a string key and returns a symbol value from the registry, while
+--- CODE BLOCK 71 ---
+Array.prototype.concat()
+--- END CODE BLOCK ---
+takes a symbol value and returns the string key corresponding to it. Each is the other's inverse, so the following is
+--- CODE BLOCK 72 ---
+Symbol.iterator
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 74 ---
+Symbol.match
+--- END CODE BLOCK ---
+Because registered symbols can be arbitrarily created anywhere, they behave almost exactly like the strings they wrap. Therefore, they are not guaranteed to be unique and are not garbage collectable. Therefore, registered symbols are disallowed in
+--- CODE BLOCK 76 ---
+Symbol.matchAll
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+String.prototype.matchAll()
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+Symbol.replace
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 79 ---
+String.prototype.replace()
+--- END CODE BLOCK ---
+objects.
+Well-known Symbols
+All static properties of the
+--- CODE BLOCK 80 ---
+Symbol.search
+--- END CODE BLOCK ---
+constructor are Symbols themselves, whose values are constant across realms. They are known as
+well-known Symbols
+, and their purpose is to serve as "protocols" for certain built-in JavaScript operations, allowing users to customize the language's behavior. For example, if a constructor function has a method with
+--- CODE BLOCK 81 ---
+String.prototype.search()
+--- END CODE BLOCK ---
+as its name, this method will encode its behavior with the
+--- CODE BLOCK 82 ---
+Symbol.species
+--- END CODE BLOCK ---
+operator.
+Prior to well-known Symbols, JavaScript used normal properties to implement certain built-in operations. For example, the
+--- CODE BLOCK 83 ---
+Symbol.split
+--- END CODE BLOCK ---
+function will attempt to call each object's
+--- CODE BLOCK 84 ---
+String.prototype.split()
+--- END CODE BLOCK ---
+method, and the
+--- CODE BLOCK 85 ---
+Symbol.toPrimitive
+--- END CODE BLOCK ---
+function will call the object's
+--- CODE BLOCK 86 ---
+Symbol.toStringTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+methods. However, as more operations are added to the language, designating each operation a "magic property" can break backward compatibility and make the language's behavior harder to reason with. Well-known Symbols allow the customizations to be "invisible" from normal code, which typically only read string properties.
+Note:
+The spec used to use the notation
+--- CODE BLOCK 88 ---
+Symbol.unscopables
+--- END CODE BLOCK ---
+to denote well-known symbols. For example,
+--- CODE BLOCK 90 ---
+Symbol.for()
+--- END CODE BLOCK ---
+was written as
+--- CODE BLOCK 93 ---
+Symbol.keyFor()
+--- END CODE BLOCK ---
+, and the
+--- CODE BLOCK 94 ---
+Symbol.prototype
+--- END CODE BLOCK ---
+method would be called
+--- CODE BLOCK 96 ---
+Symbol.prototype.constructor
+--- END CODE BLOCK ---
+. This notation is no longer used in the spec, but you may still see it in older documentation or discussions.
+Well-known symbols do not have the concept of garbage collectability, because they come in a fixed set and are unique throughout the lifetime of the program, similar to intrinsic objects such as
+--- CODE BLOCK 99 ---
+Symbol.prototype.description
+--- END CODE BLOCK ---
+, so they are also allowed in
+--- CODE BLOCK 100 ---
+Symbol.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+--- CODE BLOCK 103 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 106 ---
+Object.prototype.toString.call()
+--- END CODE BLOCK ---
+objects.
+Finding Symbol properties on objects
+The method
+--- CODE BLOCK 108 ---
+Symbol.prototype.toString()
+--- END CODE BLOCK ---
+returns an array of Symbols and lets you find Symbol properties on a given object. Note that every object is initialized with no own Symbol properties, so that this array will be empty unless you've set Symbol properties on the object.
+Constructor
+--- CODE BLOCK 109 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+Returns primitive values of type Symbol. Throws an error when called with
+--- CODE BLOCK 110 ---
+Symbol.prototype.valueOf()
+--- END CODE BLOCK ---
+Static properties
+The static properties are all well-known Symbols. In these Symbols' descriptions, we will use language like "
+--- CODE BLOCK 111 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+is a method determining…", but bear in mind that this is referring to the semantic of an object's method having this Symbol as the method name (because well-known Symbols act as "protocols"), not describing the value of the Symbol itself.
+--- CODE BLOCK 112 ---
+Symbol.prototype[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+A method that returns the default AsyncIterator for an object. Used by
+--- CODE BLOCK 114 ---
+typeof Symbol() === "symbol";
+typeof Symbol("foo") === "symbol";
+typeof Symbol.iterator === "symbol";
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+typeof Symbol() === "symbol";
+typeof Symbol("foo") === "symbol";
+typeof Symbol.iterator === "symbol";
+--- END CODE BLOCK ---
+A method determining if a constructor object recognizes an object as its instance. Used by
+--- CODE BLOCK 119 ---
+Object(sym) == sym
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+Symbol("foo") + "bar"
+--- END CODE BLOCK ---
+A Boolean value indicating if an object should be flattened to its array elements. Used by
+--- CODE BLOCK 123 ---
+String(sym)
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+Symbol.prototype.toString()
+--- END CODE BLOCK ---
+A method returning the default iterator for an object. Used by
+--- CODE BLOCK 125 ---
+new String(sym)
+--- END CODE BLOCK ---
+--- CODE BLOCK 127 ---
+Object.getOwnPropertyNames()
+--- END CODE BLOCK ---
+A method that matches against a string, also used to determine if an object may be used as a regular expression. Used by
+--- CODE BLOCK 128 ---
+Object.getOwnPropertySymbols()
+--- END CODE BLOCK ---
+--- CODE BLOCK 129 ---
+const obj = {};
+obj[Symbol("a")] = "a";
+obj[Symbol.for("b")] = "b";
+obj["c"] = "c";
+obj.d = "d";
+for (const i in obj) {
+console.log(i);
+// "c" "d"
+--- END CODE BLOCK ---
+A method that returns an iterator, that yields matches of the regular expression against a string. Used by
+--- CODE BLOCK 130 ---
+const obj = {};
+obj[Symbol("a")] = "a";
+obj[Symbol.for("b")] = "b";
+obj["c"] = "c";
+obj.d = "d";
+for (const i in obj) {
+console.log(i);
+// "c" "d"
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+A method that replaces matched substrings of a string. Used by
+--- CODE BLOCK 132 ---
+JSON.stringify({ [Symbol("foo")]: "foo" });
+// '{}'
+--- END CODE BLOCK ---
+--- CODE BLOCK 133 ---
+JSON.stringify({ [Symbol("foo")]: "foo" });
+// '{}'
+--- END CODE BLOCK ---
+A method that returns the index within a string that matches the regular expression. Used by
+--- CODE BLOCK 134 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+const sym = Symbol("foo");
+const obj = { [sym]: 1 };
+obj[sym]; // 1
+obj[Object(sym)]; // still 1
+--- END CODE BLOCK ---
+A constructor function that is used to create derived objects.
+--- CODE BLOCK 136 ---
+const sym = Symbol("foo");
+const obj = { [sym]: 1 };
+obj[sym]; // 1
+obj[Object(sym)]; // still 1
+--- END CODE BLOCK ---
+A method that splits a string at the indices that match a regular expression. Used by
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+A method converting an object to a primitive value.
+[CODE_BLOCK_86]
+A string value used for the default description of an object. Used by
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+An object value of whose own and inherited property names are excluded from the
+[CODE_BLOCK_89]
+environment bindings of the associated object.
+Static methods
+[CODE_BLOCK_90]
+Searches for existing registered Symbols in the global Symbol registry with the given
+[CODE_BLOCK_91]
+and returns it if found. Otherwise a new Symbol gets created and registered with
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+Retrieves a shared Symbol key from the global Symbol registry for the given Symbol.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_94]
+and shared by all
+[CODE_BLOCK_95]
+instances.
+[CODE_BLOCK_96]
+The constructor function that created the instance object. For
+[CODE_BLOCK_97]
+instances, the initial value is the
+[CODE_BLOCK_98]
+constructor.
+[CODE_BLOCK_99]
+A read-only string containing the description of the Symbol.
+[CODE_BLOCK_100]
+The initial value of the
+[CODE_BLOCK_101]
+property is the string
+[CODE_BLOCK_102]
+. This property is used in
+[CODE_BLOCK_103]
+. However, because
+[CODE_BLOCK_104]
+also has its own
+[CODE_BLOCK_105]
+method, this property is not used unless you call
+[CODE_BLOCK_106]
+with a symbol as
+[CODE_BLOCK_107]
+Instance methods
+[CODE_BLOCK_108]
+Returns a string containing the description of the Symbol. Overrides the
+[CODE_BLOCK_109]
+method.
+[CODE_BLOCK_110]
+Returns the Symbol. Overrides the
+[CODE_BLOCK_111]
+method.
+[CODE_BLOCK_112]
+Returns the Symbol.
+Examples
+Using the typeof operator with Symbols
+[CODE_BLOCK_113]
+operator can help you to identify Symbols.
+Copy to Clipboard
+[CODE_BLOCK_114]
+Symbol type conversions
+Some things to note when working with type conversion of Symbols.
+When trying to convert a Symbol to a number, a
+[CODE_BLOCK_116]
+will be thrown
+(e.g.,
+[CODE_BLOCK_117]
+[CODE_BLOCK_118]
+When using loose equality,
+[CODE_BLOCK_119]
+returns
+[CODE_BLOCK_120]
+[CODE_BLOCK_121]
+throws a
+[CODE_BLOCK_122]
+(can't convert Symbol to string). This prevents you from silently creating a new string property name from a Symbol, for example.
+"safer"
+[CODE_BLOCK_123]
+conversion
+works like a call to
+[CODE_BLOCK_124]
+with Symbols, but note that
+[CODE_BLOCK_125]
+will throw.
+Symbols and for...in iteration
+Symbols are not enumerable in
+[CODE_BLOCK_126]
+iterations. In addition,
+[CODE_BLOCK_127]
+will not return Symbol object properties, however, you can use
+[CODE_BLOCK_128]
+to get these.
+Copy to Clipboard
+[CODE_BLOCK_129]
+Symbols and JSON.stringify()
+Symbol-keyed properties will be completely ignored when using
+[CODE_BLOCK_131]
+Copy to Clipboard
+[CODE_BLOCK_132]
+For more details, see
+[CODE_BLOCK_134]
+Symbol wrapper objects as property keys
+When a Symbol wrapper object is used as a property key, this object will be coerced to its wrapped Symbol:
+Copy to Clipboard
+[CODE_BLOCK_135]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-symbol-objects
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_137]
+[CODE_BLOCK_138]
+[CODE_BLOCK_139]
+JavaScript data types and data structures
+ES6 In Depth: Symbols
+on hacks.mozilla.org (2015)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

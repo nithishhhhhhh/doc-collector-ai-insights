@@ -1,0 +1,430 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/linking-and-navigating
+SCRAPED: 2025-06-19 17:38:51
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Linking and Navigating
+Linking and Navigating
+In Next.js, routes are rendered on the server by default. This often means the client has to wait for a server response before a new route can be shown. Next.js comes with built-in
+prefetching
+streaming
+, and
+client-side transitions
+ensuring navigation stays fast and responsive.
+This guide explains how navigation works in Next.js and how you can optimize it for
+dynamic routes
+slow networks
+How navigation works
+To understand how navigation works in Next.js, it helps to be familiar with the following concepts:
+Server Rendering
+Prefetching
+Streaming
+Client-side transitions
+Server Rendering
+In Next.js,
+Layouts and Pages
+React Server Components
+by default. On initial and subsequent navigations, the
+Server Component Payload
+is generated on the server before being sent to the client.
+There are two types of server rendering, based on
+when
+it happens:
+Static Rendering (or Prerendering)
+happens at build time or during
+revalidation
+and the result is cached.
+Dynamic Rendering
+happens at request time in response to a client request.
+The trade-off of server rendering is that the client must wait for the server to respond before the new route can be shown. Next.js addresses this delay by
+prefetching
+routes the user is likely to visit and performing
+client-side transitions
+Good to know
+: HTML is also generated for the initial visit.
+Prefetching
+Prefetching is the process of loading a route in the background before the user navigates to it. This makes navigation between routes in your application feel instant, because by the time a user clicks on a link, the data to render the next route is already available client side.
+Next.js automatically prefetches routes linked with the
+--- CODE BLOCK 2 ---
+import Link from 'next/link'
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<html>
+<body>
+<nav>
+{/* Prefetched when the link is hovered or enters the viewport */}
+<Link href="/blog">Blog</Link>
+{/* No prefetching */}
+<a href="/contact">Contact</a>
+</nav>
+{children}
+</body>
+</html>
+--- END CODE BLOCK ---
+component
+when they enter the user's viewport.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import Link from 'next/link'
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<html>
+<body>
+<nav>
+{/* Prefetched when the link is hovered or enters the viewport */}
+<Link href="/blog">Blog</Link>
+{/* No prefetching */}
+<a href="/contact">Contact</a>
+</nav>
+{children}
+</body>
+</html>
+--- END CODE BLOCK ---
+How much of the route is prefetched depends on whether it's static or dynamic:
+Static Route
+: the full route is prefetched.
+Dynamic Route
+: prefetching is skipped, or the route is partially prefetched if
+--- CODE BLOCK 5 ---
+loading.tsx
+--- END CODE BLOCK ---
+is present.
+By skipping or partially prefetching dynamic routes, Next.js avoids unnecessary work on the server for routes the users may never visit. However, waiting for a server response before navigation can give the users the impression that the app is not responding.
+To improve the navigation experience to dynamic routes, you can use
+streaming
+Streaming
+Streaming allows the server to send parts of a dynamic route to the client as soon as they're ready, rather than waiting for the entire route to be rendered. This means users see something sooner, even if parts of the page are still loading.
+For dynamic routes, it means they can be
+partially prefetched
+. That is, shared layouts and loading skeletons can be requested ahead of time.
+To use streaming, create a
+--- CODE BLOCK 6 ---
+export default function Loading() {
+// Add fallback UI that will be shown while the route is loading.
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+in your route folder:
+app/dashboard/loading.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+export default function Loading() {
+// Add fallback UI that will be shown while the route is loading.
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+Behind the scenes, Next.js will automatically wrap the
+--- CODE BLOCK 14 ---
+loading.tsx
+--- END CODE BLOCK ---
+contents in a
+--- CODE BLOCK 15 ---
+loading.tsx
+--- END CODE BLOCK ---
+boundary. The prefetched fallback UI will be shown while the route is loading, and swapped for the actual content once ready.
+Good to know
+: You can also use
+--- CODE BLOCK 16 ---
+export default function Loading() {
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+to create loading UI for nested components.
+Benefits of
+--- CODE BLOCK 17 ---
+export default function Loading() {
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+Immediate navigation and visual feedback for the user.
+Shared layouts remain interactive and navigation is interruptible.
+Improved Core Web Vitals:
+TTFB
+, and
+To further improve the navigation experience, Next.js performs a
+client-side transition
+with the
+--- CODE BLOCK 18 ---
+devIndicators
+--- END CODE BLOCK ---
+component.
+Client-side transitions
+Traditionally, navigation to a server-rendered page triggers a full page load. This clears state, resets scroll position, and blocks interactivity.
+Next.js avoids this with client-side transitions using the
+--- CODE BLOCK 19 ---
+generateStaticParams
+--- END CODE BLOCK ---
+component. Instead of reloading the page, it updates the content dynamically by:
+Keeping any shared layouts and UI.
+Replacing the current page with the prefetched loading state or a new page if available.
+Client-side transitions are what makes a server-rendered apps
+feel
+like client-rendered apps. And when paired with
+prefetching
+streaming
+, it enables fast transitions, even for dynamic routes.
+What can make transitions slow?
+These Next.js optimizations make navigation fast and responsive. However, under certain conditions, transitions can still
+feel
+slow. Here are some common causes and how to improve the user experience:
+Dynamic routes without
+--- CODE BLOCK 20 ---
+generateStaticParams
+--- END CODE BLOCK ---
+When navigating to a dynamic route, the client must wait for the server response before showing the result. This can give the users the impression that the app is not responding.
+We recommend adding
+--- CODE BLOCK 21 ---
+generateStaticParams
+--- END CODE BLOCK ---
+to dynamic routes to enable partial prefetching, trigger immediate navigation, and display a loading UI while the route renders.
+app/blog/[slug]/loading.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 22 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+return posts.map((post) => ({
+slug: post.slug,
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+// ...
+--- END CODE BLOCK ---
+Good to know
+: In development mode, you can use the Next.js Devtools to identify if the route is static or dynamic. See
+--- CODE BLOCK 25 ---
+useLinkStatus
+--- END CODE BLOCK ---
+for more information.
+Dynamic segments without
+--- CODE BLOCK 26 ---
+'use client'
+import { useLinkStatus } from 'next/link'
+export default function LoadingIndicator() {
+const { pending } = useLinkStatus()
+return pending ? (
+<div role="status" aria-label="Loading" className="spinner" />
+) : null
+--- END CODE BLOCK ---
+If a
+dynamic segment
+could be prerendered but isn't because it's missing
+--- CODE BLOCK 27 ---
+'use client'
+import { useLinkStatus } from 'next/link'
+export default function LoadingIndicator() {
+const { pending } = useLinkStatus()
+return pending ? (
+<div role="status" aria-label="Loading" className="spinner" />
+) : null
+--- END CODE BLOCK ---
+, the route will fallback to dynamic rendering at request time.
+Ensure the route is statically generated at build time by adding
+--- CODE BLOCK 29 ---
+.spinner {
+/* ... */
+opacity: 0;
+animation:
+fadeIn 500ms 100ms forwards,
+rotate 1s linear infinite;
+@keyframes fadeIn {
+from {
+opacity: 0;
+to {
+opacity: 1;
+@keyframes rotate {
+to {
+transform: rotate(360deg);
+--- END CODE BLOCK ---
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 30 ---
+.spinner {
+/* ... */
+opacity: 0;
+animation:
+fadeIn 500ms 100ms forwards,
+rotate 1s linear infinite;
+@keyframes fadeIn {
+from {
+opacity: 0;
+to {
+opacity: 1;
+@keyframes rotate {
+to {
+transform: rotate(360deg);
+--- END CODE BLOCK ---
+Slow networks
+On slow or unstable networks, prefetching may not finish before the user clicks a link. This can affect both static and dynamic routes. In these cases, the
+--- CODE BLOCK 35 ---
+<Link prefetch={false} href="/blog">
+Blog
+</Link>
+--- END CODE BLOCK ---
+fallback may not appear immediately because it hasn't been prefetched yet.
+To improve perceived performance, you can use the
+--- CODE BLOCK 36 ---
+'use client'
+import Link from 'next/link'
+import { useState } from 'react'
+function HoverPrefetchLink({
+href,
+children,
+}: {
+href: string
+children: React.ReactNode
+}) {
+const [active, setActive] = useState(false)
+return (
+<Link
+href={href}
+prefetch={active ? null : false}
+onMouseEnter={() => setActive(true)}
+{children}
+</Link>
+--- END CODE BLOCK ---
+hook
+to show inline visual feedback to the user (like spinners or text glimmers on the link) while a transition is in progress.
+app/ui/loading-indicator.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 37 ---
+'use client'
+import Link from 'next/link'
+import { useState } from 'react'
+function HoverPrefetchLink({
+href,
+children,
+}: {
+href: string
+children: React.ReactNode
+}) {
+const [active, setActive] = useState(false)
+return (
+<Link
+href={href}
+prefetch={active ? null : false}
+onMouseEnter={() => setActive(true)}
+{children}
+</Link>
+--- END CODE BLOCK ---
+You can "debounce" the loading indicator by adding an initial animation delay (e.g. 100ms) and starting the animation as invisible (e.g.
+--- CODE BLOCK 40 ---
+window.history.pushState
+--- END CODE BLOCK ---
+). This means the loading indicator will only be shown if the navigation takes longer than the specified delay.
+--- CODE BLOCK 41 ---
+window.history.replaceState
+--- END CODE BLOCK ---
+Good to know
+: You can use other visual feedback patterns like a progress bar. View an example
+here
+Disabling prefetching
+You can opt out of prefetching by setting the
+--- CODE BLOCK 44 ---
+usePathname
+--- END CODE BLOCK ---
+prop to
+--- CODE BLOCK 45 ---
+useSearchParams
+--- END CODE BLOCK ---
+on the
+--- CODE BLOCK 46 ---
+window.history.pushState
+--- END CODE BLOCK ---
+component. This is useful to avoid unnecessary usage of resources when rendering large lists of links (e.g. an infinite scroll table).
+--- CODE BLOCK 47 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SortProducts() {
+const searchParams = useSearchParams()
+function updateSorting(sortOrder: string) {
+const params = new URLSearchParams(searchParams.toString())
+params.set('sort', sortOrder)
+window.history.pushState(null, '', `?${params.toString()}`)
+return (
+<button onClick={() => updateSorting('asc')}>Sort Ascending</button>
+<button onClick={() => updateSorting('desc')}>Sort Descending</button>
+--- END CODE BLOCK ---
+However, disabling prefetching comes with trade-offs:
+Static routes
+will only be fetched when the user clicks the link.
+Dynamic routes
+will need to be rendered on the server first before the client can navigate to it.
+To reduce resource usage without fully disabling prefetch, you can prefetch only on hover. This limits prefetching to routes the user is more
+likely
+to visit, rather than all links in the viewport.
+app/ui/hover-prefetch-link.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 49 ---
+window.history.replaceState
+--- END CODE BLOCK ---
+Hydration not completed
+--- CODE BLOCK 51 ---
+'use client'
+import { usePathname } from 'next/navigation'
+export function LocaleSwitcher() {
+const pathname = usePathname()
+function switchLocale(locale: string) {
+// e.g. '/en/about' or '/fr/contact'
+const newPath = `/${locale}${pathname}`
+window.history.replaceState(null, '', newPath)
+return (
+<button onClick={() => switchLocale('en')}>English</button>
+<button onClick={() => switchLocale('fr')}>French</button>
+--- END CODE BLOCK ---
+is a Client Component and must be hydrated before it can prefetch routes. On the initial visit, large JavaScript bundles can delay hydration, preventing prefetching from starting right away.
+React mitigates this with Selective Hydration and you can further improve this by:
+Using the
+[CODE_BLOCK_39]
+plugin to identify and reduce bundle size by removing large dependencies.
+Moving logic from the client to the server where possible. See the
+Server and Client Components
+docs for guidance.
+Examples
+Native History API
+Next.js allows you to use the native
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+methods to update the browser's history stack without reloading the page.
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+calls integrate into the Next.js Router, allowing you to sync with
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+Use it to add a new entry to the browser's history stack. The user can navigate back to the previous state. For example, to sort a list of products:
+[CODE_BLOCK_47]
+[CODE_BLOCK_49]
+Use it to replace the current entry on the browser's history stack. The user is not able to navigate back to the previous state. For example, to switch the application's locale:
+[CODE_BLOCK_50]
+Next Steps
+Link Component
+Enable fast client-side navigation with the built-in `next/link` component.
+loading.js
+API reference for the loading.js file.
+Prefetching
+Learn how to configure prefetching in Next.js
+Was this helpful?
+supported.
+Send

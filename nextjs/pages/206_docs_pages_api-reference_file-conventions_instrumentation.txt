@@ -1,0 +1,216 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/file-conventions/instrumentation
+SCRAPED: 2025-06-19 17:33:28
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+instrumentation.js
+You are currently viewing the documentation for Pages Router.
+instrumentation.js
+--- CODE BLOCK 1 ---
+instrumentation.js|ts
+--- END CODE BLOCK ---
+file is used to integrate observability tools into your application, allowing you to track the performance and behavior, and to debug issues in production.
+To use it, place the file in the
+root
+of your application or inside a
+--- CODE BLOCK 6 ---
+import { registerOTel } from '@vercel/otel'
+export function register() {
+registerOTel('next-app')
+--- END CODE BLOCK ---
+folder
+if using one.
+Exports
+--- CODE BLOCK 7 ---
+import { registerOTel } from '@vercel/otel'
+export function register() {
+registerOTel('next-app')
+--- END CODE BLOCK ---
+(optional)
+The file exports a
+--- CODE BLOCK 8 ---
+onRequestError
+--- END CODE BLOCK ---
+function that is called
+once
+when a new Next.js server instance is initiated.
+--- CODE BLOCK 9 ---
+onRequestError
+--- END CODE BLOCK ---
+can be an async function.
+instrumentation.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 10 ---
+onRequestError
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+import { type Instrumentation } from 'next'
+export const onRequestError: Instrumentation.onRequestError = async (
+err,
+request,
+context
+) => {
+await fetch('https://.../report-error', {
+method: 'POST',
+body: JSON.stringify({
+message: err.message,
+request,
+context,
+headers: {
+'Content-Type': 'application/json',
+--- END CODE BLOCK ---
+(optional)
+You can optionally export an
+--- CODE BLOCK 15 ---
+import { type Instrumentation } from 'next'
+export const onRequestError: Instrumentation.onRequestError = async (
+err,
+request,
+context
+) => {
+await fetch('https://.../report-error', {
+method: 'POST',
+body: JSON.stringify({
+message: err.message,
+request,
+context,
+headers: {
+'Content-Type': 'application/json',
+--- END CODE BLOCK ---
+function to track
+server
+errors to any custom observability provider.
+If you're running any async tasks in
+--- CODE BLOCK 19 ---
+export function onRequestError(
+error: { digest: string } & Error,
+request: {
+path: string // resource path, e.g. /blog?name=foo
+method: string // request method. e.g. GET, POST, etc
+headers: { [key: string]: string }
+context: {
+routerKind: 'Pages Router' | 'App Router' // the router type
+routePath: string // the route file path, e.g. /app/blog/[dynamic]
+routeType: 'render' | 'route' | 'action' | 'middleware' // the context in which the error occurred
+renderSource:
+| 'react-server-components'
+| 'react-server-components-payload'
+| 'server-rendering'
+revalidateReason: 'on-demand' | 'stale' | undefined // undefined is a normal request without revalidation
+renderType: 'dynamic' | 'dynamic-resume' // 'dynamic-resume' for PPR
+): void | Promise<void>
+--- END CODE BLOCK ---
+, make sure they're awaited.
+--- CODE BLOCK 20 ---
+export function onRequestError(
+error: { digest: string } & Error,
+request: {
+path: string // resource path, e.g. /blog?name=foo
+method: string // request method. e.g. GET, POST, etc
+headers: { [key: string]: string }
+context: {
+routerKind: 'Pages Router' | 'App Router' // the router type
+routePath: string // the route file path, e.g. /app/blog/[dynamic]
+routeType: 'render' | 'route' | 'action' | 'middleware' // the context in which the error occurred
+renderSource:
+| 'react-server-components'
+| 'react-server-components-payload'
+| 'server-rendering'
+revalidateReason: 'on-demand' | 'stale' | undefined // undefined is a normal request without revalidation
+renderType: 'dynamic' | 'dynamic-resume' // 'dynamic-resume' for PPR
+): void | Promise<void>
+--- END CODE BLOCK ---
+will be triggered when the Next.js server captures the error.
+--- CODE BLOCK 29 ---
+'middleware'
+--- END CODE BLOCK ---
+instance might not be the original error instance thrown, as it may be processed by React if encountered during Server Components rendering. If this happens, you can use
+--- CODE BLOCK 30 ---
+instrumentation.js
+--- END CODE BLOCK ---
+property on an error to identify the actual error type.
+instrumentation.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 31 ---
+process.env.NEXT_RUNTIME
+--- END CODE BLOCK ---
+Parameters
+The function accepts three parameters:
+--- CODE BLOCK 33 ---
+export function register() {
+if (process.env.NEXT_RUNTIME === 'edge') {
+return require('./register.edge')
+} else {
+return require('./register.node')
+export function onRequestError() {
+if (process.env.NEXT_RUNTIME === 'edge') {
+return require('./on-request-error.edge')
+} else {
+return require('./on-request-error.node')
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+onRequestError
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 36 ---
+instrumentation
+--- END CODE BLOCK ---
+Types
+--- CODE BLOCK 38 ---
+instrumentation
+--- END CODE BLOCK ---
+[CODE_BLOCK_21]
+: The caught error itself (type is always
+[CODE_BLOCK_22]
+), and a
+[CODE_BLOCK_23]
+property which is the unique ID of the error.
+[CODE_BLOCK_24]
+: Read-only request information associated with the error.
+[CODE_BLOCK_25]
+: The context in which the error occurred. This can be the type of router (App or Pages Router), and/or (Server Components (
+[CODE_BLOCK_26]
+), Route Handlers (
+[CODE_BLOCK_27]
+), Server Actions (
+[CODE_BLOCK_28]
+), or Middleware (
+[CODE_BLOCK_29]
+Specifying the runtime
+[CODE_BLOCK_30]
+file works in both the Node.js and Edge runtime, however, you can use
+[CODE_BLOCK_31]
+to target a specific runtime.
+instrumentation.js
+[CODE_BLOCK_32]
+Version History
+Version
+Changes
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+introduced,
+[CODE_BLOCK_36]
+stable
+[CODE_BLOCK_37]
+Turbopack support for
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+introduced as an experimental feature
+Was this helpful?
+supported.
+Send

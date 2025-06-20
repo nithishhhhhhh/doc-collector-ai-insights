@@ -1,0 +1,278 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/turbo
+SCRAPED: 2025-06-19 17:35:23
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+turbo
+You are currently viewing the documentation for Pages Router.
+turbo
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+--- CODE BLOCK 2 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+turbopack: {
+// ...
+export default nextConfig
+--- END CODE BLOCK ---
+option lets you customize
+Turbopack
+to transform different files and change how modules are resolved.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+turbopack: {
+// ...
+export default nextConfig
+--- END CODE BLOCK ---
+Good to know
+Turbopack for Next.js does not require loaders or loader configuration for built-in functionality. Turbopack has built-in support for CSS and compiling modern JavaScript, so there's no need for
+--- CODE BLOCK 6 ---
+babel-loader
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+@babel/preset-env
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 11 ---
+resolveAlias
+--- END CODE BLOCK ---
+if you're using
+--- CODE BLOCK 12 ---
+resolveExtensions
+--- END CODE BLOCK ---
+Reference
+Options
+The following options are available for the
+--- CODE BLOCK 13 ---
+babel-loader
+--- END CODE BLOCK ---
+configuration:
+Option
+Description
+--- CODE BLOCK 14 ---
+@svgr/webpack
+--- END CODE BLOCK ---
+Sets the application root directory. Should be an absolute path.
+--- CODE BLOCK 15 ---
+svg-inline-loader
+--- END CODE BLOCK ---
+List of supported webpack loaders to apply when running with Turbopack.
+--- CODE BLOCK 16 ---
+yaml-loader
+--- END CODE BLOCK ---
+Map aliased imports to modules to load in their place.
+--- CODE BLOCK 17 ---
+string-replace-loader
+--- END CODE BLOCK ---
+List of extensions to resolve when importing files.
+Supported loaders
+The following loaders have been tested to work with Turbopack's webpack loader implementation, but many other webpack loaders should work as well even if not listed here:
+--- CODE BLOCK 19 ---
+sass-loader
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+graphql-tag/loader
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+pnpm-lock.yaml
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+package-lock.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+const path = require('path')
+module.exports = {
+turbopack: {
+root: path.join(__dirname, '..'),
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+const path = require('path')
+module.exports = {
+turbopack: {
+root: path.join(__dirname, '..'),
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+@svgr/webpack
+--- END CODE BLOCK ---
+Examples
+Root directory
+Turbopack uses the root directory to resolve modules. Files outside of the project root are not resolved.
+Next.js automatically detects the root directory of your project. It does so by looking for one of these files:
+--- CODE BLOCK 33 ---
+module.exports = {
+turbopack: {
+rules: {
+'*.svg': {
+loaders: ['@svgr/webpack'],
+as: '*.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+module.exports = {
+turbopack: {
+rules: {
+'*.svg': {
+loaders: ['@svgr/webpack'],
+as: '*.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+module.exports = {
+turbopack: {
+rules: {
+'*.svg': {
+loaders: [
+loader: '@svgr/webpack',
+options: {
+icon: true,
+as: '*.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+module.exports = {
+turbopack: {
+rules: {
+'*.svg': {
+loaders: [
+loader: '@svgr/webpack',
+options: {
+icon: true,
+as: '*.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+turbo.rules
+--- END CODE BLOCK ---
+If you have a different project structure, for example if you don't use workspaces, you can manually set the
+--- CODE BLOCK 38 ---
+turbo.loaders
+--- END CODE BLOCK ---
+option:
+next.config.js
+--- CODE BLOCK 41 ---
+resolve.alias
+--- END CODE BLOCK ---
+Configuring webpack loaders
+If you need loader support beyond what's built in, many webpack loaders already work with Turbopack. There are currently some limitations:
+Only a core subset of the webpack loader API is implemented. Currently, there is enough coverage for some popular loaders, and we'll expand our API support in the future.
+Only loaders that return JavaScript code are supported. Loaders that transform files like stylesheets or images are not currently supported.
+Options passed to webpack loaders must be plain JavaScript primitives, objects, and arrays. For example, it's not possible to pass
+--- CODE BLOCK 43 ---
+module.exports = {
+turbopack: {
+resolveAlias: {
+underscore: 'lodash',
+mocha: { browser: 'mocha/browser-entry.js' },
+--- END CODE BLOCK ---
+plugin modules as option values.
+To configure loaders, add the names of the loaders you've installed and any options in
+--- CODE BLOCK 44 ---
+module.exports = {
+turbopack: {
+resolveAlias: {
+underscore: 'lodash',
+mocha: { browser: 'mocha/browser-entry.js' },
+--- END CODE BLOCK ---
+, mapping file extensions to a list of loaders.
+Here is an example below using the
+--- CODE BLOCK 47 ---
+import underscore from 'underscore'
+--- END CODE BLOCK ---
+loader, which enables importing
+--- CODE BLOCK 52 ---
+mocha/browser-entry.js
+--- END CODE BLOCK ---
+files and rendering them as React components.
+next.config.js
+--- CODE BLOCK 53 ---
+resolve.extensions
+--- END CODE BLOCK ---
+For loaders that require configuration options, you can use an object format instead of a string:
+next.config.js
+--- CODE BLOCK 55 ---
+next.config.js
+--- END CODE BLOCK ---
+Good to know
+: Prior to Next.js version 13.4.4,
+--- CODE BLOCK 57 ---
+module.exports = {
+turbopack: {
+resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
+--- END CODE BLOCK ---
+was named
+--- CODE BLOCK 59 ---
+experimental.turbo
+--- END CODE BLOCK ---
+and only accepted file extensions like
+--- CODE BLOCK 62 ---
+experimental.turbo
+--- END CODE BLOCK ---
+instead of
+[CODE_BLOCK_40]
+Resolving aliases
+Turbopack can be configured to modify module resolution through aliases, similar to webpack's
+[CODE_BLOCK_41]
+configuration.
+To configure resolve aliases, map imported patterns to their new destination in
+[CODE_BLOCK_42]
+next.config.js
+[CODE_BLOCK_43]
+This aliases imports of the
+[CODE_BLOCK_45]
+package to the
+[CODE_BLOCK_46]
+package. In other words,
+[CODE_BLOCK_47]
+will load the
+[CODE_BLOCK_48]
+module instead of
+[CODE_BLOCK_49]
+Turbopack also supports conditional aliasing through this field, similar to Node.js'
+conditional exports
+. At the moment only the
+[CODE_BLOCK_50]
+condition is supported. In the case above, imports of the
+[CODE_BLOCK_51]
+module will be aliased to
+[CODE_BLOCK_52]
+when Turbopack targets browser environments.
+Resolving custom extensions
+Turbopack can be configured to resolve modules with custom extensions, similar to webpack's
+[CODE_BLOCK_53]
+configuration.
+To configure resolve extensions, use the
+[CODE_BLOCK_54]
+field in
+[CODE_BLOCK_55]
+next.config.js
+[CODE_BLOCK_56]
+This overwrites the original resolve extensions with the provided list. Make sure to include the default extensions.
+For more information and guidance for how to migrate your app to Turbopack from webpack, see
+Turbopack's documentation on webpack compatibility
+Version History
+Version
+Changes
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+is changed to
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+introduced.
+Was this helpful?
+supported.
+Send

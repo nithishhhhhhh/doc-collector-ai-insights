@@ -1,0 +1,409 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-search-params
+SCRAPED: 2025-06-19 17:36:34
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useSearchParams
+useSearchParams
+--- CODE BLOCK 1 ---
+useSearchParams
+--- END CODE BLOCK ---
+is a
+Client Component
+hook that lets you read the current URL's
+query string
+--- CODE BLOCK 2 ---
+useSearchParams
+--- END CODE BLOCK ---
+returns a
+read-only
+version of the
+--- CODE BLOCK 3 ---
+URLSearchParams
+--- END CODE BLOCK ---
+interface.
+app/dashboard/search-bar.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 4 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SearchBar() {
+const searchParams = useSearchParams()
+const search = searchParams.get('search')
+// URL -> `/dashboard?search=my-project`
+// `search` -> 'my-project'
+return <>Search: {search}</>
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 6 ---
+const searchParams = useSearchParams()
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+useSearchParams
+--- END CODE BLOCK ---
+does not take any parameters.
+Returns
+--- CODE BLOCK 9 ---
+useSearchParams
+--- END CODE BLOCK ---
+returns a
+read-only
+version of the
+--- CODE BLOCK 10 ---
+URLSearchParams
+--- END CODE BLOCK ---
+interface, which includes utility methods for reading the URL's query string:
+--- CODE BLOCK 11 ---
+URLSearchParams.get()
+--- END CODE BLOCK ---
+: Returns the first value associated with the search parameter. For example:
+--- CODE BLOCK 12 ---
+searchParams.get("a")
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+/dashboard?a=1
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+/dashboard?a=
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+/dashboard?b=3
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+/dashboard?a=1&a=2
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+URLSearchParams.has()
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+searchParams.has("a")
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+/dashboard?a=1
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+/dashboard?b=3
+--- END CODE BLOCK ---
+- use
+--- CODE BLOCK 28 ---
+URLSearchParams
+--- END CODE BLOCK ---
+to get all values
+--- CODE BLOCK 35 ---
+useSearchParams
+--- END CODE BLOCK ---
+: Returns a boolean value indicating if the given parameter exists. For example:
+--- CODE BLOCK 36 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+useSearchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+ReadonlyURLSearchParams | null
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+useSearchParams
+--- END CODE BLOCK ---
+Learn more about other
+read-only
+methods of
+--- CODE BLOCK 44 ---
+useSearchParams
+--- END CODE BLOCK ---
+, including the
+--- CODE BLOCK 45 ---
+useSearchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+<Suspense/>
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SearchBar() {
+const searchParams = useSearchParams()
+const search = searchParams.get('search')
+// This will not be logged on the server when using static rendering
+console.log(search)
+return <>Search: {search}</>
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SearchBar() {
+const searchParams = useSearchParams()
+const search = searchParams.get('search')
+// This will not be logged on the server when using static rendering
+console.log(search)
+return <>Search: {search}</>
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+import { Suspense } from 'react'
+import SearchBar from './search-bar'
+// This component passed as a fallback to the Suspense boundary
+// will be rendered in place of the search bar in the initial HTML.
+// When the value is available during React hydration the fallback
+// will be replaced with the `<SearchBar>` component.
+function SearchBarFallback() {
+return <>placeholder</>
+export default function Page() {
+return (
+<nav>
+<Suspense fallback={<SearchBarFallback />}>
+<SearchBar />
+</Suspense>
+</nav>
+<h1>Dashboard</h1>
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 50 ---
+import { Suspense } from 'react'
+import SearchBar from './search-bar'
+// This component passed as a fallback to the Suspense boundary
+// will be rendered in place of the search bar in the initial HTML.
+// When the value is available during React hydration the fallback
+// will be replaced with the `<SearchBar>` component.
+function SearchBarFallback() {
+return <>placeholder</>
+export default function Page() {
+return (
+<nav>
+<Suspense fallback={<SearchBarFallback />}>
+<SearchBar />
+</Suspense>
+</nav>
+<h1>Dashboard</h1>
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 51 ---
+useSearchParams
+--- END CODE BLOCK ---
+is a
+Client Component
+hook and is
+not supported
+Server Components
+to prevent stale values during
+partial rendering
+If you want to fetch data in a Server Component based on search params, it's often a better option to read the
+--- CODE BLOCK 52 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SearchBar() {
+const searchParams = useSearchParams()
+const search = searchParams.get('search')
+// This will be logged on the server during the initial render
+// and on the client on subsequent navigations.
+console.log(search)
+return <>Search: {search}</>
+--- END CODE BLOCK ---
+prop
+of the corresponding Page. You can then pass it down by props to any component (Server or Client) within that Page.
+If an application includes the
+--- CODE BLOCK 53 ---
+'use client'
+import { useSearchParams } from 'next/navigation'
+export default function SearchBar() {
+const searchParams = useSearchParams()
+const search = searchParams.get('search')
+// This will be logged on the server during the initial render
+// and on the client on subsequent navigations.
+console.log(search)
+return <>Search: {search}</>
+--- END CODE BLOCK ---
+directory,
+--- CODE BLOCK 54 ---
+import SearchBar from './search-bar'
+export const dynamic = 'force-dynamic'
+export default function Page() {
+return (
+<nav>
+<SearchBar />
+</nav>
+<h1>Dashboard</h1>
+--- END CODE BLOCK ---
+will return
+--- CODE BLOCK 55 ---
+import SearchBar from './search-bar'
+export const dynamic = 'force-dynamic'
+export default function Page() {
+return (
+<nav>
+<SearchBar />
+</nav>
+<h1>Dashboard</h1>
+--- END CODE BLOCK ---
+. The
+--- CODE BLOCK 57 ---
+force-dynamic
+--- END CODE BLOCK ---
+value is for compatibility during migration since search params cannot be known during pre-rendering of a page that doesn't use
+--- CODE BLOCK 58 ---
+searchParams
+--- END CODE BLOCK ---
+Behavior
+Static Rendering
+If a route is
+statically rendered
+, calling
+--- CODE BLOCK 59 ---
+searchParams
+--- END CODE BLOCK ---
+will cause the Client Component tree up to the closest
+--- CODE BLOCK 60 ---
+searchParams
+--- END CODE BLOCK ---
+boundary
+to be client-side rendered.
+This allows a part of the route to be statically rendered while the dynamic part that uses
+--- CODE BLOCK 61 ---
+searchParams
+--- END CODE BLOCK ---
+is client-side rendered.
+We recommend wrapping the Client Component that uses
+--- CODE BLOCK 62 ---
+useSearchParams
+--- END CODE BLOCK ---
+in a
+--- CODE BLOCK 63 ---
+searchParams
+--- END CODE BLOCK ---
+boundary. This will allow any Client Components above it to be statically rendered and sent as part of initial HTML.
+Example
+For example:
+app/dashboard/search-bar.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 64 ---
+searchParams
+--- END CODE BLOCK ---
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 69 ---
+searchParams
+--- END CODE BLOCK ---
+Dynamic Rendering
+If a route is
+dynamically rendered
+--- CODE BLOCK 71 ---
+'use client'
+export default function ExampleClientComponent() {
+const router = useRouter()
+const pathname = usePathname()
+const searchParams = useSearchParams()
+// Get a new searchParams string by merging the current
+// searchParams with a provided key/value pair
+const createQueryString = useCallback(
+(name: string, value: string) => {
+const params = new URLSearchParams(searchParams.toString())
+params.set(name, value)
+return params.toString()
+[searchParams]
+return (
+<p>Sort By</p>
+{/* using useRouter */}
+<button
+onClick={() => {
+// <pathname>?sort=asc
+router.push(pathname + '?' + createQueryString('sort', 'asc'))
+</button>
+{/* using <Link> */}
+<Link
+href={
+// <pathname>?sort=desc
+pathname + '?' + createQueryString('sort', 'desc')
+DESC
+</Link>
+--- END CODE BLOCK ---
+will be available on the server during the initial server render of the Client Component.
+For example:
+app/dashboard/search-bar.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 73 ---
+useSearchParams
+--- END CODE BLOCK ---
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_54]
+Good to know
+: Setting the
+[CODE_BLOCK_56]
+route segment config option
+[CODE_BLOCK_57]
+can be used to force dynamic rendering.
+Server Components
+Pages
+To access search params in
+Pages
+(Server Components), use the
+[CODE_BLOCK_58]
+prop.
+Layouts
+Unlike Pages,
+Layouts
+(Server Components)
+do not
+receive the
+[CODE_BLOCK_59]
+prop. This is because a shared layout is
+not re-rendered during navigation
+which could lead to stale
+[CODE_BLOCK_60]
+between navigations. View
+detailed explanation
+Instead, use the Page
+[CODE_BLOCK_61]
+prop or the
+[CODE_BLOCK_62]
+hook in a Client Component, which is re-rendered on the client with the latest
+[CODE_BLOCK_63]
+Examples
+Updating
+[CODE_BLOCK_64]
+You can use
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+to set new
+[CODE_BLOCK_67]
+. After a navigation is performed, the current
+[CODE_BLOCK_68]
+will receive an updated
+[CODE_BLOCK_69]
+prop
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_70]
+Version History
+Version
+Changes
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+introduced.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,128 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/components/head
+SCRAPED: 2025-06-19 17:23:56
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Components
+Head
+You are currently viewing the documentation for Pages Router.
+Head
+We expose a built-in component for appending elements to the
+--- CODE BLOCK 2 ---
+import Head from 'next/head'
+function IndexPage() {
+return (
+<div>
+<Head>
+<title>My page title</title>
+</Head>
+<p>Hello world!</p>
+</div>
+export default IndexPage
+--- END CODE BLOCK ---
+of the page:
+--- CODE BLOCK 3 ---
+import Head from 'next/head'
+function IndexPage() {
+return (
+<div>
+<Head>
+<title>My page title</title>
+</Head>
+<p>Hello world!</p>
+</div>
+export default IndexPage
+--- END CODE BLOCK ---
+Avoid duplicated tags
+To avoid duplicate tags in your
+--- CODE BLOCK 7 ---
+import Head from 'next/head'
+function IndexPage() {
+return (
+<div>
+<Head>
+<title>My page title</title>
+<meta property="og:title" content="My page title" key="title" />
+</Head>
+<Head>
+<meta property="og:title" content="My new title" key="title" />
+</Head>
+<p>Hello world!</p>
+</div>
+export default IndexPage
+--- END CODE BLOCK ---
+you can use the
+--- CODE BLOCK 8 ---
+<meta property="og:title" />
+--- END CODE BLOCK ---
+property, which will make sure the tag is only rendered once, as in the following example:
+--- CODE BLOCK 19 ---
+<React.Fragment>
+--- END CODE BLOCK ---
+In this case only the second
+--- CODE BLOCK 21 ---
+next/script
+--- END CODE BLOCK ---
+is rendered.
+--- CODE BLOCK 29 ---
+next-head-count is missing
+--- END CODE BLOCK ---
+tags with duplicate
+[CODE_BLOCK_10]
+attributes are automatically handled.
+Good to know
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+tags are automatically checked for duplicates by Next.js, so using key is not necessary for these tags.
+The contents of
+[CODE_BLOCK_13]
+get cleared upon unmounting the component, so make sure each page completely defines what it needs in
+[CODE_BLOCK_14]
+, without making assumptions about what other pages added.
+Use minimal nesting
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+or any other elements (e.g.
+[CODE_BLOCK_17]
+) need to be contained as
+direct
+children of the
+[CODE_BLOCK_18]
+element,
+or wrapped into maximum one level of
+[CODE_BLOCK_19]
+or arrays—otherwise the tags won't be correctly picked up on client-side navigations.
+[CODE_BLOCK_20]
+for scripts
+We recommend using
+[CODE_BLOCK_21]
+in your component instead of manually creating a
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+tags
+cannot
+[CODE_BLOCK_26]
+to set attributes on
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+tags. This will result in an
+[CODE_BLOCK_29]
+error.
+[CODE_BLOCK_30]
+can only handle tags inside the HTML
+[CODE_BLOCK_31]
+tag.
+Was this helpful?
+supported.
+Send

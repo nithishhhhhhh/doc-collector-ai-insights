@@ -1,0 +1,1811 @@
+SOURCE URL: https://opentelemetry.io/docs/reference/specification/trace/semantic_conventions/http/#common-attributes
+SCRAPED: 2025-06-19 18:09:38
+================================================================================
+
+Semantic conventions for HTTP spans
+Status
+Stable
+, Unless otherwise specified.
+This document defines semantic conventions for HTTP client and server Spans.
+They can be used for http and https schemes
+and various HTTP versions like 1.1, 2 and SPDY.
+Warning
+Existing HTTP instrumentations that are using
+v1.20.0 of this document
+(or prior):
+SHOULD NOT change the version of the HTTP or networking conventions that they emit by default
+until the HTTP semantic conventions are marked stable (HTTP stabilization will
+include stabilization of a core set of networking conventions which are also used
+in HTTP instrumentations). Conventions include, but are not limited to, attributes,
+metric and span names, and unit of measure.
+SHOULD introduce an environment variable
+--- CODE BLOCK 1 ---
+OTEL_SEMCONV_STABILITY_OPT_IN
+--- END CODE BLOCK ---
+in the existing major version as a comma-separated list of category-specific values
+(e.g., http, databases, messaging). The list of values includes:
+--- CODE BLOCK 6 ---
+{method} {target}
+--- END CODE BLOCK ---
+- emit the new, stable HTTP and networking conventions,
+and stop emitting the old experimental HTTP and networking conventions
+that the instrumentation emitted previously.
+--- CODE BLOCK 13 ---
+{http.request.method}
+--- END CODE BLOCK ---
+- emit both the old and the stable HTTP and networking conventions,
+allowing for a seamless transition.
+The default behavior (in the absence of one of these values) is to continue
+emitting whatever version of the old experimental HTTP and networking conventions
+the instrumentation was emitting previously.
+Note:
+--- CODE BLOCK 14 ---
+{http.request.method}
+--- END CODE BLOCK ---
+has higher precedence than
+--- CODE BLOCK 20 ---
+url.template
+--- END CODE BLOCK ---
+in case both values are present
+SHOULD maintain (security patching at a minimum) the existing major version
+for at least six months after it starts emitting both sets of conventions.
+SHOULD drop the environment variable in the next major version.
+Name
+HTTP spans MUST follow the overall
+guidelines for span names
+HTTP span names SHOULD be
+--- CODE BLOCK 23 ---
+SpanKind.SERVER
+--- END CODE BLOCK ---
+if there is a (low-cardinality)
+--- CODE BLOCK 25 ---
+SpanKind.CLIENT
+--- END CODE BLOCK ---
+available. If there is no (low-cardinality)
+--- CODE BLOCK 27 ---
+http.response.status_code
+--- END CODE BLOCK ---
+available, HTTP span names SHOULD be
+--- CODE BLOCK 32 ---
+http.request.method
+--- END CODE BLOCK ---
+(see below for the exact definition of the
+--- CODE BLOCK 37 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+example.com
+--- END CODE BLOCK ---
+placeholders).
+--- CODE BLOCK 40 ---
+/tmp/my.sock
+--- END CODE BLOCK ---
+MUST be
+--- CODE BLOCK 42 ---
+server.port
+--- END CODE BLOCK ---
+if the method represents the original method known to the instrumentation.
+In other cases (when
+--- CODE BLOCK 48 ---
+https://www.foo.bar/search?q=OpenTelemetry#SemConv
+--- END CODE BLOCK ---
+is set to
+--- CODE BLOCK 49 ---
+//localhost
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+java.net.UnknownHostException
+--- END CODE BLOCK ---
+MUST be
+--- CODE BLOCK 54 ---
+server_certificate_invalid
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+Conditionally Required
+--- END CODE BLOCK ---
+SHOULD be one of the following:
+--- CODE BLOCK 57 ---
+http.request.method_original
+--- END CODE BLOCK ---
+for HTTP Server spans
+--- CODE BLOCK 61 ---
+Conditionally Required
+--- END CODE BLOCK ---
+for HTTP Client spans if enabled and available (
+Other value MAY be provided through custom hooks at span start time or later.
+Instrumentation MUST NOT default to using URI path as a
+--- CODE BLOCK 62 ---
+http.response.status_code
+--- END CODE BLOCK ---
+Status
+Span Status
+MUST be left unset if HTTP status code was in the
+1xx, 2xx or 3xx ranges, unless there was another error (e.g., network error receiving
+the response body; or 3xx codes with max redirects exceeded), in which case status
+MUST be set to
+--- CODE BLOCK 64 ---
+Conditionally Required
+--- END CODE BLOCK ---
+[!NOTE]
+The classification of an HTTP status code as an error depends on the context.
+For example, a 404 “Not Found” status code indicates an error if the application
+expected the resource to be available. However, it is not an error when the
+application is simply checking whether the resource exists.
+Instrumentations that have additional context about a specific request MAY use
+this context to set the span status more precisely.
+Instrumentations that don’t have any additional context MUST follow the
+guidelines in this section.
+For HTTP status codes in the 4xx range span status MUST be left unset in case of
+--- CODE BLOCK 65 ---
+network.protocol.name
+--- END CODE BLOCK ---
+and SHOULD be set to
+--- CODE BLOCK 68 ---
+Conditionally Required
+--- END CODE BLOCK ---
+in case of
+--- CODE BLOCK 69 ---
+http.request.resend_count
+--- END CODE BLOCK ---
+For HTTP status codes in the 5xx range, as well as any other code the client
+failed to interpret, span status SHOULD be set to
+--- CODE BLOCK 71 ---
+Recommended
+--- END CODE BLOCK ---
+Don’t set the span status description if the reason can be inferred from
+--- CODE BLOCK 72 ---
+network.peer.address
+--- END CODE BLOCK ---
+HTTP request may fail if it was cancelled or an error occurred preventing
+the client or server from sending/receiving the request/response fully.
+When instrumentation detects such errors it SHOULD set span status to
+--- CODE BLOCK 74 ---
+/tmp/my.sock
+--- END CODE BLOCK ---
+and SHOULD set the
+--- CODE BLOCK 75 ---
+Recommended
+--- END CODE BLOCK ---
+attribute.
+Status
+Development
+- Refer to the
+Recording Errors
+document for
+general considerations on how to record span status.
+HTTP client span
+Status:
+This span represents an outbound HTTP request.
+There are two ways HTTP client spans can be implemented in an instrumentation:
+Instrumentations SHOULD create an HTTP span for each attempt to send an HTTP request over the wire.
+In case the request is resent, the resend attempts MUST follow the
+HTTP resend spec
+In this case, instrumentations SHOULD NOT (also) emit a logical encompassing HTTP client span.
+If for some reason it is not possible to emit a span for each send attempt (because e.g. the instrumented library does not expose hooks that would allow this),
+instrumentations MAY create an HTTP span for the top-most operation of the HTTP client.
+In this case, the
+--- CODE BLOCK 76 ---
+network.peer.port
+--- END CODE BLOCK ---
+MUST be the absolute URL that was originally requested, before any HTTP-redirects that may happen when executing the request.
+Span name:
+refer to the
+Span Name
+section.
+Span kind
+MUST be
+--- CODE BLOCK 78 ---
+Recommended
+--- END CODE BLOCK ---
+Span status:
+refer to the
+Span Status
+section.
+Attribute
+Type
+Description
+Examples
+Requirement Level
+Stability
+--- CODE BLOCK 79 ---
+network.peer.address
+--- END CODE BLOCK ---
+string
+HTTP request method. [1]
+--- CODE BLOCK 80 ---
+network.protocol.version
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+Recommended
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+http.request.body.size
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+http.request.header.<key>
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+["application/json"]
+--- END CODE BLOCK ---
+string
+Host identifier of the
+“URI origin”
+HTTP request is sent to. [2]
+--- CODE BLOCK 92 ---
+["1.2.3.4", "1.2.3.5"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+http.request.size
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+http.response.body.size
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+http.response.header.<key>
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+["application/json"]
+--- END CODE BLOCK ---
+Port identifier of the
+“URI origin”
+HTTP request is sent to. [3]
+--- CODE BLOCK 103 ---
+["abc", "def"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+http.response.size
+--- END CODE BLOCK ---
+--- CODE BLOCK 108 ---
+network.transport
+--- END CODE BLOCK ---
+--- CODE BLOCK 116 ---
+url.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+/users/{id}
+--- END CODE BLOCK ---
+string
+Absolute URL describing a network resource according to
+RFC3986
+--- CODE BLOCK 119 ---
+/users?id={id}
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+user_agent.original
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+CERN-LineMode/2.15 libwww/2.17b3
+--- END CODE BLOCK ---
+--- CODE BLOCK 123 ---
+Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1
+--- END CODE BLOCK ---
+string
+Describes a class of error the operation ended with. [5]
+--- CODE BLOCK 124 ---
+YourApp/1.0.0 grpc-java-okhttp/1.27.2
+--- END CODE BLOCK ---
+--- CODE BLOCK 126 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+--- CODE BLOCK 130 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+http.request.method
+--- END CODE BLOCK ---
+If request has ended with an error.
+--- CODE BLOCK 135 ---
+http.request.method_original
+--- END CODE BLOCK ---
+string
+Original HTTP method sent by the client in the request line.
+--- CODE BLOCK 136 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 137 ---
+http://x.x.x.x:8080
+--- END CODE BLOCK ---
+--- CODE BLOCK 138 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 140 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+server.port
+--- END CODE BLOCK ---
+HTTP response status code
+--- CODE BLOCK 143 ---
+scheme://host[:port][path][?query][#fragment]
+--- END CODE BLOCK ---
+--- CODE BLOCK 145 ---
+https://username:password@www.example.com/
+--- END CODE BLOCK ---
+If and only if one was received/sent.
+--- CODE BLOCK 146 ---
+https://REDACTED:REDACTED@www.example.com/
+--- END CODE BLOCK ---
+string
+OSI application layer
+or non-OSI equivalent. [7]
+--- CODE BLOCK 150 ---
+AWSAccessKeyId
+--- END CODE BLOCK ---
+--- CODE BLOCK 153 ---
+X-Goog-Signature
+--- END CODE BLOCK ---
+--- CODE BLOCK 154 ---
+https://www.example.com/path?color=blue&sig=REDACTED
+--- END CODE BLOCK ---
+--- CODE BLOCK 162 ---
+http.request.method_original
+--- END CODE BLOCK ---
+The ordinal number of request resending attempt (for any reason, including redirects). [9]
+--- CODE BLOCK 163 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 164 ---
+network.protocol.name
+--- END CODE BLOCK ---
+if and only if request was retried.
+--- CODE BLOCK 165 ---
+network.protocol.name
+--- END CODE BLOCK ---
+string
+Peer address of the network connection - IP address or Unix domain socket name.
+--- CODE BLOCK 167 ---
+network.protocol.version
+--- END CODE BLOCK ---
+--- CODE BLOCK 168 ---
+http.request.resend_count
+--- END CODE BLOCK ---
+--- CODE BLOCK 169 ---
+network.protocol.version
+--- END CODE BLOCK ---
+--- CODE BLOCK 170 ---
+http.request.header.<key>
+--- END CODE BLOCK ---
+Peer port number of the network connection.
+--- CODE BLOCK 172 ---
+user_agent.original
+--- END CODE BLOCK ---
+--- CODE BLOCK 173 ---
+Content-Type: application/json
+--- END CODE BLOCK ---
+--- CODE BLOCK 174 ---
+http.request.header.content-type
+--- END CODE BLOCK ---
+is set.
+--- CODE BLOCK 175 ---
+["application/json"]
+--- END CODE BLOCK ---
+string
+The actual version of the protocol used for network communication. [10]
+--- CODE BLOCK 176 ---
+X-Forwarded-For: 1.2.3.4, 1.2.3.5
+--- END CODE BLOCK ---
+--- CODE BLOCK 177 ---
+http.request.header.x-forwarded-for
+--- END CODE BLOCK ---
+--- CODE BLOCK 178 ---
+["1.2.3.4", "1.2.3.5"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 179 ---
+["1.2.3.4, 1.2.3.5"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 180 ---
+http.response.header.<key>
+--- END CODE BLOCK ---
+--- CODE BLOCK 181 ---
+Content-Type: application/json
+--- END CODE BLOCK ---
+The size of the request payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the
+Content-Length
+header. For requests using transport encoding, this should be the compressed size.
+--- CODE BLOCK 182 ---
+http.request.response.content-type
+--- END CODE BLOCK ---
+--- CODE BLOCK 183 ---
+["application/json"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 184 ---
+My-custom-header: abc, def
+--- END CODE BLOCK ---
+string[]
+HTTP request headers,
+--- CODE BLOCK 185 ---
+http.response.header.my-custom-header
+--- END CODE BLOCK ---
+being the normalized HTTP Header name (lowercase), the value being the header values. [11]
+--- CODE BLOCK 186 ---
+["abc", "def"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 187 ---
+["abc, def"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 188 ---
+network.transport
+--- END CODE BLOCK ---
+--- CODE BLOCK 195 ---
+url.template
+--- END CODE BLOCK ---
+The total size of the request in bytes. This should be the total number of bytes sent over the wire, including the request line (HTTP/1.1), framing (HTTP/2 and HTTP/3), headers, and request body if any.
+--- CODE BLOCK 196 ---
+url.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 197 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+--- CODE BLOCK 198 ---
+user_agent.original
+--- END CODE BLOCK ---
+The size of the response payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the
+Content-Length
+header. For requests using transport encoding, this should be the compressed size.
+--- CODE BLOCK 199 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 200 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 201 ---
+server.port
+--- END CODE BLOCK ---
+string[]
+HTTP response headers,
+--- CODE BLOCK 205 ---
+http.request.method
+--- END CODE BLOCK ---
+being the normalized HTTP Header name (lowercase), the value being the header values. [12]
+--- CODE BLOCK 216 ---
+network.transport
+--- END CODE BLOCK ---
+--- CODE BLOCK 222 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+--- CODE BLOCK 225 ---
+http.request.resend_count
+--- END CODE BLOCK ---
+--- CODE BLOCK 228 ---
+server.address
+--- END CODE BLOCK ---
+The total size of the response in bytes. This should be the total number of bytes sent over the wire, including the status line (HTTP/1.1), framing (HTTP/2 and HTTP/3), headers, and response body and trailers if any.
+--- CODE BLOCK 229 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 230 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 231 ---
+server.port
+--- END CODE BLOCK ---
+string
+OSI transport layer
+inter-process communication method
+. [13]
+--- CODE BLOCK 232 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 233 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 234 ---
+Forwarded#host
+--- END CODE BLOCK ---
+--- CODE BLOCK 235 ---
+X-Forwarded-Host
+--- END CODE BLOCK ---
+string
+URI scheme
+component identifying the used protocol.
+--- CODE BLOCK 242 ---
+X-Forwarded-Host
+--- END CODE BLOCK ---
+--- CODE BLOCK 243 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 244 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 247 ---
+http.request.method
+--- END CODE BLOCK ---
+string
+The low-cardinality template of an
+absolute path reference
+. [14]
+--- CODE BLOCK 261 ---
+java.net.UnknownHostException
+--- END CODE BLOCK ---
+--- CODE BLOCK 262 ---
+server_certificate_invalid
+--- END CODE BLOCK ---
+--- CODE BLOCK 264 ---
+Conditionally Required
+--- END CODE BLOCK ---
+--- CODE BLOCK 265 ---
+http.request.method_original
+--- END CODE BLOCK ---
+--- CODE BLOCK 269 ---
+Conditionally Required
+--- END CODE BLOCK ---
+string
+Value of the
+HTTP User-Agent
+header sent by the client.
+--- CODE BLOCK 270 ---
+http.response.status_code
+--- END CODE BLOCK ---
+--- CODE BLOCK 272 ---
+Conditionally Required
+--- END CODE BLOCK ---
+--- CODE BLOCK 274 ---
+/users/:userID?
+--- END CODE BLOCK ---
+--- CODE BLOCK 275 ---
+{controller}/{action}/{id?}
+--- END CODE BLOCK ---
+--- CODE BLOCK 276 ---
+Conditionally Required
+--- END CODE BLOCK ---
+string
+Specifies the category of synthetic traffic, such as tests or bots. [15]
+--- CODE BLOCK 277 ---
+network.protocol.name
+--- END CODE BLOCK ---
+--- CODE BLOCK 280 ---
+Conditionally Required
+--- END CODE BLOCK ---
+--- CODE BLOCK 281 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 285 ---
+Conditionally Required
+--- END CODE BLOCK ---
+HTTP request method value SHOULD be “known” to the instrumentation.
+By default, this convention defines “known” methods as the ones listed in
+RFC9110
+and the PATCH method defined in
+RFC5789
+If the HTTP request method is not known to instrumentation, it MUST set the
+--- CODE BLOCK 286 ---
+server.address
+--- END CODE BLOCK ---
+attribute to
+--- CODE BLOCK 288 ---
+q=OpenTelemetry
+--- END CODE BLOCK ---
+If the HTTP instrumentation could end up converting valid HTTP request methods to
+--- CODE BLOCK 289 ---
+Conditionally Required
+--- END CODE BLOCK ---
+, then it MUST provide a way to override
+the list of known HTTP methods. If this override is done via environment variable, then the environment variable MUST be named
+OTEL_INSTRUMENTATION_HTTP_KNOWN_METHODS and support a comma-separated list of case-sensitive known HTTP methods
+(this list MUST be a full override of the default known method, it is not a list of known methods in addition to the defaults).
+HTTP method names are case-sensitive and
+--- CODE BLOCK 290 ---
+client.address
+--- END CODE BLOCK ---
+attribute value MUST match a known HTTP method name exactly.
+Instrumentations for specific web frameworks that consider HTTP methods to be case insensitive, SHOULD populate a canonical equivalent.
+Tracing instrumentations that do so, MUST also set
+--- CODE BLOCK 291 ---
+83.164.160.102
+--- END CODE BLOCK ---
+to the original value.
+--- CODE BLOCK 292 ---
+Recommended
+--- END CODE BLOCK ---
+If an HTTP client request is explicitly made to an IP address, e.g.
+--- CODE BLOCK 293 ---
+network.peer.address
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 295 ---
+/tmp/my.sock
+--- END CODE BLOCK ---
+SHOULD be the IP address
+--- CODE BLOCK 296 ---
+Recommended
+--- END CODE BLOCK ---
+. A DNS lookup SHOULD NOT be used.
+--- CODE BLOCK 297 ---
+network.peer.port
+--- END CODE BLOCK ---
+When observed from the client side, and when communicating through an intermediary,
+--- CODE BLOCK 299 ---
+Recommended
+--- END CODE BLOCK ---
+SHOULD represent the server port behind any intermediaries, for example proxies, if it’s available.
+--- CODE BLOCK 300 ---
+network.peer.address
+--- END CODE BLOCK ---
+For network calls, URL usually has
+--- CODE BLOCK 301 ---
+network.protocol.version
+--- END CODE BLOCK ---
+format, where the fragment
+is not transmitted over HTTP, but if it is known, it SHOULD be included nevertheless.
+--- CODE BLOCK 306 ---
+Recommended
+--- END CODE BLOCK ---
+MUST NOT contain credentials passed via URL in form of
+--- CODE BLOCK 307 ---
+server.address
+--- END CODE BLOCK ---
+In such case username and password SHOULD be redacted and attribute’s value SHOULD be
+--- CODE BLOCK 308 ---
+example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 310 ---
+/tmp/my.sock
+--- END CODE BLOCK ---
+SHOULD capture the absolute URL when it is available (or can be reconstructed).
+Sensitive content provided in
+--- CODE BLOCK 311 ---
+Recommended
+--- END CODE BLOCK ---
+SHOULD be scrubbed when instrumentations can identify it.
+Query string values for the following keys SHOULD be redacted by default and replaced by the
+value
+--- CODE BLOCK 312 ---
+user_agent.original
+--- END CODE BLOCK ---
+--- CODE BLOCK 313 ---
+CERN-LineMode/2.15 libwww/2.17b3
+--- END CODE BLOCK ---
+--- CODE BLOCK 314 ---
+Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1
+--- END CODE BLOCK ---
+--- CODE BLOCK 315 ---
+YourApp/1.0.0 grpc-java-okhttp/1.27.2
+--- END CODE BLOCK ---
+--- CODE BLOCK 316 ---
+Recommended
+--- END CODE BLOCK ---
+This list is subject to change over time.
+When a query string value is redacted, the query string key SHOULD still be preserved, e.g.
+--- CODE BLOCK 317 ---
+client.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 318 ---
+client.address
+--- END CODE BLOCK ---
+If the request fails with an error before response status code was sent or received,
+--- CODE BLOCK 321 ---
+http.request.body.size
+--- END CODE BLOCK ---
+SHOULD be set to exception type (its fully-qualified class name, if applicable)
+or a component-specific low cardinality error identifier.
+If response status code was sent or received and status indicates an error according to
+HTTP span status definition
+--- CODE BLOCK 324 ---
+http.request.header.<key>
+--- END CODE BLOCK ---
+SHOULD be set to the status code number (represented as a string), an exception type (if thrown) or a component-specific error identifier.
+--- CODE BLOCK 326 ---
+["application/json"]
+--- END CODE BLOCK ---
+value SHOULD be predictable and SHOULD have low cardinality.
+Instrumentations SHOULD document the list of errors they report.
+The cardinality of
+--- CODE BLOCK 327 ---
+["1.2.3.4", "1.2.3.5"]
+--- END CODE BLOCK ---
+within one instrumentation library SHOULD be low, but
+telemetry consumers that aggregate data from multiple instrumentation libraries and applications
+should be prepared for
+--- CODE BLOCK 329 ---
+http.request.size
+--- END CODE BLOCK ---
+to have high cardinality at query time, when no
+additional filters are applied.
+If the request has completed successfully, instrumentations SHOULD NOT set
+--- CODE BLOCK 332 ---
+http.response.body.size
+--- END CODE BLOCK ---
+--- CODE BLOCK 335 ---
+http.response.header.<key>
+--- END CODE BLOCK ---
+If and only if it’s different than
+--- CODE BLOCK 337 ---
+["application/json"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 338 ---
+["abc", "def"]
+--- END CODE BLOCK ---
+The value SHOULD be normalized to lowercase.
+--- CODE BLOCK 340 ---
+http.response.size
+--- END CODE BLOCK ---
+If not
+--- CODE BLOCK 343 ---
+network.local.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 345 ---
+/tmp/my.sock
+--- END CODE BLOCK ---
+is set.
+--- CODE BLOCK 347 ---
+network.local.port
+--- END CODE BLOCK ---
+The resend count SHOULD be updated each time an HTTP request gets resent by the client, regardless of what was the cause of the resending (e.g. redirection, authorization failure, 503 Server Unavailable, network issues, or any other).
+[10]
+--- CODE BLOCK 350 ---
+network.transport
+--- END CODE BLOCK ---
+If protocol version is subject to negotiation (for example using
+ALPN
+), this attribute SHOULD be set to the negotiated version. If the actual protocol version is not known, this attribute SHOULD NOT be set.
+[11]
+--- CODE BLOCK 354 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+Instrumentations SHOULD require an explicit configuration of which headers are to be captured.
+Including all request headers can be a security risk - explicit configuration helps avoid leaking sensitive information.
+--- CODE BLOCK 358 ---
+http.request.method
+--- END CODE BLOCK ---
+header is already captured in the
+--- CODE BLOCK 359 ---
+http.request.method
+--- END CODE BLOCK ---
+attribute.
+Users MAY explicitly configure instrumentations to capture them even though it is not recommended.
+The attribute value MUST consist of either multiple header values as an array of strings
+or a single-item array containing a possibly comma-concatenated string, depending on the way
+the HTTP library provides access to headers.
+Examples:
+A header
+--- CODE BLOCK 362 ---
+http.request.method
+--- END CODE BLOCK ---
+SHOULD be recorded as the
+--- CODE BLOCK 363 ---
+http.request.method_original
+--- END CODE BLOCK ---
+attribute with value
+--- CODE BLOCK 374 ---
+http.request.method_original
+--- END CODE BLOCK ---
+A header
+--- CODE BLOCK 375 ---
+http.request.method
+--- END CODE BLOCK ---
+SHOULD be recorded as the
+--- CODE BLOCK 377 ---
+network.protocol.name
+--- END CODE BLOCK ---
+attribute with value
+--- CODE BLOCK 378 ---
+network.protocol.name
+--- END CODE BLOCK ---
+--- CODE BLOCK 380 ---
+network.protocol.version
+--- END CODE BLOCK ---
+depending on the HTTP library.
+[12]
+--- CODE BLOCK 381 ---
+server.port
+--- END CODE BLOCK ---
+Instrumentations SHOULD require an explicit configuration of which headers are to be captured.
+Including all response headers can be a security risk - explicit configuration helps avoid leaking sensitive information.
+Users MAY explicitly configure instrumentations to capture them even though it is not recommended.
+The attribute value MUST consist of either multiple header values as an array of strings
+or a single-item array containing a possibly comma-concatenated string, depending on the way
+the HTTP library provides access to headers.
+Examples:
+A header
+--- CODE BLOCK 382 ---
+server.address
+--- END CODE BLOCK ---
+header SHOULD be recorded as the
+--- CODE BLOCK 383 ---
+server.port
+--- END CODE BLOCK ---
+attribute with value
+--- CODE BLOCK 387 ---
+AWSAccessKeyId
+--- END CODE BLOCK ---
+A header
+--- CODE BLOCK 390 ---
+X-Goog-Signature
+--- END CODE BLOCK ---
+header SHOULD be recorded as the
+--- CODE BLOCK 391 ---
+q=OpenTelemetry&sig=REDACTED
+--- END CODE BLOCK ---
+attribute with value
+--- CODE BLOCK 392 ---
+client.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 393 ---
+network.protocol.version
+--- END CODE BLOCK ---
+depending on the HTTP library.
+[13]
+--- CODE BLOCK 394 ---
+server.address
+--- END CODE BLOCK ---
+Generally
+--- CODE BLOCK 395 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 396 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 397 ---
+client.port
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 398 ---
+client.port
+--- END CODE BLOCK ---
+. Generally
+--- CODE BLOCK 399 ---
+http.request.header.<key>
+--- END CODE BLOCK ---
+--- CODE BLOCK 401 ---
+user_agent.original
+--- END CODE BLOCK ---
+. Other obscure implementations are possible.
+[14]
+--- CODE BLOCK 402 ---
+Content-Type: application/json
+--- END CODE BLOCK ---
+--- CODE BLOCK 403 ---
+http.request.header.content-type
+--- END CODE BLOCK ---
+MUST have low cardinality. It is not usually available on HTTP clients, but may be known by the application or specialized HTTP instrumentation.
+[15]
+--- CODE BLOCK 404 ---
+["application/json"]
+--- END CODE BLOCK ---
+This attribute MAY be derived from the contents of the
+--- CODE BLOCK 405 ---
+X-Forwarded-For: 1.2.3.4, 1.2.3.5
+--- END CODE BLOCK ---
+attribute. Components that populate the attribute are responsible for determining what they consider to be synthetic bot or test traffic. This attribute can either be set for self-identification purposes, or on telemetry detected to be generated as a result of a synthetic request. This attribute is useful for distinguishing between genuine client traffic and synthetic traffic generated by bots or tests.
+The following attributes can be important for making sampling decisions
+and SHOULD be provided
+at span creation time
+(if provided at all):
+--- CODE BLOCK 406 ---
+http.request.header.x-forwarded-for
+--- END CODE BLOCK ---
+--- CODE BLOCK 407 ---
+["1.2.3.4", "1.2.3.5"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 408 ---
+["1.2.3.4, 1.2.3.5"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 409 ---
+http.response.header.<key>
+--- END CODE BLOCK ---
+--- CODE BLOCK 410 ---
+Content-Type: application/json
+--- END CODE BLOCK ---
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+--- CODE BLOCK 411 ---
+http.request.response.content-type
+--- END CODE BLOCK ---
+A fallback error value to be used when the instrumentation doesn’t define a custom value.
+--- CODE BLOCK 412 ---
+["application/json"]
+--- END CODE BLOCK ---
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+--- CODE BLOCK 413 ---
+My-custom-header: abc, def
+--- END CODE BLOCK ---
+Any HTTP method that the instrumentation has no prior knowledge of.
+--- CODE BLOCK 414 ---
+http.response.header.my-custom-header
+--- END CODE BLOCK ---
+CONNECT method.
+--- CODE BLOCK 415 ---
+["abc", "def"]
+--- END CODE BLOCK ---
+DELETE method.
+--- CODE BLOCK 416 ---
+["abc, def"]
+--- END CODE BLOCK ---
+GET method.
+--- CODE BLOCK 417 ---
+network.transport
+--- END CODE BLOCK ---
+HEAD method.
+--- CODE BLOCK 424 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+OPTIONS method.
+--- CODE BLOCK 425 ---
+user_agent.original
+--- END CODE BLOCK ---
+PATCH method.
+--- CODE BLOCK 426 ---
+client.address
+--- END CODE BLOCK ---
+POST method.
+--- CODE BLOCK 427 ---
+http.request.header.<key>
+--- END CODE BLOCK ---
+PUT method.
+--- CODE BLOCK 428 ---
+http.request.method
+--- END CODE BLOCK ---
+TRACE method.
+--- CODE BLOCK 429 ---
+server.address
+--- END CODE BLOCK ---
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+--- CODE BLOCK 430 ---
+server.port
+--- END CODE BLOCK ---
+Named or anonymous pipe.
+--- CODE BLOCK 434 ---
+user_agent.original
+--- END CODE BLOCK ---
+QUIC
+--- CODE BLOCK 437 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 448 ---
+network.transport
+--- END CODE BLOCK ---
+--- CODE BLOCK 454 ---
+user_agent.synthetic.type
+--- END CODE BLOCK ---
+Unix domain socket
+--- CODE BLOCK 458 ---
+https://example.com:8080/webshop/articles/4?s=1&t=2
+--- END CODE BLOCK ---
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+--- CODE BLOCK 460 ---
+http.request.method
+--- END CODE BLOCK ---
+Bot source.
+--- CODE BLOCK 462 ---
+network.protocol.version
+--- END CODE BLOCK ---
+Synthetic test source.
+HTTP client span duration
+There are some minimal constraints that SHOULD be honored:
+HTTP client spans SHOULD start sometime before the first request byte is sent. This may or may not include connection time.
+HTTP client spans SHOULD end sometime after the HTTP response headers are fully read (or when they fail to be read). This may or may not include reading the response body.
+If there is any possibility for application code to not fully read the HTTP response
+(and for the HTTP client library to then have to clean up the HTTP response asynchronously),
+the HTTP client span SHOULD NOT be ended in this cleanup phase,
+and instead SHOULD end at some point after the HTTP response headers are fully read (or fail to be read).
+This avoids the span being ended asynchronously later on at a time
+which is no longer directly associated with the application code which made the HTTP request.
+Because of the potential for confusion around this, HTTP client library instrumentations SHOULD document their behavior around ending HTTP client spans.
+HTTP request retries and redirects
+Retries and redirects cause more than one physical HTTP request to be sent.
+A request is resent when an HTTP client library sends more than one HTTP request to satisfy the same API call.
+This may happen due to following redirects, authorization challenges, 503 Server Unavailable, network issues, or any other.
+Each time an HTTP request is resent, the
+--- CODE BLOCK 465 ---
+"https://example.com:8080/webshop/articles/4?s=1&t=2"
+--- END CODE BLOCK ---
+attribute SHOULD be added to each repeated span and set to the ordinal number of the request resend attempt.
+See the examples for more details about:
+retrying a server error
+redirects
+authorization
+HTTP server
+Read the following section to understand how HTTP server instrumentations are suggested to capture server information.
+HTTP server definitions
+An HTTP request can be routed to a specific HTTP application via intermediaries such as reverse proxies.
+HTTP requests sent to the same domain name may be handled by multiple applications depending on the port, path, headers, or other parameters.
+For example, different versions of the same web-application can run side-by-side as independent applications behind the reverse proxy which routes request to one or another based on the request path.
+Instances of different HTTP server applications may run on the same physical host and share the same IP address, but listen to different TCP/UDP ports.
+In order to route the request to a specific application, reverse proxies usually modify the
+HTTP Host header
+replacing the original value provided by the client with an actual proxied server name. This behavior depends on the reverse proxy configuration. In some cases, the
+--- CODE BLOCK 466 ---
+server.address
+--- END CODE BLOCK ---
+header is not used when routing request to a specific application, making it prone to having bogus content.
+HTTP server frameworks and their instrumentations have limited knowledge about the HTTP infrastructure and intermediaries that requests go through. In a general case, they can only use HTTP request properties such as request target or headers to populate
+--- CODE BLOCK 467 ---
+example.com
+--- END CODE BLOCK ---
+attributes.
+Setting
+--- CODE BLOCK 468 ---
+server.port
+--- END CODE BLOCK ---
+--- CODE BLOCK 470 ---
+network.peer.address
+--- END CODE BLOCK ---
+attributes
+In the context of HTTP server,
+--- CODE BLOCK 471 ---
+"192.0.2.5"
+--- END CODE BLOCK ---
+--- CODE BLOCK 472 ---
+network.peer.port
+--- END CODE BLOCK ---
+attributes capture the original host name and port. They are intended, whenever possible, to be the same on the client and server sides.
+HTTP server instrumentations SHOULD do the best effort when populating
+--- CODE BLOCK 474 ---
+http.response.status_code
+--- END CODE BLOCK ---
+--- CODE BLOCK 476 ---
+GET /webshop/articles/:article_id
+--- END CODE BLOCK ---
+attributes and SHOULD determine them by using the first of the following that applies:
+The original host which may be passed by the reverse proxy in the
+--- CODE BLOCK 477 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 479 ---
+network.protocol.version
+--- END CODE BLOCK ---
+, or a similar header.
+--- CODE BLOCK 482 ---
+"/webshop/articles/4"
+--- END CODE BLOCK ---
+pseudo-header in case of HTTP/2 or HTTP/3
+--- CODE BLOCK 485 ---
+server.address
+--- END CODE BLOCK ---
+header.
+Note
+: The
+--- CODE BLOCK 486 ---
+"example.com"
+--- END CODE BLOCK ---
+--- CODE BLOCK 487 ---
+server.port
+--- END CODE BLOCK ---
+headers contain host and port number of the server. The same applies to the
+--- CODE BLOCK 492 ---
+"/webshop/articles/:article_id"
+--- END CODE BLOCK ---
+identifier of
+--- CODE BLOCK 493 ---
+http.response.status_code
+--- END CODE BLOCK ---
+header or the
+--- CODE BLOCK 495 ---
+client.address
+--- END CODE BLOCK ---
+header. Instrumentations SHOULD populate both
+--- CODE BLOCK 496 ---
+"192.0.2.4"
+--- END CODE BLOCK ---
+--- CODE BLOCK 497 ---
+network.peer.address
+--- END CODE BLOCK ---
+attributes by parsing the value of corresponding header.
+Application developers MAY overwrite potentially inaccurate values of
+--- CODE BLOCK 498 ---
+"192.0.2.5"
+--- END CODE BLOCK ---
+attributes using a
+SpanProcessor
+and MAY capture private host information using applicable
+resource attributes
+Simple client/server example
+Client/server example with reverse proxy
+HTTP server span
+Status:
+This span represents an inbound HTTP request.
+Span name:
+refer to the
+Span Name
+section.
+Span kind
+MUST be
+--- CODE BLOCK 499 ---
+user_agent.original
+--- END CODE BLOCK ---
+Span status:
+refer to the
+Span Status
+section.
+Attribute
+Type
+Description
+Examples
+Requirement Level
+Stability
+--- CODE BLOCK 500 ---
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0"
+--- END CODE BLOCK ---
+string
+HTTP request method. [1]
+--- CODE BLOCK 501 ---
+request (SERVER, trace=t1, span=s1)
+-- GET / - 500 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET / - 500 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+|   |
+|   --- server (SERVER, trace=t1, span=s5)
+-- GET / - 200 (CLIENT, trace=t1, span=s6, http.request.resend_count=2)
+--- server (SERVER, trace=t1, span=s7)
+--- END CODE BLOCK ---
+--- CODE BLOCK 502 ---
+request (SERVER, trace=t1, span=s1)
+-- GET / - 500 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET / - 500 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+|   |
+|   --- server (SERVER, trace=t1, span=s5)
+-- GET / - 200 (CLIENT, trace=t1, span=s6, http.request.resend_count=2)
+--- server (SERVER, trace=t1, span=s7)
+--- END CODE BLOCK ---
+--- CODE BLOCK 503 ---
+GET / - 500 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET / - 500 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+GET / - 200 (CLIENT, trace=t3, span=s1, http.request.resend_count=2)
+--- server (SERVER, trace=t3, span=s1)
+--- END CODE BLOCK ---
+--- CODE BLOCK 504 ---
+GET / - 500 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET / - 500 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+GET / - 200 (CLIENT, trace=t3, span=s1, http.request.resend_count=2)
+--- server (SERVER, trace=t3, span=s1)
+--- END CODE BLOCK ---
+--- CODE BLOCK 505 ---
+request (SERVER, trace=t1, span=s1)
+-- GET /hello - 401 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET /hello - 200 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+--- server (SERVER, trace=t1, span=s5)
+--- END CODE BLOCK ---
+string
+URI path
+component [2]
+--- CODE BLOCK 506 ---
+request (SERVER, trace=t1, span=s1)
+-- GET /hello - 401 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET /hello - 200 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+--- server (SERVER, trace=t1, span=s5)
+--- END CODE BLOCK ---
+--- CODE BLOCK 507 ---
+GET /hello - 401 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET /hello - 200 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+--- END CODE BLOCK ---
+--- CODE BLOCK 508 ---
+GET /hello - 401 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET /hello - 200 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+--- END CODE BLOCK ---
+string
+URI scheme
+component identifying the used protocol. [3]
+--- CODE BLOCK 509 ---
+request (SERVER, trace=t1, span=s1)
+-- GET / - 302 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET /hello - 200 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+--- server (SERVER, trace=t1, span=s5)
+--- END CODE BLOCK ---
+--- CODE BLOCK 510 ---
+request (SERVER, trace=t1, span=s1)
+-- GET / - 302 (CLIENT, trace=t1, span=s2)
+|   |
+|   --- server (SERVER, trace=t1, span=s3)
+-- GET /hello - 200 (CLIENT, trace=t1, span=s4, http.request.resend_count=1)
+--- server (SERVER, trace=t1, span=s5)
+--- END CODE BLOCK ---
+--- CODE BLOCK 511 ---
+GET / - 302 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET /hello - 200 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+--- END CODE BLOCK ---
+--- CODE BLOCK 512 ---
+GET / - 302 (CLIENT, trace=t1, span=s1)
+--- server (SERVER, trace=t1, span=s2)
+GET /hello - 200 (CLIENT, trace=t2, span=s1, http.request.resend_count=1)
+--- server (SERVER, trace=t2, span=s2)
+--- END CODE BLOCK ---
+string
+Describes a class of error the operation ended with. [4]
+--- CODE BLOCK 513 ---
+https://does-not-exist-123.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 514 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 516 ---
+network.protocol.version
+--- END CODE BLOCK ---
+--- CODE BLOCK 519 ---
+"https://does-not-exist-123.com"
+--- END CODE BLOCK ---
+--- CODE BLOCK 520 ---
+server.address
+--- END CODE BLOCK ---
+If request has ended with an error.
+--- CODE BLOCK 521 ---
+"does-not-exist-123.com"
+--- END CODE BLOCK ---
+string
+Original HTTP method sent by the client in the request line.
+--- CODE BLOCK 523 ---
+"java.net.UnknownHostException"
+--- END CODE BLOCK ---
+--- CODE BLOCK 524 ---
+https://example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 525 ---
+http.request.method
+--- END CODE BLOCK ---
+--- CODE BLOCK 527 ---
+network.protocol.version
+--- END CODE BLOCK ---
+--- CODE BLOCK 530 ---
+"https://example.com"
+--- END CODE BLOCK ---
+HTTP response status code
+--- CODE BLOCK 531 ---
+server.address
+--- END CODE BLOCK ---
+--- CODE BLOCK 532 ---
+"example.com"
+--- END CODE BLOCK ---
+If and only if one was received/sent.
+--- CODE BLOCK 533 ---
+http.response.status_code
+--- END CODE BLOCK ---
+string
+The matched route, that is, the path template in the format used by the respective server framework. [6]
+--- CODE BLOCK 538 ---
+https://example.com:8080/uploads/4
+--- END CODE BLOCK ---
+--- CODE BLOCK 539 ---
+POST /uploads/:document_id
+--- END CODE BLOCK ---
+--- CODE BLOCK 540 ---
+http.request.method
+--- END CODE BLOCK ---
+If and only if it’s available
+--- CODE BLOCK 543 ---
+"/uploads/4"
+--- END CODE BLOCK ---
+string
+OSI application layer
+or non-OSI equivalent. [7]
+--- CODE BLOCK 547 ---
+"/uploads/:document_id"
+--- END CODE BLOCK ---
+--- CODE BLOCK 548 ---
+http.response.status_code
+--- END CODE BLOCK ---
+--- CODE BLOCK 551 ---
+WebSocketDisconnect
+--- END CODE BLOCK ---
+[CODE_BLOCK_281]
+Port of the local HTTP server that received the request. [9]
+[CODE_BLOCK_282]
+[CODE_BLOCK_283]
+[CODE_BLOCK_284]
+[CODE_BLOCK_285]
+If available and
+[CODE_BLOCK_286]
+is set.
+[CODE_BLOCK_287]
+string
+URI query
+component [10]
+[CODE_BLOCK_288]
+[CODE_BLOCK_289]
+If and only if one was received/sent.
+[CODE_BLOCK_290]
+string
+Client address - domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [11]
+[CODE_BLOCK_291]
+[CODE_BLOCK_292]
+[CODE_BLOCK_293]
+string
+Peer address of the network connection - IP address or Unix domain socket name.
+[CODE_BLOCK_294]
+[CODE_BLOCK_295]
+[CODE_BLOCK_296]
+[CODE_BLOCK_297]
+Peer port number of the network connection.
+[CODE_BLOCK_298]
+[CODE_BLOCK_299]
+[CODE_BLOCK_300]
+is set.
+[CODE_BLOCK_301]
+string
+The actual version of the protocol used for network communication. [12]
+[CODE_BLOCK_302]
+[CODE_BLOCK_303]
+[CODE_BLOCK_304]
+[CODE_BLOCK_305]
+[CODE_BLOCK_306]
+[CODE_BLOCK_307]
+string
+Name of the local HTTP server that received the request. [13]
+[CODE_BLOCK_308]
+[CODE_BLOCK_309]
+[CODE_BLOCK_310]
+[CODE_BLOCK_311]
+[CODE_BLOCK_312]
+string
+Value of the
+HTTP User-Agent
+header sent by the client.
+[CODE_BLOCK_313]
+[CODE_BLOCK_314]
+[CODE_BLOCK_315]
+[CODE_BLOCK_316]
+[CODE_BLOCK_317]
+The port of whichever client was captured in
+[CODE_BLOCK_318]
+. [14]
+[CODE_BLOCK_319]
+[CODE_BLOCK_320]
+[CODE_BLOCK_321]
+The size of the request payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the
+Content-Length
+header. For requests using transport encoding, this should be the compressed size.
+[CODE_BLOCK_322]
+[CODE_BLOCK_323]
+[CODE_BLOCK_324]
+string[]
+HTTP request headers,
+[CODE_BLOCK_325]
+being the normalized HTTP Header name (lowercase), the value being the header values. [15]
+[CODE_BLOCK_326]
+[CODE_BLOCK_327]
+[CODE_BLOCK_328]
+[CODE_BLOCK_329]
+The total size of the request in bytes. This should be the total number of bytes sent over the wire, including the request line (HTTP/1.1), framing (HTTP/2 and HTTP/3), headers, and request body if any.
+[CODE_BLOCK_330]
+[CODE_BLOCK_331]
+[CODE_BLOCK_332]
+The size of the response payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the
+Content-Length
+header. For requests using transport encoding, this should be the compressed size.
+[CODE_BLOCK_333]
+[CODE_BLOCK_334]
+[CODE_BLOCK_335]
+string[]
+HTTP response headers,
+[CODE_BLOCK_336]
+being the normalized HTTP Header name (lowercase), the value being the header values. [16]
+[CODE_BLOCK_337]
+[CODE_BLOCK_338]
+[CODE_BLOCK_339]
+[CODE_BLOCK_340]
+The total size of the response in bytes. This should be the total number of bytes sent over the wire, including the status line (HTTP/1.1), framing (HTTP/2 and HTTP/3), headers, and response body and trailers if any.
+[CODE_BLOCK_341]
+[CODE_BLOCK_342]
+[CODE_BLOCK_343]
+string
+Local socket address. Useful in case of a multi-IP host.
+[CODE_BLOCK_344]
+[CODE_BLOCK_345]
+[CODE_BLOCK_346]
+[CODE_BLOCK_347]
+Local socket port. Useful in case of a multi-port host.
+[CODE_BLOCK_348]
+[CODE_BLOCK_349]
+[CODE_BLOCK_350]
+string
+OSI transport layer
+inter-process communication method
+. [17]
+[CODE_BLOCK_351]
+[CODE_BLOCK_352]
+[CODE_BLOCK_353]
+[CODE_BLOCK_354]
+string
+Specifies the category of synthetic traffic, such as tests or bots. [18]
+[CODE_BLOCK_355]
+[CODE_BLOCK_356]
+[CODE_BLOCK_357]
+[CODE_BLOCK_358]
+HTTP request method value SHOULD be “known” to the instrumentation.
+By default, this convention defines “known” methods as the ones listed in
+RFC9110
+and the PATCH method defined in
+RFC5789
+If the HTTP request method is not known to instrumentation, it MUST set the
+[CODE_BLOCK_359]
+attribute to
+[CODE_BLOCK_360]
+If the HTTP instrumentation could end up converting valid HTTP request methods to
+[CODE_BLOCK_361]
+, then it MUST provide a way to override
+the list of known HTTP methods. If this override is done via environment variable, then the environment variable MUST be named
+OTEL_INSTRUMENTATION_HTTP_KNOWN_METHODS and support a comma-separated list of case-sensitive known HTTP methods
+(this list MUST be a full override of the default known method, it is not a list of known methods in addition to the defaults).
+HTTP method names are case-sensitive and
+[CODE_BLOCK_362]
+attribute value MUST match a known HTTP method name exactly.
+Instrumentations for specific web frameworks that consider HTTP methods to be case insensitive, SHOULD populate a canonical equivalent.
+Tracing instrumentations that do so, MUST also set
+[CODE_BLOCK_363]
+to the original value.
+[CODE_BLOCK_364]
+Sensitive content provided in
+[CODE_BLOCK_365]
+SHOULD be scrubbed when instrumentations can identify it.
+[CODE_BLOCK_366]
+The scheme of the original client request, if known (e.g. from
+Forwarded#proto
+X-Forwarded-Proto
+, or a similar header). Otherwise, the scheme of the immediate peer request.
+[CODE_BLOCK_367]
+If the request fails with an error before response status code was sent or received,
+[CODE_BLOCK_368]
+SHOULD be set to exception type (its fully-qualified class name, if applicable)
+or a component-specific low cardinality error identifier.
+If response status code was sent or received and status indicates an error according to
+HTTP span status definition
+[CODE_BLOCK_369]
+SHOULD be set to the status code number (represented as a string), an exception type (if thrown) or a component-specific error identifier.
+[CODE_BLOCK_370]
+value SHOULD be predictable and SHOULD have low cardinality.
+Instrumentations SHOULD document the list of errors they report.
+The cardinality of
+[CODE_BLOCK_371]
+within one instrumentation library SHOULD be low, but
+telemetry consumers that aggregate data from multiple instrumentation libraries and applications
+should be prepared for
+[CODE_BLOCK_372]
+to have high cardinality at query time, when no
+additional filters are applied.
+If the request has completed successfully, instrumentations SHOULD NOT set
+[CODE_BLOCK_373]
+[CODE_BLOCK_374]
+If and only if it’s different than
+[CODE_BLOCK_375]
+[CODE_BLOCK_376]
+MUST NOT be populated when this is not supported by the HTTP server framework as the route attribute should have low-cardinality and the URI path can NOT substitute it.
+SHOULD include the
+application root
+if there is one.
+[CODE_BLOCK_377]
+The value SHOULD be normalized to lowercase.
+[CODE_BLOCK_378]
+If not
+[CODE_BLOCK_379]
+[CODE_BLOCK_380]
+is set.
+[CODE_BLOCK_381]
+Setting
+[CODE_BLOCK_382]
+[CODE_BLOCK_383]
+attributes
+[10]
+[CODE_BLOCK_384]
+Sensitive content provided in
+[CODE_BLOCK_385]
+SHOULD be scrubbed when instrumentations can identify it.
+Query string values for the following keys SHOULD be redacted by default and replaced by the value
+[CODE_BLOCK_386]
+[CODE_BLOCK_387]
+[CODE_BLOCK_388]
+[CODE_BLOCK_389]
+[CODE_BLOCK_390]
+This list is subject to change over time.
+When a query string value is redacted, the query string key SHOULD still be preserved, e.g.
+[CODE_BLOCK_391]
+[11]
+[CODE_BLOCK_392]
+The IP address of the original client behind all proxies, if known (e.g. from
+Forwarded#for
+X-Forwarded-For
+, or a similar header). Otherwise, the immediate client peer address.
+[12]
+[CODE_BLOCK_393]
+If protocol version is subject to negotiation (for example using
+ALPN
+), this attribute SHOULD be set to the negotiated version. If the actual protocol version is not known, this attribute SHOULD NOT be set.
+[13]
+[CODE_BLOCK_394]
+Setting
+[CODE_BLOCK_395]
+[CODE_BLOCK_396]
+attributes
+[14]
+[CODE_BLOCK_397]
+When observed from the server side, and when communicating through an intermediary,
+[CODE_BLOCK_398]
+SHOULD represent the client port behind any intermediaries, for example proxies, if it’s available.
+[15]
+[CODE_BLOCK_399]
+Instrumentations SHOULD require an explicit configuration of which headers are to be captured.
+Including all request headers can be a security risk - explicit configuration helps avoid leaking sensitive information.
+[CODE_BLOCK_400]
+header is already captured in the
+[CODE_BLOCK_401]
+attribute.
+Users MAY explicitly configure instrumentations to capture them even though it is not recommended.
+The attribute value MUST consist of either multiple header values as an array of strings
+or a single-item array containing a possibly comma-concatenated string, depending on the way
+the HTTP library provides access to headers.
+Examples:
+A header
+[CODE_BLOCK_402]
+SHOULD be recorded as the
+[CODE_BLOCK_403]
+attribute with value
+[CODE_BLOCK_404]
+A header
+[CODE_BLOCK_405]
+SHOULD be recorded as the
+[CODE_BLOCK_406]
+attribute with value
+[CODE_BLOCK_407]
+[CODE_BLOCK_408]
+depending on the HTTP library.
+[16]
+[CODE_BLOCK_409]
+Instrumentations SHOULD require an explicit configuration of which headers are to be captured.
+Including all response headers can be a security risk - explicit configuration helps avoid leaking sensitive information.
+Users MAY explicitly configure instrumentations to capture them even though it is not recommended.
+The attribute value MUST consist of either multiple header values as an array of strings
+or a single-item array containing a possibly comma-concatenated string, depending on the way
+the HTTP library provides access to headers.
+Examples:
+A header
+[CODE_BLOCK_410]
+header SHOULD be recorded as the
+[CODE_BLOCK_411]
+attribute with value
+[CODE_BLOCK_412]
+A header
+[CODE_BLOCK_413]
+header SHOULD be recorded as the
+[CODE_BLOCK_414]
+attribute with value
+[CODE_BLOCK_415]
+[CODE_BLOCK_416]
+depending on the HTTP library.
+[17]
+[CODE_BLOCK_417]
+Generally
+[CODE_BLOCK_418]
+[CODE_BLOCK_419]
+[CODE_BLOCK_420]
+, and
+[CODE_BLOCK_421]
+. Generally
+[CODE_BLOCK_422]
+[CODE_BLOCK_423]
+. Other obscure implementations are possible.
+[18]
+[CODE_BLOCK_424]
+This attribute MAY be derived from the contents of the
+[CODE_BLOCK_425]
+attribute. Components that populate the attribute are responsible for determining what they consider to be synthetic bot or test traffic. This attribute can either be set for self-identification purposes, or on telemetry detected to be generated as a result of a synthetic request. This attribute is useful for distinguishing between genuine client traffic and synthetic traffic generated by bots or tests.
+The following attributes can be important for making sampling decisions
+and SHOULD be provided
+at span creation time
+(if provided at all):
+[CODE_BLOCK_426]
+[CODE_BLOCK_427]
+[CODE_BLOCK_428]
+[CODE_BLOCK_429]
+[CODE_BLOCK_430]
+[CODE_BLOCK_431]
+[CODE_BLOCK_432]
+[CODE_BLOCK_433]
+[CODE_BLOCK_434]
+[CODE_BLOCK_435]
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+[CODE_BLOCK_436]
+A fallback error value to be used when the instrumentation doesn’t define a custom value.
+[CODE_BLOCK_437]
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+[CODE_BLOCK_438]
+Any HTTP method that the instrumentation has no prior knowledge of.
+[CODE_BLOCK_439]
+CONNECT method.
+[CODE_BLOCK_440]
+DELETE method.
+[CODE_BLOCK_441]
+GET method.
+[CODE_BLOCK_442]
+HEAD method.
+[CODE_BLOCK_443]
+OPTIONS method.
+[CODE_BLOCK_444]
+PATCH method.
+[CODE_BLOCK_445]
+POST method.
+[CODE_BLOCK_446]
+PUT method.
+[CODE_BLOCK_447]
+TRACE method.
+[CODE_BLOCK_448]
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+[CODE_BLOCK_449]
+Named or anonymous pipe.
+[CODE_BLOCK_450]
+QUIC
+[CODE_BLOCK_451]
+[CODE_BLOCK_452]
+[CODE_BLOCK_453]
+Unix domain socket
+[CODE_BLOCK_454]
+has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
+Value
+Description
+Stability
+[CODE_BLOCK_455]
+Bot source.
+[CODE_BLOCK_456]
+Synthetic test source.
+[CODE_BLOCK_457]
+MUST be provided at span creation time if and only if it’s already available. If it becomes available after span starts, instrumentation MUST populate it anytime before span ends.
+Examples
+HTTP client-server example
+As an example, if a browser request for
+[CODE_BLOCK_458]
+is invoked from a host with IP 192.0.2.4, we may have the following Span on the client side:
+Span name:
+[CODE_BLOCK_459]
+Attribute name
+Value
+[CODE_BLOCK_460]
+[CODE_BLOCK_461]
+[CODE_BLOCK_462]
+[CODE_BLOCK_463]
+[CODE_BLOCK_464]
+[CODE_BLOCK_465]
+[CODE_BLOCK_466]
+[CODE_BLOCK_467]
+[CODE_BLOCK_468]
+[CODE_BLOCK_469]
+[CODE_BLOCK_470]
+[CODE_BLOCK_471]
+[CODE_BLOCK_472]
+[CODE_BLOCK_473]
+[CODE_BLOCK_474]
+[CODE_BLOCK_475]
+The corresponding server Span may look like this:
+Span name:
+[CODE_BLOCK_476]
+Attribute name
+Value
+[CODE_BLOCK_477]
+[CODE_BLOCK_478]
+[CODE_BLOCK_479]
+[CODE_BLOCK_480]
+[CODE_BLOCK_481]
+[CODE_BLOCK_482]
+[CODE_BLOCK_483]
+[CODE_BLOCK_484]
+[CODE_BLOCK_485]
+[CODE_BLOCK_486]
+[CODE_BLOCK_487]
+[CODE_BLOCK_488]
+[CODE_BLOCK_489]
+[CODE_BLOCK_490]
+[CODE_BLOCK_491]
+[CODE_BLOCK_492]
+[CODE_BLOCK_493]
+[CODE_BLOCK_494]
+[CODE_BLOCK_495]
+[CODE_BLOCK_496]
+[CODE_BLOCK_497]
+[CODE_BLOCK_498]
+(the client goes through a proxy)
+[CODE_BLOCK_499]
+[CODE_BLOCK_500]
+HTTP client retries examples
+Example of retries in the presence of a trace started by an inbound request:
+[CODE_BLOCK_501]
+Example of retries with no trace started upfront:
+[CODE_BLOCK_503]
+HTTP client authorization retry examples
+Example of retries in the presence of a trace started by an inbound request:
+[CODE_BLOCK_505]
+Example of retries with no trace started upfront:
+[CODE_BLOCK_507]
+HTTP client redirects examples
+Example of redirects in the presence of a trace started by an inbound request:
+[CODE_BLOCK_509]
+Example of redirects with no trace started upfront:
+[CODE_BLOCK_511]
+HTTP client call: DNS error
+As an example, if a user requested
+[CODE_BLOCK_513]
+, we may have the following span on the client side:
+Attribute name
+Value
+[CODE_BLOCK_514]
+[CODE_BLOCK_515]
+[CODE_BLOCK_516]
+[CODE_BLOCK_517]
+[CODE_BLOCK_518]
+[CODE_BLOCK_519]
+[CODE_BLOCK_520]
+[CODE_BLOCK_521]
+[CODE_BLOCK_522]
+[CODE_BLOCK_523]
+HTTP client call: Internal Server Error
+As an example, if a user requested
+[CODE_BLOCK_524]
+and server returned 500, we may have the following span on the client side:
+Attribute name
+Value
+[CODE_BLOCK_525]
+[CODE_BLOCK_526]
+[CODE_BLOCK_527]
+[CODE_BLOCK_528]
+[CODE_BLOCK_529]
+[CODE_BLOCK_530]
+[CODE_BLOCK_531]
+[CODE_BLOCK_532]
+[CODE_BLOCK_533]
+[CODE_BLOCK_534]
+[CODE_BLOCK_535]
+[CODE_BLOCK_536]
+HTTP server call: connection dropped before response body was sent
+As an example, if a user sent a
+[CODE_BLOCK_537]
+request with a body to
+[CODE_BLOCK_538]
+, we may see the following span on a server side:
+Span name:
+[CODE_BLOCK_539]
+Attribute name
+Value
+[CODE_BLOCK_540]
+[CODE_BLOCK_541]
+[CODE_BLOCK_542]
+[CODE_BLOCK_543]
+[CODE_BLOCK_544]
+[CODE_BLOCK_545]
+[CODE_BLOCK_546]
+[CODE_BLOCK_547]
+[CODE_BLOCK_548]
+[CODE_BLOCK_549]
+[CODE_BLOCK_550]
+[CODE_BLOCK_551]
+Feedback
+Was this page helpful?
+Thank you. Your feedback is appreciated!
+Please let us know
+how we can improve this page
+. Your feedback is appreciated!

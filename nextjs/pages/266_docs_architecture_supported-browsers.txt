@@ -1,0 +1,105 @@
+SOURCE URL: https://nextjs.org/docs/architecture/supported-browsers
+SCRAPED: 2025-06-19 17:40:39
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+Architecture
+Supported Browsers
+Supported Browsers
+Next.js supports
+modern browsers
+with zero configuration.
+Chrome 64+
+Edge 79+
+Firefox 67+
+Opera 51+
+Safari 12+
+Browserslist
+If you would like to target specific browsers or features, Next.js supports
+Browserslist
+configuration in your
+--- CODE BLOCK 1 ---
+package.json
+--- END CODE BLOCK ---
+file. Next.js uses the following Browserslist configuration by default:
+package.json
+--- CODE BLOCK 2 ---
+"browserslist": [
+"chrome 64",
+"edge 79",
+"firefox 67",
+"opera 51",
+"safari 12"
+--- END CODE BLOCK ---
+Polyfills
+We inject
+widely used polyfills
+, including:
+fetch()
+— Replacing:
+--- CODE BLOCK 4 ---
+whatwg-fetch
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+object-assign
+--- END CODE BLOCK ---
+— Replacing: the
+--- CODE BLOCK 8 ---
+object.assign
+--- END CODE BLOCK ---
+package (Node.js API)
+Object.assign()
+— Replacing:
+--- CODE BLOCK 9 ---
+core-js/object/assign
+--- END CODE BLOCK ---
+[CODE_BLOCK_8]
+, and
+[CODE_BLOCK_9]
+If any of your dependencies include these polyfills, they’ll be eliminated automatically from the production build to avoid duplication.
+In addition, to reduce bundle size, Next.js will only load these polyfills for browsers that require them. The majority of the web traffic globally will not download these polyfills.
+Custom Polyfills
+If your own code or any external npm dependencies require features not supported by your target browsers (such as IE 11), you need to add polyfills yourself.
+In this case, you should add a top-level import for the
+specific polyfill
+you need in your
+Custom
+[CODE_BLOCK_10]
+or the individual component.
+JavaScript Language Features
+Next.js allows you to use the latest JavaScript features out of the box. In addition to
+ES6 features
+, Next.js also supports:
+Async/await
+(ES2017)
+Object Rest/Spread Properties
+(ES2018)
+Dynamic
+[CODE_BLOCK_11]
+(ES2020)
+Optional Chaining
+(ES2020)
+Nullish Coalescing
+(ES2020)
+Class Fields
+Static Properties
+(ES2022)
+and more!
+TypeScript Features
+Next.js has built-in TypeScript support.
+Learn more here
+Customizing Babel Config (Advanced)
+You can customize babel configuration.
+Learn more here
+Was this helpful?
+supported.
+Send

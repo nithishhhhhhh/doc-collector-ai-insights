@@ -1,0 +1,48 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/sassOptions
+SCRAPED: 2025-06-19 17:42:41
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+sassOptions
+sassOptions
+--- CODE BLOCK 1 ---
+sassOptions
+--- END CODE BLOCK ---
+allow you to configure the Sass compiler.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+import type { NextConfig } from 'next'
+const sassOptions = {
+additionalData: `
+$var: red;
+const nextConfig: NextConfig = {
+sassOptions: {
+...sassOptions,
+implementation: 'sass-embedded',
+export default nextConfig
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 4 ---
+sassOptions
+--- END CODE BLOCK ---
+are not typed outside of
+--- CODE BLOCK 5 ---
+implementation
+--- END CODE BLOCK ---
+because Next.js does not maintain the other possible properties.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,176 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/custom-server
+SCRAPED: 2025-06-19 17:30:07
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Custom Server
+You are currently viewing the documentation for Pages Router.
+How to set up a custom server in Next.js
+Next.js includes its own server with
+--- CODE BLOCK 3 ---
+import { createServer } from 'http'
+import { parse } from 'url'
+import next from 'next'
+const port = parseInt(process.env.PORT || '3000', 10)
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+app.prepare().then(() => {
+createServer((req, res) => {
+const parsedUrl = parse(req.url!, true)
+handle(req, res, parsedUrl)
+}).listen(port)
+console.log(
+`> Server listening at http://localhost:${port} as ${
+dev ? 'development' : process.env.NODE_ENV
+--- END CODE BLOCK ---
+by default. If you have an existing backend, you can still use it with Next.js (this is not a custom server). A custom Next.js server allows you to programmatically start a server for custom patterns. The majority of the time, you will not need this approach. However, it's available if you need to eject.
+Good to know
+Before deciding to use a custom server, keep in mind that it should only be used when the integrated router of Next.js can't meet your app requirements. A custom server will remove important performance optimizations, like
+Automatic Static Optimization
+When using standalone output mode, it does not trace custom server files. This mode outputs a separate minimal
+--- CODE BLOCK 4 ---
+import { createServer } from 'http'
+import { parse } from 'url'
+import next from 'next'
+const port = parseInt(process.env.PORT || '3000', 10)
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+app.prepare().then(() => {
+createServer((req, res) => {
+const parsedUrl = parse(req.url!, true)
+handle(req, res, parsedUrl)
+}).listen(port)
+console.log(
+`> Server listening at http://localhost:${port} as ${
+dev ? 'development' : process.env.NODE_ENV
+--- END CODE BLOCK ---
+file, instead. These cannot be used together.
+Take a look at the
+following example
+of a custom server:
+server.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+package.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+"scripts": {
+"dev": "node server.js",
+"build": "next build",
+"start": "NODE_ENV=production node server.js"
+--- END CODE BLOCK ---
+does not run through the Next.js Compiler or bundling process. Make sure the syntax and source code this file requires are compatible with the current Node.js version you are using.
+View an example
+To run the custom server, you'll need to update the
+--- CODE BLOCK 11 ---
+import next from 'next'
+const app = next({})
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+import next from 'next'
+const app = next({})
+--- END CODE BLOCK ---
+like so:
+package.json
+--- CODE BLOCK 16 ---
+next.config.js
+--- END CODE BLOCK ---
+Alternatively, you can set up
+--- CODE BLOCK 39 ---
+next.config.js
+--- END CODE BLOCK ---
+example
+). The custom server uses the following import to connect the server with the Next.js application:
+--- CODE BLOCK 40 ---
+useFileSystemPublicRoutes
+--- END CODE BLOCK ---
+The above
+--- CODE BLOCK 42 ---
+module.exports = {
+useFileSystemPublicRoutes: false,
+--- END CODE BLOCK ---
+import is a function that receives an object with the following options:
+Option
+Type
+Description
+--- CODE BLOCK 43 ---
+useFileSystemPublicRoutes
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+router.beforePopState
+--- END CODE BLOCK ---
+The same object you would use in
+[CODE_BLOCK_16]
+. Defaults to
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+Optional
+) Whether or not to launch Next.js in dev mode. Defaults to
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+Optional
+) Location of the Next.js project. Defaults to
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+Optional
+) Hide error messages containing server information. Defaults to
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+Optional
+) The hostname the server is running behind
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+Optional
+) The port the server is running behind
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+Optional
+) The HTTP Server that Next.js is running behind
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+Optional
+) Enable Turbopack
+The returned
+[CODE_BLOCK_35]
+can then be used to let Next.js handle requests as required.
+Disabling file-system routing
+By default,
+[CODE_BLOCK_36]
+will serve each file in the
+[CODE_BLOCK_37]
+folder under a pathname matching the filename. If your project uses a custom server, this behavior may result in the same content being served from multiple paths, which can present problems with SEO and UX.
+To disable this behavior and prevent routing based on files in
+[CODE_BLOCK_38]
+, open
+[CODE_BLOCK_39]
+and disable the
+[CODE_BLOCK_40]
+config:
+next.config.js
+[CODE_BLOCK_41]
+Note that
+[CODE_BLOCK_43]
+disables filename routes from SSR; client-side routing may still access those paths. When using this option, you should guard against navigation to routes you do not want programmatically.
+You may also wish to configure the client-side router to disallow client-side redirects to filename routes; for that refer to
+[CODE_BLOCK_44]
+Was this helpful?
+supported.
+Send

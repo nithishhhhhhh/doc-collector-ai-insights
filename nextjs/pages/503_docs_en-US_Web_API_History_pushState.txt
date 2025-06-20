@@ -1,0 +1,177 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
+SCRAPED: 2025-06-19 18:07:38
+================================================================================
+
+--- CODE BLOCK 1 ---
+pushState()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+pushState(state, unused)
+pushState(state, unused, url)
+--- END CODE BLOCK ---
+interface adds an entry to the browser's
+session history stack.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+pushState(state, unused)
+pushState(state, unused, url)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 16 ---
+sessionStorage
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+localStorage
+--- END CODE BLOCK ---
+object is a JavaScript object which is associated with the
+new history entry created by
+--- CODE BLOCK 20 ---
+pushState()
+--- END CODE BLOCK ---
+. Whenever the user navigates to
+the new
+--- CODE BLOCK 21 ---
+pushState()
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+SecurityError
+--- END CODE BLOCK ---
+event is fired, and
+--- CODE BLOCK 24 ---
+DOMException
+--- END CODE BLOCK ---
+property of the event contains a copy of the history entry's
+--- CODE BLOCK 26 ---
+DataCloneError
+--- END CODE BLOCK ---
+object.
+--- CODE BLOCK 27 ---
+DOMException
+--- END CODE BLOCK ---
+object can be anything that can be serialized.
+Note:
+Some browsers save
+--- CODE BLOCK 29 ---
+pushState()
+--- END CODE BLOCK ---
+objects to the user's disk so they can be restored after the user restarts the browser, and impose a size limit on the serialized representation of a
+--- CODE BLOCK 30 ---
+window.location = "#foo"
+--- END CODE BLOCK ---
+object, and will throw an exception if you pass a
+--- CODE BLOCK 31 ---
+pushState()
+--- END CODE BLOCK ---
+object whose serialized representation is larger than that size limit. So in cases where you want to ensure you have more space than what some browsers might impose, you're encouraged to use
+--- CODE BLOCK 32 ---
+window.location
+--- END CODE BLOCK ---
+and/or
+--- CODE BLOCK 33 ---
+window.location = "#foo";
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+pushState()
+--- END CODE BLOCK ---
+This parameter exists for historical reasons, and cannot be omitted; passing an empty string is safe against future changes to the method.
+--- CODE BLOCK 37 ---
+const state = { page_id: 1, user_id: 5 };
+const url = "hello-world.html";
+history.pushState(state, "", url);
+--- END CODE BLOCK ---
+Optional
+The new history entry's URL. Note that the browser won't
+attempt to load this URL after a call to
+--- CODE BLOCK 38 ---
+const state = { page_id: 1, user_id: 5 };
+const url = "hello-world.html";
+history.pushState(state, "", url);
+--- END CODE BLOCK ---
+, but it may
+attempt to load the URL later, for instance, after the user restarts the browser. The
+new URL does not need to be absolute; if it's relative, it's resolved relative to the
+current URL. The new URL must be of the same
+origin
+as the current
+URL; otherwise,
+--- CODE BLOCK 39 ---
+const url = new URL(location);
+url.searchParams.set("foo", "bar");
+history.pushState({}, "", url);
+--- END CODE BLOCK ---
+will throw an exception. If this parameter
+isn't specified, it's set to the document's current URL.
+Return value
+None (
+--- CODE BLOCK 40 ---
+const url = new URL(location);
+url.searchParams.set("foo", "bar");
+history.pushState({}, "", url);
+--- END CODE BLOCK ---
+Exceptions
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+Thrown if the associated document is not fully active, or if the provided
+[CODE_BLOCK_25]
+parameter is not a valid URL, or if the method is called too frequently.
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Thrown if the provided
+[CODE_BLOCK_28]
+parameter is not serializable.
+Description
+In a sense, calling
+[CODE_BLOCK_29]
+is similar to
+setting
+[CODE_BLOCK_30]
+, in that both will also create and
+activate another history entry associated with the current document.
+[CODE_BLOCK_31]
+has a few advantages:
+The new URL can be any URL in the same origin as the current URL. In contrast,
+setting
+[CODE_BLOCK_32]
+keeps you at the same document only if you
+modify only the hash.
+Changing the page's URL is optional. In contrast,
+setting
+[CODE_BLOCK_33]
+only creates a new history entry if the
+current hash isn't
+[CODE_BLOCK_34]
+You can associate arbitrary data with your new history entry. With the hash-based
+approach, you need to encode all of the relevant data into a short string.
+Note that
+[CODE_BLOCK_35]
+never causes a
+[CODE_BLOCK_36]
+event to be
+fired, even if the new URL differs from the old URL only in its hash.
+Examples
+This creates a new browser history entry setting the
+state
+JavaScript
+Copy to Clipboard
+[CODE_BLOCK_37]
+Change a query parameter
+Copy to Clipboard
+[CODE_BLOCK_39]
+Specifications
+Specification
+HTML
+dom-history-pushstate-dev
+Browser compatibility
+See also
+Working with the History API
+Window: popstate event
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 27, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

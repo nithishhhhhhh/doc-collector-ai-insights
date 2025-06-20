@@ -1,0 +1,26 @@
+URL: https://react.dev/reference/react-dom/components/progress
+Section: Reference
+============================================================
+
+# <progress>
+# <progress>
+The built-in browser <progress> component lets you render a progress indicator.
+``````
+- Reference <progress>
+- Usage Controlling a progress indicator
+- <progress>
+- Controlling a progress indicator
+## Reference
+### <progress>
+To display a progress indicator, render the built-in browser <progress> component.
+``````
+See more examples below.
+#### Props
+<progress> supports all common element props.
+Additionally, <progress> supports these props:
+- max: A number. Specifies the maximum value. Defaults to 1.
+- value: A number between 0 and max, or null for indeterminate progress. Specifies how much was done.
+## Usage
+### Controlling a progress indicator
+To display a progress indicator, render a <progress> component. You can pass a number value between 0 and the max value you specify. If you don’t pass a max value, it will assumed to be 1 by default.
+If the operation is not ongoing, pass value={null} to put the progress indicator into an indeterminate state.

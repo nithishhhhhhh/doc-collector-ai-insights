@@ -1,0 +1,34 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference
+SCRAPED: 2025-06-19 17:14:11
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Next.js Docs
+Pages Router
+API Reference
+You are currently viewing the documentation for Pages Router.
+API Reference
+Components
+API Reference for Next.js built-in components in the Pages Router.
+File-system conventions
+API Reference for Next.js file-system conventions.
+Functions
+API Reference for Functions and Hooks in Pages Router.
+Configuration
+Learn how to configure your Next.js application.
+API Reference for the Next.js Command Line Interface (CLI) tools.
+Edge Runtime
+API Reference for the Edge Runtime.
+Turbopack
+Turbopack is an incremental bundler optimized for JavaScript and TypeScript, written in Rust, and built into Next.js.
+Was this helpful?
+supported.
+Send

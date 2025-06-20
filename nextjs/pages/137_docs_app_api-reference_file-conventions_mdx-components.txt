@@ -1,0 +1,101 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/mdx-components
+SCRAPED: 2025-06-19 17:25:15
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+mdx-components.js
+mdx-components.js
+--- CODE BLOCK 1 ---
+mdx-components.js|tsx
+--- END CODE BLOCK ---
+file is
+required
+to use
+--- CODE BLOCK 3 ---
+mdx-components.tsx
+--- END CODE BLOCK ---
+with App Router
+and will not work without it. Additionally, you can use it to
+customize styles
+Use the file
+--- CODE BLOCK 8 ---
+import type { MDXComponents } from 'mdx/types'
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+return {
+...components,
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+import type { MDXComponents } from 'mdx/types'
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+return {
+...components,
+--- END CODE BLOCK ---
+) in the root of your project to define MDX Components. For example, at the same level as
+--- CODE BLOCK 10 ---
+useMDXComponents
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+useMDXComponents
+--- END CODE BLOCK ---
+, or inside
+--- CODE BLOCK 12 ---
+import type { MDXComponents } from 'mdx/types'
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+return {
+...components,
+--- END CODE BLOCK ---
+if applicable.
+mdx-components.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 13 ---
+import type { MDXComponents } from 'mdx/types'
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+return {
+...components,
+--- END CODE BLOCK ---
+Exports
+--- CODE BLOCK 17 ---
+...components
+--- END CODE BLOCK ---
+function
+The file must export a single function, either as a default export or named
+[CODE_BLOCK_11]
+mdx-components.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_12]
+Params
+[CODE_BLOCK_14]
+When defining MDX Components, the export function accepts a single parameter,
+[CODE_BLOCK_15]
+. This parameter is an instance of
+[CODE_BLOCK_16]
+The key is the name of the HTML element to override.
+The value is the component to render instead.
+Good to know
+: Remember to pass all other components (i.e.
+[CODE_BLOCK_17]
+) that do not have overrides.
+Version History
+Version
+Changes
+[CODE_BLOCK_18]
+MDX Components added
+Learn more about MDX Components
+Learn how to configure MDX and use it in your Next.js apps.
+Was this helpful?
+supported.
+Send

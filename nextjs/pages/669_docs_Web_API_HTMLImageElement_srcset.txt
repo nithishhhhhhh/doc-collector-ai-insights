@@ -1,0 +1,223 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/HTMLImageElement/srcset
+SCRAPED: 2025-06-19 18:25:31
+================================================================================
+
+--- CODE BLOCK 1 ---
+HTMLImageElement
+--- END CODE BLOCK ---
+property
+--- CODE BLOCK 11 ---
+HTMLImageElement
+--- END CODE BLOCK ---
+is a string which identifies one or more
+image candidate strings
+, separated using commas (
+--- CODE BLOCK 17 ---
+"images/team-photo.jpg, images/team-photo-retina.jpg 2x"
+--- END CODE BLOCK ---
+) each
+specifying image resources to use under given circumstances.
+Each image
+candidate string contains an image URL and an optional width or pixel density descriptor
+that indicates the conditions under which that candidate should be used instead of the
+image specified by the
+--- CODE BLOCK 23 ---
+"header640.png 640w, header960.png 960w, header1024.png 1024w"
+--- END CODE BLOCK ---
+property.
+--- CODE BLOCK 30 ---
+<div class="box">
+<img
+src="/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-200px.png"
+alt="Clock"
+srcset="
+/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-400px.png 2x
+" />
+</div>
+--- END CODE BLOCK ---
+property, along with the
+--- CODE BLOCK 31 ---
+<div class="box">
+<img
+src="/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-200px.png"
+alt="Clock"
+srcset="
+/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-400px.png 2x
+" />
+</div>
+--- END CODE BLOCK ---
+property, are a crucial component in designing responsive websites, as they
+can be used together to make pages that use appropriate images for the rendering
+situation.
+Note:
+If the
+--- CODE BLOCK 34 ---
+.box {
+width: 200px;
+border: 2px solid rgb(150 150 150);
+padding: 0.5em;
+word-break: break-all;
+.box img {
+width: 200px;
+--- END CODE BLOCK ---
+attribute uses width descriptors, the
+--- CODE BLOCK 35 ---
+.box {
+width: 200px;
+border: 2px solid rgb(150 150 150);
+padding: 0.5em;
+word-break: break-all;
+.box img {
+width: 200px;
+--- END CODE BLOCK ---
+attribute must also be present, or the
+--- CODE BLOCK 40 ---
+window.addEventListener("load", () => {
+const box = document.querySelector(".box");
+const image = box.querySelector("img");
+const newElem = document.createElement("p");
+newElem.textContent = "Image: ";
+newElem.appendChild(document.createElement("code")).textContent =
+image.currentSrc;
+box.appendChild(newElem);
+--- END CODE BLOCK ---
+itself will be ignored.
+Value
+A string containing a comma-separated list of one or more image
+candidate strings to be used when determining which image resource to present inside the
+--- CODE BLOCK 41 ---
+window.addEventListener("load", () => {
+const box = document.querySelector(".box");
+const image = box.querySelector("img");
+const newElem = document.createElement("p");
+newElem.textContent = "Image: ";
+newElem.appendChild(document.createElement("code")).textContent =
+image.currentSrc;
+box.appendChild(newElem);
+--- END CODE BLOCK ---
+element represented by the
+[CODE_BLOCK_11]
+Each image candidate string must begin with a valid URL referencing a non-interactive
+graphic resource. This is followed by whitespace and then a condition descriptor that
+indicates the circumstances in which the indicated image should be used. Space
+characters, other than the whitespace separating the URL and the corresponding condition
+descriptor, are ignored; this includes both leading and trailing space, as well as space
+before or after each comma.
+The condition descriptor may take one of two forms:
+To indicate that the image resource specified by the image candidate string should
+be used when the image is being rendered with a particular width in pixels, provide a
+width descriptor
+comprised the number giving that width in pixels
+followed by the lower case letter "w". For example, to provide an image resource to be
+used when the renderer needs a 450 pixel wide image, use the width descriptor string
+[CODE_BLOCK_12]
+. The specified width must be a positive, non-zero, integer, and
+must
+match the intrinsic width of the referenced image. When a
+[CODE_BLOCK_13]
+contains
+"w" descriptors, the browser uses those descriptors together with the
+[CODE_BLOCK_14]
+attribute to pick a resource.
+Alternatively, you can use a
+pixel density descriptor
+, which
+specifies the condition in which the corresponding image resource should be used as
+the display's pixel density. This is written by stating the pixel density as a
+positive, non-zero floating-point value followed by the lower-case letter "x". As an
+example, to state that the corresponding image should be used when the pixel density
+is double the standard density, you can give the pixel density descriptor
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+If the condition descriptor is not provided (in other words, the image candidate
+provides only a URL), the candidate is assigned a default descriptor of "1x".
+[CODE_BLOCK_17]
+This string provides versions of an image to be used at the standard pixel density
+(undescribed, assigned a default of
+[CODE_BLOCK_18]
+) as well as double that pixel density (
+[CODE_BLOCK_19]
+When an image element's
+[CODE_BLOCK_20]
+contains "x" descriptors, browsers also consider
+the URL in the
+[CODE_BLOCK_21]
+attribute (if present) as a
+candidate, and assign it a default descriptor of
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+This string provides versions of a header image to use when the
+user agent's
+renderer needs an image of width 640px, 960px, or 1024px.
+Note that if any resource in a
+[CODE_BLOCK_24]
+is described with a "w" descriptor, all
+resources within that
+[CODE_BLOCK_25]
+must also be described with "w" descriptors, and
+the image element's
+[CODE_BLOCK_26]
+is not considered
+a candidate.
+Examples
+HTML
+The HTML below indicates that the default image resource, contained within the
+[CODE_BLOCK_27]
+attribute should be used for 1x
+displays, and that a 400-pixel version (contained within the
+[CODE_BLOCK_28]
+, and assigned
+[CODE_BLOCK_29]
+descriptor) should be used for 2x displays.
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_30]
+The CSS specifies that the image and its surrounding box should be 200 pixels square
+and should have a simple border around it. Also provided is the
+[CODE_BLOCK_32]
+attribute, using the
+[CODE_BLOCK_33]
+value to tell the
+browser to wrap the string within the width available regardless of where in the string
+the wrap must occur.
+Copy to Clipboard
+play
+[CODE_BLOCK_34]
+JavaScript
+The following code is run within a handler for the
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+event. It uses the image's
+[CODE_BLOCK_38]
+property to fetch and display
+the URL selected by the browser from the
+[CODE_BLOCK_39]
+Copy to Clipboard
+play
+[CODE_BLOCK_40]
+Result
+In the displayed output below, the selected URL will correspond with whether your
+display results in selecting the 1x or the 2x version of the image. If you happen to
+have both standard and high density displays, try moving this window between them and
+reloading the page to see the results change.
+play
+For additional examples, see our guide to
+responsive images
+Specifications
+Specification
+HTML
+dom-img-srcset
+Browser compatibility
+See also
+HTML images
+Responsive images
+Image file type and format guide
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 11, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

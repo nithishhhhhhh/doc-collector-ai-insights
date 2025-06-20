@@ -1,0 +1,45 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/bundlePagesRouterDependencies
+SCRAPED: 2025-06-19 17:35:16
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+bundlePagesRouterDependencies
+You are currently viewing the documentation for Pages Router.
+bundlePagesRouterDependencies
+Enable automatic server-side dependency bundling for Pages Router applications. Matches the automatic dependency bundling in App Router.
+next.config.js
+--- CODE BLOCK 1 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+bundlePagesRouterDependencies: true,
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Explicitly opt-out certain packages from being bundled using the
+--- CODE BLOCK 3 ---
+serverExternalPackages
+--- END CODE BLOCK ---
+option.
+Version History
+Version
+Changes
+--- CODE BLOCK 5 ---
+bundlePagesExternals
+--- END CODE BLOCK ---
+Moved from experimental to stable. Renamed from
+--- CODE BLOCK 6 ---
+bundlePagesRouterDependencies
+--- END CODE BLOCK ---
+[CODE_BLOCK_6]
+Was this helpful?
+supported.
+Send

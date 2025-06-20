@@ -1,0 +1,541 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/redirects
+SCRAPED: 2025-06-19 17:49:14
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+redirects
+You are currently viewing the documentation for Pages Router.
+redirects
+Redirects allow you to redirect an incoming request path to a different destination path.
+To use redirects you can use the
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+key in
+--- CODE BLOCK 3 ---
+module.exports = {
+async redirects() {
+return [
+source: '/about',
+destination: '/',
+permanent: true,
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 4 ---
+module.exports = {
+async redirects() {
+return [
+source: '/about',
+destination: '/',
+permanent: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+destination
+--- END CODE BLOCK ---
+is an async function that expects an array to be returned holding objects with
+--- CODE BLOCK 17 ---
+POST /v1/users
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+GET /v2/users
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 21 ---
+POST /v2/users
+--- END CODE BLOCK ---
+properties:
+--- CODE BLOCK 39 ---
+router.push
+--- END CODE BLOCK ---
+is the incoming request path pattern.
+--- CODE BLOCK 40 ---
+source: '/old-blog/:path*',
+destination: '/blog/:path*',
+permanent: false
+--- END CODE BLOCK ---
+is the path you want to route to.
+--- CODE BLOCK 41 ---
+source: '/old-blog/:path*',
+destination: '/blog/:path*',
+permanent: false
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+destination
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+/old-blog/post-1?hello=world
+--- END CODE BLOCK ---
+- if
+--- CODE BLOCK 47 ---
+/blog/post-1?hello=world
+--- END CODE BLOCK ---
+will use the 308 status code which instructs clients/search engines to cache the redirect forever, if
+--- CODE BLOCK 48 ---
+/old-blog/:slug
+--- END CODE BLOCK ---
+will use the 307 status code which is temporary and is not cached.
+Why does Next.js use 307 and 308?
+Traditionally a 302 was used for a temporary redirect, and a 301 for a permanent redirect, but many browsers changed the request method of the redirect to
+--- CODE BLOCK 49 ---
+/old-blog/hello-world
+--- END CODE BLOCK ---
+, regardless of the original method. For example, if the browser made a request to
+--- CODE BLOCK 50 ---
+module.exports = {
+async redirects() {
+return [
+source: '/old-blog/:slug',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+permanent: true,
+--- END CODE BLOCK ---
+which returned status code
+--- CODE BLOCK 51 ---
+module.exports = {
+async redirects() {
+return [
+source: '/old-blog/:slug',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+permanent: true,
+--- END CODE BLOCK ---
+with location
+--- CODE BLOCK 53 ---
+/blog/:slug*
+--- END CODE BLOCK ---
+, the subsequent request might be
+--- CODE BLOCK 54 ---
+/blog/a/b/c/d/hello-world
+--- END CODE BLOCK ---
+instead of the expected
+--- CODE BLOCK 55 ---
+module.exports = {
+async redirects() {
+return [
+source: '/blog/:slug*',
+destination: '/news/:slug*', // Matched parameters can be used in the destination
+permanent: true,
+--- END CODE BLOCK ---
+. Next.js uses the 307 temporary redirect, and 308 permanent redirect status codes to explicitly preserve the request method used.
+--- CODE BLOCK 56 ---
+module.exports = {
+async redirects() {
+return [
+source: '/blog/:slug*',
+destination: '/news/:slug*', // Matched parameters can be used in the destination
+permanent: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+/post/:slug(\\d{1,})
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+module.exports = {
+async redirects() {
+return [
+source: '/post/:slug(\\d{1,})',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+permanent: false,
+--- END CODE BLOCK ---
+- if false the
+--- CODE BLOCK 61 ---
+module.exports = {
+async redirects() {
+return [
+source: '/post/:slug(\\d{1,})',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+permanent: false,
+--- END CODE BLOCK ---
+won't be included when matching, can be used for external redirects only.
+--- CODE BLOCK 72 ---
+module.exports = {
+async redirects() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+destination: '/en-us/:slug',
+permanent: false,
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+module.exports = {
+async redirects() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+destination: '/en-us/:slug',
+permanent: false,
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+first-(?<paramName>.*)
+--- END CODE BLOCK ---
+- whether the locale should not be included when matching.
+--- CODE BLOCK 93 ---
+first-second
+--- END CODE BLOCK ---
+is an array of
+has objects
+with the
+--- CODE BLOCK 96 ---
+module.exports = {
+async redirects() {
+return [
+// if the header `x-redirect-me` is present,
+// this redirect will be applied
+source: '/:path((?!another-page$).*)',
+has: [
+type: 'header',
+key: 'x-redirect-me',
+permanent: false,
+destination: '/another-page',
+// if the header `x-dont-redirect` is present,
+// this redirect will NOT be applied
+source: '/:path((?!another-page$).*)',
+missing: [
+type: 'header',
+key: 'x-do-not-redirect',
+permanent: false,
+destination: '/another-page',
+// if the source, query, and cookie are matched,
+// this redirect will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// destination since value is provided and doesn't
+// use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+permanent: false,
+destination: '/another/:path*',
+// if the header `x-authorized` is present and
+// contains a matching value, this redirect will be applied
+source: '/',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+permanent: false,
+destination: '/home?authorized=:authorized',
+// if the host is `example.com`,
+// this redirect will be applied
+source: '/:path((?!another-page$).*)',
+has: [
+type: 'host',
+value: 'example.com',
+permanent: false,
+destination: '/another-page',
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+module.exports = {
+async redirects() {
+return [
+// if the header `x-redirect-me` is present,
+// this redirect will be applied
+source: '/:path((?!another-page$).*)',
+has: [
+type: 'header',
+key: 'x-redirect-me',
+permanent: false,
+destination: '/another-page',
+// if the header `x-dont-redirect` is present,
+// this redirect will NOT be applied
+source: '/:path((?!another-page$).*)',
+missing: [
+type: 'header',
+key: 'x-do-not-redirect',
+permanent: false,
+destination: '/another-page',
+// if the source, query, and cookie are matched,
+// this redirect will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// destination since value is provided and doesn't
+// use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+permanent: false,
+destination: '/another/:path*',
+// if the header `x-authorized` is present and
+// contains a matching value, this redirect will be applied
+source: '/',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+permanent: false,
+destination: '/home?authorized=:authorized',
+// if the host is `example.com`,
+// this redirect will be applied
+source: '/:path((?!another-page$).*)',
+has: [
+type: 'host',
+value: 'example.com',
+permanent: false,
+destination: '/another-page',
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+destination
+--- END CODE BLOCK ---
+properties.
+--- CODE BLOCK 102 ---
+basePath: false
+--- END CODE BLOCK ---
+is an array of
+missing objects
+with the
+--- CODE BLOCK 103 ---
+module.exports = {
+basePath: '/docs',
+async redirects() {
+return [
+source: '/with-basePath', // automatically becomes /docs/with-basePath
+destination: '/another', // automatically becomes /docs/another
+permanent: false,
+// does not add /docs since basePath: false is set
+source: '/without-basePath',
+destination: 'https://example.com',
+basePath: false,
+permanent: false,
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+module.exports = {
+basePath: '/docs',
+async redirects() {
+return [
+source: '/with-basePath', // automatically becomes /docs/with-basePath
+destination: '/another', // automatically becomes /docs/another
+permanent: false,
+// does not add /docs since basePath: false is set
+source: '/without-basePath',
+destination: 'https://example.com',
+basePath: false,
+permanent: false,
+--- END CODE BLOCK ---
+--- CODE BLOCK 107 ---
+destination
+--- END CODE BLOCK ---
+properties.
+Redirects are checked before the filesystem which includes pages and
+--- CODE BLOCK 109 ---
+locale: false
+--- END CODE BLOCK ---
+files.
+When using the Pages Router, redirects are not applied to client-side routing (
+--- CODE BLOCK 110 ---
+locale: false
+--- END CODE BLOCK ---
+--- CODE BLOCK 112 ---
+destination
+--- END CODE BLOCK ---
+) unless
+Middleware
+is present and matches the path.
+When a redirect is applied, any query values provided in the request will be passed through to the redirect destination. For example, see the following redirect configuration:
+--- CODE BLOCK 113 ---
+module.exports = {
+i18n: {
+locales: ['en', 'fr', 'de'],
+defaultLocale: 'en',
+async redirects() {
+return [
+source: '/with-locale', // automatically handles all locales
+destination: '/another', // automatically passes the locale on
+permanent: false,
+// does not handle locales automatically since locale: false is set
+source: '/nl/with-locale-manual',
+destination: '/nl/another',
+locale: false,
+permanent: false,
+// this matches '/' since `en` is the defaultLocale
+source: '/en',
+destination: '/en/another',
+locale: false,
+permanent: false,
+// it's possible to match all locales even when locale: false is set
+source: '/:locale/page',
+destination: '/en/newpage',
+permanent: false,
+locale: false,
+// this gets converted to /(en|fr|de)/(.*) so will not match the top-level
+// `/` or `/fr` routes like /:path* would
+source: '/(.*)',
+destination: '/another',
+permanent: false,
+--- END CODE BLOCK ---
+Good to know
+: Remember to include the forward slash
+--- CODE BLOCK 118 ---
+getStaticProps
+--- END CODE BLOCK ---
+before the colon
+--- CODE BLOCK 119 ---
+getServerSideProps
+--- END CODE BLOCK ---
+in path parameters of the
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+paths, otherwise the path will be treated as a literal string and you run the risk of causing infinite redirects.
+When
+[CODE_BLOCK_46]
+is requested, the client will be redirected to
+[CODE_BLOCK_47]
+Path Matching
+Path matches are allowed, for example
+[CODE_BLOCK_48]
+will match
+[CODE_BLOCK_49]
+(no nested paths):
+next.config.js
+[CODE_BLOCK_50]
+Wildcard Path Matching
+To match a wildcard path you can use
+[CODE_BLOCK_52]
+after a parameter, for example
+[CODE_BLOCK_53]
+will match
+[CODE_BLOCK_54]
+next.config.js
+[CODE_BLOCK_55]
+Regex Path Matching
+To match a regex path you can wrap the regex in parentheses after a parameter, for example
+[CODE_BLOCK_57]
+will match
+[CODE_BLOCK_58]
+but not
+[CODE_BLOCK_59]
+next.config.js
+[CODE_BLOCK_60]
+The following characters
+[CODE_BLOCK_62]
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+are used for regex path matching, so when used in the
+[CODE_BLOCK_70]
+as non-special values they must be escaped by adding
+[CODE_BLOCK_71]
+before them:
+next.config.js
+[CODE_BLOCK_72]
+Header, Cookie, and Query Matching
+To only match a redirect when header, cookie, or query values also match the
+[CODE_BLOCK_74]
+field or don't match the
+[CODE_BLOCK_75]
+field can be used. Both the
+[CODE_BLOCK_76]
+and all
+[CODE_BLOCK_77]
+items must match and all
+[CODE_BLOCK_78]
+items must not match for the redirect to be applied.
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+items can have the following fields:
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+- must be either
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+, or
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+- the key from the selected type to match against.
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+- the value to check for, if undefined any value will match. A regex like string can be used to capture a specific part of the value, e.g. if the value
+[CODE_BLOCK_92]
+is used for
+[CODE_BLOCK_93]
+then
+[CODE_BLOCK_94]
+will be usable in the destination with
+[CODE_BLOCK_95]
+next.config.js
+[CODE_BLOCK_96]
+Redirects with basePath support
+When leveraging
+[CODE_BLOCK_98]
+support
+with redirects each
+[CODE_BLOCK_99]
+[CODE_BLOCK_100]
+is automatically prefixed with the
+[CODE_BLOCK_101]
+unless you add
+[CODE_BLOCK_102]
+to the redirect:
+next.config.js
+[CODE_BLOCK_103]
+Redirects with i18n support
+When leveraging
+[CODE_BLOCK_105]
+support
+with redirects each
+[CODE_BLOCK_106]
+[CODE_BLOCK_107]
+is automatically prefixed to handle the configured
+[CODE_BLOCK_108]
+unless you add
+[CODE_BLOCK_109]
+to the redirect. If
+[CODE_BLOCK_110]
+is used you must prefix the
+[CODE_BLOCK_111]
+[CODE_BLOCK_112]
+with a locale for it to be matched correctly.
+next.config.js
+[CODE_BLOCK_113]
+In some rare cases, you might need to assign a custom status code for older HTTP Clients to properly redirect. In these cases, you can use the
+[CODE_BLOCK_115]
+property instead of the
+[CODE_BLOCK_116]
+property, but not both. To to ensure IE11 compatibility, a
+[CODE_BLOCK_117]
+header is automatically added for the 308 status code.
+Other Redirects
+Inside
+API Routes
+Route Handlers
+, you can redirect based on the incoming request.
+Inside
+[CODE_BLOCK_118]
+[CODE_BLOCK_119]
+, you can redirect specific pages at request-time.
+Version History
+Version
+Changes
+[CODE_BLOCK_120]
+[CODE_BLOCK_121]
+added.
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+added.
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+added.
+Was this helpful?
+supported.
+Send

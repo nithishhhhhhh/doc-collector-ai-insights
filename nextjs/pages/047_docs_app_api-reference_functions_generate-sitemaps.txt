@@ -1,0 +1,112 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/generate-sitemaps
+SCRAPED: 2025-06-19 17:14:33
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+generateSitemaps
+generateSitemaps
+You can use the
+--- CODE BLOCK 1 ---
+generateSitemaps
+--- END CODE BLOCK ---
+function to generate multiple sitemaps for your application.
+Returns
+--- CODE BLOCK 2 ---
+generateSitemaps
+--- END CODE BLOCK ---
+returns an array of objects with an
+--- CODE BLOCK 4 ---
+/.../sitemap/[id].xml
+--- END CODE BLOCK ---
+property.
+URLs
+Your generated sitemaps will be available at
+--- CODE BLOCK 5 ---
+/product/sitemap/1.xml
+--- END CODE BLOCK ---
+. For example,
+--- CODE BLOCK 6 ---
+generateSitemaps
+--- END CODE BLOCK ---
+Example
+For example, to split a sitemap using
+--- CODE BLOCK 9 ---
+import { BASE_URL } from '@/app/lib/constants'
+export async function generateSitemaps() {
+// Fetch the total number of products and calculate the number of sitemaps needed
+return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
+export default async function sitemap({
+}: {
+id: number
+}): Promise<MetadataRoute.Sitemap> {
+// Google's limit is 50,000 URLs per sitemap
+const start = id * 50000
+const end = start + 50000
+const products = await getProducts(
+`SELECT id, date FROM products WHERE id BETWEEN ${start} AND ${end}`
+return products.map((product) => ({
+url: `${BASE_URL}/product/${product.id}`,
+lastModified: product.date,
+--- END CODE BLOCK ---
+, return an array of objects with the sitemap
+--- CODE BLOCK 10 ---
+import { BASE_URL } from '@/app/lib/constants'
+export async function generateSitemaps() {
+// Fetch the total number of products and calculate the number of sitemaps needed
+return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
+export default async function sitemap({
+}: {
+id: number
+}): Promise<MetadataRoute.Sitemap> {
+// Google's limit is 50,000 URLs per sitemap
+const start = id * 50000
+const end = start + 50000
+const products = await getProducts(
+`SELECT id, date FROM products WHERE id BETWEEN ${start} AND ${end}`
+return products.map((product) => ({
+url: `${BASE_URL}/product/${product.id}`,
+lastModified: product.date,
+--- END CODE BLOCK ---
+. Then, use the
+--- CODE BLOCK 12 ---
+generateSitemaps
+--- END CODE BLOCK ---
+to generate the unique sitemaps.
+app/product/sitemap.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+generateSitemaps
+--- END CODE BLOCK ---
+Version History
+Version
+Changes
+--- CODE BLOCK 16 ---
+/product/sitemap.xml/1
+--- END CODE BLOCK ---
+[CODE_BLOCK_12]
+now generates consistent URLs between development and production
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+introduced. In development, you can view the generated sitemap on
+[CODE_BLOCK_15]
+. For example,
+[CODE_BLOCK_16]
+Next Steps
+Learn how to create sitemaps for your Next.js application.
+sitemap.xml
+API Reference for the sitemap.xml file.
+Was this helpful?
+supported.
+Send

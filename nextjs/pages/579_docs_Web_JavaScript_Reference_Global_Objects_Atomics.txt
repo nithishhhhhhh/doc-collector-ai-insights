@@ -1,0 +1,234 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Atomics
+SCRAPED: 2025-06-19 18:16:16
+================================================================================
+
+--- CODE BLOCK 2 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+namespace object contains static methods for carrying out atomic operations. They are used with
+--- CODE BLOCK 3 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+Atomics[Symbol.toStringTag]
+--- END CODE BLOCK ---
+objects.
+Description
+Unlike most global objects,
+--- CODE BLOCK 12 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+is not a constructor. You cannot use it with the
+--- CODE BLOCK 14 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+operator
+or invoke the
+--- CODE BLOCK 15 ---
+Atomics.add()
+--- END CODE BLOCK ---
+object as a function. All properties and methods of
+--- CODE BLOCK 16 ---
+Atomics.and()
+--- END CODE BLOCK ---
+are static (just like the
+--- CODE BLOCK 17 ---
+Atomics.compareExchange()
+--- END CODE BLOCK ---
+object).
+Atomic operations
+When memory is shared, multiple threads can read and write the same data in memory. Atomic operations make sure that predictable values are written and read, that operations are finished before the next operation starts and that operations are not interrupted.
+Wait and notify
+--- CODE BLOCK 18 ---
+Atomics.exchange()
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+Atomics.isLockFree()
+--- END CODE BLOCK ---
+methods are modeled on Linux futexes ("fast user-space mutex") and provide ways for waiting until a certain condition becomes true and are typically used as blocking constructs.
+Static properties
+--- CODE BLOCK 21 ---
+Atomics.load()
+--- END CODE BLOCK ---
+The initial value of the
+--- CODE BLOCK 22 ---
+Atomics.notify()
+--- END CODE BLOCK ---
+property is the string
+--- CODE BLOCK 23 ---
+Atomics.or()
+--- END CODE BLOCK ---
+. This property is used in
+--- CODE BLOCK 24 ---
+Atomics.pause()
+--- END CODE BLOCK ---
+Static methods
+--- CODE BLOCK 25 ---
+Atomics.store()
+--- END CODE BLOCK ---
+Adds the provided value to the existing value at the specified index of the array. Returns the old value at that index.
+--- CODE BLOCK 26 ---
+Atomics.sub()
+--- END CODE BLOCK ---
+Computes a bitwise AND on the value at the specified index of the array with the provided value. Returns the old value at that index.
+--- CODE BLOCK 27 ---
+Atomics.wait()
+--- END CODE BLOCK ---
+Stores a value at the specified index of the array, if it equals a value. Returns the old value.
+--- CODE BLOCK 29 ---
+"not-equal"
+--- END CODE BLOCK ---
+Stores a value at the specified index of the array. Returns the old value.
+--- CODE BLOCK 30 ---
+"timed-out"
+--- END CODE BLOCK ---
+An optimization primitive that can be used to determine whether to use locks or atomic operations. Returns
+--- CODE BLOCK 32 ---
+Atomics.waitAsync()
+--- END CODE BLOCK ---
+if an atomic operation on arrays of the given element size will be implemented using a hardware atomic operation (as opposed to a lock). Experts only.
+--- CODE BLOCK 33 ---
+Atomics.wait
+--- END CODE BLOCK ---
+Returns the value at the specified index of the array.
+--- CODE BLOCK 34 ---
+Atomics.xor()
+--- END CODE BLOCK ---
+Notifies agents that are waiting on the specified index of the array. Returns the number of agents that were notified.
+--- CODE BLOCK 35 ---
+const sab = new SharedArrayBuffer(1024);
+const ta = new Uint8Array(sab);
+ta[0]; // 0
+ta[0] = 5; // 5
+Atomics.add(ta, 0, 12); // 5
+Atomics.load(ta, 0); // 17
+Atomics.and(ta, 0, 1); // 17
+Atomics.load(ta, 0); // 1
+Atomics.compareExchange(ta, 0, 5, 12); // 1
+Atomics.load(ta, 0); // 1
+Atomics.exchange(ta, 0, 12); // 1
+Atomics.load(ta, 0); // 12
+Atomics.isLockFree(1); // true
+Atomics.isLockFree(2); // true
+Atomics.isLockFree(3); // false
+Atomics.isLockFree(4); // true
+Atomics.or(ta, 0, 1); // 12
+Atomics.load(ta, 0); // 13
+Atomics.store(ta, 0, 12); // 12
+Atomics.sub(ta, 0, 2); // 12
+Atomics.load(ta, 0); // 10
+Atomics.xor(ta, 0, 1); // 10
+Atomics.load(ta, 0); // 11
+--- END CODE BLOCK ---
+Computes a bitwise OR on the value at the specified index of the array with the provided value. Returns the old value at that index.
+--- CODE BLOCK 36 ---
+const sab = new SharedArrayBuffer(1024);
+const ta = new Uint8Array(sab);
+ta[0]; // 0
+ta[0] = 5; // 5
+Atomics.add(ta, 0, 12); // 5
+Atomics.load(ta, 0); // 17
+Atomics.and(ta, 0, 1); // 17
+Atomics.load(ta, 0); // 1
+Atomics.compareExchange(ta, 0, 5, 12); // 1
+Atomics.load(ta, 0); // 1
+Atomics.exchange(ta, 0, 12); // 1
+Atomics.load(ta, 0); // 12
+Atomics.isLockFree(1); // true
+Atomics.isLockFree(2); // true
+Atomics.isLockFree(3); // false
+Atomics.isLockFree(4); // true
+Atomics.or(ta, 0, 1); // 12
+Atomics.load(ta, 0); // 13
+Atomics.store(ta, 0, 12); // 12
+Atomics.sub(ta, 0, 2); // 12
+Atomics.load(ta, 0); // 10
+Atomics.xor(ta, 0, 1); // 10
+Atomics.load(ta, 0); // 11
+--- END CODE BLOCK ---
+Provides a micro-wait primitive that hints to the CPU that the caller is spinning while waiting on access to a shared resource. This allows the system to reduce the resources allocated to the core (such as power) or thread, without yielding the current thread.
+--- CODE BLOCK 38 ---
+const sab = new SharedArrayBuffer(1024);
+const int32 = new Int32Array(sab);
+--- END CODE BLOCK ---
+Stores a value at the specified index of the array. Returns the value.
+--- CODE BLOCK 39 ---
+const sab = new SharedArrayBuffer(1024);
+const int32 = new Int32Array(sab);
+--- END CODE BLOCK ---
+Subtracts a value at the specified index of the array. Returns the old value at that index.
+--- CODE BLOCK 40 ---
+Atomics.notify()
+--- END CODE BLOCK ---
+Verifies that the specified index of the array still contains a value and sleeps awaiting or times out. Returns either
+--- CODE BLOCK 41 ---
+Atomics.wait(int32, 0, 0);
+console.log(int32[0]); // 123
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+Atomics.wait(int32, 0, 0);
+console.log(int32[0]); // 123
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 43 ---
+console.log(int32[0]); // 0;
+Atomics.store(int32, 0, 123);
+Atomics.notify(int32, 0, 1);
+--- END CODE BLOCK ---
+. If waiting is not allowed in the calling agent then it throws an exception. (Most browsers will not allow
+--- CODE BLOCK 44 ---
+console.log(int32[0]); // 0;
+Atomics.store(int32, 0, 123);
+Atomics.notify(int32, 0, 1);
+--- END CODE BLOCK ---
+on the browser's main thread.)
+--- CODE BLOCK 45 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Waits asynchronously (i.e., without blocking, unlike
+[CODE_BLOCK_33]
+) on a shared memory location and returns an object representing the result of the operation.
+[CODE_BLOCK_34]
+Computes a bitwise XOR on the value at the specified index of the array with the provided value. Returns the old value at that index.
+Examples
+Using Atomics
+Copy to Clipboard
+[CODE_BLOCK_35]
+Waiting and notifying
+Given a shared
+[CODE_BLOCK_37]
+Copy to Clipboard
+[CODE_BLOCK_38]
+A reading thread is sleeping and waiting on location 0 because the provided value matches what is stored at the provided index.
+The reading thread will not move on until the writing thread has called
+[CODE_BLOCK_40]
+on position 0 of the provided typed array.
+Note that if, after being woken up, the value of location 0 has not been changed by the writing thread, the reading thread will
+go back to sleep, but will continue on.
+Copy to Clipboard
+[CODE_BLOCK_41]
+A writing thread stores a new value and notifies the waiting thread once it has written:
+Copy to Clipboard
+[CODE_BLOCK_43]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-atomics-object
+Browser compatibility
+See also
+[CODE_BLOCK_45]
+JavaScript typed arrays
+guide
+Web Workers
+Shared Memory – a brief tutorial
+in the TC39 ecmascript-sharedmem proposal
+A Taste of JavaScript's New Parallel Primitives
+on hacks.mozilla.org (2016)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

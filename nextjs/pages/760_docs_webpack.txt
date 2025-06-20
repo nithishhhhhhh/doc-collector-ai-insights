@@ -1,0 +1,208 @@
+SOURCE URL: https://jestjs.io/docs/webpack#handling-static-assets
+SCRAPED: 2025-06-19 18:35:46
+================================================================================
+
+Version: 30.0
+On this page
+Jest can be used in projects that use
+webpack
+to manage assets, styles, and compilation. webpack
+does
+offer some unique challenges over other tools because it integrates directly with your application to allow managing stylesheets, assets like images and fonts, along with the expansive ecosystem of compile-to-JavaScript languages and tools.
+A webpack example
+Let's start with a common sort of webpack config file and translate it to a Jest setup.
+webpack.config.js
+--- CODE BLOCK 1 ---
+module.exports = {  module: {    rules: [      {        test: /\.jsx?$/,        exclude: ['node_modules'],        use: ['babel-loader'],      },      {        test: /\.css$/,        use: ['style-loader', 'css-loader'],      },      {        test: /\.gif$/,        type: 'asset/inline',      },      {        test: /\.(ttf|eot|svg)$/,        type: 'asset/resource',      },    ],  },  resolve: {    alias: {      config$: './configs/app-config.js',      react: './vendor/react-master',    },    extensions: ['.js', '.jsx'],    modules: [      'node_modules',      'bower_components',      'shared',      '/shared/vendor/modules',    ],  },};
+--- END CODE BLOCK ---
+If you have JavaScript files that are transformed by Babel, you can
+enable support for Babel
+by installing the
+--- CODE BLOCK 5 ---
+module.exports = {  moduleNameMapper: {    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':      '<rootDir>/__mocks__/fileMock.js',    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',  },};
+--- END CODE BLOCK ---
+plugin. Non-Babel JavaScript transformations can be handled with Jest's
+--- CODE BLOCK 6 ---
+module.exports = {  moduleNameMapper: {    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':      '<rootDir>/__mocks__/fileMock.js',    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',  },};
+--- END CODE BLOCK ---
+config option.
+Handling Static Assets
+Next, let's configure Jest to gracefully handle asset files such as stylesheets and images. Usually, these files aren't particularly useful in tests so we can safely mock them out. However, if you are using CSS Modules then it's better to mock a proxy for your className lookups.
+jest.config.js
+--- CODE BLOCK 7 ---
+module.exports = {};
+--- END CODE BLOCK ---
+And the mock files themselves:
+__mocks__/styleMock.js
+--- CODE BLOCK 9 ---
+module.exports = 'test-file-stub';
+--- END CODE BLOCK ---
+__mocks__/fileMock.js
+--- CODE BLOCK 11 ---
+npm install --save-dev identity-obj-proxy
+--- END CODE BLOCK ---
+Mocking CSS Modules
+You can use an
+ES6 Proxy
+to mock
+CSS Modules
+Yarn
+pnpm
+--- CODE BLOCK 13 ---
+yarn add --dev identity-obj-proxy
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+pnpm add --save-dev identity-obj-proxy
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+styles.foobar === 'foobar'
+--- END CODE BLOCK ---
+Then all your className lookups on the styles object will be returned as-is (e.g.,
+--- CODE BLOCK 19 ---
+module.exports = {  moduleNameMapper: {    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':      '<rootDir>/__mocks__/fileMock.js',    '\\.(css|less)$': 'identity-obj-proxy',  },};
+--- END CODE BLOCK ---
+). This is pretty handy for React
+Snapshot Testing
+jest.config.js (for CSS Modules)
+--- CODE BLOCK 20 ---
+moduleNameMapper
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+const path = require('path');module.exports = {  process(sourceText, sourcePath, options) {    return {      code: `module.exports = ${JSON.stringify(path.basename(sourcePath))};`,    };  },};
+--- END CODE BLOCK ---
+cannot fulfill your requirements, you can use Jest's
+--- CODE BLOCK 25 ---
+const path = require('path');module.exports = {  process(sourceText, sourcePath, options) {    return {      code: `module.exports = ${JSON.stringify(path.basename(sourcePath))};`,    };  },};
+--- END CODE BLOCK ---
+config option to specify how assets are transformed. For example, a transformer that returns the basename of a file (such that
+--- CODE BLOCK 26 ---
+module.exports = {  moduleNameMapper: {    '\\.(css|less)$': 'identity-obj-proxy',  },  transform: {    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':      '<rootDir>/fileTransformer.js',  },};
+--- END CODE BLOCK ---
+returns
+--- CODE BLOCK 27 ---
+module.exports = {  moduleNameMapper: {    '\\.(css|less)$': 'identity-obj-proxy',  },  transform: {    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':      '<rootDir>/fileTransformer.js',  },};
+--- END CODE BLOCK ---
+) can be written as:
+fileTransformer.js
+--- CODE BLOCK 29 ---
+"transform": {  "\\.[jt]sx?$": "babel-jest",  "\\.css$": "some-css-transformer",}
+--- END CODE BLOCK ---
+jest.config.js (for custom transformers and CSS Modules)
+--- CODE BLOCK 33 ---
+moduleDirectories
+--- END CODE BLOCK ---
+We've told Jest to ignore files matching a stylesheet or image extension, and instead, require our mock files. You can adjust the regular expression to match the file types your webpack config handles.
+Remember to include the default
+--- CODE BLOCK 35 ---
+module.exports = {  moduleFileExtensions: ['js', 'jsx'],  moduleDirectories: ['node_modules', 'bower_components', 'shared'],  moduleNameMapper: {    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',    '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',  },};
+--- END CODE BLOCK ---
+transformer explicitly, if you wish to use it alongside with additional code preprocessors:
+--- CODE BLOCK 36 ---
+module.exports = {  moduleFileExtensions: ['js', 'jsx'],  moduleDirectories: ['node_modules', 'bower_components', 'shared'],  moduleNameMapper: {    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',    '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',  },};
+--- END CODE BLOCK ---
+Configuring Jest to find our files
+Now that Jest knows how to process our files, we need to tell it how to
+find
+them. For webpack's
+--- CODE BLOCK 40 ---
+resolve.roots
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 42 ---
+modulePaths
+--- END CODE BLOCK ---
+options there are direct analogs in Jest's
+--- CODE BLOCK 43 ---
+module.exports = {  modulePaths: ['/shared/vendor/modules'],  moduleFileExtensions: ['js', 'jsx'],  moduleDirectories: ['node_modules', 'bower_components', 'shared'],  moduleNameMapper: {    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',    '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',  },};
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+module.exports = {  modulePaths: ['/shared/vendor/modules'],  moduleFileExtensions: ['js', 'jsx'],  moduleDirectories: ['node_modules', 'bower_components', 'shared'],  moduleNameMapper: {    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',    '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',  },};
+--- END CODE BLOCK ---
+options.
+jest.config.js
+--- CODE BLOCK 46 ---
+moduleNameMapper
+--- END CODE BLOCK ---
+note
+--- CODE BLOCK 48 ---
+module.exports = {  modulePaths: ['/shared/vendor/modules'],  moduleFileExtensions: ['js', 'jsx'],  moduleDirectories: ['node_modules', 'bower_components', 'shared'],  moduleNameMapper: {    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',    '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',    '^react(.*)$': '<rootDir>/vendor/react-master$1',    '^config$': '<rootDir>/configs/app-config.js',  },};
+--- END CODE BLOCK ---
+is a special token that gets replaced by Jest with the root of your project. Most of the time this will be the folder where your
+--- CODE BLOCK 50 ---
+@babel/preset-env
+--- END CODE BLOCK ---
+is located unless you specify a custom
+--- CODE BLOCK 51 ---
+npm install --save-dev @babel/preset-env
+--- END CODE BLOCK ---
+option in your configuration.
+Similarly, Jest's counterpart for Webpack's
+--- CODE BLOCK 52 ---
+npm install --save-dev @babel/preset-env
+--- END CODE BLOCK ---
+(an alternative to setting
+--- CODE BLOCK 53 ---
+yarn add --dev @babel/preset-env
+--- END CODE BLOCK ---
+) is
+--- CODE BLOCK 54 ---
+yarn add --dev @babel/preset-env
+--- END CODE BLOCK ---
+jest.config.js
+--- CODE BLOCK 55 ---
+pnpm add --save-dev @babel/preset-env
+--- END CODE BLOCK ---
+And finally, we have to handle the webpack
+--- CODE BLOCK 57 ---
+{  "presets": ["@babel/preset-env"]}
+--- END CODE BLOCK ---
+. For that, we can make use of the
+--- CODE BLOCK 58 ---
+{  "presets": ["@babel/preset-env"]}
+--- END CODE BLOCK ---
+option again.
+jest.config.js
+--- CODE BLOCK 60 ---
+jest --clearCache
+--- END CODE BLOCK ---
+That's it! webpack is a complex and flexible tool, so you may have to make some adjustments to handle your specific application's needs. Luckily for most projects, Jest should be more than flexible enough to handle your webpack config.
+For more complex webpack configurations, you may also want to investigate projects such as:
+babel-plugin-webpack-loaders
+Using with webpack
+In addition to installing
+--- CODE BLOCK 62 ---
+dynamic-import-node
+--- END CODE BLOCK ---
+as described earlier, you'll need to add
+--- CODE BLOCK 63 ---
+{  "presets": [["env", {"modules": false}]],  "plugins": ["syntax-dynamic-import"],  "env": {    "test": {      "plugins": ["dynamic-import-node"]    }  }}
+--- END CODE BLOCK ---
+like so:
+Yarn
+pnpm
+--- CODE BLOCK 64 ---
+{  "presets": [["env", {"modules": false}]],  "plugins": ["syntax-dynamic-import"],  "env": {    "test": {      "plugins": ["dynamic-import-node"]    }  }}
+--- END CODE BLOCK ---
+[CODE_BLOCK_53]
+[CODE_BLOCK_55]
+Then, you'll want to configure Babel as follows:
+.babelrc
+[CODE_BLOCK_57]
+Jest caches files to speed up test execution. If you updated
+[CODE_BLOCK_59]
+and Jest is not working as expected, try clearing the cache by running
+[CODE_BLOCK_60]
+If you use dynamic imports (
+[CODE_BLOCK_61]
+), you need to enable the
+[CODE_BLOCK_62]
+plugin.
+.babelrc
+[CODE_BLOCK_63]
+For an example of how to use Jest with webpack with React, you can view one
+here
+A webpack example
+Handling Static Assets
+Mocking CSS Modules
+Configuring Jest to find our files
+Using with webpack

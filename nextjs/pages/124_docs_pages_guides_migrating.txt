@@ -1,0 +1,27 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/migrating
+SCRAPED: 2025-06-19 17:23:42
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Migrating
+You are currently viewing the documentation for Pages Router.
+Migrating
+App Router
+Learn how to upgrade your existing Next.js application from the Pages Router to the App Router.
+Create React App
+Learn how to migrate your existing React application from Create React App to Next.js.
+Vite
+Learn how to migrate your existing React application from Vite to Next.js.
+Was this helpful?
+supported.
+Send

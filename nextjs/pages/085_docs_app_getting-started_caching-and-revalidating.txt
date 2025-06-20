@@ -1,0 +1,269 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/caching-and-revalidating
+SCRAPED: 2025-06-19 17:19:04
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Caching and Revalidating
+Caching and Revalidating
+Caching is a technique for storing the result of data fetching and other computations so that future requests for the same data can be served faster, without doing the work again. While revalidation allows you to update cache entries without having to rebuild your entire application.
+Next.js provides a few APIs to handle caching and revalidation. This guide will walk you through when and how to use them.
+--- CODE BLOCK 2 ---
+unstable_cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 3 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+revalidateTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+'force-cache'
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+export default async function Page() {
+const data = await fetch('https://...', { cache: 'force-cache' })
+--- END CODE BLOCK ---
+By default,
+--- CODE BLOCK 10 ---
+export default async function Page() {
+const data = await fetch('https://...', { cache: 'force-cache' })
+--- END CODE BLOCK ---
+requests are not cached. You can cache individual requests by setting the
+--- CODE BLOCK 15 ---
+next.revalidate
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 16 ---
+export default async function Page() {
+const data = await fetch('https://...', { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 17 ---
+export default async function Page() {
+const data = await fetch('https://...', { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+Good to know
+: Although
+--- CODE BLOCK 20 ---
+unstable_cache
+--- END CODE BLOCK ---
+requests are not cached by default, Next.js will
+prerender
+routes that have
+--- CODE BLOCK 21 ---
+unstable_cache
+--- END CODE BLOCK ---
+requests and cache the HTML. If you want to guarantee a route is
+dynamic
+, use the
+--- CODE BLOCK 22 ---
+import { db } from '@/lib/db'
+export async function getUserById(id: string) {
+return db
+.select()
+.from(users)
+.where(eq(users.id, id))
+.then((res) => res[0])
+--- END CODE BLOCK ---
+To revalidate the data returned by a
+--- CODE BLOCK 23 ---
+import { db } from '@/lib/db'
+export async function getUserById(id: string) {
+return db
+.select()
+.from(users)
+.where(eq(users.id, id))
+.then((res) => res[0])
+--- END CODE BLOCK ---
+request, you can use the
+--- CODE BLOCK 24 ---
+import { unstable_cache } from 'next/cache'
+import { getUserById } from '@/app/lib/data'
+export default async function Page({
+params,
+}: {
+params: Promise<{ userId: string }>
+}) {
+const { userId } = await params
+const getCachedUser = unstable_cache(
+async () => {
+return getUserById(userId)
+[userId] // add the user ID to the cache key
+--- END CODE BLOCK ---
+option.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 25 ---
+import { unstable_cache } from 'next/cache'
+import { getUserById } from '@/app/lib/data'
+export default async function Page({
+params,
+}: {
+params: Promise<{ userId: string }>
+}) {
+const { userId } = await params
+const getCachedUser = unstable_cache(
+async () => {
+return getUserById(userId)
+[userId] // add the user ID to the cache key
+--- END CODE BLOCK ---
+This will revalidate the data after a specified amount of seconds.
+See the
+--- CODE BLOCK 29 ---
+const getCachedUser = unstable_cache(
+async () => {
+return getUserById(userId)
+[userId],
+tags: ['user'],
+revalidate: 3600,
+--- END CODE BLOCK ---
+API reference
+to learn more.
+--- CODE BLOCK 30 ---
+unstable_cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+revalidateTag
+--- END CODE BLOCK ---
+allows you to cache the result of database queries and other async functions. To use it, wrap
+--- CODE BLOCK 32 ---
+revalidateTag
+--- END CODE BLOCK ---
+around the function. For example:
+--- CODE BLOCK 35 ---
+export async function getUserById(id: string) {
+const data = await fetch(`https://...`, {
+next: {
+tags: ['user'],
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 37 ---
+unstable_cache
+--- END CODE BLOCK ---
+The function accepts a third optional object to define how the cache should be revalidated. It accepts:
+--- CODE BLOCK 40 ---
+export const getUserById = unstable_cache(
+async (id: string) => {
+return db.query.users.findFirst({ where: eq(users.id, id) })
+['user'], // Needed if variables are not passed as parameters
+tags: ['user'],
+--- END CODE BLOCK ---
+: an array of tags used by Next.js to revalidate the cache.
+--- CODE BLOCK 41 ---
+revalidateTag
+--- END CODE BLOCK ---
+: the number of seconds after cache should be revalidated.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 42 ---
+import { revalidateTag } from 'next/cache'
+export async function updateUser(id: string) {
+// Mutate data
+revalidateTag('user')
+--- END CODE BLOCK ---
+See the
+--- CODE BLOCK 44 ---
+revalidateTag
+--- END CODE BLOCK ---
+API reference
+to learn more.
+--- CODE BLOCK 45 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+revalidatePath
+--- END CODE BLOCK ---
+is used to revalidate a cache entries based on a tag and following an event. To use it with
+--- CODE BLOCK 47 ---
+import { revalidatePath } from 'next/cache'
+export async function updateUser(id: string) {
+// Mutate data
+revalidatePath('/profile')
+--- END CODE BLOCK ---
+, start by tagging the function with the
+--- CODE BLOCK 48 ---
+import { revalidatePath } from 'next/cache'
+export async function updateUser(id: string) {
+// Mutate data
+revalidatePath('/profile')
+--- END CODE BLOCK ---
+option:
+app/lib/data.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 49 ---
+revalidatePath
+--- END CODE BLOCK ---
+Alternatively, you can mark an
+[CODE_BLOCK_37]
+function with the
+[CODE_BLOCK_38]
+option:
+app/lib/data.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_39]
+Then, call
+[CODE_BLOCK_41]
+in a
+Route Handler
+or Server Action:
+app/lib/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_42]
+You can reuse the same tag in multiple functions to revalidate them all at once.
+See the
+[CODE_BLOCK_44]
+API reference
+to learn more.
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+is used to revalidate a route and following an event. To use it, call it in a
+Route Handler
+or Server Action:
+app/lib/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_47]
+See the
+[CODE_BLOCK_49]
+API reference
+to learn more.
+API Reference
+Learn more about the features mentioned in this page by reading the API Reference.
+fetch
+API reference for the extended fetch function.
+unstable_cache
+API Reference for the unstable_cache function.
+revalidatePath
+API Reference for the revalidatePath function.
+revalidateTag
+API Reference for the revalidateTag function.
+Was this helpful?
+supported.
+Send

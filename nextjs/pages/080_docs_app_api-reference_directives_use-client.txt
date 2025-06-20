@@ -1,0 +1,125 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/directives/use-client
+SCRAPED: 2025-06-19 17:18:29
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Directives
+use client
+use client
+--- CODE BLOCK 1 ---
+'use client'
+--- END CODE BLOCK ---
+directive declares an entry point for the components to be rendered on the
+client side
+and should be used when creating interactive user interfaces (UI) that require client-side JavaScript capabilities, such as state management, event handling, and access to browser APIs. This is a React feature.
+Good to know:
+You do not need to add the
+--- CODE BLOCK 2 ---
+'use client'
+--- END CODE BLOCK ---
+directive to every file that contains Client Components. You only need to add it to the files whose components you want to render directly within Server Components. The
+--- CODE BLOCK 3 ---
+'use client'
+--- END CODE BLOCK ---
+directive defines the client-server
+boundary
+, and the components exported from such a file serve as entry points to the client.
+Usage
+To declare an entry point for the Client Components, add the
+--- CODE BLOCK 4 ---
+'use client'
+--- END CODE BLOCK ---
+directive
+at the top of the file
+, before any imports:
+app/components/counter.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 5 ---
+'use client'
+import { useState } from 'react'
+export default function Counter() {
+const [count, setCount] = useState(0)
+return (
+<div>
+<p>Count: {count}</p>
+<button onClick={() => setCount(count + 1)}>Increment</button>
+</div>
+--- END CODE BLOCK ---
+When using the
+--- CODE BLOCK 7 ---
+'use client'
+--- END CODE BLOCK ---
+directive, the props of the Client Components must be
+serializable
+. This means the props need to be in a format that React can serialize when sending data from the server to the client.
+app/components/counter.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 8 ---
+'use client'
+export default function Counter({
+onClick /* ❌ Function is not serializable */,
+}) {
+return (
+<div>
+<button onClick={onClick}>Increment</button>
+</div>
+--- END CODE BLOCK ---
+Nesting Client Components within Server Components
+Combining Server and Client Components allows you to build applications that are both performant and interactive:
+Server Components
+: Use for static content, data fetching, and SEO-friendly elements.
+Client Components
+: Use for interactive elements that require state, effects, or browser APIs.
+Component composition
+: Nest Client Components within Server Components as needed for a clear separation of server and client logic.
+In the following example:
+--- CODE BLOCK 12 ---
+import Header from './header'
+import Counter from './counter' // This is a Client Component
+export default function Page() {
+return (
+<div>
+<Header />
+<Counter />
+</div>
+--- END CODE BLOCK ---
+is a Server Component handling static content.
+--- CODE BLOCK 13 ---
+import Header from './header'
+import Counter from './counter' // This is a Client Component
+export default function Page() {
+return (
+<div>
+<Header />
+<Counter />
+</div>
+--- END CODE BLOCK ---
+is a Client Component enabling interactivity within the page.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+'use client'
+--- END CODE BLOCK ---
+Reference
+See the
+React documentation
+for more information on
+[CODE_BLOCK_14]
+Was this helpful?
+supported.
+Send

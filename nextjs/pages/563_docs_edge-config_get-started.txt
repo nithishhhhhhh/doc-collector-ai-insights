@@ -1,0 +1,199 @@
+SOURCE URL: https://vercel.com/docs/edge-config/get-started
+SCRAPED: 2025-06-19 18:14:32
+================================================================================
+
+Getting Started
+Search...
+Choose a framework to optimize documentation to:
+Edge Config
+Getting Started
+Copy page
+Getting started with Edge Config
+Edge Config is a distributed key-value store that allows you to store and retrieve data at the network edge, close to your users. It is designed for high performance and low latency, making it ideal for use cases such as feature flags, A/B testing, and dynamic configuration.
+This guide will help you will create an Edge Config called
+--- CODE BLOCK 1 ---
+hello_world_store
+--- END CODE BLOCK ---
+at the project-level, through the Vercel
+dashboard
+. A token and environment variable
+--- CODE BLOCK 2 ---
+EDGE_CONFIG
+--- END CODE BLOCK ---
+, that stores the connection string, will be automatically created for you. You'll update the store with a key-value data pair and read the value of
+--- CODE BLOCK 4 ---
+pnpm i @vercel/edge-config
+--- END CODE BLOCK ---
+from a local Next.js project.
+Prerequisites
+Install the Edge Config SDK:
+pnpm
+yarn
+--- CODE BLOCK 5 ---
+pnpm i @vercel/edge-config
+--- END CODE BLOCK ---
+An existing project. This quickstart uses Next.js, but you can use any supported framework with Edge Config storage
+Install
+update
+to the latest version of Vercel CLI
+pnpm
+yarn
+--- CODE BLOCK 7 ---
+pnpm i -g vercel@latest
+--- END CODE BLOCK ---
+Create an Edge Config store
+Navigate to the
+Project
+you'd like to add an Edge Config store to. Click on the
+Storage
+tab, then click the
+Create Database
+button. Select
+Edge Config
+and click
+Continue
+Create a new store by typing
+--- CODE BLOCK 9 ---
+hello_world_store
+--- END CODE BLOCK ---
+under
+Edge Config
+in the dialog that opens, and click
+Create
+The name can only contain alphanumeric letters, "_" and "-". It cannot exceed
+32 characters.
+Review what was created
+Once created, select
+--- CODE BLOCK 10 ---
+EDGE_CONFIG
+--- END CODE BLOCK ---
+to see a summary of what was created for you. Notice the following:
+If you select
+Project
+, you'll see that your project was connected to the Edge Config by using an environment variable. If you go to your projects's
+Settings > Environment Variables
+, you'll see the newly created environment variable.
+If you select
+Tokens
+, you'll see a
+read access token
+. This token, along with your
+EDGE CONFIG ID
+, is used to create a
+connection string
+. This connection string is saved as the value of your
+--- CODE BLOCK 11 ---
+"greeting": "hello world"
+--- END CODE BLOCK ---
+environment variable. This enables you to use the SDK in your project to read the store's contents.
+If you're creating a project at the account-level, we won't automatically
+create a token, connection string, and environment variable until a project
+has been connected.
+Add a key-value pair
+Under
+Items
+, add the following key-value pair and click
+Save Items
+--- CODE BLOCK 12 ---
+"greeting": "hello world"
+--- END CODE BLOCK ---
+You can see more information about what can be stored in an Edge Config in the
+limits
+documentation.
+Connect your Vercel project
+Once you've created the store, you need to set up your project to read the contents of the store. This is detailed under
+Learn how to use this in code
+in the dashboard, but is described in the following steps in more detail.
+On your local machine, connect your Vercel Project. If you haven't already, install the Edge Config SDK, as mentioned in
+prerequisites
+Pull the latest environment variables
+Using Vercel CLI, pull the latest environment variables, specifically
+--- CODE BLOCK 14 ---
+vercel env pull
+--- END CODE BLOCK ---
+, so that it's available to your project locally:
+terminal
+--- CODE BLOCK 15 ---
+vercel env pull
+--- END CODE BLOCK ---
+Create Edge Middleware
+Create
+Edge Middleware
+for your project by creating a new file called
+--- CODE BLOCK 17 ---
+import { NextResponse } from 'next/server';
+import { get } from '@vercel/edge-config';
+export const config = { matcher: '/welcome' };
+export async function middleware() {
+const greeting = await get('greeting');
+return NextResponse.json(greeting);
+--- END CODE BLOCK ---
+at the root of the project and if using Next.js, add the following code:
+middleware.ts
+TypeScript
+TypeScript
+JavaScript
+--- CODE BLOCK 18 ---
+import { NextResponse } from 'next/server';
+import { get } from '@vercel/edge-config';
+export const config = { matcher: '/welcome' };
+export async function middleware() {
+const greeting = await get('greeting');
+return NextResponse.json(greeting);
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+experimental.allowMiddlewareResponseBody
+--- END CODE BLOCK ---
+requires at least Next v13.1 or enabling
+--- CODE BLOCK 21 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+localhost:3000/welcome
+--- END CODE BLOCK ---
+Run your application locally
+Run your application locally and visit
+--- CODE BLOCK 23 ---
+localhost:3000/welcome
+--- END CODE BLOCK ---
+to see your greeting. The middleware intercepts requests to
+--- CODE BLOCK 24 ---
+hello_world_store
+--- END CODE BLOCK ---
+and responds with a greeting, read from your Edge Config store.
+Your project is now ready to read more key-value data pairs from the
+--- CODE BLOCK 25 ---
+@vercel/edge-config
+--- END CODE BLOCK ---
+Edge Config using the
+Vercel REST API
+Your Edge Config uses the public internet for reads when you develop locally.
+Therefore, you will see higher response times. However, when you deploy your
+application to Vercel, the reads are optimized to happen at ultra low latency
+without any network requests.
+Next steps
+Now that you've created an Edge Config store and read from it, you can explore the following:
+Creating the Edge Config at the account level
+Creating a read access token
+Setting up a connection string
+Learn about the
+[CODE_BLOCK_25]
+package
+Explore the SDK
+Last updated on
+April 9, 2025
+Next
+Account Management
+Was this helpful?
+supported.
+Send
+On this page
+Prerequisites
+Create an Edge Config store
+Review what was created
+Add a key-value pair
+Connect your Vercel project
+Pull the latest environment variables
+Create Edge Middleware
+Run your application locally
+Next steps

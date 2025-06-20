@@ -1,0 +1,369 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/cookies
+SCRAPED: 2025-06-19 17:33:56
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+cookies
+cookies
+--- CODE BLOCK 2 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const theme = cookieStore.get('theme')
+return '...'
+--- END CODE BLOCK ---
+is an
+async
+function that allows you to read the HTTP incoming request cookies in
+Server Components
+, and read/write outgoing request cookies in
+Server Actions
+Route Handlers
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const theme = cookieStore.get('theme')
+return '...'
+--- END CODE BLOCK ---
+Reference
+Methods
+The following methods are available:
+Method
+Return Type
+Description
+--- CODE BLOCK 6 ---
+has('name')
+--- END CODE BLOCK ---
+Object
+Accepts a cookie name and returns an object with the name and value.
+--- CODE BLOCK 7 ---
+set(name, value, options)
+--- END CODE BLOCK ---
+Array of objects
+Returns a list of all the cookies with a matching name.
+--- CODE BLOCK 8 ---
+delete(name)
+--- END CODE BLOCK ---
+Boolean
+Accepts a cookie name and returns a boolean based on if the cookie exists.
+--- CODE BLOCK 29 ---
+encode('value')
+--- END CODE BLOCK ---
+Accepts a cookie name, value, and options and sets the outgoing request cookie.
+--- CODE BLOCK 30 ---
+partitioned
+--- END CODE BLOCK ---
+Accepts a cookie name and deletes the cookie.
+--- CODE BLOCK 33 ---
+async/await
+--- END CODE BLOCK ---
+Deletes all cookies.
+--- CODE BLOCK 44 ---
+(await cookies()).get('name')
+--- END CODE BLOCK ---
+String
+Returns a string representation of the cookies.
+Options
+When setting a cookie, the following properties from the
+--- CODE BLOCK 45 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const theme = cookieStore.get('theme')
+return '...'
+--- END CODE BLOCK ---
+object are supported:
+Option
+Type
+Description
+--- CODE BLOCK 46 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const theme = cookieStore.get('theme')
+return '...'
+--- END CODE BLOCK ---
+String
+Specifies the name of the cookie.
+--- CODE BLOCK 47 ---
+(await cookies()).getAll()
+--- END CODE BLOCK ---
+String
+Specifies the value to be stored in the cookie.
+--- CODE BLOCK 49 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+return cookieStore.getAll().map((cookie) => (
+<div key={cookie.name}>
+<p>Name: {cookie.name}</p>
+<p>Value: {cookie.value}</p>
+</div>
+--- END CODE BLOCK ---
+Date
+Defines the exact date when the cookie will expire.
+--- CODE BLOCK 50 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+return cookieStore.getAll().map((cookie) => (
+<div key={cookie.name}>
+<p>Name: {cookie.name}</p>
+<p>Value: {cookie.value}</p>
+</div>
+--- END CODE BLOCK ---
+Number
+Sets the cookie’s lifespan in seconds.
+--- CODE BLOCK 51 ---
+(await cookies()).set(name, value, options)
+--- END CODE BLOCK ---
+String
+Specifies the domain where the cookie is available.
+--- CODE BLOCK 53 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function create(data) {
+const cookieStore = await cookies()
+cookieStore.set('name', 'lee')
+// or
+cookieStore.set('name', 'lee', { secure: true })
+// or
+cookieStore.set({
+name: 'name',
+value: 'lee',
+httpOnly: true,
+path: '/',
+--- END CODE BLOCK ---
+String, default:
+--- CODE BLOCK 54 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function create(data) {
+const cookieStore = await cookies()
+cookieStore.set('name', 'lee')
+// or
+cookieStore.set('name', 'lee', { secure: true })
+// or
+cookieStore.set({
+name: 'name',
+value: 'lee',
+httpOnly: true,
+path: '/',
+--- END CODE BLOCK ---
+Limits the cookie's scope to a specific path within the domain.
+--- CODE BLOCK 55 ---
+(await cookies()).has(name)
+--- END CODE BLOCK ---
+Boolean
+Ensures the cookie is sent only over HTTPS connections for added security.
+--- CODE BLOCK 56 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const hasCookie = cookieStore.has('theme')
+return '...'
+--- END CODE BLOCK ---
+Boolean
+Restricts the cookie to HTTP requests, preventing client-side access.
+--- CODE BLOCK 57 ---
+import { cookies } from 'next/headers'
+export default async function Page() {
+const cookieStore = await cookies()
+const hasCookie = cookieStore.has('theme')
+return '...'
+--- END CODE BLOCK ---
+Boolean,
+--- CODE BLOCK 59 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).delete('name')
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).delete('name')
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).set('name', '')
+--- END CODE BLOCK ---
+Controls the cookie's cross-site request behavior.
+--- CODE BLOCK 62 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).set('name', '')
+--- END CODE BLOCK ---
+String (
+--- CODE BLOCK 65 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).set('name', 'value', { maxAge: 0 })
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+'use server'
+import { cookies } from 'next/headers'
+export async function delete(data) {
+(await cookies()).set('name', 'value', { maxAge: 0 })
+--- END CODE BLOCK ---
+[CODE_BLOCK_28]
+Specifies the cookie's priority
+[CODE_BLOCK_29]
+Function
+Specifies a function that will be used to encode a cookie's value.
+[CODE_BLOCK_30]
+Boolean
+Indicates whether the cookie is
+partitioned
+The only option with a default value is
+[CODE_BLOCK_31]
+To learn more about these options, see the
+MDN docs
+Good to know
+[CODE_BLOCK_32]
+is an
+asynchronous
+function that returns a promise. You must use
+[CODE_BLOCK_33]
+or React's
+[CODE_BLOCK_34]
+function to access cookies.
+In version 14 and earlier,
+[CODE_BLOCK_35]
+was a synchronous function. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+[CODE_BLOCK_36]
+is a
+Dynamic API
+whose returned values cannot be known ahead of time. Using it in a layout or page will opt a route into
+dynamic rendering
+[CODE_BLOCK_37]
+method can only be called:
+In a
+Server Action
+Route Handler
+If it belongs to the same domain from which
+[CODE_BLOCK_38]
+is called. For wildcard domains, the specific subdomain must be an exact match. Additionally, the code must be executed on the same protocol (HTTP or HTTPS) as the cookie you want to delete.
+HTTP does not allow setting cookies after streaming starts, so you must use
+[CODE_BLOCK_39]
+in a
+Server Action
+Route Handler
+Understanding Cookie Behavior in Server Components
+When working with cookies in Server Components, it's important to understand that cookies are fundamentally a client-side storage mechanism:
+Reading cookies
+works in Server Components because you're accessing the cookie data that the client's browser sends to the server in the HTTP request headers.
+Setting cookies
+cannot be done directly in a Server Component, even when using a Route Handler or Server Action. This is because cookies are actually stored by the browser, not the server.
+The server can only send instructions (via
+[CODE_BLOCK_40]
+headers) to tell the browser to store cookies - the actual storage happens on the client side. This is why cookie operations that modify state (
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+) must be performed in a Route Handler or Server Action where the response headers can be properly set.
+Examples
+Getting a cookie
+You can use the
+[CODE_BLOCK_44]
+method to get a single cookie:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_45]
+Getting all cookies
+You can use the
+[CODE_BLOCK_47]
+method to get all cookies with a matching name. If
+[CODE_BLOCK_48]
+is unspecified, it returns all the available cookies.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_49]
+Setting a cookie
+You can use the
+[CODE_BLOCK_51]
+method in a
+Server Action
+Route Handler
+to set a cookie. The
+[CODE_BLOCK_52]
+object
+is optional.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_53]
+Checking if a cookie exists
+You can use the
+[CODE_BLOCK_55]
+method to check if a cookie exists:
+app/page.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_56]
+Deleting cookies
+There are three ways you can delete a cookie.
+Using the
+[CODE_BLOCK_58]
+method:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_59]
+Setting a new cookie with the same name and an empty value:
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_61]
+Setting the
+[CODE_BLOCK_63]
+to 0 will immediately expire a cookie.
+[CODE_BLOCK_64]
+accepts a value in seconds.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_65]
+Version History
+Version
+Changes
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+is now an async function. A
+codemod
+is available.
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+introduced.
+Was this helpful?
+supported.
+Send

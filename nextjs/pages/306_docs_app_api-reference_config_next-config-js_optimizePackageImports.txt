@@ -1,0 +1,88 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/optimizePackageImports
+SCRAPED: 2025-06-19 17:45:25
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+optimizePackageImports
+optimizePackageImports
+Some packages can export hundreds or thousands of modules, which can cause performance issues in development and production.
+Adding a package to
+--- CODE BLOCK 1 ---
+experimental.optimizePackageImports
+--- END CODE BLOCK ---
+will only load the modules you are actually using, while still giving you the convenience of writing import statements with many named exports.
+next.config.js
+--- CODE BLOCK 2 ---
+module.exports = {
+experimental: {
+optimizePackageImports: ['package-name'],
+--- END CODE BLOCK ---
+The following libraries are optimized by default:
+--- CODE BLOCK 4 ---
+lucide-react
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+react-bootstrap
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+@ant-design/icons
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+@headlessui/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+@headlessui-float/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+@heroicons/react/20/solid
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+@heroicons/react/24/solid
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+@heroicons/react/24/outline
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+@tremor/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+@mui/material
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+@mui/icons-material
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+@material-ui/core
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+@material-ui/icons
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+@tabler/icons-react
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+react-icons/*
+--- END CODE BLOCK ---
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,69 @@
+SOURCE URL: https://nextjs.org/docs/messages/url-deprecated
+SCRAPED: 2025-06-19 18:02:46
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Docs
+Errors
+`url` is deprecated
+`url` is deprecated
+Why This Error Occurred
+In versions prior to 6.x the
+--- CODE BLOCK 11 ---
+import { withRouter } from 'next/router'
+class Page extends React.Component {
+render() {
+const { router } = this.props
+console.log(router)
+return <div>{router.pathname}</div>
+export default withRouter(Page)
+--- END CODE BLOCK ---
+property got magically injected into every
+--- CODE BLOCK 12 ---
+import { withRouter } from 'next/router'
+class Page extends React.Component {
+render() {
+const { router } = this.props
+console.log(router)
+return <div>{router.pathname}</div>
+export default withRouter(Page)
+--- END CODE BLOCK ---
+component (every page inside the
+[CODE_BLOCK_3]
+directory).
+The reason this is going away is that we want to make things very predictable and explicit. Having a magical url property coming out of nowhere doesn't aid that goal.
+Note
+: ⚠️ In some cases using React Dev Tools may trigger this warning even if you do not reference
+[CODE_BLOCK_4]
+anywhere in your code. Try temporarily disabling the extension and see if the warning persists.
+Possible Ways to Fix It
+Since Next 5 we provide a way to explicitly inject the Next.js router object into pages and all their descending components.
+[CODE_BLOCK_5]
+property that is injected will hold the same values as
+[CODE_BLOCK_6]
+, like
+[CODE_BLOCK_7]
+[CODE_BLOCK_8]
+, and
+[CODE_BLOCK_9]
+Here's an example of using
+[CODE_BLOCK_10]
+pages/index.js
+[CODE_BLOCK_11]
+We provide a codemod (a code to code transformation) to automatically change the
+[CODE_BLOCK_13]
+property usages to
+[CODE_BLOCK_14]
+You can find this codemod and instructions on how to run it here:
+[CODE_BLOCK_15]
+Was this helpful?
+supported.
+Send

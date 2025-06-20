@@ -1,0 +1,335 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props
+SCRAPED: 2025-06-19 17:32:45
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Data Fetching
+getStaticProps
+You are currently viewing the documentation for Pages Router.
+getStaticProps
+If you export a function called
+--- CODE BLOCK 1 ---
+getStaticProps
+--- END CODE BLOCK ---
+(Static Site Generation) from a page, Next.js will pre-render this page at build time using the props returned by
+--- CODE BLOCK 2 ---
+getStaticProps
+--- END CODE BLOCK ---
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import type { InferGetStaticPropsType, GetStaticProps } from 'next'
+type Repo = {
+name: string
+stargazers_count: number
+export const getStaticProps = (async (context) => {
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const repo = await res.json()
+return { props: { repo } }
+}) satisfies GetStaticProps<{
+repo: Repo
+export default function Page({
+repo,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+return repo.stargazers_count
+--- END CODE BLOCK ---
+Note that irrespective of rendering type, any
+--- CODE BLOCK 7 ---
+getStaticProps
+--- END CODE BLOCK ---
+will be passed to the page component and can be viewed on the client-side in the initial HTML. This is to allow the page to be
+hydrated
+correctly. Make sure that you don't pass any sensitive information that shouldn't be available on the client in
+--- CODE BLOCK 8 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+getStaticProps
+--- END CODE BLOCK ---
+API reference
+covers all parameters and props that can be used with
+--- CODE BLOCK 10 ---
+getStaticProps
+--- END CODE BLOCK ---
+When should I use getStaticProps?
+You should use
+--- CODE BLOCK 13 ---
+getStaticProps
+--- END CODE BLOCK ---
+The data required to render the page is available at build time ahead of a user’s request
+The data comes from a headless CMS
+The page must be pre-rendered (for SEO) and be very fast —
+--- CODE BLOCK 14 ---
+getStaticProps
+--- END CODE BLOCK ---
+generates
+--- CODE BLOCK 15 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+getStaticProps
+--- END CODE BLOCK ---
+files, both of which can be cached by a CDN for performance
+The data can be publicly cached (not user-specific). This condition can be bypassed in certain specific situation by using a Middleware to rewrite the path.
+When does getStaticProps run
+--- CODE BLOCK 18 ---
+fallback: true
+--- END CODE BLOCK ---
+always runs on the server and never on the client. You can validate code written inside
+--- CODE BLOCK 19 ---
+getStaticProps
+--- END CODE BLOCK ---
+is removed from the client-side bundle
+with this tool
+--- CODE BLOCK 20 ---
+fallback: blocking
+--- END CODE BLOCK ---
+always runs during
+--- CODE BLOCK 21 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+getStaticProps
+--- END CODE BLOCK ---
+runs in the background when using
+--- CODE BLOCK 24 ---
+revalidate()
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+getStaticProps
+--- END CODE BLOCK ---
+is called before initial render when using
+--- CODE BLOCK 26 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+getStaticProps
+--- END CODE BLOCK ---
+runs in the background when using
+--- CODE BLOCK 28 ---
+// posts will be populated at build time by getStaticProps()
+export default function Blog({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li>{post.title}</li>
+</ul>
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+// Call an external API endpoint to get posts.
+// You can use any data fetching library
+const res = await fetch('https://.../posts')
+const posts = await res.json()
+// By returning { props: { posts } }, the Blog component
+// will receive `posts` as a prop at build time
+return {
+props: {
+posts,
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+// posts will be populated at build time by getStaticProps()
+export default function Blog({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li>{post.title}</li>
+</ul>
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+// Call an external API endpoint to get posts.
+// You can use any data fetching library
+const res = await fetch('https://.../posts')
+const posts = await res.json()
+// By returning { props: { posts } }, the Blog component
+// will receive `posts` as a prop at build time
+return {
+props: {
+posts,
+--- END CODE BLOCK ---
+runs on-demand in the background when using
+--- CODE BLOCK 30 ---
+getStaticProps
+--- END CODE BLOCK ---
+When combined with
+Incremental Static Regeneration
+--- CODE BLOCK 31 ---
+getStaticProps
+--- END CODE BLOCK ---
+will run in the background while the stale page is being revalidated, and the fresh page served to the browser.
+--- CODE BLOCK 32 ---
+getStaticProps
+--- END CODE BLOCK ---
+does not have access to the incoming request (such as query parameters or HTTP headers) as it generates static HTML. If you need access to the request for your page, consider using
+Middleware
+in addition to
+--- CODE BLOCK 33 ---
+getStaticProps
+--- END CODE BLOCK ---
+Using getStaticProps to fetch data from a CMS
+The following example shows how you can fetch a list of blog posts from a CMS.
+pages/blog.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 34 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+getStaticProps
+--- END CODE BLOCK ---
+API reference
+covers all parameters and props that can be used with
+--- CODE BLOCK 38 ---
+// The following function is shared
+// with getStaticProps and API routes
+// from a `lib/` directory
+export async function loadPosts() {
+// Call an external API endpoint to get posts
+const res = await fetch('https://.../posts/')
+const data = await res.json()
+return data
+--- END CODE BLOCK ---
+Write server-side code directly
+--- CODE BLOCK 39 ---
+// The following function is shared
+// with getStaticProps and API routes
+// from a `lib/` directory
+export async function loadPosts() {
+// Call an external API endpoint to get posts
+const res = await fetch('https://.../posts/')
+const data = await res.json()
+return data
+--- END CODE BLOCK ---
+runs only on the server-side, it will never run on the client-side. It won’t even be included in the JS bundle for the browser, so you can write direct database queries without them being sent to browsers.
+This means that instead of fetching an
+API route
+from
+--- CODE BLOCK 40 ---
+// pages/blog.js
+import { loadPosts } from '../lib/load-posts'
+// This function runs only on the server side
+export async function getStaticProps() {
+// Instead of fetching your `/api` route you can call the same
+// function directly in `getStaticProps`
+const posts = await loadPosts()
+// Props returned will be passed to the page component
+return { props: { posts } }
+--- END CODE BLOCK ---
+(that itself fetches data from an external source), you can write the server-side code directly in
+--- CODE BLOCK 41 ---
+// pages/blog.js
+import { loadPosts } from '../lib/load-posts'
+// This function runs only on the server side
+export async function getStaticProps() {
+// Instead of fetching your `/api` route you can call the same
+// function directly in `getStaticProps`
+const posts = await loadPosts()
+// Props returned will be passed to the page component
+return { props: { posts } }
+--- END CODE BLOCK ---
+Take the following example. An API route is used to fetch some data from a CMS. That API route is then called directly from
+--- CODE BLOCK 43 ---
+getStaticProps
+--- END CODE BLOCK ---
+. This produces an additional call, reducing performance. Instead, the logic for fetching the data from the CMS can be shared by using a
+--- CODE BLOCK 44 ---
+getStaticProps
+--- END CODE BLOCK ---
+directory. Then it can be shared with
+--- CODE BLOCK 45 ---
+getStaticProps
+--- END CODE BLOCK ---
+lib/load-posts.js
+--- CODE BLOCK 47 ---
+next/router
+--- END CODE BLOCK ---
+pages/blog.js
+--- CODE BLOCK 49 ---
+getStaticProps
+--- END CODE BLOCK ---
+Alternatively, if you are
+using API routes to fetch data, then the
+--- CODE BLOCK 51 ---
+getStaticProps
+--- END CODE BLOCK ---
+be used directly in
+--- CODE BLOCK 55 ---
+getStaticProps
+--- END CODE BLOCK ---
+to fetch data.
+To verify what Next.js eliminates from the client-side bundle, you can use the
+next-code-elimination tool
+Statically generates both HTML and JSON
+When a page with
+--- CODE BLOCK 56 ---
+getStaticProps
+--- END CODE BLOCK ---
+is pre-rendered at build time, in addition to the page HTML file, Next.js generates a JSON file holding the result of running
+--- CODE BLOCK 59 ---
+getStaticProps
+--- END CODE BLOCK ---
+This JSON file will be used in client-side routing through
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+. When you navigate to a page that’s pre-rendered using
+[CODE_BLOCK_48]
+, Next.js fetches this JSON file (pre-computed at build time) and uses it as the props for the page component. This means that client-side page transitions will
+call
+[CODE_BLOCK_49]
+as only the exported JSON is used.
+When using Incremental Static Generation,
+[CODE_BLOCK_50]
+will be executed in the background to generate the JSON needed for client-side navigation. You may see this in the form of multiple requests being made for the same page, however, this is intended and has no impact on end-user performance.
+Where can I use getStaticProps
+[CODE_BLOCK_51]
+can only be exported from a
+page
+. You
+cannot
+export it from non-page files,
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+, or
+[CODE_BLOCK_54]
+One of the reasons for this restriction is that React needs to have all the required data before the page is rendered.
+Also, you must use export
+[CODE_BLOCK_55]
+as a standalone function — it will
+work if you add
+[CODE_BLOCK_56]
+as a property of the page component.
+Good to know
+: if you have created a
+custom app
+, ensure you are passing the
+[CODE_BLOCK_57]
+to the page component as shown in the linked document, otherwise the props will be empty.
+Runs on every request in development
+In development (
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+will be called on every request.
+Preview Mode
+You can temporarily bypass static generation and render the page at
+request time
+instead of build time using
+Preview Mode
+. For example, you might be using a headless CMS and want to preview drafts before they're published.
+Was this helpful?
+supported.
+Send

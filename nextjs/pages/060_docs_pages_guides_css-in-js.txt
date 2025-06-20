@@ -1,0 +1,93 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/css-in-js
+SCRAPED: 2025-06-19 17:16:05
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+CSS-in-JS
+You are currently viewing the documentation for Pages Router.
+How to use CSS-in-JS libraries
+Examples
+Styled JSX
+Styled Components
+Emotion
+Linaria
+Styletron
+Fela
+Stitches
+It's possible to use any existing CSS-in-JS solution. The simplest one is inline styles:
+--- CODE BLOCK 1 ---
+function HiThere() {
+return <p style={{ color: 'red' }}>hi there</p>
+export default HiThere
+--- END CODE BLOCK ---
+We bundle
+styled-jsx
+to provide support for isolated scoped CSS.
+The aim is to support "shadow CSS" similar to Web Components, which unfortunately
+do not support server-rendering and are JS-only
+See the above examples for other popular CSS-in-JS solutions (like Styled Components).
+A component using
+--- CODE BLOCK 4 ---
+function HelloWorld() {
+return (
+<div>
+Hello world
+<p>scoped!</p>
+<style jsx>{`
+color: blue;
+div {
+background: red;
+@media (max-width: 600px) {
+div {
+background: blue;
+`}</style>
+<style global jsx>{`
+body {
+background: black;
+`}</style>
+</div>
+export default HelloWorld
+--- END CODE BLOCK ---
+looks like this:
+--- CODE BLOCK 5 ---
+function HelloWorld() {
+return (
+<div>
+Hello world
+<p>scoped!</p>
+<style jsx>{`
+color: blue;
+div {
+background: red;
+@media (max-width: 600px) {
+div {
+background: blue;
+`}</style>
+<style global jsx>{`
+body {
+background: black;
+`}</style>
+</div>
+export default HelloWorld
+--- END CODE BLOCK ---
+Please see the
+styled-jsx documentation
+for more examples.
+Disabling JavaScript
+Yes, if you disable JavaScript the CSS will still be loaded in the production build (
+[CODE_BLOCK_6]
+). During development, we require JavaScript to be enabled to provide the best developer experience with
+Fast Refresh
+Was this helpful?
+supported.
+Send

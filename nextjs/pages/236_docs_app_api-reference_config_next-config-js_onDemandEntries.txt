@@ -1,0 +1,39 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/onDemandEntries
+SCRAPED: 2025-06-19 17:37:03
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+onDemandEntries
+onDemandEntries
+Next.js exposes some options that give you some control over how the server will dispose or keep in memory built pages in development.
+To change the defaults, open
+--- CODE BLOCK 1 ---
+next.config.js
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 2 ---
+onDemandEntries
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 3 ---
+module.exports = {
+onDemandEntries: {
+// period (in ms) where the server will keep pages in the buffer
+maxInactiveAge: 25 * 1000,
+// number of pages that should be kept simultaneously without being disposed
+pagesBufferLength: 2,
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,658 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/headers#cors
+SCRAPED: 2025-06-19 18:04:44
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+headers
+headers
+Headers allow you to set custom HTTP headers on the response to an incoming request on a given path.
+To set custom HTTP headers you can use the
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+key in
+--- CODE BLOCK 3 ---
+module.exports = {
+async headers() {
+return [
+source: '/about',
+headers: [
+key: 'x-custom-header',
+value: 'my custom header value',
+key: 'x-another-custom-header',
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 4 ---
+module.exports = {
+async headers() {
+return [
+source: '/about',
+headers: [
+key: 'x-custom-header',
+value: 'my custom header value',
+key: 'x-another-custom-header',
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+module.exports = {
+async headers() {
+return [
+source: '/:path*',
+headers: [
+key: 'x-hello',
+value: 'there',
+source: '/hello',
+headers: [
+key: 'x-hello',
+value: 'world',
+--- END CODE BLOCK ---
+is an async function that expects an array to be returned holding objects with
+--- CODE BLOCK 33 ---
+/blog/:slug
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+/blog/hello-world
+--- END CODE BLOCK ---
+properties:
+--- CODE BLOCK 35 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:slug',
+headers: [
+key: 'x-slug',
+value: ':slug', // Matched parameters can be used in the value
+key: 'x-slug-:slug', // Matched parameters can be used in the key
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+is the incoming request path pattern.
+--- CODE BLOCK 36 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:slug',
+headers: [
+key: 'x-slug',
+value: ':slug', // Matched parameters can be used in the value
+key: 'x-slug-:slug', // Matched parameters can be used in the key
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+is an array of response header objects, with
+--- CODE BLOCK 38 ---
+/blog/:slug*
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+/blog/a/b/c/d/hello-world
+--- END CODE BLOCK ---
+properties.
+--- CODE BLOCK 40 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:slug*',
+headers: [
+key: 'x-slug',
+value: ':slug*', // Matched parameters can be used in the value
+key: 'x-slug-:slug*', // Matched parameters can be used in the key
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:slug*',
+headers: [
+key: 'x-slug',
+value: ':slug*', // Matched parameters can be used in the value
+key: 'x-slug-:slug*', // Matched parameters can be used in the key
+value: 'my other custom header value',
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+/blog/:slug(\\d{1,})
+--- END CODE BLOCK ---
+- if false the basePath won't be included when matching, can be used for external rewrites only.
+--- CODE BLOCK 45 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:post(\\d{1,})',
+headers: [
+key: 'x-post',
+value: ':post',
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+module.exports = {
+async headers() {
+return [
+source: '/blog/:post(\\d{1,})',
+headers: [
+key: 'x-post',
+value: ':post',
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+module.exports = {
+async headers() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+headers: [
+key: 'x-header',
+value: 'value',
+--- END CODE BLOCK ---
+- whether the locale should not be included when matching.
+--- CODE BLOCK 58 ---
+module.exports = {
+async headers() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+headers: [
+key: 'x-header',
+value: 'value',
+--- END CODE BLOCK ---
+is an array of
+has objects
+with the
+--- CODE BLOCK 77 ---
+first-(?<paramName>.*)
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+first-second
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+module.exports = {
+async headers() {
+return [
+// if the header `x-add-header` is present,
+// the `x-another-header` header will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-add-header',
+headers: [
+key: 'x-another-header',
+value: 'hello',
+// if the header `x-no-header` is not present,
+// the `x-another-header` header will be applied
+source: '/:path*',
+missing: [
+type: 'header',
+key: 'x-no-header',
+headers: [
+key: 'x-another-header',
+value: 'hello',
+// if the source, query, and cookie are matched,
+// the `x-authorized` header will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// header key/values since value is provided and
+// doesn't use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+headers: [
+key: 'x-authorized',
+value: ':authorized',
+// if the header `x-authorized` is present and
+// contains a matching value, the `x-another-header` will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+headers: [
+key: 'x-another-header',
+value: ':authorized',
+// if the host is `example.com`,
+// this header will be applied
+source: '/:path*',
+has: [
+type: 'host',
+value: 'example.com',
+headers: [
+key: 'x-another-header',
+value: ':authorized',
+--- END CODE BLOCK ---
+properties.
+--- CODE BLOCK 82 ---
+module.exports = {
+async headers() {
+return [
+// if the header `x-add-header` is present,
+// the `x-another-header` header will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-add-header',
+headers: [
+key: 'x-another-header',
+value: 'hello',
+// if the header `x-no-header` is not present,
+// the `x-another-header` header will be applied
+source: '/:path*',
+missing: [
+type: 'header',
+key: 'x-no-header',
+headers: [
+key: 'x-another-header',
+value: 'hello',
+// if the source, query, and cookie are matched,
+// the `x-authorized` header will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// header key/values since value is provided and
+// doesn't use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+headers: [
+key: 'x-authorized',
+value: ':authorized',
+// if the header `x-authorized` is present and
+// contains a matching value, the `x-another-header` will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+headers: [
+key: 'x-another-header',
+value: ':authorized',
+// if the host is `example.com`,
+// this header will be applied
+source: '/:path*',
+has: [
+type: 'host',
+value: 'example.com',
+headers: [
+key: 'x-another-header',
+value: ':authorized',
+--- END CODE BLOCK ---
+is an array of
+missing objects
+with the
+--- CODE BLOCK 86 ---
+basePath: false
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+module.exports = {
+basePath: '/docs',
+async headers() {
+return [
+source: '/with-basePath', // becomes /docs/with-basePath
+headers: [
+key: 'x-hello',
+value: 'world',
+source: '/without-basePath', // is not modified since basePath: false is set
+headers: [
+key: 'x-hello',
+value: 'world',
+basePath: false,
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+module.exports = {
+basePath: '/docs',
+async headers() {
+return [
+source: '/with-basePath', // becomes /docs/with-basePath
+headers: [
+key: 'x-hello',
+value: 'world',
+source: '/without-basePath', // is not modified since basePath: false is set
+headers: [
+key: 'x-hello',
+value: 'world',
+basePath: false,
+--- END CODE BLOCK ---
+properties.
+Headers are checked before the filesystem which includes pages and
+--- CODE BLOCK 92 ---
+locale: false
+--- END CODE BLOCK ---
+files.
+Header Overriding Behavior
+If two headers match the same path and set the same header key, the last header key will override the first. Using the below headers, the path
+--- CODE BLOCK 93 ---
+locale: false
+--- END CODE BLOCK ---
+will result in the header
+--- CODE BLOCK 95 ---
+module.exports = {
+i18n: {
+locales: ['en', 'fr', 'de'],
+defaultLocale: 'en',
+async headers() {
+return [
+source: '/with-locale', // automatically handles all locales
+headers: [
+key: 'x-hello',
+value: 'world',
+// does not handle locales automatically since locale: false is set
+source: '/nl/with-locale-manual',
+locale: false,
+headers: [
+key: 'x-hello',
+value: 'world',
+// this matches '/' since `en` is the defaultLocale
+source: '/en',
+locale: false,
+headers: [
+key: 'x-hello',
+value: 'world',
+// this gets converted to /(en|fr|de)/(.*) so will not match the top-level
+// `/` or `/fr` routes like /:path* would
+source: '/(.*)',
+headers: [
+key: 'x-hello',
+value: 'world',
+--- END CODE BLOCK ---
+being
+--- CODE BLOCK 96 ---
+module.exports = {
+i18n: {
+locales: ['en', 'fr', 'de'],
+defaultLocale: 'en',
+async headers() {
+return [
+source: '/with-locale', // automatically handles all locales
+headers: [
+key: 'x-hello',
+value: 'world',
+// does not handle locales automatically since locale: false is set
+source: '/nl/with-locale-manual',
+locale: false,
+headers: [
+key: 'x-hello',
+value: 'world',
+// this matches '/' since `en` is the defaultLocale
+source: '/en',
+locale: false,
+headers: [
+key: 'x-hello',
+value: 'world',
+// this gets converted to /(en|fr|de)/(.*) so will not match the top-level
+// `/` or `/fr` routes like /:path* would
+source: '/(.*)',
+headers: [
+key: 'x-hello',
+value: 'world',
+--- END CODE BLOCK ---
+due to the last header value set being
+--- CODE BLOCK 97 ---
+Cache-Control
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 98 ---
+public, max-age=31536000, immutable
+--- END CODE BLOCK ---
+Path Matching
+Path matches are allowed, for example
+--- CODE BLOCK 100 ---
+next.config.js
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 101 ---
+Cache-Control
+--- END CODE BLOCK ---
+(no nested paths):
+next.config.js
+--- CODE BLOCK 102 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+Wildcard Path Matching
+To match a wildcard path you can use
+--- CODE BLOCK 104 ---
+async headers() {
+return [
+source: "/api/:path*",
+headers: [
+key: "Access-Control-Allow-Origin",
+value: "*", // Set your origin
+key: "Access-Control-Allow-Methods",
+value: "GET, POST, PUT, DELETE, OPTIONS",
+key: "Access-Control-Allow-Headers",
+value: "Content-Type, Authorization",
+--- END CODE BLOCK ---
+after a parameter, for example
+--- CODE BLOCK 105 ---
+key: 'X-DNS-Prefetch-Control',
+value: 'on'
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 106 ---
+key: 'X-DNS-Prefetch-Control',
+value: 'on'
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 108 ---
+key: 'Strict-Transport-Security',
+value: 'max-age=63072000; includeSubDomains; preload'
+--- END CODE BLOCK ---
+Regex Path Matching
+To match a regex path you can wrap the regex in parenthesis after a parameter, for example
+--- CODE BLOCK 111 ---
+frame-ancestors
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 112 ---
+key: 'X-Frame-Options',
+value: 'SAMEORIGIN'
+--- END CODE BLOCK ---
+but not
+--- CODE BLOCK 113 ---
+key: 'X-Frame-Options',
+value: 'SAMEORIGIN'
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 114 ---
+Feature-Policy
+--- END CODE BLOCK ---
+The following characters
+--- CODE BLOCK 116 ---
+key: 'Permissions-Policy',
+value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()'
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+Content-Type
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+Content-Type
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+key: 'X-Content-Type-Options',
+value: 'nosniff'
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+key: 'X-Content-Type-Options',
+value: 'nosniff'
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+key: 'Referrer-Policy',
+value: 'origin-when-cross-origin'
+--- END CODE BLOCK ---
+--- CODE BLOCK 123 ---
+key: 'Referrer-Policy',
+value: 'origin-when-cross-origin'
+--- END CODE BLOCK ---
+[CODE_BLOCK_54]
+are used for regex path matching, so when used in the
+[CODE_BLOCK_55]
+as non-special values they must be escaped by adding
+[CODE_BLOCK_56]
+before them:
+next.config.js
+[CODE_BLOCK_57]
+Header, Cookie, and Query Matching
+To only apply a header when header, cookie, or query values also match the
+[CODE_BLOCK_59]
+field or don't match the
+[CODE_BLOCK_60]
+field can be used. Both the
+[CODE_BLOCK_61]
+and all
+[CODE_BLOCK_62]
+items must match and all
+[CODE_BLOCK_63]
+items must not match for the header to be applied.
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+items can have the following fields:
+[CODE_BLOCK_66]
+[CODE_BLOCK_67]
+- must be either
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+, or
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+- the key from the selected type to match against.
+[CODE_BLOCK_74]
+[CODE_BLOCK_75]
+[CODE_BLOCK_76]
+- the value to check for, if undefined any value will match. A regex like string can be used to capture a specific part of the value, e.g. if the value
+[CODE_BLOCK_77]
+is used for
+[CODE_BLOCK_78]
+then
+[CODE_BLOCK_79]
+will be usable in the destination with
+[CODE_BLOCK_80]
+next.config.js
+[CODE_BLOCK_81]
+Headers with basePath support
+When leveraging
+[CODE_BLOCK_83]
+support
+with headers each
+[CODE_BLOCK_84]
+is automatically prefixed with the
+[CODE_BLOCK_85]
+unless you add
+[CODE_BLOCK_86]
+to the header:
+next.config.js
+[CODE_BLOCK_87]
+Headers with i18n support
+When leveraging
+[CODE_BLOCK_89]
+support
+with headers each
+[CODE_BLOCK_90]
+is automatically prefixed to handle the configured
+[CODE_BLOCK_91]
+unless you add
+[CODE_BLOCK_92]
+to the header. If
+[CODE_BLOCK_93]
+is used you must prefix the
+[CODE_BLOCK_94]
+with a locale for it to be matched correctly.
+next.config.js
+[CODE_BLOCK_95]
+Cache-Control
+Next.js sets the
+[CODE_BLOCK_97]
+header of
+[CODE_BLOCK_98]
+for truly immutable assets. It cannot be overridden. These immutable files contain a SHA-hash in the file name, so they can be safely cached indefinitely. For example,
+Static Image Imports
+. You cannot set
+[CODE_BLOCK_99]
+headers in
+[CODE_BLOCK_100]
+for these assets.
+However, you can set
+[CODE_BLOCK_101]
+headers for other responses or data.
+Learn more about
+caching
+with the App Router.
+Options
+CORS
+Cross-Origin Resource Sharing (CORS)
+is a security feature that allows you to control which sites can access your resources. You can set the
+[CODE_BLOCK_102]
+header to allow a specific origin to access your
+Route Handlers
+[CODE_BLOCK_103]
+X-DNS-Prefetch-Control
+This header
+controls DNS prefetching, allowing browsers to proactively perform domain name resolution on external links, images, CSS, JavaScript, and more. This prefetching is performed in the background, so the
+is more likely to be resolved by the time the referenced items are needed. This reduces latency when the user clicks a link.
+[CODE_BLOCK_105]
+Strict-Transport-Security
+This header
+informs browsers it should only be accessed using HTTPS, instead of using HTTP. Using the configuration below, all present and future subdomains will use HTTPS for a
+[CODE_BLOCK_107]
+of 2 years. This blocks access to pages or subdomains that can only be served over HTTP.
+[CODE_BLOCK_108]
+X-Frame-Options
+This header
+indicates whether the site should be allowed to be displayed within an
+[CODE_BLOCK_110]
+. This can prevent against clickjacking attacks.
+This header has been superseded by CSP's
+[CODE_BLOCK_111]
+option
+, which has better support in modern browsers (see
+Content Security Policy
+for configuration details).
+[CODE_BLOCK_112]
+Permissions-Policy
+This header
+allows you to control which features and APIs can be used in the browser. It was previously named
+[CODE_BLOCK_114]
+[CODE_BLOCK_115]
+X-Content-Type-Options
+This header
+prevents the browser from attempting to guess the type of content if the
+[CODE_BLOCK_117]
+header is not explicitly set. This can prevent XSS exploits for websites that allow users to upload and share files.
+For example, a user trying to download an image, but having it treated as a different
+[CODE_BLOCK_118]
+like an executable, which could be malicious. This header also applies to downloading browser extensions. The only valid value for this header is
+[CODE_BLOCK_119]
+[CODE_BLOCK_120]
+Referrer-Policy
+This header
+controls how much information the browser includes when navigating from the current website (origin) to another.
+[CODE_BLOCK_122]
+Content-Security-Policy
+Learn more about adding a
+Content Security Policy
+to your application.
+Version History
+Version
+Changes
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+added.
+[CODE_BLOCK_126]
+[CODE_BLOCK_127]
+added.
+[CODE_BLOCK_128]
+Headers added.
+Was this helpful?
+supported.
+Send

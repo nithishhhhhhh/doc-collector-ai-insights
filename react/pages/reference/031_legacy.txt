@@ -1,0 +1,24 @@
+URL: https://react.dev/reference/react/legacy
+Section: Reference
+============================================================
+
+# Legacy React APIs
+# Legacy React APIs
+These APIs are exported from the react package, but they are not recommended for use in newly written code. See the linked individual API pages for the suggested alternatives.
+## Legacy APIs
+- Children lets you manipulate and transform the JSX received as the children prop. See alternatives.
+- cloneElement lets you create a React element using another element as a starting point. See alternatives.
+- Component lets you define a React component as a JavaScript class. See alternatives.
+- createElement lets you create a React element. Typically, you’ll use JSX instead.
+- createRef creates a ref object which can contain arbitrary value. See alternatives.
+- forwardRef lets your component expose a DOM node to parent component with a ref.
+- isValidElement checks whether a value is a React element. Typically used with cloneElement.
+- PureComponent is similar to Component, but it skip re-renders with same props. See alternatives.
+## Removed APIs
+These APIs were removed in React 19:
+- createFactory: use JSX instead.
+- Class Components: static contextTypes: use static contextType instead.
+- Class Components: static childContextTypes: use static contextType instead.
+- Class Components: static getChildContext: use Context instead.
+- Class Components: static propTypes: use a type system like TypeScript instead.
+- Class Components: this.refs: use createRef instead.

@@ -1,0 +1,75 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/dynamicIO
+SCRAPED: 2025-06-19 17:42:48
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+dynamicIO
+dynamicIO
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 6 ---
+experimental
+--- END CODE BLOCK ---
+flag is an experimental feature in Next.js that causes data fetching operations in the App Router to be excluded from pre-renders unless they are explicitly cached. This can be useful for optimizing the performance of dynamic data fetching in Server Components.
+It is useful if your application requires fresh data fetching during runtime rather than serving from a pre-rendered cache.
+It is expected to be used in conjunction with
+--- CODE BLOCK 7 ---
+next.config.ts
+--- END CODE BLOCK ---
+so that your data fetching happens at runtime by default unless you define specific parts of your application to be cached with
+--- CODE BLOCK 8 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+at the page, function, or component level.
+Usage
+To enable the
+--- CODE BLOCK 9 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+dynamicIO: true,
+export default nextConfig
+--- END CODE BLOCK ---
+flag, set it to
+[CODE_BLOCK_5]
+in the
+[CODE_BLOCK_6]
+section of your
+[CODE_BLOCK_7]
+file:
+next.config.ts
+[CODE_BLOCK_8]
+When
+[CODE_BLOCK_10]
+is enabled, you can use the following cache functions and configurations:
+[CODE_BLOCK_11]
+directive
+[CODE_BLOCK_12]
+function
+with
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+function
+Notes
+While
+[CODE_BLOCK_15]
+can optimize performance by ensuring fresh data fetching during runtime, it may also introduce additional latency compared to serving pre-rendered content.
+Was this helpful?
+supported.
+Send

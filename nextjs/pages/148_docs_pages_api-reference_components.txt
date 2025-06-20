@@ -1,0 +1,35 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/components
+SCRAPED: 2025-06-19 17:26:34
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+API Reference
+Components
+You are currently viewing the documentation for Pages Router.
+Components
+Font
+API Reference for the Font Module
+Form
+Learn how to use the `<Form>` component to handle form submissions and search params updates with client-side navigation.
+Head
+Add custom elements to the `head` of your page with the built-in Head component.
+Image
+Optimize Images in your Next.js Application using the built-in `next/image` Component.
+Image (Legacy)
+Backwards compatible Image Optimization with the Legacy Image component.
+Link
+API reference for the `<Link>` component.
+Script
+Optimize third-party scripts in your Next.js application using the built-in `next/script` Component.
+Was this helpful?
+supported.
+Send

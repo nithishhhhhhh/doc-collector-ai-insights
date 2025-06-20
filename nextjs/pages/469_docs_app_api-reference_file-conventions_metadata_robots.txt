@@ -1,0 +1,158 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file
+SCRAPED: 2025-06-19 18:04:10
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+File-system conventions
+Metadata Files
+robots.txt
+robots.txt
+Add or generate a
+--- CODE BLOCK 4 ---
+User-Agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://acme.com/sitemap.xml
+--- END CODE BLOCK ---
+file that matches the
+Robots Exclusion Standard
+in the
+root
+--- CODE BLOCK 5 ---
+User-Agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://acme.com/sitemap.xml
+--- END CODE BLOCK ---
+directory to tell search engine crawlers which URLs they can access on your site.
+Static
+--- CODE BLOCK 10 ---
+import type { MetadataRoute } from 'next'
+export default function robots(): MetadataRoute.Robots {
+return {
+rules: {
+userAgent: '*',
+allow: '/',
+disallow: '/private/',
+sitemap: 'https://acme.com/sitemap.xml',
+--- END CODE BLOCK ---
+app/robots.txt
+--- CODE BLOCK 11 ---
+import type { MetadataRoute } from 'next'
+export default function robots(): MetadataRoute.Robots {
+return {
+rules: {
+userAgent: '*',
+allow: '/',
+disallow: '/private/',
+sitemap: 'https://acme.com/sitemap.xml',
+--- END CODE BLOCK ---
+Generate a Robots file
+Add a
+--- CODE BLOCK 13 ---
+User-Agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://acme.com/sitemap.xml
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+import type { MetadataRoute } from 'next'
+export default function robots(): MetadataRoute.Robots {
+return {
+rules: [
+userAgent: 'Googlebot',
+allow: ['/'],
+disallow: '/private/',
+userAgent: ['Applebot', 'Bingbot'],
+disallow: ['/'],
+sitemap: 'https://acme.com/sitemap.xml',
+--- END CODE BLOCK ---
+file that returns a
+--- CODE BLOCK 16 ---
+import type { MetadataRoute } from 'next'
+export default function robots(): MetadataRoute.Robots {
+return {
+rules: [
+userAgent: 'Googlebot',
+allow: ['/'],
+disallow: '/private/',
+userAgent: ['Applebot', 'Bingbot'],
+disallow: ['/'],
+sitemap: 'https://acme.com/sitemap.xml',
+--- END CODE BLOCK ---
+object
+Good to know
+--- CODE BLOCK 17 ---
+User-Agent: Googlebot
+Allow: /
+Disallow: /private/
+User-Agent: Applebot
+Disallow: /
+User-Agent: Bingbot
+Disallow: /
+Sitemap: https://acme.com/sitemap.xml
+--- END CODE BLOCK ---
+is a special Route Handlers that is cached by default unless it uses a
+Dynamic API
+dynamic config
+option.
+app/robots.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 18 ---
+User-Agent: Googlebot
+Allow: /
+Disallow: /private/
+User-Agent: Applebot
+Disallow: /
+User-Agent: Bingbot
+Disallow: /
+Sitemap: https://acme.com/sitemap.xml
+--- END CODE BLOCK ---
+Output:
+--- CODE BLOCK 20 ---
+type Robots = {
+rules:
+userAgent?: string | string[]
+allow?: string | string[]
+disallow?: string | string[]
+crawlDelay?: number
+| Array<{
+userAgent: string | string[]
+allow?: string | string[]
+disallow?: string | string[]
+crawlDelay?: number
+sitemap?: string | string[]
+host?: string
+--- END CODE BLOCK ---
+Customizing specific user agents
+You can customise how individual search engine bots crawl your site by passing an array of user agents to the
+[CODE_BLOCK_14]
+property. For example:
+app/robots.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_15]
+Output:
+[CODE_BLOCK_17]
+Robots object
+[CODE_BLOCK_19]
+Version History
+Version
+Changes
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+introduced.
+Was this helpful?
+supported.
+Send

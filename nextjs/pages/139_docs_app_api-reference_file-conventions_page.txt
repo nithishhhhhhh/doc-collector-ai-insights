@@ -1,0 +1,323 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/page
+SCRAPED: 2025-06-19 17:25:29
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+page.js
+page.js
+--- CODE BLOCK 2 ---
+export default function Page({
+params,
+searchParams,
+}: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+return <h1>My Page</h1>
+--- END CODE BLOCK ---
+file allows you to define UI that is
+unique
+to a route. You can create a page by default exporting a component from the file:
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+export default function Page({
+params,
+searchParams,
+}: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+return <h1>My Page</h1>
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 12 ---
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+app/shop/[slug]/page.js
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 16 ---
+Promise<{ slug: '1' }>
+--- END CODE BLOCK ---
+file extensions can be used for
+--- CODE BLOCK 17 ---
+app/shop/[category]/[item]/page.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+Promise<{ category: '1', item: '2' }>
+--- END CODE BLOCK ---
+is always the
+leaf
+of the route subtree.
+--- CODE BLOCK 20 ---
+app/shop/[...slug]/page.js
+--- END CODE BLOCK ---
+file is required to make a route segment
+publicly accessible
+Pages are
+Server Components
+by default, but can be set to a
+Client Component
+Reference
+Props
+--- CODE BLOCK 22 ---
+Promise<{ slug: ['1', '2'] }>
+--- END CODE BLOCK ---
+(optional)
+A promise that resolves to an object containing the
+dynamic route parameters
+from the root segment down to that page.
+app/shop/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 24 ---
+async/await
+--- END CODE BLOCK ---
+Example Route
+--- CODE BLOCK 28 ---
+export default async function Page({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const filters = (await searchParams).filters
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+export default async function Page({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const filters = (await searchParams).filters
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+Promise<{ a: '1' }>
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+/shop?a=1&b=2
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+Promise<{ a: '1', b: '2' }>
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+/shop?a=1&a=2
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+Promise<{ a: ['1', '2'] }>
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+async/await
+--- END CODE BLOCK ---
+Since the
+--- CODE BLOCK 40 ---
+searchParams
+--- END CODE BLOCK ---
+prop is a promise, you must use
+--- CODE BLOCK 41 ---
+searchParams
+--- END CODE BLOCK ---
+or React's
+--- CODE BLOCK 42 ---
+searchParams
+--- END CODE BLOCK ---
+function to access the values.
+In version 14 and earlier,
+--- CODE BLOCK 43 ---
+URLSearchParams
+--- END CODE BLOCK ---
+was a synchronous prop. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+--- CODE BLOCK 46 ---
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+return <h1>Blog Post: {slug}</h1>
+--- END CODE BLOCK ---
+(optional)
+A promise that resolves to an object containing the
+search parameters
+of the current URL. For example:
+app/shop/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 47 ---
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+return <h1>Blog Post: {slug}</h1>
+--- END CODE BLOCK ---
+Example URL
+--- CODE BLOCK 49 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+export default async function Page({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const { page = '1', sort = 'asc', query = '' } = await searchParams
+return (
+<div>
+<h1>Product Listing</h1>
+<p>Search query: {query}</p>
+<p>Current page: {page}</p>
+<p>Sort order: {sort}</p>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+export default async function Page({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const { page = '1', sort = 'asc', query = '' } = await searchParams
+return (
+<div>
+<h1>Product Listing</h1>
+<p>Search query: {query}</p>
+<p>Current page: {page}</p>
+<p>Sort order: {sort}</p>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+'use client'
+import { use } from 'react'
+export default function Page({
+params,
+searchParams,
+}: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const { slug } = use(params)
+const { query } = use(searchParams)
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+'use client'
+import { use } from 'react'
+export default function Page({
+params,
+searchParams,
+}: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const { slug } = use(params)
+const { query } = use(searchParams)
+--- END CODE BLOCK ---
+Since the
+--- CODE BLOCK 62 ---
+searchParams
+--- END CODE BLOCK ---
+prop is a promise. You must use
+[CODE_BLOCK_38]
+or React's
+[CODE_BLOCK_39]
+function to access the values.
+In version 14 and earlier,
+[CODE_BLOCK_40]
+was a synchronous prop. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+[CODE_BLOCK_41]
+is a
+Dynamic API
+whose values cannot be known ahead of time. Using it will opt the page into
+dynamic rendering
+at request time.
+[CODE_BLOCK_42]
+is a plain JavaScript object, not a
+[CODE_BLOCK_43]
+instance.
+Examples
+Displaying content based on
+[CODE_BLOCK_44]
+Using
+dynamic route segments
+, you can display or fetch specific content for the page based on the
+[CODE_BLOCK_45]
+prop.
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_46]
+Handling filtering with
+[CODE_BLOCK_48]
+You can use the
+[CODE_BLOCK_49]
+prop to handle filtering, pagination, or sorting based on the query string of the URL.
+app/shop/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_50]
+Reading
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+in Client Components
+To use
+[CODE_BLOCK_54]
+[CODE_BLOCK_55]
+in a Client Component (which cannot be
+[CODE_BLOCK_56]
+), you can use React's
+[CODE_BLOCK_57]
+function to read the promise:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_58]
+Version History
+Version
+Changes
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+are now promises. A
+codemod
+is available.
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+introduced.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,27 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/upgrading
+SCRAPED: 2025-06-19 17:51:16
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Upgrading
+Upgrade Guides
+Learn how to upgrade to the latest versions of Next.js following the versions-specific guides:
+Codemods
+Use codemods to upgrade your Next.js codebase when new features are released.
+Version 14
+Upgrade your Next.js Application from Version 13 to 14.
+Version 15
+Upgrade your Next.js Application from Version 14 to 15.
+Was this helpful?
+supported.
+Send

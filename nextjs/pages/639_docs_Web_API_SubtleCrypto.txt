@@ -1,0 +1,293 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/SubtleCrypto
+SCRAPED: 2025-06-19 18:22:15
+================================================================================
+
+Secure context:
+This feature is available only in
+secure contexts
+(HTTPS), in some or all
+supporting browsers
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+interface of the
+Web Crypto API
+provides a number of low-level cryptographic functions.
+The interface name includes the term "subtle" to indicate that many of its algorithms have subtle usage requirements, and hence that it must be used carefully in order to provide suitable security guarantees.
+An instance of
+--- CODE BLOCK 2 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+is available as the
+--- CODE BLOCK 5 ---
+Window.crypto
+--- END CODE BLOCK ---
+property of the
+--- CODE BLOCK 6 ---
+WorkerGlobalScope.crypto
+--- END CODE BLOCK ---
+interface, which in turn is available in windows through the
+--- CODE BLOCK 7 ---
+SubtleCrypto.encrypt()
+--- END CODE BLOCK ---
+property and in workers through the
+--- CODE BLOCK 9 ---
+SubtleCrypto.decrypt()
+--- END CODE BLOCK ---
+property.
+Warning:
+This API provides a number of low-level cryptographic primitives. It's very easy to misuse them, and the pitfalls involved can be very subtle.
+Even assuming you use the basic cryptographic functions correctly, secure key management and overall security system design are extremely hard to get right, and are generally the domain of specialist security experts.
+Errors in security system design and implementation can make the security of the system completely ineffective.
+Please learn and experiment, but don't guarantee or imply the security of your work before an individual knowledgeable in this subject matter thoroughly reviews it. The
+Crypto 101 Course
+can be a great place to start learning about the design and implementation of secure systems.
+Instance properties
+This interface doesn't inherit any properties, as it has no parent interface.
+Instance methods
+This interface doesn't inherit any methods, as it has no parent interface.
+--- CODE BLOCK 11 ---
+SubtleCrypto.sign()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 13 ---
+SubtleCrypto.verify()
+--- END CODE BLOCK ---
+that fulfills with the encrypted data corresponding to the clear text, algorithm, and key given as parameters.
+--- CODE BLOCK 15 ---
+SubtleCrypto.digest()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 17 ---
+SubtleCrypto.generateKey()
+--- END CODE BLOCK ---
+that fulfills with the clear data corresponding to the encrypted text, algorithm, and key given as parameters.
+--- CODE BLOCK 20 ---
+CryptoKeyPair
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 21 ---
+SubtleCrypto.deriveKey()
+--- END CODE BLOCK ---
+that fulfills with the signature corresponding to the text, algorithm, and key given as parameters.
+--- CODE BLOCK 24 ---
+SubtleCrypto.deriveBits()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 26 ---
+SubtleCrypto.importKey()
+--- END CODE BLOCK ---
+that fulfills with a boolean value indicating if the signature given as a parameter matches the text, algorithm, and key that are also given as parameters.
+--- CODE BLOCK 29 ---
+SubtleCrypto.exportKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 31 ---
+SubtleCrypto.wrapKey()
+--- END CODE BLOCK ---
+that fulfills with a digest generated from the algorithm and text given as parameters.
+--- CODE BLOCK 33 ---
+SubtleCrypto.unwrapKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 36 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+that fulfills with a newly-generated
+--- CODE BLOCK 43 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+, for symmetrical algorithms, or a
+--- CODE BLOCK 48 ---
+generateKey()
+--- END CODE BLOCK ---
+, containing two newly generated keys, for asymmetrical algorithms. These will match the algorithm, usages, and extractability given as parameters.
+--- CODE BLOCK 49 ---
+deriveKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 51 ---
+generateKey()
+--- END CODE BLOCK ---
+that fulfills with a newly generated
+--- CODE BLOCK 52 ---
+deriveKey()
+--- END CODE BLOCK ---
+derived from the master key and specific algorithm given as parameters.
+--- CODE BLOCK 53 ---
+deriveKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 55 ---
+exportKey()
+--- END CODE BLOCK ---
+that fulfills with a newly generated buffer of pseudo-random bits derived from the master key and specific algorithm given as parameters.
+--- CODE BLOCK 56 ---
+exportKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 57 ---
+importKey()
+--- END CODE BLOCK ---
+that fulfills with a
+--- CODE BLOCK 58 ---
+exportKey()
+--- END CODE BLOCK ---
+corresponding to the format, the algorithm, raw key data, usages, and extractability given as parameters.
+--- CODE BLOCK 61 ---
+unwrapKey()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 68 ---
+Crypto.subtle
+--- END CODE BLOCK ---
+that fulfills with the raw key data containing the key in the requested format.
+[CODE_BLOCK_31]
+Returns a
+[CODE_BLOCK_32]
+that fulfills with a wrapped symmetric key for usage (transfer and storage) in insecure environments. The wrapped key matches the format specified in the given parameters, and wrapping is done by the given wrapping key, using the specified algorithm.
+[CODE_BLOCK_33]
+Returns a
+[CODE_BLOCK_34]
+that fulfills with a
+[CODE_BLOCK_35]
+corresponding to the wrapped key given in the parameter.
+Using SubtleCrypto
+We can split the functions implemented by this API into two groups: cryptography functions and key management functions.
+Cryptography functions
+These are the functions you can use to implement security features such as privacy and authentication in a system. The
+[CODE_BLOCK_36]
+API provides the following cryptography functions:
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+: create and verify digital signatures.
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+: encrypt and decrypt data.
+[CODE_BLOCK_41]
+: create a fixed-length, collision-resistant digest of some data.
+Key management functions
+Except for
+[CODE_BLOCK_42]
+, all the cryptography functions in the API use cryptographic keys. In the
+[CODE_BLOCK_43]
+API a cryptographic key is represented using a
+[CODE_BLOCK_44]
+object. To perform operations like signing and encrypting, you pass a
+[CODE_BLOCK_45]
+object into the
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+function.
+Generating and deriving keys
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+functions both create a new
+[CODE_BLOCK_50]
+object.
+The difference is that
+[CODE_BLOCK_51]
+will generate a new distinct key value each time you call it, while
+[CODE_BLOCK_52]
+derives a key from some initial keying material. If you provide the same keying material to two separate calls to
+[CODE_BLOCK_53]
+, you will get two
+[CODE_BLOCK_54]
+objects that have the same underlying value. This is useful if, for example, you want to derive an encryption key from a password and later derive the same key from the same password to decrypt the data.
+Importing and exporting keys
+To make keys available outside your app, you need to export the key, and that's what
+[CODE_BLOCK_55]
+is for. You can choose one of a number of export formats.
+The inverse of
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+. You can import keys from other systems, and support for standard formats like
+PKCS #8
+JSON Web Key
+helps you do this. The
+[CODE_BLOCK_58]
+function exports the key in an unencrypted format.
+If the key is sensitive you should use
+[CODE_BLOCK_59]
+, which exports the key and then encrypts it using another key; the API calls a "key-wrapping key".
+The inverse of
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+, which decrypts then imports the key.
+Storing keys
+[CODE_BLOCK_62]
+is a
+serializable object
+, which allows keys to be stored and retrieved using standard web storage APIs.
+The specification expects that most developers will use the
+IndexedDB API
+, storing
+[CODE_BLOCK_63]
+objects against some key string identifier that is meaningful to the application, along with any other metadata it finds useful.
+This allows the storage and retrieval of the
+[CODE_BLOCK_64]
+without having to expose its underlying key material to the application or the JavaScript environment.
+Supported algorithms
+The cryptographic functions provided by the Web Crypto API can be performed by one or more different
+cryptographic algorithms
+: the
+[CODE_BLOCK_65]
+argument to the function indicates which algorithm to use. Some algorithms need extra parameters: in these cases the
+[CODE_BLOCK_66]
+argument is a dictionary object that includes the extra parameters.
+The table below summarizes which algorithms are suitable for which cryptographic operations:
+sign
+verify
+encrypt
+decrypt
+digest
+deriveBits
+deriveKey
+wrapKey
+unwrapKey
+generateKey
+exportKey
+importKey
+RSASSA-PKCS1-v1_5
+RSA-PSS
+ECDSA
+Ed25519
+HMAC
+RSA-OAEP
+AES-CTR
+AES-CBC
+AES-GCM
+AES-KW
+SHA-1
+SHA-256
+SHA-384
+SHA-512
+ECDH
+X25519
+HKDF
+PBKDF2
+Specifications
+Specification
+Web Cryptography Level 2
+subtlecrypto-interface
+Browser compatibility
+See also
+Web Crypto API
+Non-cryptographic uses of SubtleCrypto
+Web security
+Privacy, permissions, and information security
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+Crypto 101
+: an introductory course on cryptography.
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

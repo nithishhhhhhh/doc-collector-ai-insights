@@ -1,0 +1,172 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/next-response
+SCRAPED: 2025-06-19 17:23:34
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+NextResponse
+NextResponse
+NextResponse extends the
+Web Response API
+with additional convenience methods.
+--- CODE BLOCK 3 ---
+set(name, value)
+--- END CODE BLOCK ---
+Read or mutate the
+--- CODE BLOCK 4 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// Set a cookie to hide the banner
+response.cookies.set('show-banner', 'false')
+// Response will have a `Set-Cookie:show-banner=false;path=/home` header
+return response
+--- END CODE BLOCK ---
+header of the response.
+--- CODE BLOCK 5 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// Set a cookie to hide the banner
+response.cookies.set('show-banner', 'false')
+// Response will have a `Set-Cookie:show-banner=false;path=/home` header
+return response
+--- END CODE BLOCK ---
+Given a name, set a cookie with the given value on the response.
+--- CODE BLOCK 8 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// { name: 'show-banner', value: 'false', Path: '/home' }
+response.cookies.get('show-banner')
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// [
+//   { name: 'experiments', value: 'new-pricing-page', Path: '/home' },
+//   { name: 'experiments', value: 'winter-launch', Path: '/home' },
+// ]
+response.cookies.getAll('experiments')
+// Alternatively, get all cookies for the response
+response.cookies.getAll()
+--- END CODE BLOCK ---
+Given a cookie name, return the value of the cookie. If the cookie is not found,
+--- CODE BLOCK 12 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// [
+//   { name: 'experiments', value: 'new-pricing-page', Path: '/home' },
+//   { name: 'experiments', value: 'winter-launch', Path: '/home' },
+// ]
+response.cookies.getAll('experiments')
+// Alternatively, get all cookies for the response
+response.cookies.getAll()
+--- END CODE BLOCK ---
+is returned. If multiple cookies are found, the first one is returned.
+--- CODE BLOCK 13 ---
+delete(name)
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+// Given incoming request /home
+let response = NextResponse.next()
+// Returns true for deleted, false is nothing is deleted
+response.cookies.delete('experiments')
+--- END CODE BLOCK ---
+Given a cookie name, return the values of the cookie. If no name is given, return all cookies on the response.
+--- CODE BLOCK 17 ---
+import { NextResponse } from 'next/server'
+export async function GET(request: Request) {
+return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+import { NextResponse } from 'next/server'
+return NextResponse.redirect(new URL('/new', request.url))
+--- END CODE BLOCK ---
+Given a cookie name, delete the cookie from the response.
+--- CODE BLOCK 21 ---
+import { NextResponse } from 'next/server'
+return NextResponse.redirect(new URL('/new', request.url))
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+request.nextUrl
+--- END CODE BLOCK ---
+Produce a response with the given JSON body.
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 24 ---
+import { NextResponse } from 'next/server'
+// Given an incoming request...
+const loginUrl = new URL('/login', request.url)
+// Add ?from=/incoming-url to the /login URL
+loginUrl.searchParams.set('from', request.nextUrl.pathname)
+// And redirect to the new URL
+return NextResponse.redirect(loginUrl)
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+import { NextResponse } from 'next/server'
+// Incoming request: /about, browser shows /about
+// Rewritten request: /proxy, browser shows /about
+return NextResponse.rewrite(new URL('/proxy', request.url))
+--- END CODE BLOCK ---
+Produce a response that redirects to a
+--- CODE BLOCK 28 ---
+import { NextResponse } from 'next/server'
+// Incoming request: /about, browser shows /about
+// Rewritten request: /proxy, browser shows /about
+return NextResponse.rewrite(new URL('/proxy', request.url))
+--- END CODE BLOCK ---
+can be created and modified before being used in the
+--- CODE BLOCK 32 ---
+import { NextResponse } from 'next/server'
+return NextResponse.next()
+--- END CODE BLOCK ---
+method. For example, you can use the
+--- CODE BLOCK 34 ---
+import { NextResponse } from 'next/server'
+// Given an incoming request...
+const newHeaders = new Headers(request.headers)
+// Add a new header
+newHeaders.set('x-version', '123')
+// And produce a response with the new headers
+return NextResponse.next({
+request: {
+// New request headers
+headers: newHeaders,
+--- END CODE BLOCK ---
+property to get the current URL, and then modify it to redirect to a different URL.
+--- CODE BLOCK 35 ---
+import { NextResponse } from 'next/server'
+// Given an incoming request...
+const newHeaders = new Headers(request.headers)
+// Add a new header
+newHeaders.set('x-version', '123')
+// And produce a response with the new headers
+return NextResponse.next({
+request: {
+// New request headers
+headers: newHeaders,
+--- END CODE BLOCK ---
+[CODE_BLOCK_26]
+Produce a response that rewrites (proxies) the given
+while preserving the original URL.
+[CODE_BLOCK_27]
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+method is useful for Middleware, as it allows you to return early and continue routing.
+[CODE_BLOCK_31]
+You can also forward
+[CODE_BLOCK_33]
+when producing the response:
+[CODE_BLOCK_34]
+Was this helpful?
+supported.
+Send

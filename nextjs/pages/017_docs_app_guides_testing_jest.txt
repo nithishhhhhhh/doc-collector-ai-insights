@@ -1,0 +1,334 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/testing/jest
+SCRAPED: 2025-06-19 17:10:56
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Guides
+Testing
+Jest
+How to set up Jest with Next.js
+Jest and React Testing Library are frequently used together for
+Unit Testing
+Snapshot Testing
+. This guide will show you how to set up Jest with Next.js and write your first tests.
+Good to know:
+Since
+--- CODE BLOCK 3 ---
+create-next-app
+--- END CODE BLOCK ---
+Server Components are new to the React ecosystem, Jest currently does not support them. While you can still run
+unit tests
+for synchronous Server and Client Components, we recommend using an
+E2E tests
+--- CODE BLOCK 4 ---
+npx create-next-app@latest --example with-jest with-jest-app
+--- END CODE BLOCK ---
+components.
+Quickstart
+You can use
+--- CODE BLOCK 5 ---
+npx create-next-app@latest --example with-jest with-jest-app
+--- END CODE BLOCK ---
+with the Next.js
+with-jest
+example to quickly get started:
+Terminal
+--- CODE BLOCK 7 ---
+npm install -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+# or
+yarn add -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+# or
+pnpm install -D jest jest-environment-jsdom @testing-library/react @testing-library/dom @testing-library/jest-dom ts-node @types/jest
+--- END CODE BLOCK ---
+Manual setup
+Since the release of
+Next.js 12
+, Next.js now has built-in configuration for Jest.
+To set up Jest, install
+--- CODE BLOCK 9 ---
+npm init jest@latest
+# or
+yarn create jest@latest
+# or
+pnpm create jest@latest
+--- END CODE BLOCK ---
+and the following packages as dev dependencies:
+Terminal
+--- CODE BLOCK 10 ---
+npm init jest@latest
+# or
+yarn create jest@latest
+# or
+pnpm create jest@latest
+--- END CODE BLOCK ---
+Generate a basic Jest configuration file by running the following command:
+Terminal
+--- CODE BLOCK 13 ---
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
+const createJestConfig = nextJest({
+// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+dir: './',
+// Add any custom config to be passed to Jest
+const config: Config = {
+coverageProvider: 'v8',
+testEnvironment: 'jsdom',
+// Add more setup options before each test is run
+// setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config)
+--- END CODE BLOCK ---
+This will take you through a series of prompts to setup Jest for your project, including automatically creating a
+--- CODE BLOCK 18 ---
+.module.css
+--- END CODE BLOCK ---
+file.
+Update your config file to use
+--- CODE BLOCK 21 ---
+process.env
+--- END CODE BLOCK ---
+. This transformer has all the necessary configuration options for Jest to work with Next.js:
+jest.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 22 ---
+node_modules
+--- END CODE BLOCK ---
+Under the hood,
+--- CODE BLOCK 25 ---
+jest.config.ts
+--- END CODE BLOCK ---
+is automatically configuring Jest for you, including:
+Setting up
+--- CODE BLOCK 26 ---
+jsconfig.json
+--- END CODE BLOCK ---
+using the
+Next.js Compiler
+Auto mocking stylesheets (
+--- CODE BLOCK 27 ---
+moduleNameMapper
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+jest.config.js
+--- END CODE BLOCK ---
+, and their scss variants), image imports and
+--- CODE BLOCK 29 ---
+"compilerOptions": {
+"module": "esnext",
+"moduleResolution": "bundler",
+"baseUrl": "./",
+"paths": {
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+Loading
+--- CODE BLOCK 30 ---
+"compilerOptions": {
+"module": "esnext",
+"moduleResolution": "bundler",
+"baseUrl": "./",
+"paths": {
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+(and all variants) into
+--- CODE BLOCK 31 ---
+moduleNameMapper: {
+// ...
+'^@/components/(.*)$': '<rootDir>/components/$1',
+--- END CODE BLOCK ---
+Ignoring
+--- CODE BLOCK 32 ---
+moduleNameMapper: {
+// ...
+'^@/components/(.*)$': '<rootDir>/components/$1',
+--- END CODE BLOCK ---
+from test resolving and transforms.
+Ignoring
+--- CODE BLOCK 33 ---
+@testing-library/jest-dom
+--- END CODE BLOCK ---
+from test resolving.
+Loading
+--- CODE BLOCK 34 ---
+.toBeInTheDocument()
+--- END CODE BLOCK ---
+for flags that enable SWC transforms.
+Good to know
+: To test environment variables directly, load them manually in a separate setup script or in your
+--- CODE BLOCK 35 ---
+setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+--- END CODE BLOCK ---
+file. For more information, please see
+Test Environment Variables
+Optional: Handling Absolute Imports and Module Path Aliases
+If your project is using
+Module Path Aliases
+, you will need to configure Jest to resolve the imports by matching the paths option in the
+--- CODE BLOCK 36 ---
+setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+--- END CODE BLOCK ---
+file with the
+--- CODE BLOCK 38 ---
+import '@testing-library/jest-dom'
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 39 ---
+import '@testing-library/jest-dom'
+--- END CODE BLOCK ---
+file. For example:
+tsconfig.json or jsconfig.json
+--- CODE BLOCK 40 ---
+extend-expect
+--- END CODE BLOCK ---
+jest.config.js
+--- CODE BLOCK 43 ---
+@testing-library/jest-dom/extend-expect
+--- END CODE BLOCK ---
+Optional: Extend Jest with custom matchers
+--- CODE BLOCK 47 ---
+package.json
+--- END CODE BLOCK ---
+includes a set of convenient
+custom matchers
+such as
+--- CODE BLOCK 48 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"test": "jest",
+"test:watch": "jest --watch"
+--- END CODE BLOCK ---
+making it easier to write tests. You can import the custom matchers for every test by adding the following option to the Jest configuration file:
+jest.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 49 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"test": "jest",
+"test:watch": "jest --watch"
+--- END CODE BLOCK ---
+Then, inside
+--- CODE BLOCK 53 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<div>
+<h1>Home</h1>
+<Link href="/about">About</Link>
+</div>
+--- END CODE BLOCK ---
+, add the following import:
+jest.setup.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 54 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<div>
+<h1>Home</h1>
+<Link href="/about">About</Link>
+</div>
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 56 ---
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import Page from '../app/page'
+describe('Page', () => {
+it('renders a heading', () => {
+render(<Page />)
+const heading = screen.getByRole('heading', { level: 1 })
+expect(heading).toBeInTheDocument()
+--- END CODE BLOCK ---
+was removed in
+--- CODE BLOCK 57 ---
+import { render } from '@testing-library/react'
+import Page from '../app/page'
+it('renders homepage unchanged', () => {
+const { container } = render(<Page />)
+expect(container).toMatchSnapshot()
+--- END CODE BLOCK ---
+, so if you are using
+--- CODE BLOCK 58 ---
+import { render } from '@testing-library/react'
+import Page from '../app/page'
+it('renders homepage unchanged', () => {
+const { container } = render(<Page />)
+expect(container).toMatchSnapshot()
+--- END CODE BLOCK ---
+before version 6, you will need to import
+--- CODE BLOCK 59 ---
+npm run test
+# or
+yarn test
+# or
+pnpm test
+--- END CODE BLOCK ---
+instead.
+If you need to add more setup options before each test, you can add them to the
+--- CODE BLOCK 60 ---
+npm run test
+# or
+yarn test
+# or
+pnpm test
+--- END CODE BLOCK ---
+file above.
+Add a test script to
+[CODE_BLOCK_45]
+Finally, add a Jest
+[CODE_BLOCK_46]
+script to your
+[CODE_BLOCK_47]
+file:
+package.json
+[CODE_BLOCK_48]
+[CODE_BLOCK_50]
+will re-run tests when a file is changed. For more Jest CLI options, please refer to the
+Jest Docs
+Creating your first test
+Your project is now ready to run tests. Create a folder called
+[CODE_BLOCK_51]
+in your project's root directory.
+For example, we can add a test to check if the
+[CODE_BLOCK_52]
+component successfully renders a heading:
+app/page.js
+[CODE_BLOCK_53]
+__tests__/page.test.jsx
+[CODE_BLOCK_55]
+Optionally, add a
+snapshot test
+to keep track of any unexpected changes in your component:
+__tests__/snapshot.js
+[CODE_BLOCK_57]
+Running your tests
+Then, run the following command to run your tests:
+Terminal
+[CODE_BLOCK_59]
+Additional Resources
+For further reading, you may find these resources helpful:
+Next.js with Jest example
+Jest Docs
+React Testing Library Docs
+Testing Playground
+- use good testing practices to match elements.
+Was this helpful?
+supported.
+Send

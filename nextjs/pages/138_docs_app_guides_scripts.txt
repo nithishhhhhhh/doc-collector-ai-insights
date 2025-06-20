@@ -1,0 +1,265 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/scripts
+SCRAPED: 2025-06-19 17:25:22
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Scripts
+How to load and optimize scripts
+Layout Scripts
+To load a third-party script for multiple routes, import
+--- CODE BLOCK 1 ---
+next/script
+--- END CODE BLOCK ---
+and include the script directly in your layout component:
+app/dashboard/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+import Script from 'next/script'
+export default function DashboardLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<section>{children}</section>
+<Script src="https://example.com/script.js" />
+--- END CODE BLOCK ---
+The third-party script is fetched when the folder route (e.g.
+--- CODE BLOCK 4 ---
+dashboard/page.js
+--- END CODE BLOCK ---
+) or any nested route (e.g.
+--- CODE BLOCK 5 ---
+dashboard/settings/page.js
+--- END CODE BLOCK ---
+) is accessed by the user. Next.js will ensure the script will
+only load once
+, even if a user navigates between multiple routes in the same layout.
+Application Scripts
+To load a third-party script for all routes, import
+--- CODE BLOCK 6 ---
+next/script
+--- END CODE BLOCK ---
+and include the script directly in your root layout:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+import Script from 'next/script'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>{children}</body>
+<Script src="https://example.com/script.js" />
+</html>
+--- END CODE BLOCK ---
+This script will load and execute when
+route in your application is accessed. Next.js will ensure the script will
+only load once
+, even if a user navigates between multiple pages.
+Recommendation
+: We recommend only including third-party scripts in specific pages or layouts in order to minimize any unnecessary impact to performance.
+Strategy
+Although the default behavior of
+--- CODE BLOCK 9 ---
+next/script
+--- END CODE BLOCK ---
+allows you to load third-party scripts in any page or layout, you can fine-tune its loading behavior by using the
+--- CODE BLOCK 11 ---
+beforeInteractive
+--- END CODE BLOCK ---
+property:
+--- CODE BLOCK 12 ---
+afterInteractive
+--- END CODE BLOCK ---
+: Load the script before any Next.js code and before any page hydration occurs.
+--- CODE BLOCK 15 ---
+next/script
+--- END CODE BLOCK ---
+default
+) Load the script early but after some hydration on the page occurs.
+--- CODE BLOCK 18 ---
+nextScriptWorkers
+--- END CODE BLOCK ---
+: Load the script later during browser idle time.
+--- CODE BLOCK 19 ---
+next.config.js
+--- END CODE BLOCK ---
+: (experimental) Load the script in a web worker.
+Refer to the
+--- CODE BLOCK 20 ---
+module.exports = {
+experimental: {
+nextScriptWorkers: true,
+--- END CODE BLOCK ---
+API reference documentation to learn more about each strategy and their use cases.
+Offloading Scripts To A Web Worker (experimental)
+Warning:
+--- CODE BLOCK 21 ---
+module.exports = {
+experimental: {
+nextScriptWorkers: true,
+--- END CODE BLOCK ---
+strategy is not yet stable and does not yet work with the App Router. Use with caution.
+Scripts that use the
+--- CODE BLOCK 23 ---
+npm run dev
+--- END CODE BLOCK ---
+strategy are offloaded and executed in a web worker with
+Partytown
+. This can improve the performance of your site by dedicating the main thread to the rest of your application code.
+This strategy is still experimental and can only be used if the
+--- CODE BLOCK 25 ---
+npm run dev
+--- END CODE BLOCK ---
+flag is enabled in
+--- CODE BLOCK 26 ---
+npm run dev
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 27 ---
+npm install @builder.io/partytown
+--- END CODE BLOCK ---
+Then, run
+--- CODE BLOCK 29 ---
+import Script from 'next/script'
+export default function Home() {
+return (
+<Script src="https://example.com/script.js" strategy="worker" />
+--- END CODE BLOCK ---
+(normally
+--- CODE BLOCK 30 ---
+import Script from 'next/script'
+export default function Home() {
+return (
+<Script src="https://example.com/script.js" strategy="worker" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+<Script id="show-banner">
+{`document.getElementById('banner').classList.remove('hidden')`}
+</Script>
+--- END CODE BLOCK ---
+) and Next.js will guide you through the installation of the required packages to finish the setup:
+Terminal
+--- CODE BLOCK 32 ---
+<Script id="show-banner">
+{`document.getElementById('banner').classList.remove('hidden')`}
+</Script>
+--- END CODE BLOCK ---
+You'll see instructions like these: Please install Partytown by running
+--- CODE BLOCK 34 ---
+<Script
+id="show-banner"
+dangerouslySetInnerHTML={{
+__html: `document.getElementById('banner').classList.remove('hidden')`,
+--- END CODE BLOCK ---
+Once setup is complete, defining
+--- CODE BLOCK 35 ---
+<Script
+id="show-banner"
+dangerouslySetInnerHTML={{
+__html: `document.getElementById('banner').classList.remove('hidden')`,
+--- END CODE BLOCK ---
+will automatically instantiate Partytown in your application and offload the script to a web worker.
+pages/home.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 40 ---
+next/script
+--- END CODE BLOCK ---
+There are a number of trade-offs that need to be considered when loading a third-party script in a web worker. Please see Partytown's
+tradeoffs
+documentation for more information.
+Inline Scripts
+Inline scripts, or scripts not loaded from an external file, are also supported by the Script component. They can be written by placing the JavaScript within curly braces:
+--- CODE BLOCK 42 ---
+'use client'
+import Script from 'next/script'
+export default function Page() {
+return (
+<Script
+src="https://example.com/script.js"
+onLoad={() => {
+console.log('Script has loaded')
+--- END CODE BLOCK ---
+Or by using the
+--- CODE BLOCK 44 ---
+next/script
+--- END CODE BLOCK ---
+property:
+--- CODE BLOCK 48 ---
+import Script from 'next/script'
+export default function Page() {
+return (
+<Script
+src="https://example.com/script.js"
+id="example-script"
+nonce="XUENAJFW"
+data-test="script"
+--- END CODE BLOCK ---
+Warning
+: An
+[CODE_BLOCK_36]
+property must be assigned for inline scripts in order for Next.js to track and optimize the script.
+Executing Additional Code
+Event handlers can be used with the Script component to execute additional code after a certain event occurs:
+[CODE_BLOCK_37]
+: Execute code after the script has finished loading.
+[CODE_BLOCK_38]
+: Execute code after the script has finished loading and every time the component is mounted.
+[CODE_BLOCK_39]
+: Execute code if the script fails to load.
+These handlers will only work when
+[CODE_BLOCK_40]
+is imported and used inside of a
+Client Component
+where
+[CODE_BLOCK_41]
+is defined as the first line of code:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_42]
+Refer to the
+[CODE_BLOCK_44]
+API reference to learn more about each event handler and view examples.
+Additional Attributes
+There are many DOM attributes that can be assigned to a
+[CODE_BLOCK_45]
+element that are not used by the Script component, like
+[CODE_BLOCK_46]
+custom data attributes
+. Including any additional attributes will automatically forward it to the final, optimized
+[CODE_BLOCK_47]
+element that is included in the HTML.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_48]
+API Reference
+Learn more about the next/script API.
+Script Component
+Optimize third-party scripts in your Next.js application using the built-in `next/script` Component.
+Was this helpful?
+supported.
+Send

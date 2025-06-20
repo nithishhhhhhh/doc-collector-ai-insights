@@ -1,0 +1,66 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/forbidden
+SCRAPED: 2025-06-19 17:34:54
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+forbidden.js
+forbidden.js
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+forbidden
+file is used to render UI when the
+--- CODE BLOCK 3 ---
+import Link from 'next/link'
+export default function Forbidden() {
+return (
+<div>
+<h2>Forbidden</h2>
+<p>You are not authorized to access this resource.</p>
+<Link href="/">Return Home</Link>
+</div>
+--- END CODE BLOCK ---
+function is invoked during authentication. Along with allowing you to customize the UI, Next.js will return a
+--- CODE BLOCK 4 ---
+import Link from 'next/link'
+export default function Forbidden() {
+return (
+<div>
+<h2>Forbidden</h2>
+<p>You are not authorized to access this resource.</p>
+<Link href="/">Return Home</Link>
+</div>
+--- END CODE BLOCK ---
+status code.
+app/forbidden.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 5 ---
+forbidden.js
+--- END CODE BLOCK ---
+Reference
+Props
+[CODE_BLOCK_5]
+components do not accept any props.
+Version History
+Version
+Changes
+[CODE_BLOCK_6]
+[CODE_BLOCK_7]
+introduced.
+Next Steps
+forbidden
+API Reference for the forbidden function.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,679 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/setTimeout
+SCRAPED: 2025-06-19 18:23:00
+================================================================================
+
+--- CODE BLOCK 1 ---
+setTimeout()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+setTimeout(code)
+setTimeout(code, delay)
+setTimeout(functionRef)
+setTimeout(functionRef, delay)
+setTimeout(functionRef, delay, param1)
+setTimeout(functionRef, delay, param1, param2)
+setTimeout(functionRef, delay, param1, param2, /* …, */ paramN)
+--- END CODE BLOCK ---
+interface sets a timer which executes a function or specified piece of code once the timer expires.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+setTimeout(code)
+setTimeout(code, delay)
+setTimeout(functionRef)
+setTimeout(functionRef, delay)
+setTimeout(functionRef, delay, param1)
+setTimeout(functionRef, delay, param1, param2)
+setTimeout(functionRef, delay, param1, param2, /* …, */ paramN)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 12 ---
+functionRef
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+setTimeout()
+--- END CODE BLOCK ---
+to be executed after the timer expires.
+--- CODE BLOCK 14 ---
+clearTimeout()
+--- END CODE BLOCK ---
+An alternative syntax that allows you to include a string instead of a function,
+which is compiled and executed when the timer expires. This syntax is
+recommended
+for the same reasons that make using
+--- CODE BLOCK 15 ---
+Window.clearTimeout()
+--- END CODE BLOCK ---
+a security risk.
+--- CODE BLOCK 16 ---
+setInterval()
+--- END CODE BLOCK ---
+Optional
+The time, in milliseconds that the timer should wait before
+the specified function or code is executed. If this parameter is omitted, a value of 0
+is used, meaning execute "immediately", or more accurately, the next event cycle.
+Note that in either case, the actual delay may be longer than intended; see
+Reasons for delays longer than specified
+below.
+Also note that if the value isn't a number, implicit
+type coercion
+is silently done on the value to convert it to a number — which can lead to unexpected and surprising results; see
+Non-number delay values are silently coerced into numbers
+for an example.
+--- CODE BLOCK 17 ---
+setTimeout()
+--- END CODE BLOCK ---
+, …,
+--- CODE BLOCK 21 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, "1000");
+--- END CODE BLOCK ---
+Optional
+Additional arguments which are passed through to the function specified by
+--- CODE BLOCK 22 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, "1000");
+--- END CODE BLOCK ---
+Return value
+--- CODE BLOCK 25 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, "1 second");
+--- END CODE BLOCK ---
+method returns a positive integer (typically within the range of 1 to 2,147,483,647) that uniquely identifies the timer created by the call. This identifier, often referred to as a "timeout ID", can be passed to
+--- CODE BLOCK 26 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, "1 second");
+--- END CODE BLOCK ---
+to cancel the timer.
+Within the same global environment (e.g., a specific window or worker) the timeout ID is guaranteed not to be reused for any new timer as long as the original timer remains active. However, separate global environments maintain their own independent pools of timer IDs.
+Description
+Timeouts are cancelled using
+--- CODE BLOCK 27 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, 1000);
+--- END CODE BLOCK ---
+To call a function repeatedly (e.g., every
+milliseconds), consider using
+--- CODE BLOCK 28 ---
+setTimeout(() => {
+console.log("Delayed for 1 second.");
+}, 1000);
+--- END CODE BLOCK ---
+Non-number delay values are silently coerced into numbers
+--- CODE BLOCK 29 ---
+setTimeout()
+--- END CODE BLOCK ---
+is called with
+delay
+value that's not a number, implicit
+type coercion
+is silently done on the value to convert it to a number. For example, the following code incorrectly uses the string
+--- CODE BLOCK 30 ---
+setTimeout()
+--- END CODE BLOCK ---
+for the
+delay
+value, rather than the number
+--- CODE BLOCK 31 ---
+setTimeout(() => {
+console.log("this is the first message");
+}, 5000);
+setTimeout(() => {
+console.log("this is the second message");
+}, 3000);
+setTimeout(() => {
+console.log("this is the third message");
+}, 1000);
+// Output:
+// this is the third message
+// this is the second message
+// this is the first message
+--- END CODE BLOCK ---
+– but it nevertheless works, because when the code runs, the string is coerced into the number
+--- CODE BLOCK 32 ---
+setTimeout(() => {
+console.log("this is the first message");
+}, 5000);
+setTimeout(() => {
+console.log("this is the second message");
+}, 3000);
+setTimeout(() => {
+console.log("this is the third message");
+}, 1000);
+// Output:
+// this is the third message
+// this is the second message
+// this is the first message
+--- END CODE BLOCK ---
+, and so the code executes 1 second later.
+Copy to Clipboard
+--- CODE BLOCK 33 ---
+setTimeout()
+--- END CODE BLOCK ---
+But in many cases, the implicit type coercion can lead to unexpected and surprising results. For example, when the following code runs, the string
+--- CODE BLOCK 44 ---
+const myArray = ["zero", "one", "two"];
+myArray.myMethod = function (sProperty) {
+console.log(arguments.length > 0 ? this[sProperty] : this);
+myArray.myMethod(); // prints "zero,one,two"
+myArray.myMethod(1); // prints "one"
+--- END CODE BLOCK ---
+ultimately gets coerced into the number
+--- CODE BLOCK 45 ---
+const myArray = ["zero", "one", "two"];
+myArray.myMethod = function (sProperty) {
+console.log(arguments.length > 0 ? this[sProperty] : this);
+myArray.myMethod(); // prints "zero,one,two"
+myArray.myMethod(1); // prints "one"
+--- END CODE BLOCK ---
+— and so, the code executes immediately, with zero delay.
+Copy to Clipboard
+--- CODE BLOCK 49 ---
+this[sProperty]
+--- END CODE BLOCK ---
+Therefore, don't use strings for the
+delay
+value but instead always use numbers:
+Copy to Clipboard
+--- CODE BLOCK 51 ---
+setTimeout(myArray.myMethod, 1.0 * 1000); // prints "[object Window]" after 1 second
+setTimeout(myArray.myMethod, 1.5 * 1000, "1"); // prints "undefined" after 1.5 seconds
+--- END CODE BLOCK ---
+Working with asynchronous functions
+--- CODE BLOCK 53 ---
+myArray.myMethod
+--- END CODE BLOCK ---
+is an asynchronous function, meaning that the timer function will not pause execution of other functions in the functions stack.
+In other words, you cannot use
+--- CODE BLOCK 63 ---
+setTimeout.call(myArray, myArray.myMethod, 2.0 * 1000); // error
+setTimeout.call(myArray, myArray.myMethod, 2.5 * 1000, 2); // same error
+--- END CODE BLOCK ---
+to create a "pause" before the next function in the function stack fires.
+See the following example:
+Copy to Clipboard
+--- CODE BLOCK 64 ---
+setTimeout.call(myArray, myArray.myMethod, 2.0 * 1000); // error
+setTimeout.call(myArray, myArray.myMethod, 2.5 * 1000, 2); // same error
+--- END CODE BLOCK ---
+Notice that the first function does not create a 5-second "pause" before calling the second function. Instead, the first function is called, but waits 5 seconds to
+execute. While the first function is waiting to execute, the second function is called, and a 3-second wait is applied to the second function before it executes. Since neither
+the first nor the second function's timers have completed, the third function is called and completes its execution first. Then the second follows. Then finally the first function
+is executed after its timer finally completes.
+To create a progression in which one function only fires after the completion of another function, see the documentation on
+Promises
+The "this" problem
+When you pass a method to
+--- CODE BLOCK 67 ---
+setTimeout(function () {
+myArray.myMethod();
+}, 2.0 * 1000); // prints "zero,one,two" after 2 seconds
+setTimeout(function () {
+myArray.myMethod("1");
+}, 2.5 * 1000); // prints "one" after 2.5 seconds
+--- END CODE BLOCK ---
+, it will be invoked with a
+--- CODE BLOCK 68 ---
+setTimeout(() => {
+myArray.myMethod();
+}, 2.0 * 1000); // prints "zero,one,two" after 2 seconds
+setTimeout(() => {
+myArray.myMethod("1");
+}, 2.5 * 1000); // prints "one" after 2.5 seconds
+--- END CODE BLOCK ---
+value that may differ from your
+expectation. The general issue is explained in detail in the
+JavaScript reference
+Code executed by
+--- CODE BLOCK 69 ---
+setTimeout(() => {
+myArray.myMethod();
+}, 2.0 * 1000); // prints "zero,one,two" after 2 seconds
+setTimeout(() => {
+myArray.myMethod("1");
+}, 2.5 * 1000); // prints "one" after 2.5 seconds
+--- END CODE BLOCK ---
+is called from an execution context separate
+from the function from which
+--- CODE BLOCK 72 ---
+const myArray = ["zero", "one", "two"];
+const myBoundMethod = function (sProperty) {
+console.log(arguments.length > 0 ? this[sProperty] : this);
+}.bind(myArray);
+myBoundMethod(); // prints "zero,one,two" because 'this' is bound to myArray in the function
+myBoundMethod(1); // prints "one"
+setTimeout(myBoundMethod, 1.0 * 1000); // still prints "zero,one,two" after 1 second because of the binding
+setTimeout(myBoundMethod, 1.5 * 1000, "1"); // prints "one" after 1.5 seconds
+--- END CODE BLOCK ---
+was called. The usual rules for
+setting the
+--- CODE BLOCK 73 ---
+const myArray = ["zero", "one", "two"];
+const myBoundMethod = function (sProperty) {
+console.log(arguments.length > 0 ? this[sProperty] : this);
+}.bind(myArray);
+myBoundMethod(); // prints "zero,one,two" because 'this' is bound to myArray in the function
+myBoundMethod(1); // prints "one"
+setTimeout(myBoundMethod, 1.0 * 1000); // still prints "zero,one,two" after 1 second because of the binding
+setTimeout(myBoundMethod, 1.5 * 1000, "1"); // prints "one" after 1.5 seconds
+--- END CODE BLOCK ---
+keyword for the called function apply, and if you have not
+--- CODE BLOCK 74 ---
+setTimeout()
+--- END CODE BLOCK ---
+in the call or with
+--- CODE BLOCK 76 ---
+// Don't do this
+setTimeout("console.log('Hello World!');", 500);
+--- END CODE BLOCK ---
+, it will default to
+--- CODE BLOCK 77 ---
+// Don't do this
+setTimeout("console.log('Hello World!');", 500);
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+// Do this instead
+setTimeout(() => {
+console.log("Hello World!");
+}, 500);
+--- END CODE BLOCK ---
+) object, even in
+strict mode
+. It will not be the same as the
+--- CODE BLOCK 79 ---
+// Do this instead
+setTimeout(() => {
+console.log("Hello World!");
+}, 500);
+--- END CODE BLOCK ---
+value for the function that called
+--- CODE BLOCK 80 ---
+setTimeout()
+--- END CODE BLOCK ---
+See the following example:
+Copy to Clipboard
+--- CODE BLOCK 81 ---
+setTimeout()
+--- END CODE BLOCK ---
+The above works because when
+--- CODE BLOCK 86 ---
+<button id="run">Run</button>
+<table>
+<thead>
+<tr>
+<th>Previous</th>
+<th>This</th>
+<th>Actual delay</th>
+</tr>
+</thead>
+<tbody id="log"></tbody>
+</table>
+--- END CODE BLOCK ---
+is called, its
+--- CODE BLOCK 87 ---
+let last = 0;
+let iterations = 10;
+function timeout() {
+// log the time of this call
+log(new Date().getMilliseconds());
+// if we are not finished, schedule the next call
+if (iterations-- > 0) {
+setTimeout(timeout, 0);
+function run() {
+// clear the log
+const log = document.querySelector("#log");
+while (log.lastElementChild) {
+log.removeChild(log.lastElementChild);
+// initialize iteration count and the starting timestamp
+iterations = 10;
+last = new Date().getMilliseconds();
+// start timer
+setTimeout(timeout, 0);
+function log(now) {
+// log the last timestamp, the new timestamp, and the difference
+const tableBody = document.getElementById("log");
+const logRow = tableBody.insertRow();
+logRow.insertCell().textContent = last;
+logRow.insertCell().textContent = now;
+logRow.insertCell().textContent = now - last;
+last = now;
+document.querySelector("#run").addEventListener("click", run);
+--- END CODE BLOCK ---
+set to
+--- CODE BLOCK 88 ---
+let last = 0;
+let iterations = 10;
+function timeout() {
+// log the time of this call
+log(new Date().getMilliseconds());
+// if we are not finished, schedule the next call
+if (iterations-- > 0) {
+setTimeout(timeout, 0);
+function run() {
+// clear the log
+const log = document.querySelector("#log");
+while (log.lastElementChild) {
+log.removeChild(log.lastElementChild);
+// initialize iteration count and the starting timestamp
+iterations = 10;
+last = new Date().getMilliseconds();
+// start timer
+setTimeout(timeout, 0);
+function log(now) {
+// log the last timestamp, the new timestamp, and the difference
+const tableBody = document.getElementById("log");
+const logRow = tableBody.insertRow();
+logRow.insertCell().textContent = last;
+logRow.insertCell().textContent = now;
+logRow.insertCell().textContent = now - last;
+last = now;
+document.querySelector("#run").addEventListener("click", run);
+--- END CODE BLOCK ---
+by the call, so within the function,
+--- CODE BLOCK 89 ---
+font-family: monospace;
+td {
+padding: 0 10px 0 10px;
+text-align: center;
+border: 1px solid;
+table {
+border-collapse: collapse;
+margin-top: 10px;
+--- END CODE BLOCK ---
+is equivalent to
+--- CODE BLOCK 90 ---
+font-family: monospace;
+td {
+padding: 0 10px 0 10px;
+text-align: center;
+border: 1px solid;
+table {
+border-collapse: collapse;
+margin-top: 10px;
+--- END CODE BLOCK ---
+. However,
+in the following:
+Copy to Clipboard
+--- CODE BLOCK 91 ---
+AudioContext
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+setTimeout()
+--- END CODE BLOCK ---
+function is passed to
+--- CODE BLOCK 94 ---
+function foo() {
+console.log("foo has been called");
+setTimeout(foo, 0);
+console.log("After setTimeout");
+--- END CODE BLOCK ---
+, then
+when it's called, its
+--- CODE BLOCK 95 ---
+function foo() {
+console.log("foo has been called");
+setTimeout(foo, 0);
+console.log("After setTimeout");
+--- END CODE BLOCK ---
+is not set, so it defaults to the
+--- CODE BLOCK 96 ---
+After setTimeout
+foo has been called
+--- END CODE BLOCK ---
+object.
+There's also no option to pass a
+--- CODE BLOCK 98 ---
+setTimeout()
+--- END CODE BLOCK ---
+--- CODE BLOCK 99 ---
+Window.requestIdleCallback()
+--- END CODE BLOCK ---
+as there is in Array methods such as
+--- CODE BLOCK 100 ---
+setTimeout()
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+setTimeout(() => console.log("hi!"), 2 ** 32 - 5000);
+--- END CODE BLOCK ---
+. As shown below,
+using
+--- CODE BLOCK 103 ---
+setTimeout(() => console.log("hi!"), 2 ** 32 - 5000);
+--- END CODE BLOCK ---
+to set
+--- CODE BLOCK 104 ---
+2**32 - 5000
+--- END CODE BLOCK ---
+doesn't work either.
+Copy to Clipboard
+--- CODE BLOCK 105 ---
+setTimeout(() => console.log("hi!"), 2 ** 32 + 5000);
+--- END CODE BLOCK ---
+Solutions
+Use a wrapper function
+A common way to solve the problem is to use a wrapper function that sets
+--- CODE BLOCK 108 ---
+setTimeout()
+--- END CODE BLOCK ---
+to the required value:
+Copy to Clipboard
+--- CODE BLOCK 109 ---
+clearTimeout()
+--- END CODE BLOCK ---
+The wrapper function can be an arrow function:
+Copy to Clipboard
+--- CODE BLOCK 111 ---
+<button onclick="delayedMessage();">Show a message after two seconds</button>
+<button onclick="clearMessage();">Cancel message before it happens</button>
+<div id="output"></div>
+--- END CODE BLOCK ---
+Use bind()
+Alternatively, you can use
+--- CODE BLOCK 113 ---
+let timeoutID;
+function setOutput(outputContent) {
+document.querySelector("#output").textContent = outputContent;
+function delayedMessage() {
+setOutput("");
+timeoutID = setTimeout(setOutput, 2 * 1000, "That was really slow!");
+function clearMessage() {
+clearTimeout(timeoutID);
+--- END CODE BLOCK ---
+to set the value of
+--- CODE BLOCK 114 ---
+let timeoutID;
+function setOutput(outputContent) {
+document.querySelector("#output").textContent = outputContent;
+function delayedMessage() {
+setOutput("");
+timeoutID = setTimeout(setOutput, 2 * 1000, "That was really slow!");
+function clearMessage() {
+clearTimeout(timeoutID);
+--- END CODE BLOCK ---
+for all calls to a given function:
+Copy to Clipboard
+--- CODE BLOCK 115 ---
+#output {
+padding: 0.5rem 0;
+--- END CODE BLOCK ---
+Passing string literals
+Passing a string instead of a function to
+--- CODE BLOCK 117 ---
+clearTimeout()
+--- END CODE BLOCK ---
+has the same problems as using
+--- CODE BLOCK 120 ---
+Window.clearTimeout()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 121 ---
+WorkerGlobalScope.setTimeout()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 123 ---
+Window.requestAnimationFrame()
+--- END CODE BLOCK ---
+A string passed to
+[CODE_BLOCK_80]
+is evaluated in the global context, so local symbols in the context where
+[CODE_BLOCK_81]
+was called will not be available when the string is evaluated as code.
+Reasons for delays longer than specified
+There are a number of reasons why a timeout may take longer to fire than anticipated.
+This section describes the most common reasons.
+Nested timeouts
+As specified in the
+HTML standard
+browsers will enforce a minimum timeout of 4 milliseconds once a nested call to
+[CODE_BLOCK_82]
+has been scheduled 5 times.
+This can be seen in the following example, in which we nest a call to
+[CODE_BLOCK_83]
+with a delay of
+[CODE_BLOCK_84]
+milliseconds,
+and log the delay each time the handler is called. The first four times, the delay is approximately 0 milliseconds, and after that it is
+approximately 4 milliseconds:
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_85]
+Copy to Clipboard
+play
+[CODE_BLOCK_87]
+[CODE_BLOCK_89]
+play
+Timeouts in inactive tabs
+To reduce the load (and associated battery usage) from background tabs, browsers will enforce
+a minimum timeout delay in inactive tabs. It may also be waived if a page is playing sound
+using a Web Audio API
+[CODE_BLOCK_91]
+The specifics of this are browser-dependent:
+Firefox Desktop has a minimum timeout of 1 second for inactive tabs.
+Firefox for Android has a minimum timeout of 15 minutes for inactive tabs and may unload them entirely.
+Firefox does not throttle inactive tabs if the tab contains an
+[CODE_BLOCK_92]
+Chrome uses different levels of throttling depending on the tab activity:
+Minimal throttling
+: Applies to timers when the page is visible, has made sound recently, or is otherwise considered active by Chrome. Timers run close to the requested interval.
+Throttling
+: Applies to timers when minimal throttle conditions are not met and any of these conditions are true:
+Nesting count (i.e., number of chained timer calls) is lower than 5.
+Page has been invisible for less than 5 minutes.
+WebRTC is active.
+Timers in this state are checked once per second, which may be batched together with other timers that have similar timeouts.
+Intensive throttling
+: Introduced in Chrome 88 (January 2021). Applies to timers when neither minimal throttling nor throttling conditions are met, and all of the following conditions are met:
+Nesting count is 5 or higher.
+Page has been invisible for more than 5 minutes.
+Page has been silent for more than 30 seconds.
+WebRTC is inactive.
+Timers in this state are checked once per minute, which may be batched together with other timers that have similar timeouts.
+Throttling of tracking scripts
+Firefox enforces additional throttling for scripts that it recognizes as tracking scripts.
+When running in the foreground, the throttling minimum delay is still 4ms. In background tabs, however,
+the throttling minimum delay is 10,000 ms, or 10 seconds, which comes into effect 30 seconds after a
+document has first loaded.
+Tracking Protection
+more details.
+Late timeouts
+The timeout can also fire later than expected if the page (or the OS/browser) is busy with other tasks.
+One important case to note is that the function or code snippet cannot be executed until
+the thread that called
+[CODE_BLOCK_93]
+has terminated. For example:
+Copy to Clipboard
+[CODE_BLOCK_94]
+Will write to the console:
+[CODE_BLOCK_96]
+This is because even though
+[CODE_BLOCK_97]
+was called with a delay of zero,
+it's placed on a queue and scheduled to run at the next opportunity; not immediately.
+Currently-executing code must complete before functions on the queue are executed, thus
+the resulting execution order may not be as expected.
+Deferral of timeouts during pageload
+Firefox will defer firing
+[CODE_BLOCK_98]
+timers
+while the current tab is loading. Firing is deferred until the main thread is deemed
+idle (similar to
+[CODE_BLOCK_99]
+or until the load event is fired.
+WebExtension background pages and timers
+WebExtensions
+[CODE_BLOCK_100]
+does not work reliably. Extension authors should use the
+[CODE_BLOCK_101]
+API instead.
+Maximum delay value
+Browsers store the delay as a 32-bit signed integer internally. This causes an integer
+overflow when using delays larger than 2,147,483,647 ms (about 24.8 days). So for example, this code:
+Copy to Clipboard
+[CODE_BLOCK_102]
+…results in the timeout being executed immediately (since
+[CODE_BLOCK_104]
+overflows to a negative number), while the following code:
+Copy to Clipboard
+[CODE_BLOCK_105]
+…results in the timeout being executed after approximately 5 seconds.
+Note
+: That doesn't match
+[CODE_BLOCK_107]
+behavior in Node.js, where any timeout larger than 2,147,483,647 ms
+results in an immediate execution.
+Examples
+Setting and clearing timeouts
+The following example sets up two simple buttons in a web page and hooks them to the
+[CODE_BLOCK_108]
+[CODE_BLOCK_109]
+routines. Pressing the first
+button will set a timeout which shows a message after two seconds and stores the
+timeout id for use by
+[CODE_BLOCK_110]
+. You may optionally cancel this
+timeout by pressing on the second button.
+HTML
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_111]
+JavaScript
+Copy to Clipboard
+play
+[CODE_BLOCK_113]
+[CODE_BLOCK_115]
+Result
+play
+See also the
+[CODE_BLOCK_117]
+example.
+Specifications
+Specification
+HTML
+dom-settimeout-dev
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_118]
+which allows passing arguments to the callback in
+[CODE_BLOCK_119]
+[CODE_BLOCK_120]
+[CODE_BLOCK_121]
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+[CODE_BLOCK_124]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 17, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

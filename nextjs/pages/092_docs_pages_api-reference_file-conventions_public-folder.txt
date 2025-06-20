@@ -1,0 +1,69 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/file-conventions/public-folder
+SCRAPED: 2025-06-19 17:19:54
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+public
+You are currently viewing the documentation for Pages Router.
+public Folder
+Next.js can serve static files, like images, under a folder called
+--- CODE BLOCK 4 ---
+public/avatars/me.png
+--- END CODE BLOCK ---
+in the root directory. Files inside
+--- CODE BLOCK 5 ---
+/avatars/me.png
+--- END CODE BLOCK ---
+can then be referenced by your code starting from the base URL (
+--- CODE BLOCK 6 ---
+import Image from 'next/image'
+export function Avatar({ id, alt }) {
+return <Image src={`/avatars/${id}.png`} alt={alt} width="64" height="64" />
+export function AvatarOfMe() {
+return <Avatar id="me" alt="A portrait of me" />
+--- END CODE BLOCK ---
+For example, the file
+--- CODE BLOCK 7 ---
+import Image from 'next/image'
+export function Avatar({ id, alt }) {
+return <Image src={`/avatars/${id}.png`} alt={alt} width="64" height="64" />
+export function AvatarOfMe() {
+return <Avatar id="me" alt="A portrait of me" />
+--- END CODE BLOCK ---
+can be viewed by visiting the
+--- CODE BLOCK 9 ---
+Cache-Control: public, max-age=0
+--- END CODE BLOCK ---
+path. The code to display that image might look like:
+avatar.js
+--- CODE BLOCK 10 ---
+Cache-Control: public, max-age=0
+--- END CODE BLOCK ---
+Caching
+Next.js cannot safely cache assets in the
+[CODE_BLOCK_8]
+folder because they may change. The default caching headers applied are:
+[CODE_BLOCK_9]
+Robots, Favicons, and others
+The folder is also useful for
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+, Google Site Verification, and any other static files (including
+[CODE_BLOCK_13]
+). But make sure to not have a static file with the same name as a file in the
+[CODE_BLOCK_14]
+directory, as this will result in an error.
+Read more
+Was this helpful?
+supported.
+Send

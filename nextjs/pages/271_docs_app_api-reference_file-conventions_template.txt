@@ -1,0 +1,93 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/template
+SCRAPED: 2025-06-19 17:41:15
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+template.js
+template.js
+template
+file is similar to a
+layout
+in that it wraps a layout or page. Unlike layouts that persist across routes and maintain state, templates are given a unique key, meaning children Client Components reset their state on navigation.
+They are useful when you need to:
+Resynchronize
+--- CODE BLOCK 2 ---
+template.js
+--- END CODE BLOCK ---
+on navigation.
+Reset the state of a child Client Components on navigation. For example, an input field.
+To change default framework behavior. For example, Suspense boundaries inside layouts only show a fallback on first load, while templates show it on every navigation.
+Convention
+A template can be defined by exporting a default React component from a
+--- CODE BLOCK 4 ---
+export default function Template({ children }: { children: React.ReactNode }) {
+return <div>{children}</div>
+--- END CODE BLOCK ---
+file. The component should accept a
+--- CODE BLOCK 5 ---
+export default function Template({ children }: { children: React.ReactNode }) {
+return <div>{children}</div>
+--- END CODE BLOCK ---
+prop.
+app/template.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 6 ---
+template.js
+--- END CODE BLOCK ---
+In terms of nesting,
+--- CODE BLOCK 8 ---
+<Layout>
+{/* Note that the template is given a unique key. */}
+<Template key={routeParam}>{children}</Template>
+</Layout>
+--- END CODE BLOCK ---
+is rendered between a layout and its children. Here's a simplified output:
+Output
+--- CODE BLOCK 11 ---
+<Layout>
+{/* Note that the template is automatically given a unique key. */}
+<Template key={routeParam}>{children}</Template>
+</Layout>
+--- END CODE BLOCK ---
+Props
+[CODE_BLOCK_9]
+(required)
+Template accepts a
+[CODE_BLOCK_10]
+prop.
+Output
+[CODE_BLOCK_11]
+Behavior
+Server Components
+: By default, templates are Server Components.
+Remount on navigation
+: Templates receive a unique key automatically. Navigating to a new route causes the template and its children to remount.
+State reset
+: Any Client Component inside the template will reset its state on navigation.
+Effect re-run
+: Effects like
+[CODE_BLOCK_13]
+will re-synchronize as the component remounts.
+DOM reset
+: DOM elements inside the template are fully recreated.
+Version History
+Version
+Changes
+[CODE_BLOCK_14]
+[CODE_BLOCK_15]
+introduced.
+Was this helpful?
+supported.
+Send

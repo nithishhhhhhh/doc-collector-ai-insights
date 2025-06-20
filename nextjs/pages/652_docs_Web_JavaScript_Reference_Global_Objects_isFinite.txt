@@ -1,0 +1,116 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/isFinite
+SCRAPED: 2025-06-19 18:23:39
+================================================================================
+
+--- CODE BLOCK 5 ---
+Number.isFinite()
+--- END CODE BLOCK ---
+function determines whether a value is finite, first converting the value to a number if necessary. A finite number is one that's not
+--- CODE BLOCK 6 ---
+function div(x) {
+if (isFinite(1000 / x)) {
+return "Number is NOT Infinity.";
+return "Number is Infinity!";
+console.log(div(0));
+// Expected output: "Number is Infinity!""
+console.log(div(1));
+// Expected output: "Number is NOT Infinity."
+--- END CODE BLOCK ---
+or ±
+--- CODE BLOCK 7 ---
+function div(x) {
+if (isFinite(1000 / x)) {
+return "Number is NOT Infinity.";
+return "Number is Infinity!";
+console.log(div(0));
+// Expected output: "Number is Infinity!""
+console.log(div(1));
+// Expected output: "Number is NOT Infinity."
+--- END CODE BLOCK ---
+. Because coercion inside the
+--- CODE BLOCK 8 ---
+isFinite(value)
+--- END CODE BLOCK ---
+function can be
+surprising
+, you may prefer to use
+--- CODE BLOCK 9 ---
+isFinite(value)
+--- END CODE BLOCK ---
+Try it
+--- CODE BLOCK 20 ---
+isFinite("1")
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 24 ---
+isFinite(Infinity); // false
+isFinite(NaN); // false
+isFinite(-Infinity); // false
+isFinite(0); // true
+isFinite(2e64); // true
+isFinite(910); // true
+// Would've been false with the more robust Number.isFinite():
+isFinite(null); // true
+isFinite("0"); // true
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 26 ---
+Number.isFinite()
+--- END CODE BLOCK ---
+The value to be tested.
+Return value
+--- CODE BLOCK 28 ---
+Number.POSITIVE_INFINITY
+--- END CODE BLOCK ---
+if the given value is
+--- CODE BLOCK 29 ---
+Number.NEGATIVE_INFINITY
+--- END CODE BLOCK ---
+[CODE_BLOCK_13]
+, or
+[CODE_BLOCK_14]
+after being
+converted to a number
+; otherwise,
+[CODE_BLOCK_15]
+Description
+[CODE_BLOCK_16]
+is a function property of the global object.
+When the argument to the
+[CODE_BLOCK_17]
+function is not of type
+Number
+, the value is first coerced to a number, and the resulting value is then compared against
+[CODE_BLOCK_18]
+and ±Infinity. This is as confusing as the behavior of
+[CODE_BLOCK_19]
+— for example,
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+is a more reliable way to test whether a value is a finite number value, because it returns
+[CODE_BLOCK_23]
+for any non-number input.
+Examples
+Using isFinite()
+Copy to Clipboard
+[CODE_BLOCK_24]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-isfinite-number
+Browser compatibility
+See also
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

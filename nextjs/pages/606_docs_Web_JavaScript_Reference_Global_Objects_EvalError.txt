@@ -1,0 +1,101 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/EvalError
+SCRAPED: 2025-06-19 18:18:57
+================================================================================
+
+--- CODE BLOCK 5 ---
+structuredClone()
+--- END CODE BLOCK ---
+object indicates an error regarding the global
+--- CODE BLOCK 6 ---
+postMessage()
+--- END CODE BLOCK ---
+function. This exception is not thrown by JavaScript anymore, however the
+--- CODE BLOCK 9 ---
+EvalError()
+--- END CODE BLOCK ---
+object remains for compatibility.
+--- CODE BLOCK 12 ---
+EvalError.prototype
+--- END CODE BLOCK ---
+is a
+serializable object
+, so it can be cloned with
+--- CODE BLOCK 14 ---
+EvalError.prototype.constructor
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 17 ---
+EvalError.prototype.name
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+EvalError.prototype.name
+--- END CODE BLOCK ---
+is a subclass of
+--- CODE BLOCK 19 ---
+"EvalError"
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 21 ---
+try {
+throw new EvalError("Hello");
+} catch (e) {
+console.log(e instanceof EvalError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "EvalError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 22 ---
+try {
+throw new EvalError("Hello");
+} catch (e) {
+console.log(e instanceof EvalError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "EvalError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+object.
+Instance properties
+Also inherits instance properties from its parent
+[CODE_BLOCK_11]
+These properties are defined on
+[CODE_BLOCK_12]
+and shared by all
+[CODE_BLOCK_13]
+instances.
+[CODE_BLOCK_14]
+The constructor function that created the instance object. For
+[CODE_BLOCK_15]
+instances, the initial value is the
+[CODE_BLOCK_16]
+constructor.
+[CODE_BLOCK_17]
+Represents the name for the type of error. For
+[CODE_BLOCK_18]
+, the initial value is
+[CODE_BLOCK_19]
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_20]
+Examples
+Creating an EvalError
+Copy to Clipboard
+[CODE_BLOCK_21]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-native-error-types-used-in-this-standard-evalerror
+Browser compatibility
+See also
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 26, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,347 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+SCRAPED: 2025-06-19 18:17:15
+================================================================================
+
+--- CODE BLOCK 5 ---
+Array.isArray()
+--- END CODE BLOCK ---
+values can be one of two values:
+--- CODE BLOCK 11 ---
+Array.prototype.filter()
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+if (condition)
+--- END CODE BLOCK ---
+, representing the truth value of a logical proposition.
+Description
+Boolean values are typically produced by
+relational operators
+equality operators
+, and
+logical NOT (
+--- CODE BLOCK 13 ---
+if (!condition)
+--- END CODE BLOCK ---
+. They can also be produced by functions that represent conditions, such as
+--- CODE BLOCK 14 ---
+if (condition === true)
+--- END CODE BLOCK ---
+. Note that
+binary logical operators
+such as
+--- CODE BLOCK 15 ---
+if (condition === false)
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+// Do this:
+// This always returns a boolean value
+const isObject = (obj) => !!obj && typeof obj === "object";
+// Or this:
+const isObject = (obj) => Boolean(obj) && typeof obj === "object";
+// Or this:
+const isObject = (obj) => obj !== null && typeof obj === "object";
+// Instead of this:
+// This may return falsy values that are not equal to false
+const isObject = (obj) => obj && typeof obj === "object";
+--- END CODE BLOCK ---
+return the values of the operands, which may or may not be boolean values.
+Boolean values are typically used in conditional testing, such as the condition for
+--- CODE BLOCK 17 ---
+// Do this:
+// This always returns a boolean value
+const isObject = (obj) => !!obj && typeof obj === "object";
+// Or this:
+const isObject = (obj) => Boolean(obj) && typeof obj === "object";
+// Or this:
+const isObject = (obj) => obj !== null && typeof obj === "object";
+// Instead of this:
+// This may return falsy values that are not equal to false
+const isObject = (obj) => obj && typeof obj === "object";
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+const good = Boolean(expression);
+const good2 = !!expression;
+--- END CODE BLOCK ---
+statements, the
+conditional operator
+--- CODE BLOCK 22 ---
+const good = Boolean(expression);
+const good2 = !!expression;
+--- END CODE BLOCK ---
+), or the predicate return value of
+--- CODE BLOCK 23 ---
+const bad = new Boolean(expression); // don't use this!
+--- END CODE BLOCK ---
+You would rarely need to explicitly convert something to a boolean value, as JavaScript does this automatically in boolean contexts, so you can use any value as if it's a boolean, based on its
+truthiness
+. You are also encouraged to use
+--- CODE BLOCK 24 ---
+const bad = new Boolean(expression); // don't use this!
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+if (new Boolean(true)) {
+console.log("This log is printed.");
+if (new Boolean(false)) {
+console.log("This log is ALSO printed.");
+const myFalse = new Boolean(false); // myFalse is a Boolean object (not the primitive value false)
+const g = Boolean(myFalse); // g is true
+const myString = new String("Hello"); // myString is a String object
+const s = Boolean(myString); // s is true
+--- END CODE BLOCK ---
+instead of
+--- CODE BLOCK 29 ---
+if (new Boolean(true)) {
+console.log("This log is printed.");
+if (new Boolean(false)) {
+console.log("This log is ALSO printed.");
+const myFalse = new Boolean(false); // myFalse is a Boolean object (not the primitive value false)
+const g = Boolean(myFalse); // g is true
+const myString = new String("Hello"); // myString is a String object
+const s = Boolean(myString); // s is true
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+document.all
+--- END CODE BLOCK ---
+in your own code so you can take advantage of this convention. However, making sure that values representing conditions are always booleans can help clarify the intent of your code.
+Copy to Clipboard
+--- CODE BLOCK 59 ---
+if ([]) {
+console.log("[] is truthy");
+if ([] == false) {
+console.log("[] == false");
+// [] is truthy
+// [] == false
+--- END CODE BLOCK ---
+Boolean primitives and Boolean objects
+For converting non-boolean values to boolean, use
+--- CODE BLOCK 66 ---
+Array.prototype.toString()
+--- END CODE BLOCK ---
+as a function or use the
+double NOT
+operator. Do not use the
+--- CODE BLOCK 68 ---
+[] == false
+--- END CODE BLOCK ---
+constructor with
+--- CODE BLOCK 84 ---
+Boolean.prototype
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 86 ---
+Boolean.prototype.constructor
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 92 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+This is because
+objects, including a
+--- CODE BLOCK 95 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+object whose wrapped value is
+--- CODE BLOCK 96 ---
+const bNoParam = Boolean();
+const bZero = Boolean(0);
+const bNull = Boolean(null);
+const bEmptyString = Boolean("");
+const bfalse = Boolean(false);
+--- END CODE BLOCK ---
+, are
+truthy
+and evaluate to
+--- CODE BLOCK 97 ---
+const bNoParam = Boolean();
+const bZero = Boolean(0);
+const bNull = Boolean(null);
+const bEmptyString = Boolean("");
+const bfalse = Boolean(false);
+--- END CODE BLOCK ---
+in places such as conditional statements. (See also the
+boolean coercion
+section below.)
+Copy to Clipboard
+--- CODE BLOCK 98 ---
+const btrue = Boolean(true);
+const btrueString = Boolean("true");
+const bfalseString = Boolean("false");
+const bSuLin = Boolean("Su Lin");
+const bArrayProto = Boolean([]);
+const bObjProto = Boolean({});
+--- END CODE BLOCK ---
+Warning:
+You should rarely find yourself using
+[CODE_BLOCK_30]
+as a constructor.
+Boolean coercion
+Many built-in operations that expect booleans first coerce their arguments to booleans.
+The operation
+can be summarized as follows:
+Booleans are returned as-is.
+[CODE_BLOCK_31]
+turns into
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+turns into
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+, and
+[CODE_BLOCK_37]
+turn into
+[CODE_BLOCK_38]
+; other numbers turn into
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+turns into
+[CODE_BLOCK_41]
+; other
+BigInts
+turn into
+[CODE_BLOCK_42]
+The empty string
+[CODE_BLOCK_43]
+turns into
+[CODE_BLOCK_44]
+; other strings turn into
+[CODE_BLOCK_45]
+Symbols
+turn into
+[CODE_BLOCK_46]
+All objects become
+[CODE_BLOCK_47]
+Note:
+A legacy behavior makes
+[CODE_BLOCK_48]
+return
+[CODE_BLOCK_49]
+when used as a boolean, despite it being an object. This property is legacy and non-standard and should not be used.
+Note:
+Unlike other type conversions like
+string coercion
+number coercion
+, boolean coercion does not attempt to
+convert objects to primitives
+by calling user methods.
+In other words, there are only a handful of values that get coerced to
+[CODE_BLOCK_50]
+— these are called
+falsy
+values. All other values are called
+truthy
+values. A value's truthiness is important when used with logical operators, conditional statements, or any boolean context.
+There are two ways to achieve the same effect in JavaScript.
+Double NOT
+[CODE_BLOCK_51]
+negates
+[CODE_BLOCK_52]
+twice, which converts
+[CODE_BLOCK_53]
+to a boolean using the same algorithm as above.
+[CODE_BLOCK_54]
+function:
+[CODE_BLOCK_55]
+uses the same algorithm as above to convert
+[CODE_BLOCK_56]
+Note that truthiness is not the same as being
+loosely equal
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+Copy to Clipboard
+[CODE_BLOCK_59]
+[CODE_BLOCK_61]
+is truthy, but it's also loosely equal to
+[CODE_BLOCK_62]
+. It's truthy, because all objects are truthy. However, when comparing with
+[CODE_BLOCK_63]
+, which is a primitive,
+[CODE_BLOCK_64]
+is also converted to a primitive, which is
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+. Comparing strings and booleans results in both being
+converted to numbers
+, and they both become
+[CODE_BLOCK_67]
+, so
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+. In general, falsiness and
+[CODE_BLOCK_70]
+differ in the following cases:
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+, and
+[CODE_BLOCK_73]
+are falsy but not loosely equal to
+[CODE_BLOCK_74]
+[CODE_BLOCK_75]
+(and other string literals that are not
+[CODE_BLOCK_76]
+get coerced to 0
+) is truthy but loosely equal to
+[CODE_BLOCK_77]
+Objects are always truthy, but their primitive representation may be loosely equal to
+[CODE_BLOCK_78]
+Truthy values are even more unlikely to be loosely equal to
+[CODE_BLOCK_79]
+. All values are either truthy or falsy, but most values are loosely equal to neither
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+Constructor
+[CODE_BLOCK_82]
+Creates
+[CODE_BLOCK_83]
+objects. When called as a function, it returns primitive values of type Boolean.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_84]
+and shared by all
+[CODE_BLOCK_85]
+instances.
+[CODE_BLOCK_86]
+The constructor function that created the instance object. For
+[CODE_BLOCK_87]
+instances, the initial value is the
+[CODE_BLOCK_88]
+constructor.
+Instance methods
+[CODE_BLOCK_89]
+Returns a string of either
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+depending upon the value of the object. Overrides the
+[CODE_BLOCK_92]
+method.
+[CODE_BLOCK_93]
+Returns the primitive value of the
+[CODE_BLOCK_94]
+object. Overrides the
+[CODE_BLOCK_95]
+method.
+Examples
+Creating false values
+Copy to Clipboard
+[CODE_BLOCK_96]
+Creating true values
+Copy to Clipboard
+[CODE_BLOCK_98]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-boolean-objects
+Browser compatibility
+See also
+Boolean
+Boolean primitives
+Boolean data type
+on Wikipedia
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 6, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

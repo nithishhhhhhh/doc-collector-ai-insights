@@ -1,0 +1,102 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/devIndicators
+SCRAPED: 2025-06-19 17:49:50
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+devIndicators
+devIndicators
+--- CODE BLOCK 1 ---
+devIndicators
+--- END CODE BLOCK ---
+allows you to configure the on-screen indicator that gives context about the current route you're viewing during development.
+Types
+--- CODE BLOCK 2 ---
+devIndicators: false | {
+position?: 'bottom-right'
+| 'bottom-left'
+| 'top-right'
+| 'top-left', // defaults to 'bottom-left',
+--- END CODE BLOCK ---
+Setting
+--- CODE BLOCK 4 ---
+devIndicators
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+next build --debug
+--- END CODE BLOCK ---
+will hide the indicator, however Next.js will continue to surface any build or runtime errors that were encountered.
+Troubleshooting
+Indicator not marking a route as static
+If you expect a route to be static and the indicator has marked it as dynamic, it's likely the route has opted out of static rendering.
+You can confirm if a route is
+static
+dynamic
+by building your application using
+--- CODE BLOCK 9 ---
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          0 B               0 kB
+└ ƒ /products/[id]                       0 B               0 kB
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+--- END CODE BLOCK ---
+, and checking the output in your terminal. Static (or prerendered) routes will display a
+--- CODE BLOCK 10 ---
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          0 B               0 kB
+└ ƒ /products/[id]                       0 B               0 kB
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+--- END CODE BLOCK ---
+symbol, whereas dynamic routes will display a
+--- CODE BLOCK 12 ---
+<Suspense />
+--- END CODE BLOCK ---
+symbol. For example:
+Build Output
+--- CODE BLOCK 15 ---
+appIsrStatus
+--- END CODE BLOCK ---
+There are two reasons a route might opt out of static rendering:
+The presence of
+Dynamic APIs
+which rely on runtime information.
+uncached data request
+, like a call to an ORM or database driver.
+Check your route for any of these conditions, and if you are not able to statically render the route, then consider using
+--- CODE BLOCK 17 ---
+buildActivityPosition
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+appIsrStatus
+--- END CODE BLOCK ---
+to leverage
+streaming
+Version History
+Version
+Changes
+[CODE_BLOCK_13]
+Improved on-screen indicator with new
+[CODE_BLOCK_14]
+option.
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+, and
+[CODE_BLOCK_17]
+options have been deprecated.
+[CODE_BLOCK_18]
+Static on-screen indicator added with
+[CODE_BLOCK_19]
+option.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,29 @@
+SOURCE URL: https://nextjs.org/docs/app
+SCRAPED: 2025-06-19 17:10:27
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+App Router
+App Router
+App Router
+is a file-system based router that uses React's latest features such as
+Server Components
+Suspense
+, and
+Server Functions
+Next Steps
+Get started by following the installation guide.
+Installation
+Learn how to create a new Next.js application with the `create-next-app` CLI, and set up TypeScript, ESLint, and Module Path Aliases.
+Was this helpful?
+supported.
+Send

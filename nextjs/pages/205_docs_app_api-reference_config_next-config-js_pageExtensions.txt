@@ -1,0 +1,42 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/pageExtensions
+SCRAPED: 2025-06-19 17:33:20
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+pageExtensions
+pageExtensions
+By default, Next.js accepts files with the following extensions:
+--- CODE BLOCK 7 ---
+const withMDX = require('@next/mdx')()
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+module.exports = withMDX(nextConfig)
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+const withMDX = require('@next/mdx')()
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+module.exports = withMDX(nextConfig)
+--- END CODE BLOCK ---
+[CODE_BLOCK_3]
+[CODE_BLOCK_4]
+. This can be modified to allow other extensions like markdown (
+[CODE_BLOCK_5]
+[CODE_BLOCK_6]
+next.config.js
+[CODE_BLOCK_7]
+Was this helpful?
+supported.
+Send

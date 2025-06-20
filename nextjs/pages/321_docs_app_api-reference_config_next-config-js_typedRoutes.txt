@@ -1,0 +1,33 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/typedRoutes
+SCRAPED: 2025-06-19 17:47:13
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+typedRoutes
+typedRoutes
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+Experimental support for
+statically typed links
+. This feature requires using the App Router as well as TypeScript in your project.
+next.config.js
+--- CODE BLOCK 1 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+experimental: {
+typedRoutes: true,
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

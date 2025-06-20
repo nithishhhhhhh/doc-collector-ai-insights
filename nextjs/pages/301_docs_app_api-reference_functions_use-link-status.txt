@@ -1,0 +1,227 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-link-status
+SCRAPED: 2025-06-19 17:44:50
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useLinkStatus
+useLinkStatus
+--- CODE BLOCK 1 ---
+useLinkStatus
+--- END CODE BLOCK ---
+hook lets you tracks the
+pending
+state of a
+--- CODE BLOCK 3 ---
+useLinkStatus
+--- END CODE BLOCK ---
+. You can use it to show inline visual feedback to the user (like spinners or text glimmers) while a navigation to a new route completes.
+--- CODE BLOCK 5 ---
+'use client'
+import { useLinkStatus } from 'next/link'
+export default function LoadingIndicator() {
+const { pending } = useLinkStatus()
+return pending ? (
+<div role="status" aria-label="Loading" className="spinner" />
+) : null
+--- END CODE BLOCK ---
+is useful when:
+Prefetching
+is disabled or in progress meaning navigation is blocked.
+The destination route is dynamic
+doesn't include a
+--- CODE BLOCK 6 ---
+'use client'
+import { useLinkStatus } from 'next/link'
+export default function LoadingIndicator() {
+const { pending } = useLinkStatus()
+return pending ? (
+<div role="status" aria-label="Loading" className="spinner" />
+) : null
+--- END CODE BLOCK ---
+file that would allow an instant navigation.
+app/loading-indicator.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+import Link from 'next/link'
+import LoadingIndicator from './loading-indicator'
+export default function Header() {
+return (
+<header>
+<Link href="/dashboard" prefetch={false}>
+Dashboard <LoadingIndicator />
+</Link>
+</header>
+--- END CODE BLOCK ---
+app/header.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+useLinkStatus
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 13 ---
+{ pending: false }
+--- END CODE BLOCK ---
+must be used within a descendant component of a
+--- CODE BLOCK 14 ---
+const { pending } = useLinkStatus()
+--- END CODE BLOCK ---
+component
+The hook is most useful when
+--- CODE BLOCK 15 ---
+const { pending } = useLinkStatus()
+--- END CODE BLOCK ---
+is set on the
+--- CODE BLOCK 16 ---
+useLinkStatus
+--- END CODE BLOCK ---
+component
+If the linked route has been prefetched, the pending state will be skipped
+When clicking multiple links in quick succession, only the last link's pending state is shown
+This hook is not supported in the Pages Router and will always return
+--- CODE BLOCK 17 ---
+useLinkStatus
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 20 ---
+'use client'
+import { useLinkStatus } from 'next/link'
+export default function LoadingIndicator() {
+const { pending } = useLinkStatus()
+return pending ? (
+<div role="status" aria-label="Loading" className="spinner" />
+) : null
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+import Link from 'next/link'
+import LoadingIndicator from './components/loading-indicator'
+const links = [
+{ href: '/shop/electronics', label: 'Electronics' },
+{ href: '/shop/clothing', label: 'Clothing' },
+{ href: '/shop/books', label: 'Books' },
+function Menubar() {
+return (
+<div>
+{links.map((link) => (
+<Link key={link.label} href={link.href}>
+{link.label} <LoadingIndicator />
+</Link>
+</div>
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<div>
+<Menubar />
+{children}
+</div>
+--- END CODE BLOCK ---
+does not take any parameters.
+Returns
+--- CODE BLOCK 23 ---
+import Link from 'next/link'
+import LoadingIndicator from './components/loading-indicator'
+const links = [
+{ href: '/shop/electronics', label: 'Electronics' },
+{ href: '/shop/clothing', label: 'Clothing' },
+{ href: '/shop/books', label: 'Books' },
+function Menubar() {
+return (
+<div>
+{links.map((link) => (
+<Link key={link.label} href={link.href}>
+{link.label} <LoadingIndicator />
+</Link>
+</div>
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<div>
+<Menubar />
+{children}
+</div>
+--- END CODE BLOCK ---
+returns an object with a single property:
+Property
+Type
+Description
+pending
+boolean
+--- CODE BLOCK 25 ---
+.spinner {
+/* ... */
+opacity: 0;
+animation:
+fadeIn 500ms 100ms forwards,
+rotate 1s linear infinite;
+@keyframes fadeIn {
+from {
+opacity: 0;
+to {
+opacity: 1;
+@keyframes rotate {
+to {
+transform: rotate(360deg);
+--- END CODE BLOCK ---
+before history updates,
+--- CODE BLOCK 26 ---
+.spinner {
+/* ... */
+opacity: 0;
+animation:
+fadeIn 500ms 100ms forwards,
+rotate 1s linear infinite;
+@keyframes fadeIn {
+from {
+opacity: 0;
+to {
+opacity: 1;
+@keyframes rotate {
+to {
+transform: rotate(360deg);
+--- END CODE BLOCK ---
+after
+Example
+Inline loading indicator
+It's helpful to add visual feedback that navigation is happening in case the user clicks a link before prefetching is complete.
+app/components/loading-indicator.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+useLinkStatus
+--- END CODE BLOCK ---
+app/shop/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_22]
+Gracefully handling fast navigation
+If the navigation to a new route is fast, users may see an unecessary flash of the loading indicator. One way to improve the user experience and only show the loading indicator when the navigation takes time to complete is to add an initial animation delay (e.g. 100ms) and start the animation as invisible (e.g.
+[CODE_BLOCK_24]
+app/styles/global.css
+[CODE_BLOCK_25]
+Version
+Changes
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+introduced.
+Next Steps
+Learn more about the features mentioned in this page by reading the API Reference.
+Link Component
+Enable fast client-side navigation with the built-in `next/link` component.
+loading.js
+API reference for the loading.js file.
+Was this helpful?
+supported.
+Send

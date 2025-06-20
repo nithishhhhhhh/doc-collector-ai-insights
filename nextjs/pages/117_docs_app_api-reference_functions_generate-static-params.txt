@@ -1,0 +1,494 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
+SCRAPED: 2025-06-19 17:22:51
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+generateStaticParams
+generateStaticParams
+--- CODE BLOCK 1 ---
+generateStaticParams
+--- END CODE BLOCK ---
+function can be used in combination with
+dynamic route segments
+statically generate
+routes at build time instead of on-demand at request time.
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+// Return a list of `params` to populate the [slug] dynamic segment
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+return posts.map((post) => ({
+slug: post.slug,
+// Multiple versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+// ...
+--- END CODE BLOCK ---
+Good to know
+You can use the
+--- CODE BLOCK 4 ---
+dynamicParams
+--- END CODE BLOCK ---
+segment config option to control what happens when a dynamic segment is visited that was not generated with
+--- CODE BLOCK 5 ---
+generateStaticParams
+--- END CODE BLOCK ---
+You must return
+an empty array from
+--- CODE BLOCK 6 ---
+generateStaticParams
+--- END CODE BLOCK ---
+or utilize
+--- CODE BLOCK 7 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+in order to revalidate (ISR)
+paths at runtime
+During
+--- CODE BLOCK 9 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+generateStaticParams
+--- END CODE BLOCK ---
+will be called when you navigate to a route.
+During
+--- CODE BLOCK 12 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+generateStaticParams
+--- END CODE BLOCK ---
+runs before the corresponding Layouts or Pages are generated.
+During revalidation (ISR),
+--- CODE BLOCK 14 ---
+getStaticPaths
+--- END CODE BLOCK ---
+will not be called again.
+--- CODE BLOCK 15 ---
+options.params
+--- END CODE BLOCK ---
+replaces the
+--- CODE BLOCK 16 ---
+generateStaticParams
+--- END CODE BLOCK ---
+function in the Pages Router.
+Parameters
+--- CODE BLOCK 17 ---
+generateStaticParams
+--- END CODE BLOCK ---
+(optional)
+If multiple dynamic segments in a route use
+--- CODE BLOCK 21 ---
+generateStaticParams
+--- END CODE BLOCK ---
+, the child
+--- CODE BLOCK 23 ---
+generateStaticParams
+--- END CODE BLOCK ---
+function is executed once for each set of
+--- CODE BLOCK 24 ---
+generateStaticParams
+--- END CODE BLOCK ---
+the parent generates.
+--- CODE BLOCK 25 ---
+/product/[id]
+--- END CODE BLOCK ---
+object contains the populated
+--- CODE BLOCK 26 ---
+{ id: string }[]
+--- END CODE BLOCK ---
+from the parent
+--- CODE BLOCK 27 ---
+/products/[category]/[product]
+--- END CODE BLOCK ---
+, which can be used to
+generate the
+--- CODE BLOCK 28 ---
+{ category: string, product: string }[]
+--- END CODE BLOCK ---
+in a child segment
+Returns
+--- CODE BLOCK 29 ---
+/products/[...slug]
+--- END CODE BLOCK ---
+should return an array of objects where each object represents the populated dynamic segments of a single route.
+Each property in the object is a dynamic segment to be filled in for the route.
+The properties name is the segment's name, and the properties value is what that segment should be filled in with.
+Example Route
+--- CODE BLOCK 30 ---
+{ slug: string[] }[]
+--- END CODE BLOCK ---
+Return Type
+--- CODE BLOCK 31 ---
+export function generateStaticParams() {
+return [{ id: '1' }, { id: '2' }, { id: '3' }]
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /product/1
+// - /product/2
+// - /product/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ id: string }>
+}) {
+const { id } = await params
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+export function generateStaticParams() {
+return [{ id: '1' }, { id: '2' }, { id: '3' }]
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /product/1
+// - /product/2
+// - /product/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ id: string }>
+}) {
+const { id } = await params
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+export function generateStaticParams() {
+return [
+{ category: 'a', product: '1' },
+{ category: 'b', product: '2' },
+{ category: 'c', product: '3' },
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /products/a/1
+// - /products/b/2
+// - /products/c/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ category: string; product: string }>
+}) {
+const { category, product } = await params
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+export function generateStaticParams() {
+return [
+{ category: 'a', product: '1' },
+{ category: 'b', product: '2' },
+{ category: 'c', product: '3' },
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /products/a/1
+// - /products/b/2
+// - /products/c/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ category: string; product: string }>
+}) {
+const { category, product } = await params
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+export function generateStaticParams() {
+return [{ slug: ['a', '1'] }, { slug: ['b', '2'] }, { slug: ['c', '3'] }]
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /product/a/1
+// - /product/b/2
+// - /product/c/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string[] }>
+}) {
+const { slug } = await params
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+export function generateStaticParams() {
+return [{ slug: ['a', '1'] }, { slug: ['b', '2'] }, { slug: ['c', '3'] }]
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /product/a/1
+// - /product/b/2
+// - /product/c/3
+export default async function Page({
+params,
+}: {
+params: Promise<{ slug: string[] }>
+}) {
+const { slug } = await params
+// ...
+--- END CODE BLOCK ---
+Single Dynamic Segment
+app/product/[id]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 37 ---
+generateStaticParams
+--- END CODE BLOCK ---
+Multiple Dynamic Segments
+app/products/[category]/[product]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 39 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+return posts.map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Catch-all Dynamic Segment
+app/product/[...slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 41 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+// Render the first 10 posts at build time
+return posts.slice(0, 10).map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Examples
+Static Rendering
+All paths at build time
+To statically render all paths at build time, supply the full list of paths to
+--- CODE BLOCK 43 ---
+generateStaticParams
+--- END CODE BLOCK ---
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 44 ---
+// All posts besides the top 10 will be a 404
+export const dynamicParams = false
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+const topPosts = posts.slice(0, 10)
+return topPosts.map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Subset of paths at build time
+To statically render a subset of paths at build time, and the rest the first time they're visited at runtime, return a partial list of paths:
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 46 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+Then, by using the
+--- CODE BLOCK 48 ---
+export async function generateStaticParams() {
+return []
+--- END CODE BLOCK ---
+segment config option, you can control what happens when a dynamic segment is visited that was not generated with
+--- CODE BLOCK 49 ---
+generateStaticParams
+--- END CODE BLOCK ---
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 50 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+All paths at runtime
+To statically render all paths the first time they're visited, return an empty array (no paths will be rendered at build time) or utilize
+--- CODE BLOCK 52 ---
+export const dynamicParams = false
+--- END CODE BLOCK ---
+app/blog/[slug]/page.js
+--- CODE BLOCK 53 ---
+generateStaticParams
+--- END CODE BLOCK ---
+Good to know:
+You must always return an array from
+--- CODE BLOCK 55 ---
+app/products/[category]/[product]/page.js
+--- END CODE BLOCK ---
+, even if it's empty. Otherwise, the route will be dynamically rendered.
+app/changelog/[slug]/page.js
+--- CODE BLOCK 58 ---
+app/products/[category]/layout.js
+--- END CODE BLOCK ---
+Disable rendering for unspecified paths
+To prevent unspecified paths from being statically rendered at runtime, add the
+--- CODE BLOCK 61 ---
+// Generate segments for both [category] and [product]
+export async function generateStaticParams() {
+const products = await fetch('https://.../products').then((res) => res.json())
+return products.map((product) => ({
+category: product.category.slug,
+product: product.id,
+export default function Page({
+params,
+}: {
+params: Promise<{ category: string; product: string }>
+}) {
+// ...
+--- END CODE BLOCK ---
+option in a route segment. When this config option is used, only paths provided by
+--- CODE BLOCK 62 ---
+// Generate segments for [category]
+export async function generateStaticParams() {
+const products = await fetch('https://.../products').then((res) => res.json())
+return products.map((product) => ({
+category: product.category.slug,
+export default function Layout({
+params,
+}: {
+params: Promise<{ category: string }>
+}) {
+// ...
+--- END CODE BLOCK ---
+will be served, and unspecified routes will 404 or match (in the case of
+catch-all routes
+Multiple Dynamic Segments in a Route
+You can generate params for dynamic segments above the current layout or page, but
+not below
+. For example, given the
+--- CODE BLOCK 63 ---
+// Generate segments for [category]
+export async function generateStaticParams() {
+const products = await fetch('https://.../products').then((res) => res.json())
+return products.map((product) => ({
+category: product.category.slug,
+export default function Layout({
+params,
+}: {
+params: Promise<{ category: string }>
+}) {
+// ...
+--- END CODE BLOCK ---
+route:
+--- CODE BLOCK 64 ---
+generateStaticParams
+--- END CODE BLOCK ---
+can generate params for
+both
+--- CODE BLOCK 65 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+generateStaticParams
+--- END CODE BLOCK ---
+only
+generate params for
+--- CODE BLOCK 69 ---
+// Generate segments for [product] using the `params` passed from
+// the parent segment's `generateStaticParams` function
+export async function generateStaticParams({
+params: { category },
+}: {
+params: { category: string }
+}) {
+const products = await fetch(
+`https://.../products?category=${category}`
+).then((res) => res.json())
+return products.map((product) => ({
+product: product.id,
+export default function Page({
+params,
+}: {
+params: Promise<{ category: string; product: string }>
+}) {
+// ...
+--- END CODE BLOCK ---
+There are two approaches to generating params for a route with multiple dynamic segments:
+Generate params from the bottom up
+Generate multiple dynamic segments from the child route segment.
+app/products/[category]/[product]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 70 ---
+// Generate segments for [product] using the `params` passed from
+// the parent segment's `generateStaticParams` function
+export async function generateStaticParams({
+params: { category },
+}: {
+params: { category: string }
+}) {
+const products = await fetch(
+`https://.../products?category=${category}`
+).then((res) => res.json())
+return products.map((product) => ({
+product: product.id,
+export default function Page({
+params,
+}: {
+params: Promise<{ category: string; product: string }>
+}) {
+// ...
+--- END CODE BLOCK ---
+Generate params from the top down
+Generate the parent segments first and use the result to generate the child segments.
+app/products/[category]/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_62]
+A child route segment's
+[CODE_BLOCK_64]
+function is executed once for each segment a parent
+[CODE_BLOCK_65]
+generates.
+The child
+[CODE_BLOCK_66]
+function can use the
+[CODE_BLOCK_67]
+returned from the parent
+[CODE_BLOCK_68]
+function to dynamically generate its own segments.
+app/products/[category]/[product]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_69]
+Good to know
+[CODE_BLOCK_71]
+requests are automatically
+memoized
+for the same data across all
+[CODE_BLOCK_72]
+-prefixed functions, Layouts, Pages, and Server Components. React
+[CODE_BLOCK_73]
+can be used
+[CODE_BLOCK_74]
+is unavailable.
+Version History
+Version
+Changes
+[CODE_BLOCK_75]
+[CODE_BLOCK_76]
+introduced.
+Was this helpful?
+supported.
+Send

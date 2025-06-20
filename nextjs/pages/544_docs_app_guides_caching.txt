@@ -1,0 +1,893 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/caching#request-memoization
+SCRAPED: 2025-06-19 18:12:30
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Caching
+Caching in Next.js
+Next.js improves your application's performance and reduces costs by caching rendering work and data requests. This page provides an in-depth look at Next.js caching mechanisms, the APIs you can use to configure them, and how they interact with each other.
+Good to know
+: This page helps you understand how Next.js works under the hood but is
+essential knowledge to be productive with Next.js. Most of Next.js' caching heuristics are determined by your API usage and have defaults for the best performance with zero or minimal configuration. If you instead want to jump to examples,
+start here
+Overview
+Here's a high-level overview of the different caching mechanisms and their purpose:
+Mechanism
+What
+Where
+Purpose
+Duration
+Request Memoization
+Return values of functions
+Server
+Re-use data in a React Component tree
+Per-request lifecycle
+Data Cache
+Data
+Server
+Store data across user requests and deployments
+Persistent (can be revalidated)
+Full Route Cache
+HTML and RSC payload
+Server
+Reduce rendering cost and improve performance
+Persistent (can be revalidated)
+Router Cache
+RSC Payload
+Client
+Reduce server requests on navigation
+User session or time-based
+By default, Next.js will cache as much as possible to improve performance and reduce cost. This means routes are
+statically rendered
+and data requests are
+cached
+unless you opt out. The diagram below shows the default caching behavior: when a route is statically rendered at build time and when a static route is first visited.
+Caching behavior changes depending on whether the route is statically or dynamically rendered, data is cached or uncached, and whether a request is part of an initial visit or a subsequent navigation. Depending on your use case, you can configure the caching behavior for individual routes and data requests.
+Fetch caching is
+supported in
+--- CODE BLOCK 4 ---
+async function getItem() {
+// The `fetch` function is automatically memoized and the result
+// is cached
+const res = await fetch('https://.../item/1')
+return res.json()
+// This function is called twice, but only executed the first time
+const item = await getItem() // cache MISS
+// The second call could be anywhere in your route
+const item = await getItem() // cache HIT
+--- END CODE BLOCK ---
+. Any fetches done inside of your
+--- CODE BLOCK 5 ---
+async function getItem() {
+// The `fetch` function is automatically memoized and the result
+// is cached
+const res = await fetch('https://.../item/1')
+return res.json()
+// This function is called twice, but only executed the first time
+const item = await getItem() // cache MISS
+// The second call could be anywhere in your route
+const item = await getItem() // cache HIT
+--- END CODE BLOCK ---
+will be uncached.
+Request Memoization
+Next.js extends the
+--- CODE BLOCK 11 ---
+generateMetadata
+--- END CODE BLOCK ---
+to automatically
+memoize
+requests that have the same URL and options. This means you can call a fetch function for the same data in multiple places in a React component tree while only executing it once.
+For example, if you need to use the same data across a route (e.g. in a Layout, Page, and multiple components), you do not have to fetch data at the top of the tree, and forward props between components. Instead, you can fetch data in the components that need it without worrying about the performance implications of making multiple requests across the network for the same data.
+app/example.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 12 ---
+generateStaticParams
+--- END CODE BLOCK ---
+How Request Memoization Works
+While rendering a route, the first time a particular request is called, its result will not be in memory and it'll be a cache
+--- CODE BLOCK 22 ---
+const { signal } = new AbortController()
+fetch(url, { signal })
+--- END CODE BLOCK ---
+Therefore, the function will be executed, and the data will be fetched from the external source, and the result will be stored in memory.
+Subsequent function calls of the request in the same render pass will be a cache
+--- CODE BLOCK 23 ---
+const { signal } = new AbortController()
+fetch(url, { signal })
+--- END CODE BLOCK ---
+, and the data will be returned from memory without executing the function.
+Once the route has been rendered and the rendering pass is complete, memory is "reset" and all request memoization entries are cleared.
+Good to know
+Request memoization is a React feature, not a Next.js feature. It's included here to show how it interacts with the other caching mechanisms.
+Memoization only applies to the
+--- CODE BLOCK 29 ---
+next.revalidate
+--- END CODE BLOCK ---
+method in
+--- CODE BLOCK 33 ---
+'force-cache'
+--- END CODE BLOCK ---
+requests.
+Memoization only applies to the React Component tree, this means:
+It applies to
+--- CODE BLOCK 35 ---
+{ cache: 'no-store' }
+--- END CODE BLOCK ---
+requests in
+--- CODE BLOCK 36 ---
+next.revalidate
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+// Revalidate at most every hour
+fetch('https://...', { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+, Layouts, Pages, and other Server Components.
+It doesn't apply to
+--- CODE BLOCK 39 ---
+// Revalidate at most every hour
+fetch('https://...', { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+requests in Route Handlers as they are not a part of the React component tree.
+For cases where
+--- CODE BLOCK 43 ---
+revalidatePath
+--- END CODE BLOCK ---
+is not suitable (e.g. some database clients, CMS clients, or GraphQL clients), you can use the
+React
+--- CODE BLOCK 44 ---
+revalidateTag
+--- END CODE BLOCK ---
+function
+to memoize functions.
+Duration
+The cache lasts the lifetime of a server request until the React component tree has finished rendering.
+Revalidating
+Since the memoization is not shared across server requests and only applies during rendering, there is no need to revalidate it.
+Opting out
+Memoization only applies to the
+--- CODE BLOCK 48 ---
+let data = await fetch('https://api.vercel.app/blog', { cache: 'no-store' })
+--- END CODE BLOCK ---
+method in
+--- CODE BLOCK 49 ---
+let data = await fetch('https://api.vercel.app/blog', { cache: 'no-store' })
+--- END CODE BLOCK ---
+requests, other methods, such as
+--- CODE BLOCK 50 ---
+dynamic = 'force-dynamic'
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+revalidate = 0
+--- END CODE BLOCK ---
+, are not memoized. This default behavior is a React optimization and we do not recommend opting out of it.
+To manage individual requests, you can use the
+--- CODE BLOCK 56 ---
+prefetch={null}
+--- END CODE BLOCK ---
+property from
+--- CODE BLOCK 57 ---
+prefetch={true}
+--- END CODE BLOCK ---
+. However, this will not opt requests out of memoization, rather, abort in-flight requests.
+app/example.js
+--- CODE BLOCK 58 ---
+router.prefetch
+--- END CODE BLOCK ---
+Data Cache
+Next.js has a built-in Data Cache that
+persists
+the result of data fetches across incoming
+server requests
+deployments
+. This is possible because Next.js extends the native
+--- CODE BLOCK 61 ---
+revalidateTag
+--- END CODE BLOCK ---
+API to allow each request on the server to set its own persistent caching semantics.
+Good to know
+: In the browser, the
+--- CODE BLOCK 62 ---
+cookies.set
+--- END CODE BLOCK ---
+option of
+--- CODE BLOCK 63 ---
+cookies.delete
+--- END CODE BLOCK ---
+indicates how a request will interact with the browser's HTTP cache, in Next.js, the
+--- CODE BLOCK 64 ---
+router.refresh
+--- END CODE BLOCK ---
+option indicates how a server-side request will interact with the server's Data Cache.
+You can use the
+--- CODE BLOCK 68 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+revalidateTag
+--- END CODE BLOCK ---
+options of
+--- CODE BLOCK 70 ---
+<Link prefetch>
+--- END CODE BLOCK ---
+to configure the caching behavior.
+In development mode,
+--- CODE BLOCK 71 ---
+router.prefetch
+--- END CODE BLOCK ---
+data is
+reused for Hot Module Replacement (HMR)
+, and caching options are ignored for
+hard refreshes
+How the Data Cache Works
+The first time a
+--- CODE BLOCK 72 ---
+router.refresh
+--- END CODE BLOCK ---
+request with the
+--- CODE BLOCK 75 ---
+options.cache
+--- END CODE BLOCK ---
+option is called during rendering, Next.js checks the Data Cache for a cached response.
+If a cached response is found, it's returned immediately and
+memoized
+If a cached response is not found, the request is made to the data source, the result is stored in the Data Cache, and memoized.
+For uncached data (e.g. no
+--- CODE BLOCK 77 ---
+options.next.revalidate
+--- END CODE BLOCK ---
+option defined or using
+--- CODE BLOCK 79 ---
+options.next.tags
+--- END CODE BLOCK ---
+), the result is always fetched from the data source, and memoized.
+Whether the data is cached or uncached, the requests are always memoized to avoid making duplicate requests for the same data during a React render pass.
+Differences between the Data Cache and Request Memoization
+While both caching mechanisms help improve performance by re-using cached data, the Data Cache is persistent across incoming requests and deployments, whereas memoization only lasts the lifetime of a request.
+Duration
+The Data Cache is persistent across incoming requests and deployments unless you revalidate or opt-out.
+Revalidating
+Cached data can be revalidated in two ways, with:
+Time-based Revalidation
+: Revalidate data after a certain amount of time has passed and a new request is made. This is useful for data that changes infrequently and freshness is not as critical.
+On-demand Revalidation:
+Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once. This is useful when you want to ensure the latest data is shown as soon as possible (e.g. when content from your headless CMS is updated).
+Time-based Revalidation
+To revalidate data at a timed interval, you can use the
+--- CODE BLOCK 80 ---
+revalidateTag
+--- END CODE BLOCK ---
+option of
+--- CODE BLOCK 81 ---
+revalidatePath
+--- END CODE BLOCK ---
+to set the cache lifetime of a resource (in seconds).
+--- CODE BLOCK 82 ---
+const revalidate
+--- END CODE BLOCK ---
+Alternatively, you can use
+Route Segment Config options
+to configure all
+--- CODE BLOCK 86 ---
+searchParams
+--- END CODE BLOCK ---
+requests in a segment or for cases where you're not able to use
+--- CODE BLOCK 87 ---
+generateStaticParams
+--- END CODE BLOCK ---
+How Time-based Revalidation Works
+The first time a fetch request with
+--- CODE BLOCK 88 ---
+React.cache
+--- END CODE BLOCK ---
+is called, the data will be fetched from the external data source and stored in the Data Cache.
+Any requests that are called within the specified timeframe (e.g. 60-seconds) will return the cached data.
+After the timeframe, the next request will still return the cached (now stale) data.
+Next.js will trigger a revalidation of the data in the background.
+Once the data is fetched successfully, Next.js will update the Data Cache with the fresh data.
+If the background revalidation fails, the previous data will be kept unaltered.
+This is similar to
+stale-while-revalidate
+behavior.
+On-demand Revalidation
+Data can be revalidated on-demand by path (
+--- CODE BLOCK 89 ---
+unstable_cache
+--- END CODE BLOCK ---
+) or by cache tag (
+--- CODE BLOCK 95 ---
+router.prefetch
+--- END CODE BLOCK ---
+How On-Demand Revalidation Works
+The first time a
+--- CODE BLOCK 99 ---
+router.refresh
+--- END CODE BLOCK ---
+request is called, the data will be fetched from the external data source and stored in the Data Cache.
+When an on-demand revalidation is triggered, the appropriate cache entries will be purged from the cache.
+This is different from time-based revalidation, which keeps the stale data in the cache until the fresh data is fetched.
+The next time a request is made, it will be a cache
+--- CODE BLOCK 110 ---
+let data = await fetch('https://api.vercel.app/blog', { cache: 'no-store' })
+--- END CODE BLOCK ---
+again, and the data will be fetched from the external data source and stored in the Data Cache.
+Opting out
+If you do
+want to cache the response from
+--- CODE BLOCK 111 ---
+let data = await fetch('https://api.vercel.app/blog', { cache: 'no-store' })
+--- END CODE BLOCK ---
+, you can do the following:
+--- CODE BLOCK 113 ---
+fetch options.cache
+--- END CODE BLOCK ---
+Full Route Cache
+Related terms
+You may see the terms
+Automatic Static Optimization
+Static Site Generation
+, or
+Static Rendering
+being used interchangeably to refer to the process of rendering and caching routes of your application at build time.
+Next.js automatically renders and caches routes at build time. This is an optimization that allows you to serve the cached route instead of rendering on the server for every request, resulting in faster page loads.
+To understand how the Full Route Cache works, it's helpful to look at how React handles rendering, and how Next.js caches the result:
+1. React Rendering on the Server
+On the server, Next.js uses React's APIs to orchestrate rendering. The rendering work is split into chunks: by individual routes segments and Suspense boundaries.
+Each chunk is rendered in two steps:
+React renders Server Components into a special data format, optimized for streaming, called the
+React Server Component Payload
+Next.js uses the React Server Component Payload and Client Component JavaScript instructions to render
+HTML
+on the server.
+This means we don't have to wait for everything to render before caching the work or sending a response. Instead, we can stream a response as work is completed.
+What is the React Server Component Payload?
+The React Server Component Payload is a compact binary representation of the rendered React Server Components tree. It's used by React on the client to update the browser's DOM. The React Server Component Payload contains:
+The rendered result of Server Components
+Placeholders for where Client Components should be rendered and references to their JavaScript files
+Any props passed from a Server Component to a Client Component
+To learn more, see the
+Server Components
+documentation.
+2. Next.js Caching on the Server (Full Route Cache)
+The default behavior of Next.js is to cache the rendered result (React Server Component Payload and HTML) of a route on the server. This applies to statically rendered routes at build time, or during revalidation.
+3. React Hydration and Reconciliation on the Client
+At request time, on the client:
+The HTML is used to immediately show a fast non-interactive initial preview of the Client and Server Components.
+The React Server Components Payload is used to reconcile the Client and rendered Server Component trees, and update the DOM.
+The JavaScript instructions are used to
+hydrate
+Client Components and make the application interactive.
+4. Next.js Caching on the Client (Router Cache)
+The React Server Component Payload is stored in the client-side
+Router Cache
+- a separate in-memory cache, split by individual route segment. This Router Cache is used to improve the navigation experience by storing previously visited routes and prefetching future routes.
+5. Subsequent Navigations
+On subsequent navigations or during prefetching, Next.js will check if the React Server Components Payload is stored in the Router Cache. If so, it will skip sending a new request to the server.
+If the route segments are not in the cache, Next.js will fetch the React Server Components Payload from the server, and populate the Router Cache on the client.
+Static and Dynamic Rendering
+Whether a route is cached or not at build time depends on whether it's statically or dynamically rendered. Static routes are cached by default, whereas dynamic routes are rendered at request time, and not cached.
+This diagram shows the difference between statically and dynamically rendered routes, with cached and uncached data:
+Learn more about
+static and dynamic rendering
+Duration
+By default, the Full Route Cache is persistent. This means that the render output is cached across user requests.
+Invalidation
+There are two ways you can invalidate the Full Route Cache:
+Revalidating Data
+: Revalidating the
+Data Cache
+, will in turn invalidate the Router Cache by re-rendering components on the server and caching the new render output.
+Redeploying
+: Unlike the Data Cache, which persists across deployments, the Full Route Cache is cleared on new deployments.
+Opting out
+You can opt out of the Full Route Cache, or in other words, dynamically render components for every incoming request, by:
+Using a
+Dynamic API
+: This will opt the route out from the Full Route Cache and dynamically render it at request time. The Data Cache can still be used.
+Using the
+--- CODE BLOCK 117 ---
+// Opt into caching
+fetch(`https://...`, { cache: 'force-cache' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+// Opt into caching
+fetch(`https://...`, { cache: 'force-cache' })
+--- END CODE BLOCK ---
+route segment config options
+: This will skip the Full Route Cache and the Data Cache. Meaning components will be rendered and data fetched on every incoming request to the server. The Router Cache will still apply as it's a client-side cache.
+Opting out of the
+Data Cache
+: If a route has a
+--- CODE BLOCK 120 ---
+fetch options.next.revalidate
+--- END CODE BLOCK ---
+request that is not cached, this will opt the route out of the Full Route Cache. The data for the specific
+--- CODE BLOCK 121 ---
+next.revalidate
+--- END CODE BLOCK ---
+request will be fetched for every incoming request. Other
+--- CODE BLOCK 124 ---
+// Revalidate at most after 1 hour
+fetch(`https://...`, { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+requests that do not opt out of caching will still be cached in the Data Cache. This allows for a hybrid of cached and uncached data.
+Client-side Router Cache
+Next.js has an in-memory client-side router cache that stores the RSC payload of route segments, split by layouts, loading states, and pages.
+When a user navigates between routes, Next.js caches the visited route segments and
+prefetches
+the routes the user is likely to navigate to. This results in instant back/forward navigation, no full-page reload between navigations, and preservation of React state and browser state.
+With the Router Cache:
+Layouts
+are cached and reused on navigation (
+partial rendering
+Loading states
+are cached and reused on navigation for
+instant navigation
+Pages
+are not cached by default, but are reused during browser backward and forward navigation. You can enable caching for page segments by using the experimental
+--- CODE BLOCK 125 ---
+// Revalidate at most after 1 hour
+fetch(`https://...`, { next: { revalidate: 3600 } })
+--- END CODE BLOCK ---
+config option.
+Good to know:
+This cache specifically applies to Next.js and Server Components, and is different to the browser's
+bfcache
+, though it has a similar result.
+Duration
+The cache is stored in the browser's temporary memory. Two factors determine how long the router cache lasts:
+Session
+: The cache persists across navigation. However, it's cleared on page refresh.
+Automatic Invalidation Period
+: The cache of layouts and loading states is automatically invalidated after a specific time. The duration depends on how the resource was
+prefetched
+, and if the resource was
+statically generated
+Default Prefetching
+--- CODE BLOCK 127 ---
+fetch options.next.tags
+--- END CODE BLOCK ---
+or unspecified): not cached for dynamic pages, 5 minutes for static pages.
+Full Prefetching
+--- CODE BLOCK 128 ---
+revalidateTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 130 ---
+unstable_cache
+--- END CODE BLOCK ---
+): 5 minutes for both static & dynamic pages.
+While a page refresh will clear
+cached segments, the automatic invalidation period only affects the individual segment from the time it was prefetched.
+Good to know
+: The experimental
+--- CODE BLOCK 131 ---
+revalidateTag
+--- END CODE BLOCK ---
+config option can be used to adjust the automatic invalidation times mentioned above.
+Invalidation
+There are two ways you can invalidate the Router Cache:
+In a
+Server Action
+Revalidating data on-demand by path with (
+--- CODE BLOCK 132 ---
+// Cache data with a tag
+fetch(`https://...`, { next: { tags: ['a', 'b', 'c'] } })
+--- END CODE BLOCK ---
+) or by cache tag with (
+--- CODE BLOCK 133 ---
+// Cache data with a tag
+fetch(`https://...`, { next: { tags: ['a', 'b', 'c'] } })
+--- END CODE BLOCK ---
+Using
+--- CODE BLOCK 134 ---
+revalidateTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+// Revalidate entries with a specific tag
+revalidateTag('a')
+--- END CODE BLOCK ---
+invalidates the Router Cache to prevent routes that use cookies from becoming stale (e.g. authentication).
+Calling
+--- CODE BLOCK 136 ---
+// Revalidate entries with a specific tag
+revalidateTag('a')
+--- END CODE BLOCK ---
+will invalidate the Router Cache and make a new request to the server for the current route.
+Opting out
+As of Next.js 15, page segments are opted out by default.
+Good to know:
+You can also opt out of
+prefetching
+by setting the
+--- CODE BLOCK 137 ---
+revalidateTag
+--- END CODE BLOCK ---
+prop of the
+--- CODE BLOCK 138 ---
+revalidatePath
+--- END CODE BLOCK ---
+component to
+--- CODE BLOCK 139 ---
+revalidatePath
+--- END CODE BLOCK ---
+Cache Interactions
+When configuring the different caching mechanisms, it's important to understand how they interact with each other:
+Data Cache and Full Route Cache
+Revalidating or opting out of the Data Cache
+will
+invalidate the Full Route Cache, as the render output depends on data.
+Invalidating or opting out of the Full Route Cache
+does not
+affect the Data Cache. You can dynamically render a route that has both cached and uncached data. This is useful when most of your page uses cached data, but you have a few components that rely on data that needs to be fetched at request time. You can dynamically render without worrying about the performance impact of re-fetching all the data.
+Data Cache and Client-side Router cache
+To immediately invalidate the Data Cache and Router cache, you can use
+--- CODE BLOCK 140 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+revalidatePath('/')
+--- END CODE BLOCK ---
+in a
+Server Action
+Revalidating the Data Cache in a
+Route Handler
+will not
+immediately invalidate the Router Cache as the Route Handler isn't tied to a specific route. This means Router Cache will continue to serve the previous payload until a hard refresh, or the automatic invalidation period has elapsed.
+APIs
+The following table provides an overview of how different Next.js APIs affect caching:
+Router Cache
+Full Route Cache
+Data Cache
+React Cache
+--- CODE BLOCK 142 ---
+revalidatePath('/')
+--- END CODE BLOCK ---
+Cache
+--- CODE BLOCK 143 ---
+revalidatePath
+--- END CODE BLOCK ---
+Cache
+--- CODE BLOCK 144 ---
+revalidatePath
+--- END CODE BLOCK ---
+Revalidate
+--- CODE BLOCK 145 ---
+revalidatePath
+--- END CODE BLOCK ---
+Cache
+Cache
+--- CODE BLOCK 146 ---
+router.refresh
+--- END CODE BLOCK ---
+--- CODE BLOCK 147 ---
+router.refresh
+--- END CODE BLOCK ---
+Cache or Opt out
+--- CODE BLOCK 148 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 149 ---
+router.refresh()
+--- END CODE BLOCK ---
+Revalidate
+Revalidate
+--- CODE BLOCK 152 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 154 ---
+cookies.set
+--- END CODE BLOCK ---
+Cache
+Cache
+--- CODE BLOCK 155 ---
+cookies.delete
+--- END CODE BLOCK ---
+Revalidate (Server Action)
+Revalidate
+Revalidate
+--- CODE BLOCK 158 ---
+const dynamic = 'force-dynamic'
+--- END CODE BLOCK ---
+Revalidate (Server Action)
+Revalidate
+Revalidate
+--- CODE BLOCK 160 ---
+const fetchCache = 'default-no-store'
+--- END CODE BLOCK ---
+Revalidate or Opt out
+Revalidate or Opt out
+--- CODE BLOCK 162 ---
+generateStaticParams
+--- END CODE BLOCK ---
+Cache or Opt out
+Cache or Opt out
+--- CODE BLOCK 163 ---
+app/blog/[slug]/page.js
+--- END CODE BLOCK ---
+Revalidate (Server Action)
+Opt out
+--- CODE BLOCK 164 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 165 ---
+generateStaticParams
+--- END CODE BLOCK ---
+Opt out
+--- CODE BLOCK 166 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+return posts.map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Cache
+--- CODE BLOCK 167 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+return posts.map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Cache
+--- CODE BLOCK 168 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+// Render the first 10 posts at build time
+return posts.slice(0, 10).map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+Cache
+--- CODE BLOCK 169 ---
+export async function generateStaticParams() {
+const posts = await fetch('https://.../posts').then((res) => res.json())
+// Render the first 10 posts at build time
+return posts.slice(0, 10).map((post) => ({
+slug: post.slug,
+--- END CODE BLOCK ---
+By default, the
+--- CODE BLOCK 170 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+component automatically prefetches routes from the Full Route Cache and adds the React Server Component Payload to the Router Cache.
+To disable prefetching, you can set the
+--- CODE BLOCK 171 ---
+export async function generateStaticParams() {
+return []
+--- END CODE BLOCK ---
+prop to
+--- CODE BLOCK 172 ---
+export async function generateStaticParams() {
+return []
+--- END CODE BLOCK ---
+. But this will not skip the cache permanently, the route segment will still be cached client-side when the user visits the route.
+Learn more about the
+--- CODE BLOCK 173 ---
+generateStaticParams
+--- END CODE BLOCK ---
+component
+--- CODE BLOCK 174 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+--- CODE BLOCK 175 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+option of the
+--- CODE BLOCK 176 ---
+export const dynamicParams = false
+--- END CODE BLOCK ---
+hook can be used to manually prefetch a route. This adds the React Server Component Payload to the Router Cache.
+See the
+--- CODE BLOCK 177 ---
+generateStaticParams
+--- END CODE BLOCK ---
+hook
+API reference.
+--- CODE BLOCK 184 ---
+import { cache } from 'react'
+import db from '@/lib/db'
+export const getItem = cache(async (id: string) => {
+const item = await db.item.findUnique({ id })
+return item
+--- END CODE BLOCK ---
+--- CODE BLOCK 185 ---
+import { cache } from 'react'
+import db from '@/lib/db'
+export const getItem = cache(async (id: string) => {
+const item = await db.item.findUnique({ id })
+return item
+--- END CODE BLOCK ---
+option of the
+[CODE_BLOCK_101]
+hook can be used to manually refresh a route. This completely clears the Router Cache, and makes a new request to the server for the current route.
+[CODE_BLOCK_102]
+does not affect the Data or Full Route Cache.
+The rendered result will be reconciled on the client while preserving React state and browser state.
+See the
+[CODE_BLOCK_103]
+hook
+API reference.
+[CODE_BLOCK_104]
+Data returned from
+[CODE_BLOCK_105]
+automatically cached in the Data Cache.
+The default caching behavior of
+[CODE_BLOCK_106]
+(e.g., when the
+[CODE_BLOCK_107]
+option is not specified) is equal to setting the
+[CODE_BLOCK_108]
+option to
+[CODE_BLOCK_109]
+[CODE_BLOCK_110]
+See the
+[CODE_BLOCK_112]
+API Reference
+for more options.
+[CODE_BLOCK_113]
+You can opt individual
+[CODE_BLOCK_114]
+into caching by setting the
+[CODE_BLOCK_115]
+option to
+[CODE_BLOCK_116]
+[CODE_BLOCK_117]
+See the
+[CODE_BLOCK_119]
+API Reference
+for more options.
+[CODE_BLOCK_120]
+You can use the
+[CODE_BLOCK_121]
+option of
+[CODE_BLOCK_122]
+to set the revalidation period (in seconds) of an individual
+[CODE_BLOCK_123]
+request. This will revalidate the Data Cache, which in turn will revalidate the Full Route Cache. Fresh data will be fetched, and components will be re-rendered on the server.
+[CODE_BLOCK_124]
+See the
+[CODE_BLOCK_126]
+API reference
+for more options.
+[CODE_BLOCK_127]
+[CODE_BLOCK_128]
+Next.js has a cache tagging system for fine-grained data caching and revalidation.
+When using
+[CODE_BLOCK_129]
+[CODE_BLOCK_130]
+, you have the option to tag cache entries with one or more tags.
+Then, you can call
+[CODE_BLOCK_131]
+to purge the cache entries associated with that tag.
+For example, you can set a tag when fetching data:
+[CODE_BLOCK_132]
+Then, call
+[CODE_BLOCK_134]
+with a tag to purge the cache entry:
+[CODE_BLOCK_135]
+There are two places you can use
+[CODE_BLOCK_137]
+, depending on what you're trying to achieve:
+Route Handlers
+- to revalidate data in response of a third party event (e.g. webhook). This will not invalidate the Router Cache immediately as the Router Handler isn't tied to a specific route.
+Server Actions
+- to revalidate data after a user action (e.g. form submission). This will invalidate the Router Cache for the associated route.
+[CODE_BLOCK_138]
+[CODE_BLOCK_139]
+allows you manually revalidate data
+re-render the route segments below a specific path in a single operation. Calling the
+[CODE_BLOCK_140]
+method revalidates the Data Cache, which in turn invalidates the Full Route Cache.
+[CODE_BLOCK_141]
+There are two places you can use
+[CODE_BLOCK_143]
+, depending on what you're trying to achieve:
+Route Handlers
+- to revalidate data in response to a third party event (e.g. webhook).
+Server Actions
+- to revalidate data after a user interaction (e.g. form submission, clicking a button).
+See the
+[CODE_BLOCK_144]
+API reference
+for more information.
+[CODE_BLOCK_145]
+[CODE_BLOCK_146]
+Calling
+[CODE_BLOCK_147]
+will clear the Router cache, and re-render route segments on the server without invalidating the Data Cache or the Full Route Cache.
+The difference is that
+[CODE_BLOCK_148]
+purges the Data Cache and Full Route Cache, whereas
+[CODE_BLOCK_149]
+does not change the Data Cache and Full Route Cache, as it is a client-side API.
+Dynamic APIs
+Dynamic APIs like
+[CODE_BLOCK_150]
+[CODE_BLOCK_151]
+, and the
+[CODE_BLOCK_152]
+prop in Pages depend on runtime incoming request information. Using them will opt a route out of the Full Route Cache, in other words, the route will be dynamically rendered.
+[CODE_BLOCK_153]
+Using
+[CODE_BLOCK_154]
+[CODE_BLOCK_155]
+in a Server Action invalidates the Router Cache to prevent routes that use cookies from becoming stale (e.g. to reflect authentication changes).
+See the
+[CODE_BLOCK_156]
+API reference.
+Segment Config Options
+The Route Segment Config options can be used to override the route segment defaults or when you're not able to use the
+[CODE_BLOCK_157]
+API (e.g. database client or 3rd party libraries).
+The following Route Segment Config options will opt out of the Full Route Cache:
+[CODE_BLOCK_158]
+This config option will opt all fetches out of the Data Cache (i.e.
+[CODE_BLOCK_159]
+[CODE_BLOCK_160]
+See the
+[CODE_BLOCK_161]
+to see more advanced options.
+See the
+Route Segment Config
+documentation for more options.
+[CODE_BLOCK_162]
+dynamic segments
+(e.g.
+[CODE_BLOCK_163]
+), paths provided by
+[CODE_BLOCK_164]
+are cached in the Full Route Cache at build time. At request time, Next.js will also cache paths that weren't known at build time the first time they're visited.
+To statically render all paths at build time, supply the full list of paths to
+[CODE_BLOCK_165]
+app/blog/[slug]/page.js
+[CODE_BLOCK_166]
+To statically render a subset of paths at build time, and the rest the first time they're visited at runtime, return a partial list of paths:
+app/blog/[slug]/page.js
+[CODE_BLOCK_168]
+To statically render all paths the first time they're visited, return an empty array (no paths will be rendered at build time) or utilize
+[CODE_BLOCK_170]
+app/blog/[slug]/page.js
+[CODE_BLOCK_171]
+Good to know:
+You must return an array from
+[CODE_BLOCK_173]
+, even if it's empty. Otherwise, the route will be dynamically rendered.
+app/changelog/[slug]/page.js
+[CODE_BLOCK_174]
+To disable caching at request time, add the
+[CODE_BLOCK_176]
+option in a route segment. When this config option is used, only paths provided by
+[CODE_BLOCK_177]
+will be served, and other routes will 404 or match (in the case of
+catch-all routes
+React
+[CODE_BLOCK_178]
+function
+The React
+[CODE_BLOCK_179]
+function allows you to memoize the return value of a function, allowing you to call the same function multiple times while only executing it once.
+Since
+[CODE_BLOCK_180]
+requests are automatically memoized, you do not need to wrap it in React
+[CODE_BLOCK_181]
+. However, you can use
+[CODE_BLOCK_182]
+to manually memoize data requests for use cases when the
+[CODE_BLOCK_183]
+API is not suitable. For example, some database clients, CMS clients, or GraphQL clients.
+utils/get-item.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_184]
+Was this helpful?
+supported.
+Send

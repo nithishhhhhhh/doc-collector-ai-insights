@@ -1,0 +1,199 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakSet
+SCRAPED: 2025-06-19 18:15:34
+================================================================================
+
+--- CODE BLOCK 12 ---
+// Execute a callback on everything stored inside an object
+function execRecursively(fn, subject, _refs = new WeakSet()) {
+// Avoid infinite recursion
+if (_refs.has(subject)) {
+return;
+fn(subject);
+if (typeof subject === "object" && subject) {
+_refs.add(subject);
+for (const key in subject) {
+execRecursively(fn, subject[key], _refs);
+_refs.delete(subject);
+const foo = {
+foo: "Foo",
+bar: {
+bar: "Bar",
+foo.bar.baz = foo; // Circular reference!
+execRecursively((obj) => console.log(obj), foo);
+--- END CODE BLOCK ---
+is a collection of garbage-collectable values, including objects and
+non-registered symbols
+. A value in the
+--- CODE BLOCK 13 ---
+// Execute a callback on everything stored inside an object
+function execRecursively(fn, subject, _refs = new WeakSet()) {
+// Avoid infinite recursion
+if (_refs.has(subject)) {
+return;
+fn(subject);
+if (typeof subject === "object" && subject) {
+_refs.add(subject);
+for (const key in subject) {
+execRecursively(fn, subject[key], _refs);
+_refs.delete(subject);
+const foo = {
+foo: "Foo",
+bar: {
+bar: "Bar",
+foo.bar.baz = foo; // Circular reference!
+execRecursively((obj) => console.log(obj), foo);
+--- END CODE BLOCK ---
+may only occur once. It is unique in the
+--- CODE BLOCK 20 ---
+WeakSet.prototype
+--- END CODE BLOCK ---
+'s collection.
+Description
+Values of WeakSets must be garbage-collectable. Most
+primitive data types
+can be arbitrarily created and don't have a lifetime, so they cannot be stored. Objects and
+non-registered symbols
+can be stored because they are garbage-collectable.
+The main differences to the
+--- CODE BLOCK 22 ---
+WeakSet.prototype.constructor
+--- END CODE BLOCK ---
+object are:
+--- CODE BLOCK 25 ---
+WeakSet.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+s are collections of
+objects and symbols only
+. They cannot contain arbitrary values of any type, as
+--- CODE BLOCK 26 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+s can.
+--- CODE BLOCK 28 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+weak
+, meaning references to objects in a
+--- CODE BLOCK 29 ---
+WeakSet.prototype.add()
+--- END CODE BLOCK ---
+are held
+weakly
+. If no other references to a value stored in the
+--- CODE BLOCK 32 ---
+WeakSet.prototype.delete()
+--- END CODE BLOCK ---
+exist, those values can be garbage collected.
+Note:
+This also means that there is no list of current values stored in the collection.
+--- CODE BLOCK 35 ---
+WeakSet.prototype.has(value)
+--- END CODE BLOCK ---
+are not enumerable.
+Use case: Detecting circular references
+Functions that call themselves recursively need a way of guarding against circular data structures by tracking which objects have already been processed.
+--- CODE BLOCK 37 ---
+WeakSet.prototype.has()
+--- END CODE BLOCK ---
+s are ideal for this purpose:
+Copy to Clipboard
+--- CODE BLOCK 40 ---
+const ws = new WeakSet();
+const foo = {};
+const bar = {};
+ws.add(foo);
+ws.add(bar);
+ws.has(foo); // true
+ws.has(bar); // true
+ws.delete(foo); // removes foo from the set
+ws.has(foo); // false, foo has been removed
+ws.has(bar); // true, bar is retained
+--- END CODE BLOCK ---
+Here, a
+--- CODE BLOCK 42 ---
+foo !== bar
+--- END CODE BLOCK ---
+is created on the first run, and passed along with every subsequent function call (using the internal
+[CODE_BLOCK_15]
+parameter).
+The number of objects or their traversal order is immaterial, so a
+[CODE_BLOCK_16]
+is more suitable (and performant) than a
+[CODE_BLOCK_17]
+for tracking object references, especially if a very large number of objects is involved.
+Constructor
+[CODE_BLOCK_18]
+Creates a new
+[CODE_BLOCK_19]
+object.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_20]
+and shared by all
+[CODE_BLOCK_21]
+instances.
+[CODE_BLOCK_22]
+The constructor function that created the instance object. For
+[CODE_BLOCK_23]
+instances, the initial value is the
+[CODE_BLOCK_24]
+constructor.
+[CODE_BLOCK_25]
+The initial value of the
+[CODE_BLOCK_26]
+property is the string
+[CODE_BLOCK_27]
+. This property is used in
+[CODE_BLOCK_28]
+Instance methods
+[CODE_BLOCK_29]
+Appends
+[CODE_BLOCK_30]
+to the
+[CODE_BLOCK_31]
+object.
+[CODE_BLOCK_32]
+Removes
+[CODE_BLOCK_33]
+from the
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+will return
+[CODE_BLOCK_36]
+afterwards.
+[CODE_BLOCK_37]
+Returns a boolean asserting whether
+[CODE_BLOCK_38]
+is present in the
+[CODE_BLOCK_39]
+object or not.
+Examples
+Using the WeakSet object
+Copy to Clipboard
+[CODE_BLOCK_40]
+Note that
+[CODE_BLOCK_42]
+. While they are similar objects,
+they are not
+the same object
+. And so they are both added to the set.
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-weakset-objects
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jul 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

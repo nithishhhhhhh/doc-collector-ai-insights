@@ -1,0 +1,74 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/useCache
+SCRAPED: 2025-06-19 17:10:13
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+useCache
+useCache
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 8 ---
+experimental
+--- END CODE BLOCK ---
+flag is an experimental feature in Next.js that enables the
+--- CODE BLOCK 9 ---
+next.config.ts
+--- END CODE BLOCK ---
+directive
+to be used independently of
+--- CODE BLOCK 10 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+useCache: true,
+export default nextConfig
+--- END CODE BLOCK ---
+. When enabled, you can use
+--- CODE BLOCK 11 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+useCache: true,
+export default nextConfig
+--- END CODE BLOCK ---
+in your application even if
+[CODE_BLOCK_5]
+is turned off.
+Usage
+To enable the
+[CODE_BLOCK_6]
+flag, set it to
+[CODE_BLOCK_7]
+in the
+[CODE_BLOCK_8]
+section of your
+[CODE_BLOCK_9]
+file:
+next.config.ts
+[CODE_BLOCK_10]
+When
+[CODE_BLOCK_12]
+is enabled, you can use the following cache functions and configurations:
+[CODE_BLOCK_13]
+directive
+[CODE_BLOCK_14]
+function
+with
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+function
+Was this helpful?
+supported.
+Send

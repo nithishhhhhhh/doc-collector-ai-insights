@@ -1,0 +1,1866 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
+SCRAPED: 2025-06-19 18:12:37
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+generateMetadata
+generateMetadata
+You can use the
+--- CODE BLOCK 2 ---
+generateMetadata
+--- END CODE BLOCK ---
+object or the
+--- CODE BLOCK 7 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: '...',
+description: '...',
+export default function Page() {}
+--- END CODE BLOCK ---
+function to define metadata.
+--- CODE BLOCK 8 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: '...',
+description: '...',
+export default function Page() {}
+--- END CODE BLOCK ---
+object
+To define static metadata, export a
+--- CODE BLOCK 9 ---
+generateMetadata
+--- END CODE BLOCK ---
+object
+from a
+--- CODE BLOCK 11 ---
+generateMetadata
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+import type { Metadata, ResolvingMetadata } from 'next'
+type Props = {
+params: Promise<{ id: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export async function generateMetadata(
+{ params, searchParams }: Props,
+parent: ResolvingMetadata
+): Promise<Metadata> {
+// read route params
+const { id } = await params
+// fetch data
+const product = await fetch(`https://.../${id}`).then((res) => res.json())
+// optionally access and extend (rather than replace) parent metadata
+const previousImages = (await parent).openGraph?.images || []
+return {
+title: product.title,
+openGraph: {
+images: ['/some-specific-page-image.jpg', ...previousImages],
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+file.
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+import type { Metadata, ResolvingMetadata } from 'next'
+type Props = {
+params: Promise<{ id: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export async function generateMetadata(
+{ params, searchParams }: Props,
+parent: ResolvingMetadata
+): Promise<Metadata> {
+// read route params
+const { id } = await params
+// fetch data
+const product = await fetch(`https://.../${id}`).then((res) => res.json())
+// optionally access and extend (rather than replace) parent metadata
+const previousImages = (await parent).openGraph?.images || []
+return {
+title: product.title,
+openGraph: {
+images: ['/some-specific-page-image.jpg', ...previousImages],
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+See the
+Metadata Fields
+for a complete list of supported options.
+--- CODE BLOCK 21 ---
+generateMetadata
+--- END CODE BLOCK ---
+function
+Dynamic metadata depends on
+dynamic information
+, such as the current route parameters, external data, or
+--- CODE BLOCK 23 ---
+generateMetadata
+--- END CODE BLOCK ---
+in parent segments, can be set by exporting a
+--- CODE BLOCK 24 ---
+generateMetadata
+--- END CODE BLOCK ---
+function that returns a
+--- CODE BLOCK 25 ---
+generateStaticParams
+--- END CODE BLOCK ---
+object
+app/products/[id]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 29 ---
+generateMetadata
+--- END CODE BLOCK ---
+Good to know
+Metadata can be added to
+--- CODE BLOCK 33 ---
+generateMetadata
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+app/shop/[slug]/page.js
+--- END CODE BLOCK ---
+files.
+Next.js will automatically resolve the metadata, and create the relevant
+--- CODE BLOCK 37 ---
+{ slug: '1' }
+--- END CODE BLOCK ---
+tags for the page.
+--- CODE BLOCK 38 ---
+app/shop/[tag]/[item]/page.js
+--- END CODE BLOCK ---
+object and
+--- CODE BLOCK 40 ---
+{ tag: '1', item: '2' }
+--- END CODE BLOCK ---
+function exports are
+only supported in Server Components
+You cannot export both the
+--- CODE BLOCK 41 ---
+app/shop/[...slug]/page.js
+--- END CODE BLOCK ---
+object and
+--- CODE BLOCK 43 ---
+{ slug: ['1', '2'] }
+--- END CODE BLOCK ---
+function from the same route segment.
+--- CODE BLOCK 44 ---
+searchParams
+--- END CODE BLOCK ---
+requests inside
+--- CODE BLOCK 45 ---
+searchParams
+--- END CODE BLOCK ---
+are automatically
+memoized
+for the same data across
+--- CODE BLOCK 48 ---
+/shop?a=1&b=2
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+{ a: '1', b: '2' }
+--- END CODE BLOCK ---
+, Layouts, Pages, and Server Components.
+React
+--- CODE BLOCK 50 ---
+/shop?a=1&a=2
+--- END CODE BLOCK ---
+can be used
+--- CODE BLOCK 51 ---
+{ a: ['1', '2'] }
+--- END CODE BLOCK ---
+is unavailable.
+File-based metadata
+has the higher priority and will override the
+--- CODE BLOCK 53 ---
+generateMetadata
+--- END CODE BLOCK ---
+object and
+--- CODE BLOCK 56 ---
+generateMetadata
+--- END CODE BLOCK ---
+function.
+Reference
+Parameters
+--- CODE BLOCK 58 ---
+generateMetadata
+--- END CODE BLOCK ---
+function accepts the following parameters:
+--- CODE BLOCK 59 ---
+generateStaticParams
+--- END CODE BLOCK ---
+- An object containing the parameters of the current route:
+--- CODE BLOCK 62 ---
+searchParams
+--- END CODE BLOCK ---
+- An object containing the
+dynamic route parameters
+object from the root segment down to the segment
+--- CODE BLOCK 66 ---
+generateMetadata
+--- END CODE BLOCK ---
+is called from. Examples:
+Route
+--- CODE BLOCK 69 ---
+export const metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 70 ---
+export const metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+<title>Next.js</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 72 ---
+<title>Next.js</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+title.default
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+default: 'Acme',
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+default: 'Acme',
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {}
+// Output: <title>Acme</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {}
+// Output: <title>Acme</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+template: '%s | Acme',
+default: 'Acme', // a default is required when creating a template
+--- END CODE BLOCK ---
+- An object containing the current URL's
+search params
+. Examples:
+--- CODE BLOCK 84 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+template: '%s | Acme',
+default: 'Acme', // a default is required when creating a template
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'About',
+// Output: <title>About | Acme</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'About',
+// Output: <title>About | Acme</title>
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+title.default
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+title.template
+--- END CODE BLOCK ---
+- A promise of the resolved metadata from parent route segments.
+Returns
+--- CODE BLOCK 96 ---
+title.template
+--- END CODE BLOCK ---
+should return a
+--- CODE BLOCK 98 ---
+title.default
+--- END CODE BLOCK ---
+object
+containing one or more metadata fields.
+Good to know
+If metadata doesn't depend on runtime information, it should be defined using the static
+--- CODE BLOCK 100 ---
+title.absolute
+--- END CODE BLOCK ---
+object
+rather than
+--- CODE BLOCK 101 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+template: '%s | Acme',
+--- END CODE BLOCK ---
+requests are automatically
+memoized
+for the same data across
+--- CODE BLOCK 103 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+template: '%s | Acme',
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+absolute: 'About',
+// Output: <title>About</title>
+--- END CODE BLOCK ---
+, Layouts, Pages, and Server Components. React
+--- CODE BLOCK 105 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: {
+absolute: 'About',
+// Output: <title>About</title>
+--- END CODE BLOCK ---
+can be used
+--- CODE BLOCK 108 ---
+title.default
+--- END CODE BLOCK ---
+is unavailable.
+--- CODE BLOCK 110 ---
+title.template
+--- END CODE BLOCK ---
+are only available in
+--- CODE BLOCK 111 ---
+title.absolute
+--- END CODE BLOCK ---
+segments.
+--- CODE BLOCK 112 ---
+title.template
+--- END CODE BLOCK ---
+--- CODE BLOCK 113 ---
+title.template
+--- END CODE BLOCK ---
+Next.js methods can also be used inside
+--- CODE BLOCK 116 ---
+title.template
+--- END CODE BLOCK ---
+Metadata Fields
+The following fields are supported:
+--- CODE BLOCK 117 ---
+title.absolute
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+title.template
+--- END CODE BLOCK ---
+attribute is used to set the title of the document. It can be defined as a simple
+string
+or an optional
+template object
+String
+layout.js | page.js
+--- CODE BLOCK 119 ---
+title.template
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 122 ---
+export const metadata = {
+description: 'The React Framework for the Web',
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+<meta name="description" content="The React Framework for the Web" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+<meta name="description" content="The React Framework for the Web" />
+--- END CODE BLOCK ---
+can be used to provide a
+fallback title
+to child route segments that don't define a
+--- CODE BLOCK 126 ---
+export const metadata = {
+generator: 'Next.js',
+applicationName: 'Next.js',
+referrer: 'origin-when-cross-origin',
+keywords: ['Next.js', 'React', 'JavaScript'],
+authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
+creator: 'Jiachi Liu',
+publisher: 'Sebastian Markbåge',
+formatDetection: {
+email: false,
+address: false,
+telephone: false,
+--- END CODE BLOCK ---
+app/layout.tsx
+--- CODE BLOCK 127 ---
+export const metadata = {
+generator: 'Next.js',
+applicationName: 'Next.js',
+referrer: 'origin-when-cross-origin',
+keywords: ['Next.js', 'React', 'JavaScript'],
+authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
+creator: 'Jiachi Liu',
+publisher: 'Sebastian Markbåge',
+formatDetection: {
+email: false,
+address: false,
+telephone: false,
+--- END CODE BLOCK ---
+app/about/page.tsx
+--- CODE BLOCK 129 ---
+<meta name="application-name" content="Next.js" />
+<meta name="author" content="Seb" />
+<link rel="author" href="https://nextjs.org" />
+<meta name="author" content="Josh" />
+<meta name="generator" content="Next.js" />
+<meta name="keywords" content="Next.js,React,JavaScript" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="color-scheme" content="dark" />
+<meta name="creator" content="Jiachi Liu" />
+<meta name="publisher" content="Sebastian Markbåge" />
+<meta name="format-detection" content="telephone=no, address=no, email=no" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+metadataBase
+--- END CODE BLOCK ---
+--- CODE BLOCK 133 ---
+metadataBase
+--- END CODE BLOCK ---
+can be used to add a prefix or a suffix to
+--- CODE BLOCK 135 ---
+metadataBase
+--- END CODE BLOCK ---
+defined in
+child
+route segments.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 136 ---
+export const metadata = {
+metadataBase: new URL('https://acme.com'),
+alternates: {
+canonical: '/',
+languages: {
+'en-US': '/en-US',
+'de-DE': '/de-DE',
+openGraph: {
+images: '/og-image.png',
+--- END CODE BLOCK ---
+app/about/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 138 ---
+<link rel="canonical" href="https://acme.com" />
+<link rel="alternate" hreflang="en-US" href="https://acme.com/en-US" />
+<link rel="alternate" hreflang="de-DE" href="https://acme.com/de-DE" />
+<meta property="og:image" content="https://acme.com/og-image.png" />
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 140 ---
+metadataBase
+--- END CODE BLOCK ---
+applies to
+child
+route segments and
+the segment it's defined in. This means:
+--- CODE BLOCK 141 ---
+app/layout.js
+--- END CODE BLOCK ---
+required
+when you add a
+--- CODE BLOCK 144 ---
+metadataBase
+--- END CODE BLOCK ---
+--- CODE BLOCK 145 ---
+metadataBase
+--- END CODE BLOCK ---
+defined in
+--- CODE BLOCK 146 ---
+https://app.acme.com
+--- END CODE BLOCK ---
+will not apply to a
+--- CODE BLOCK 147 ---
+https://acme.com/start/from/here
+--- END CODE BLOCK ---
+defined in a
+--- CODE BLOCK 149 ---
+metadataBase
+--- END CODE BLOCK ---
+of the same route segment.
+--- CODE BLOCK 151 ---
+metadataBase
+--- END CODE BLOCK ---
+defined in
+--- CODE BLOCK 152 ---
+metadataBase
+--- END CODE BLOCK ---
+has no effect because a page is always the terminating segment (it doesn't have any children route segments).
+--- CODE BLOCK 153 ---
+https://acme.com/
+--- END CODE BLOCK ---
+no effect
+if a route has not defined a
+--- CODE BLOCK 155 ---
+https://acme.com/path
+--- END CODE BLOCK ---
+--- CODE BLOCK 156 ---
+metadataBase
+--- END CODE BLOCK ---
+--- CODE BLOCK 159 ---
+metadataBase
+--- END CODE BLOCK ---
+--- CODE BLOCK 160 ---
+metadataBase
+--- END CODE BLOCK ---
+can be used to provide a title that
+ignores
+--- CODE BLOCK 161 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+metadataBase: new URL('https://acme.com'),
+--- END CODE BLOCK ---
+set in parent segments.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 162 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+metadataBase: new URL('https://acme.com'),
+--- END CODE BLOCK ---
+app/about/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 167 ---
+https://acme.com
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 171 ---
+https://acme.com/payments
+--- END CODE BLOCK ---
+--- CODE BLOCK 173 ---
+https://acme.com/payments
+--- END CODE BLOCK ---
+(string) and
+--- CODE BLOCK 175 ---
+https://acme.com/payments
+--- END CODE BLOCK ---
+define the default title for child segments (that do not define their own
+--- CODE BLOCK 176 ---
+../payments
+--- END CODE BLOCK ---
+). It will augment
+--- CODE BLOCK 177 ---
+https://acme.com/payments
+--- END CODE BLOCK ---
+from the closest parent segment if it exists.
+--- CODE BLOCK 178 ---
+https://beta.acme.com/payments
+--- END CODE BLOCK ---
+defines the default title for child segments. It ignores
+--- CODE BLOCK 179 ---
+https://beta.acme.com/payments
+--- END CODE BLOCK ---
+from parent segments.
+--- CODE BLOCK 181 ---
+export const metadata = {
+openGraph: {
+title: 'Next.js',
+description: 'The React Framework for the Web',
+url: 'https://nextjs.org',
+siteName: 'Next.js',
+images: [
+url: 'https://nextjs.org/og.png', // Must be an absolute URL
+width: 800,
+height: 600,
+url: 'https://nextjs.org/og-alt.png', // Must be an absolute URL
+width: 1800,
+height: 1600,
+alt: 'My custom alt',
+videos: [
+url: 'https://nextjs.org/video.mp4', // Must be an absolute URL
+width: 800,
+height: 600,
+audio: [
+url: 'https://nextjs.org/audio.mp3', // Must be an absolute URL
+locale: 'en_US',
+type: 'website',
+--- END CODE BLOCK ---
+defines a new title template for child segments.
+--- CODE BLOCK 182 ---
+export const metadata = {
+openGraph: {
+title: 'Next.js',
+description: 'The React Framework for the Web',
+url: 'https://nextjs.org',
+siteName: 'Next.js',
+images: [
+url: 'https://nextjs.org/og.png', // Must be an absolute URL
+width: 800,
+height: 600,
+url: 'https://nextjs.org/og-alt.png', // Must be an absolute URL
+width: 1800,
+height: 1600,
+alt: 'My custom alt',
+videos: [
+url: 'https://nextjs.org/video.mp4', // Must be an absolute URL
+width: 800,
+height: 600,
+audio: [
+url: 'https://nextjs.org/audio.mp3', // Must be an absolute URL
+locale: 'en_US',
+type: 'website',
+--- END CODE BLOCK ---
+If a page does not define its own title the closest parents resolved title will be used.
+--- CODE BLOCK 183 ---
+<meta property="og:title" content="Next.js" />
+<meta property="og:description" content="The React Framework for the Web" />
+<meta property="og:url" content="https://nextjs.org/" />
+<meta property="og:site_name" content="Next.js" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://nextjs.org/og.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://nextjs.org/og-alt.png" />
+<meta property="og:image:width" content="1800" />
+<meta property="og:image:height" content="1600" />
+<meta property="og:image:alt" content="My custom alt" />
+<meta property="og:video" content="https://nextjs.org/video.mp4" />
+<meta property="og:video:width" content="800" />
+<meta property="og:video:height" content="600" />
+<meta property="og:audio" content="https://nextjs.org/audio.mp3" />
+<meta property="og:type" content="website" />
+--- END CODE BLOCK ---
+(string) defines the routes title. It will augment
+--- CODE BLOCK 184 ---
+<meta property="og:title" content="Next.js" />
+<meta property="og:description" content="The React Framework for the Web" />
+<meta property="og:url" content="https://nextjs.org/" />
+<meta property="og:site_name" content="Next.js" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://nextjs.org/og.png" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://nextjs.org/og-alt.png" />
+<meta property="og:image:width" content="1800" />
+<meta property="og:image:height" content="1600" />
+<meta property="og:image:alt" content="My custom alt" />
+<meta property="og:video" content="https://nextjs.org/video.mp4" />
+<meta property="og:video:width" content="800" />
+<meta property="og:video:height" content="600" />
+<meta property="og:audio" content="https://nextjs.org/audio.mp3" />
+<meta property="og:type" content="website" />
+--- END CODE BLOCK ---
+from the closest parent segment if it exists.
+--- CODE BLOCK 185 ---
+export const metadata = {
+openGraph: {
+title: 'Next.js',
+description: 'The React Framework for the Web',
+type: 'article',
+publishedTime: '2023-01-01T00:00:00.000Z',
+authors: ['Seb', 'Josh'],
+--- END CODE BLOCK ---
+defines the route title. It ignores
+--- CODE BLOCK 186 ---
+export const metadata = {
+openGraph: {
+title: 'Next.js',
+description: 'The React Framework for the Web',
+type: 'article',
+publishedTime: '2023-01-01T00:00:00.000Z',
+authors: ['Seb', 'Josh'],
+--- END CODE BLOCK ---
+from parent segments.
+--- CODE BLOCK 187 ---
+<meta property="og:title" content="Next.js" />
+<meta property="og:description" content="The React Framework for the Web" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-01T00:00:00.000Z" />
+<meta property="article:author" content="Seb" />
+<meta property="article:author" content="Josh" />
+--- END CODE BLOCK ---
+has no effect in
+--- CODE BLOCK 188 ---
+<meta property="og:title" content="Next.js" />
+<meta property="og:description" content="The React Framework for the Web" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-01T00:00:00.000Z" />
+<meta property="article:author" content="Seb" />
+<meta property="article:author" content="Josh" />
+--- END CODE BLOCK ---
+because a page is always the terminating segment of a route.
+--- CODE BLOCK 190 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+robots: {
+index: true,
+follow: true,
+nocache: false,
+googleBot: {
+index: true,
+follow: true,
+noimageindex: false,
+'max-video-preview': -1,
+'max-image-preview': 'large',
+'max-snippet': -1,
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 191 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+robots: {
+index: true,
+follow: true,
+nocache: false,
+googleBot: {
+index: true,
+follow: true,
+noimageindex: false,
+'max-video-preview': -1,
+'max-image-preview': 'large',
+'max-snippet': -1,
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 193 ---
+<meta name="robots" content="index, follow" />
+<meta
+name="googlebot"
+content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+--- END CODE BLOCK ---
+Other fields
+layout.js | page.js
+--- CODE BLOCK 196 ---
+export const metadata = {
+icons: {
+icon: '/icon.png',
+shortcut: '/shortcut-icon.png',
+apple: '/apple-icon.png',
+other: {
+rel: 'apple-touch-icon-precomposed',
+url: '/apple-touch-icon-precomposed.png',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 198 ---
+<link rel="shortcut icon" href="/shortcut-icon.png" />
+<link rel="icon" href="/icon.png" />
+<link rel="apple-touch-icon" href="/apple-icon.png" />
+<link
+rel="apple-touch-icon-precomposed"
+href="/apple-touch-icon-precomposed.png"
+--- END CODE BLOCK ---
+--- CODE BLOCK 200 ---
+export const metadata = {
+icons: {
+icon: [
+{ url: '/icon.png' },
+new URL('/icon.png', 'https://example.com'),
+{ url: '/icon-dark.png', media: '(prefers-color-scheme: dark)' },
+shortcut: ['/shortcut-icon.png'],
+apple: [
+{ url: '/apple-icon.png' },
+{ url: '/apple-icon-x3.png', sizes: '180x180', type: 'image/png' },
+other: [
+rel: 'apple-touch-icon-precomposed',
+url: '/apple-touch-icon-precomposed.png',
+--- END CODE BLOCK ---
+--- CODE BLOCK 201 ---
+<link rel="shortcut icon" href="/shortcut-icon.png" />
+<link rel="icon" href="/icon.png" />
+<link rel="icon" href="https://example.com/icon.png" />
+<link rel="icon" href="/icon-dark.png" media="(prefers-color-scheme: dark)" />
+<link rel="apple-touch-icon" href="/apple-icon.png" />
+<link
+rel="apple-touch-icon-precomposed"
+href="/apple-touch-icon-precomposed.png"
+<link
+rel="apple-touch-icon"
+href="/apple-icon-x3.png"
+sizes="180x180"
+type="image/png"
+--- END CODE BLOCK ---
+is a convenience option to set a base URL prefix for
+--- CODE BLOCK 202 ---
+<link rel="shortcut icon" href="/shortcut-icon.png" />
+<link rel="icon" href="/icon.png" />
+<link rel="icon" href="https://example.com/icon.png" />
+<link rel="icon" href="/icon-dark.png" media="(prefers-color-scheme: dark)" />
+<link rel="apple-touch-icon" href="/apple-icon.png" />
+<link
+rel="apple-touch-icon-precomposed"
+href="/apple-touch-icon-precomposed.png"
+<link
+rel="apple-touch-icon"
+href="/apple-icon-x3.png"
+sizes="180x180"
+type="image/png"
+--- END CODE BLOCK ---
+fields that require a fully qualified URL.
+--- CODE BLOCK 203 ---
+msapplication-*
+--- END CODE BLOCK ---
+allows URL-based
+--- CODE BLOCK 208 ---
+colorScheme
+--- END CODE BLOCK ---
+fields defined in the
+current route segment and below
+to use a
+relative path
+instead of an otherwise required absolute URL.
+The field's relative path will be composed with
+--- CODE BLOCK 209 ---
+colorScheme
+--- END CODE BLOCK ---
+to form a fully qualified URL.
+layout.js | page.js
+--- CODE BLOCK 213 ---
+export const metadata = {
+manifest: 'https://nextjs.org/manifest.json',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 215 ---
+<link rel="manifest" href="https://nextjs.org/manifest.json" />
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 218 ---
+export const metadata = {
+twitter: {
+card: 'summary_large_image',
+title: 'Next.js',
+description: 'The React Framework for the Web',
+siteId: '1467726470533754880',
+creator: '@nextjs',
+creatorId: '1467726470533754880',
+images: ['https://nextjs.org/og.png'], // Must be an absolute URL
+--- END CODE BLOCK ---
+is typically set in root
+--- CODE BLOCK 219 ---
+export const metadata = {
+twitter: {
+card: 'summary_large_image',
+title: 'Next.js',
+description: 'The React Framework for the Web',
+siteId: '1467726470533754880',
+creator: '@nextjs',
+creatorId: '1467726470533754880',
+images: ['https://nextjs.org/og.png'], // Must be an absolute URL
+--- END CODE BLOCK ---
+to apply to URL-based
+--- CODE BLOCK 220 ---
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site:id" content="1467726470533754880" />
+<meta name="twitter:creator" content="@nextjs" />
+<meta name="twitter:creator:id" content="1467726470533754880" />
+<meta name="twitter:title" content="Next.js" />
+<meta name="twitter:description" content="The React Framework for the Web" />
+<meta name="twitter:image" content="https://nextjs.org/og.png" />
+--- END CODE BLOCK ---
+fields across all routes.
+All URL-based
+--- CODE BLOCK 221 ---
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site:id" content="1467726470533754880" />
+<meta name="twitter:creator" content="@nextjs" />
+<meta name="twitter:creator:id" content="1467726470533754880" />
+<meta name="twitter:title" content="Next.js" />
+<meta name="twitter:description" content="The React Framework for the Web" />
+<meta name="twitter:image" content="https://nextjs.org/og.png" />
+--- END CODE BLOCK ---
+fields that require absolute URLs can be configured with a
+--- CODE BLOCK 222 ---
+export const metadata = {
+twitter: {
+card: 'app',
+title: 'Next.js',
+description: 'The React Framework for the Web',
+siteId: '1467726470533754880',
+creator: '@nextjs',
+creatorId: '1467726470533754880',
+images: {
+url: 'https://nextjs.org/og.png',
+alt: 'Next.js Logo',
+app: {
+name: 'twitter_app',
+id: {
+iphone: 'twitter_app://iphone',
+ipad: 'twitter_app://ipad',
+googleplay: 'twitter_app://googleplay',
+url: {
+iphone: 'https://iphone_url',
+ipad: 'https://ipad_url',
+--- END CODE BLOCK ---
+option.
+--- CODE BLOCK 223 ---
+export const metadata = {
+twitter: {
+card: 'app',
+title: 'Next.js',
+description: 'The React Framework for the Web',
+siteId: '1467726470533754880',
+creator: '@nextjs',
+creatorId: '1467726470533754880',
+images: {
+url: 'https://nextjs.org/og.png',
+alt: 'Next.js Logo',
+app: {
+name: 'twitter_app',
+id: {
+iphone: 'twitter_app://iphone',
+ipad: 'twitter_app://ipad',
+googleplay: 'twitter_app://googleplay',
+url: {
+iphone: 'https://iphone_url',
+ipad: 'https://ipad_url',
+--- END CODE BLOCK ---
+can contain a subdomain e.g.
+--- CODE BLOCK 224 ---
+<meta name="twitter:site:id" content="1467726470533754880" />
+<meta name="twitter:creator" content="@nextjs" />
+<meta name="twitter:creator:id" content="1467726470533754880" />
+<meta name="twitter:title" content="Next.js" />
+<meta name="twitter:description" content="The React Framework for the Web" />
+<meta name="twitter:card" content="app" />
+<meta name="twitter:image" content="https://nextjs.org/og.png" />
+<meta name="twitter:image:alt" content="Next.js Logo" />
+<meta name="twitter:app:name:iphone" content="twitter_app" />
+<meta name="twitter:app:id:iphone" content="twitter_app://iphone" />
+<meta name="twitter:app:id:ipad" content="twitter_app://ipad" />
+<meta name="twitter:app:id:googleplay" content="twitter_app://googleplay" />
+<meta name="twitter:app:url:iphone" content="https://iphone_url" />
+<meta name="twitter:app:url:ipad" content="https://ipad_url" />
+<meta name="twitter:app:name:ipad" content="twitter_app" />
+<meta name="twitter:app:name:googleplay" content="twitter_app" />
+--- END CODE BLOCK ---
+or base path e.g.
+--- CODE BLOCK 225 ---
+<meta name="twitter:site:id" content="1467726470533754880" />
+<meta name="twitter:creator" content="@nextjs" />
+<meta name="twitter:creator:id" content="1467726470533754880" />
+<meta name="twitter:title" content="Next.js" />
+<meta name="twitter:description" content="The React Framework for the Web" />
+<meta name="twitter:card" content="app" />
+<meta name="twitter:image" content="https://nextjs.org/og.png" />
+<meta name="twitter:image:alt" content="Next.js Logo" />
+<meta name="twitter:app:name:iphone" content="twitter_app" />
+<meta name="twitter:app:id:iphone" content="twitter_app://iphone" />
+<meta name="twitter:app:id:ipad" content="twitter_app://ipad" />
+<meta name="twitter:app:id:googleplay" content="twitter_app://googleplay" />
+<meta name="twitter:app:url:iphone" content="https://iphone_url" />
+<meta name="twitter:app:url:ipad" content="https://ipad_url" />
+<meta name="twitter:app:name:ipad" content="twitter_app" />
+<meta name="twitter:app:name:googleplay" content="twitter_app" />
+--- END CODE BLOCK ---
+If a
+--- CODE BLOCK 230 ---
+verification
+--- END CODE BLOCK ---
+field provides an absolute URL,
+--- CODE BLOCK 231 ---
+export const metadata = {
+verification: {
+google: 'google',
+yandex: 'yandex',
+yahoo: 'yahoo',
+other: {
+me: ['my-email', 'my-link'],
+--- END CODE BLOCK ---
+will be ignored.
+Using a relative path in a URL-based
+--- CODE BLOCK 232 ---
+export const metadata = {
+verification: {
+google: 'google',
+yandex: 'yandex',
+yahoo: 'yahoo',
+other: {
+me: ['my-email', 'my-link'],
+--- END CODE BLOCK ---
+field without configuring a
+--- CODE BLOCK 233 ---
+<meta name="google-site-verification" content="google" />
+<meta name="y_key" content="yahoo" />
+<meta name="yandex-verification" content="yandex" />
+<meta name="me" content="my-email" />
+<meta name="me" content="my-link" />
+--- END CODE BLOCK ---
+will cause a build error.
+Next.js will normalize duplicate slashes between
+--- CODE BLOCK 234 ---
+<meta name="google-site-verification" content="google" />
+<meta name="y_key" content="yahoo" />
+<meta name="yandex-verification" content="yandex" />
+<meta name="me" content="my-email" />
+<meta name="me" content="my-link" />
+--- END CODE BLOCK ---
+(e.g.
+--- CODE BLOCK 235 ---
+appleWebApp
+--- END CODE BLOCK ---
+) and a relative field (e.g.
+--- CODE BLOCK 236 ---
+export const metadata = {
+itunes: {
+appId: 'myAppStoreID',
+appArgument: 'myAppArgument',
+appleWebApp: {
+title: 'Apple Web App',
+statusBarStyle: 'black-translucent',
+startupImage: [
+'/assets/startup/apple-touch-startup-image-768x1004.png',
+url: '/assets/startup/apple-touch-startup-image-1536x2008.png',
+media: '(device-width: 768px) and (device-height: 1024px)',
+--- END CODE BLOCK ---
+) to a single slash (e.g.
+--- CODE BLOCK 237 ---
+export const metadata = {
+itunes: {
+appId: 'myAppStoreID',
+appArgument: 'myAppArgument',
+appleWebApp: {
+title: 'Apple Web App',
+statusBarStyle: 'black-translucent',
+startupImage: [
+'/assets/startup/apple-touch-startup-image-768x1004.png',
+url: '/assets/startup/apple-touch-startup-image-1536x2008.png',
+media: '(device-width: 768px) and (device-height: 1024px)',
+--- END CODE BLOCK ---
+URL Composition
+URL composition favors developer intent over default directory traversal semantics.
+Trailing slashes between
+--- CODE BLOCK 238 ---
+<meta
+name="apple-itunes-app"
+content="app-id=myAppStoreID, app-argument=myAppArgument"
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Apple Web App" />
+<link
+href="/assets/startup/apple-touch-startup-image-768x1004.png"
+rel="apple-touch-startup-image"
+<link
+href="/assets/startup/apple-touch-startup-image-1536x2008.png"
+media="(device-width: 768px) and (device-height: 1024px)"
+rel="apple-touch-startup-image"
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="black-translucent"
+--- END CODE BLOCK ---
+--- CODE BLOCK 239 ---
+<meta
+name="apple-itunes-app"
+content="app-id=myAppStoreID, app-argument=myAppArgument"
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Apple Web App" />
+<link
+href="/assets/startup/apple-touch-startup-image-768x1004.png"
+rel="apple-touch-startup-image"
+<link
+href="/assets/startup/apple-touch-startup-image-1536x2008.png"
+media="(device-width: 768px) and (device-height: 1024px)"
+rel="apple-touch-startup-image"
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="black-translucent"
+--- END CODE BLOCK ---
+fields are normalized.
+An "absolute" path in a
+--- CODE BLOCK 241 ---
+export const metadata = {
+alternates: {
+canonical: 'https://nextjs.org',
+languages: {
+'en-US': 'https://nextjs.org/en-US',
+'de-DE': 'https://nextjs.org/de-DE',
+media: {
+'only screen and (max-width: 600px)': 'https://nextjs.org/mobile',
+types: {
+'application/rss+xml': 'https://nextjs.org/rss',
+--- END CODE BLOCK ---
+field (that typically would replace the whole URL path) is treated as a "relative" path (starting from the end of
+--- CODE BLOCK 242 ---
+export const metadata = {
+alternates: {
+canonical: 'https://nextjs.org',
+languages: {
+'en-US': 'https://nextjs.org/en-US',
+'de-DE': 'https://nextjs.org/de-DE',
+media: {
+'only screen and (max-width: 600px)': 'https://nextjs.org/mobile',
+types: {
+'application/rss+xml': 'https://nextjs.org/rss',
+--- END CODE BLOCK ---
+For example, given the following
+--- CODE BLOCK 243 ---
+<link rel="canonical" href="https://nextjs.org" />
+<link rel="alternate" hreflang="en-US" href="https://nextjs.org/en-US" />
+<link rel="alternate" hreflang="de-DE" href="https://nextjs.org/de-DE" />
+<link
+rel="alternate"
+media="only screen and (max-width: 600px)"
+href="https://nextjs.org/mobile"
+<link
+rel="alternate"
+type="application/rss+xml"
+href="https://nextjs.org/rss"
+--- END CODE BLOCK ---
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 244 ---
+<link rel="canonical" href="https://nextjs.org" />
+<link rel="alternate" hreflang="en-US" href="https://nextjs.org/en-US" />
+<link rel="alternate" hreflang="de-DE" href="https://nextjs.org/de-DE" />
+<link
+rel="alternate"
+media="only screen and (max-width: 600px)"
+href="https://nextjs.org/mobile"
+<link
+rel="alternate"
+type="application/rss+xml"
+href="https://nextjs.org/rss"
+--- END CODE BLOCK ---
+--- CODE BLOCK 247 ---
+export const metadata = {
+appLinks: {
+ios: {
+url: 'https://nextjs.org/ios',
+app_store_id: 'app_store_id',
+android: {
+package: 'com.example.android/package',
+app_name: 'app_name_android',
+web: {
+url: 'https://nextjs.org/web',
+should_fallback: true,
+--- END CODE BLOCK ---
+fields that inherit the above
+--- CODE BLOCK 248 ---
+<meta property="al:ios:url" content="https://nextjs.org/ios" />
+<meta property="al:ios:app_store_id" content="app_store_id" />
+<meta property="al:android:package" content="com.example.android/package" />
+<meta property="al:android:app_name" content="app_name_android" />
+<meta property="al:web:url" content="https://nextjs.org/web" />
+<meta property="al:web:should_fallback" content="true" />
+--- END CODE BLOCK ---
+and set their own value will be resolved as follows:
+--- CODE BLOCK 249 ---
+<meta property="al:ios:url" content="https://nextjs.org/ios" />
+<meta property="al:ios:app_store_id" content="app_store_id" />
+<meta property="al:android:package" content="com.example.android/package" />
+<meta property="al:android:app_name" content="app_name_android" />
+<meta property="al:web:url" content="https://nextjs.org/web" />
+<meta property="al:web:should_fallback" content="true" />
+--- END CODE BLOCK ---
+field
+Resolved URL
+--- CODE BLOCK 251 ---
+export const metadata = {
+archives: ['https://nextjs.org/13'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 252 ---
+export const metadata = {
+archives: ['https://nextjs.org/13'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 253 ---
+<link rel="archives" href="https://nextjs.org/13" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 254 ---
+<link rel="archives" href="https://nextjs.org/13" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 256 ---
+export const metadata = {
+assets: ['https://nextjs.org/assets'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 257 ---
+export const metadata = {
+assets: ['https://nextjs.org/assets'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 258 ---
+<link rel="assets" href="https://nextjs.org/assets" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 259 ---
+<link rel="assets" href="https://nextjs.org/assets" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 261 ---
+export const metadata = {
+bookmarks: ['https://nextjs.org/13'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 262 ---
+export const metadata = {
+bookmarks: ['https://nextjs.org/13'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 263 ---
+<link rel="bookmarks" href="https://nextjs.org/13" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 264 ---
+<link rel="bookmarks" href="https://nextjs.org/13" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 266 ---
+export const metadata = {
+category: 'technology',
+--- END CODE BLOCK ---
+--- CODE BLOCK 267 ---
+export const metadata = {
+category: 'technology',
+--- END CODE BLOCK ---
+--- CODE BLOCK 268 ---
+<meta name="category" content="technology" />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 269 ---
+<meta name="category" content="technology" />
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 272 ---
+export const metadata = {
+facebook: {
+appId: '12345678',
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 274 ---
+<meta property="fb:app_id" content="12345678" />
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 276 ---
+export const metadata = {
+facebook: {
+admins: '12345678',
+--- END CODE BLOCK ---
+Good to know
+It may be more convenient to use the
+file-based Metadata API
+for Open Graph images. Rather than having to sync the config export with actual files, the file-based API will automatically generate the correct metadata for you.
+--- CODE BLOCK 278 ---
+<meta property="fb:admins" content="12345678" />
+--- END CODE BLOCK ---
+layout.tsx | page.tsx
+--- CODE BLOCK 279 ---
+export const metadata = {
+facebook: {
+admins: ['12345678', '87654321'],
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 281 ---
+<meta property="fb:admins" content="12345678" />
+<meta property="fb:admins" content="87654321" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 284 ---
+export const metadata = {
+pinterest: {
+richPin: true,
+--- END CODE BLOCK ---
+Good to know
+: We recommend using the
+file-based Metadata API
+for icons where possible. Rather than having to sync the config export with actual files, the file-based API will automatically generate the correct metadata for you.
+layout.js | page.js
+--- CODE BLOCK 285 ---
+export const metadata = {
+pinterest: {
+richPin: true,
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 287 ---
+<meta name="pinterest-rich-pin" content="true" />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 291 ---
+export const metadata = {
+other: {
+custom: 'meta',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 293 ---
+<meta name="custom" content="meta" />
+--- END CODE BLOCK ---
+Good to know
+: The
+--- CODE BLOCK 295 ---
+export const metadata = {
+other: {
+custom: ['meta1', 'meta2'],
+--- END CODE BLOCK ---
+meta tags are no longer supported in Chromium builds of Microsoft Edge, and thus no longer needed.
+--- CODE BLOCK 296 ---
+<meta name="custom" content="meta1" /> <meta name="custom" content="meta2" />
+--- END CODE BLOCK ---
+Deprecated
+: The
+--- CODE BLOCK 297 ---
+<meta name="custom" content="meta1" /> <meta name="custom" content="meta2" />
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 300 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+is deprecated as of Next.js 14. Please use the
+--- CODE BLOCK 301 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+configuration
+instead.
+--- CODE BLOCK 302 ---
+generateMetadata
+--- END CODE BLOCK ---
+Deprecated
+: The
+--- CODE BLOCK 303 ---
+import type { Metadata } from 'next'
+export function generateMetadata(): Metadata {
+return {
+title: 'Next.js',
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 304 ---
+import type { Metadata } from 'next'
+export function generateMetadata(): Metadata {
+return {
+title: 'Next.js',
+--- END CODE BLOCK ---
+is deprecated as of Next.js 14. Please use the
+--- CODE BLOCK 305 ---
+import type { Metadata } from 'next'
+export async function generateMetadata(): Promise<Metadata> {
+return {
+title: 'Next.js',
+--- END CODE BLOCK ---
+configuration
+instead.
+--- CODE BLOCK 306 ---
+import type { Metadata } from 'next'
+export async function generateMetadata(): Promise<Metadata> {
+return {
+title: 'Next.js',
+--- END CODE BLOCK ---
+A web application manifest, as defined in the
+Web Application Manifest specification
+layout.js | page.js
+--- CODE BLOCK 307 ---
+import type { Metadata } from 'next'
+type Props = {
+params: Promise<{ id: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export function generateMetadata({ params, searchParams }: Props): Metadata {
+return {
+title: 'Next.js',
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 309 ---
+import type { Metadata, ResolvingMetadata } from 'next'
+export async function generateMetadata(
+{ params, searchParams }: Props,
+parent: ResolvingMetadata
+): Promise<Metadata> {
+return {
+title: 'Next.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 311 ---
+/** @type {import("next").Metadata} */
+export const metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+The Twitter specification is (surprisingly) used for more than just X (formerly known as Twitter).
+Learn more about the
+Twitter Card markup reference
+layout.js | page.js
+--- CODE BLOCK 312 ---
+/** @type {import("next").Metadata} */
+export const metadata = {
+title: 'Next.js',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 319 ---
+<link rel="stylesheet" />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 322 ---
+<link rel="preconnect" />
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 328 ---
+'use client'
+import ReactDOM from 'react-dom'
+export function PreloadResources() {
+ReactDOM.preload('...', { as: '...' })
+ReactDOM.preconnect('...', { crossOrigin: '...' })
+ReactDOM.prefetchDNS('...')
+return '...'
+--- END CODE BLOCK ---
+--- CODE BLOCK 330 ---
+<link rel="preload">
+--- END CODE BLOCK ---
+Deprecated
+: The
+--- CODE BLOCK 331 ---
+ReactDOM.preload(href: string, options: { as: string })
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 332 ---
+ReactDOM.preload(href: string, options: { as: string })
+--- END CODE BLOCK ---
+is deprecated as of Next.js 14. Please use the
+--- CODE BLOCK 333 ---
+<link rel="preload" href="..." as="..." />
+--- END CODE BLOCK ---
+configuration
+instead.
+--- CODE BLOCK 334 ---
+<link rel="preload" href="..." as="..." />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 335 ---
+<link rel="preconnect">
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 337 ---
+ReactDOM.preconnect(href: string, options?: { crossOrigin?: string })
+--- END CODE BLOCK ---
+--- CODE BLOCK 339 ---
+<link rel="preconnect" href="..." crossorigin />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 340 ---
+<link rel="dns-prefetch">
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 342 ---
+ReactDOM.prefetchDNS(href: string)
+--- END CODE BLOCK ---
+--- CODE BLOCK 344 ---
+<link rel="dns-prefetch" href="..." />
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 347 ---
+next/script
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 350 ---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 357 ---
+htmlLimitedBots
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 358 ---
+next.config.js
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 360 ---
+import type { NextConfig } from 'next'
+const config: NextConfig = {
+htmlLimitedBots: /MySpecialBot|MyAnotherSpecialBot|SimpleCrawler/,
+export default config
+--- END CODE BLOCK ---
+--- CODE BLOCK 362 ---
+htmlLimitedBots
+--- END CODE BLOCK ---
+Describes a collection of records, documents, or other materials of historical interest (
+source
+layout.js | page.js
+--- CODE BLOCK 364 ---
+app/layout.tsx
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 366 ---
+app/blog/[slug]/page.tsx
+--- END CODE BLOCK ---
+--- CODE BLOCK 370 ---
+export const metadata = {
+title: 'Acme',
+openGraph: {
+title: 'Acme',
+description: 'Acme is a...',
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 371 ---
+export const metadata = {
+title: 'Blog',
+openGraph: {
+title: 'Blog',
+// Output:
+// <title>Blog</title>
+// <meta property="og:title" content="Blog" />
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 374 ---
+app/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 378 ---
+app/layout.js
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 379 ---
+app/blog/page.js
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 382 ---
+openGraph.description
+--- END CODE BLOCK ---
+--- CODE BLOCK 384 ---
+export const openGraphImage = { images: ['http://...'] }
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 385 ---
+import { openGraphImage } from './shared-metadata'
+export const metadata = {
+openGraph: {
+...openGraphImage,
+title: 'Home',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 387 ---
+import { openGraphImage } from '../shared-metadata'
+export const metadata = {
+openGraph: {
+...openGraphImage,
+title: 'About',
+--- END CODE BLOCK ---
+--- CODE BLOCK 389 ---
+app/layout.js
+--- END CODE BLOCK ---
+You can connect a Facebook app or Facebook account to you webpage for certain Facebook Social Plugins
+Facebook Documentation
+Good to know
+: You can specify either appId or admins, but not both.
+layout.js | page.js
+--- CODE BLOCK 390 ---
+app/about/page.js
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 392 ---
+export const metadata = {
+title: 'Acme',
+openGraph: {
+title: 'Acme',
+description: 'Acme is a...',
+--- END CODE BLOCK ---
+layout.js | page.js
+--- CODE BLOCK 394 ---
+export const metadata = {
+title: 'About',
+// Output:
+// <title>About</title>
+// <meta property="og:title" content="Acme" />
+// <meta property="og:description" content="Acme is a..." />
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 398 ---
+app/about/page.js
+--- END CODE BLOCK ---
+If you want to generate multiple fb:admins meta tags you can use array value.
+layout.js | page.js
+--- CODE BLOCK 401 ---
+app/about/page.js
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 405 ---
+generateMetadata
+--- END CODE BLOCK ---
+--- CODE BLOCK 413 ---
+generateMetadata
+--- END CODE BLOCK ---
+You can enable or disable
+Pinterest Rich Pins
+on your webpage.
+layout.js | page.js
+[CODE_BLOCK_284]
+<head> output
+[CODE_BLOCK_286]
+[CODE_BLOCK_288]
+All metadata options should be covered using the built-in support. However, there may be custom metadata tags specific to your site, or brand new metadata tags just released. You can use the
+[CODE_BLOCK_289]
+option to render any custom metadata tag.
+layout.js | page.js
+[CODE_BLOCK_290]
+<head> output
+[CODE_BLOCK_292]
+If you want to generate multiple same key meta tags you can use array value.
+layout.js | page.js
+[CODE_BLOCK_294]
+<head> output
+[CODE_BLOCK_296]
+Unsupported Metadata
+The following metadata types do not currently have built-in support. However, they can still be rendered in the layout or page itself.
+Types
+You can add type safety to your metadata by using the
+[CODE_BLOCK_298]
+type. If you are using the
+built-in TypeScript plugin
+in your IDE, you do not need to manually add the type, but you can still explicitly add it if you want.
+[CODE_BLOCK_299]
+object
+layout.tsx | page.tsx
+[CODE_BLOCK_300]
+[CODE_BLOCK_302]
+function
+Regular function
+layout.tsx | page.tsx
+[CODE_BLOCK_303]
+Async function
+layout.tsx | page.tsx
+[CODE_BLOCK_305]
+With segment props
+layout.tsx | page.tsx
+[CODE_BLOCK_307]
+With parent metadata
+layout.tsx | page.tsx
+[CODE_BLOCK_309]
+JavaScript Projects
+For JavaScript projects, you can use JSDoc to add type safety.
+layout.js | page.js
+[CODE_BLOCK_311]
+Metadata
+Recommendation
+[CODE_BLOCK_313]
+Use appropriate HTTP Headers via
+[CODE_BLOCK_314]
+Middleware
+Security Headers
+[CODE_BLOCK_315]
+Render the tag in the layout or page itself.
+[CODE_BLOCK_316]
+Render the tag in the layout or page itself.
+[CODE_BLOCK_317]
+Learn more about
+styling in Next.js
+[CODE_BLOCK_318]
+Learn more about
+using scripts
+[CODE_BLOCK_319]
+[CODE_BLOCK_320]
+stylesheets directly in the layout or page itself.
+[CODE_BLOCK_321]
+ReactDOM preload method
+[CODE_BLOCK_322]
+ReactDOM preconnect method
+[CODE_BLOCK_323]
+ReactDOM prefetchDNS method
+Resource hints
+[CODE_BLOCK_324]
+element has a number of
+[CODE_BLOCK_325]
+keywords that can be used to hint to the browser that an external resource is likely to be needed. The browser uses this information to apply preloading optimizations depending on the keyword.
+While the Metadata API doesn't directly support these hints, you can use new
+[CODE_BLOCK_326]
+methods
+to safely insert them into the
+[CODE_BLOCK_327]
+of the document.
+app/preload-resources.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_328]
+[CODE_BLOCK_330]
+Start loading a resource early in the page rendering (browser) lifecycle.
+MDN Docs
+[CODE_BLOCK_331]
+<head> output
+[CODE_BLOCK_333]
+[CODE_BLOCK_335]
+Preemptively initiate a connection to an origin.
+MDN Docs
+[CODE_BLOCK_336]
+<head> output
+[CODE_BLOCK_338]
+[CODE_BLOCK_340]
+Attempt to resolve a domain name before resources get requested.
+MDN Docs
+[CODE_BLOCK_341]
+<head> output
+[CODE_BLOCK_343]
+Good to know
+These methods are currently only supported in Client Components, which are still Server Side Rendered on initial page load.
+Next.js in-built features such as
+[CODE_BLOCK_345]
+[CODE_BLOCK_346]
+[CODE_BLOCK_347]
+automatically handle relevant resource hints.
+Behavior
+Default Fields
+There are two default
+[CODE_BLOCK_348]
+tags that are always added even if a route doesn't define metadata:
+meta charset tag
+sets the character encoding for the website.
+meta viewport tag
+sets the viewport width and scale for the website to adjust for different devices.
+[CODE_BLOCK_349]
+Good to know
+: You can overwrite the default
+[CODE_BLOCK_351]
+meta tag.
+Streaming metadata
+Metadata returned by
+[CODE_BLOCK_352]
+is streamed to the client. This allows Next.js to inject metadata into the HTML as soon as it's resolved.
+Streamed metadata is appended to the
+[CODE_BLOCK_353]
+tag. Since metadata mainly targets bots and crawlers, Next.js streams metadata for bots that can execute JavaScript and inspect the full DOM (e.g.
+[CODE_BLOCK_354]
+). We have verified that these bots interpret the metadata correctly.
+HTML-limited
+bots that can’t run JavaScript (e.g.
+[CODE_BLOCK_355]
+), metadata continues to block page rendering and is placed in the
+[CODE_BLOCK_356]
+tag.
+Next.js automatically detects the user agent of incoming requests to determine whether to serve streaming metadata or fallback to blocking metadata.
+If you need to customize this list, you can define them manually using the
+[CODE_BLOCK_357]
+option in
+[CODE_BLOCK_358]
+. Next.js will ensure user agents matching this regex receive blocking metadata when requesting your web page.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_359]
+Specifying a
+[CODE_BLOCK_361]
+config will override the Next.js' default list, allowing you full control over what user agents should opt into this behavior.
+Overriding
+[CODE_BLOCK_362]
+could lead to longer response times. Streaming metadata is an advanced feature, and the default should be sufficient for most cases.
+Ordering
+Metadata is evaluated in order, starting from the root segment down to the segment closest to the final
+[CODE_BLOCK_363]
+segment. For example:
+[CODE_BLOCK_364]
+(Root Layout)
+[CODE_BLOCK_365]
+(Nested Blog Layout)
+[CODE_BLOCK_366]
+(Blog Page)
+Merging
+Following the
+evaluation order
+, Metadata objects exported from multiple segments in the same route are
+shallowly
+merged together to form the final metadata output of a route. Duplicate keys are
+replaced
+based on their ordering.
+This means metadata with nested fields such as
+[CODE_BLOCK_367]
+[CODE_BLOCK_368]
+that are defined in an earlier segment are
+overwritten
+by the last segment to define them.
+Overwriting fields
+app/layout.js
+[CODE_BLOCK_369]
+app/blog/page.js
+[CODE_BLOCK_371]
+In the example above:
+[CODE_BLOCK_373]
+from
+[CODE_BLOCK_374]
+replaced
+[CODE_BLOCK_375]
+[CODE_BLOCK_376]
+[CODE_BLOCK_377]
+fields from
+[CODE_BLOCK_378]
+replaced
+[CODE_BLOCK_379]
+because
+[CODE_BLOCK_380]
+sets
+[CODE_BLOCK_381]
+metadata. Note the absence of
+[CODE_BLOCK_382]
+If you'd like to share some nested fields between segments while overwriting others, you can pull them out into a separate variable:
+app/shared-metadata.js
+[CODE_BLOCK_383]
+app/page.js
+[CODE_BLOCK_385]
+app/about/page.js
+[CODE_BLOCK_387]
+In the example above, the OG image is shared between
+[CODE_BLOCK_389]
+[CODE_BLOCK_390]
+while the titles are different.
+Inheriting fields
+app/layout.js
+[CODE_BLOCK_391]
+app/about/page.js
+[CODE_BLOCK_393]
+Notes
+[CODE_BLOCK_395]
+from
+[CODE_BLOCK_396]
+replaced
+[CODE_BLOCK_397]
+[CODE_BLOCK_398]
+[CODE_BLOCK_399]
+fields from
+[CODE_BLOCK_400]
+inherited
+[CODE_BLOCK_401]
+because
+[CODE_BLOCK_402]
+doesn't set
+[CODE_BLOCK_403]
+metadata.
+Version History
+Version
+Changes
+[CODE_BLOCK_404]
+Introduced streaming support to
+[CODE_BLOCK_405]
+[CODE_BLOCK_406]
+[CODE_BLOCK_407]
+[CODE_BLOCK_408]
+, and
+[CODE_BLOCK_409]
+deprecated in favor of the
+[CODE_BLOCK_410]
+configuration
+[CODE_BLOCK_411]
+[CODE_BLOCK_412]
+[CODE_BLOCK_413]
+introduced.
+Next Steps
+View all the Metadata API options.
+Metadata Files
+API documentation for the metadata file conventions.
+generateViewport
+API Reference for the generateViewport function.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,527 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/parallel-routes#modals
+SCRAPED: 2025-06-19 18:36:32
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+Parallel Routes
+Parallel Routes
+Parallel Routes allows you to simultaneously or conditionally render one or more pages within the same layout. They are useful for highly dynamic sections of an app, such as dashboards and feeds on social sites.
+For example, considering a dashboard, you can use parallel routes to simultaneously render the
+--- CODE BLOCK 6 ---
+app/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+export default function Layout({
+children,
+team,
+analytics,
+}: {
+children: React.ReactNode
+analytics: React.ReactNode
+team: React.ReactNode
+}) {
+return (
+{children}
+{team}
+{analytics}
+--- END CODE BLOCK ---
+pages:
+Convention
+Slots
+Parallel routes are created using named
+slots
+. Slots are defined with the
+--- CODE BLOCK 11 ---
+export default function Layout({
+children,
+team,
+analytics,
+}: {
+children: React.ReactNode
+analytics: React.ReactNode
+team: React.ReactNode
+}) {
+return (
+{children}
+{team}
+{analytics}
+--- END CODE BLOCK ---
+convention. For example, the following file structure defines two slots:
+--- CODE BLOCK 12 ---
+/@analytics/views
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+app/page.js
+--- END CODE BLOCK ---
+Slots are passed as props to the shared parent layout. For the example above, the component in
+--- CODE BLOCK 17 ---
+app/@children/page.js
+--- END CODE BLOCK ---
+now accepts the
+--- CODE BLOCK 38 ---
+useSelectedLayoutSegment(s)
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+slots props, and can render them in parallel alongside the
+--- CODE BLOCK 40 ---
+useSelectedLayoutSegments
+--- END CODE BLOCK ---
+prop:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 41 ---
+parallelRoutesKey
+--- END CODE BLOCK ---
+However, slots are
+route segments and do not affect the URL structure. For example, for
+--- CODE BLOCK 43 ---
+'use client'
+import { useSelectedLayoutSegment } from 'next/navigation'
+export default function Layout({ auth }: { auth: React.ReactNode }) {
+const loginSegment = useSelectedLayoutSegment('auth')
+// ...
+--- END CODE BLOCK ---
+, the URL will be
+--- CODE BLOCK 44 ---
+app/@auth/login
+--- END CODE BLOCK ---
+since
+--- CODE BLOCK 46 ---
+loginSegment
+--- END CODE BLOCK ---
+is a slot. Slots are combined with the regular
+Page
+component to form the final page associated with the route segment. Because of this, you cannot have separate
+static
+dynamic
+slots at the same route segment level. If one slot is dynamic, all slots at that level must be dynamic.
+Good to know
+--- CODE BLOCK 50 ---
+import { checkUserRole } from '@/lib/auth'
+export default function Layout({
+user,
+admin,
+}: {
+user: React.ReactNode
+admin: React.ReactNode
+}) {
+const role = checkUserRole()
+return role === 'admin' ? admin : user
+--- END CODE BLOCK ---
+prop is an implicit slot that does not need to be mapped to a folder. This means
+--- CODE BLOCK 51 ---
+import { checkUserRole } from '@/lib/auth'
+export default function Layout({
+user,
+admin,
+}: {
+user: React.ReactNode
+admin: React.ReactNode
+}) {
+const role = checkUserRole()
+return role === 'admin' ? admin : user
+--- END CODE BLOCK ---
+is equivalent to
+--- CODE BLOCK 54 ---
+/page-views
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+import Link from 'next/link'
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<nav>
+<Link href="/page-views">Page Views</Link>
+<Link href="/visitors">Visitors</Link>
+</nav>
+<div>{children}</div>
+--- END CODE BLOCK ---
+You can define a
+--- CODE BLOCK 59 ---
+import Link from 'next/link'
+export default function Layout({ children }: { children: React.ReactNode }) {
+return (
+<nav>
+<Link href="/page-views">Page Views</Link>
+<Link href="/visitors">Visitors</Link>
+</nav>
+<div>{children}</div>
+--- END CODE BLOCK ---
+file to render as a fallback for unmatched slots during the initial load or full-page reload.
+Consider the following folder structure. The
+--- CODE BLOCK 62 ---
+import { Login } from '@/app/ui/login'
+export default function Page() {
+return <Login />
+--- END CODE BLOCK ---
+slot has a
+--- CODE BLOCK 63 ---
+import { Login } from '@/app/ui/login'
+export default function Page() {
+return <Login />
+--- END CODE BLOCK ---
+page, but
+--- CODE BLOCK 67 ---
+export default function Default() {
+return null
+--- END CODE BLOCK ---
+does not.
+When navigating to
+--- CODE BLOCK 68 ---
+export default function Default() {
+return null
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 72 ---
+@auth/(.)login/page.tsx
+--- END CODE BLOCK ---
+slot will render the
+--- CODE BLOCK 73 ---
+/@auth/(.)login/page.tsx
+--- END CODE BLOCK ---
+page while maintaining the currently active page for the
+--- CODE BLOCK 74 ---
+import { Modal } from '@/app/ui/modal'
+import { Login } from '@/app/ui/login'
+export default function Page() {
+return (
+<Modal>
+<Login />
+</Modal>
+--- END CODE BLOCK ---
+slot.
+On refresh, Next.js will render a
+--- CODE BLOCK 75 ---
+import { Modal } from '@/app/ui/modal'
+import { Login } from '@/app/ui/login'
+export default function Page() {
+return (
+<Modal>
+<Login />
+</Modal>
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+import Link from 'next/link'
+export default function Layout({
+auth,
+children,
+}: {
+auth: React.ReactNode
+children: React.ReactNode
+}) {
+return (
+<nav>
+<Link href="/login">Open modal</Link>
+</nav>
+<div>{auth}</div>
+<div>{children}</div>
+--- END CODE BLOCK ---
+. If
+--- CODE BLOCK 82 ---
+import Link from 'next/link'
+export default function Layout({
+auth,
+children,
+}: {
+auth: React.ReactNode
+children: React.ReactNode
+}) {
+return (
+<nav>
+<Link href="/login">Open modal</Link>
+</nav>
+<div>{auth}</div>
+<div>{children}</div>
+--- END CODE BLOCK ---
+doesn't exist, a
+--- CODE BLOCK 86 ---
+router.back()
+--- END CODE BLOCK ---
+is rendered instead.
+Additionally, since
+--- CODE BLOCK 88 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export function Modal({ children }: { children: React.ReactNode }) {
+const router = useRouter()
+return (
+<button
+onClick={() => {
+router.back()
+Close modal
+</button>
+<div>{children}</div>
+--- END CODE BLOCK ---
+is an implicit slot, you also need to create a
+--- CODE BLOCK 89 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export function Modal({ children }: { children: React.ReactNode }) {
+const router = useRouter()
+return (
+<button
+onClick={() => {
+router.back()
+Close modal
+</button>
+<div>{children}</div>
+--- END CODE BLOCK ---
+file to render a fallback for
+--- CODE BLOCK 93 ---
+@auth/page.tsx
+--- END CODE BLOCK ---
+when Next.js cannot recover the active state of the parent page.
+Behavior
+By default, Next.js keeps track of the active
+state
+(or subpage) for each slot. However, the content rendered within a slot will depend on the type of navigation:
+Soft Navigation
+: During client-side navigation, Next.js will perform a
+partial render
+, changing the subpage within the slot, while maintaining the other slot's active subpages, even if they don't match the current URL.
+Hard Navigation
+: After a full-page load (browser refresh), Next.js cannot determine the active state for the slots that don't match the current URL. Instead, it will render a
+--- CODE BLOCK 94 ---
+import Link from 'next/link'
+export function Modal({ children }: { children: React.ReactNode }) {
+return (
+<Link href="/">Close modal</Link>
+<div>{children}</div>
+--- END CODE BLOCK ---
+file for the unmatched slots, or
+--- CODE BLOCK 95 ---
+import Link from 'next/link'
+export function Modal({ children }: { children: React.ReactNode }) {
+return (
+<Link href="/">Close modal</Link>
+<div>{children}</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 96 ---
+export default function Page() {
+return null
+--- END CODE BLOCK ---
+doesn't exist.
+Good to know
+--- CODE BLOCK 97 ---
+export default function Page() {
+return null
+--- END CODE BLOCK ---
+for unmatched routes helps ensure that you don't accidentally render a parallel route on a page that it was not intended for.
+Examples
+With
+--- CODE BLOCK 100 ---
+export default function CatchAll() {
+return null
+--- END CODE BLOCK ---
+Both
+--- CODE BLOCK 101 ---
+export default function CatchAll() {
+return null
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+/photo/[id]
+--- END CODE BLOCK ---
+accept a
+[CODE_BLOCK_41]
+parameter, which allows you to read the active route segment within a slot.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_42]
+When a user navigates to
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+in the URL bar),
+[CODE_BLOCK_46]
+will be equal to the string
+[CODE_BLOCK_47]
+Conditional Routes
+You can use Parallel Routes to conditionally render routes based on certain conditions, such as user role. For example, to render a different dashboard page for the
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+roles:
+app/dashboard/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_50]
+Tab Groups
+You can add a
+[CODE_BLOCK_52]
+inside a slot to allow users to navigate the slot independently. This is useful for creating tabs.
+For example, the
+[CODE_BLOCK_53]
+slot has two subpages:
+[CODE_BLOCK_54]
+[CODE_BLOCK_55]
+Within
+[CODE_BLOCK_56]
+, create a
+[CODE_BLOCK_57]
+file to share the tabs between the two pages:
+app/@analytics/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_58]
+Modals
+Parallel Routes can be used together with
+Intercepting Routes
+to create modals that support deep linking. This allows you to solve common challenges when building modals, such as:
+Making the modal content
+shareable through a URL
+Preserving context
+when the page is refreshed, instead of closing the modal.
+Closing the modal on backwards navigation
+rather than going to the previous route.
+Reopening the modal on forwards navigation
+Consider the following UI pattern, where a user can open a login modal from a layout using client-side navigation, or access a separate
+[CODE_BLOCK_60]
+page:
+To implement this pattern, start by creating a
+[CODE_BLOCK_61]
+route that renders your
+main
+login page.
+app/login/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_62]
+Then, inside the
+[CODE_BLOCK_64]
+slot, add
+[CODE_BLOCK_65]
+file that returns
+[CODE_BLOCK_66]
+. This ensures that the modal is not rendered when it's not active.
+app/@auth/default.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_67]
+Inside your
+[CODE_BLOCK_69]
+slot, intercept the
+[CODE_BLOCK_70]
+route by importing the
+[CODE_BLOCK_71]
+component and its children into the
+[CODE_BLOCK_72]
+file, and updating the folder name to
+[CODE_BLOCK_73]
+app/@auth/(.)login/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_74]
+Good to know:
+The convention
+[CODE_BLOCK_76]
+is used for intercepting routes. See
+Intercepting Routes
+docs for more information.
+By separating the
+[CODE_BLOCK_77]
+functionality from the modal content (
+[CODE_BLOCK_78]
+), you can ensure any content inside the modal, e.g.
+forms
+, are Server Components. See
+Interleaving Client and Server Components
+for more information.
+Opening the modal
+Now, you can leverage the Next.js router to open and close the modal. This ensures the URL is correctly updated when the modal is open, and when navigating backwards and forwards.
+To open the modal, pass the
+[CODE_BLOCK_79]
+slot as a prop to the parent layout and render it alongside the
+[CODE_BLOCK_80]
+prop.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_81]
+When the user clicks the
+[CODE_BLOCK_83]
+, the modal will open instead of navigating to the
+[CODE_BLOCK_84]
+page. However, on refresh or initial load, navigating to
+[CODE_BLOCK_85]
+will take the user to the main login page.
+Closing the modal
+You can close the modal by calling
+[CODE_BLOCK_86]
+or by using the
+[CODE_BLOCK_87]
+component.
+app/ui/modal.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_88]
+When using the
+[CODE_BLOCK_90]
+component to navigate away from a page that shouldn't render the
+[CODE_BLOCK_91]
+slot anymore, we need to make sure the parallel route matches to a component that returns
+[CODE_BLOCK_92]
+. For example, when navigating back to the root page, we create a
+[CODE_BLOCK_93]
+component:
+app/ui/modal.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_94]
+app/@auth/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_96]
+Or if navigating to any other page (such as
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+, etc), you can use a catch-all slot:
+app/@auth/[...catchAll]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_100]
+Good to know:
+We use a catch-all route in our
+[CODE_BLOCK_102]
+slot to close the modal because of how parallel routes behave. Since client-side navigations to a route that no longer match the slot will remain visible, we need to match the slot to a route that returns
+[CODE_BLOCK_103]
+to close the modal.
+Other examples could include opening a photo modal in a gallery while also having a dedicated
+[CODE_BLOCK_104]
+page, or opening a shopping cart in a side modal.
+View an example
+of modals with Intercepted and Parallel Routes.
+Loading and Error UI
+Parallel Routes can be streamed independently, allowing you to define independent error and loading states for each route:
+See the
+Loading UI
+Error Handling
+documentation for more information.
+Next Steps
+default.js
+API Reference for the default.js file.
+Was this helpful?
+supported.
+Send

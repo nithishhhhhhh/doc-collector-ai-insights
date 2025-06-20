@@ -1,0 +1,134 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/runtime-configuration
+SCRAPED: 2025-06-19 17:47:20
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+Runtime Config
+You are currently viewing the documentation for Pages Router.
+Runtime Config
+Warning:
+This feature is deprecated.
+We recommend using
+environment variables
+instead, which also can support reading runtime values.
+You can run code on server startup using the
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+function
+This feature does not work with
+Automatic Static Optimization
+Output File Tracing
+, or
+React Server Components
+To add runtime configuration to your app, open
+--- CODE BLOCK 3 ---
+publicRuntimeConfig
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 4 ---
+serverRuntimeConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+module.exports = {
+serverRuntimeConfig: {
+// Will only be available on the server side
+mySecret: 'secret',
+secondSecret: process.env.SECOND_SECRET, // Pass through env variables
+publicRuntimeConfig: {
+// Will be available on both server and client
+staticFolder: '/static',
+--- END CODE BLOCK ---
+configs:
+next.config.js
+--- CODE BLOCK 6 ---
+module.exports = {
+serverRuntimeConfig: {
+// Will only be available on the server side
+mySecret: 'secret',
+secondSecret: process.env.SECOND_SECRET, // Pass through env variables
+publicRuntimeConfig: {
+// Will be available on both server and client
+staticFolder: '/static',
+--- END CODE BLOCK ---
+Place any server-only runtime config under
+--- CODE BLOCK 8 ---
+publicRuntimeConfig
+--- END CODE BLOCK ---
+Anything accessible to both client and server-side code should be under
+--- CODE BLOCK 9 ---
+publicRuntimeConfig
+--- END CODE BLOCK ---
+A page that relies on
+--- CODE BLOCK 10 ---
+getInitialProps
+--- END CODE BLOCK ---
+must
+--- CODE BLOCK 11 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+getInitialProps
+--- END CODE BLOCK ---
+or your application must have a
+Custom App
+with
+--- CODE BLOCK 13 ---
+next/config
+--- END CODE BLOCK ---
+to opt-out of
+Automatic Static Optimization
+. Runtime configuration won't be available to any page (or component in a page) without being server-side rendered.
+To get access to the runtime configs in your app use
+--- CODE BLOCK 14 ---
+import getConfig from 'next/config'
+import Image from 'next/image'
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
+// Will only be available on the server-side
+console.log(serverRuntimeConfig.mySecret)
+// Will be available on both server-side and client-side
+console.log(publicRuntimeConfig.staticFolder)
+function MyImage() {
+return (
+<div>
+<Image
+src={`${publicRuntimeConfig.staticFolder}/logo.png`}
+alt="logo"
+layout="fill"
+</div>
+export default MyImage
+--- END CODE BLOCK ---
+, like so:
+--- CODE BLOCK 15 ---
+import getConfig from 'next/config'
+import Image from 'next/image'
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
+// Will only be available on the server-side
+console.log(serverRuntimeConfig.mySecret)
+// Will be available on both server-side and client-side
+console.log(publicRuntimeConfig.staticFolder)
+function MyImage() {
+return (
+<div>
+<Image
+src={`${publicRuntimeConfig.staticFolder}/logo.png`}
+alt="logo"
+layout="fill"
+</div>
+export default MyImage
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

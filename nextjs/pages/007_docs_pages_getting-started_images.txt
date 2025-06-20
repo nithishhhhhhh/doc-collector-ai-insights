@@ -1,0 +1,193 @@
+SOURCE URL: https://nextjs.org/docs/pages/getting-started/images
+SCRAPED: 2025-06-19 17:09:44
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Getting Started
+Images
+You are currently viewing the documentation for Pages Router.
+Image Optimization
+The Next.js
+--- CODE BLOCK 5 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image src="" alt="" />
+--- END CODE BLOCK ---
+component extends the HTML
+--- CODE BLOCK 6 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image src="" alt="" />
+--- END CODE BLOCK ---
+element to provide:
+Size optimization:
+Automatically serving correctly sized images for each device, using modern image formats like WebP.
+Visual stability:
+Preventing
+layout shift
+automatically when images are loading.
+Faster page loads:
+Only loading images when they enter the viewport using native browser lazy loading, with optional blur-up placeholders.
+Asset flexibility:
+Resizing images on-demand, even images stored on remote servers.
+To start using
+--- CODE BLOCK 12 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+, import it from
+--- CODE BLOCK 13 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+and render it within your component.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 16 ---
+import Image from 'next/image'
+import ProfileImage from './profile.png'
+export default function Page() {
+return (
+<Image
+src={ProfileImage}
+alt="Picture of the author"
+// width={500} automatically provided
+// height={500} automatically provided
+// blurDataURL="data:..." automatically provided
+// placeholder="blur" // Optional blur-up while loading
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="https://s3.amazonaws.com/my-bucket/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+property can be a
+local
+remote
+image.
+🎥 Watch:
+Learn more about how to use
+--- CODE BLOCK 20 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="https://s3.amazonaws.com/my-bucket/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+YouTube (9 minutes)
+Local images
+You can store static files, like images and fonts, under a folder called
+--- CODE BLOCK 23 ---
+blurDataURL
+--- END CODE BLOCK ---
+in the root directory. Files inside
+--- CODE BLOCK 27 ---
+next.config.js
+--- END CODE BLOCK ---
+can then be referenced by your code starting from the base URL (
+--- CODE BLOCK 28 ---
+import type { NextConfig } from 'next'
+const config: NextConfig = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 's3.amazonaws.com',
+port: '',
+pathname: '/my-bucket/**',
+search: '',
+export default config
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 29 ---
+import type { NextConfig } from 'next'
+const config: NextConfig = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 's3.amazonaws.com',
+port: '',
+pathname: '/my-bucket/**',
+search: '',
+export default config
+--- END CODE BLOCK ---
+If the image is statically imported, Next.js will automatically determine the intrinsic
+[CODE_BLOCK_14]
+[CODE_BLOCK_15]
+. These values are used to determine the image ratio and prevent
+Cumulative Layout Shift
+while your image is loading.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_16]
+Remote images
+To use a remote image, you can provide a URL string for the
+[CODE_BLOCK_18]
+property.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_19]
+Since Next.js does not have access to remote files during the build process, you'll need to provide the
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+and optional
+[CODE_BLOCK_23]
+props manually. The
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+are used to infer the correct aspect ratio of image and avoid layout shift from the image loading in. Alternatively, you can use the
+[CODE_BLOCK_26]
+property
+to make the image fill the size of the parent element.
+To safely allow images from remote servers, you need to define a list of supported URL patterns in
+[CODE_BLOCK_27]
+. Be as specific as possible to prevent malicious usage. For example, the following configuration will only allow images from a specific AWS S3 bucket:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_28]
+API Reference
+See the API Reference for the full feature set of Next.js Image
+Image
+Optimize Images in your Next.js Application using the built-in `next/image` Component.
+Was this helpful?
+supported.
+Send

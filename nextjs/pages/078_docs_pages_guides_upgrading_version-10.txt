@@ -1,0 +1,48 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/upgrading/version-10
+SCRAPED: 2025-06-19 17:18:14
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Upgrading
+Version 10
+You are currently viewing the documentation for Pages Router.
+How to upgrade to version 10
+There were no breaking changes between versions 9 and 10.
+To upgrade to version 10, run the following command:
+Terminal
+--- CODE BLOCK 1 ---
+npm i next@10
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 3 ---
+yarn add next@10
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 5 ---
+pnpm up next@10
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 7 ---
+bun add next@10
+--- END CODE BLOCK ---
+Good to know:
+If you are using TypeScript, ensure you also upgrade
+--- CODE BLOCK 9 ---
+@types/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+@types/react-dom
+--- END CODE BLOCK ---
+to their corresponding versions.
+Was this helpful?
+supported.
+Send

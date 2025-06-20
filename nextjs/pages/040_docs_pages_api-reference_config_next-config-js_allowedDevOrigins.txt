@@ -1,0 +1,55 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/allowedDevOrigins
+SCRAPED: 2025-06-19 17:13:42
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+allowedDevOrigins
+You are currently viewing the documentation for Pages Router.
+allowedDevOrigins
+Next.js does not automatically block cross-origin requests during development, but will block by default in a future major version of Next.js to prevent unauthorized requesting of internal assets/endpoints that are available in development mode.
+To configure a Next.js application to allow requests from origins other than the hostname the server was initialized with (
+--- CODE BLOCK 2 ---
+allowedDevOrigins
+--- END CODE BLOCK ---
+by default) you can use the
+--- CODE BLOCK 3 ---
+allowedDevOrigins
+--- END CODE BLOCK ---
+config option.
+--- CODE BLOCK 4 ---
+local-origin.dev
+--- END CODE BLOCK ---
+allows you to set additional origins that can be used in development mode. For example, to use
+--- CODE BLOCK 6 ---
+next.config.js
+--- END CODE BLOCK ---
+instead of only
+--- CODE BLOCK 7 ---
+allowedDevOrigins
+--- END CODE BLOCK ---
+, open
+--- CODE BLOCK 8 ---
+module.exports = {
+allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 9 ---
+module.exports = {
+allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev'],
+--- END CODE BLOCK ---
+config:
+next.config.js
+[CODE_BLOCK_8]
+Was this helpful?
+supported.
+Send

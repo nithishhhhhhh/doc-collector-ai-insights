@@ -1,0 +1,148 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-pathname
+SCRAPED: 2025-06-19 17:30:50
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+usePathname
+usePathname
+--- CODE BLOCK 1 ---
+usePathname
+--- END CODE BLOCK ---
+is a
+Client Component
+hook that lets you read the current URL's
+pathname
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+'use client'
+import { usePathname } from 'next/navigation'
+export default function ExampleClientComponent() {
+const pathname = usePathname()
+return <p>Current pathname: {pathname}</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+usePathname
+--- END CODE BLOCK ---
+intentionally requires using a
+Client Component
+. It's important to note Client Components are not a de-optimization. They are an integral part of the
+Server Components
+architecture.
+For example, a Client Component with
+--- CODE BLOCK 5 ---
+usePathname
+--- END CODE BLOCK ---
+will be rendered into HTML on the initial page load. When navigating to a new route, this component does not need to be re-fetched. Instead, the component is downloaded once (in the client JavaScript bundle), and re-renders based on the current state.
+Good to know
+Reading the current URL from a
+Server Component
+is not supported. This design is intentional to support layout state being preserved across page navigations.
+Compatibility mode:
+--- CODE BLOCK 6 ---
+usePathname
+--- END CODE BLOCK ---
+can return
+--- CODE BLOCK 9 ---
+usePathname
+--- END CODE BLOCK ---
+when a
+fallback route
+is being rendered or when a
+--- CODE BLOCK 10 ---
+next.config
+--- END CODE BLOCK ---
+directory page has been
+automatically statically optimized
+by Next.js and the router is not ready.
+When using
+--- CODE BLOCK 16 ---
+const pathname = usePathname()
+--- END CODE BLOCK ---
+with rewrites in
+--- CODE BLOCK 17 ---
+const pathname = usePathname()
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+usePathname
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+usePathname
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+'/dashboard'
+--- END CODE BLOCK ---
+must also be used in order to avoid hydration mismatch errors.
+Next.js will automatically update your types if it detects both an
+--- CODE BLOCK 24 ---
+/dashboard?v=2
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+'/dashboard'
+--- END CODE BLOCK ---
+directory in your project.
+Parameters
+--- CODE BLOCK 26 ---
+/blog/hello-world
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+'use client'
+import { usePathname, useSearchParams } from 'next/navigation'
+function ExampleClientComponent() {
+const pathname = usePathname()
+const searchParams = useSearchParams()
+useEffect(() => {
+// Do something here...
+}, [pathname, searchParams])
+--- END CODE BLOCK ---
+does not take any parameters.
+Returns
+--- CODE BLOCK 29 ---
+'use client'
+import { usePathname, useSearchParams } from 'next/navigation'
+function ExampleClientComponent() {
+const pathname = usePathname()
+const searchParams = useSearchParams()
+useEffect(() => {
+// Do something here...
+}, [pathname, searchParams])
+--- END CODE BLOCK ---
+returns a string of the current URL's pathname. For example:
+Returned value
+--- CODE BLOCK 31 ---
+usePathname
+--- END CODE BLOCK ---
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Examples
+Do something in response to a route change
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_28]
+Version
+Changes
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+introduced.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,46 @@
+SOURCE URL: https://developer.mozilla.org/docs/Glossary/Time_to_first_byte
+SCRAPED: 2025-06-19 18:10:28
+================================================================================
+
+Time to First Byte
+(TTFB) refers to the time between the browser requesting a page and when it receives the first byte of information from the server. This time includes
+lookup and establishing the connection using a
+handshake and
+handshake if the request is made over
+HTTPS
+TTFB is the time it takes between the start of the request and the start of the response, in milliseconds. This can be measured using the
+--- CODE BLOCK 1 ---
+responseStart
+--- END CODE BLOCK ---
+attribute of
+--- CODE BLOCK 2 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 3 ---
+const ttfb = performance.getEntriesByType("navigation")[0].responseStart;
+--- END CODE BLOCK ---
+Note:
+For sites using
+--- CODE BLOCK 5 ---
+103 Early Hints
+--- END CODE BLOCK ---
+, TTFB is typically the
+first bytes
+(after any redirects) — and so, the 103 interim response. Site owners wishing to measure the time until the final response should use
+--- CODE BLOCK 6 ---
+finalResponseHeadersStart
+--- END CODE BLOCK ---
+, where supported.
+See also
+A typical HTTP session
+PerformanceResourceTiming
+PerformanceNavigationTiming
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 25, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

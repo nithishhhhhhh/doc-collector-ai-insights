@@ -1,0 +1,141 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/decodeURI
+SCRAPED: 2025-06-19 18:21:33
+================================================================================
+
+--- CODE BLOCK 1 ---
+decodeURI()
+--- END CODE BLOCK ---
+function decodes a Uniform Resource Identifier (URI) previously created by
+--- CODE BLOCK 2 ---
+encodeURI()
+--- END CODE BLOCK ---
+or a similar routine.
+Try it
+--- CODE BLOCK 3 ---
+const uri = "https://mozilla.org/?x=шеллы";
+const encoded = encodeURI(uri);
+console.log(encoded);
+// Expected output: "https://mozilla.org/?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B"
+try {
+console.log(decodeURI(encoded));
+// Expected output: "https://mozilla.org/?x=шеллы"
+} catch (e) {
+// Catches a malformed URI
+console.error(e);
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+decodeURI(encodedURI)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 11 ---
+decodeURI()
+--- END CODE BLOCK ---
+A complete, encoded Uniform Resource Identifier.
+Return value
+A new string representing the unencoded version of the given encoded Uniform Resource Identifier (URI).
+Exceptions
+--- CODE BLOCK 12 ---
+decodeURI()
+--- END CODE BLOCK ---
+Thrown if
+--- CODE BLOCK 14 ---
+decodeURI()
+--- END CODE BLOCK ---
+contains a
+--- CODE BLOCK 15 ---
+decodeURI()
+--- END CODE BLOCK ---
+not followed by two hexadecimal digits, or if the escape sequence does not encode a valid UTF-8 character.
+Description
+--- CODE BLOCK 17 ---
+decodeURI()
+--- END CODE BLOCK ---
+is a function property of the global object.
+--- CODE BLOCK 18 ---
+; / ? : @ & = + $ , #
+--- END CODE BLOCK ---
+function decodes the URI by treating each escape sequence in the form
+--- CODE BLOCK 19 ---
+decodeURI(
+"https://developer.mozilla.org/ru/docs/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B",
+// "https://developer.mozilla.org/ru/docs/JavaScript_шеллы"
+--- END CODE BLOCK ---
+as one UTF-8 code unit (one byte). In UTF-8, the number of leading 1 bits in the first byte, which may be 0 (for 1-byte
+ASCII
+characters), 2, 3, or 4, indicates the number of bytes in the character. So by reading the first escape sequence,
+--- CODE BLOCK 20 ---
+decodeURI(
+"https://developer.mozilla.org/ru/docs/JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B",
+// "https://developer.mozilla.org/ru/docs/JavaScript_шеллы"
+--- END CODE BLOCK ---
+can determine how many more escape sequences to consume. If
+--- CODE BLOCK 21 ---
+decodeURI()
+--- END CODE BLOCK ---
+fails to find the expected number of sequences, or if the escape sequences don't encode a valid UTF-8 character, a
+--- CODE BLOCK 22 ---
+decodeURI(
+"https://developer.mozilla.org/docs/JavaScript%3A%20a_scripting_language",
+// "https://developer.mozilla.org/docs/JavaScript%3A a_scripting_language"
+decodeURIComponent(
+"https://developer.mozilla.org/docs/JavaScript%3A%20a_scripting_language",
+// "https://developer.mozilla.org/docs/JavaScript: a_scripting_language"
+--- END CODE BLOCK ---
+is thrown.
+--- CODE BLOCK 23 ---
+decodeURI(
+"https://developer.mozilla.org/docs/JavaScript%3A%20a_scripting_language",
+// "https://developer.mozilla.org/docs/JavaScript%3A a_scripting_language"
+decodeURIComponent(
+"https://developer.mozilla.org/docs/JavaScript%3A%20a_scripting_language",
+// "https://developer.mozilla.org/docs/JavaScript: a_scripting_language"
+--- END CODE BLOCK ---
+decodes all escape sequences, but if the escape sequence encodes one of the following characters, the escape sequence is preserved in the output string (because they are part of the URI syntax):
+--- CODE BLOCK 24 ---
+try {
+const a = decodeURI("%E0%A4%A");
+} catch (e) {
+console.error(e);
+// URIError: malformed URI sequence
+--- END CODE BLOCK ---
+Examples
+Decoding a Cyrillic URL
+Copy to Clipboard
+--- CODE BLOCK 25 ---
+try {
+const a = decodeURI("%E0%A4%A");
+} catch (e) {
+console.error(e);
+// URIError: malformed URI sequence
+--- END CODE BLOCK ---
+decodeURI() vs. decodeURIComponent()
+--- CODE BLOCK 27 ---
+encodeURI()
+--- END CODE BLOCK ---
+assumes the input is a full URI, so it does not decode characters that are part of the URI syntax.
+Copy to Clipboard
+--- CODE BLOCK 28 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+Catching errors
+Copy to Clipboard
+[CODE_BLOCK_24]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-decodeuri-encodeduri
+Browser compatibility
+See also
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

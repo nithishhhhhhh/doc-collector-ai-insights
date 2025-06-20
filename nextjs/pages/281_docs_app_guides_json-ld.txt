@@ -1,0 +1,112 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/json-ld
+SCRAPED: 2025-06-19 17:42:26
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+JSON-LD
+How to implement JSON-LD in your Next.js application
+JSON-LD
+is a format for structured data that can be used by search engines and AI to to help them understand the structure of the page beyond pure content. For example, you can use it to describe a person, an event, an organization, a movie, a book, a recipe, and many other types of entities.
+Our current recommendation for JSON-LD is to render structured data as a
+--- CODE BLOCK 4 ---
+JSON.stringify
+--- END CODE BLOCK ---
+tag in your
+--- CODE BLOCK 9 ---
+JSON.stringify
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+export default async function Page({ params }) {
+const { id } = await params
+const product = await getProduct(id)
+const jsonLd = {
+'@context': 'https://schema.org',
+'@type': 'Product',
+name: product.name,
+image: product.image,
+description: product.description,
+return (
+<section>
+{/* Add JSON-LD to your page */}
+<script
+type="application/ld+json"
+dangerouslySetInnerHTML={{
+__html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+{/* ... */}
+</section>
+--- END CODE BLOCK ---
+components.
+The following snippet uses
+--- CODE BLOCK 11 ---
+export default async function Page({ params }) {
+const { id } = await params
+const product = await getProduct(id)
+const jsonLd = {
+'@context': 'https://schema.org',
+'@type': 'Product',
+name: product.name,
+image: product.image,
+description: product.description,
+return (
+<section>
+{/* Add JSON-LD to your page */}
+<script
+type="application/ld+json"
+dangerouslySetInnerHTML={{
+__html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+{/* ... */}
+</section>
+--- END CODE BLOCK ---
+, which does not sanitize malicious strings used in XSS injection. To prevent this type of vulnerability, you can scrub
+--- CODE BLOCK 13 ---
+import { Product, WithContext } from 'schema-dts'
+const jsonLd: WithContext<Product> = {
+'@context': 'https://schema.org',
+'@type': 'Product',
+name: 'Next.js Sticker',
+image: 'https://nextjs.org/imgs/sticker.png',
+description: 'Dynamic at the speed of static.',
+--- END CODE BLOCK ---
+tags from the
+--- CODE BLOCK 14 ---
+import { Product, WithContext } from 'schema-dts'
+const jsonLd: WithContext<Product> = {
+'@context': 'https://schema.org',
+'@type': 'Product',
+name: 'Next.js Sticker',
+image: 'https://nextjs.org/imgs/sticker.png',
+description: 'Dynamic at the speed of static.',
+--- END CODE BLOCK ---
+payload, for example, by replacing the character,
+[CODE_BLOCK_7]
+, with its unicode equivalent,
+[CODE_BLOCK_8]
+Review your organization's recommended approach to sanitize potentially dangerous strings, or use community maintained alternatives for
+[CODE_BLOCK_9]
+such as,
+serialize-javascript
+app/products/[id]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_10]
+You can validate and test your structured data with the
+Rich Results Test
+for Google or the generic
+Schema Markup Validator
+You can type your JSON-LD with TypeScript using community packages like
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+Was this helpful?
+supported.
+Send

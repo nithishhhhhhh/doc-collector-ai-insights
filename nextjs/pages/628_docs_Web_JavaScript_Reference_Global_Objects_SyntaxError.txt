@@ -1,0 +1,129 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
+SCRAPED: 2025-06-19 18:21:09
+================================================================================
+
+--- CODE BLOCK 1 ---
+SyntaxError
+--- END CODE BLOCK ---
+object represents an error when trying to interpret syntactically invalid code. It is thrown when the JavaScript engine encounters tokens or token order that does not conform to the syntax of the language when parsing code.
+--- CODE BLOCK 2 ---
+SyntaxError
+--- END CODE BLOCK ---
+is a
+serializable object
+, so it can be cloned with
+--- CODE BLOCK 3 ---
+structuredClone()
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 4 ---
+postMessage()
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+SyntaxError
+--- END CODE BLOCK ---
+is a subclass of
+--- CODE BLOCK 7 ---
+SyntaxError()
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 8 ---
+SyntaxError
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 10 ---
+SyntaxError.prototype
+--- END CODE BLOCK ---
+object.
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 11 ---
+SyntaxError
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 12 ---
+SyntaxError.prototype.constructor
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 13 ---
+SyntaxError
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 14 ---
+SyntaxError
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 15 ---
+SyntaxError.prototype.name
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 16 ---
+SyntaxError.prototype.name
+--- END CODE BLOCK ---
+constructor.
+--- CODE BLOCK 17 ---
+"SyntaxError"
+--- END CODE BLOCK ---
+Represents the name for the type of error. For
+--- CODE BLOCK 19 ---
+try {
+eval("hoo bar");
+} catch (e) {
+console.log(e instanceof SyntaxError); // true
+console.log(e.message);
+console.log(e.name); // "SyntaxError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+, the initial value is
+--- CODE BLOCK 20 ---
+try {
+eval("hoo bar");
+} catch (e) {
+console.log(e instanceof SyntaxError); // true
+console.log(e.message);
+console.log(e.name); // "SyntaxError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+Instance methods
+Inherits instance methods from its parent
+--- CODE BLOCK 21 ---
+try {
+throw new SyntaxError("Hello");
+} catch (e) {
+console.log(e instanceof SyntaxError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "SyntaxError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+Examples
+Catching a SyntaxError
+Copy to Clipboard
+--- CODE BLOCK 22 ---
+try {
+throw new SyntaxError("Hello");
+} catch (e) {
+console.log(e instanceof SyntaxError); // true
+console.log(e.message); // "Hello"
+console.log(e.name); // "SyntaxError"
+console.log(e.stack); // Stack of the error
+--- END CODE BLOCK ---
+Creating a SyntaxError
+Copy to Clipboard
+[CODE_BLOCK_21]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-native-error-types-used-in-this-standard-syntaxerror
+Browser compatibility
+See also
+[CODE_BLOCK_23]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 26, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

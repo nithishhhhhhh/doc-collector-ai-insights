@@ -1,0 +1,166 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/draft-mode
+SCRAPED: 2025-06-19 17:15:29
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+draftMode
+draftMode
+--- CODE BLOCK 2 ---
+import { draftMode } from 'next/headers'
+export default async function Page() {
+const { isEnabled } = await draftMode()
+--- END CODE BLOCK ---
+is an
+async
+function allows you to enable and disable
+Draft Mode
+, as well as check if Draft Mode is enabled in a
+Server Component
+app/page.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import { draftMode } from 'next/headers'
+export default async function Page() {
+const { isEnabled } = await draftMode()
+--- END CODE BLOCK ---
+Reference
+The following methods and properties are available:
+Method
+Description
+--- CODE BLOCK 9 ---
+async/await
+--- END CODE BLOCK ---
+A boolean value that indicates if Draft Mode is enabled.
+--- CODE BLOCK 14 ---
+import { draftMode } from 'next/headers'
+export async function GET(request: Request) {
+const draft = await draftMode()
+draft.enable()
+return new Response('Draft mode is enabled')
+--- END CODE BLOCK ---
+Enables Draft Mode in a Route Handler by setting a cookie (
+--- CODE BLOCK 15 ---
+import { draftMode } from 'next/headers'
+export async function GET(request: Request) {
+const draft = await draftMode()
+draft.enable()
+return new Response('Draft mode is enabled')
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+import { draftMode } from 'next/headers'
+export async function GET(request: Request) {
+const draft = await draftMode()
+draft.disable()
+return new Response('Draft mode is disabled')
+--- END CODE BLOCK ---
+Disables Draft Mode in a Route Handler by deleting a cookie.
+Good to know
+--- CODE BLOCK 18 ---
+import { draftMode } from 'next/headers'
+export async function GET(request: Request) {
+const draft = await draftMode()
+draft.disable()
+return new Response('Draft mode is disabled')
+--- END CODE BLOCK ---
+is an
+asynchronous
+function that returns a promise. You must use
+--- CODE BLOCK 20 ---
+prefetch={false}
+--- END CODE BLOCK ---
+or React's
+--- CODE BLOCK 22 ---
+import { draftMode } from 'next/headers'
+export default async function Page() {
+const { isEnabled } = await draftMode()
+return (
+<main>
+<h1>My Blog Post</h1>
+<p>Draft Mode is currently {isEnabled ? 'Enabled' : 'Disabled'}</p>
+</main>
+--- END CODE BLOCK ---
+function.
+In version 14 and earlier,
+--- CODE BLOCK 23 ---
+import { draftMode } from 'next/headers'
+export default async function Page() {
+const { isEnabled } = await draftMode()
+return (
+<main>
+<h1>My Blog Post</h1>
+<p>Draft Mode is currently {isEnabled ? 'Enabled' : 'Disabled'}</p>
+</main>
+--- END CODE BLOCK ---
+was a synchronous function. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+A new bypass cookie value will be generated each time you run
+[CODE_BLOCK_12]
+. This ensures that the bypass cookie can’t be guessed.
+To test Draft Mode locally over HTTP, your browser will need to allow third-party cookies and local storage access.
+Examples
+Enabling Draft Mode
+To enable Draft Mode, create a new
+Route Handler
+and call the
+[CODE_BLOCK_13]
+method:
+app/draft/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_14]
+Disabling Draft Mode
+By default, the Draft Mode session ends when the browser is closed.
+To disable Draft Mode manually, call the
+[CODE_BLOCK_16]
+method in your
+Route Handler
+app/draft/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_17]
+Then, send a request to invoke the Route Handler. If calling the route using the
+[CODE_BLOCK_19]
+component
+, you must pass
+[CODE_BLOCK_20]
+to prevent accidentally deleting the cookie on prefetch.
+Checking if Draft Mode is enabled
+You can check if Draft Mode is enabled in a Server Component with the
+[CODE_BLOCK_21]
+property:
+app/page.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_22]
+Version History
+Version
+Changes
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+is now an async function. A
+codemod
+is available.
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+introduced.
+Next Steps
+Learn how to use Draft Mode with this step-by-step guide.
+Draft Mode
+Next.js has draft mode to toggle between static and dynamic pages. You can learn how it works with App Router here.
+Was this helpful?
+supported.
+Send

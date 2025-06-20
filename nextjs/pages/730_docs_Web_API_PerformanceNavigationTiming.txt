@@ -1,0 +1,253 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/PerformanceNavigationTiming
+SCRAPED: 2025-06-19 18:32:44
+================================================================================
+
+--- CODE BLOCK 1 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+interface provides methods and properties to store and retrieve metrics regarding the browser's document navigation events. For example, this interface can be used to determine how much time it takes to load or unload a document.
+Only the current document is included in the performance timeline, so there is only one
+--- CODE BLOCK 2 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+object in the performance timeline. It inherits all of the properties and methods of
+--- CODE BLOCK 3 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+PerformanceEntry
+PerformanceResourceTiming
+PerformanceNavigationTiming
+The following diagram shows all of the timestamp properties defined in
+--- CODE BLOCK 5 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+Instance properties
+This interface extends the following
+--- CODE BLOCK 6 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+properties by qualifying and constraining them as follows:
+--- CODE BLOCK 7 ---
+PerformanceEntry.entryType
+--- END CODE BLOCK ---
+Read only
+Returns
+--- CODE BLOCK 8 ---
+"navigation"
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+PerformanceEntry.name
+--- END CODE BLOCK ---
+Read only
+Returns the
+document's URL
+Note that
+text fragments
+, and any other fragment directives, are stripped from the URL.
+--- CODE BLOCK 10 ---
+PerformanceEntry.startTime
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 11 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+with a value of
+--- CODE BLOCK 13 ---
+PerformanceEntry.duration
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+PerformanceNavigationTiming.loadEventEnd
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 16 ---
+PerformanceEntry.startTime
+--- END CODE BLOCK ---
+that is the difference between the
+--- CODE BLOCK 17 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+PerformanceResourceTiming.initiatorType
+--- END CODE BLOCK ---
+properties.
+This interface also extends the following
+--- CODE BLOCK 19 ---
+"navigation"
+--- END CODE BLOCK ---
+properties by qualifying and constraining them as follows:
+--- CODE BLOCK 20 ---
+PerformanceNavigationTiming.activationStart
+--- END CODE BLOCK ---
+Read only
+Returns
+--- CODE BLOCK 21 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+The interface also supports the following properties:
+--- CODE BLOCK 22 ---
+PerformanceNavigationTiming.criticalCHRestart
+--- END CODE BLOCK ---
+Read only
+Experimental
+--- CODE BLOCK 23 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+representing the time between when a document starts prerendering and when it is activated.
+--- CODE BLOCK 24 ---
+Critical-CH
+--- END CODE BLOCK ---
+Read only
+Experimental
+--- CODE BLOCK 25 ---
+PerformanceNavigationTiming.domComplete
+--- END CODE BLOCK ---
+representing the time at which the connection restart occurred due to
+--- CODE BLOCK 26 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+HTTP response header mismatch.
+--- CODE BLOCK 29 ---
+PerformanceNavigationTiming.domContentLoadedEventEnd
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 30 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+representing the time immediately before the user agent sets the document's
+--- CODE BLOCK 31 ---
+DOMContentLoaded
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+PerformanceNavigationTiming.domContentLoadedEventStart
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 34 ---
+DOMContentLoaded
+--- END CODE BLOCK ---
+representing the time immediately after the current document's
+--- CODE BLOCK 35 ---
+PerformanceNavigationTiming.domInteractive
+--- END CODE BLOCK ---
+event handler completes.
+--- CODE BLOCK 36 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 38 ---
+"interactive"
+--- END CODE BLOCK ---
+representing the time immediately before the current document's
+--- CODE BLOCK 39 ---
+PerformanceNavigationTiming.loadEventEnd
+--- END CODE BLOCK ---
+event handler starts.
+--- CODE BLOCK 40 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 42 ---
+PerformanceNavigationTiming.loadEventStart
+--- END CODE BLOCK ---
+representing the time immediately before the user agent sets the document's
+--- CODE BLOCK 43 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+PerformanceNavigationTiming.notRestoredReasons
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+NotRestoredReasons
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 47 ---
+PerformanceNavigationTiming.redirectCount
+--- END CODE BLOCK ---
+representing the time immediately after the current document's
+--- CODE BLOCK 48 ---
+PerformanceNavigationTiming.type
+--- END CODE BLOCK ---
+event handler completes.
+--- CODE BLOCK 51 ---
+"back_forward"
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 52 ---
+"prerender"
+--- END CODE BLOCK ---
+representing the time immediately before the current document's
+--- CODE BLOCK 53 ---
+PerformanceNavigationTiming.unloadEventEnd
+--- END CODE BLOCK ---
+event handler starts.
+--- CODE BLOCK 54 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+Experimental
+--- CODE BLOCK 56 ---
+PerformanceNavigationTiming.unloadEventStart
+--- END CODE BLOCK ---
+object providing report data on reasons why the current document was blocked from using the back/forward cache (
+bfcache
+) on navigation.
+--- CODE BLOCK 57 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+A number representing the number of redirects since the last non-redirect navigation in the current browsing context.
+--- CODE BLOCK 59 ---
+PerformanceNavigationTiming.toJSON()
+--- END CODE BLOCK ---
+Read only
+A string representing the navigation type. Either
+--- CODE BLOCK 60 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+Performance.navigation
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+PerformanceNavigation
+--- END CODE BLOCK ---
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+Read only
+[CODE_BLOCK_54]
+representing the time immediately after the current document's
+[CODE_BLOCK_55]
+event handler completes.
+[CODE_BLOCK_56]
+Read only
+[CODE_BLOCK_57]
+representing the time immediately before the current document's
+[CODE_BLOCK_58]
+event handler starts.
+Instance methods
+[CODE_BLOCK_59]
+Returns a JSON representation of the
+[CODE_BLOCK_60]
+object.
+Specifications
+Specification
+Navigation Timing Level 2
+sec-PerformanceNavigationTiming
+Browser compatibility
+See also
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Feb 18, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

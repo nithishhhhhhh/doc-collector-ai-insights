@@ -1,0 +1,97 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes
+SCRAPED: 2025-06-19 17:22:30
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+Intercepting Routes
+Intercepting Routes
+Intercepting routes allows you to load a route from another part of your application within the current layout. This routing paradigm can be useful when you want to display the content of a route without the user switching to a different context.
+For example, when clicking on a photo in a feed, you can display the photo in a modal, overlaying the feed. In this case, Next.js intercepts the
+[CODE_BLOCK_1]
+route, masks the URL, and overlays it over
+[CODE_BLOCK_2]
+However, when navigating to the photo by clicking a shareable URL or by refreshing the page, the entire photo page should render instead of the modal. No route interception should occur.
+Convention
+Intercepting routes can be defined with the
+[CODE_BLOCK_3]
+convention, which is similar to relative path convention
+[CODE_BLOCK_4]
+but for route segments.
+You can use:
+[CODE_BLOCK_5]
+to match segments on the
+same level
+[CODE_BLOCK_6]
+to match segments
+one level above
+[CODE_BLOCK_7]
+to match segments
+two levels above
+[CODE_BLOCK_8]
+to match segments from the
+root
+[CODE_BLOCK_9]
+directory
+For example, you can intercept the
+[CODE_BLOCK_10]
+segment from within the
+[CODE_BLOCK_11]
+segment by creating a
+[CODE_BLOCK_12]
+directory.
+Good to know:
+[CODE_BLOCK_13]
+convention is based on
+route segments
+, not the file-system. For example, it does not consider
+[CODE_BLOCK_14]
+folders in
+Parallel Routes
+Examples
+Modals
+Intercepting Routes can be used together with
+Parallel Routes
+to create modals. This allows you to solve common challenges when building modals, such as:
+Making the modal content
+shareable through a URL
+Preserving context
+when the page is refreshed, instead of closing the modal.
+Closing the modal on backwards navigation
+rather than going to the previous route.
+Reopening the modal on forwards navigation
+Consider the following UI pattern, where a user can open a photo modal from a gallery using client-side navigation, or navigate to the photo page directly from a shareable URL:
+In the above example, the path to the
+[CODE_BLOCK_15]
+segment can use the
+[CODE_BLOCK_16]
+matcher since
+[CODE_BLOCK_17]
+is a slot and
+a segment. This means that the
+[CODE_BLOCK_18]
+route is only one segment level higher, despite being two file-system levels higher.
+See the
+Parallel Routes
+documentation for a step-by-step example, or see our
+image gallery example
+Good to know:
+Other examples could include opening a login modal in a top navbar while also having a dedicated
+[CODE_BLOCK_19]
+page, or opening a shopping cart in a side modal.
+Next Steps
+Learn how to create modals with Intercepted and Parallel Routes.
+Parallel Routes
+Simultaneously render one or more pages in the same view that can be navigated independently. A pattern for highly dynamic applications.
+Was this helpful?
+supported.
+Send

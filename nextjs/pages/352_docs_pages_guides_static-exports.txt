@@ -1,0 +1,263 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/static-exports
+SCRAPED: 2025-06-19 17:50:55
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Static Exports
+You are currently viewing the documentation for Pages Router.
+How to create a static export of your Next.js application
+Next.js enables starting as a static site or Single-Page Application (SPA), then later optionally upgrading to use features that require a server.
+When running
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+, Next.js generates an HTML file per route. By breaking a strict SPA into individual HTML files, Next.js can avoid loading unnecessary JavaScript code on the client-side, reducing the bundle size and enabling faster page loads.
+Since Next.js supports this static export, it can be deployed and hosted on any web server that can serve HTML/CSS/JS static assets.
+Configuration
+To enable a static export, change the output mode inside
+--- CODE BLOCK 3 ---
+* @type {import('next').NextConfig}
+const nextConfig = {
+output: 'export',
+// Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+// trailingSlash: true,
+// Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+// skipTrailingSlashRedirect: true,
+// Optional: Change the output directory `out` -> `dist`
+// distDir: 'dist',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 4 ---
+* @type {import('next').NextConfig}
+const nextConfig = {
+output: 'export',
+// Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+// trailingSlash: true,
+// Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+// skipTrailingSlashRedirect: true,
+// Optional: Change the output directory `out` -> `dist`
+// distDir: 'dist',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+After running
+--- CODE BLOCK 8 ---
+getStaticPaths
+--- END CODE BLOCK ---
+, Next.js will create an
+--- CODE BLOCK 10 ---
+getStaticPaths
+--- END CODE BLOCK ---
+folder with the HTML/CSS/JS assets for your application.
+You can utilize
+--- CODE BLOCK 12 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+getStaticPaths
+--- END CODE BLOCK ---
+to generate an HTML file for each page in your
+--- CODE BLOCK 15 ---
+next.config.js
+--- END CODE BLOCK ---
+directory (or more for
+dynamic routes
+Supported Features
+The majority of core Next.js features needed to build a static site are supported, including:
+Dynamic Routes when using
+--- CODE BLOCK 16 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+output: 'export',
+images: {
+loader: 'custom',
+loaderFile: './my-loader.ts',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Prefetching with
+--- CODE BLOCK 17 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+output: 'export',
+images: {
+loader: 'custom',
+loaderFile: './my-loader.ts',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Preloading JavaScript
+Dynamic Imports
+Any styling options (e.g. CSS Modules, styled-jsx)
+Client-side data fetching
+--- CODE BLOCK 18 ---
+export default function cloudinaryLoader({
+src,
+width,
+quality,
+}: {
+src: string
+width: number
+quality?: number
+}) {
+const params = ['f_auto', 'c_limit', `w_${width}`, `q_${quality || 'auto'}`]
+return `https://res.cloudinary.com/demo/image/upload/${params.join(
+)}${src}`
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+export default function cloudinaryLoader({
+src,
+width,
+quality,
+}: {
+src: string
+width: number
+quality?: number
+}) {
+const params = ['f_auto', 'c_limit', `w_${width}`, `q_${quality || 'auto'}`]
+return `https://res.cloudinary.com/demo/image/upload/${params.join(
+)}${src}`
+--- END CODE BLOCK ---
+Image Optimization
+Image Optimization
+through
+--- CODE BLOCK 21 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image alt="turtles" src="/turtles.jpg" width={300} height={300} />
+--- END CODE BLOCK ---
+can be used with a static export by defining a custom image loader in
+--- CODE BLOCK 22 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image alt="turtles" src="/turtles.jpg" width={300} height={300} />
+--- END CODE BLOCK ---
+. For example, you can optimize images with a service like Cloudinary:
+next.config.js
+--- CODE BLOCK 24 ---
+getStaticPaths
+--- END CODE BLOCK ---
+This custom loader will define how to fetch images from a remote source. For example, the following loader will construct the URL for Cloudinary:
+my-loader.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 26 ---
+getStaticPaths
+--- END CODE BLOCK ---
+You can then use
+--- CODE BLOCK 28 ---
+getServerSideProps
+--- END CODE BLOCK ---
+in your application, defining relative paths to the image in Cloudinary:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 34 ---
+/out/index.html
+--- END CODE BLOCK ---
+Unsupported Features
+Features that require a Node.js server, or dynamic logic that cannot be computed during the build process, are
+supported:
+Internationalized Routing
+API Routes
+Rewrites
+Redirects
+Headers
+Middleware
+Incremental Static Regeneration
+Image Optimization
+with the default
+--- CODE BLOCK 36 ---
+/out/blog/post-1.html
+--- END CODE BLOCK ---
+Draft Mode
+--- CODE BLOCK 37 ---
+/out/blog/post-2.html
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 38 ---
+server {
+listen 80;
+server_name acme.com;
+root /var/www/out;
+location / {
+try_files $uri $uri.html $uri/ =404;
+# This is necessary when `trailingSlash: false`.
+# You can omit this when `trailingSlash: true`.
+location /blog/ {
+rewrite ^/blog/(.*)$ /blog/$1.html break;
+error_page 404 /404.html;
+location = /404.html {
+internal;
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+server {
+listen 80;
+server_name acme.com;
+root /var/www/out;
+location / {
+try_files $uri $uri.html $uri/ =404;
+# This is necessary when `trailingSlash: false`.
+# You can omit this when `trailingSlash: true`.
+location /blog/ {
+rewrite ^/blog/(.*)$ /blog/$1.html break;
+error_page 404 /404.html;
+location = /404.html {
+internal;
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 41 ---
+next export
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+"output": "export"
+--- END CODE BLOCK ---
+Deploying
+With a static export, Next.js can be deployed and hosted on any web server that can serve HTML/CSS/JS static assets.
+When running
+--- CODE BLOCK 45 ---
+next export
+--- END CODE BLOCK ---
+, Next.js generates the static export into the
+--- CODE BLOCK 46 ---
+"output": "export"
+--- END CODE BLOCK ---
+folder. For example, let's say you have the following routes:
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+After running
+[CODE_BLOCK_33]
+, Next.js will generate the following files:
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+If you are using a static host like Nginx, you can configure rewrites from incoming requests to the correct files:
+nginx.conf
+[CODE_BLOCK_38]
+Version History
+Version
+Changes
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+has been removed in favor of
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+App Router (Stable) adds enhanced static export support, including using React Server Components and Route Handlers.
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+is deprecated and replaced with
+[CODE_BLOCK_46]
+Was this helpful?
+supported.
+Send

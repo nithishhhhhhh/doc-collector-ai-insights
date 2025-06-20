@@ -1,0 +1,32 @@
+SOURCE URL: https://nextjs.org/docs/community/rspack
+SCRAPED: 2025-06-19 17:47:34
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+Community
+Rspack
+Rspack Integration
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+The Rspack team has created a community plugin for Next.js, which is part of a
+partnering effort
+with the Rspack team.
+This plugin is currently experimental. Please use this
+discussion thread
+to give feedback on any issues you encounter.
+Learn more on the
+Rspack docs
+and try out
+this example
+Was this helpful?
+supported.
+Send

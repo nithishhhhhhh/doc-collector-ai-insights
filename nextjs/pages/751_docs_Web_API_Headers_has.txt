@@ -1,0 +1,69 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Headers/has
+SCRAPED: 2025-06-19 18:34:54
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 9 ---
+const myHeaders = new Headers(); // Currently empty
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 10 ---
+const myHeaders = new Headers(); // Currently empty
+--- END CODE BLOCK ---
+interface
+returns a boolean stating whether a
+--- CODE BLOCK 11 ---
+Headers.append
+--- END CODE BLOCK ---
+object contains a certain
+header.
+For security reasons, some headers can only be controlled by the user agent. These
+headers include the
+forbidden request headers
+forbidden response header names
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 13 ---
+myHeaders.append("Content-Type", "image/jpeg");
+myHeaders.has("Content-Type"); // Returns true
+myHeaders.has("Accept-Encoding"); // Returns false
+--- END CODE BLOCK ---
+Parameters
+[CODE_BLOCK_6]
+The name of the HTTP header you want to test for. If the given name is not a valid
+HTTP header name, this method throws a
+[CODE_BLOCK_7]
+Return value
+A boolean value.
+Examples
+Creating an empty
+[CODE_BLOCK_8]
+object is simple:
+Copy to Clipboard
+[CODE_BLOCK_9]
+You could add a header to this using
+[CODE_BLOCK_11]
+, then test for the
+existence of it using
+[CODE_BLOCK_12]
+Copy to Clipboard
+[CODE_BLOCK_13]
+Specifications
+Specification
+Fetch
+ref-for-dom-headers-has①
+Browser compatibility
+See also
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

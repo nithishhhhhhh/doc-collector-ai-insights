@@ -1,0 +1,67 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/authInterrupts
+SCRAPED: 2025-06-19 17:17:03
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+authInterrupts
+authInterrupts
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 1 ---
+authInterrupts
+--- END CODE BLOCK ---
+configuration option allows you to use
+--- CODE BLOCK 3 ---
+unauthorized
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+authInterrupts
+--- END CODE BLOCK ---
+APIs in your application. While these functions are experimental, you must enable the
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+option in your
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+authInterrupts: true,
+export default nextConfig
+--- END CODE BLOCK ---
+file to use them:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+authInterrupts: true,
+export default nextConfig
+--- END CODE BLOCK ---
+Next Steps
+forbidden
+API Reference for the forbidden function.
+unauthorized
+API Reference for the unauthorized function.
+forbidden.js
+API reference for the forbidden.js special file.
+unauthorized.js
+API reference for the unauthorized.js special file.
+Was this helpful?
+supported.
+Send

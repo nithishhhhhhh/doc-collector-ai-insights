@@ -1,0 +1,62 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/instrumentation-client
+SCRAPED: 2025-06-19 17:27:23
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+instrumentation-client.js
+instrumentation-client.js
+--- CODE BLOCK 1 ---
+instrumentation-client.js|ts
+--- END CODE BLOCK ---
+file allows you to add monitoring and analytics code that runs before your application's frontend code starts executing. This is useful for setting up performance tracking, error monitoring, or any other client-side observability tools.
+To use it, place the file in the
+root
+of your application or inside a
+--- CODE BLOCK 3 ---
+// Set up performance monitoring
+performance.mark('app-init')
+// Initialize analytics
+console.log('Analytics initialized')
+// Set up error tracking
+window.addEventListener('error', (event) => {
+// Send to your error tracking service
+reportError(event.error)
+--- END CODE BLOCK ---
+folder.
+Usage
+Unlike
+server-side instrumentation
+, you do not need to export any specific functions. You can write your monitoring code directly in the file:
+instrumentation-client.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 4 ---
+// Set up performance monitoring
+performance.mark('app-init')
+// Initialize analytics
+console.log('Analytics initialized')
+// Set up error tracking
+window.addEventListener('error', (event) => {
+// Send to your error tracking service
+reportError(event.error)
+--- END CODE BLOCK ---
+Version History
+Version
+Changes
+[CODE_BLOCK_5]
+[CODE_BLOCK_6]
+introduced
+Was this helpful?
+supported.
+Send

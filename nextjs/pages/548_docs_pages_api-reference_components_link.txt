@@ -1,0 +1,1017 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/components/link#passing-a-url-object
+SCRAPED: 2025-06-19 18:12:56
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Components
+Link
+You are currently viewing the documentation for Pages Router.
+Link
+--- CODE BLOCK 3 ---
+import Link from 'next/link'
+export default function Home() {
+return <Link href="/dashboard">Dashboard</Link>
+--- END CODE BLOCK ---
+is a React component that extends the HTML
+--- CODE BLOCK 4 ---
+import Link from 'next/link'
+export default function Home() {
+return <Link href="/dashboard">Dashboard</Link>
+--- END CODE BLOCK ---
+element to provide
+prefetching
+and client-side navigation between routes. It is the primary way to navigate between routes in Next.js.
+Basic usage:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+href="/dashboard"
+--- END CODE BLOCK ---
+Reference
+The following props can be passed to the
+--- CODE BLOCK 11 ---
+scroll={false}
+--- END CODE BLOCK ---
+component:
+Prop
+Example
+Type
+Required
+--- CODE BLOCK 13 ---
+prefetch={false}
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+legacyBehavior
+--- END CODE BLOCK ---
+String or Object
+--- CODE BLOCK 15 ---
+legacyBehavior={true}
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+passHref={true}
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 19 ---
+shallow={false}
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+locale="fr"
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 23 ---
+onNavigate={(e) => {}}
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+target="_blank"
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 30 ---
+import Link from 'next/link'
+// Navigate to /about?name=test
+export default function Home() {
+return (
+<Link
+href={{
+pathname: '/about',
+query: { name: 'test' },
+About
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+import Link from 'next/link'
+// Navigate to /about?name=test
+export default function Home() {
+return (
+<Link
+href={{
+pathname: '/about',
+query: { name: 'test' },
+About
+</Link>
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 36 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" replace>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" replace>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 41 ---
+scroll = {false}
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+scroll: false
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 43 ---
+getBoundingClientRect
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" scroll={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+String or Boolean
+--- CODE BLOCK 45 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" scroll={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" prefetch={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+Function
+Good to know
+--- CODE BLOCK 54 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" prefetch={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+tag attributes such as
+--- CODE BLOCK 55 ---
+legacyBehavior
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+legacyBehavior
+--- END CODE BLOCK ---
+can be added to
+--- CODE BLOCK 62 ---
+legacyBehavior
+--- END CODE BLOCK ---
+as props and will be passed to the underlying
+--- CODE BLOCK 63 ---
+legacyBehavior
+--- END CODE BLOCK ---
+element.
+--- CODE BLOCK 74 ---
+getStaticProps
+--- END CODE BLOCK ---
+(required)
+The path or URL to navigate to.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 75 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" shallow={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+Defaults to
+--- CODE BLOCK 79 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/dashboard" shallow={false}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+When
+--- CODE BLOCK 84 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+{/* Default behavior: locale is prepended */}
+<Link href="/dashboard">Dashboard (with locale)</Link>
+{/* Disable locale prepending */}
+<Link href="/dashboard" locale={false}>
+Dashboard (without locale)
+</Link>
+{/* Specify a different locale */}
+<Link href="/dashboard" locale="fr">
+Dashboard (French)
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+{/* Default behavior: locale is prepended */}
+<Link href="/dashboard">Dashboard (with locale)</Link>
+{/* Disable locale prepending */}
+<Link href="/dashboard" locale={false}>
+Dashboard (without locale)
+</Link>
+{/* Specify a different locale */}
+<Link href="/dashboard" locale="fr">
+Dashboard (French)
+</Link>
+--- END CODE BLOCK ---
+will replace the current history state instead of adding a new URL into the
+browser's history
+stack.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 87 ---
+preventDefault()
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<Link
+href="/dashboard"
+onNavigate={(e) => {
+// Only executes during SPA navigation
+console.log('Navigating...')
+// Optionally prevent navigation
+// e.preventDefault()
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+Defaults to
+--- CODE BLOCK 103 ---
+pages/blog/[slug].js
+--- END CODE BLOCK ---
+The default scrolling behavior of
+--- CODE BLOCK 104 ---
+import Link from 'next/link'
+function Posts({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.id}>
+<Link href={`/blog/${post.slug}`}>{post.title}</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+in Next.js
+is to maintain scroll position
+, similar to how browsers handle back and forwards navigation. When you navigate to a new
+Page
+, scroll position will stay the same as long as the Page is visible in the viewport. However, if the Page is not visible in the viewport, Next.js will scroll to the top of the first Page element.
+When
+--- CODE BLOCK 105 ---
+import Link from 'next/link'
+function Posts({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.id}>
+<Link href={`/blog/${post.slug}`}>{post.title}</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+, Next.js will not attempt to scroll to the first Page element.
+Good to know
+: Next.js checks if
+--- CODE BLOCK 113 ---
+next/link-passhref
+--- END CODE BLOCK ---
+before managing scroll behavior. If scrolling is enabled, it identifies the relevant DOM node for navigation and inspects each top-level element. All non-scrollable elements and those without rendered HTML are bypassed, this includes sticky or fixed positioned elements, and non-visible elements such as those calculated with
+--- CODE BLOCK 115 ---
+import Link from 'next/link'
+import styled from 'styled-components'
+// This creates a custom component that wraps an <a> tag
+const RedLink = styled.a`
+color: red;
+function NavLink({ href, name }) {
+return (
+<Link href={href} passHref legacyBehavior>
+<RedLink>{name}</RedLink>
+</Link>
+export default NavLink
+--- END CODE BLOCK ---
+. Next.js then continues through siblings until it identifies a scrollable element that is visible in the viewport.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 116 ---
+import Link from 'next/link'
+import styled from 'styled-components'
+// This creates a custom component that wraps an <a> tag
+const RedLink = styled.a`
+color: red;
+function NavLink({ href, name }) {
+return (
+<Link href={href} passHref legacyBehavior>
+<RedLink>{name}</RedLink>
+</Link>
+export default NavLink
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+React.forwardRef
+--- END CODE BLOCK ---
+Prefetching happens when a
+--- CODE BLOCK 125 ---
+import Link from 'next/link'
+import React from 'react'
+// Define the props type for MyButton
+interface MyButtonProps {
+onClick?: React.MouseEventHandler<HTMLAnchorElement>
+href?: string
+// Use React.ForwardRefRenderFunction to properly type the forwarded ref
+const MyButton: React.ForwardRefRenderFunction<
+HTMLAnchorElement,
+MyButtonProps
+> = ({ onClick, href }, ref) => {
+return (
+<a href={href} onClick={onClick} ref={ref}>
+Click Me
+</a>
+// Use React.forwardRef to wrap the component
+const ForwardedMyButton = React.forwardRef(MyButton)
+export default function Home() {
+return (
+<Link href="/about" passHref legacyBehavior>
+<ForwardedMyButton />
+</Link>
+--- END CODE BLOCK ---
+component enters the user's viewport (initially or through scroll). Next.js prefetches and loads the linked route (denoted by the
+--- CODE BLOCK 126 ---
+import Link from 'next/link'
+import React from 'react'
+// Define the props type for MyButton
+interface MyButtonProps {
+onClick?: React.MouseEventHandler<HTMLAnchorElement>
+href?: string
+// Use React.ForwardRefRenderFunction to properly type the forwarded ref
+const MyButton: React.ForwardRefRenderFunction<
+HTMLAnchorElement,
+MyButtonProps
+> = ({ onClick, href }, ref) => {
+return (
+<a href={href} onClick={onClick} ref={ref}>
+Click Me
+</a>
+// Use React.forwardRef to wrap the component
+const ForwardedMyButton = React.forwardRef(MyButton)
+export default function Home() {
+return (
+<Link href="/about" passHref legacyBehavior>
+<ForwardedMyButton />
+</Link>
+--- END CODE BLOCK ---
+) and data in the background to improve the performance of client-side navigation's.
+Prefetching is only enabled in production
+The following values can be passed to the
+--- CODE BLOCK 128 ---
+import Link from 'next/link'
+function Home() {
+return (
+<ul>
+<li>
+<Link
+href={{
+pathname: '/about',
+query: { name: 'test' },
+About us
+</Link>
+</li>
+<li>
+<Link
+href={{
+pathname: '/blog/[slug]',
+query: { slug: 'my-post' },
+Blog Post
+</Link>
+</li>
+</ul>
+export default Home
+--- END CODE BLOCK ---
+prop:
+--- CODE BLOCK 129 ---
+import Link from 'next/link'
+function Home() {
+return (
+<ul>
+<li>
+<Link
+href={{
+pathname: '/about',
+query: { name: 'test' },
+About us
+</Link>
+</li>
+<li>
+<Link
+href={{
+pathname: '/blog/[slug]',
+query: { slug: 'my-post' },
+Blog Post
+</Link>
+</li>
+</ul>
+export default Home
+--- END CODE BLOCK ---
+(default)
+: The full route and its data will be prefetched.
+--- CODE BLOCK 130 ---
+/about?name=test
+--- END CODE BLOCK ---
+: Prefetching will not happen when entering the viewport, but will happen on hover. If you want to completely remove fetching on hover as well, consider using an
+--- CODE BLOCK 131 ---
+/blog/my-post
+--- END CODE BLOCK ---
+tag or
+incrementally adopting
+the App Router, which enables disabling prefetching on hover too.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 136 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/about" replace>
+About us
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 140 ---
+scroll={false}
+--- END CODE BLOCK ---
+Warning
+: The
+--- CODE BLOCK 142 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/#hashid" scroll={false}>
+Disables scrolling to the top
+</Link>
+--- END CODE BLOCK ---
+prop will be removed in Next.js v16. To adopt the new
+--- CODE BLOCK 143 ---
+import Link from 'next/link'
+export default function Home() {
+return (
+<Link href="/#hashid" scroll={false}>
+Disables scrolling to the top
+</Link>
+--- END CODE BLOCK ---
+behavior, remove any
+--- CODE BLOCK 146 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+const nextUrl = request.nextUrl
+if (nextUrl.pathname === '/dashboard') {
+if (request.cookies.authToken) {
+return NextResponse.rewrite(new URL('/auth/dashboard', request.url))
+} else {
+return NextResponse.rewrite(new URL('/public/dashboard', request.url))
+--- END CODE BLOCK ---
+tags used as children of
+--- CODE BLOCK 147 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+const nextUrl = request.nextUrl
+if (nextUrl.pathname === '/dashboard') {
+if (request.cookies.authToken) {
+return NextResponse.rewrite(new URL('/auth/dashboard', request.url))
+} else {
+return NextResponse.rewrite(new URL('/public/dashboard', request.url))
+--- END CODE BLOCK ---
+codemod is available
+to help you automatically upgrade your codebase.
+Since version 13, an
+--- CODE BLOCK 149 ---
+'use client'
+import Link from 'next/link'
+import useIsAuthed from './hooks/useIsAuthed' // Your auth hook
+export default function Home() {
+const isAuthed = useIsAuthed()
+const path = isAuthed ? '/auth/dashboard' : '/public/dashboard'
+return (
+<Link as="/dashboard" href={path}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+element is no longer required as a child of the
+--- CODE BLOCK 150 ---
+'use client'
+import Link from 'next/link'
+import useIsAuthed from './hooks/useIsAuthed' // Your auth hook
+export default function Home() {
+const isAuthed = useIsAuthed()
+const path = isAuthed ? '/auth/dashboard' : '/public/dashboard'
+return (
+<Link as="/dashboard" href={path}>
+Dashboard
+</Link>
+--- END CODE BLOCK ---
+component. If you still need the old behavior for compatibility reasons, you can add the
+--- CODE BLOCK 153 ---
+/dashboard/authed/[user]
+--- END CODE BLOCK ---
+prop.
+Good to know
+: when
+--- CODE BLOCK 154 ---
+<Link href={{ pathname: '/dashboard/authed/[user]', query: { user: username } }} as="/dashboard/[user]">Profile</Link>
+--- END CODE BLOCK ---
+is not set to
+--- CODE BLOCK 156 ---
+'use client'
+import { createContext, useState, useContext } from 'react'
+interface NavigationBlockerContextType {
+isBlocked: boolean
+setIsBlocked: (isBlocked: boolean) => void
+export const NavigationBlockerContext =
+createContext<NavigationBlockerContextType>({
+isBlocked: false,
+setIsBlocked: () => {},
+export function NavigationBlockerProvider({
+children,
+}: {
+children: React.ReactNode
+}) {
+const [isBlocked, setIsBlocked] = useState(false)
+return (
+<NavigationBlockerContext.Provider value={{ isBlocked, setIsBlocked }}>
+{children}
+</NavigationBlockerContext.Provider>
+export function useNavigationBlocker() {
+return useContext(NavigationBlockerContext)
+--- END CODE BLOCK ---
+, all
+--- CODE BLOCK 157 ---
+'use client'
+import { createContext, useState, useContext } from 'react'
+interface NavigationBlockerContextType {
+isBlocked: boolean
+setIsBlocked: (isBlocked: boolean) => void
+export const NavigationBlockerContext =
+createContext<NavigationBlockerContextType>({
+isBlocked: false,
+setIsBlocked: () => {},
+export function NavigationBlockerProvider({
+children,
+}: {
+children: React.ReactNode
+}) {
+const [isBlocked, setIsBlocked] = useState(false)
+return (
+<NavigationBlockerContext.Provider value={{ isBlocked, setIsBlocked }}>
+{children}
+</NavigationBlockerContext.Provider>
+export function useNavigationBlocker() {
+return useContext(NavigationBlockerContext)
+--- END CODE BLOCK ---
+tag properties can be passed to
+--- CODE BLOCK 158 ---
+'use client'
+import { useNavigationBlocker } from '../contexts/navigation-blocker'
+export default function Form() {
+const { setIsBlocked } = useNavigationBlocker()
+return (
+<form
+onSubmit={(e) => {
+e.preventDefault()
+setIsBlocked(false)
+onChange={() => setIsBlocked(true)}
+<input type="text" name="name" />
+<button type="submit">Save</button>
+</form>
+--- END CODE BLOCK ---
+as well such as,
+--- CODE BLOCK 159 ---
+'use client'
+import { useNavigationBlocker } from '../contexts/navigation-blocker'
+export default function Form() {
+const { setIsBlocked } = useNavigationBlocker()
+return (
+<form
+onSubmit={(e) => {
+e.preventDefault()
+setIsBlocked(false)
+onChange={() => setIsBlocked(true)}
+<input type="text" name="name" />
+<button type="submit">Save</button>
+</form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 160 ---
+'use client'
+import Link from 'next/link'
+import { useNavigationBlocker } from '../contexts/navigation-blocker'
+interface CustomLinkProps extends React.ComponentProps<typeof Link> {
+children: React.ReactNode
+export function CustomLink({ children, ...props }: CustomLinkProps) {
+const { isBlocked } = useNavigationBlocker()
+return (
+<Link
+onNavigate={(e) => {
+if (
+isBlocked &&
+!window.confirm('You have unsaved changes. Leave anyway?')
+e.preventDefault()
+{...props}
+{children}
+</Link>
+--- END CODE BLOCK ---
+, etc.
+--- CODE BLOCK 161 ---
+'use client'
+import Link from 'next/link'
+import { useNavigationBlocker } from '../contexts/navigation-blocker'
+interface CustomLinkProps extends React.ComponentProps<typeof Link> {
+children: React.ReactNode
+export function CustomLink({ children, ...props }: CustomLinkProps) {
+const { isBlocked } = useNavigationBlocker()
+return (
+<Link
+onNavigate={(e) => {
+if (
+isBlocked &&
+!window.confirm('You have unsaved changes. Leave anyway?')
+e.preventDefault()
+{...props}
+{children}
+</Link>
+--- END CODE BLOCK ---
+Forces
+--- CODE BLOCK 162 ---
+'use client'
+import { CustomLink as Link } from './custom-link'
+export default function Nav() {
+return (
+<nav>
+<Link href="/">Home</Link>
+<Link href="/about">About</Link>
+</nav>
+--- END CODE BLOCK ---
+to send the
+--- CODE BLOCK 163 ---
+'use client'
+import { CustomLink as Link } from './custom-link'
+export default function Nav() {
+return (
+<nav>
+<Link href="/">Home</Link>
+<Link href="/about">About</Link>
+</nav>
+--- END CODE BLOCK ---
+property to its child. Defaults to
+--- CODE BLOCK 164 ---
+NavigationBlockerProvider
+--- END CODE BLOCK ---
+. See the
+passing a functional component
+example for more information.
+--- CODE BLOCK 165 ---
+import { NavigationBlockerProvider } from './contexts/navigation-blocker'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<NavigationBlockerProvider>{children}</NavigationBlockerProvider>
+</body>
+</html>
+--- END CODE BLOCK ---
+Update the path of the current page without rerunning
+--- CODE BLOCK 166 ---
+import { NavigationBlockerProvider } from './contexts/navigation-blocker'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+<NavigationBlockerProvider>{children}</NavigationBlockerProvider>
+</body>
+</html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 169 ---
+import Nav from './components/nav'
+import Form from './components/form'
+export default function Page() {
+return (
+<div>
+<Nav />
+<main>
+<h1>Welcome to the Dashboard</h1>
+<Form />
+</main>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 170 ---
+import Nav from './components/nav'
+import Form from './components/form'
+export default function Page() {
+return (
+<div>
+<Nav />
+<main>
+<h1>Welcome to the Dashboard</h1>
+<Form />
+</main>
+</div>
+--- END CODE BLOCK ---
+. Defaults to
+[CODE_BLOCK_77]
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_78]
+[CODE_BLOCK_80]
+The active locale is automatically prepended.
+[CODE_BLOCK_81]
+allows for providing a different locale. When
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+has to include the locale as the default behavior is disabled.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_84]
+[CODE_BLOCK_86]
+An event handler called during client-side navigation. The handler receives an event object that includes a
+[CODE_BLOCK_87]
+method, allowing you to cancel the navigation if needed.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_88]
+Good to know
+: While
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+may seem similar, they serve different purposes.
+[CODE_BLOCK_92]
+executes for all click events, while
+[CODE_BLOCK_93]
+only runs during client-side navigation. Some key differences:
+When using modifier keys (
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
++ Click),
+[CODE_BLOCK_96]
+executes but
+[CODE_BLOCK_97]
+doesn't since Next.js prevents default navigation for new tabs.
+External URLs won't trigger
+[CODE_BLOCK_98]
+since it's only for client-side and same-origin navigations.
+Links with the
+[CODE_BLOCK_99]
+attribute will work with
+[CODE_BLOCK_100]
+but not
+[CODE_BLOCK_101]
+since the browser will treat the linked URL as a download.
+Examples
+The following examples demonstrate how to use the
+[CODE_BLOCK_102]
+component in different scenarios.
+Linking to dynamic route segments
+dynamic route segments
+, it can be handy to use template literals to create the link's path.
+For example, you can generate a list of links to the dynamic route
+[CODE_BLOCK_103]
+pages/blog/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_104]
+If the child is a custom component that wraps an
+[CODE_BLOCK_106]
+If the child of
+[CODE_BLOCK_107]
+is a custom component that wraps an
+[CODE_BLOCK_108]
+tag, you must add
+[CODE_BLOCK_109]
+[CODE_BLOCK_110]
+. This is necessary if you’re using libraries like
+styled-components
+. Without this, the
+[CODE_BLOCK_111]
+tag will not have the
+[CODE_BLOCK_112]
+attribute, which hurts your site's accessibility and might affect SEO. If you're using
+ESLint
+, there is a built-in rule
+[CODE_BLOCK_113]
+to ensure correct usage of
+[CODE_BLOCK_114]
+components/nav-link.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_115]
+If you’re using
+emotion
+’s JSX pragma feature (
+[CODE_BLOCK_117]
+), you must use
+[CODE_BLOCK_118]
+even if you use an
+[CODE_BLOCK_119]
+tag directly.
+The component should support
+[CODE_BLOCK_120]
+property to trigger navigation correctly.
+Nesting a functional component
+If the child of
+[CODE_BLOCK_121]
+is a functional component, in addition to using
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+, you must wrap the component in
+[CODE_BLOCK_124]
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_125]
+Passing a URL Object
+[CODE_BLOCK_127]
+can also receive a URL object and it will automatically format it to create the URL string:
+pages/index.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_128]
+The above example has a link to:
+A predefined route:
+[CODE_BLOCK_130]
+dynamic route
+[CODE_BLOCK_131]
+You can use every property as defined in the
+Node.js URL module documentation
+Replace the URL instead of push
+The default behavior of the
+[CODE_BLOCK_132]
+component is to
+[CODE_BLOCK_133]
+a new URL into the
+[CODE_BLOCK_134]
+stack. You can use the
+[CODE_BLOCK_135]
+prop to prevent adding a new entry, as in the following example:
+pages/index.js
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_136]
+Disable scrolling to the top of the page
+The default behavior of
+[CODE_BLOCK_138]
+is to scroll to the top of the page. When there is a hash defined it will scroll to the specific id, like a normal
+[CODE_BLOCK_139]
+tag. To prevent scrolling to the top / hash
+[CODE_BLOCK_140]
+can be added to
+[CODE_BLOCK_141]
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_142]
+Prefetching links in Middleware
+It's common to use
+Middleware
+for authentication or other purposes that involve rewriting the user to a different page. In order for the
+[CODE_BLOCK_144]
+component to properly prefetch links with rewrites via Middleware, you need to tell Next.js both the URL to display and the URL to prefetch. This is required to avoid un-necessary fetches to middleware to know the correct route to prefetch.
+For example, if you want to serve a
+[CODE_BLOCK_145]
+route that has authenticated and visitor views, you can add the following in your Middleware to redirect the user to the correct page:
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_146]
+In this case, you would want to use the following code in your
+[CODE_BLOCK_148]
+component:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_149]
+Good to know
+: If you're using
+Dynamic Routes
+, you'll need to adapt your
+[CODE_BLOCK_151]
+[CODE_BLOCK_152]
+props. For example, if you have a Dynamic Route like
+[CODE_BLOCK_153]
+that you want to present differently via middleware, you would write:
+[CODE_BLOCK_154]
+Blocking navigation
+You can use the
+[CODE_BLOCK_155]
+prop to block navigation when certain conditions are met, such as when a form has unsaved changes. When you need to block navigation across multiple components in your app (like preventing navigation from any link while a form is being edited), React Context provides a clean way to share this blocking state. First, create a context to track the navigation blocking state:
+app/contexts/navigation-blocker.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_156]
+Create a form component that uses the context:
+app/components/form.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_158]
+Create a custom Link component that blocks navigation:
+app/components/custom-link.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_160]
+Create a navigation component:
+app/components/nav.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_162]
+Finally, wrap your app with the
+[CODE_BLOCK_164]
+in the root layout and use the components in your page:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_165]
+Then, use the
+[CODE_BLOCK_167]
+[CODE_BLOCK_168]
+components in your page:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_169]
+When a user tries to navigate away using
+[CODE_BLOCK_171]
+while the form has unsaved changes, they'll be prompted to confirm before leaving.
+Version history
+Version
+Changes
+[CODE_BLOCK_172]
+[CODE_BLOCK_173]
+[CODE_BLOCK_174]
+No longer requires a child
+[CODE_BLOCK_175]
+tag. A
+codemod
+is provided to automatically update your codebase.
+[CODE_BLOCK_176]
+[CODE_BLOCK_177]
+props pointing to a dynamic route are automatically resolved and no longer require an
+[CODE_BLOCK_178]
+prop.
+[CODE_BLOCK_179]
+Improved prefetching performance.
+[CODE_BLOCK_180]
+[CODE_BLOCK_181]
+introduced.
+Was this helpful?
+supported.
+Send

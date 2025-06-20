@@ -1,0 +1,1052 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/CORS
+SCRAPED: 2025-06-19 18:28:51
+================================================================================
+
+Cross-Origin Resource Sharing
+CORS
+) is an
+HTTP
+-header based mechanism that allows a server to indicate any
+origins
+(domain, scheme, or port) other than its own from which a browser should permit loading resources. CORS also relies on a mechanism by which browsers make a "preflight" request to the server hosting the cross-origin resource, in order to check that the server will permit the actual request. In that preflight, the browser sends headers that indicate the HTTP method and headers that will be used in the actual request.
+An example of a cross-origin request: the front-end JavaScript code served from
+--- CODE BLOCK 1 ---
+https://domain-a.com
+--- END CODE BLOCK ---
+uses
+--- CODE BLOCK 3 ---
+https://domain-b.com/data.json
+--- END CODE BLOCK ---
+to make a request for
+--- CODE BLOCK 5 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+For security reasons, browsers restrict cross-origin HTTP requests initiated from scripts. For example,
+--- CODE BLOCK 7 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+follow the
+same-origin policy
+. This means that a web application using those APIs can only request resources from the same origin the application was loaded from unless the response from other origins includes the right CORS headers.
+The CORS mechanism supports secure cross-origin requests and data transfers between browsers and servers. Browsers use CORS in APIs such as
+--- CODE BLOCK 11 ---
+drawImage()
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+to mitigate the risks of cross-origin HTTP requests.
+What requests use CORS?
+This
+cross-origin sharing standard
+can enable cross-origin HTTP requests for:
+Invocations of
+--- CODE BLOCK 19 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+Accept-Language
+--- END CODE BLOCK ---
+, as discussed above.
+Web Fonts (for cross-domain font usage in
+--- CODE BLOCK 27 ---
+Content-Language
+--- END CODE BLOCK ---
+within CSS), as described in the
+font fetching requirements
+, so that servers can deploy TrueType fonts that can only be loaded cross-origin and used by websites that are permitted to do so.
+WebGL textures
+Images/video frames drawn to a canvas using
+--- CODE BLOCK 28 ---
+Content-Type
+--- END CODE BLOCK ---
+CSS Shapes from images.
+This is a general article about Cross-Origin Resource Sharing and includes a discussion of the necessary HTTP headers.
+Functional overview
+The Cross-Origin Resource Sharing standard works by adding new
+HTTP headers
+that let servers describe which origins are permitted to read that information from a web browser. Additionally, for HTTP request methods that can cause side-effects on server data (in particular, HTTP methods other than
+--- CODE BLOCK 31 ---
+bytes=127-255
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 32 ---
+Content-Type
+--- END CODE BLOCK ---
+with certain
+MIME types
+), the specification mandates that browsers "preflight" the request, soliciting supported methods from the server with the HTTP
+--- CODE BLOCK 33 ---
+application/x-www-form-urlencoded
+--- END CODE BLOCK ---
+request method, and then, upon "approval" from the server, sending the actual request. Servers can also inform clients whether "credentials" (such as
+Cookies
+HTTP Authentication
+) should be sent with requests.
+CORS failures result in errors but for security reasons, specifics about the error
+are not available to JavaScript
+. All the code knows is that an error occurred. The only way to determine what specifically went wrong is to look at the browser's console for details.
+Subsequent sections discuss scenarios, as well as provide a breakdown of the HTTP headers used.
+Examples of access control scenarios
+We present three scenarios that demonstrate how Cross-Origin Resource Sharing works. All these examples use
+--- CODE BLOCK 34 ---
+multipart/form-data
+--- END CODE BLOCK ---
+, which can make cross-origin requests in any supporting browser.
+Simple requests
+Some requests don't trigger a
+CORS preflight
+. Those are called
+simple requests
+from the obsolete
+CORS spec
+, though the
+Fetch spec
+(which now defines CORS) doesn't use that term.
+The motivation is that the
+--- CODE BLOCK 36 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+element from HTML 4.0 (which predates cross-site
+--- CODE BLOCK 37 ---
+XMLHttpRequest.upload
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+) can submit simple requests to any origin, so anyone writing a server must already be protecting against
+cross-site request forgery
+(CSRF). Under this assumption, the server doesn't have to opt-in (by responding to a preflight request) to receive any request that looks like a form submission, since the threat of CSRF is no worse than that of form submission. However, the server still must opt-in using
+--- CODE BLOCK 40 ---
+xhr.upload.addEventListener()
+--- END CODE BLOCK ---
+share
+the response with the script.
+simple request
+is one that
+meets all the following conditions
+One of the allowed methods:
+--- CODE BLOCK 41 ---
+ReadableStream
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+Accept-Language
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+Content-Language
+--- END CODE BLOCK ---
+Apart from the headers automatically set by the user agent (for example,
+--- CODE BLOCK 45 ---
+https://foo.example
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+https://bar.other
+--- END CODE BLOCK ---
+, or the
+forbidden request headers
+), the only headers which are allowed to be manually set are the
+CORS-safelisted request-headers
+, which are:
+--- CODE BLOCK 47 ---
+foo.example
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+const fetchPromise = fetch("https://bar.other");
+fetchPromise
+.then((response) => response.json())
+.then((data) => {
+console.log(data);
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+const fetchPromise = fetch("https://bar.other");
+fetchPromise
+.then((response) => response.json())
+.then((data) => {
+console.log(data);
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+GET /resources/public-data/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Origin: https://foo.example
+--- END CODE BLOCK ---
+(please note the additional requirements below)
+--- CODE BLOCK 51 ---
+GET /resources/public-data/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Origin: https://foo.example
+--- END CODE BLOCK ---
+(only with a
+single range header value
+; e.g.,
+--- CODE BLOCK 53 ---
+https://foo.example
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 00:23:53 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: *
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: application/xml
+[…XML Data…]
+--- END CODE BLOCK ---
+The only type/subtype combinations allowed for the
+media type
+specified in the
+--- CODE BLOCK 55 ---
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 00:23:53 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: *
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: application/xml
+[…XML Data…]
+--- END CODE BLOCK ---
+header are:
+--- CODE BLOCK 56 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+Access-Control-Allow-Origin: *
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+Access-Control-Allow-Origin: *
+--- END CODE BLOCK ---
+If the request is made using an
+--- CODE BLOCK 59 ---
+Access-Control-Allow-Origin: *
+--- END CODE BLOCK ---
+object, no event listeners are registered on the object returned by the
+--- CODE BLOCK 61 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+property used in the request; that is, given an
+--- CODE BLOCK 62 ---
+https://bar.other
+--- END CODE BLOCK ---
+instance
+--- CODE BLOCK 63 ---
+https://foo.example
+--- END CODE BLOCK ---
+, no code has called
+--- CODE BLOCK 64 ---
+https://foo.example
+--- END CODE BLOCK ---
+to add an event listener to monitor the upload.
+--- CODE BLOCK 65 ---
+Access-Control-Allow-Origin: https://foo.example
+--- END CODE BLOCK ---
+object is used in the request.
+Note:
+WebKit Nightly and Safari Technology Preview place additional restrictions on the values allowed in the
+--- CODE BLOCK 66 ---
+Access-Control-Allow-Origin: https://foo.example
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 70 ---
+const fetchPromise = fetch("https://bar.other/doc", {
+method: "POST",
+mode: "cors",
+headers: {
+"Content-Type": "text/xml",
+"X-PINGOTHER": "pingpong",
+body: "<person><name>Arun</name></person>",
+fetchPromise.then((response) => {
+console.log(response.status);
+--- END CODE BLOCK ---
+headers. If any of those headers have "nonstandard" values, WebKit/Safari does not consider the request to be a "simple request". What values WebKit/Safari consider "nonstandard" is not documented, except in the following WebKit bugs:
+Require preflight for non-standard CORS-safelisted request headers Accept, Accept-Language, and Content-Language
+Allow commas in Accept, Accept-Language, and Content-Language request headers for simple CORS
+Switch to a blacklist model for restricted Accept headers in simple CORS requests
+No other browsers implement these extra restrictions because they're not part of the spec.
+For example, suppose web content at
+--- CODE BLOCK 71 ---
+const fetchPromise = fetch("https://bar.other/doc", {
+method: "POST",
+mode: "cors",
+headers: {
+"Content-Type": "text/xml",
+"X-PINGOTHER": "pingpong",
+body: "<person><name>Arun</name></person>",
+fetchPromise.then((response) => {
+console.log(response.status);
+--- END CODE BLOCK ---
+wishes to fetch JSON content from domain
+--- CODE BLOCK 73 ---
+X-PINGOTHER
+--- END CODE BLOCK ---
+. Code of this sort might be used in JavaScript deployed on
+--- CODE BLOCK 74 ---
+Content-Type
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 77 ---
+Access-Control-Request-*
+--- END CODE BLOCK ---
+This operation performs a simple exchange between the client and the server, using CORS headers to handle the privileges:
+Let's look at what the browser will send to the server in this case:
+http
+Copy to Clipboard
+--- CODE BLOCK 80 ---
+OPTIONS /doc HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Origin: https://foo.example
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-pingother
+HTTP/1.1 204 No Content
+Date: Mon, 01 Dec 2008 01:15:39 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: https://foo.example
+Access-Control-Allow-Methods: POST, GET, OPTIONS
+Access-Control-Allow-Headers: X-PINGOTHER, Content-Type
+Access-Control-Max-Age: 86400
+Vary: Accept-Encoding, Origin
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+--- END CODE BLOCK ---
+The request header of note is
+--- CODE BLOCK 83 ---
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-pingother
+--- END CODE BLOCK ---
+, which shows that the invocation is coming from
+--- CODE BLOCK 84 ---
+Access-Control-Request-Method
+--- END CODE BLOCK ---
+Now let's see how the server responds:
+http
+Copy to Clipboard
+--- CODE BLOCK 86 ---
+Access-Control-Request-Headers
+--- END CODE BLOCK ---
+In response, the server returns a
+--- CODE BLOCK 88 ---
+Content-Type
+--- END CODE BLOCK ---
+header with
+--- CODE BLOCK 90 ---
+X-PINGOTHER
+--- END CODE BLOCK ---
+, which means that the resource can be accessed by
+origin.
+http
+Copy to Clipboard
+--- CODE BLOCK 91 ---
+Access-Control-Allow-Origin: https://foo.example
+Access-Control-Allow-Methods: POST, GET, OPTIONS
+Access-Control-Allow-Headers: X-PINGOTHER, Content-Type
+Access-Control-Max-Age: 86400
+--- END CODE BLOCK ---
+This pattern of the
+--- CODE BLOCK 93 ---
+Access-Control-Allow-Origin: https://foo.example
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+Access-Control-Allow-Methods
+--- END CODE BLOCK ---
+headers is the simplest use of the access control protocol. If the resource owners at
+--- CODE BLOCK 98 ---
+Access-Control-Allow-Headers
+--- END CODE BLOCK ---
+wished to restrict access to the resource to requests
+only
+from
+--- CODE BLOCK 99 ---
+X-PINGOTHER, Content-Type
+--- END CODE BLOCK ---
+(i.e., no domain other than
+--- CODE BLOCK 100 ---
+Access-Control-Allow-Methods
+--- END CODE BLOCK ---
+can access the resource in a cross-origin manner), they would send:
+http
+Copy to Clipboard
+--- CODE BLOCK 101 ---
+Access-Control-Allow-Headers
+--- END CODE BLOCK ---
+Note:
+When responding to a
+credentialed requests
+request, the server
+must
+specify an origin in the value of the
+--- CODE BLOCK 103 ---
+Access-Control-Max-Age
+--- END CODE BLOCK ---
+header, instead of specifying the
+--- CODE BLOCK 104 ---
+POST /doc HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+X-PINGOTHER: pingpong
+Content-Type: text/xml; charset=UTF-8
+Referer: https://foo.example/examples/preflightInvocation.html
+Content-Length: 55
+Origin: https://foo.example
+Pragma: no-cache
+Cache-Control: no-cache
+<person><name>Arun</name></person>
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 01:15:40 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: https://foo.example
+Vary: Accept-Encoding, Origin
+Content-Encoding: gzip
+Content-Length: 235
+Keep-Alive: timeout=2, max=99
+Connection: Keep-Alive
+Content-Type: text/plain
+[Some XML content]
+--- END CODE BLOCK ---
+wildcard.
+Preflighted requests
+Unlike
+simple requests
+, for "preflighted" requests the browser first sends an HTTP request using the
+--- CODE BLOCK 105 ---
+POST /doc HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+X-PINGOTHER: pingpong
+Content-Type: text/xml; charset=UTF-8
+Referer: https://foo.example/examples/preflightInvocation.html
+Content-Length: 55
+Origin: https://foo.example
+Pragma: no-cache
+Cache-Control: no-cache
+<person><name>Arun</name></person>
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 01:15:40 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: https://foo.example
+Vary: Accept-Encoding, Origin
+Content-Encoding: gzip
+Content-Length: 235
+Keep-Alive: timeout=2, max=99
+Connection: Keep-Alive
+Content-Type: text/plain
+[Some XML content]
+--- END CODE BLOCK ---
+method to the resource on the other origin, in order to determine if the actual request is safe to send. Such cross-origin requests are preflighted since they may have implications for user data.
+The following is an example of a request that will be preflighted:
+Copy to Clipboard
+--- CODE BLOCK 106 ---
+https://example.com/foo
+--- END CODE BLOCK ---
+The example above creates an XML body to send with the
+--- CODE BLOCK 108 ---
+XMLHttpRequest.responseURL
+--- END CODE BLOCK ---
+request. Also, a non-standard HTTP
+--- CODE BLOCK 109 ---
+Response.url
+--- END CODE BLOCK ---
+request header is set. Such headers are not part of HTTP/1.1, but are generally useful to web applications. Since the request uses a
+--- CODE BLOCK 110 ---
+XMLHttpRequest.responseURL
+--- END CODE BLOCK ---
+--- CODE BLOCK 111 ---
+Authorization
+--- END CODE BLOCK ---
+, and since a custom header is set, this request is preflighted.
+Note:
+As described below, the actual
+--- CODE BLOCK 113 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+request does not include the
+--- CODE BLOCK 115 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+headers; they are needed only for the
+--- CODE BLOCK 117 ---
+credentials
+--- END CODE BLOCK ---
+request.
+Let's look at the full exchange between client and server. The first exchange is the
+preflight request/response
+http
+Copy to Clipboard
+--- CODE BLOCK 119 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+The first block above represents the preflight request with the
+--- CODE BLOCK 122 ---
+https://foo.example
+--- END CODE BLOCK ---
+method. The browser determines that it needs to send this based on the request parameters that the JavaScript code snippet above was using, so that the server can respond whether it is acceptable to send the request with the actual request parameters. OPTIONS is an HTTP/1.1 method that is used to determine further information from servers, and is a
+safe
+method, meaning that it can't be used to change the resource. Note that along with the OPTIONS request, two other request headers are sent:
+http
+Copy to Clipboard
+--- CODE BLOCK 123 ---
+https://bar.other
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+const url = "https://bar.other/resources/credentialed-content/";
+const request = new Request(url, { credentials: "include" });
+const fetchPromise = fetch(request);
+fetchPromise.then((response) => console.log(response));
+--- END CODE BLOCK ---
+header notifies the server as part of a preflight request that when the actual request is sent, it will do so with a
+--- CODE BLOCK 127 ---
+credentials
+--- END CODE BLOCK ---
+request method. The
+--- CODE BLOCK 131 ---
+Access-Control-Allow-Credentials
+--- END CODE BLOCK ---
+header notifies the server that when the actual request is sent, it will do so with
+--- CODE BLOCK 133 ---
+GET /resources/credentialed-content/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Referer: https://foo.example/examples/credential.html
+Origin: https://foo.example
+Cookie: pageAccess=2
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 01:34:52 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: https://foo.example
+Access-Control-Allow-Credentials: true
+Cache-Control: no-cache
+Pragma: no-cache
+Set-Cookie: pageAccess=3; expires=Wed, 31-Dec-2008 01:34:53 GMT
+Vary: Accept-Encoding, Origin
+Content-Encoding: gzip
+Content-Length: 106
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Content-Type: text/plain
+[text/plain content]
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+GET /resources/credentialed-content/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Connection: keep-alive
+Referer: https://foo.example/examples/credential.html
+Origin: https://foo.example
+Cookie: pageAccess=2
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 01:34:52 GMT
+Server: Apache/2
+Access-Control-Allow-Origin: https://foo.example
+Access-Control-Allow-Credentials: true
+Cache-Control: no-cache
+Pragma: no-cache
+Set-Cookie: pageAccess=3; expires=Wed, 31-Dec-2008 01:34:53 GMT
+Vary: Accept-Encoding, Origin
+Content-Encoding: gzip
+Content-Length: 106
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Content-Type: text/plain
+[text/plain content]
+--- END CODE BLOCK ---
+custom headers. Now the server has an opportunity to determine whether it can accept a request under these conditions.
+The second block above is the response that the server returns, which indicate that the request method (
+--- CODE BLOCK 136 ---
+https://bar.other
+--- END CODE BLOCK ---
+) and request headers (
+--- CODE BLOCK 137 ---
+Access-Control-Allow-Credentials
+--- END CODE BLOCK ---
+) are acceptable. Let's have a closer look at the following lines:
+http
+Copy to Clipboard
+--- CODE BLOCK 139 ---
+Access-Control-Allow-Credentials: true
+--- END CODE BLOCK ---
+The server responds with
+--- CODE BLOCK 143 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+, restricting access to the requesting origin domain only. It also responds with
+--- CODE BLOCK 144 ---
+Access-Control-Allow-Origin: https://example.com
+--- END CODE BLOCK ---
+, which says that
+--- CODE BLOCK 146 ---
+Access-Control-Allow-Headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 147 ---
+Access-Control-Allow-Headers: X-PINGOTHER, Content-Type
+--- END CODE BLOCK ---
+are valid methods to query the resource in question (this header is similar to the
+--- CODE BLOCK 149 ---
+Access-Control-Allow-Methods
+--- END CODE BLOCK ---
+response header, but used strictly within the context of access control).
+The server also sends
+--- CODE BLOCK 150 ---
+Access-Control-Allow-Methods: POST, GET
+--- END CODE BLOCK ---
+with a value of
+--- CODE BLOCK 152 ---
+Access-Control-Expose-Headers
+--- END CODE BLOCK ---
+, confirming that these are permitted headers to be used with the actual request. Like
+--- CODE BLOCK 153 ---
+Access-Control-Expose-Headers: Content-Encoding, Kuma-Revision
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+Access-Control-Allow-Origin: *
+--- END CODE BLOCK ---
+is a comma-separated list of acceptable headers.
+Finally,
+--- CODE BLOCK 157 ---
+Access-Control-Allow-Origin: https://example.com
+--- END CODE BLOCK ---
+gives the value in seconds for how long the response to the preflight request can be cached without sending another preflight request. The default value is 5 seconds. In the present case, the max age is 86400 seconds (= 24 hours). Note that each browser has a
+maximum internal value
+that takes precedence when the
+--- CODE BLOCK 159 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+exceeds it.
+Once the preflight request is complete, the real request is sent:
+http
+Copy to Clipboard
+--- CODE BLOCK 161 ---
+foo.example
+--- END CODE BLOCK ---
+Preflighted requests and redirects
+Not all browsers currently support following redirects after a preflighted request. If a redirect occurs after such a request, some browsers currently will report an error message such as the following:
+The request was redirected to
+--- CODE BLOCK 165 ---
+Access-Control-Allow-Origin: <origin> | *
+--- END CODE BLOCK ---
+, which is disallowed for cross-origin requests that require preflight.
+Request requires preflight, which is disallowed to follow cross-origin redirects.
+The CORS protocol originally required that behavior but
+was subsequently changed to no longer require it
+. However, not all browsers have implemented the change, and thus still exhibit the originally required behavior.
+Until browsers catch up with the spec, you may be able to work around this limitation by doing one or both of the following:
+Change the server-side behavior to avoid the preflight and/or to avoid the redirect
+Change the request such that it is a
+simple request
+that doesn't cause a preflight
+If that's not possible, then another way is to:
+Make a
+simple request
+(using
+--- CODE BLOCK 166 ---
+Access-Control-Allow-Origin: <origin> | *
+--- END CODE BLOCK ---
+for the Fetch API, or
+--- CODE BLOCK 167 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+) to determine what URL the real preflighted request would end up at.
+Make another request (the
+real
+request) using the URL you obtained from
+--- CODE BLOCK 169 ---
+https://mozilla.org
+--- END CODE BLOCK ---
+--- CODE BLOCK 170 ---
+Access-Control-Allow-Origin: https://mozilla.org
+Vary: Origin
+--- END CODE BLOCK ---
+in the first step.
+However, if the request is one that triggers a preflight due to the presence of the
+--- CODE BLOCK 171 ---
+Access-Control-Allow-Origin: https://mozilla.org
+Vary: Origin
+--- END CODE BLOCK ---
+header in the request, you won't be able to work around the limitation using the steps above. And you won't be able to work around it at all unless you have control over the server the request is being made to.
+Requests with credentials
+Note:
+When making credentialed requests to a different domain, third-party cookie policies will still apply. The policy is always enforced regardless of any setup on the server and the client as described in this chapter.
+The most interesting capability exposed by both
+--- CODE BLOCK 176 ---
+Access-Control-Expose-Headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 177 ---
+Response.headers
+--- END CODE BLOCK ---
+and CORS is the ability to make "credentialed" requests that are aware of
+HTTP cookies
+and HTTP Authentication information. By default, in cross-origin
+--- CODE BLOCK 178 ---
+Access-Control-Expose-Headers: <header-name>[, <header-name>]*
+--- END CODE BLOCK ---
+--- CODE BLOCK 179 ---
+Access-Control-Expose-Headers: <header-name>[, <header-name>]*
+--- END CODE BLOCK ---
+calls, browsers will
+send credentials.
+To ask for a
+--- CODE BLOCK 180 ---
+X-My-Custom-Header
+--- END CODE BLOCK ---
+request to include credentials, set the
+--- CODE BLOCK 181 ---
+X-Another-Custom-Header
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 182 ---
+Access-Control-Expose-Headers: X-My-Custom-Header, X-Another-Custom-Header
+--- END CODE BLOCK ---
+To ask for an
+--- CODE BLOCK 183 ---
+Access-Control-Expose-Headers: X-My-Custom-Header, X-Another-Custom-Header
+--- END CODE BLOCK ---
+request to include credentials, set the
+--- CODE BLOCK 184 ---
+Access-Control-Max-Age
+--- END CODE BLOCK ---
+property to
+--- CODE BLOCK 185 ---
+Access-Control-Max-Age: <delta-seconds>
+--- END CODE BLOCK ---
+In this example, content originally loaded from
+--- CODE BLOCK 186 ---
+Access-Control-Max-Age: <delta-seconds>
+--- END CODE BLOCK ---
+makes a GET request to a resource on
+--- CODE BLOCK 187 ---
+delta-seconds
+--- END CODE BLOCK ---
+which sets Cookies. Content on foo.example might contain JavaScript like this:
+Copy to Clipboard
+--- CODE BLOCK 188 ---
+Access-Control-Allow-Credentials
+--- END CODE BLOCK ---
+This code creates a
+--- CODE BLOCK 191 ---
+Access-Control-Allow-Credentials: true
+--- END CODE BLOCK ---
+object, setting the
+--- CODE BLOCK 192 ---
+Access-Control-Allow-Credentials: true
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 193 ---
+Access-Control-Allow-Methods
+--- END CODE BLOCK ---
+in the constructor, then passes this request into
+--- CODE BLOCK 194 ---
+Access-Control-Allow-Methods: <method>[, <method>]*
+--- END CODE BLOCK ---
+. Since this is a simple
+--- CODE BLOCK 195 ---
+Access-Control-Allow-Methods: <method>[, <method>]*
+--- END CODE BLOCK ---
+request, it is not preflighted but the browser will
+reject
+any response that does not have the
+--- CODE BLOCK 196 ---
+Access-Control-Allow-Headers
+--- END CODE BLOCK ---
+header set to
+--- CODE BLOCK 197 ---
+Access-Control-Request-Headers
+--- END CODE BLOCK ---
+, and
+make the response available to the invoking web content.
+Here is a sample exchange between client and server:
+http
+Copy to Clipboard
+--- CODE BLOCK 198 ---
+Access-Control-Allow-Headers: <header-name>[, <header-name>]*
+--- END CODE BLOCK ---
+Although the request's
+--- CODE BLOCK 201 ---
+Origin: <origin>
+--- END CODE BLOCK ---
+header contains the cookie destined for the content on
+--- CODE BLOCK 202 ---
+Origin: <origin>
+--- END CODE BLOCK ---
+, if bar.other did not respond with an
+--- CODE BLOCK 206 ---
+Access-Control-Request-Method
+--- END CODE BLOCK ---
+with value
+--- CODE BLOCK 207 ---
+Access-Control-Request-Method: <method>
+--- END CODE BLOCK ---
+, as demonstrated in this example, the response would be ignored and not made available to the web content.
+Preflight requests and credentials
+CORS-preflight requests must never include credentials. The
+response
+to a preflight request must specify
+--- CODE BLOCK 208 ---
+Access-Control-Request-Method: <method>
+--- END CODE BLOCK ---
+to indicate that the actual request can be made with credentials.
+Note:
+Some enterprise authentication services require that TLS client certificates be sent in preflight requests, in contravention of the
+Fetch
+specification.
+Firefox 87 allows this non-compliant behavior to be enabled by setting the preference:
+--- CODE BLOCK 209 ---
+Access-Control-Request-Headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 211 ---
+Access-Control-Allow-Headers
+--- END CODE BLOCK ---
+Firefox bug 1511151
+). Chromium-based browsers currently always send TLS client certificates in CORS preflight requests (
+Chrome bug 775438
+Credentialed requests and wildcards
+When responding to a credentialed request:
+The server
+must not
+specify the
+--- CODE BLOCK 212 ---
+Access-Control-Request-Headers: <field-name>[,<field-name>]*
+--- END CODE BLOCK ---
+wildcard for the
+--- CODE BLOCK 213 ---
+Access-Control-Request-Headers: <field-name>[,<field-name>]*
+--- END CODE BLOCK ---
+response-header value, but must instead specify an explicit origin; for example:
+--- CODE BLOCK 214 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+The server
+must not
+specify the
+[CODE_BLOCK_145]
+wildcard for the
+[CODE_BLOCK_146]
+response-header value, but must instead specify an explicit list of header names; for example,
+[CODE_BLOCK_147]
+The server
+must not
+specify the
+[CODE_BLOCK_148]
+wildcard for the
+[CODE_BLOCK_149]
+response-header value, but must instead specify an explicit list of method names; for example,
+[CODE_BLOCK_150]
+The server
+must not
+specify the
+[CODE_BLOCK_151]
+wildcard for the
+[CODE_BLOCK_152]
+response-header value, but must instead specify an explicit list of header names; for example,
+[CODE_BLOCK_153]
+If a request includes a credential (most commonly a
+[CODE_BLOCK_154]
+header) and the response includes an
+[CODE_BLOCK_155]
+header (that is, with the wildcard), the browser will block access to the response, and report a CORS error in the devtools console.
+But if a request does include a credential (like the
+[CODE_BLOCK_156]
+header) and the response includes an actual origin rather than the wildcard (like, for example,
+[CODE_BLOCK_157]
+), then the browser will allow access to the response from the specified origin.
+Also note that any
+[CODE_BLOCK_158]
+response header in a response would not set a cookie if the
+[CODE_BLOCK_159]
+value in that response is the
+[CODE_BLOCK_160]
+wildcard rather an actual origin.
+Third-party cookies
+Note that cookies set in CORS responses are subject to normal third-party cookie policies. In the example above, the page is loaded from
+[CODE_BLOCK_161]
+but the
+[CODE_BLOCK_162]
+header in the response is sent by
+[CODE_BLOCK_163]
+, and would thus not be saved if the user's browser is configured to reject all third-party cookies.
+Cookie in the request may also be suppressed in normal third-party cookie policies. The enforced cookie policy may therefore nullify the capability described in this chapter, effectively preventing you from making credentialed requests whatsoever.
+Cookie policy around the
+SameSite
+attribute would apply.
+The HTTP response headers
+This section lists the HTTP response headers that servers return for access control requests as defined by the Cross-Origin Resource Sharing specification. The previous section gives an overview of these in action.
+Access-Control-Allow-Origin
+A returned resource may have one
+[CODE_BLOCK_164]
+header with the following syntax:
+http
+Copy to Clipboard
+[CODE_BLOCK_165]
+[CODE_BLOCK_167]
+specifies either a single origin which tells browsers to allow that origin to access the resource; or else — for requests
+without
+credentials — the
+[CODE_BLOCK_168]
+wildcard tells browsers to allow any origin to access the resource.
+For example, to allow code from the origin
+[CODE_BLOCK_169]
+to access the resource, you can specify:
+http
+Copy to Clipboard
+[CODE_BLOCK_170]
+If the server specifies a single origin (that may dynamically change based on the requesting origin as part of an allowlist) rather than the
+[CODE_BLOCK_172]
+wildcard, then the server should also include
+[CODE_BLOCK_173]
+in the
+[CODE_BLOCK_174]
+response header to indicate to clients that server responses will differ based on the value of the
+[CODE_BLOCK_175]
+request header.
+Access-Control-Expose-Headers
+[CODE_BLOCK_176]
+header adds the specified headers to the allowlist that JavaScript (such as
+[CODE_BLOCK_177]
+) in browsers is allowed to access.
+http
+Copy to Clipboard
+[CODE_BLOCK_178]
+For example, the following would allow the
+[CODE_BLOCK_180]
+[CODE_BLOCK_181]
+headers to be exposed to the browser:
+http
+Copy to Clipboard
+[CODE_BLOCK_182]
+Access-Control-Max-Age
+[CODE_BLOCK_184]
+header indicates how long the results of a preflight request can be cached. For an example of a preflight request, see the above examples.
+http
+Copy to Clipboard
+[CODE_BLOCK_185]
+[CODE_BLOCK_187]
+parameter indicates the number of seconds the results can be cached.
+Access-Control-Allow-Credentials
+[CODE_BLOCK_188]
+header indicates whether or not the response to the request can be exposed when the
+[CODE_BLOCK_189]
+flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials. Note that simple
+[CODE_BLOCK_190]
+requests are not preflighted, and so if a request is made for a resource with credentials, if this header is not returned with the resource, the response is ignored by the browser and not returned to web content.
+http
+Copy to Clipboard
+[CODE_BLOCK_191]
+Credentialed requests
+are discussed above.
+Access-Control-Allow-Methods
+[CODE_BLOCK_193]
+header specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request. The conditions under which a request is preflighted are discussed above.
+http
+Copy to Clipboard
+[CODE_BLOCK_194]
+An example of a
+preflight request
+is given above, including an example which sends this header to the browser.
+Access-Control-Allow-Headers
+[CODE_BLOCK_196]
+header is used in response to a
+preflight request
+to indicate which HTTP headers can be used when making the actual request. This header is the server side response to the browser's
+[CODE_BLOCK_197]
+header.
+http
+Copy to Clipboard
+[CODE_BLOCK_198]
+The HTTP request headers
+This section lists headers that clients may use when issuing HTTP requests in order to make use of the cross-origin sharing feature. Note that these headers are set for you when making invocations to servers. Developers making cross-origin requests do not have to set any cross-origin sharing request headers programmatically.
+Origin
+[CODE_BLOCK_200]
+header indicates the origin of the cross-origin access request or preflight request.
+http
+Copy to Clipboard
+[CODE_BLOCK_201]
+The origin is a URL indicating the server from which the request is initiated. It does not include any path information, only the server name.
+Note:
+[CODE_BLOCK_203]
+value can be
+[CODE_BLOCK_204]
+Note that in any access control request, the
+[CODE_BLOCK_205]
+header is
+always
+sent.
+Access-Control-Request-Method
+[CODE_BLOCK_206]
+is used when issuing a preflight request to let the server know what HTTP method will be used when the actual request is made.
+http
+Copy to Clipboard
+[CODE_BLOCK_207]
+Examples of this usage can be
+found above.
+Access-Control-Request-Headers
+[CODE_BLOCK_209]
+header is used when issuing a preflight request to let the server know what HTTP headers will be used when the actual request is made (for example, by passing them as the
+[CODE_BLOCK_210]
+option). This browser-side header will be answered by the complementary server-side header of
+[CODE_BLOCK_211]
+http
+Copy to Clipboard
+[CODE_BLOCK_212]
+Examples of this usage can be
+found above
+Specifications
+Specification
+Fetch
+http-access-control-allow-origin
+Browser compatibility
+See also
+CORS errors
+Enable CORS: I want to add CORS support to my server
+Fetch API
+[CODE_BLOCK_214]
+Will it CORS?
+- an interactive CORS explainer & generator
+How to run Chrome browser without CORS
+Using CORS with All (Modern) Browsers
+Stack Overflow answer with "how to" info for dealing with common problems
+How to avoid the CORS preflight
+How to use a CORS proxy to get around
+"No Access-Control-Allow-Origin header"
+How to fix
+"Access-Control-Allow-Origin header must not be the wildcard"
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

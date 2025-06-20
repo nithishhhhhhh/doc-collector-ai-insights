@@ -1,0 +1,478 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Console
+SCRAPED: 2025-06-19 18:24:14
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 3 ---
+console.log("Failed to open the specified link");
+--- END CODE BLOCK ---
+object provides access to the debugging console (e.g., the
+Web console
+in Firefox).
+Implementations of the console API may differ between runtimes. In particular, some console methods may work differently or not work at all in some online editors and IDEs. To see the behavior described in this documentation, try the methods in your browser's developer tools, although even here, there are some differences between browsers.
+--- CODE BLOCK 4 ---
+console.log("Failed to open the specified link");
+--- END CODE BLOCK ---
+object is available in any global scope. For example:
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+console.assert()
+--- END CODE BLOCK ---
+Instance methods
+--- CODE BLOCK 8 ---
+console.count()
+--- END CODE BLOCK ---
+Log an error message to console if the first argument is
+--- CODE BLOCK 9 ---
+console.countReset()
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+console.debug()
+--- END CODE BLOCK ---
+Clear the console.
+--- CODE BLOCK 11 ---
+console.dir()
+--- END CODE BLOCK ---
+Log the number of times this line has been called with the given label.
+--- CODE BLOCK 12 ---
+console.dirxml()
+--- END CODE BLOCK ---
+Resets the value of the counter with the given label.
+--- CODE BLOCK 13 ---
+console.error()
+--- END CODE BLOCK ---
+Outputs a message to the console with the debug log level.
+--- CODE BLOCK 14 ---
+console.exception()
+--- END CODE BLOCK ---
+Displays an interactive listing of the properties of a specified JavaScript object. This listing lets you use disclosure triangles to examine the contents of child objects.
+--- CODE BLOCK 15 ---
+console.error()
+--- END CODE BLOCK ---
+Displays an XML/HTML Element representation of the specified object if possible or the JavaScript Object view if it is not possible.
+--- CODE BLOCK 16 ---
+console.group()
+--- END CODE BLOCK ---
+Outputs a message to the console with the error log level.
+--- CODE BLOCK 17 ---
+console.groupEnd()
+--- END CODE BLOCK ---
+Non-standard
+Deprecated
+An alias for
+--- CODE BLOCK 18 ---
+console.groupCollapsed()
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+console.group()
+--- END CODE BLOCK ---
+Creates a new inline
+group
+, indenting all following output by another level. To move back out a level, call
+--- CODE BLOCK 20 ---
+console.groupEnd()
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+console.groupEnd()
+--- END CODE BLOCK ---
+Creates a new inline
+group
+, indenting all following output by another level. However, unlike
+--- CODE BLOCK 22 ---
+console.info()
+--- END CODE BLOCK ---
+this starts with the inline group collapsed requiring the use of a disclosure button to expand it. To move back out a level, call
+--- CODE BLOCK 23 ---
+console.log()
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+console.profile()
+--- END CODE BLOCK ---
+Exits the current inline
+group
+--- CODE BLOCK 25 ---
+console.profileEnd()
+--- END CODE BLOCK ---
+Outputs a message to the console with the info log level.
+--- CODE BLOCK 26 ---
+console.table()
+--- END CODE BLOCK ---
+Outputs a message to the console.
+--- CODE BLOCK 27 ---
+console.time()
+--- END CODE BLOCK ---
+Non-standard
+Starts the browser's built-in profiler (for example, the
+Firefox performance tool
+). You can specify an optional name for the profile.
+--- CODE BLOCK 28 ---
+console.timeEnd()
+--- END CODE BLOCK ---
+Non-standard
+Stops the profiler. You can see the resulting profile in the browser's performance tool (for example, the
+Firefox performance tool
+--- CODE BLOCK 29 ---
+console.timeLog()
+--- END CODE BLOCK ---
+Displays tabular data as a table.
+--- CODE BLOCK 30 ---
+console.timeStamp()
+--- END CODE BLOCK ---
+Starts a
+timer
+with a name specified as an input parameter. Up to 10,000 simultaneous timers can run on a given page.
+--- CODE BLOCK 31 ---
+console.trace()
+--- END CODE BLOCK ---
+Stops the specified
+timer
+and logs the elapsed time in milliseconds since it started.
+--- CODE BLOCK 32 ---
+console.warn()
+--- END CODE BLOCK ---
+Logs the value of the specified
+timer
+to the console.
+--- CODE BLOCK 33 ---
+console.log()
+--- END CODE BLOCK ---
+Non-standard
+Adds a marker to the browser performance tool's timeline (
+Chrome
+Firefox
+--- CODE BLOCK 34 ---
+console.info()
+--- END CODE BLOCK ---
+Outputs a
+stack trace
+--- CODE BLOCK 35 ---
+console.warn()
+--- END CODE BLOCK ---
+Outputs a message to the console with the warning log level.
+Examples
+Outputting text to the console
+The console's most frequently used feature is logging text and other data. There are several categories of output you can generate using the
+--- CODE BLOCK 36 ---
+console.error()
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+console.debug()
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+const someObject = { str: "Some text", id: 5 };
+console.log(someObject);
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+const someObject = { str: "Some text", id: 5 };
+console.log(someObject);
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 40 ---
+{str:"Some text", id:5}
+--- END CODE BLOCK ---
+methods. Each of these results in output styled differently in the log, and you can use the filtering controls provided by your browser to view only the kinds of output that interest you.
+There are two ways to use each of the output methods:
+Pass in a variable number of arguments whose string representations get concatenated into one string, then output to the console.
+Pass in a string containing zero or more substitution strings followed by a variable number of arguments to replace them.
+Outputting a single object
+The simplest way to use the logging methods is to output a single object:
+Copy to Clipboard
+--- CODE BLOCK 41 ---
+const obj = {};
+console.log(obj);
+obj.prop = 123;
+--- END CODE BLOCK ---
+The output looks something like this:
+--- CODE BLOCK 45 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+The browser will display as much information about the object as it can and wishes to. For example, private state of the object may be displayed too. Certain types of objects, such as DOM elements or functions, may also be displayed in a special way.
+Snapshotting objects
+Information about an object is lazily retrieved. This means that the log message shows the content of an object at the time when it's first viewed, not when it was logged. For example:
+Copy to Clipboard
+--- CODE BLOCK 46 ---
+JSON.parse()
+--- END CODE BLOCK ---
+This will output
+--- CODE BLOCK 48 ---
+console.log(JSON.parse(JSON.stringify(obj)));
+--- END CODE BLOCK ---
+. However, if you expand the object's details, you will see
+--- CODE BLOCK 49 ---
+structuredClone()
+--- END CODE BLOCK ---
+If you are going to mutate your object and you want to prevent the logged information from being updated, you can
+deep-clone
+the object before logging it. A common way is to
+--- CODE BLOCK 50 ---
+const car = "Dodge Charger";
+const someObject = { str: "Some text", id: 5 };
+console.info("My first car was a", car, ". The object is:", someObject);
+--- END CODE BLOCK ---
+and then
+--- CODE BLOCK 51 ---
+const car = "Dodge Charger";
+const someObject = { str: "Some text", id: 5 };
+console.info("My first car was a", car, ". The object is:", someObject);
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 52 ---
+My first car was a Dodge Charger . The object is: {str:"Some text", id:5}
+--- END CODE BLOCK ---
+There are other alternatives that work in browsers, such as
+--- CODE BLOCK 61 ---
+%.<precision>f
+--- END CODE BLOCK ---
+, which are more effective at cloning different types of objects.
+Outputting multiple objects
+You can also output multiple objects by listing them when calling the logging method, like this:
+Copy to Clipboard
+--- CODE BLOCK 62 ---
+console.log("Foo %.2f", 1.1)
+--- END CODE BLOCK ---
+The output will look like this:
+--- CODE BLOCK 66 ---
+for (let i = 0; i < 5; i++) {
+console.log("Hello, %s. You've called me %d times.", "Bob", i + 1);
+--- END CODE BLOCK ---
+Using string substitutions
+The first parameter to the logging methods can be a string containing zero or more substitution strings. Each substitution string is replaced by the corresponding argument value.
+--- CODE BLOCK 67 ---
+for (let i = 0; i < 5; i++) {
+console.log("Hello, %s. You've called me %d times.", "Bob", i + 1);
+--- END CODE BLOCK ---
+Outputs a JavaScript object in the "optimally useful formatting" style, for example DOM elements may be displayed the same way as they would appear in the element inspector.
+--- CODE BLOCK 68 ---
+Hello, Bob. You've called me 1 times.
+Hello, Bob. You've called me 2 times.
+Hello, Bob. You've called me 3 times.
+Hello, Bob. You've called me 4 times.
+Hello, Bob. You've called me 5 times.
+--- END CODE BLOCK ---
+Outputs a JavaScript object in the "generic JavaScript object formatting" style, usually in the form of an expandable tree. This is similar to
+--- CODE BLOCK 70 ---
+console.log(
+"This is %cMy stylish message",
+"color: yellow; font-style: italic; background-color: blue;padding: 2px",
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+console.log(
+"This is %cMy stylish message",
+"color: yellow; font-style: italic; background-color: blue;padding: 2px",
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+console.log(
+"Multiple styles: %cred %corange",
+"color: red",
+"color: orange",
+"Additional unformatted message",
+--- END CODE BLOCK ---
+Outputs an integer.
+--- CODE BLOCK 74 ---
+console.log(
+"Multiple styles: %cred %corange",
+"color: red",
+"color: orange",
+"Additional unformatted message",
+--- END CODE BLOCK ---
+Outputs a string.
+--- CODE BLOCK 78 ---
+border-radius
+--- END CODE BLOCK ---
+Outputs a floating-point value.
+--- CODE BLOCK 79 ---
+box-decoration-break
+--- END CODE BLOCK ---
+Applies CSS style rules to all following text. See
+Styling console output
+Some browsers may implement additional format specifiers. For example, Safari and Firefox support the C-style precision formatting
+--- CODE BLOCK 87 ---
+line-height
+--- END CODE BLOCK ---
+. For example
+--- CODE BLOCK 92 ---
+text-transform
+--- END CODE BLOCK ---
+will output the number to 2 decimal places:
+--- CODE BLOCK 93 ---
+white-space
+--- END CODE BLOCK ---
+, while
+--- CODE BLOCK 94 ---
+word-spacing
+--- END CODE BLOCK ---
+will output the number as two significant figures with a leading 0:
+--- CODE BLOCK 96 ---
+writing-mode
+--- END CODE BLOCK ---
+Each of these pulls the next argument after the format string off the parameter list. For example:
+Copy to Clipboard
+--- CODE BLOCK 100 ---
+display: inline-block
+--- END CODE BLOCK ---
+The output looks like this:
+--- CODE BLOCK 102 ---
+color: light-dark(#D00000, #FF4040);
+--- END CODE BLOCK ---
+Styling console output
+You can use the
+--- CODE BLOCK 103 ---
+console.group()
+--- END CODE BLOCK ---
+directive to apply a CSS style to console output:
+Copy to Clipboard
+--- CODE BLOCK 104 ---
+console.groupCollapsed()
+--- END CODE BLOCK ---
+The text before the directive will not be affected, but the text after the directive will be styled using the CSS declarations in the parameter.
+You may use
+--- CODE BLOCK 106 ---
+console.log("This is the outer level");
+console.group("First group");
+console.log("In the first group");
+console.group("Second group");
+console.log("In the second group");
+console.warn("Still in the second group");
+console.groupEnd();
+console.log("Back to the first group");
+console.groupEnd();
+console.debug("Back to the outer level");
+--- END CODE BLOCK ---
+multiple times:
+Copy to Clipboard
+--- CODE BLOCK 107 ---
+console.log("This is the outer level");
+console.group("First group");
+console.log("In the first group");
+console.group("Second group");
+console.log("In the second group");
+console.warn("Still in the second group");
+console.groupEnd();
+console.log("Back to the first group");
+console.groupEnd();
+console.debug("Back to the outer level");
+--- END CODE BLOCK ---
+The properties usable along with the
+--- CODE BLOCK 109 ---
+console.timeEnd()
+--- END CODE BLOCK ---
+syntax are as follows (at least, in Firefox — they may differ in other browsers):
+--- CODE BLOCK 110 ---
+console.time("answer time");
+alert("Click to continue");
+console.timeLog("answer time");
+alert("Do a bunch of other stuff…");
+console.timeEnd("answer time");
+--- END CODE BLOCK ---
+and its longhand equivalents
+--- CODE BLOCK 111 ---
+console.time("answer time");
+alert("Click to continue");
+console.timeLog("answer time");
+alert("Do a bunch of other stuff…");
+console.timeEnd("answer time");
+--- END CODE BLOCK ---
+and its longhand equivalents
+--- CODE BLOCK 112 ---
+console.trace()
+--- END CODE BLOCK ---
+--- CODE BLOCK 113 ---
+function foo() {
+function bar() {
+console.trace();
+bar();
+foo();
+--- END CODE BLOCK ---
+--- CODE BLOCK 114 ---
+function foo() {
+function bar() {
+console.trace();
+bar();
+foo();
+--- END CODE BLOCK ---
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+and its longhand equivalents
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+and its longhand equivalents
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+properties such as
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+Note:
+Each console message behaves like an inline element by default. If you want properties such as
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+, and so on to have any effect, you can set the
+[CODE_BLOCK_99]
+property to
+[CODE_BLOCK_100]
+Note:
+In order to support both light and dark color schemes,
+[CODE_BLOCK_101]
+can be used when specifying colors; for example:
+[CODE_BLOCK_102]
+Using groups in the console
+You can use nested groups to help organize your output by visually combining related material. To create a new nested block, call
+[CODE_BLOCK_103]
+. The
+[CODE_BLOCK_104]
+method is similar but creates the new block collapsed, requiring the use of a disclosure button to open it for reading.
+To exit the current group, call
+[CODE_BLOCK_105]
+. For example, given this code:
+Copy to Clipboard
+[CODE_BLOCK_106]
+The output looks like this:
+Timers
+You can start a timer to calculate the duration of a specific operation. To start one, call the
+[CODE_BLOCK_108]
+method, giving it a name as the only parameter. To stop the timer, and to get the elapsed time in milliseconds, just call the
+[CODE_BLOCK_109]
+method, again passing the timer's name as the parameter. Up to 10,000 timers can run simultaneously on a given page.
+For example, given this code:
+Copy to Clipboard
+[CODE_BLOCK_110]
+Will log the time needed by the user to dismiss the alert box, log the time to the console, wait for the user to dismiss the second alert, and then log the ending time to the console:
+Notice that the timer's name is displayed both when the timer is started and when it's stopped.
+Stack traces
+The console object also supports outputting a stack trace; this will show you the call path taken to reach the point at which you call
+[CODE_BLOCK_112]
+. Given code like this:
+Copy to Clipboard
+[CODE_BLOCK_113]
+The output in the console looks something like this:
+Specifications
+Specification
+Console
+console-namespace
+Browser compatibility
+See also
+Firefox Developer Tools
+Web console
+— how the Web console in Firefox handles console API calls
+about:debugging
+— how to see console output when the debugging target is a mobile device
+Google Chrome DevTools
+Microsoft Edge DevTools
+Safari Web Inspector
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Feb 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

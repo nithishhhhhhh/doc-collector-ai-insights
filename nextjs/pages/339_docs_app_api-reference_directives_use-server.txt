@@ -1,0 +1,147 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/directives/use-server
+SCRAPED: 2025-06-19 17:49:21
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Directives
+use server
+use server
+--- CODE BLOCK 4 ---
+'use server'
+import { db } from '@/lib/db' // Your database client
+export async function createUser(data: { name: string; email: string }) {
+const user = await db.user.create({ data })
+return user
+--- END CODE BLOCK ---
+directive designates a function or file to be executed on the
+server side
+. It can be used at the top of a file to indicate that all functions in the file are server-side, or inline at the top of a function to mark the function as a
+Server Function
+. This is a React feature.
+Using
+--- CODE BLOCK 5 ---
+'use server'
+import { db } from '@/lib/db' // Your database client
+export async function createUser(data: { name: string; email: string }) {
+const user = await db.user.create({ data })
+return user
+--- END CODE BLOCK ---
+at the top of a file
+The following example shows a file with a
+--- CODE BLOCK 9 ---
+'use server'
+import { db } from '@/lib/db' // Your database client
+export async function fetchUsers() {
+const users = await db.user.findMany()
+return users
+--- END CODE BLOCK ---
+directive at the top. All functions in the file are executed on the server.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 10 ---
+'use server'
+import { db } from '@/lib/db' // Your database client
+export async function fetchUsers() {
+const users = await db.user.findMany()
+return users
+--- END CODE BLOCK ---
+Using Server Functions in a Client Component
+To use Server Functions in Client Components you need to create your Server Functions in a dedicated file using the
+--- CODE BLOCK 13 ---
+'use client'
+import { fetchUsers } from '../actions'
+export default function MyButton() {
+return <button onClick={() => fetchUsers()}>Fetch Users</button>
+--- END CODE BLOCK ---
+directive at the top of the file. These Server Functions can then be imported into Client and Server Components and executed.
+Assuming you have a
+--- CODE BLOCK 16 ---
+import { EditPost } from './edit-post'
+import { revalidatePath } from 'next/cache'
+export default async function PostPage({ params }: { params: { id: string } }) {
+const post = await getPost(params.id)
+async function updatePost(formData: FormData) {
+'use server'
+await savePost(params.id, formData)
+revalidatePath(`/posts/${params.id}`)
+return <EditPost updatePostAction={updatePost} post={post} />
+--- END CODE BLOCK ---
+Server Function in
+--- CODE BLOCK 17 ---
+import { EditPost } from './edit-post'
+import { revalidatePath } from 'next/cache'
+export default async function PostPage({ params }: { params: { id: string } }) {
+const post = await getPost(params.id)
+async function updatePost(formData: FormData) {
+'use server'
+await savePost(params.id, formData)
+revalidatePath(`/posts/${params.id}`)
+return <EditPost updatePostAction={updatePost} post={post} />
+--- END CODE BLOCK ---
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+'use server'
+import { db } from '@/lib/db' // Your database client
+import { authenticate } from '@/lib/auth' // Your authentication library
+export async function createUser(
+data: { name: string; email: string },
+token: string
+const user = authenticate(token)
+if (!user) {
+throw new Error('Unauthorized')
+const newUser = await db.user.create({ data })
+return newUser
+--- END CODE BLOCK ---
+Then you can import the
+[CODE_BLOCK_11]
+Server Function into a Client Component and execute it on the client-side.
+app/components/my-button.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_12]
+Using
+[CODE_BLOCK_14]
+inline
+In the following example,
+[CODE_BLOCK_15]
+is used inline at the top of a function to mark it as a
+Server Function
+app/posts/[id]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_16]
+Security considerations
+When using the
+[CODE_BLOCK_18]
+directive, it's important to ensure that all server-side logic is secure and that sensitive data remains protected.
+Authentication and authorization
+Always authenticate and authorize users before performing sensitive server-side operations.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_19]
+Reference
+See the
+React documentation
+for more information on
+[CODE_BLOCK_21]
+Was this helpful?
+supported.
+Send

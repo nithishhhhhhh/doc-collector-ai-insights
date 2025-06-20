@@ -1,0 +1,210 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/URL
+SCRAPED: 2025-06-19 18:16:28
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 20 ---
+searchParams
+--- END CODE BLOCK ---
+interface is used to parse, construct, normalize, and encode
+URLs
+. It works by providing properties which allow you to easily read and modify the components of a URL.
+You normally create a new
+--- CODE BLOCK 21 ---
+URLSearchParams
+--- END CODE BLOCK ---
+object by specifying the URL as a string when calling its constructor, or by providing a relative URL and a base URL. You can then easily read the parsed components of the URL or make changes to the URL.
+Constructor
+--- CODE BLOCK 25 ---
+createObjectURL()
+--- END CODE BLOCK ---
+Creates and returns a
+--- CODE BLOCK 31 ---
+revokeObjectURL()
+--- END CODE BLOCK ---
+object from a URL string and optional base URL string.
+Throws if the passed arguments don't define a valid URL.
+Instance properties
+--- CODE BLOCK 32 ---
+URL.createObjectURL()
+--- END CODE BLOCK ---
+A string containing a
+--- CODE BLOCK 40 ---
+const url = new URL("../cats", "http://www.example.com/dogs");
+console.log(url.hostname); // "www.example.com"
+console.log(url.pathname); // "/cats"
+--- END CODE BLOCK ---
+followed by the fragment identifier of the URL.
+--- CODE BLOCK 41 ---
+const url = new URL("../cats", "http://www.example.com/dogs");
+console.log(url.hostname); // "www.example.com"
+console.log(url.pathname); // "/cats"
+--- END CODE BLOCK ---
+A string containing the domain (that is the
+hostname
+) followed by (if a port was specified) a
+--- CODE BLOCK 42 ---
+try...catch
+--- END CODE BLOCK ---
+and the
+port
+of the URL.
+--- CODE BLOCK 44 ---
+if (URL.canParse("../cats", "http://www.example.com/dogs")) {
+const url = new URL("../cats", "http://www.example.com/dogs");
+console.log(url.hostname); // "www.example.com"
+console.log(url.pathname); // "/cats"
+} else {
+console.log("Invalid URL");
+--- END CODE BLOCK ---
+A string containing the domain of the URL.
+--- CODE BLOCK 45 ---
+if (URL.canParse("../cats", "http://www.example.com/dogs")) {
+const url = new URL("../cats", "http://www.example.com/dogs");
+console.log(url.hostname); // "www.example.com"
+console.log(url.pathname); // "/cats"
+} else {
+console.log("Invalid URL");
+--- END CODE BLOCK ---
+stringifier
+that returns a string containing the whole URL.
+--- CODE BLOCK 46 ---
+url.hash = "tabby";
+console.log(url.href); // "http://www.example.com/cats#tabby"
+--- END CODE BLOCK ---
+Read only
+Returns a string containing the origin of the URL, that is its scheme, its domain and its port.
+--- CODE BLOCK 47 ---
+url.hash = "tabby";
+console.log(url.href); // "http://www.example.com/cats#tabby"
+--- END CODE BLOCK ---
+A string containing the password specified before the domain name.
+--- CODE BLOCK 48 ---
+url.pathname = "démonstration.html";
+console.log(url.href); // "http://www.example.com/d%C3%A9monstration.html"
+--- END CODE BLOCK ---
+A string containing an initial
+--- CODE BLOCK 49 ---
+url.pathname = "démonstration.html";
+console.log(url.href); // "http://www.example.com/d%C3%A9monstration.html"
+--- END CODE BLOCK ---
+followed by the path of the URL, not including the query string or fragment.
+--- CODE BLOCK 50 ---
+URLSearchParams
+--- END CODE BLOCK ---
+A string containing the port number of the URL.
+--- CODE BLOCK 51 ---
+// https://some.site/?id=123
+const parsedUrl = new URL(window.location.href);
+console.log(parsedUrl.searchParams.get("id")); // "123"
+--- END CODE BLOCK ---
+A string containing the protocol scheme of the URL, including the final
+--- CODE BLOCK 52 ---
+// https://some.site/?id=123
+const parsedUrl = new URL(window.location.href);
+console.log(parsedUrl.searchParams.get("id")); // "123"
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+const response = await fetch(
+new URL("http://www.example.com/démonstration.html"),
+--- END CODE BLOCK ---
+A string indicating the URL's parameter string; if any parameters are provided, this string includes all of them, beginning with the leading
+--- CODE BLOCK 57 ---
+const response = await fetch(
+new URL("http://www.example.com/démonstration.html"),
+--- END CODE BLOCK ---
+character.
+--- CODE BLOCK 60 ---
+URLSearchParams
+--- END CODE BLOCK ---
+Read only
+[CODE_BLOCK_21]
+object which can be used to access the individual query parameters found in
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+A string containing the username specified before the domain name.
+Static methods
+[CODE_BLOCK_24]
+Returns a boolean indicating whether or not a URL defined from a URL string and optional base URL string is parsable and valid.
+[CODE_BLOCK_25]
+Returns a string containing a unique blob URL, that is a URL with
+[CODE_BLOCK_26]
+as its scheme, followed by an opaque string uniquely identifying the object in the browser.
+[CODE_BLOCK_27]
+Creates and returns a
+[CODE_BLOCK_28]
+object from a URL string and optional base URL string, or returns
+[CODE_BLOCK_29]
+if the passed parameters define an invalid
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+Revokes an object URL previously created using
+[CODE_BLOCK_32]
+Instance methods
+[CODE_BLOCK_33]
+Returns a string containing the whole URL. It is a synonym for
+[CODE_BLOCK_34]
+, though it can't be used to modify the value.
+[CODE_BLOCK_35]
+Returns a string containing the whole URL. It returns the same string as the
+[CODE_BLOCK_36]
+property.
+Usage notes
+The constructor takes a
+[CODE_BLOCK_37]
+parameter, and an optional
+[CODE_BLOCK_38]
+parameter to use as a base if the
+[CODE_BLOCK_39]
+parameter is a relative URL:
+Copy to Clipboard
+[CODE_BLOCK_40]
+The constructor will raise an exception if the URL cannot be parsed to a valid URL.
+You can either call the above code in a
+[CODE_BLOCK_42]
+block or use the
+[CODE_BLOCK_43]
+static method to first check the URL is valid:
+Copy to Clipboard
+[CODE_BLOCK_44]
+URL properties can be set to construct the URL:
+Copy to Clipboard
+[CODE_BLOCK_46]
+URLs are encoded according to the rules found in
+RFC 3986
+. For instance:
+Copy to Clipboard
+[CODE_BLOCK_48]
+[CODE_BLOCK_50]
+interface can be used to build and manipulate the URL query string.
+To get the search params from the current window's URL, you can do this:
+Copy to Clipboard
+[CODE_BLOCK_51]
+[CODE_BLOCK_53]
+method of
+[CODE_BLOCK_54]
+just returns the value of the
+[CODE_BLOCK_55]
+property, so the constructor can be used to normalize and encode a URL directly.
+Copy to Clipboard
+[CODE_BLOCK_56]
+Specifications
+Specification
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+URL API
+What is a URL?
+[CODE_BLOCK_60]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 27, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

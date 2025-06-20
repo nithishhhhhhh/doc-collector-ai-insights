@@ -1,0 +1,36 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/upgrading
+SCRAPED: 2025-06-19 17:23:20
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Upgrading
+You are currently viewing the documentation for Pages Router.
+Upgrading
+Learn how to upgrade to the latest versions of Next.js following the versions-specific guides:
+Codemods
+Use codemods to upgrade your Next.js codebase when new features are released.
+Version 10
+Upgrade your Next.js Application from Version 9 to Version 10.
+Version 11
+Upgrade your Next.js Application from Version 10 to Version 11.
+Version 12
+Upgrade your Next.js Application from Version 11 to Version 12.
+Version 13
+Upgrade your Next.js Application from Version 12 to 13.
+Version 14
+Upgrade your Next.js Application from Version 13 to 14.
+Version 9
+Upgrade your Next.js Application from Version 8 to Version 9.
+Was this helpful?
+supported.
+Send

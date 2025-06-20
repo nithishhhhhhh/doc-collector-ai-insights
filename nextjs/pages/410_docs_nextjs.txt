@@ -1,0 +1,457 @@
+SOURCE URL: https://markdoc.dev/docs/nextjs
+SCRAPED: 2025-06-19 17:57:44
+================================================================================
+
+Using Markdoc with Next.js
+Using the
+--- CODE BLOCK 1 ---
+@markdoc/next.js
+--- END CODE BLOCK ---
+package/plugin allows you to create custom
+--- CODE BLOCK 4 ---
+@markdoc/next.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+@markdoc/next.js
+--- END CODE BLOCK ---
+pages in your Next.js apps, and automatically render them with Markdoc.
+To get started right away, check out
+this starter repo
+. The quickest way to deploy your own version of the starter is by deploying it with
+Vercel
+Netlify
+by clicking one of the buttons below.
+Setup
+This guide assumes that you already have Next.js installed. If you're starting from scratch, follow these steps for
+getting started with Next.js
+Follow these steps to get started with
+--- CODE BLOCK 6 ---
+@markdoc/markdoc
+--- END CODE BLOCK ---
+Install
+--- CODE BLOCK 7 ---
+npm install @markdoc/next.js @markdoc/markdoc
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+const withMarkdoc = require('@markdoc/next.js');
+module.exports = withMarkdoc(/* options */)({
+pageExtensions: ['md', 'mdoc', 'js', 'jsx', 'ts', 'tsx']
+--- END CODE BLOCK ---
+Copy
+Update your
+--- CODE BLOCK 12 ---
+getting-started.md
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+pages
+├── _app.js
+├── docs
+│   └── getting-started.md
+└── index.md
+--- END CODE BLOCK ---
+Copy
+Create a new
+--- CODE BLOCK 14 ---
+title: Get started with Markdoc
+description: How to get started with Markdoc
+# Get started with Markdoc
+--- END CODE BLOCK ---
+file in within
+--- CODE BLOCK 15 ---
+withMarkdoc
+--- END CODE BLOCK ---
+, such as
+--- CODE BLOCK 19 ---
+'static' | 'server'
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+getStaticProps
+--- END CODE BLOCK ---
+Copy
+Add some Markdoc to your file:
+--- CODE BLOCK 21 ---
+getServerSideProps
+--- END CODE BLOCK ---
+Copy
+Or, clone
+this starter repo
+and follow the directions in the
+README
+Options
+You can pass options to
+--- CODE BLOCK 24 ---
+getStaticProps
+--- END CODE BLOCK ---
+to adjust how the plugin behaves.
+Option
+Type
+Description
+--- CODE BLOCK 25 ---
+module.exports = withMarkdoc({ mode: 'static' })({
+pageExtensions: // ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+├── components
+│   ├── ...
+│   └── Link.js
+├── markdoc
+│   ├── functions.js
+│   ├── nodes
+│   │   ├── ...
+│   │   ├── link.markdoc.js
+│   │   └── index.js
+│   └── tags
+│       ├── ...
+│       └── index.js
+├── pages
+│   ├── _app.js
+│   └── index.md
+└── next.config.js
+--- END CODE BLOCK ---
+Path to your Markdoc schema folder. See
+schema customization
+--- CODE BLOCK 29 ---
+withMarkdoc
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+module.exports = withMarkdoc({ schemaPath: './path/to/your/markdoc/schema' })({
+pageExtensions: // ...
+--- END CODE BLOCK ---
+Determines whether the generated Markdoc pages use
+--- CODE BLOCK 31 ---
+/markdoc/tags.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+/markdoc/tags/index.js
+--- END CODE BLOCK ---
+For example, this is how you set the
+--- CODE BLOCK 36 ---
+{% button %}
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+// markdoc/tags.js
+import { Button } from '../components/Button';
+export const button = {
+render: Button,
+attributes: {
+href: {
+type: String
+--- END CODE BLOCK ---
+to pre-render the page at build time using the props returned by
+--- CODE BLOCK 38 ---
+// markdoc/tags.js
+export default {
+'special-button': {
+render: SpecialButton,
+attributes: {
+href: {
+type: String
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+/markdoc/nodes.js
+--- END CODE BLOCK ---
+Copy
+Schema customization
+You can define your Markdoc schema by creating a
+--- CODE BLOCK 40 ---
+// markdoc/nodes.js
+import { Link } from 'next/link';
+export const link = {
+render: Link,
+attributes: {
+href: {
+type: String
+--- END CODE BLOCK ---
+directory at the root of your project. This is where custom
+nodes
+tags
+, and
+functions
+are defined.
+--- CODE BLOCK 42 ---
+/markdoc/functions.js
+--- END CODE BLOCK ---
+Copy
+You can choose the import location for your schema by passing the
+--- CODE BLOCK 43 ---
+// markdoc/functions.js
+export const upper = {
+transform(parameters) {
+const string = parameters[0];
+return typeof string === 'string' ? string.toUpperCase() : string;
+--- END CODE BLOCK ---
+option to
+--- CODE BLOCK 44 ---
+/markdoc/config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+// markdoc/config.js
+import tags from './tags';
+import nodes from './nodes';
+import functions from './functions';
+export default {
+tags,
+nodes,
+functions
+// add other stuff here
+--- END CODE BLOCK ---
+Copy
+Tags
+You register custom tags by exporting an object from
+--- CODE BLOCK 46 ---
+@markdoc/next.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+pageProps.markdoc.frontmatter
+--- END CODE BLOCK ---
+). In this example, the tag name is
+--- CODE BLOCK 49 ---
+$markdoc.frontmatter
+--- END CODE BLOCK ---
+. The
+--- CODE BLOCK 50 ---
+title: Using the Next.js plugin
+description: Integrate Markdoc into your Next.js app
+# {% $markdoc.frontmatter.title %}
+--- END CODE BLOCK ---
+field tells Markdoc to render a
+--- CODE BLOCK 51 ---
+/markdoc/partials/
+--- END CODE BLOCK ---
+React component whenever the
+--- CODE BLOCK 52 ---
+{% partial file="header.md" /%}
+--- END CODE BLOCK ---
+tag is used.
+--- CODE BLOCK 53 ---
+markdoc/partials/header.md
+--- END CODE BLOCK ---
+Copy
+If you want to use kebab case for your tag names, you can export an object like:
+--- CODE BLOCK 56 ---
+// pages/_app.js
+import Layout from '../components/Layout';
+export default function App({ Component, pageProps }) {
+return (
+<Layout frontmatter={pageProps.markdoc.frontmatter}>
+<Component {...pageProps} />
+</Layout>
+--- END CODE BLOCK ---
+Copy
+Nodes
+Custom node registrations are almost identical to
+tags
+, except you create a
+--- CODE BLOCK 57 ---
+allowComments
+--- END CODE BLOCK ---
+file instead, for example:
+--- CODE BLOCK 58 ---
+const withMarkdoc = require('@markdoc/next.js');
+withMarkdoc({ tokenizerOptions: { allowComments: true } });
+--- END CODE BLOCK ---
+Copy
+This example overrides the default
+--- CODE BLOCK 59 ---
+<!-- Your comment here -->
+--- END CODE BLOCK ---
+node
+Functions
+Custom functions registrations are almost identical to tags and nodes, except you create a
+--- CODE BLOCK 61 ---
+// markdoc/tags/Next.markdoc.js
+export { comment, head, link, script } from '@markdoc/next.js/tags';
+// or
+export * from '@markdoc/next.js/tags';
+--- END CODE BLOCK ---
+file instead, for example:
+--- CODE BLOCK 66 ---
+{% head %}
+Add custom `title` and `meta` tags here…
+{% /head %}
+--- END CODE BLOCK ---
+Copy
+Advanced
+If you want more control over your config object, or you are using the
+Markdoc language server for Visual Studio Code
+, you can create a
+--- CODE BLOCK 69 ---
+{% link href="/docs/getting-started" %}
+Getting started
+{% /link %}
+--- END CODE BLOCK ---
+file and export the full config object. This allows you to extend your config with more data, like records or utility functions.
+--- CODE BLOCK 72 ---
+{% script src="https://js.stripe.com/v3" /%}
+--- END CODE BLOCK ---
+Copy
+Frontmatter
+Markdoc is frontmatter agnostic, however,
+--- CODE BLOCK 75 ---
+title: Using Markdoc with Next.js
+--- END CODE BLOCK ---
+uses YAML as its frontmatter language. You can access the frontmatter object within your
+--- CODE BLOCK 76 ---
+description: Learn how to integrate Markdoc into a Next.js project.
+--- END CODE BLOCK ---
+under
+--- CODE BLOCK 79 ---
+# {% $markdoc.frontmatter.title %}
+--- END CODE BLOCK ---
+, or in your content using the
+--- CODE BLOCK 81 ---
+Using the `@markdoc/next.js` package/plugin allows you to create custom `.md` and `.mdoc` pages in your Next.js apps, and automatically render them with Markdoc.
+--- END CODE BLOCK ---
+variable.
+For example:
+--- CODE BLOCK 83 ---
+To get started right away, check out [this starter repo](https://github.com/markdoc/markdoc-starter). The quickest way to deploy your own version of the starter is by deploying it with [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/) by clicking one of the buttons below.
+--- END CODE BLOCK ---
+Copy
+Partials
+Partials automatically load from the
+--- CODE BLOCK 85 ---
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/markdoc/markdoc-starter) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/markdoc/markdoc-starter)
+--- END CODE BLOCK ---
+directory. For example:
+--- CODE BLOCK 89 ---
+This guide assumes that you already have Next.js installed. If you're starting from scratch, follow these steps for [getting started with Next.js](https://nextjs.org/docs).
+--- END CODE BLOCK ---
+Copy
+would load and render the contents of
+--- CODE BLOCK 92 ---
+Follow these steps to get started with `@markdoc/next.js`.
+--- END CODE BLOCK ---
+Layouts
+To create a custom layout for each of your Markdown/Markdoc files, wrap your
+--- CODE BLOCK 94 ---
+1. Install `@markdoc/next.js` and `@markdoc/markdoc`:
+--- END CODE BLOCK ---
+within your
+--- CODE BLOCK 96 ---
+npm install @markdoc/next.js @markdoc/markdoc
+--- END CODE BLOCK ---
+, for example:
+--- CODE BLOCK 98 ---
+2. Update your `next.config.js`
+--- END CODE BLOCK ---
+Copy
+Comments
+You can add comments to your Next.js content by passing
+--- CODE BLOCK 101 ---
+const withMarkdoc = require('@markdoc/next.js');
+--- END CODE BLOCK ---
+to the Markdoc tokenizer:
+--- CODE BLOCK 103 ---
+module.exports = withMarkdoc(/* [options](#options) */)({
+--- END CODE BLOCK ---
+Copy
+and then using comment syntax:
+--- CODE BLOCK 104 ---
+pageExtensions: ['md', 'mdoc', 'js', 'jsx', 'ts', 'tsx']
+--- END CODE BLOCK ---
+Copy
+Built-in Next.js tags
+Next.js Markdoc provides custom tags out-of-the-box that you can add to your schema. To include them, export them by name in your schema directory (for example,
+--- CODE BLOCK 108 ---
+3. Create a new `.md` file in within `/pages/`, such as `getting-started.md`
+--- END CODE BLOCK ---
+). For example:
+--- CODE BLOCK 112 ---
+├── _app.js
+--- END CODE BLOCK ---
+Copy
+Head
+Renders a
+Next.js
+--- CODE BLOCK 114 ---
+│   └── getting-started.md
+--- END CODE BLOCK ---
+component
+. You can use this to add stuff to the
+--- CODE BLOCK 115 ---
+└── index.md
+--- END CODE BLOCK ---
+of your page.
+Warning
+You need to create and register your own tags for
+--- CODE BLOCK 118 ---
+4. Add some Markdoc to your file:
+--- END CODE BLOCK ---
+[CODE_BLOCK_65]
+, and so on.
+[CODE_BLOCK_66]
+Copy
+Link
+Renders a
+Next.js
+[CODE_BLOCK_67]
+component
+. Requires passing an
+[CODE_BLOCK_68]
+attribute.
+[CODE_BLOCK_69]
+Copy
+Script
+Renders a
+Next.js
+[CODE_BLOCK_70]
+component
+. Requires passing a
+[CODE_BLOCK_71]
+attribute.
+[CODE_BLOCK_72]
+Copy
+[CODE_BLOCK_73]
+[CODE_BLOCK_74]
+[CODE_BLOCK_75]
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+[CODE_BLOCK_100]
+[CODE_BLOCK_101]
+[CODE_BLOCK_102]
+[CODE_BLOCK_103]
+[CODE_BLOCK_104]
+[CODE_BLOCK_105]
+[CODE_BLOCK_106]
+[CODE_BLOCK_107]
+[CODE_BLOCK_108]
+[CODE_BLOCK_109]
+[CODE_BLOCK_110]
+[CODE_BLOCK_111]
+[CODE_BLOCK_112]
+[CODE_BLOCK_113]
+[CODE_BLOCK_114]
+[CODE_BLOCK_115]
+[CODE_BLOCK_116]
+[CODE_BLOCK_117]
+[CODE_BLOCK_118]
+[CODE_BLOCK_119]
+[CODE_BLOCK_120]
+[CODE_BLOCK_121]
+CMD + J / Esc

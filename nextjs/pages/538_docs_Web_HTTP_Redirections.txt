@@ -1,0 +1,372 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/Redirections
+SCRAPED: 2025-06-19 18:11:55
+================================================================================
+
+URL redirection
+, also known as
+URL forwarding
+, is a technique to give more than one URL address to a page, a form, a whole website, or a web application. HTTP has a special kind of response, called a
+HTTP redirect
+, for this operation.
+Redirects accomplish numerous goals:
+Temporary redirects during site maintenance or downtime
+Permanent redirects to preserve existing links/bookmarks after changing the site's URLs, progress pages when uploading a file, etc.
+Principle
+In HTTP, redirection is triggered by a server sending a special
+redirect
+response to a request. Redirect responses have
+status codes
+that start with
+--- CODE BLOCK 5 ---
+Moved Permanently
+--- END CODE BLOCK ---
+, and a
+--- CODE BLOCK 9 ---
+Permanent Redirect
+--- END CODE BLOCK ---
+header holding the URL to redirect to.
+When browsers receive a redirect, they immediately load the new URL provided in the
+--- CODE BLOCK 23 ---
+Temporary Redirect
+--- END CODE BLOCK ---
+header. Besides the small performance hit of an additional round-trip, users rarely notice the redirection.
+There are several types of redirects, sorted into three categories:
+Permanent redirections
+Temporary redirections
+Special redirections
+Permanent redirections
+These redirections are meant to last forever. They imply that the original URL should no longer be used, and replaced with the new one. Search engine robots, RSS readers, and other crawlers will update the original URL for the resource.
+Code
+Text
+Method handling
+Typical use case
+--- CODE BLOCK 31 ---
+Multiple Choices
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+rel=alternate
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+Not Modified
+--- END CODE BLOCK ---
+methods unchanged. Others may or may not be changed to
+--- CODE BLOCK 41 ---
+<head>
+<meta http-equiv="Refresh" content="0; URL=https://example.com/" />
+</head>
+--- END CODE BLOCK ---
+. [1]
+Reorganization of a website.
+--- CODE BLOCK 42 ---
+<head>
+<meta http-equiv="Refresh" content="0; URL=https://example.com/" />
+</head>
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+window.location
+--- END CODE BLOCK ---
+Method and body not changed.
+Reorganization of a website, with non-GET links/operations.
+[1] The specification did not intend to allow method changes, but there are existing user agents that do change their method.
+--- CODE BLOCK 46 ---
+window.location = "https://example.com/";
+--- END CODE BLOCK ---
+was created to remove the ambiguity of the behavior when using non-
+--- CODE BLOCK 47 ---
+window.location = "https://example.com/";
+--- END CODE BLOCK ---
+methods.
+Temporary redirections
+Sometimes the requested resource can't be accessed from its canonical location, but it can be accessed from another place. In this case, a temporary redirect can be used.
+Search engine robots and other crawlers don't memorize the new, temporary URL. Temporary redirections are also used when creating, updating, or deleting resources, to show temporary progress pages.
+Code
+Text
+Method handling
+Typical use case
+--- CODE BLOCK 51 ---
+www.example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+example.com
+--- END CODE BLOCK ---
+methods unchanged. Others may or may not be changed to
+--- CODE BLOCK 54 ---
+www.example.com
+--- END CODE BLOCK ---
+. [2]
+The Web page is temporarily unavailable for unforeseen reasons.
+--- CODE BLOCK 66 ---
+RedirectMatch
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+<VirtualHost *:443>
+ServerName example.com
+Redirect / https://www.example.com
+</VirtualHost>
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+<VirtualHost *:443>
+ServerName example.com
+Redirect / https://www.example.com
+</VirtualHost>
+--- END CODE BLOCK ---
+methods unchanged. Others
+changed
+--- CODE BLOCK 70 ---
+https://example.com/
+--- END CODE BLOCK ---
+(body lost).
+Used to redirect after a
+--- CODE BLOCK 71 ---
+https://www.example.com/
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 72 ---
+https://example.com/some-page
+--- END CODE BLOCK ---
+, so that refreshing the result page doesn't re-trigger the operation.
+--- CODE BLOCK 73 ---
+https://www.example.com/some-page
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+RedirectMatch
+--- END CODE BLOCK ---
+Method and body not changed
+The Web page is temporarily unavailable for unforeseen reasons. Better than
+--- CODE BLOCK 75 ---
+RedirectMatch ^/images/(.*)$ https://images.example.com/$1
+--- END CODE BLOCK ---
+when non-
+--- CODE BLOCK 76 ---
+RedirectMatch ^/images/(.*)$ https://images.example.com/$1
+--- END CODE BLOCK ---
+operations are available on the site.
+[2] The specification did not intend to allow method changes, but there are existing user agents that do change their method.
+--- CODE BLOCK 79 ---
+Redirect permanent / https://www.example.com
+# …acts the same as:
+Redirect 301 / https://www.example.com
+--- END CODE BLOCK ---
+was created to remove the ambiguity of the behavior when using non-
+--- CODE BLOCK 80 ---
+Redirect permanent / https://www.example.com
+# …acts the same as:
+Redirect 301 / https://www.example.com
+--- END CODE BLOCK ---
+methods.
+Special redirections
+--- CODE BLOCK 81 ---
+mod_rewrite
+--- END CODE BLOCK ---
+(Not Modified) redirects a page to the locally cached copy (that was stale), and
+--- CODE BLOCK 82 ---
+server {
+listen 80;
+server_name example.com;
+return 301 $scheme://www.example.com$request_uri;
+--- END CODE BLOCK ---
+(Multiple Choices) is a manual redirection: the body, presented by the browser as a Web page, lists the possible redirections and the user clicks on one to select it.
+Code
+Text
+Typical use case
+--- CODE BLOCK 83 ---
+server {
+listen 80;
+server_name example.com;
+return 301 $scheme://www.example.com$request_uri;
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+rewrite ^/images/(.*)$ https://images.example.com/$1 redirect;
+rewrite ^/images/(.*)$ https://images.example.com/$1 permanent;
+--- END CODE BLOCK ---
+Not many: the choices are listed in an HTML page in the body. Machine-readable choices are encouraged to be sent as
+--- CODE BLOCK 86 ---
+rewrite ^/images/(.*)$ https://images.example.com/$1 redirect;
+rewrite ^/images/(.*)$ https://images.example.com/$1 permanent;
+--- END CODE BLOCK ---
+headers with
+--- CODE BLOCK 87 ---
+<httpRedirect>
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+Internal Server Error
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+window.location
+--- END CODE BLOCK ---
+Sent for revalidated conditional requests. Indicates that the cached response is still fresh and can be used.
+Alternative way of specifying redirections
+HTTP redirects aren't the only way to define redirections. There are two others:
+HTML redirections with the
+[CODE_BLOCK_36]
+element
+JavaScript redirections via the
+HTML redirections
+HTTP redirects are the best way to create redirections, but sometimes you don't have control over the server. In that case, try a
+[CODE_BLOCK_37]
+element with its
+[CODE_BLOCK_38]
+attribute set to
+[CODE_BLOCK_39]
+in the
+[CODE_BLOCK_40]
+of the page. When displaying the page, the browser will go to the indicated URL.
+html
+Copy to Clipboard
+[CODE_BLOCK_41]
+[CODE_BLOCK_43]
+attribute should start with a number indicating how many seconds the browser should wait before redirecting to the given URL. Always set it to
+[CODE_BLOCK_44]
+for accessibility compliance.
+Obviously, this method only works with HTML, and cannot be used for images or other types of content.
+JavaScript redirections
+Redirections in JavaScript are performed by setting a URL string to the
+[CODE_BLOCK_45]
+property, loading the new page:
+Copy to Clipboard
+[CODE_BLOCK_46]
+Like HTML redirections, this can't work on all resources, and obviously, this will only work on clients that execute JavaScript. On the other hand, there are more possibilities: for example, you can trigger the redirect only if some conditions are met.
+Order of precedence
+With three ways to trigger redirections, several ways can be used at the same time. But which is applied first?
+HTTP redirects always execute first — they exist when there is not even a transmitted page.
+Somewhat surprisingly, JavaScript redirects execute next, before HTML redirects. This is because the
+[CODE_BLOCK_48]
+redirect happens after the page is
+completely loaded
+, which is after all scripts have executed.
+HTML redirects (
+[CODE_BLOCK_49]
+) execute if there weren't any HTTP redirects or JavaScript redirects that were executed before the page was loaded.
+If there is any JavaScript redirect that happens after the page is loaded (for example, on a button click), it will execute last if the page isn't already redirected by the previous methods.
+When possible, use HTTP redirects and don't add
+[CODE_BLOCK_50]
+element redirects. If someone changes the HTTP redirects but forgets to change the HTML redirects, the redirects will no longer be identical, which could cause an infinite loop or other nightmares.
+Use cases
+There are numerous use cases for redirects, but as performance is impacted with every redirect, their use should be kept to a minimum.
+Domain aliasing
+Ideally, there is one location, and therefore one URL, for each resource. But there are reasons for alternative names for a resource:
+Expanding the reach of your site
+A common case is when a site resides at
+[CODE_BLOCK_51]
+, but accessing it from
+[CODE_BLOCK_52]
+should also work. Redirections for
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+are thus set up. You might also redirect from common synonyms or frequent typos of your domains.
+Moving to a new domain
+For example, your company was renamed, but you want existing links or bookmarks to still find you under the new name.
+Forcing
+HTTPS
+Requests to the
+[CODE_BLOCK_55]
+version of your site will redirect to the
+[CODE_BLOCK_56]
+version of your site.
+Keeping links alive
+When you restructure websites, URLs change. Even if you update your site's links to match the new URLs, you have no control over the URLs used by external resources.
+You don't want to break these links, as they bring valuable users and help your SEO, so you set up redirects from the old URLs to the new ones.
+Note:
+This technique does work for internal links, but try to avoid having internal redirects. A redirect has a significant performance cost (as an extra HTTP request occurs). If you can avoid it by correcting internal links, you should fix those links instead.
+Temporary responses to unsafe requests
+Unsafe
+requests modify the state of the server and the user shouldn't resend them unintentionally.
+Typically, you don't want your users to resend
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+requests. If you serve the response as the result of this request, a press of the reload button will resend the request (possibly after a confirmation message).
+In this case, the server can send back a
+[CODE_BLOCK_60]
+(See Other) response for a URL that will contain the right information. If the reload button is pressed, only that page is redisplayed, without replaying the unsafe requests.
+Temporary responses to long requests
+Some requests may need more time on the server, like
+[CODE_BLOCK_61]
+requests that are scheduled for later processing. In this case, the response is a
+[CODE_BLOCK_62]
+(See Other) redirect that links to a page indicating that the action has been scheduled, and eventually informs about its progress, or allows to cancel it.
+Configuring redirects in common servers
+Apache
+Redirects can be set either in the server config file or in the
+[CODE_BLOCK_63]
+of each directory.
+[CODE_BLOCK_64]
+module has
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+directives that set up
+[CODE_BLOCK_67]
+redirects by default:
+apacheconf
+Copy to Clipboard
+[CODE_BLOCK_68]
+The URL
+[CODE_BLOCK_70]
+will be redirected to
+[CODE_BLOCK_71]
+, as will any files or directories under it (
+[CODE_BLOCK_72]
+will be redirected to
+[CODE_BLOCK_73]
+[CODE_BLOCK_74]
+does the same, but takes a
+regular expression
+to define a collection of affected URLs:
+apacheconf
+Copy to Clipboard
+[CODE_BLOCK_75]
+All documents in the
+[CODE_BLOCK_77]
+directory will redirect to a different domain.
+If you don't want a temporary redirect, an extra parameter (either the HTTP status code to use or the
+[CODE_BLOCK_78]
+keyword) can be used to set up a different redirect:
+apacheconf
+Copy to Clipboard
+[CODE_BLOCK_79]
+[CODE_BLOCK_81]
+module can also create redirects. It is more flexible, but a bit more complex.
+Nginx
+In Nginx, you create a specific server block for the content you want to redirect:
+nginx
+Copy to Clipboard
+[CODE_BLOCK_82]
+To apply a redirect to a directory or only certain pages, use the
+[CODE_BLOCK_84]
+directive:
+nginx
+Copy to Clipboard
+[CODE_BLOCK_85]
+In IIS, you use the
+[CODE_BLOCK_87]
+element to configure redirections.
+Redirection loops
+Redirection loops happen when additional redirections follow the one that has already been followed. In other words, there is a loop that will never be finished and no page will ever be found.
+Most of the time this is a server problem, and if the server can detect it, it will send back a
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+. If you encounter such an error soon after modifying a server configuration, this is likely a redirection loop.
+Sometimes, the server won't detect it: a redirection loop can spread over several servers which each don't have the full picture. In this case, browsers will detect it and display an error message. Firefox displays:
+Firefox has detected that the server is redirecting the request for this address in a way that will never terminate.
+…while Chrome displays:
+This Webpage has a redirect loop
+In both cases, the user can't do much (unless corruption is happening on their side, like a mismatch of cache or cookies).
+It is important to avoid redirection loops, as they completely break the user experience.
+See also
+3XX redirection
+response statuses
+[CODE_BLOCK_90]
+header
+[CODE_BLOCK_91]
+property for redirection using JavaScript
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

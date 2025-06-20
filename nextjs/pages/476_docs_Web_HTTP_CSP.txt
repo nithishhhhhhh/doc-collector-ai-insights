@@ -1,0 +1,907 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/CSP
+SCRAPED: 2025-06-19 18:04:57
+================================================================================
+
+Content Security Policy
+(CSP) is a feature that helps to prevent or minimize the risk of certain types of security threats. It consists of a series of instructions from a website to a browser, which instruct the browser to place restrictions on the things that the code comprising the site is allowed to do.
+The primary use case for CSP is to control which resources, in particular JavaScript resources, a document is allowed to load. This is mainly used as a defense against
+cross-site scripting
+(XSS) attacks, in which an attacker is able to inject malicious code into the victim's site.
+A CSP can have other purposes as well, including defending against
+clickjacking
+and helping to ensure that a site's pages will be loaded over HTTPS.
+In this guide we'll start by describing how a CSP is delivered to a browser and what it looks like at a high level.
+Then we'll describe how it can be used to
+control which resources are loaded
+to protect against XSS, and then other use cases such as
+clickjacking protection
+upgrading insecure requests
+. Note that there's no dependency between the different use cases: if you want to add clickjacking protection but not XSS mitigation, you can just add the directives for that use case.
+Finally we'll describe
+strategies for deploying a CSP
+and tools that can help to make this process easier.
+CSP overview
+A CSP should be delivered to the browser in the
+--- CODE BLOCK 1 ---
+Content-Security-Policy
+--- END CODE BLOCK ---
+response header. It should be set on all responses to all requests, not just the main document.
+You can also specify it using the
+--- CODE BLOCK 4 ---
+Content-Security-Policy: default-src 'self'; img-src 'self' example.com
+--- END CODE BLOCK ---
+attribute of your document's
+--- CODE BLOCK 5 ---
+Content-Security-Policy: default-src 'self'; img-src 'self' example.com
+--- END CODE BLOCK ---
+element, and this is a useful option for some use cases, such as a client-side-rendered
+single page app
+which has only static resources, because you can then avoid relying on any server infrastructure. However, this option does not support all CSP features.
+The policy is specified as a series of
+directives
+, separated by semi-colons. Each directive controls a different aspect of the security policy. Each directive has a name, followed by a space, followed by a value. Different directives can have different syntaxes.
+For example, consider the following CSP:
+http
+Copy to Clipboard
+--- CODE BLOCK 6 ---
+default-src
+--- END CODE BLOCK ---
+It sets two directives:
+--- CODE BLOCK 10 ---
+default-src
+--- END CODE BLOCK ---
+directive is set to
+--- CODE BLOCK 12 ---
+example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+<script src="https://evil.example.com/hacker.js"></script>
+--- END CODE BLOCK ---
+directive is set to
+--- CODE BLOCK 15 ---
+<script src="https://evil.example.com/hacker.js"></script>
+--- END CODE BLOCK ---
+The first directive,
+--- CODE BLOCK 17 ---
+<script>
+console.log("You've been hacked!");
+</script>
+--- END CODE BLOCK ---
+, tells the browser to load only resources that are same-origin with the document, unless other more specific directives set a different policy for other resource types. The second,
+--- CODE BLOCK 18 ---
+<script>
+console.log("You've been hacked!");
+</script>
+--- END CODE BLOCK ---
+, tells the browser to load images that are same-origin or that are served from
+--- CODE BLOCK 19 ---
+<img onmouseover="console.log(`You've been hacked!`)" />
+--- END CODE BLOCK ---
+In the next section, we'll look at the tools available to control resource loads, which is the main function of a CSP.
+Controlling resource loading
+A CSP can be used to control the resources that a document is allowed to load. This is primarily used for protection against cross-site scripting (XSS) attacks.
+In this section we'll first see how controlling resource loads can help protect against XSS, then at the tools CSP provides to control what resources are loaded. Finally we'll describe one particular recommended strategy, which is called a "Strict CSP".
+XSS and resource loading
+A cross-site scripting (XSS) attack is one in which an attacker is able to execute their code in the context of the target website. This code is then able to do anything that the website's own code could do, including, for example:
+access or modify the content of the site's loaded pages
+access or modify content in local storage
+make HTTP requests with the user's credentials, enabling them to impersonate the user or access sensitive data
+An XSS attack is possible when a website accepts some input which might have been crafted by an attacker (for example, URL parameters, or a comment on a blog post) and then includes it in the page without
+sanitizing
+it: that is, without ensuring that it can't be executed as JavaScript.
+Websites should protect themselves against XSS by sanitizing this input before including it in the page. A CSP provides a complementary protection, which can protect the website even if sanitization fails.
+If sanitization does fail, there are various forms the injected malicious code can take in the document, including:
+--- CODE BLOCK 20 ---
+<img onmouseover="console.log(`You've been hacked!`)" />
+--- END CODE BLOCK ---
+tag that links to a malicious source:
+html
+Copy to Clipboard
+--- CODE BLOCK 21 ---
+javascript:
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+<iframe src="javascript:console.log(`You've been hacked!`)"></iframe>
+--- END CODE BLOCK ---
+tag that includes inline JavaScript:
+html
+Copy to Clipboard
+--- CODE BLOCK 25 ---
+eval("console.log(`You've been hacked!`)");
+--- END CODE BLOCK ---
+An inline event handler:
+html
+Copy to Clipboard
+--- CODE BLOCK 27 ---
+https://evil.example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+default-src
+--- END CODE BLOCK ---
+URL:
+html
+Copy to Clipboard
+--- CODE BLOCK 35 ---
+default-src
+--- END CODE BLOCK ---
+A string argument to an unsafe API like
+--- CODE BLOCK 40 ---
+example.com
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 44 ---
+Content-Security-Policy: object-src 'none'
+--- END CODE BLOCK ---
+A CSP can provide protection against all of these. With a CSP, you can:
+define the permitted sources for JavaScript files and other resources, effectively blocking loads from
+--- CODE BLOCK 53 ---
+Content-Security-Policy:
+script-src 'nonce-416d1177-4d12-4e3b-b7c9-f6c409789fb8'
+--- END CODE BLOCK ---
+disable inline script tags
+allow only script tags which have the correct nonce or hash set
+disable inline event handlers
+disable
+--- CODE BLOCK 54 ---
+Content-Security-Policy:
+script-src 'nonce-416d1177-4d12-4e3b-b7c9-f6c409789fb8'
+--- END CODE BLOCK ---
+URLs
+disable dangerous APIs like
+--- CODE BLOCK 58 ---
+function content(nonce) {
+return `
+<script nonce="${nonce}" src="/main.js"></script>
+<script nonce="${nonce}">console.log("hello!");</script>
+<h1>Hello world</h1>
+app.get("/", (req, res) => {
+const nonce = crypto.randomUUID();
+res.setHeader("Content-Security-Policy", `script-src 'nonce-${nonce}'`);
+res.send(content(nonce));
+--- END CODE BLOCK ---
+In the next section we'll go over the tools CSP provides to do these things.
+Note:
+Setting a CSP is not an alternative to sanitizing input. Websites should sanitize input
+set a CSP, providing defense in depth against XSS.
+Fetch directives
+Fetch directives are used to specify a particular category of resource that a document is allowed to load — such as JavaScript, CSS stylesheets, images, fonts, and so on.
+There are different fetch directives for different types of resource. For example:
+--- CODE BLOCK 59 ---
+function content(nonce) {
+return `
+<script nonce="${nonce}" src="/main.js"></script>
+<script nonce="${nonce}">console.log("hello!");</script>
+<h1>Hello world</h1>
+app.get("/", (req, res) => {
+const nonce = crypto.randomUUID();
+res.setHeader("Content-Security-Policy", `script-src 'nonce-${nonce}'`);
+res.send(content(nonce));
+--- END CODE BLOCK ---
+sets allowed sources for JavaScript.
+--- CODE BLOCK 69 ---
+Content-Security-Policy: script-src 'sha256-cd9827ad...'
+--- END CODE BLOCK ---
+sets allowed sources for CSS stylesheets.
+--- CODE BLOCK 70 ---
+Content-Security-Policy: script-src 'sha256-cd9827ad...'
+--- END CODE BLOCK ---
+sets allowed sources for images.
+One special fetch directive is
+--- CODE BLOCK 72 ---
+const hash1 = "sha256-ex2O7MWOzfczthhKm6azheryNVoERSFrPrdvxRtP8DI=";
+const hash2 = "sha256-H/eahVJiG1zBXPQyXX0V6oaxkfiBdmanvfG9eZWSuEc=";
+const csp = `script-src '${hash1}' '${hash2}'`;
+const content = `
+<script src="./main.js" integrity="${hash2}"></script>
+<script>console.log("hello!");</script>
+<h1>Hello world</h1>
+app.get("/", (req, res) => {
+res.setHeader("Content-Security-Policy", csp);
+res.send(content);
+--- END CODE BLOCK ---
+, which sets a fallback policy for all resources whose directives are not explicitly listed.
+For the complete set of fetch directives, see the
+reference documentation
+Each fetch directive is specified as either the single keyword
+--- CODE BLOCK 73 ---
+const hash1 = "sha256-ex2O7MWOzfczthhKm6azheryNVoERSFrPrdvxRtP8DI=";
+const hash2 = "sha256-H/eahVJiG1zBXPQyXX0V6oaxkfiBdmanvfG9eZWSuEc=";
+const csp = `script-src '${hash1}' '${hash2}'`;
+const content = `
+<script src="./main.js" integrity="${hash2}"></script>
+<script>console.log("hello!");</script>
+<h1>Hello world</h1>
+app.get("/", (req, res) => {
+res.setHeader("Content-Security-Policy", csp);
+res.send(content);
+--- END CODE BLOCK ---
+or one or more
+source expressions
+, separated by spaces. When more than one source expression is listed: if any of the methods allow the resource, then the resource is allowed.
+For example, the CSP below sets two fetch directives:
+--- CODE BLOCK 76 ---
+Content-Security-Policy: default-src https:
+--- END CODE BLOCK ---
+is given the single source expression
+--- CODE BLOCK 77 ---
+Content-Security-Policy: default-src https:
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+Content-Security-Policy: img-src 'self'
+--- END CODE BLOCK ---
+is given two source expressions:
+--- CODE BLOCK 80 ---
+Content-Security-Policy: img-src 'self'
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+Content-Security-Policy: img-src *.example.org
+--- END CODE BLOCK ---
+The effect of this is that:
+images must be either same-origin with the document, or loaded from
+--- CODE BLOCK 82 ---
+Content-Security-Policy: img-src *.example.org
+--- END CODE BLOCK ---
+all other resources must be same-origin with the document.
+In the next few sections we'll describe some of the ways you can use source expressions to control resource loads. Note that although we're describing them separately, these expressions can in general be combined: for example, a single fetch directive may include nonces as well as hostnames.
+Blocking resources
+To block a resource type entirely, use the
+--- CODE BLOCK 83 ---
+Content-Security-Policy: img-src 'self' *.example.org  example.com
+--- END CODE BLOCK ---
+keyword. For example, the following directive blocks all
+--- CODE BLOCK 84 ---
+Content-Security-Policy: img-src 'self' *.example.org  example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+default-src
+--- END CODE BLOCK ---
+resources:
+http
+Copy to Clipboard
+--- CODE BLOCK 88 ---
+<script>
+console.log("Hello from an inline script");
+</script>
+--- END CODE BLOCK ---
+Note that
+--- CODE BLOCK 90 ---
+<img src="x" onerror="console.log('Hello from an inline event handler')" />
+--- END CODE BLOCK ---
+cannot be combined with any other method in a particular directive: in practice, if any other source expressions are given alongside
+--- CODE BLOCK 91 ---
+<img src="x" onerror="console.log('Hello from an inline event handler')" />
+--- END CODE BLOCK ---
+, then they are ignored.
+Nonces
+--- CODE BLOCK 92 ---
+javascript:
+--- END CODE BLOCK ---
+is the recommended approach for restricting the loading of
+--- CODE BLOCK 93 ---
+<a href="javascript:console.log('Hello from a javascript: URL')"></a>
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+<a href="javascript:console.log('Hello from a javascript: URL')"></a>
+--- END CODE BLOCK ---
+resources.
+With a nonce, the server generates a random value for every HTTP response, and includes it in a
+--- CODE BLOCK 95 ---
+unsafe-inline
+--- END CODE BLOCK ---
+and/or a
+--- CODE BLOCK 96 ---
+Content-Security-Policy: default-src 'self' 'unsafe-inline'
+--- END CODE BLOCK ---
+directive:
+http
+Copy to Clipboard
+--- CODE BLOCK 97 ---
+Content-Security-Policy: default-src 'self' 'unsafe-inline'
+--- END CODE BLOCK ---
+The server then includes this value as the value of the
+--- CODE BLOCK 100 ---
+unsafe-inline
+--- END CODE BLOCK ---
+attribute of all the
+--- CODE BLOCK 102 ---
+default-src
+--- END CODE BLOCK ---
+and/or
+--- CODE BLOCK 106 ---
+eval('console.log("hello from eval()")');
+--- END CODE BLOCK ---
+tags that they intend to include in the document.
+The browser compares the two values, and loads the resource only if they match. The idea is that even if an attacker can insert some JavaScript into the page, they won't know which nonce the server is going to use, so the browser will refuse to run the script.
+For this approach to work, it must not be possible for an attacker to guess the nonce.
+In practice this means that the nonce must be different for every HTTP response, and must not be predictable.
+This in turn means that the server cannot serve static HTML, because it must insert a new nonce each time. Typically the server would use a templating engine to insert the nonce.
+Here's a snippet of
+Express
+code to demonstrate:
+Copy to Clipboard
+--- CODE BLOCK 107 ---
+eval('console.log("hello from eval()")');
+--- END CODE BLOCK ---
+On every request, the server generates a new nonce, inserts it into the CSP and into the
+--- CODE BLOCK 110 ---
+const sum = new Function("a", "b", "return a + b");
+--- END CODE BLOCK ---
+tags in the returned document. Note that the server:
+generates a new nonce for every request
+can use nonces with both external and inline scripts
+uses the same nonce for all
+--- CODE BLOCK 111 ---
+setTimeout()
+--- END CODE BLOCK ---
+tags in the document
+It's important that the server uses some kind of templating to insert nonces, and does not just insert them into all
+--- CODE BLOCK 112 ---
+setInterval()
+--- END CODE BLOCK ---
+tags: otherwise, the server might inadvertently insert nonces into scripts that were injected by an attacker.
+Note that nonces can only be used for elements that have a
+--- CODE BLOCK 113 ---
+setTimeout("console.log('hello from setTimeout')", 1);
+--- END CODE BLOCK ---
+attribute: that is, only
+--- CODE BLOCK 114 ---
+setTimeout("console.log('hello from setTimeout')", 1);
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+unsafe-eval
+--- END CODE BLOCK ---
+elements.
+Hashes
+Fetch directives can also use a hash of the script to guarantee its integrity. With this method, the server:
+calculates a hash of the script contents using a
+hash function
+(one of SHA-256, SHA-384, or SHA-512)
+creates a
+Base64
+encoding of the result
+appends a prefix identifying the hash algorithm used (one of
+--- CODE BLOCK 116 ---
+unsafe-inline
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+unsafe-eval
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 119 ---
+unsafe-inline
+--- END CODE BLOCK ---
+It then adds the result to the directive:
+http
+Copy to Clipboard
+--- CODE BLOCK 120 ---
+unsafe-eval
+--- END CODE BLOCK ---
+When the browser receives the document, it hashes the script, compares the result with the value from the header, and loads the script only if they match.
+External scripts must also include the
+--- CODE BLOCK 122 ---
+Content-Security-Policy:
+script-src 'nonce-{RANDOM}';
+object-src 'none';
+base-uri 'none';
+--- END CODE BLOCK ---
+attribute for this method to work.
+Here's a snippet of Express code, to demonstrate:
+Copy to Clipboard
+--- CODE BLOCK 124 ---
+Content-Security-Policy:
+script-src 'sha256-{HASHED_SCRIPT}';
+object-src 'none';
+base-uri 'none';
+--- END CODE BLOCK ---
+Note that:
+We have a separate hash for every script in the document.
+For the external script "main.js", we also include the
+--- CODE BLOCK 126 ---
+strict-dynamic
+--- END CODE BLOCK ---
+attribute, and give it the same value.
+Unlike the example using nonces, both the CSP and the content can be static, because the hashes stay the same. This makes hash-based policies more suitable for static pages or websites that rely on client-side rendering.
+Scheme-based policies
+Fetch directives can list a scheme, like
+--- CODE BLOCK 127 ---
+strict-dynamic
+--- END CODE BLOCK ---
+, to allow resources that are served using that scheme. This, for example, allows a policy to require HTTPS for all resource loads:
+http
+Copy to Clipboard
+--- CODE BLOCK 128 ---
+<html>
+<head>
+<script
+src="./main.js"
+integrity="sha256-gEh1+8U9S1vkEuQSmmUMTZjyNSu5tIoECP4UXIEjMTk="></script>
+</head>
+<body>
+<h1>Example page!</h1>
+</body>
+</html>
+--- END CODE BLOCK ---
+Location-based policies
+Fetch directives can control resource loads based on where the resource is located.
+The keyword
+--- CODE BLOCK 130 ---
+console.log("hello");
+const scriptElement = document.createElement("script");
+scriptElement.src = `main2.js`;
+document.head.appendChild(scriptElement);
+--- END CODE BLOCK ---
+allows resources which are same-origin with the document itself:
+http
+Copy to Clipboard
+--- CODE BLOCK 131 ---
+console.log("hello");
+const scriptElement = document.createElement("script");
+scriptElement.src = `main2.js`;
+document.head.appendChild(scriptElement);
+--- END CODE BLOCK ---
+You can also specify one or more hostnames, potentially including wildcards, and only resources served from those hosts will be allowed. This might be used, for example, to allow content to be served from a trusted CDN.
+http
+Copy to Clipboard
+--- CODE BLOCK 133 ---
+Content-Security-Policy:
+script-src 'sha256-gEh1+8U9S1vkEuQSmmUMTZjyNSu5tIoECP4UXIEjMTk='
+--- END CODE BLOCK ---
+You can specify multiple locations. The following directive allows only images that are same-origin with the current document, or are served from a subdomain of "example.org", or are served from "example.com":
+http
+Copy to Clipboard
+--- CODE BLOCK 135 ---
+Content-Security-Policy:
+script-src 'sha256-gEh1+8U9S1vkEuQSmmUMTZjyNSu5tIoECP4UXIEjMTk='
+strict-dynamic
+--- END CODE BLOCK ---
+Inline JavaScript
+If a CSP contains either a
+--- CODE BLOCK 137 ---
+'strict-dynamic'
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 141 ---
+javascript:
+--- END CODE BLOCK ---
+directive, then inline JavaScript will not be allowed to execute unless extra measures are taken to enable it. This includes:
+JavaScript included inside a
+--- CODE BLOCK 143 ---
+addEventListener()
+--- END CODE BLOCK ---
+element in the page:
+html
+Copy to Clipboard
+--- CODE BLOCK 144 ---
+<p onclick="console.log('Hello from an inline event handler')">click me</p>
+--- END CODE BLOCK ---
+JavaScript in an inline event handler attribute:
+html
+Copy to Clipboard
+--- CODE BLOCK 146 ---
+<!-- served with the following CSP:
+`script-src 'sha256-AjYfua7yQhrSlg807yyeaggxQ7rP9Lu0Odz7MZv8cL0='`
+<p id="hello">click me</p>
+<script>
+const hello = document.querySelector("#hello");
+hello.addEventListener("click", () => {
+console.log("Hello from an inline script");
+</script>
+--- END CODE BLOCK ---
+JavaScript in a
+--- CODE BLOCK 148 ---
+frame-ancestors
+--- END CODE BLOCK ---
+URL:
+html
+Copy to Clipboard
+--- CODE BLOCK 150 ---
+frame-ancestors
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+Content-Security-Policy: frame-ancestors 'none'
+--- END CODE BLOCK ---
+keyword can be used to override this restriction. For example, the following directive requires all resources to be same-origin, but allows inline JavaScript:
+http
+Copy to Clipboard
+--- CODE BLOCK 156 ---
+Content-Security-Policy: frame-ancestors 'none'
+--- END CODE BLOCK ---
+Warning:
+Developers should avoid
+--- CODE BLOCK 158 ---
+<script src="http://example.org/my-cat.js"></script>
+--- END CODE BLOCK ---
+, because it defeats much of the purpose of having a CSP. Inline JavaScript is one of the most common XSS vectors, and one of the most basic goals of a CSP is to prevent its uncontrolled use.
+Inline
+--- CODE BLOCK 159 ---
+<script src="http://example.org/my-cat.js"></script>
+--- END CODE BLOCK ---
+elements are allowed if they are protected by a nonce or a hash, as described above.
+If a directive contains nonce or hash expressions, then the
+--- CODE BLOCK 160 ---
+upgrade-insecure-requests
+--- END CODE BLOCK ---
+keyword is ignored by browsers.
+--- CODE BLOCK 161 ---
+Content-Security-Policy: upgrade-insecure-requests
+--- END CODE BLOCK ---
+and similar APIs
+Like inline JavaScript, if a CSP contains either a
+--- CODE BLOCK 162 ---
+Content-Security-Policy: upgrade-insecure-requests
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 163 ---
+https://example.org
+--- END CODE BLOCK ---
+directive, then
+--- CODE BLOCK 164 ---
+upgrade-insecure-requests
+--- END CODE BLOCK ---
+and similar APIs will not be allowed to execute. This includes, among other APIs:
+--- CODE BLOCK 165 ---
+<script src="http://example.org/my-cat.js"></script>
+<script src="http://not-example.org/another-cat.js"></script>
+--- END CODE BLOCK ---
+itself:
+Copy to Clipboard
+--- CODE BLOCK 166 ---
+<script src="http://example.org/my-cat.js"></script>
+<script src="http://not-example.org/another-cat.js"></script>
+--- END CODE BLOCK ---
+--- CODE BLOCK 168 ---
+<a href="http://example.org/more-cats">See some more cats!</a>
+<a href="http://not-example.org/even-more-cats">More cats, on another site!</a>
+--- END CODE BLOCK ---
+constructor:
+Copy to Clipboard
+--- CODE BLOCK 169 ---
+Strict-Transport-Security
+--- END CODE BLOCK ---
+The string argument to
+--- CODE BLOCK 171 ---
+Content-Security-Policy-Report-Only
+--- END CODE BLOCK ---
+--- CODE BLOCK 172 ---
+Content-Security-Policy-Report-Only: policy
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 173 ---
+Content-Security-Policy-Report-Only: policy
+--- END CODE BLOCK ---
+--- CODE BLOCK 175 ---
+Content-Security-Policy
+--- END CODE BLOCK ---
+keyword can be used to override this behavior, and as with
+--- CODE BLOCK 176 ---
+Content-Security-Policy
+--- END CODE BLOCK ---
+, and for the same reasons:
+developers should avoid
+--- CODE BLOCK 177 ---
+Content-Security-Policy-Report-Only
+--- END CODE BLOCK ---
+. Sometimes it can be difficult to remove usages of
+--- CODE BLOCK 179 ---
+Reporting-Endpoints
+--- END CODE BLOCK ---
+: in these situations, the
+Trusted Types API
+can make it safer, by ensuring that the input meets a defined policy.
+Unlike
+--- CODE BLOCK 180 ---
+Content-Security-Policy
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 184 ---
+Content-Type
+--- END CODE BLOCK ---
+keyword does still work in a directive that contains nonce or hash expressions.
+Strict CSP
+To control script loading as a mitigation against XSS, recommended practice is to use
+nonce-
+hash-
+based fetch directives. This is called a
+strict CSP
+. This type of CSP has two main advantages over a location-based CSP (usually called an
+allowlist CSP
+Allowlist CSPs are hard to get right and often policies inadvertently whitelist unsafe domains, and hence don't provide effective protection against XSS (see
+CSP Is Dead, Long Live CSP! On the Insecurity of Whitelists and the Future of Content Security Policy
+Allowlist CSPs can be very large and hard to maintain, in particular when using scripts that are outside of your control. According to
+How I learned to stop worrying and love the Content Security Policy
+, just to integrate Google Analytics, a developer is asked to add 187 Google domains to the allowlist.
+A nonce-based strict CSP looks like this:
+http
+Copy to Clipboard
+--- CODE BLOCK 185 ---
+application/csp-report
+--- END CODE BLOCK ---
+In this CSP, we:
+use nonces to control which JavaScript resources are allowed to load
+block all object embeds
+block all uses of the
+--- CODE BLOCK 189 ---
+csp-endpoint
+--- END CODE BLOCK ---
+element to set a base URI.
+A hash-based strict CSP is the same, except it uses hashes instead of nonces:
+http
+Copy to Clipboard
+--- CODE BLOCK 190 ---
+https://example.com/csp-reports
+--- END CODE BLOCK ---
+Nonce-based directives are easier to maintain if you can generate responses, including the content itself, dynamically. Otherwise, you need to use hash-based directives. The problem with hash-based directives is that you need to recalculate and reapply the hash if any change is made to the script contents.
+--- CODE BLOCK 192 ---
+Reporting-Endpoints: csp-endpoint="https://example.com/csp-reports"
+--- END CODE BLOCK ---
+keyword
+As presented above, the strict CSP is difficult to implement when you use scripts which are not under your control. If a third-party script loads any additional scripts, or uses any inline scripts, then this will fail, because the third-party script won't pass the nonce or hash through.
+--- CODE BLOCK 193 ---
+Reporting-Endpoints: csp-endpoint="https://example.com/csp-reports",
+hpkp-endpoint="https://example.com/hpkp-reports"
+--- END CODE BLOCK ---
+keyword is provided to help with this problem. It is a keyword that can be included in a fetch directive, and it has the effect that if a script has a nonce or a hash attached to it, then that script will be allowed to load further scripts which do not themselves have nonces or hashes. That is, the trust placed in a script by a nonce or hash is passed on to scripts that the original script loads (and scripts that
+they
+load, and so on).
+For example, consider a document like this:
+html
+Copy to Clipboard
+--- CODE BLOCK 194 ---
+Reporting-Endpoints: csp-endpoint="https://example.com/csp-reports",
+hpkp-endpoint="https://example.com/hpkp-reports"
+--- END CODE BLOCK ---
+It includes a script "main.js", which creates and adds another script, "main2.js":
+Copy to Clipboard
+--- CODE BLOCK 197 ---
+https://example.com/csp-reports
+--- END CODE BLOCK ---
+We serve our document with a CSP like this:
+http
+Copy to Clipboard
+--- CODE BLOCK 199 ---
+Reporting-Endpoints: csp-endpoint="https://example.com/csp-reports"
+Content-Security-Policy: default-src 'self'; report-to csp-endpoint
+--- END CODE BLOCK ---
+The "main.js" script will be allowed to load, because its hash matches the value in the CSP. But its attempt to load "main2.js" will fail.
+If we add
+--- CODE BLOCK 202 ---
+Content-Type
+--- END CODE BLOCK ---
+to the CSP, then "main.js" will be allowed to load "main2.js":
+http
+Copy to Clipboard
+--- CODE BLOCK 203 ---
+application/reports+json
+--- END CODE BLOCK ---
+--- CODE BLOCK 208 ---
+CSPViolationReportBody
+--- END CODE BLOCK ---
+keyword makes it much easier to create and maintain nonce- or hash-based CSPs, especially when a website uses third-party scripts. It does make your CSP less secure, though, because if the scripts you include create
+--- CODE BLOCK 209 ---
+"age": 53531,
+"body": {
+"blockedURL": "inline",
+"columnNumber": 39,
+"disposition": "enforce",
+"documentURL": "https://example.com/csp-report",
+"effectiveDirective": "script-src-elem",
+"lineNumber": 121,
+"originalPolicy": "default-src 'self'; report-to csp-endpoint-name",
+"referrer": "https://www.google.com/",
+"sample": "console.log(\"lo\")",
+"sourceFile": "https://example.com/csp-report",
+"statusCode": 200
+"type": "csp-violation",
+"url": "https://example.com/csp-report",
+"user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+--- END CODE BLOCK ---
+elements based on potential sources of XSS, then the CSP will not protect them.
+Refactoring inline JavaScript and
+--- CODE BLOCK 210 ---
+"age": 53531,
+"body": {
+"blockedURL": "inline",
+"columnNumber": 39,
+"disposition": "enforce",
+"documentURL": "https://example.com/csp-report",
+"effectiveDirective": "script-src-elem",
+"lineNumber": 121,
+"originalPolicy": "default-src 'self'; report-to csp-endpoint-name",
+"referrer": "https://www.google.com/",
+"sample": "console.log(\"lo\")",
+"sourceFile": "https://example.com/csp-report",
+"statusCode": 200
+"type": "csp-violation",
+"url": "https://example.com/csp-report",
+"user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+--- END CODE BLOCK ---
+We've seen above that inline JavaScript is disallowed by default in a CSP. With nonces or hashes, a developer can use inline
+[CODE_BLOCK_140]
+tags, but you'll still need to refactor code to remove other disallowed patterns, including inline event handlers,
+[CODE_BLOCK_141]
+URLs, and uses of
+[CODE_BLOCK_142]
+. For example, inline event handlers should usually be replaced with calls to
+[CODE_BLOCK_143]
+html
+Copy to Clipboard
+[CODE_BLOCK_144]
+html
+Copy to Clipboard
+[CODE_BLOCK_146]
+Clickjacking protection
+[CODE_BLOCK_148]
+directive can be used to control which documents, if any, are allowed to embed this document in a nested browsing context such as an
+[CODE_BLOCK_149]
+. This is an effective protection against clickjacking attacks, because these attacks depend on embedding the target site in a site controlled by the attacker.
+The syntax of
+[CODE_BLOCK_150]
+is a subset of the fetch directive syntax: you can provide the single keyword value
+[CODE_BLOCK_151]
+or one or more source expressions. However, the only source expressions you can use are schemes, hostnames, or the
+[CODE_BLOCK_152]
+keyword value.
+Unless you need your site to be embeddable, you should set
+[CODE_BLOCK_153]
+[CODE_BLOCK_154]
+http
+Copy to Clipboard
+[CODE_BLOCK_155]
+This directive is a more flexible replacement for the
+[CODE_BLOCK_157]
+header.
+Upgrading insecure requests
+Web developers are strongly encouraged to serve all their content over HTTPS. In the process of upgrading a site to HTTPS, a site sometimes serves the main document over HTTPS but serves its resources over HTTP, for example, using markup like this:
+html
+Copy to Clipboard
+[CODE_BLOCK_158]
+This is called
+mixed content
+, and the presence of insecure resources greatly weakens the protection afforded by HTTPS. Under the
+mixed content algorithm
+that browsers implement, if a document is served over HTTPS, insecure resources are categorized into "upgradable content" and "blockable content". Upgradable content is upgraded to HTTPS, and blockable content is blocked, potentially breaking the page.
+The ultimate solution to mixed content is for developers to load all resources over HTTPS. However, even if a site is actually able to serve all content over HTTPS, it can still be very difficult (or even effectively impossible, where archived content is concerned) for a developer to rewrite all the URLs the site uses to load resources.
+[CODE_BLOCK_160]
+directive is intended to solve this problem. This directive doesn't have any value: to set it, just include the directive name:
+http
+Copy to Clipboard
+[CODE_BLOCK_161]
+If this directive is set on a document, then the browser will automatically upgrade to HTTPS any HTTP URLs in the following cases:
+requests to load resources (such as images, scripts, or fonts)
+navigation requests (such as link targets) which are same-origin with the document
+navigation requests in nested browsing contexts, such as iframes
+form submissions
+However, top-level navigation requests whose target is a different origin will not be upgraded.
+For example, suppose the document at
+[CODE_BLOCK_163]
+is served with a CSP containing the
+[CODE_BLOCK_164]
+directive, and the document contains markup like this:
+html
+Copy to Clipboard
+[CODE_BLOCK_165]
+The browser will automatically upgrade both of these requests to HTTPS.
+Suppose the document also contains this:
+html
+Copy to Clipboard
+[CODE_BLOCK_167]
+The browser will upgrade the first link to HTTPS, but not the second, as it is navigating to a different origin.
+This directive is not a substitute for the
+[CODE_BLOCK_169]
+header (also known as HSTS), because it does not upgrade external links to a site. Sites should include this directive and the
+[CODE_BLOCK_170]
+header.
+Testing your policy
+To ease deployment, CSP can be deployed in report-only mode.
+The policy is not enforced, but any violations are sent to the reporting endpoint specified in the policy. Additionally, a report-only header can be used to test a future revision to a policy without actually deploying it.
+You can use the
+[CODE_BLOCK_171]
+HTTP header to specify your policy, like this:
+http
+Copy to Clipboard
+[CODE_BLOCK_172]
+If both a
+[CODE_BLOCK_174]
+header and a
+[CODE_BLOCK_175]
+header are present in the same response, both policies are honored.
+The policy specified in
+[CODE_BLOCK_176]
+headers is enforced while the
+[CODE_BLOCK_177]
+policy generates reports but is not enforced.
+Note that unlike a normal content security policy, a report-only policy cannot be delivered in a
+[CODE_BLOCK_178]
+element.
+Violation reporting
+The recommended method for reporting CSP violations is to use the
+Reporting API
+, declaring endpoints in
+[CODE_BLOCK_179]
+and specifying one of them as the CSP reporting target using the
+[CODE_BLOCK_180]
+header's
+[CODE_BLOCK_181]
+directive.
+Warning:
+You can also use the CSP
+[CODE_BLOCK_182]
+directive to specify a target URL for CSP violation reports.
+This sends a slightly different JSON report format via a
+[CODE_BLOCK_183]
+operation with a
+[CODE_BLOCK_184]
+[CODE_BLOCK_185]
+This approach is deprecated, but you should declare both until
+[CODE_BLOCK_186]
+is supported in all browsers.
+For more information about the approach see the
+[CODE_BLOCK_187]
+topic.
+A server can inform clients where to send reports using the
+[CODE_BLOCK_188]
+HTTP response header.
+This header defines one or more endpoint URLs as a comma-separated list.
+For example, to define a reporting endpoint named
+[CODE_BLOCK_189]
+which accepts reports at
+[CODE_BLOCK_190]
+, the server's response header could look like this:
+http
+Copy to Clipboard
+[CODE_BLOCK_191]
+If you want to have multiple endpoints that handle different types of reports, you would specify them like this:
+http
+Copy to Clipboard
+[CODE_BLOCK_193]
+You can then use the
+[CODE_BLOCK_195]
+header's
+[CODE_BLOCK_196]
+directive to specify that a particular defined endpoint should be used for reporting.
+For example, to send CSP violation reports to
+[CODE_BLOCK_197]
+for the
+[CODE_BLOCK_198]
+, you might send response headers that look like the following:
+http
+Copy to Clipboard
+[CODE_BLOCK_199]
+When a CSP violation occurs, the browser sends the report as a JSON object to the specified endpoint via an HTTP
+[CODE_BLOCK_201]
+operation, with a
+[CODE_BLOCK_202]
+[CODE_BLOCK_203]
+The report is a serialized form of the
+[CODE_BLOCK_204]
+object containing a
+[CODE_BLOCK_205]
+property with a value of
+[CODE_BLOCK_206]
+, and a
+[CODE_BLOCK_207]
+that is the serialized form of a
+[CODE_BLOCK_208]
+object.
+A typical object might look like this:
+json
+Copy to Clipboard
+[CODE_BLOCK_209]
+You need to set up a server to receive reports with the given JSON format and content type.
+The server handling these requests can then store or process the incoming reports in a way that best suits your needs.
+See also
+CSP errors and warnings
+Mitigate cross-site scripting with a strict Content Security Policy
+on web.dev (2024)
+Content Security Policy: A successful mess between hardening and mitigation
+Content Security Policy Cheat Sheet
+on owasp.org
+CSP Evaluator
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 9, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

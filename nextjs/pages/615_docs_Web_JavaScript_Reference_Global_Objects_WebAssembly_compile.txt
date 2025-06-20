@@ -1,0 +1,160 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/compile
+SCRAPED: 2025-06-19 18:19:50
+================================================================================
+
+--- CODE BLOCK 1 ---
+WebAssembly.compile()
+--- END CODE BLOCK ---
+static method compiles WebAssembly binary code into a
+--- CODE BLOCK 2 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+object.
+This function is useful if it is necessary to compile a module before it can be instantiated (otherwise, the
+--- CODE BLOCK 3 ---
+WebAssembly.instantiate()
+--- END CODE BLOCK ---
+function should be used).
+Note:
+Webpages that have strict
+Content Security Policy (CSP)
+might block WebAssembly from compiling and executing modules.
+For more information on allowing WebAssembly compilation and execution, see the
+script-src CSP
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+WebAssembly.compile(bufferSource)
+WebAssembly.compile(bufferSource, compileOptions)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 6 ---
+bufferSource
+--- END CODE BLOCK ---
+typed array
+--- CODE BLOCK 7 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+containing the binary code of the Wasm module you want to compile.
+--- CODE BLOCK 8 ---
+compileOptions
+--- END CODE BLOCK ---
+Optional
+An object containing compilation options. Properties can include:
+--- CODE BLOCK 10 ---
+"js-string"
+--- END CODE BLOCK ---
+Optional
+An array of one or more strings that enables the usage of
+JavaScript builtins
+in the compiled Wasm module. The strings define the builtins you want to enable. Currently the only available value is
+--- CODE BLOCK 11 ---
+importedStringConstants
+--- END CODE BLOCK ---
+, which enables JavaScript string builtins.
+--- CODE BLOCK 13 ---
+WebAssembly.Module
+--- END CODE BLOCK ---
+Optional
+A string specifying a namespace for
+imported global string constants
+. This property needs to be specified if you wish to use imported global string constants in the Wasm module.
+Return value
+--- CODE BLOCK 14 ---
+bufferSource
+--- END CODE BLOCK ---
+that resolves to a
+--- CODE BLOCK 15 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+object
+representing the compiled module.
+Exceptions
+--- CODE BLOCK 17 ---
+WebAssembly.CompileError
+--- END CODE BLOCK ---
+is not a
+typed array
+--- CODE BLOCK 19 ---
+const worker = new Worker("wasm_worker.js");
+fetch("simple.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.compile(bytes))
+.then((mod) => worker.postMessage(mod));
+--- END CODE BLOCK ---
+the promise rejects with a
+--- CODE BLOCK 20 ---
+const worker = new Worker("wasm_worker.js");
+fetch("simple.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.compile(bytes))
+.then((mod) => worker.postMessage(mod));
+--- END CODE BLOCK ---
+If compilation fails, the promise rejects with a
+--- CODE BLOCK 21 ---
+WebAssembly.compileStreaming()
+--- END CODE BLOCK ---
+Examples
+Using compile
+The following example compiles the loaded simple.wasm byte code using the
+--- CODE BLOCK 24 ---
+instantiate()
+--- END CODE BLOCK ---
+function and then sends it to a
+worker
+using
+postMessage()
+Copy to Clipboard
+--- CODE BLOCK 26 ---
+"hello world!"
+--- END CODE BLOCK ---
+Note:
+You'll probably want to use
+--- CODE BLOCK 28 ---
+const importObject = {
+// Regular import
+m: {
+log: console.log,
+const compileOptions = {
+builtins: ["js-string"], // Enable JavaScript string builtins
+importedStringConstants: "string_constants", // Enable imported global string constants
+fetch("log-concat.wasm")
+.then((response) => response.arrayBuffer())
+.then((bytes) => WebAssembly.compile(bytes, compileOptions))
+.then((module) => WebAssembly.instantiate(module, importObject))
+.then((instance) => instance.exports.main());
+--- END CODE BLOCK ---
+in most cases, as it is more efficient
+than
+[CODE_BLOCK_22]
+Enabling JavaScript builtins and global string imports
+This example enables JavaScript string builtins and imported global string constants when compiling the Wasm module with
+[CODE_BLOCK_23]
+, before instantiating it with
+[CODE_BLOCK_24]
+then running the exported
+[CODE_BLOCK_25]
+function (which logs
+[CODE_BLOCK_26]
+to the console).
+See it running live
+Copy to Clipboard
+[CODE_BLOCK_27]
+Specifications
+Specification
+WebAssembly JavaScript Interface
+dom-webassembly-compile
+Browser compatibility
+See also
+WebAssembly
+overview
+WebAssembly concepts
+Using the WebAssembly JavaScript API
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 22, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

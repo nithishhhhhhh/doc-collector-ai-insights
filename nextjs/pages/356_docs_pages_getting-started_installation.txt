@@ -1,0 +1,347 @@
+SOURCE URL: https://nextjs.org/docs/pages/getting-started/installation
+SCRAPED: 2025-06-19 17:51:23
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Getting Started
+Installation
+You are currently viewing the documentation for Pages Router.
+Create a new Next.js application
+System requirements
+Before you begin, make sure your system meets the following requirements:
+Node.js 18.18
+or later.
+macOS, Windows (including WSL), or Linux.
+Automatic installation
+The quickest way to create a new Next.js app is using
+--- CODE BLOCK 1 ---
+create-next-app
+--- END CODE BLOCK ---
+, which sets up everything automatically for you. To create a project, run:
+Terminal
+--- CODE BLOCK 2 ---
+npx create-next-app@latest
+--- END CODE BLOCK ---
+On installation, you'll see the following prompts:
+Terminal
+--- CODE BLOCK 4 ---
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like your code inside a `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to use Turbopack for `next dev`?  No / Yes
+Would you like to customize the import alias (`@/*` by default)? No / Yes
+What import alias would you like configured? @/*
+--- END CODE BLOCK ---
+After the prompts,
+--- CODE BLOCK 6 ---
+create-next-app
+--- END CODE BLOCK ---
+will create a folder with your project name and install the required dependencies.
+Manual installation
+To manually create a new Next.js app, install the required packages:
+pnpm
+yarn
+Terminal
+--- CODE BLOCK 7 ---
+pnpm i next@latest react@latest react-dom@latest
+--- END CODE BLOCK ---
+Then, add the following scripts to your
+--- CODE BLOCK 9 ---
+package.json
+--- END CODE BLOCK ---
+file:
+package.json
+--- CODE BLOCK 10 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"lint": "next lint"
+--- END CODE BLOCK ---
+These scripts refer to the different stages of developing an application:
+--- CODE BLOCK 21 ---
+export default function Page() {
+return <h1>Hello, Next.js!</h1>
+--- END CODE BLOCK ---
+: Starts the development server.
+--- CODE BLOCK 22 ---
+export default function Page() {
+return <h1>Hello, Next.js!</h1>
+--- END CODE BLOCK ---
+: Builds the application for production.
+--- CODE BLOCK 25 ---
+import type { AppProps } from 'next/app'
+export default function App({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+: Starts the production server.
+--- CODE BLOCK 26 ---
+import type { AppProps } from 'next/app'
+export default function App({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+: Runs ESLint.
+Create the
+--- CODE BLOCK 27 ---
+_document.tsx
+--- END CODE BLOCK ---
+directory
+Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+Create a
+--- CODE BLOCK 29 ---
+import { Html, Head, Main, NextScript } from 'next/document'
+export default function Document() {
+return (
+<Html>
+<Head />
+<body>
+<Main />
+<NextScript />
+</body>
+</Html>
+--- END CODE BLOCK ---
+directory at the root of your project. Then, add an
+--- CODE BLOCK 30 ---
+import { Html, Head, Main, NextScript } from 'next/document'
+export default function Document() {
+return (
+<Html>
+<Head />
+<body>
+<Main />
+<NextScript />
+</body>
+</Html>
+--- END CODE BLOCK ---
+file inside your
+--- CODE BLOCK 36 ---
+public/profile.png
+--- END CODE BLOCK ---
+folder. This will be your home page (
+--- CODE BLOCK 37 ---
+/profile.png
+--- END CODE BLOCK ---
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 38 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image src="/profile.png" alt="Profile" width={100} height={100} />
+--- END CODE BLOCK ---
+Next, add an
+--- CODE BLOCK 40 ---
+npm run dev
+--- END CODE BLOCK ---
+file inside
+--- CODE BLOCK 41 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+to define the global layout. Learn more about the
+custom App file
+pages/_app.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 42 ---
+pages/index.tsx
+--- END CODE BLOCK ---
+Finally, add a
+--- CODE BLOCK 48 ---
+create-next-app
+--- END CODE BLOCK ---
+file inside
+--- CODE BLOCK 50 ---
+package.json
+--- END CODE BLOCK ---
+to control the initial response from the server. Learn more about the
+custom Document file
+pages/_document.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 51 ---
+"scripts": {
+"lint": "next lint"
+--- END CODE BLOCK ---
+Create the
+--- CODE BLOCK 53 ---
+npm run lint
+--- END CODE BLOCK ---
+folder (optional)
+Create a
+--- CODE BLOCK 54 ---
+npm run lint
+--- END CODE BLOCK ---
+folder
+at the root of your project to store static assets such as images, fonts, etc. Files inside
+--- CODE BLOCK 55 ---
+npm run lint
+--- END CODE BLOCK ---
+can then be referenced by your code starting from the base URL (
+--- CODE BLOCK 59 ---
+eslint-config-next
+--- END CODE BLOCK ---
+You can then reference these assets using the root path (
+--- CODE BLOCK 60 ---
+.eslintrc.json
+--- END CODE BLOCK ---
+). For example,
+--- CODE BLOCK 65 ---
+tsconfig.json
+--- END CODE BLOCK ---
+can be referenced as
+--- CODE BLOCK 66 ---
+jsconfig.json
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 67 ---
+// Before
+import { Button } from '../../../components/button'
+// After
+import { Button } from '@/components/button'
+--- END CODE BLOCK ---
+Run the development server
+--- CODE BLOCK 70 ---
+tsconfig.json
+--- END CODE BLOCK ---
+to start the development server.
+Visit
+--- CODE BLOCK 71 ---
+jsconfig.json
+--- END CODE BLOCK ---
+to view your application.
+Edit the
+--- CODE BLOCK 72 ---
+"compilerOptions": {
+"baseUrl": "src/"
+--- END CODE BLOCK ---
+file and save it to see the updated result in your browser.
+Set up TypeScript
+Minimum TypeScript version:
+--- CODE BLOCK 73 ---
+"compilerOptions": {
+"baseUrl": "src/"
+--- END CODE BLOCK ---
+Next.js comes with built-in TypeScript support. To add TypeScript to your project, rename a file to
+--- CODE BLOCK 77 ---
+@/components/*
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+components/*
+--- END CODE BLOCK ---
+and run
+--- CODE BLOCK 79 ---
+"compilerOptions": {
+"baseUrl": "src/",
+"paths": {
+"@/styles/*": ["styles/*"],
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+. Next.js will automatically install the necessary dependencies and add a
+--- CODE BLOCK 80 ---
+"compilerOptions": {
+"baseUrl": "src/",
+"paths": {
+"@/styles/*": ["styles/*"],
+"@/components/*": ["components/*"]
+--- END CODE BLOCK ---
+file with the recommended config options.
+See the
+TypeScript reference
+page for more information.
+Set up ESLint
+Next.js comes with built-in ESLint. It automatically installs the necessary packages and configures the proper settings when you create a new project with
+[CODE_BLOCK_48]
+To manually add ESLint to an existing project, add
+[CODE_BLOCK_49]
+as a script to
+[CODE_BLOCK_50]
+package.json
+[CODE_BLOCK_51]
+Then, run
+[CODE_BLOCK_53]
+and you will be guided through the installation and configuration process.
+Terminal
+[CODE_BLOCK_54]
+You'll see a prompt like this:
+? How would you like to configure ESLint?
+❯ Strict (recommended)
+Base
+Cancel
+Strict
+: Includes Next.js' base ESLint configuration along with a stricter Core Web Vitals rule-set. This is the recommended configuration for developers setting up ESLint for the first time.
+Base
+: Includes Next.js' base ESLint configuration.
+Cancel
+: Skip configuration. Select this option if you plan on setting up your own custom ESLint configuration.
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+are selected, Next.js will automatically install
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+as dependencies in your application and create an
+[CODE_BLOCK_60]
+file in the root of your project that includes your selected configuration.
+You can now run
+[CODE_BLOCK_61]
+every time you want to run ESLint to catch errors. Once ESLint has been set up, it will also automatically run during every build (
+[CODE_BLOCK_62]
+). Errors will fail the build, while warnings will not.
+See the
+ESLint Plugin
+page for more information.
+Set up Absolute Imports and Module Path Aliases
+Next.js has in-built support for the
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+options of
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+files.
+These options allow you to alias project directories to absolute paths, making it easier and cleaner to import modules. For example:
+[CODE_BLOCK_67]
+To configure absolute imports, add the
+[CODE_BLOCK_69]
+configuration option to your
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+file. For example:
+tsconfig.json or jsconfig.json
+[CODE_BLOCK_72]
+In addition to configuring the
+[CODE_BLOCK_74]
+path, you can use the
+[CODE_BLOCK_75]
+option to
+[CODE_BLOCK_76]
+module paths.
+For example, the following configuration maps
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+tsconfig.json or jsconfig.json
+[CODE_BLOCK_79]
+Each of the
+[CODE_BLOCK_81]
+are relative to the
+[CODE_BLOCK_82]
+location.
+Was this helpful?
+supported.
+Send

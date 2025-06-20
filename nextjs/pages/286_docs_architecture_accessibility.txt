@@ -1,0 +1,66 @@
+SOURCE URL: https://nextjs.org/docs/architecture/accessibility
+SCRAPED: 2025-06-19 17:43:02
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+Architecture
+Accessibility
+Accessibility
+The Next.js team is committed to making Next.js accessible to all developers (and their end-users). By adding accessibility features to Next.js by default, we aim to make the Web more inclusive for everyone.
+Route Announcements
+When transitioning between pages rendered on the server (e.g. using the
+--- CODE BLOCK 3 ---
+document.title
+--- END CODE BLOCK ---
+tag) screen readers and other assistive technology announce the page title when the page loads so that users understand that the page has changed.
+In addition to traditional page navigations, Next.js also supports client-side transitions for improved performance (using
+--- CODE BLOCK 5 ---
+eslint-plugin-jsx-a11y
+--- END CODE BLOCK ---
+). To ensure that client-side transitions are also announced to assistive technology, Next.js includes a route announcer by default.
+The Next.js route announcer looks for the page name to announce by first inspecting
+--- CODE BLOCK 9 ---
+prefers-reduced-motion
+--- END CODE BLOCK ---
+, then the
+[CODE_BLOCK_4]
+element, and finally the URL pathname. For the most accessible user experience, ensure that each page in your application has a unique and descriptive title.
+Linting
+Next.js provides an
+integrated ESLint experience
+out of the box, including custom rules for Next.js. By default, Next.js includes
+[CODE_BLOCK_5]
+to help catch accessibility issues early, including warning on:
+aria-props
+aria-proptypes
+aria-unsupported-elements
+role-has-required-aria-props
+role-supports-aria-props
+For example, this plugin helps ensure you add alt text to
+[CODE_BLOCK_6]
+tags, use correct
+[CODE_BLOCK_7]
+attributes, use correct
+[CODE_BLOCK_8]
+attributes, and more.
+Accessibility Resources
+WebAIM WCAG checklist
+WCAG 2.2 Guidelines
+The A11y Project
+Check
+color contrast ratios
+between foreground and background elements
+[CODE_BLOCK_9]
+when working with animations
+Was this helpful?
+supported.
+Send

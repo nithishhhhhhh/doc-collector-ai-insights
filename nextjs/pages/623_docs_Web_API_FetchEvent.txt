@@ -1,0 +1,163 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/FetchEvent
+SCRAPED: 2025-06-19 18:20:36
+================================================================================
+
+Note:
+This feature is only available in
+Service Workers
+This is the event type for
+--- CODE BLOCK 2 ---
+event.respondWith()
+--- END CODE BLOCK ---
+events dispatched on the
+service worker global scope
+. It contains information about the fetch, including the request and how the receiver will treat the response. It provides the
+--- CODE BLOCK 3 ---
+FetchEvent()
+--- END CODE BLOCK ---
+method, which allows us to provide a response to this fetch.
+Event
+ExtendableEvent
+FetchEvent
+Constructor
+--- CODE BLOCK 7 ---
+FetchEvent.clientId
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 10 ---
+FetchEvent.handled
+--- END CODE BLOCK ---
+object. This constructor is not typically used. The browser creates these objects and provides them to
+--- CODE BLOCK 11 ---
+FetchEvent.isReload
+--- END CODE BLOCK ---
+event callbacks.
+Instance properties
+Inherits properties from its ancestor,
+--- CODE BLOCK 14 ---
+FetchEvent.preloadResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+FetchEvent.replacesClientId
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 21 ---
+FetchEvent.resultingClientId
+--- END CODE BLOCK ---
+of the same-origin
+--- CODE BLOCK 24 ---
+FetchEvent.request
+--- END CODE BLOCK ---
+that initiated the fetch.
+--- CODE BLOCK 26 ---
+ExtendableEvent
+--- END CODE BLOCK ---
+Read only
+A promise that is pending while the event has not been handled, and fulfilled once it has.
+--- CODE BLOCK 27 ---
+FetchEvent.respondWith()
+--- END CODE BLOCK ---
+Read only
+Deprecated
+Non-standard
+Returns
+--- CODE BLOCK 28 ---
+ExtendableEvent.waitUntil()
+--- END CODE BLOCK ---
+if the event was dispatched by the user attempting to reload the page, and
+--- CODE BLOCK 29 ---
+self.addEventListener("fetch", (event) => {
+// Let the browser do its default thing
+// for non-GET requests.
+if (event.request.method !== "GET") return;
+// Prevent the default, and handle the request ourselves.
+event.respondWith(
+(async () => {
+// Try to get the response from a cache.
+const cache = await caches.open("dynamic-v1");
+const cachedResponse = await cache.match(event.request);
+if (cachedResponse) {
+// If we found a match in the cache, return it, but also
+// update the entry in the cache in the background.
+event.waitUntil(cache.add(event.request));
+return cachedResponse;
+// If we didn't find a match in the cache, use the network.
+return fetch(event.request);
+})(),
+--- END CODE BLOCK ---
+otherwise.
+--- CODE BLOCK 30 ---
+self.addEventListener("fetch", (event) => {
+// Let the browser do its default thing
+// for non-GET requests.
+if (event.request.method !== "GET") return;
+// Prevent the default, and handle the request ourselves.
+event.respondWith(
+(async () => {
+// Try to get the response from a cache.
+const cache = await caches.open("dynamic-v1");
+const cachedResponse = await cache.match(event.request);
+if (cachedResponse) {
+// If we found a match in the cache, return it, but also
+// update the entry in the cache in the background.
+event.waitUntil(cache.add(event.request));
+return cachedResponse;
+// If we didn't find a match in the cache, use the network.
+return fetch(event.request);
+})(),
+--- END CODE BLOCK ---
+Read only
+[CODE_BLOCK_15]
+for a
+[CODE_BLOCK_16]
+, or
+[CODE_BLOCK_17]
+if this fetch is not a navigation, or
+navigation preload
+is not enabled.
+[CODE_BLOCK_18]
+Read only
+[CODE_BLOCK_19]
+of the
+[CODE_BLOCK_20]
+that is being replaced during a page navigation.
+[CODE_BLOCK_21]
+Read only
+[CODE_BLOCK_22]
+of the
+[CODE_BLOCK_23]
+that replaces the previous client during a page navigation.
+[CODE_BLOCK_24]
+Read only
+[CODE_BLOCK_25]
+the browser intends to make.
+Instance methods
+Inherits methods from its parent,
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Prevent the browser's default fetch handling, and provide (a promise for) a response yourself.
+[CODE_BLOCK_28]
+Extends the lifetime of the event. Used to notify the browser of tasks that extend beyond the returning of a response, such as streaming and caching.
+Examples
+This fetch event uses the browser default for non-GET requests.
+For GET requests it tries to return a match in the cache, and falls back to the network. If it finds a match in the cache, it asynchronously updates the cache for next time.
+Copy to Clipboard
+[CODE_BLOCK_29]
+Specifications
+Specification
+Service Workers
+fetchevent-interface
+Browser compatibility
+See also
+[CODE_BLOCK_31]
+event
+[CODE_BLOCK_32]
+Fetch API
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Aug 31, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

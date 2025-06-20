@@ -1,0 +1,324 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
+SCRAPED: 2025-06-19 18:21:46
+================================================================================
+
+--- CODE BLOCK 1 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+object is used to represent a generic raw binary data buffer.
+It is an array of bytes, often referred to in other languages as a "byte array". You cannot directly manipulate the contents of an
+--- CODE BLOCK 2 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+; instead, you create one of the
+typed array objects
+or a
+--- CODE BLOCK 4 ---
+ArrayBuffer()
+--- END CODE BLOCK ---
+object which represents the buffer in a specific format, and use that to read and write the contents of the buffer.
+--- CODE BLOCK 5 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+constructor creates a new
+--- CODE BLOCK 6 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+of the given length in bytes. You can also get an array buffer from existing data, for example, from a
+Base64
+string or
+from a local file
+--- CODE BLOCK 7 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+is a
+transferable object
+Description
+Resizing ArrayBuffers
+--- CODE BLOCK 8 ---
+maxByteLength
+--- END CODE BLOCK ---
+objects can be made resizable by including the
+--- CODE BLOCK 9 ---
+ArrayBuffer()
+--- END CODE BLOCK ---
+option when calling the
+--- CODE BLOCK 10 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+constructor. You can query whether an
+--- CODE BLOCK 12 ---
+maxByteLength
+--- END CODE BLOCK ---
+is resizable and what its maximum size is by accessing its
+--- CODE BLOCK 13 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+properties, respectively. You can assign a new size to a resizable
+--- CODE BLOCK 16 ---
+WebAssembly.Memory.prototype.grow()
+--- END CODE BLOCK ---
+with a
+--- CODE BLOCK 17 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+call. New bytes are initialized to 0.
+These features make resizing
+--- CODE BLOCK 18 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+s more efficient — otherwise, you have to make a copy of the buffer with a new size. It also gives JavaScript parity with WebAssembly in this regard (Wasm linear memory can be resized with
+--- CODE BLOCK 19 ---
+Worker.postMessage()
+--- END CODE BLOCK ---
+Transferring ArrayBuffers
+--- CODE BLOCK 20 ---
+ServiceWorker.postMessage()
+--- END CODE BLOCK ---
+objects can be transferred between different execution contexts, like
+Web Workers
+Service Workers
+, using the
+structured clone algorithm
+. This is done by passing the
+--- CODE BLOCK 21 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+as a
+transferable object
+in a call to
+--- CODE BLOCK 23 ---
+transferToFixedLength()
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+. In pure JavaScript, you can also transfer the ownership of memory from one
+--- CODE BLOCK 25 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+to another using its
+--- CODE BLOCK 31 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+ArrayBuffer()
+--- END CODE BLOCK ---
+method.
+When an
+--- CODE BLOCK 34 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+is transferred, its original copy becomes
+detached
+— this means it is no longer usable. At any moment, there will only be one copy of the
+--- CODE BLOCK 35 ---
+ArrayBuffer[Symbol.species]
+--- END CODE BLOCK ---
+that actually has access to the underlying memory. Detached buffers have the following behaviors:
+--- CODE BLOCK 36 ---
+ArrayBuffer.isView()
+--- END CODE BLOCK ---
+becomes 0 (in both the buffer and the associated typed array views).
+Methods, such as
+--- CODE BLOCK 41 ---
+ArrayBuffer.prototype
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+, throw a
+--- CODE BLOCK 43 ---
+ArrayBuffer.prototype.byteLength
+--- END CODE BLOCK ---
+when invoked. The associated typed array views' methods also throw a
+--- CODE BLOCK 44 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+You can check whether an
+--- CODE BLOCK 45 ---
+ArrayBuffer.prototype.resize()
+--- END CODE BLOCK ---
+is detached by its
+--- CODE BLOCK 46 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+property.
+Constructor
+--- CODE BLOCK 47 ---
+ArrayBuffer.prototype.constructor
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 48 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+object.
+Static properties
+--- CODE BLOCK 49 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+The constructor function that is used to create derived objects.
+Static methods
+--- CODE BLOCK 50 ---
+ArrayBuffer.prototype.detached
+--- END CODE BLOCK ---
+Returns
+--- CODE BLOCK 52 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+ArrayBuffer.prototype.maxByteLength
+--- END CODE BLOCK ---
+is one of the ArrayBuffer views, such as
+typed array objects
+or a
+--- CODE BLOCK 55 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+. Returns
+--- CODE BLOCK 56 ---
+ArrayBuffer.prototype.resizable
+--- END CODE BLOCK ---
+otherwise.
+Instance properties
+These properties are defined on
+--- CODE BLOCK 58 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 60 ---
+ArrayBuffer.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 61 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+The size, in bytes, of the
+--- CODE BLOCK 62 ---
+"ArrayBuffer"
+--- END CODE BLOCK ---
+. This is established when the array is constructed and can only be changed using the
+--- CODE BLOCK 63 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+method if the
+--- CODE BLOCK 64 ---
+ArrayBuffer.prototype.resize()
+--- END CODE BLOCK ---
+is resizable.
+--- CODE BLOCK 65 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 66 ---
+ArrayBuffer.prototype.slice()
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 67 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+constructor.
+--- CODE BLOCK 68 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Read-only. Returns
+--- CODE BLOCK 73 ---
+ArrayBuffer.prototype.transfer()
+--- END CODE BLOCK ---
+if the
+--- CODE BLOCK 74 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+has been detached (transferred), or
+--- CODE BLOCK 75 ---
+ArrayBuffer.prototype.transferToFixedLength()
+--- END CODE BLOCK ---
+if not.
+--- CODE BLOCK 76 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+The read-only maximum length, in bytes, that the
+--- CODE BLOCK 78 ---
+const buffer = new ArrayBuffer(8);
+const view = new Int32Array(buffer);
+--- END CODE BLOCK ---
+can be resized to. This is established when the array is constructed and cannot be changed.
+--- CODE BLOCK 79 ---
+const buffer = new ArrayBuffer(8);
+const view = new Int32Array(buffer);
+--- END CODE BLOCK ---
+Read-only. Returns
+--- CODE BLOCK 80 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+if the
+--- CODE BLOCK 82 ---
+SharedArrayBuffer
+--- END CODE BLOCK ---
+can be resized, or
+[CODE_BLOCK_59]
+if not.
+[CODE_BLOCK_60]
+The initial value of the
+[CODE_BLOCK_61]
+property is the string
+[CODE_BLOCK_62]
+. This property is used in
+[CODE_BLOCK_63]
+Instance methods
+[CODE_BLOCK_64]
+Resizes the
+[CODE_BLOCK_65]
+to the specified size, in bytes.
+[CODE_BLOCK_66]
+Returns a new
+[CODE_BLOCK_67]
+whose contents are a copy of this
+[CODE_BLOCK_68]
+'s bytes from
+[CODE_BLOCK_69]
+(inclusive) up to
+[CODE_BLOCK_70]
+(exclusive). If either
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+is negative, it refers to an index from the end of the array, as opposed to from the beginning.
+[CODE_BLOCK_73]
+Creates a new
+[CODE_BLOCK_74]
+with the same byte content as this buffer, then detaches this buffer.
+[CODE_BLOCK_75]
+Creates a new non-resizable
+[CODE_BLOCK_76]
+with the same byte content as this buffer, then detaches this buffer.
+Examples
+Creating an ArrayBuffer
+In this example, we create a 8-byte buffer with a
+[CODE_BLOCK_77]
+view referring to the buffer:
+Copy to Clipboard
+[CODE_BLOCK_78]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-arraybuffer-objects
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+JavaScript typed arrays
+guide
+[CODE_BLOCK_82]
+RangeError: invalid array length
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jan 31, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

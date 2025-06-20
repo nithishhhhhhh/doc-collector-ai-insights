@@ -1,0 +1,112 @@
+SOURCE URL: https://nextjs.org/docs/app/building-your-application/upgrading/canary
+SCRAPED: 2025-06-19 17:56:09
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Deploying
+Deploying
+Next.js can be deployed as a Node.js server, Docker container, static export, or adapted to run on different platforms.
+Deployment Option
+Feature Support
+Node.js server
+Docker container
+Static export
+Limited
+Adapters
+Platform-specific
+Node.js server
+Next.js can be deployed to any provider that supports Node.js. Ensure your
+--- CODE BLOCK 1 ---
+package.json
+--- END CODE BLOCK ---
+has the
+--- CODE BLOCK 4 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start"
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start"
+--- END CODE BLOCK ---
+scripts:
+package.json
+--- CODE BLOCK 6 ---
+npm run build
+--- END CODE BLOCK ---
+Then, run
+--- CODE BLOCK 8 ---
+npm run dev
+--- END CODE BLOCK ---
+to build your application and
+[CODE_BLOCK_7]
+to start the Node.js server. This server supports all Next.js features. If needed, you can also eject to a
+custom server
+Node.js deployments support all Next.js features. Learn how to
+configure them
+for your infrastructure.
+Templates
+Flightcontrol
+Railway
+Replit
+Docker
+Next.js can be deployed to any provider that supports
+Docker
+containers. This includes container orchestrators like Kubernetes or a cloud provider that runs Docker.
+Docker deployments support all Next.js features. Learn how to
+configure them
+for your infrastructure.
+Note for development:
+While Docker is excellent for production deployments, consider using local development (
+[CODE_BLOCK_8]
+) instead of Docker during development on Mac and Windows for better performance.
+Learn more about optimizing local development
+Templates
+Docker
+Docker Multi-Environment
+DigitalOcean
+Fly.io
+Google Cloud Run
+Render
+Static export
+Next.js enables starting as a static site or
+Single-Page Application (SPA)
+, then later optionally upgrading to use features that require a server.
+Since Next.js supports
+static exports
+, it can be deployed and hosted on any web server that can serve HTML/CSS/JS static assets. This includes tools like AWS S3, Nginx, or Apache.
+Running as a
+static export
+does not
+support Next.js features that require a server.
+Learn more
+Templates
+GitHub Pages
+Adapters
+Next.js can be adapted to run on different platforms to support their infrastructure capabilities.
+Refer to each provider's documentation for information on supported Next.js features:
+AWS Amplify Hosting
+Cloudflare
+Deno Deploy
+Netlify
+Vercel
+Note:
+We are working on a
+Deployment Adapters API
+for all platforms to adopt. After completion, we will add documentation on how to write your own adapters.
+Was this helpful?
+supported.
+Send

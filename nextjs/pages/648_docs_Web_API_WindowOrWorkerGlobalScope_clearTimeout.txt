@@ -1,0 +1,114 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout
+SCRAPED: 2025-06-19 18:23:12
+================================================================================
+
+--- CODE BLOCK 1 ---
+clearTimeout()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+Window.setTimeout()
+--- END CODE BLOCK ---
+interface cancels a timeout previously established by calling
+--- CODE BLOCK 4 ---
+clearTimeout(timeoutID)
+--- END CODE BLOCK ---
+If the parameter provided does not identify a previously established action,
+this method does nothing.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+clearTimeout(timeoutID)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 8 ---
+setTimeout()
+--- END CODE BLOCK ---
+The identifier of the timeout you want to cancel. This ID was returned by the
+corresponding call to
+--- CODE BLOCK 9 ---
+setInterval()
+--- END CODE BLOCK ---
+It's worth noting that the pool of IDs used by
+--- CODE BLOCK 10 ---
+clearTimeout()
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+clearInterval()
+--- END CODE BLOCK ---
+are shared, which means you can technically use
+--- CODE BLOCK 13 ---
+const alarm = {
+remind(aMessage) {
+alert(aMessage);
+this.timeoutID = undefined;
+setup() {
+if (typeof this.timeoutID === "number") {
+this.cancel();
+this.timeoutID = setTimeout(
+(msg) => {
+this.remind(msg);
+1000,
+"Wake up!",
+cancel() {
+clearTimeout(this.timeoutID);
+window.addEventListener("click", () => alarm.setup());
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+const alarm = {
+remind(aMessage) {
+alert(aMessage);
+this.timeoutID = undefined;
+setup() {
+if (typeof this.timeoutID === "number") {
+this.cancel();
+this.timeoutID = setTimeout(
+(msg) => {
+this.remind(msg);
+1000,
+"Wake up!",
+cancel() {
+clearTimeout(this.timeoutID);
+window.addEventListener("click", () => alarm.setup());
+--- END CODE BLOCK ---
+interchangeably. However, for clarity, you should avoid doing so.
+Return value
+None (
+--- CODE BLOCK 15 ---
+clearTimeout()
+--- END CODE BLOCK ---
+Examples
+Run the script below in the context of a web page and click on the page once. You'll
+see a message popping up in a second. If you click the page multiple times in
+one second, the alert only appears once.
+Copy to Clipboard
+--- CODE BLOCK 16 ---
+Window.setTimeout()
+--- END CODE BLOCK ---
+Notes
+Passing an invalid ID to
+--- CODE BLOCK 18 ---
+Window.clearInterval()
+--- END CODE BLOCK ---
+silently does nothing; no
+exception is thrown.
+Specifications
+Specification
+HTML
+dom-cleartimeout-dev
+Browser compatibility
+See also
+--- CODE BLOCK 19 ---
+Window.cancelAnimationFrame()
+--- END CODE BLOCK ---
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Oct 7, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

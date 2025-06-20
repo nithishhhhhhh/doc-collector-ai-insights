@@ -1,0 +1,24 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/configuring
+SCRAPED: 2025-06-19 17:21:19
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Building Your Application
+Configuring
+You are currently viewing the documentation for Pages Router.
+Configuring
+Next.js allows you to customize your project to meet specific requirements. This includes integrations with TypeScript, ESlint, and more, as well as internal configuration options such as Absolute Imports and Environment Variables.
+Error Handling
+Handle errors in your Next.js app.
+Was this helpful?
+supported.
+Send

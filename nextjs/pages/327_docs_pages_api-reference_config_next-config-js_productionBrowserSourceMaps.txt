@@ -1,0 +1,38 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/productionBrowserSourceMaps
+SCRAPED: 2025-06-19 17:47:55
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+productionBrowserSourceMaps
+You are currently viewing the documentation for Pages Router.
+productionBrowserSourceMaps
+Source Maps are enabled by default during development. During production builds, they are disabled to prevent you leaking your source on the client, unless you specifically opt-in with the configuration flag.
+Next.js provides a configuration flag you can use to enable browser source map generation during the production build:
+next.config.js
+--- CODE BLOCK 1 ---
+module.exports = {
+productionBrowserSourceMaps: true,
+--- END CODE BLOCK ---
+When the
+--- CODE BLOCK 3 ---
+productionBrowserSourceMaps
+--- END CODE BLOCK ---
+option is enabled, the source maps will be output in the same directory as the JavaScript files. Next.js will automatically serve these files when requested.
+Adding source maps can increase
+[CODE_BLOCK_4]
+time
+Increases memory usage during
+[CODE_BLOCK_5]
+Was this helpful?
+supported.
+Send

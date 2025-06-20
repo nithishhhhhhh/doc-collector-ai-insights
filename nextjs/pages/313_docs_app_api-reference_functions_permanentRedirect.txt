@@ -1,0 +1,130 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/permanentRedirect
+SCRAPED: 2025-06-19 17:46:16
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+permanentRedirect
+permanentRedirect
+--- CODE BLOCK 1 ---
+permanentRedirect
+--- END CODE BLOCK ---
+function allows you to redirect the user to another URL.
+--- CODE BLOCK 2 ---
+permanentRedirect
+--- END CODE BLOCK ---
+can be used in Server Components, Client Components,
+Route Handlers
+, and
+Server Actions
+When used in a streaming context, this will insert a meta tag to emit the redirect on the client side. When used in a server action, it will serve a 303 HTTP redirect response to the caller. Otherwise, it will serve a 308 (Permanent) HTTP redirect response to the caller.
+If a resource doesn't exist, you can use the
+--- CODE BLOCK 5 ---
+permanentRedirect
+--- END CODE BLOCK ---
+function
+instead.
+Good to know
+: If you prefer to return a 307 (Temporary) HTTP redirect instead of 308 (Permanent), you can use the
+--- CODE BLOCK 6 ---
+permanentRedirect(path, type)
+--- END CODE BLOCK ---
+function
+instead.
+Parameters
+--- CODE BLOCK 7 ---
+permanentRedirect(path, type)
+--- END CODE BLOCK ---
+function accepts two arguments:
+--- CODE BLOCK 13 ---
+permanentRedirect
+--- END CODE BLOCK ---
+Parameter
+Type
+Description
+--- CODE BLOCK 19 ---
+permanentRedirect()
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+NEXT_REDIRECT
+--- END CODE BLOCK ---
+The URL to redirect to. Can be a relative or absolute path.
+--- CODE BLOCK 21 ---
+import { permanentRedirect } from 'next/navigation'
+async function fetchTeam(id) {
+const res = await fetch('https://...')
+if (!res.ok) return undefined
+return res.json()
+export default async function Profile({ params }) {
+const { id } = await params
+const team = await fetchTeam(id)
+if (!team) {
+permanentRedirect('/login')
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+import { permanentRedirect } from 'next/navigation'
+async function fetchTeam(id) {
+const res = await fetch('https://...')
+if (!res.ok) return undefined
+return res.json()
+export default async function Profile({ params }) {
+const { id } = await params
+const team = await fetchTeam(id)
+if (!team) {
+permanentRedirect('/login')
+// ...
+--- END CODE BLOCK ---
+(default) or
+--- CODE BLOCK 23 ---
+permanentRedirect
+--- END CODE BLOCK ---
+(default in Server Actions)
+The type of redirect to perform.
+By default,
+--- CODE BLOCK 24 ---
+return permanentRedirect()
+--- END CODE BLOCK ---
+will use
+[CODE_BLOCK_14]
+(adding a new entry to the browser history stack) in
+Server Actions
+[CODE_BLOCK_15]
+(replacing the current URL in the browser history stack) everywhere else. You can override this behavior by specifying the
+[CODE_BLOCK_16]
+parameter.
+[CODE_BLOCK_17]
+parameter has no effect when used in Server Components.
+Returns
+[CODE_BLOCK_18]
+does not return a value.
+Example
+Invoking the
+[CODE_BLOCK_19]
+function throws a
+[CODE_BLOCK_20]
+error and terminates rendering of the route segment in which it was thrown.
+app/team/[id]/page.js
+[CODE_BLOCK_21]
+Good to know
+[CODE_BLOCK_23]
+does not require you to use
+[CODE_BLOCK_24]
+as it uses the TypeScript
+[CODE_BLOCK_25]
+type.
+Next Steps
+redirect
+API Reference for the redirect function.
+Was this helpful?
+supported.
+Send

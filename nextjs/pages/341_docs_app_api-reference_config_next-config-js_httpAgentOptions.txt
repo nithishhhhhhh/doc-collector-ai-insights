@@ -1,0 +1,48 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/httpAgentOptions
+SCRAPED: 2025-06-19 17:49:36
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+httpAgentOptions
+httpAgentOptions
+In Node.js versions prior to 18, Next.js automatically polyfills
+--- CODE BLOCK 3 ---
+next.config.js
+--- END CODE BLOCK ---
+with
+undici
+and enables
+HTTP Keep-Alive
+by default.
+To disable HTTP Keep-Alive for all
+--- CODE BLOCK 4 ---
+httpAgentOptions
+--- END CODE BLOCK ---
+calls on the server-side, open
+--- CODE BLOCK 5 ---
+module.exports = {
+httpAgentOptions: {
+keepAlive: false,
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 6 ---
+module.exports = {
+httpAgentOptions: {
+keepAlive: false,
+--- END CODE BLOCK ---
+config:
+next.config.js
+[CODE_BLOCK_5]
+Was this helpful?
+supported.
+Send

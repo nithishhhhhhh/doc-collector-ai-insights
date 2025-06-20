@@ -1,0 +1,151 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/package-bundling
+SCRAPED: 2025-06-19 17:48:38
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Package Bundling
+You are currently viewing the documentation for Pages Router.
+How to optimize package bundling
+Bundling external packages can significantly improve the performance of your application.
+By default, packages imported into your application are not bundled. This can impact performance or might not work if external packages are not pre-bundled, for example, if imported from a monorepo or
+--- CODE BLOCK 1 ---
+node_modules
+--- END CODE BLOCK ---
+. This page will guide you through how to analyze and configure package bundling.
+Analyzing JavaScript bundles
+--- CODE BLOCK 2 ---
+@next/bundle-analyzer
+--- END CODE BLOCK ---
+is a plugin for Next.js that helps you manage the size of your application bundles. It generates a visual report of the size of each package and their dependencies. You can use the information to remove large dependencies, split, or
+lazy-load
+your code.
+Installation
+Install the plugin by running the following command:
+--- CODE BLOCK 3 ---
+npm i @next/bundle-analyzer
+# or
+yarn add @next/bundle-analyzer
+# or
+pnpm add @next/bundle-analyzer
+--- END CODE BLOCK ---
+Then, add the bundle analyzer's settings to your
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 6 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+enabled: process.env.ANALYZE === 'true',
+module.exports = withBundleAnalyzer(nextConfig)
+--- END CODE BLOCK ---
+Generating a report
+Run the following command to analyze your bundles:
+--- CODE BLOCK 8 ---
+ANALYZE=true npm run build
+# or
+ANALYZE=true yarn build
+# or
+ANALYZE=true pnpm build
+--- END CODE BLOCK ---
+The report will open three new tabs in your browser, which you can inspect. Periodically evaluating your application's bundles can help you maintain application performance over time.
+Optimizing package imports
+Some packages, such as icon libraries, can export hundreds of modules, which can cause performance issues in development and production.
+You can optimize how these packages are imported by adding the
+--- CODE BLOCK 10 ---
+optimizePackageImports
+--- END CODE BLOCK ---
+option to your
+--- CODE BLOCK 11 ---
+next.config.js
+--- END CODE BLOCK ---
+. This option will only load the modules you
+actually
+use, while still giving you the convenience of writing import statements with many named exports.
+next.config.js
+--- CODE BLOCK 12 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+experimental: {
+optimizePackageImports: ['icon-library'],
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Next.js also optimizes some libraries automatically, thus they do not need to be included in the optimizePackageImports list. See the
+full list
+Bundling specific packages
+To bundle specific packages, you can use the
+--- CODE BLOCK 14 ---
+transpilePackages
+--- END CODE BLOCK ---
+option in your
+--- CODE BLOCK 15 ---
+next.config.js
+--- END CODE BLOCK ---
+. This option is useful for bundling external packages that are not pre-bundled, for example, in a monorepo or imported from
+--- CODE BLOCK 16 ---
+node_modules
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 17 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+transpilePackages: ['package-name'],
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Bundling all packages
+To automatically bundle all packages (default behavior in the App Router), you can use the
+--- CODE BLOCK 19 ---
+bundlePagesRouterDependencies
+--- END CODE BLOCK ---
+option in your
+--- CODE BLOCK 20 ---
+next.config.js
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 21 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+bundlePagesRouterDependencies: true,
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Opting specific packages out of bundling
+If you have the
+--- CODE BLOCK 23 ---
+bundlePagesRouterDependencies
+--- END CODE BLOCK ---
+option enabled, you can opt specific packages out of automatic bundling using the
+--- CODE BLOCK 24 ---
+serverExternalPackages
+--- END CODE BLOCK ---
+option in your
+--- CODE BLOCK 25 ---
+next.config.js
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 26 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+// Automatically bundle external packages in the Pages Router:
+bundlePagesRouterDependencies: true,
+// Opt specific packages out of bundling for both App and Pages Router:
+serverExternalPackages: ['package-name'],
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Next Steps
+Learn more about optimizing your application for production.
+Production
+Recommendations to ensure the best performance and user experience before taking your Next.js application to production.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,159 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/next-request
+SCRAPED: 2025-06-19 17:38:23
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+NextRequest
+You are currently viewing the documentation for Pages Router.
+NextRequest
+NextRequest extends the
+Web Request API
+with additional convenience methods.
+--- CODE BLOCK 3 ---
+set(name, value)
+--- END CODE BLOCK ---
+Read or mutate the
+--- CODE BLOCK 4 ---
+// Given incoming request /home
+// Set a cookie to hide the banner
+// request will have a `Set-Cookie:show-banner=false;path=/home` header
+request.cookies.set('show-banner', 'false')
+--- END CODE BLOCK ---
+header of the request.
+--- CODE BLOCK 5 ---
+// Given incoming request /home
+// Set a cookie to hide the banner
+// request will have a `Set-Cookie:show-banner=false;path=/home` header
+request.cookies.set('show-banner', 'false')
+--- END CODE BLOCK ---
+Given a name, set a cookie with the given value on the request.
+--- CODE BLOCK 8 ---
+// Given incoming request /home
+// { name: 'show-banner', value: 'false', Path: '/home' }
+request.cookies.get('show-banner')
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+// Given incoming request /home
+// [
+//   { name: 'experiments', value: 'new-pricing-page', Path: '/home' },
+//   { name: 'experiments', value: 'winter-launch', Path: '/home' },
+// ]
+request.cookies.getAll('experiments')
+// Alternatively, get all cookies for the request
+request.cookies.getAll()
+--- END CODE BLOCK ---
+Given a cookie name, return the value of the cookie. If the cookie is not found,
+--- CODE BLOCK 12 ---
+// Given incoming request /home
+// [
+//   { name: 'experiments', value: 'new-pricing-page', Path: '/home' },
+//   { name: 'experiments', value: 'winter-launch', Path: '/home' },
+// ]
+request.cookies.getAll('experiments')
+// Alternatively, get all cookies for the request
+request.cookies.getAll()
+--- END CODE BLOCK ---
+is returned. If multiple cookies are found, the first one is returned.
+--- CODE BLOCK 13 ---
+delete(name)
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+// Returns true for deleted, false is nothing is deleted
+request.cookies.delete('experiments')
+--- END CODE BLOCK ---
+Given a cookie name, return the values of the cookie. If no name is given, return all cookies on the request.
+--- CODE BLOCK 18 ---
+// Returns true if cookie exists, false if it does not
+request.cookies.has('experiments')
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+request.cookies.clear()
+--- END CODE BLOCK ---
+Given a cookie name, delete the cookie from the request.
+--- CODE BLOCK 23 ---
+request.cookies.clear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+// Given a request to /home, pathname is /home
+request.nextUrl.pathname
+// Given a request to /home?name=lee, searchParams is { 'name': 'lee' }
+request.nextUrl.searchParams
+--- END CODE BLOCK ---
+Given a cookie name, return
+--- CODE BLOCK 33 ---
+defaultLocale
+--- END CODE BLOCK ---
+if the cookie exists on the request.
+--- CODE BLOCK 36 ---
+domainLocale
+--- END CODE BLOCK ---
+[CODE_BLOCK_20]
+Remove the
+[CODE_BLOCK_21]
+header from the request.
+[CODE_BLOCK_22]
+[CODE_BLOCK_24]
+Extends the native
+[CODE_BLOCK_25]
+API with additional convenience methods, including Next.js specific properties.
+[CODE_BLOCK_26]
+The following options are available:
+Property
+Type
+Description
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+base path
+of the URL.
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+The build identifier of the Next.js application. Can be
+customized
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+The default locale for
+internationalization
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+The default locale within a domain.
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+The domain associated with a specific locale.
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+Indicates if the domain is using HTTP.
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+An array of available locales.
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+The currently active locale.
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+The URL object.
+Version History
+Version
+Changes
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+removed.
+Was this helpful?
+supported.
+Send

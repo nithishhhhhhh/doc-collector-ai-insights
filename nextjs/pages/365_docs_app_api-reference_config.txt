@@ -1,0 +1,26 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config
+SCRAPED: 2025-06-19 17:52:29
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+API Reference
+Configuration
+Configuration
+next.config.js
+Learn how to configure your application with next.config.js.
+TypeScript
+Next.js provides a TypeScript-first development experience for building your React application.
+ESLint
+Learn how to use and configure the ESLint plugin to catch common issues and problems in a Next.js application.
+Was this helpful?
+supported.
+Send

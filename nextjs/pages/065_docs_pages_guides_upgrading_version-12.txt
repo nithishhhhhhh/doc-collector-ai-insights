@@ -1,0 +1,260 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/upgrading/version-12
+SCRAPED: 2025-06-19 17:16:41
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Upgrading
+Version 12
+You are currently viewing the documentation for Pages Router.
+How to upgrade to version 12
+To upgrade to version 12, run the following command:
+Terminal
+--- CODE BLOCK 1 ---
+npm i next@12 react@17 react-dom@17 eslint-config-next@12
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 3 ---
+yarn add next@12 react@17 react-dom@17 eslint-config-next@12
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 5 ---
+pnpm up next@12 react@17 react-dom@17 eslint-config-next@12
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 7 ---
+bun add next@12 react@17 react-dom@17 eslint-config-next@12
+--- END CODE BLOCK ---
+Good to know:
+If you are using TypeScript, ensure you also upgrade
+--- CODE BLOCK 9 ---
+@types/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+@types/react-dom
+--- END CODE BLOCK ---
+to their corresponding versions.
+Upgrading to 12.2
+Middleware
+- If you were using Middleware prior to
+--- CODE BLOCK 15 ---
+npm install react@latest react-dom@latest
+yarn add react@latest react-dom@latest
+pnpm update react@latest react-dom@latest
+bun add react@latest react-dom@latest
+--- END CODE BLOCK ---
+, please see the
+upgrade guide
+for more information.
+Upgrading to 12.0
+Minimum Node.js Version
+- The minimum Node.js version has been bumped from
+--- CODE BLOCK 16 ---
+npm install react@latest react-dom@latest
+yarn add react@latest react-dom@latest
+pnpm update react@latest react-dom@latest
+bun add react@latest react-dom@latest
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+getStaticProps
+--- END CODE BLOCK ---
+which is the first version of Node.js with native ES Modules support.
+Minimum React Version
+- The minimum required React version is
+--- CODE BLOCK 18 ---
+getStaticPaths
+--- END CODE BLOCK ---
+. To upgrade you can run the following command in the terminal:
+Terminal
+--- CODE BLOCK 19 ---
+getServerSideProps
+--- END CODE BLOCK ---
+SWC replacing Babel
+Next.js now uses the Rust-based compiler
+to compile JavaScript/TypeScript. This new compiler is up to 17x faster than Babel when compiling individual files and up to 5x faster Fast Refresh.
+Next.js provides full backward compatibility with applications that have
+custom Babel configuration
+. All transformations that Next.js handles by default like styled-jsx and tree-shaking of
+--- CODE BLOCK 22 ---
+module.exports = {
+swcMinify: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+module.exports = {
+swcMinify: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+.container span
+--- END CODE BLOCK ---
+have been ported to Rust.
+When an application has a custom Babel configuration, Next.js will automatically opt-out of using SWC for compiling JavaScript/Typescript and will fall back to using Babel in the same way that it was used in Next.js 11.
+Many of the integrations with external libraries that currently require custom Babel transformations will be ported to Rust-based SWC transforms in the near future. These include but are not limited to:
+Styled Components
+Emotion
+Relay
+In order to prioritize transforms that will help you adopt SWC, please provide your
+--- CODE BLOCK 32 ---
+.container span.item
+--- END CODE BLOCK ---
+this feedback thread
+SWC replacing Terser for minification
+You can opt-in to replacing Terser with SWC for minifying JavaScript up to 7x faster using a flag in
+--- CODE BLOCK 33 ---
+<span className="item" />
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 36 ---
+.container div
+--- END CODE BLOCK ---
+Minification using SWC is an opt-in flag to ensure it can be tested against more real-world Next.js applications before it becomes the default in Next.js 12.1. If you have feedback about minification, please leave it on
+this feedback thread
+Improvements to styled-jsx CSS parsing
+On top of the Rust-based compiler we've implemented a new CSS parser based on the one used for the styled-jsx Babel transform. This new parser has improved handling of CSS and now errors when invalid CSS is used that would previously slip through and cause unexpected behavior.
+Because of this change invalid CSS will throw an error during development and
+--- CODE BLOCK 38 ---
+<div className="wrapper">
+--- END CODE BLOCK ---
+. This change only affects styled-jsx usage.
+--- CODE BLOCK 40 ---
+.container .wrapper
+--- END CODE BLOCK ---
+changed wrapping element
+--- CODE BLOCK 44 ---
+location /_next/webpack-hmr {
+proxy_pass http://localhost:3000/_next/webpack-hmr;
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+--- END CODE BLOCK ---
+now renders the
+--- CODE BLOCK 45 ---
+location /_next/webpack-hmr {
+proxy_pass http://localhost:3000/_next/webpack-hmr;
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+--- END CODE BLOCK ---
+inside a
+--- CODE BLOCK 46 ---
+<VirtualHost *:443>
+# ServerName yourwebsite.local
+ServerName "${WEBSITE_SERVER_NAME}"
+ProxyPass / http://localhost:3000/
+ProxyPassReverse / http://localhost:3000/
+# Next.js 12 uses websocket
+<Location /_next/webpack-hmr>
+RewriteEngine On
+RewriteCond %{QUERY_STRING} transport=websocket [NC]
+RewriteCond %{HTTP:Upgrade} websocket [NC]
+RewriteCond %{HTTP:Connection} upgrade [NC]
+RewriteRule /(.*) ws://localhost:3000/_next/webpack-hmr/$1 [P,L]
+ProxyPass ws://localhost:3000/_next/webpack-hmr retry=0 timeout=30
+ProxyPassReverse ws://localhost:3000/_next/webpack-hmr
+</Location>
+</VirtualHost>
+--- END CODE BLOCK ---
+instead of
+--- CODE BLOCK 47 ---
+<VirtualHost *:443>
+# ServerName yourwebsite.local
+ServerName "${WEBSITE_SERVER_NAME}"
+ProxyPass / http://localhost:3000/
+ProxyPassReverse / http://localhost:3000/
+# Next.js 12 uses websocket
+<Location /_next/webpack-hmr>
+RewriteEngine On
+RewriteCond %{QUERY_STRING} transport=websocket [NC]
+RewriteCond %{HTTP:Upgrade} websocket [NC]
+RewriteCond %{HTTP:Connection} upgrade [NC]
+RewriteRule /(.*) ws://localhost:3000/_next/webpack-hmr/$1 [P,L]
+ProxyPass ws://localhost:3000/_next/webpack-hmr retry=0 timeout=30
+ProxyPassReverse ws://localhost:3000/_next/webpack-hmr
+</Location>
+</VirtualHost>
+--- END CODE BLOCK ---
+If your application has specific CSS targeting span such as
+--- CODE BLOCK 50 ---
+app.all('/_next/webpack-hmr', (req, res) => {
+nextjsRequestHandler(req, res)
+--- END CODE BLOCK ---
+, upgrading to Next.js 12 might incorrectly match the wrapping element inside the
+--- CODE BLOCK 51 ---
+app.all('/_next/webpack-hmr', (req, res) => {
+nextjsRequestHandler(req, res)
+--- END CODE BLOCK ---
+component. You can avoid this by restricting the selector to a specific class such as
+--- CODE BLOCK 54 ---
+next.config.js
+--- END CODE BLOCK ---
+and updating the relevant component with that className, such as
+[CODE_BLOCK_33]
+If your application has specific CSS targeting the
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+tag, for example
+[CODE_BLOCK_36]
+, it may not match anymore. You can update the selector
+[CODE_BLOCK_37]
+, or preferably, add a new
+[CODE_BLOCK_38]
+wrapping the
+[CODE_BLOCK_39]
+component and target that instead such as
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+prop is unchanged and will still be passed to the underlying
+[CODE_BLOCK_42]
+element.
+See the
+documentation
+for more info.
+HMR connection now uses a WebSocket
+Previously, Next.js used a
+server-sent events
+connection to receive HMR events. Next.js 12 now uses a WebSocket connection.
+In some cases when proxying requests to the Next.js dev server, you will need to ensure the upgrade request is handled correctly. For example, in
+[CODE_BLOCK_43]
+you would need to add the following configuration:
+[CODE_BLOCK_44]
+If you are using Apache (2.x), you can add the following configuration to enable web sockets to the server. Review the port, host name and server names.
+[CODE_BLOCK_46]
+For custom servers, such as
+[CODE_BLOCK_48]
+, you may need to use
+[CODE_BLOCK_49]
+to ensure the request is passed correctly, for example:
+[CODE_BLOCK_50]
+Webpack 4 support has been removed
+If you are already using webpack 5 you can skip this section.
+Next.js has adopted webpack 5 as the default for compilation in Next.js 11. As communicated in the
+webpack 5 upgrading documentation
+Next.js 12 removes support for webpack 4.
+If your application is still using webpack 4 using the opt-out flag, you will now see an error linking to the
+webpack 5 upgrading documentation
+[CODE_BLOCK_52]
+option deprecated
+If you do not have
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+you can skip this section.
+The target option has been deprecated in favor of built-in support for tracing what dependencies are needed to run a page.
+During
+[CODE_BLOCK_55]
+, Next.js will automatically trace each page and its dependencies to determine all of the files that are needed for deploying a production version of your application.
+If you are currently using the
+[CODE_BLOCK_56]
+option set to
+[CODE_BLOCK_57]
+, please read the
+documentation on how to leverage the new output
+Was this helpful?
+supported.
+Send

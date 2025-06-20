@@ -1,0 +1,751 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map
+SCRAPED: 2025-06-19 18:16:58
+================================================================================
+
+--- CODE BLOCK 2 ---
+const map1 = new Map();
+map1.set("a", 1);
+map1.set("b", 2);
+map1.set("c", 3);
+console.log(map1.get("a"));
+// Expected output: 1
+map1.set("a", 97);
+console.log(map1.get("a"));
+// Expected output: 97
+console.log(map1.size);
+// Expected output: 3
+map1.delete("b");
+console.log(map1.size);
+// Expected output: 2
+--- END CODE BLOCK ---
+object holds key-value pairs and remembers the original insertion order of the keys.
+Any value (both objects and
+primitive values
+) may be used as either a key or a value.
+Try it
+--- CODE BLOCK 3 ---
+const map1 = new Map();
+map1.set("a", 1);
+map1.set("b", 2);
+map1.set("c", 3);
+console.log(map1.get("a"));
+// Expected output: 1
+map1.set("a", 97);
+console.log(map1.get("a"));
+// Expected output: 97
+console.log(map1.size);
+// Expected output: 3
+map1.delete("b");
+console.log(map1.size);
+// Expected output: 2
+--- END CODE BLOCK ---
+Description
+--- CODE BLOCK 16 ---
+NaN !== NaN
+--- END CODE BLOCK ---
+objects are collections of key-value pairs. A key in the
+--- CODE BLOCK 25 ---
+Object.create(null)
+--- END CODE BLOCK ---
+may only occur once
+; it is unique in the
+--- CODE BLOCK 37 ---
+Object.keys
+--- END CODE BLOCK ---
+'s collection. A
+--- CODE BLOCK 38 ---
+Object.getOwnPropertyNames
+--- END CODE BLOCK ---
+object is iterated by key-value pairs — a
+--- CODE BLOCK 39 ---
+Object.getOwnPropertySymbols
+--- END CODE BLOCK ---
+loop returns a 2-member array of
+--- CODE BLOCK 45 ---
+Object.keys()
+--- END CODE BLOCK ---
+for each iteration. Iteration happens in
+insertion order
+, which corresponds to the order in which each key-value pair was first inserted into the map by the
+--- CODE BLOCK 48 ---
+Object.keys
+--- END CODE BLOCK ---
+method (that is, there wasn't a key with the same value already in the map when
+--- CODE BLOCK 49 ---
+Object.entries
+--- END CODE BLOCK ---
+was called).
+The specification requires maps to be implemented "that, on average, provide access times that are sublinear on the number of elements in the collection". Therefore, it could be represented internally as a hash table (with O(1) lookup), a search tree (with O(log(N)) lookup), or any other data structure, as long as the complexity is better than O(N).
+Key equality
+Value equality is based on the
+SameValueZero
+algorithm. (It used to use
+SameValue
+, which treated
+--- CODE BLOCK 51 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+JSON.parse()
+--- END CODE BLOCK ---
+as different. Check
+browser compatibility
+.) This means
+--- CODE BLOCK 54 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+is considered the same as
+--- CODE BLOCK 56 ---
+JSON.parse()
+--- END CODE BLOCK ---
+(even though
+--- CODE BLOCK 57 ---
+const wrongMap = new Map();
+wrongMap["bla"] = "blaa";
+wrongMap["bla2"] = "blaaa2";
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
+--- END CODE BLOCK ---
+) and all other values are considered equal according to the semantics of the
+--- CODE BLOCK 58 ---
+const wrongMap = new Map();
+wrongMap["bla"] = "blaa";
+wrongMap["bla2"] = "blaaa2";
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
+--- END CODE BLOCK ---
+operator.
+Objects vs. Maps
+--- CODE BLOCK 59 ---
+wrongMap.has("bla"); // false
+wrongMap.delete("bla"); // false
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
+--- END CODE BLOCK ---
+is similar to
+--- CODE BLOCK 60 ---
+wrongMap.has("bla"); // false
+wrongMap.delete("bla"); // false
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
+--- END CODE BLOCK ---
+—both let you set keys to
+values, retrieve those values, delete keys, and detect whether something is
+stored at a key. For this reason (and because there were no built-in
+alternatives),
+--- CODE BLOCK 61 ---
+set(key, value)
+--- END CODE BLOCK ---
+has been used as
+--- CODE BLOCK 62 ---
+const contacts = new Map();
+contacts.set("Jessie", { phone: "213-555-1234", address: "123 N 1st Ave" });
+contacts.has("Jessie"); // true
+contacts.get("Hilary"); // undefined
+contacts.set("Hilary", { phone: "617-555-4321", address: "321 S 2nd St" });
+contacts.get("Jessie"); // {phone: "213-555-1234", address: "123 N 1st Ave"}
+contacts.delete("Raymond"); // false
+contacts.delete("Jessie"); // true
+console.log(contacts.size); // 1
+--- END CODE BLOCK ---
+historically.
+However, there are important differences that make
+--- CODE BLOCK 63 ---
+const contacts = new Map();
+contacts.set("Jessie", { phone: "213-555-1234", address: "123 N 1st Ave" });
+contacts.has("Jessie"); // true
+contacts.get("Hilary"); // undefined
+contacts.set("Hilary", { phone: "617-555-4321", address: "321 S 2nd St" });
+contacts.get("Jessie"); // {phone: "213-555-1234", address: "123 N 1st Ave"}
+contacts.delete("Raymond"); // false
+contacts.delete("Jessie"); // true
+console.log(contacts.size); // 1
+--- END CODE BLOCK ---
+preferable in some
+cases:
+Object
+Accidental Keys
+--- CODE BLOCK 70 ---
+RTCStatsReport
+--- END CODE BLOCK ---
+does not contain any keys by default. It only
+contains what is explicitly put into it.
+--- CODE BLOCK 72 ---
+interface RTCStatsReport {
+readonly maplike<DOMString, object>;
+--- END CODE BLOCK ---
+has a prototype, so it contains default keys
+that could collide with your own keys if you're not careful.
+Note:
+This can be bypassed by using
+--- CODE BLOCK 73 ---
+interface RTCStatsReport {
+readonly maplike<DOMString, object>;
+--- END CODE BLOCK ---
+but this is seldom done.
+Security
+--- CODE BLOCK 84 ---
+Symbol.iterator()
+--- END CODE BLOCK ---
+is safe to use with user-provided keys and values.
+Setting user-provided key-value pairs on an
+--- CODE BLOCK 91 ---
+AudioParamMap
+--- END CODE BLOCK ---
+may allow
+an attacker to override the object's prototype, which can lead to
+object injection attacks
+. Like the accidental keys issue, this can also be mitigated by using
+--- CODE BLOCK 92 ---
+RTCStatsReport
+--- END CODE BLOCK ---
+-prototype object.
+Key Types
+--- CODE BLOCK 93 ---
+EventCounts
+--- END CODE BLOCK ---
+'s keys can be any value (including functions,
+objects, or any primitive).
+The keys of an
+--- CODE BLOCK 94 ---
+KeyboardLayoutMap
+--- END CODE BLOCK ---
+must be either a
+--- CODE BLOCK 95 ---
+MIDIInputMap
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 96 ---
+MIDIOutputMap
+--- END CODE BLOCK ---
+Key Order
+The keys in
+--- CODE BLOCK 99 ---
+Map[Symbol.species]
+--- END CODE BLOCK ---
+are ordered in a straightforward
+way: A
+--- CODE BLOCK 100 ---
+Map.groupBy()
+--- END CODE BLOCK ---
+object iterates entries, keys, and values in
+the order of entry insertion.
+Although the keys of an ordinary
+--- CODE BLOCK 102 ---
+Map.prototype
+--- END CODE BLOCK ---
+are ordered now,
+this was not always the case, and the order is complex. As a result,
+it's best not to rely on property order.
+The order was first defined for own properties only in ECMAScript
+2015; ECMAScript 2020 defines order for inherited properties as well.
+But note that no single mechanism
+iterates
+of an object's properties; the various mechanisms
+each include different subsets of properties.
+--- CODE BLOCK 104 ---
+Map.prototype.constructor
+--- END CODE BLOCK ---
+includes only enumerable string-keyed properties;
+--- CODE BLOCK 107 ---
+Map.prototype.size
+--- END CODE BLOCK ---
+includes only own, enumerable,
+string-keyed properties;
+--- CODE BLOCK 109 ---
+Map.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+includes own,
+string-keyed properties even if non-enumerable;
+--- CODE BLOCK 110 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+does the same
+for just
+--- CODE BLOCK 112 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+-keyed properties, etc.)
+Size
+The number of items in a
+--- CODE BLOCK 113 ---
+Map.prototype.clear()
+--- END CODE BLOCK ---
+is easily retrieved from its
+--- CODE BLOCK 115 ---
+Map.prototype.delete()
+--- END CODE BLOCK ---
+property.
+Determining the number of items in an
+--- CODE BLOCK 119 ---
+map.has(key)
+--- END CODE BLOCK ---
+is more roundabout and less efficient. A common way to do it is through the
+--- CODE BLOCK 121 ---
+Map.prototype.entries()
+--- END CODE BLOCK ---
+of the array returned from
+--- CODE BLOCK 122 ---
+[key, value]
+--- END CODE BLOCK ---
+Iteration
+--- CODE BLOCK 124 ---
+Map.prototype.forEach()
+--- END CODE BLOCK ---
+is an
+iterable
+, so it can be directly iterated.
+--- CODE BLOCK 130 ---
+Map.prototype.get()
+--- END CODE BLOCK ---
+does not implement an
+iteration protocol
+, and so objects are not directly iterable using the JavaScript
+for...of
+statement (by default).
+Note:
+An object can implement the iteration protocol, or you can get an
+iterable for an object using
+--- CODE BLOCK 132 ---
+Map.prototype.has()
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+Map.prototype.keys()
+--- END CODE BLOCK ---
+for...in
+statement allows you to iterate over the
+enumerable
+properties of an object.
+Performance
+Performs better in scenarios involving frequent additions and removals
+of key-value pairs.
+Not optimized for frequent additions and removals of key-value pairs.
+Serialization and parsing
+No native support for serialization or parsing.
+(But you can build your own serialization and parsing support for
+--- CODE BLOCK 136 ---
+Map.prototype.set()
+--- END CODE BLOCK ---
+by using
+--- CODE BLOCK 139 ---
+Map.prototype.values()
+--- END CODE BLOCK ---
+with its
+replacer
+argument, and by using
+--- CODE BLOCK 141 ---
+Map.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+with its
+reviver
+argument. See the Stack Overflow question
+How do you JSON.stringify an ES6 Map?
+Native support for serialization from
+--- CODE BLOCK 142 ---
+[key, value]
+--- END CODE BLOCK ---
+JSON, using
+--- CODE BLOCK 144 ---
+const myMap = new Map();
+const keyString = "a string";
+const keyObj = {};
+const keyFunc = () => {};
+// setting the values
+myMap.set(keyString, "value associated with 'a string'");
+myMap.set(keyObj, "value associated with keyObj");
+myMap.set(keyFunc, "value associated with keyFunc");
+console.log(myMap.size); // 3
+// getting the values
+console.log(myMap.get(keyString)); // "value associated with 'a string'"
+console.log(myMap.get(keyObj)); // "value associated with keyObj"
+console.log(myMap.get(keyFunc)); // "value associated with keyFunc"
+console.log(myMap.get("a string")); // "value associated with 'a string'", because keyString === 'a string'
+console.log(myMap.get({})); // undefined, because keyObj !== {}
+console.log(myMap.get(() => {})); // undefined, because keyFunc !== () => {}
+--- END CODE BLOCK ---
+Native support for parsing from JSON to
+--- CODE BLOCK 145 ---
+const myMap = new Map();
+const keyString = "a string";
+const keyObj = {};
+const keyFunc = () => {};
+// setting the values
+myMap.set(keyString, "value associated with 'a string'");
+myMap.set(keyObj, "value associated with keyObj");
+myMap.set(keyFunc, "value associated with keyFunc");
+console.log(myMap.size); // 3
+// getting the values
+console.log(myMap.get(keyString)); // "value associated with 'a string'"
+console.log(myMap.get(keyObj)); // "value associated with keyObj"
+console.log(myMap.get(keyFunc)); // "value associated with keyFunc"
+console.log(myMap.get("a string")); // "value associated with 'a string'", because keyString === 'a string'
+console.log(myMap.get({})); // undefined, because keyObj !== {}
+console.log(myMap.get(() => {})); // undefined, because keyFunc !== () => {}
+--- END CODE BLOCK ---
+using
+--- CODE BLOCK 148 ---
+NaN !== NaN
+--- END CODE BLOCK ---
+Setting object properties
+Setting Object properties works for Map objects as well, and can cause
+considerable confusion.
+Therefore, this appears to work in a way:
+Copy to Clipboard
+--- CODE BLOCK 150 ---
+const myMap = new Map();
+myMap.set(NaN, "not a number");
+myMap.get(NaN);
+// "not a number"
+const otherNaN = Number("foo");
+myMap.get(otherNaN);
+// "not a number"
+--- END CODE BLOCK ---
+But that way of setting a property does not interact with the Map data
+structure. It uses the feature of the generic object. The value of 'bla' is not
+stored in the Map for queries. Other operations on the data fail:
+Copy to Clipboard
+--- CODE BLOCK 153 ---
+const myMap = new Map();
+myMap.set(0, "zero");
+myMap.set(1, "one");
+for (const [key, value] of myMap) {
+console.log(`${key} = ${value}`);
+// 0 = zero
+// 1 = one
+for (const key of myMap.keys()) {
+console.log(key);
+// 0
+// 1
+for (const value of myMap.values()) {
+console.log(value);
+// zero
+// one
+for (const [key, value] of myMap.entries()) {
+console.log(`${key} = ${value}`);
+// 0 = zero
+// 1 = one
+--- END CODE BLOCK ---
+The correct usage for storing data in the Map is through the
+--- CODE BLOCK 156 ---
+myMap.forEach((value, key) => {
+console.log(`${key} = ${value}`);
+// 0 = zero
+// 1 = one
+--- END CODE BLOCK ---
+method.
+Copy to Clipboard
+--- CODE BLOCK 157 ---
+myMap.forEach((value, key) => {
+console.log(`${key} = ${value}`);
+// 0 = zero
+// 1 = one
+--- END CODE BLOCK ---
+Map-like browser APIs
+Browser
+--- CODE BLOCK 159 ---
+const kvArray = [
+["key1", "value1"],
+["key2", "value2"],
+// Use the regular Map constructor to transform a 2D key-value Array into a map
+const myMap = new Map(kvArray);
+console.log(myMap.get("key1")); // "value1"
+// Use Array.from() to transform a map into a 2D key-value Array
+console.log(Array.from(myMap)); // Will show you exactly the same Array as kvArray
+// A succinct way to do the same, using the spread syntax
+console.log([...myMap]);
+// Or use the keys() or values() iterators, and convert them to an array
+console.log(Array.from(myMap.keys())); // ["key1", "key2"]
+--- END CODE BLOCK ---
+-like objects
+(or "maplike objects") are
+Web API
+interfaces that behave in many ways like a
+--- CODE BLOCK 162 ---
+const original = new Map([[1, "one"]]);
+const clone = new Map(original);
+console.log(clone.get(1)); // one
+console.log(original === clone); // false (useful for shallow comparison)
+--- END CODE BLOCK ---
+Just like
+--- CODE BLOCK 163 ---
+const original = new Map([[1, "one"]]);
+const clone = new Map(original);
+console.log(clone.get(1)); // one
+console.log(original === clone); // false (useful for shallow comparison)
+--- END CODE BLOCK ---
+, entries can be iterated in the same order that they were added to the object.
+--- CODE BLOCK 165 ---
+const first = new Map([
+[1, "one"],
+[2, "two"],
+[3, "three"],
+const second = new Map([
+[1, "uno"],
+[2, "dos"],
+// Merge two maps. The last repeated key wins.
+// Spread syntax essentially converts a Map to an Array
+const merged = new Map([...first, ...second]);
+console.log(merged.get(1)); // uno
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three
+--- END CODE BLOCK ---
+-like objects and
+--- CODE BLOCK 166 ---
+const first = new Map([
+[1, "one"],
+[2, "two"],
+[3, "three"],
+const second = new Map([
+[1, "uno"],
+[2, "dos"],
+// Merge two maps. The last repeated key wins.
+// Spread syntax essentially converts a Map to an Array
+const merged = new Map([...first, ...second]);
+console.log(merged.get(1)); // uno
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three
+--- END CODE BLOCK ---
+also have properties and methods that share the same name and behavior.
+However unlike
+--- CODE BLOCK 167 ---
+const first = new Map([
+[1, "one"],
+[2, "two"],
+[3, "three"],
+const second = new Map([
+[1, "uno"],
+[2, "dos"],
+// Merge maps with an array. The last repeated key wins.
+const merged = new Map([...first, ...second, [1, "un"]]);
+console.log(merged.get(1)); // un
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three
+--- END CODE BLOCK ---
+they only allow specific predefined types for the keys and values of each entry.
+The allowed types are set in the specification IDL definition.
+For example,
+--- CODE BLOCK 168 ---
+const first = new Map([
+[1, "one"],
+[2, "two"],
+[3, "three"],
+const second = new Map([
+[1, "uno"],
+[2, "dos"],
+// Merge maps with an array. The last repeated key wins.
+const merged = new Map([...first, ...second, [1, "un"]]);
+console.log(merged.get(1)); // un
+console.log(merged.get(2)); // dos
+console.log(merged.get(3)); // three
+--- END CODE BLOCK ---
+is a
+[CODE_BLOCK_71]
+-like object that must use strings for keys and objects for values.
+This is defined in the specification IDL below:
+webidl
+Copy to Clipboard
+[CODE_BLOCK_72]
+[CODE_BLOCK_74]
+-like objects are either read-only or read-writable (see the
+[CODE_BLOCK_75]
+keyword in the IDL above).
+Read-only
+[CODE_BLOCK_76]
+-like objects have the property
+[CODE_BLOCK_77]
+, and the methods:
+[CODE_BLOCK_78]
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+, and
+[CODE_BLOCK_84]
+Writeable
+[CODE_BLOCK_85]
+-like objects additionally have the methods:
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+, and
+[CODE_BLOCK_88]
+The methods and properties have the same behavior as the equivalent entities in
+[CODE_BLOCK_89]
+, except for the restriction on the types of the keys and values.
+The following are examples of read-only
+[CODE_BLOCK_90]
+-like browser objects:
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+Constructor
+[CODE_BLOCK_97]
+Creates a new
+[CODE_BLOCK_98]
+object.
+Static properties
+[CODE_BLOCK_99]
+The constructor function that is used to create derived objects.
+Static methods
+[CODE_BLOCK_100]
+Groups the elements of a given iterable using the values returned by a provided callback function. The final returned
+[CODE_BLOCK_101]
+uses the unique values from the test function as keys, which can be used to get the array of elements in each group.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_102]
+and shared by all
+[CODE_BLOCK_103]
+instances.
+[CODE_BLOCK_104]
+The constructor function that created the instance object. For
+[CODE_BLOCK_105]
+instances, the initial value is the
+[CODE_BLOCK_106]
+constructor.
+[CODE_BLOCK_107]
+Returns the number of key/value pairs in the
+[CODE_BLOCK_108]
+object.
+[CODE_BLOCK_109]
+The initial value of the
+[CODE_BLOCK_110]
+property is the string
+[CODE_BLOCK_111]
+. This property is used in
+[CODE_BLOCK_112]
+Instance methods
+[CODE_BLOCK_113]
+Removes all key-value pairs from the
+[CODE_BLOCK_114]
+object.
+[CODE_BLOCK_115]
+Returns
+[CODE_BLOCK_116]
+if an element in the
+[CODE_BLOCK_117]
+object existed and has been
+removed, or
+[CODE_BLOCK_118]
+if the element does not exist.
+[CODE_BLOCK_119]
+will return
+[CODE_BLOCK_120]
+afterwards.
+[CODE_BLOCK_121]
+Returns a new Iterator object that contains a two-member array of
+[CODE_BLOCK_122]
+for each element in the
+[CODE_BLOCK_123]
+object in insertion order.
+[CODE_BLOCK_124]
+Calls
+[CODE_BLOCK_125]
+once for each key-value pair present in the
+[CODE_BLOCK_126]
+object, in insertion order. If a
+[CODE_BLOCK_127]
+parameter is provided to
+[CODE_BLOCK_128]
+, it will be used as the
+[CODE_BLOCK_129]
+value for each callback.
+[CODE_BLOCK_130]
+Returns the value associated to the passed key, or
+[CODE_BLOCK_131]
+if there is none.
+[CODE_BLOCK_132]
+Returns a boolean indicating whether a value has been associated with the passed key in the
+[CODE_BLOCK_133]
+object or not.
+[CODE_BLOCK_134]
+Returns a new Iterator object that contains the keys for each element in the
+[CODE_BLOCK_135]
+object in insertion order.
+[CODE_BLOCK_136]
+Sets the value for the passed key in the
+[CODE_BLOCK_137]
+object. Returns the
+[CODE_BLOCK_138]
+object.
+[CODE_BLOCK_139]
+Returns a new Iterator object that contains the values for each element in the
+[CODE_BLOCK_140]
+object in insertion order.
+[CODE_BLOCK_141]
+Returns a new Iterator object that contains a two-member array of
+[CODE_BLOCK_142]
+for each element in the
+[CODE_BLOCK_143]
+object in insertion order.
+Examples
+Using the Map object
+Copy to Clipboard
+[CODE_BLOCK_144]
+Using NaN as Map keys
+[CODE_BLOCK_146]
+can also be used as a key. Even though every
+[CODE_BLOCK_147]
+not equal to itself (
+[CODE_BLOCK_148]
+is true), the following example works because
+[CODE_BLOCK_149]
+s are indistinguishable from each other:
+Copy to Clipboard
+[CODE_BLOCK_150]
+Iterating Map with for...of
+Maps can be iterated using a
+[CODE_BLOCK_152]
+loop:
+Copy to Clipboard
+[CODE_BLOCK_153]
+Iterating Map with forEach()
+Maps can be iterated using the
+[CODE_BLOCK_155]
+method:
+Copy to Clipboard
+[CODE_BLOCK_156]
+Relation with Array objects
+Copy to Clipboard
+[CODE_BLOCK_158]
+Cloning and merging Maps
+Just like
+[CODE_BLOCK_160]
+[CODE_BLOCK_161]
+s can be cloned:
+Copy to Clipboard
+[CODE_BLOCK_162]
+Note:
+Keep in mind that
+the data itself
+is not cloned. In other words, it is only a
+shallow copy
+of the
+[CODE_BLOCK_164]
+Maps can be merged, maintaining key uniqueness:
+Copy to Clipboard
+[CODE_BLOCK_165]
+Maps can be merged with Arrays, too:
+Copy to Clipboard
+[CODE_BLOCK_167]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-map-objects
+Browser compatibility
+See also
+Polyfill for
+[CODE_BLOCK_169]
+[CODE_BLOCK_170]
+es-shims polyfill of
+[CODE_BLOCK_171]
+[CODE_BLOCK_172]
+[CODE_BLOCK_173]
+[CODE_BLOCK_174]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 30, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

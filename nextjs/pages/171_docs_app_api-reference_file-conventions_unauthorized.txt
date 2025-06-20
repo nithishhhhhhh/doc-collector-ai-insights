@@ -1,0 +1,112 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/unauthorized
+SCRAPED: 2025-06-19 17:29:16
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+unauthorized.js
+unauthorized.js
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+unauthorized
+file is used to render UI when the
+--- CODE BLOCK 1 ---
+unauthorized
+--- END CODE BLOCK ---
+function is invoked during authentication. Along with allowing you to customize the UI, Next.js will return a
+--- CODE BLOCK 3 ---
+import Login from '@/app/components/Login'
+export default function Unauthorized() {
+return (
+<main>
+<h1>401 - Unauthorized</h1>
+<p>Please log in to access this page.</p>
+<Login />
+</main>
+--- END CODE BLOCK ---
+status code.
+app/unauthorized.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 4 ---
+import Login from '@/app/components/Login'
+export default function Unauthorized() {
+return (
+<main>
+<h1>401 - Unauthorized</h1>
+<p>Please log in to access this page.</p>
+<Login />
+</main>
+--- END CODE BLOCK ---
+Reference
+Props
+--- CODE BLOCK 6 ---
+unauthorized
+--- END CODE BLOCK ---
+components do not accept any props.
+Examples
+Displaying login UI to unauthenticated users
+You can use
+--- CODE BLOCK 7 ---
+unauthorized.js
+--- END CODE BLOCK ---
+function to render the
+--- CODE BLOCK 8 ---
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+export default async function DashboardPage() {
+const session = await verifySession()
+if (!session) {
+unauthorized()
+return <div>Dashboard</div>
+--- END CODE BLOCK ---
+file with a login UI.
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+export default async function DashboardPage() {
+const session = await verifySession()
+if (!session) {
+unauthorized()
+return <div>Dashboard</div>
+--- END CODE BLOCK ---
+app/unauthorized.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 11 ---
+import Login from '@/app/components/Login'
+export default function UnauthorizedPage() {
+return (
+<main>
+<h1>401 - Unauthorized</h1>
+<p>Please log in to access this page.</p>
+<Login />
+</main>
+--- END CODE BLOCK ---
+Version History
+Version
+Changes
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+introduced.
+Next Steps
+unauthorized
+API Reference for the unauthorized function.
+Was this helpful?
+supported.
+Send

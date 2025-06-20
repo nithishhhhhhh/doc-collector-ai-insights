@@ -1,0 +1,33 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/cli
+SCRAPED: 2025-06-19 17:20:22
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+API Reference
+You are currently viewing the documentation for Pages Router.
+Next.js comes with
+Command Line Interface (CLI) tools:
+--- CODE BLOCK 1 ---
+create-next-app
+--- END CODE BLOCK ---
+: Quickly create a new Next.js application using the default template or an
+example
+from a public GitHub repository.
+[CODE_BLOCK_2]
+: Run the Next.js development server, build your application, and more.
+create-next-app CLI
+Create Next.js apps using one command with the create-next-app CLI.
+next CLI
+Learn how to run and build your application with the Next.js CLI.
+Was this helpful?
+supported.
+Send

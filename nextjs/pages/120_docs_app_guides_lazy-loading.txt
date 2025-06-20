@@ -1,0 +1,223 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/lazy-loading
+SCRAPED: 2025-06-19 17:23:13
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Lazy Loading
+How to lazy load Client Components and libraries
+Lazy loading
+in Next.js helps improve the initial loading performance of an application by decreasing the amount of JavaScript needed to render a route.
+It allows you to defer loading of
+Client Components
+and imported libraries, and only include them in the client bundle when they're needed. For example, you might want to defer loading a modal until a user clicks to open it.
+There are two ways you can implement lazy loading in Next.js:
+Using
+Dynamic Imports
+with
+--- CODE BLOCK 1 ---
+next/dynamic
+--- END CODE BLOCK ---
+Using
+--- CODE BLOCK 2 ---
+React.lazy()
+--- END CODE BLOCK ---
+with
+Suspense
+By default, Server Components are automatically
+code split
+, and you can use
+streaming
+to progressively send pieces of UI from the server to the client. Lazy loading applies to Client Components.
+--- CODE BLOCK 3 ---
+next/dynamic
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+next/dynamic
+--- END CODE BLOCK ---
+is a composite of
+--- CODE BLOCK 5 ---
+React.lazy()
+--- END CODE BLOCK ---
+Suspense
+. It behaves the same way in the
+--- CODE BLOCK 8 ---
+'use client'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+// Client Components:
+const ComponentA = dynamic(() => import('../components/A'))
+const ComponentB = dynamic(() => import('../components/B'))
+const ComponentC = dynamic(() => import('../components/C'), { ssr: false })
+export default function ClientComponentExample() {
+const [showMore, setShowMore] = useState(false)
+return (
+<div>
+{/* Load immediately, but in a separate client bundle */}
+<ComponentA />
+{/* Load on demand, only when/if the condition is met */}
+{showMore && <ComponentB />}
+<button onClick={() => setShowMore(!showMore)}>Toggle</button>
+{/* Load only on the client side */}
+<ComponentC />
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+'use client'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+// Client Components:
+const ComponentA = dynamic(() => import('../components/A'))
+const ComponentB = dynamic(() => import('../components/B'))
+const ComponentC = dynamic(() => import('../components/C'), { ssr: false })
+export default function ClientComponentExample() {
+const [showMore, setShowMore] = useState(false)
+return (
+<div>
+{/* Load immediately, but in a separate client bundle */}
+<ComponentA />
+{/* Load on demand, only when/if the condition is met */}
+{showMore && <ComponentB />}
+<button onClick={() => setShowMore(!showMore)}>Toggle</button>
+{/* Load only on the client side */}
+<ComponentC />
+</div>
+--- END CODE BLOCK ---
+directories to allow for incremental migration.
+Examples
+Importing Client Components
+app/page.js
+--- CODE BLOCK 10 ---
+React.lazy()
+--- END CODE BLOCK ---
+Note:
+When a Server Component dynamically imports a Client Component, automatic
+code splitting
+is currently
+supported.
+Skipping SSR
+When using
+--- CODE BLOCK 15 ---
+const ComponentC = dynamic(() => import('../components/C'), { ssr: false })
+--- END CODE BLOCK ---
+and Suspense, Client Components will be
+prerendered
+(SSR) by default.
+Note:
+--- CODE BLOCK 16 ---
+import dynamic from 'next/dynamic'
+// Server Component:
+const ServerComponent = dynamic(() => import('../components/ServerComponent'))
+export default function ServerComponentExample() {
+return (
+<div>
+<ServerComponent />
+</div>
+--- END CODE BLOCK ---
+option will only work for Client Components, move it into Client Components ensure the client code-splitting working properly.
+If you want to disable pre-rendering for a Client Component, you can use the
+--- CODE BLOCK 17 ---
+import dynamic from 'next/dynamic'
+// Server Component:
+const ServerComponent = dynamic(() => import('../components/ServerComponent'))
+export default function ServerComponentExample() {
+return (
+<div>
+<ServerComponent />
+</div>
+--- END CODE BLOCK ---
+option set to
+--- CODE BLOCK 20 ---
+next/dynamic
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+'use client'
+import { useState } from 'react'
+const names = ['Tim', 'Joe', 'Bel', 'Lee']
+export default function Page() {
+const [results, setResults] = useState()
+return (
+<div>
+<input
+type="text"
+placeholder="Search"
+onChange={async (e) => {
+const { value } = e.currentTarget
+// Dynamically load fuse.js
+const Fuse = (await import('fuse.js')).default
+const fuse = new Fuse(names)
+setResults(fuse.search(value))
+<pre>Results: {JSON.stringify(results, null, 2)}</pre>
+</div>
+--- END CODE BLOCK ---
+Importing Server Components
+If you dynamically import a Server Component, only the Client Components that are children of the Server Component will be lazy-loaded - not the Server Component itself.
+It will also help preload the static assets such as CSS when you're using it in Server Components.
+app/page.js
+--- CODE BLOCK 25 ---
+'use client'
+import dynamic from 'next/dynamic'
+const WithCustomLoading = dynamic(
+() => import('../components/WithCustomLoading'),
+loading: () => <p>Loading...</p>,
+export default function Page() {
+return (
+<div>
+{/* The loading component will be rendered while  <WithCustomLoading/> is loading */}
+<WithCustomLoading />
+</div>
+--- END CODE BLOCK ---
+Note:
+--- CODE BLOCK 28 ---
+'use client'
+export function Hello() {
+return <p>Hello!</p>
+--- END CODE BLOCK ---
+option is not supported in Server Components. You will see an error if you try to use it in Server Components.
+--- CODE BLOCK 29 ---
+'use client'
+export function Hello() {
+return <p>Hello!</p>
+--- END CODE BLOCK ---
+is not allowed with
+--- CODE BLOCK 30 ---
+import dynamic from 'next/dynamic'
+const ClientComponent = dynamic(() =>
+import('../components/hello').then((mod) => mod.Hello)
+--- END CODE BLOCK ---
+in Server Components. Please move it into a Client Component.
+Loading External Libraries
+External libraries can be loaded on demand using the
+--- CODE BLOCK 31 ---
+import dynamic from 'next/dynamic'
+const ClientComponent = dynamic(() =>
+import('../components/hello').then((mod) => mod.Hello)
+--- END CODE BLOCK ---
+function. This example uses the external library
+[CODE_BLOCK_22]
+for fuzzy search. The module is only loaded on the client after the user types in the search input.
+app/page.js
+[CODE_BLOCK_23]
+Adding a custom loading component
+app/page.js
+[CODE_BLOCK_25]
+Importing Named Exports
+To dynamically import a named export, you can return it from the Promise returned by
+[CODE_BLOCK_27]
+function:
+components/hello.js
+[CODE_BLOCK_28]
+app/page.js
+[CODE_BLOCK_30]
+Was this helpful?
+supported.
+Send

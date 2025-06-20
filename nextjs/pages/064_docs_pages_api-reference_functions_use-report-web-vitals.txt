@@ -1,0 +1,235 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/use-report-web-vitals
+SCRAPED: 2025-06-19 17:16:33
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useReportWebVitals
+You are currently viewing the documentation for Pages Router.
+useReportWebVitals
+--- CODE BLOCK 1 ---
+useReportWebVitals
+--- END CODE BLOCK ---
+hook allows you to report
+Core Web Vitals
+, and can be used in combination with your analytics service.
+New functions passed to
+--- CODE BLOCK 2 ---
+useReportWebVitals
+--- END CODE BLOCK ---
+are called with the available metrics up to that point. To prevent reporting duplicated data, ensure that the callback function reference does not change (as shown in the code examples below).
+pages/_app.js
+--- CODE BLOCK 3 ---
+import { useReportWebVitals } from 'next/web-vitals'
+const logWebVitals = (metric) => {
+console.log(metric)
+function MyApp({ Component, pageProps }) {
+useReportWebVitals(logWebVitals)
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+useReportWebVitals
+--- CODE BLOCK 10 ---
+navigationType
+--- END CODE BLOCK ---
+object passed as the hook's argument consists of a number of properties:
+--- CODE BLOCK 13 ---
+"back_forward"
+--- END CODE BLOCK ---
+: Unique identifier for the metric in the context of the current page load
+--- CODE BLOCK 14 ---
+"prerender"
+--- END CODE BLOCK ---
+: The name of the performance metric. Possible values include names of
+Web Vitals
+metrics (TTFB, FCP, LCP, FID, CLS) specific to a web application.
+--- CODE BLOCK 17 ---
+"needs-improvement"
+--- END CODE BLOCK ---
+: The difference between the current value and the previous value of the metric. The value is typically in milliseconds and represents the change in the metric's value over time.
+--- CODE BLOCK 21 ---
+import { useReportWebVitals } from 'next/web-vitals'
+const handleWebVitals = (metric) => {
+switch (metric.name) {
+case 'FCP': {
+// handle FCP results
+case 'LCP': {
+// handle LCP results
+// ...
+function MyApp({ Component, pageProps }) {
+useReportWebVitals(handleWebVitals)
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+: An array of
+Performance Entries
+associated with the metric. These entries provide detailed information about the performance events related to the metric.
+--- CODE BLOCK 22 ---
+import { useReportWebVitals } from 'next/web-vitals'
+const handleWebVitals = (metric) => {
+switch (metric.name) {
+case 'FCP': {
+// handle FCP results
+case 'LCP': {
+// handle LCP results
+// ...
+function MyApp({ Component, pageProps }) {
+useReportWebVitals(handleWebVitals)
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+: Indicates the
+type of navigation
+that triggered the metric collection. Possible values include
+--- CODE BLOCK 23 ---
+Next.js-hydration
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+Next.js-route-change-to-render
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+Next.js-render
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 26 ---
+import { useReportWebVitals } from 'next/web-vitals'
+function handleCustomMetrics(metrics) {
+switch (metric.name) {
+case 'Next.js-hydration':
+// handle hydration results
+break
+case 'Next.js-route-change-to-render':
+// handle route-change to render results
+break
+case 'Next.js-render':
+// handle render results
+break
+default:
+break
+function MyApp({ Component, pageProps }) {
+useReportWebVitals(handleCustomMetrics)
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+import { useReportWebVitals } from 'next/web-vitals'
+function handleCustomMetrics(metrics) {
+switch (metric.name) {
+case 'Next.js-hydration':
+// handle hydration results
+break
+case 'Next.js-route-change-to-render':
+// handle route-change to render results
+break
+case 'Next.js-render':
+// handle render results
+break
+default:
+break
+function MyApp({ Component, pageProps }) {
+useReportWebVitals(handleCustomMetrics)
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+: A qualitative rating of the metric value, providing an assessment of the performance. Possible values are
+--- CODE BLOCK 28 ---
+function postWebVitals(metrics) {
+const body = JSON.stringify(metric)
+const url = 'https://example.com/analytics'
+// Use `navigator.sendBeacon()` if available, falling back to `fetch()`.
+if (navigator.sendBeacon) {
+navigator.sendBeacon(url, body)
+} else {
+fetch(url, { body, method: 'POST', keepalive: true })
+useReportWebVitals(postWebVitals)
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+function postWebVitals(metrics) {
+const body = JSON.stringify(metric)
+const url = 'https://example.com/analytics'
+// Use `navigator.sendBeacon()` if available, falling back to `fetch()`.
+if (navigator.sendBeacon) {
+navigator.sendBeacon(url, body)
+} else {
+fetch(url, { body, method: 'POST', keepalive: true })
+useReportWebVitals(postWebVitals)
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 31 ---
+useReportWebVitals(metric => {
+// Use `window.gtag` if you initialized Google Analytics as this example:
+// https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics
+window.gtag('event', metric.name, {
+value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value), // values must be integers
+event_label: metric.id, // id unique to current page load
+non_interaction: true, // avoids affecting bounce rate.
+--- END CODE BLOCK ---
+. The rating is typically determined by comparing the metric value against predefined thresholds that indicate acceptable or suboptimal performance.
+--- CODE BLOCK 32 ---
+useReportWebVitals(metric => {
+// Use `window.gtag` if you initialized Google Analytics as this example:
+// https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics
+window.gtag('event', metric.name, {
+value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value), // values must be integers
+event_label: metric.id, // id unique to current page load
+non_interaction: true, // avoids affecting bounce rate.
+--- END CODE BLOCK ---
+: The actual value or duration of the performance entry, typically in milliseconds. The value provides a quantitative measure of the performance aspect being tracked by the metric. The source of the value depends on the specific metric being measured and can come from various
+Performance API
+Web Vitals
+Web Vitals
+are a set of useful metrics that aim to capture the user
+experience of a web page. The following web vitals are all included:
+Time to First Byte
+(TTFB)
+First Contentful Paint
+(FCP)
+Largest Contentful Paint
+(LCP)
+First Input Delay
+(FID)
+Cumulative Layout Shift
+(CLS)
+Interaction to Next Paint
+(INP)
+You can handle all the results of these metrics using the
+[CODE_BLOCK_20]
+property.
+pages/_app.js
+[CODE_BLOCK_21]
+Custom Metrics
+In addition to the core metrics listed above, there are some additional custom metrics that
+measure the time it takes for the page to hydrate and render:
+[CODE_BLOCK_23]
+: Length of time it takes for the page to start and finish hydrating (in ms)
+[CODE_BLOCK_24]
+: Length of time it takes for a page to start rendering after a
+route change (in ms)
+[CODE_BLOCK_25]
+: Length of time it takes for a page to finish render after a route change (in ms)
+You can handle all the results of these metrics separately:
+pages/_app.js
+[CODE_BLOCK_26]
+These metrics work in all browsers that support the
+User Timing API
+Sending results to external systems
+You can send results to any endpoint to measure and track
+real user performance on your site. For example:
+[CODE_BLOCK_28]
+Good to know
+: If you use
+Google Analytics
+, using the
+[CODE_BLOCK_30]
+value can allow you to construct metric distributions manually (to calculate percentiles,
+etc.)
+[CODE_BLOCK_31]
+Read more about
+sending results to Google Analytics
+Was this helpful?
+supported.
+Send

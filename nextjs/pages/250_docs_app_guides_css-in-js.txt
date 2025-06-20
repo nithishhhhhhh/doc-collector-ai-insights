@@ -1,0 +1,274 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/css-in-js
+SCRAPED: 2025-06-19 17:38:44
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+CSS-in-JS
+How to use CSS-in-JS libraries
+Warning:
+Using CSS-in-JS with newer React features like Server Components and Streaming requires library authors to support the latest version of React, including
+concurrent rendering
+The following libraries are supported in Client Components in the
+--- CODE BLOCK 4 ---
+@fluentui/react-components
+--- END CODE BLOCK ---
+directory (alphabetical):
+--- CODE BLOCK 6 ---
+@mui/material
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+styled-components
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+vanilla-extract
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+useServerInsertedHTML
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+'use client'
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { StyleRegistry, createStyleRegistry } from 'styled-jsx'
+export default function StyledJsxRegistry({
+children,
+}: {
+children: React.ReactNode
+}) {
+// Only create stylesheet once with lazy initial state
+// x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+const [jsxStyleRegistry] = useState(() => createStyleRegistry())
+useServerInsertedHTML(() => {
+const styles = jsxStyleRegistry.styles()
+jsxStyleRegistry.flush()
+return <>{styles}</>
+return <StyleRegistry registry={jsxStyleRegistry}>{children}</StyleRegistry>
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+'use client'
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { StyleRegistry, createStyleRegistry } from 'styled-jsx'
+export default function StyledJsxRegistry({
+children,
+}: {
+children: React.ReactNode
+}) {
+// Only create stylesheet once with lazy initial state
+// x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+const [jsxStyleRegistry] = useState(() => createStyleRegistry())
+useServerInsertedHTML(() => {
+const styles = jsxStyleRegistry.styles()
+jsxStyleRegistry.flush()
+return <>{styles}</>
+return <StyleRegistry registry={jsxStyleRegistry}>{children}</StyleRegistry>
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+import StyledJsxRegistry from './registry'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html>
+<body>
+<StyledJsxRegistry>{children}</StyledJsxRegistry>
+</body>
+</html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+import StyledJsxRegistry from './registry'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html>
+<body>
+<StyledJsxRegistry>{children}</StyledJsxRegistry>
+</body>
+</html>
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+styled-components@6
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+module.exports = {
+compiler: {
+styledComponents: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+module.exports = {
+compiler: {
+styledComponents: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+styled-components
+--- END CODE BLOCK ---
+The following are currently working on support:
+--- CODE BLOCK 31 ---
+useServerInsertedHTML
+--- END CODE BLOCK ---
+Good to know
+: We're testing out different CSS-in-JS libraries and we'll be adding more examples for libraries that support React 18 features and/or the
+--- CODE BLOCK 33 ---
+'use client'
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+export default function StyledComponentsRegistry({
+children,
+}: {
+children: React.ReactNode
+}) {
+// Only create stylesheet once with lazy initial state
+// x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
+useServerInsertedHTML(() => {
+const styles = styledComponentsStyleSheet.getStyleElement()
+styledComponentsStyleSheet.instance.clearTag()
+return <>{styles}</>
+if (typeof window !== 'undefined') return <>{children}</>
+return (
+<StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+{children}
+</StyleSheetManager>
+--- END CODE BLOCK ---
+directory.
+Configuring CSS-in-JS in
+--- CODE BLOCK 34 ---
+'use client'
+import React, { useState } from 'react'
+import { useServerInsertedHTML } from 'next/navigation'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+export default function StyledComponentsRegistry({
+children,
+}: {
+children: React.ReactNode
+}) {
+// Only create stylesheet once with lazy initial state
+// x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
+useServerInsertedHTML(() => {
+const styles = styledComponentsStyleSheet.getStyleElement()
+styledComponentsStyleSheet.instance.clearTag()
+return <>{styles}</>
+if (typeof window !== 'undefined') return <>{children}</>
+return (
+<StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+{children}
+</StyleSheetManager>
+--- END CODE BLOCK ---
+Configuring CSS-in-JS is a three-step opt-in process that involves:
+style registry
+to collect all CSS rules in a render.
+The new
+--- CODE BLOCK 36 ---
+import StyledComponentsRegistry from './lib/registry'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html>
+<body>
+<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+</body>
+</html>
+--- END CODE BLOCK ---
+hook to inject rules before any content that might use them.
+A Client Component that wraps your app with the style registry during initial server-side rendering.
+--- CODE BLOCK 37 ---
+import StyledComponentsRegistry from './lib/registry'
+export default function RootLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html>
+<body>
+<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+</body>
+</html>
+--- END CODE BLOCK ---
+Using
+--- CODE BLOCK 39 ---
+styled-components
+--- END CODE BLOCK ---
+in Client Components requires using
+[CODE_BLOCK_21]
+. First, create a new registry:
+app/registry.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_22]
+Then, wrap your
+root layout
+with the registry:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_24]
+View an example here
+Styled Components
+Below is an example of how to configure
+[CODE_BLOCK_26]
+or newer:
+First, enable styled-components in
+[CODE_BLOCK_27]
+next.config.js
+[CODE_BLOCK_28]
+Then, use the
+[CODE_BLOCK_30]
+API to create a global registry component to collect all CSS style rules generated during a render, and a function to return those rules. Then use the
+[CODE_BLOCK_31]
+hook to inject the styles collected in the registry into the
+[CODE_BLOCK_32]
+HTML tag in the root layout.
+lib/registry.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_33]
+Wrap the
+[CODE_BLOCK_35]
+of the root layout with the style registry component:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_36]
+View an example here
+Good to know
+During server rendering, styles will be extracted to a global registry and flushed to the
+[CODE_BLOCK_38]
+of your HTML. This ensures the style rules are placed before any content that might use them. In the future, we may use an upcoming React feature to determine where to inject the styles.
+During streaming, styles from each chunk will be collected and appended to existing styles. After client-side hydration is complete,
+[CODE_BLOCK_39]
+will take over as usual and inject any further dynamic styles.
+We specifically use a Client Component at the top level of the tree for the style registry because it's more efficient to extract CSS rules this way. It avoids re-generating styles on subsequent server renders, and prevents them from being sent in the Server Component payload.
+For advanced use cases where you need to configure individual properties of styled-components compilation, you can read our
+Next.js styled-components API reference
+to learn more.
+Was this helpful?
+supported.
+Send

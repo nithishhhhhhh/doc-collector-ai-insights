@@ -1,0 +1,1055 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/components/font
+SCRAPED: 2025-06-19 17:22:44
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Components
+Font
+You are currently viewing the documentation for Pages Router.
+Font Module
+--- CODE BLOCK 4 ---
+import { Inter } from 'next/font/google'
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={inter.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+automatically optimizes your fonts (including custom fonts) and removes external network requests for improved privacy and performance.
+It includes
+built-in automatic self-hosting
+for any font file. This means you can optimally load web fonts with no
+layout shift
+You can also conveniently use all
+Google Fonts
+. CSS and font files are downloaded at build time and self-hosted with the rest of your static assets.
+No requests are sent to Google by the browser.
+To use the font in all your pages, add it to
+--- CODE BLOCK 5 ---
+import { Inter } from 'next/font/google'
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={inter.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+file
+under
+--- CODE BLOCK 7 ---
+font/google
+--- END CODE BLOCK ---
+as shown below:
+pages/_app.js
+--- CODE BLOCK 17 ---
+adjustFontFallback
+--- END CODE BLOCK ---
+🎥 Watch:
+Learn more about using
+--- CODE BLOCK 21 ---
+Array<{path: string, weight?: string, style?: string}>
+--- END CODE BLOCK ---
+YouTube (6 minutes)
+Reference
+--- CODE BLOCK 22 ---
+next/font/local
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+src:'./fonts/my-font.woff2'
+--- END CODE BLOCK ---
+Type
+Required
+--- CODE BLOCK 24 ---
+my-font.woff2
+--- END CODE BLOCK ---
+String or Array of Objects
+--- CODE BLOCK 27 ---
+src:[{path: './inter/Inter-Thin.ttf', weight: '100',},{path: './inter/Inter-Regular.ttf',weight: '400',},{path: './inter/Inter-Bold-Italic.ttf', weight: '700',style: 'italic',},]
+--- END CODE BLOCK ---
+String or Array
+Required/Optional
+--- CODE BLOCK 28 ---
+app/page.tsx
+--- END CODE BLOCK ---
+String or Array
+--- CODE BLOCK 29 ---
+src:'../styles/fonts/my-font.ttf'
+--- END CODE BLOCK ---
+Array of Strings
+--- CODE BLOCK 30 ---
+my-font.ttf
+--- END CODE BLOCK ---
+Array of Strings
+--- CODE BLOCK 31 ---
+styles/fonts
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 34 ---
+next/font/google
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 35 ---
+next/font/google
+--- END CODE BLOCK ---
+Array of Strings
+--- CODE BLOCK 36 ---
+next/font/local
+--- END CODE BLOCK ---
+Boolean or String
+--- CODE BLOCK 37 ---
+weight: '400'
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 50 ---
+weight: '100 900'
+--- END CODE BLOCK ---
+Array of Objects
+--- CODE BLOCK 53 ---
+weight: ['100','400','900']
+--- END CODE BLOCK ---
+The path of the font file as a string or an array of objects (with type
+--- CODE BLOCK 57 ---
+next/font/google
+--- END CODE BLOCK ---
+) relative to the directory where the font loader function is called.
+Used in
+--- CODE BLOCK 58 ---
+next/font/google
+--- END CODE BLOCK ---
+Required
+Examples:
+--- CODE BLOCK 59 ---
+next/font/local
+--- END CODE BLOCK ---
+where
+--- CODE BLOCK 60 ---
+style: 'italic'
+--- END CODE BLOCK ---
+is placed in a directory named
+--- CODE BLOCK 63 ---
+next/font/google
+--- END CODE BLOCK ---
+inside the
+--- CODE BLOCK 64 ---
+style: 'oblique'
+--- END CODE BLOCK ---
+directory
+--- CODE BLOCK 65 ---
+next/font/local
+--- END CODE BLOCK ---
+if the font loader function is called in
+--- CODE BLOCK 66 ---
+style: ['italic','normal']
+--- END CODE BLOCK ---
+using
+--- CODE BLOCK 67 ---
+next/font/google
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 74 ---
+next/font/google
+--- END CODE BLOCK ---
+is placed in
+--- CODE BLOCK 75 ---
+subsets: ['latin']
+--- END CODE BLOCK ---
+at the root of the project
+--- CODE BLOCK 80 ---
+next/font/google
+--- END CODE BLOCK ---
+The font
+--- CODE BLOCK 81 ---
+axes: ['slnt']
+--- END CODE BLOCK ---
+with the following possibilities:
+A string with possible values of the weights available for the specific font or a range of values if it's a
+variable
+font
+An array of weight values if the font is not a
+variable google font
+. It applies to
+--- CODE BLOCK 96 ---
+next/font/google
+--- END CODE BLOCK ---
+only.
+Used in
+--- CODE BLOCK 97 ---
+next/font/local
+--- END CODE BLOCK ---
+--- CODE BLOCK 98 ---
+display: 'optional'
+--- END CODE BLOCK ---
+Required if the font being used is
+variable
+Examples:
+--- CODE BLOCK 102 ---
+next/font/google
+--- END CODE BLOCK ---
+: A string for a single weight value - for the font
+--- CODE BLOCK 103 ---
+next/font/local
+--- END CODE BLOCK ---
+, the possible values are
+--- CODE BLOCK 104 ---
+preload: false
+--- END CODE BLOCK ---
+--- CODE BLOCK 106 ---
+next/font/google
+--- END CODE BLOCK ---
+--- CODE BLOCK 107 ---
+next/font/local
+--- END CODE BLOCK ---
+--- CODE BLOCK 108 ---
+fallback: ['system-ui', 'arial']
+--- END CODE BLOCK ---
+--- CODE BLOCK 111 ---
+adjustFontFallback
+--- END CODE BLOCK ---
+--- CODE BLOCK 112 ---
+next/font/google
+--- END CODE BLOCK ---
+--- CODE BLOCK 114 ---
+next/font/local
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+'Times New Roman'
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+next/font/google
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+next/font/local
+--- END CODE BLOCK ---
+where
+--- CODE BLOCK 122 ---
+adjustFontFallback: false
+--- END CODE BLOCK ---
+is the default)
+--- CODE BLOCK 123 ---
+next/font/google
+--- END CODE BLOCK ---
+: A string for the range between
+--- CODE BLOCK 124 ---
+adjustFontFallback: 'Times New Roman'
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+next/font/local
+--- END CODE BLOCK ---
+for a variable font
+--- CODE BLOCK 127 ---
+next/font/google
+--- END CODE BLOCK ---
+: An array of 3 possible values for a non variable font
+--- CODE BLOCK 128 ---
+next/font/local
+--- END CODE BLOCK ---
+The font
+--- CODE BLOCK 129 ---
+variable: '--my-font'
+--- END CODE BLOCK ---
+with the following possibilities:
+A string
+value
+with default value of
+--- CODE BLOCK 131 ---
+declarations
+--- END CODE BLOCK ---
+An array of style values if the font is not a
+variable google font
+. It applies to
+--- CODE BLOCK 133 ---
+next/font/local
+--- END CODE BLOCK ---
+only.
+Used in
+--- CODE BLOCK 134 ---
+declarations: [{ prop: 'ascent-override', value: '90%' }]
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+next/font/google
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 138 ---
+import { Inter } from 'next/font/google'
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={inter.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+: A string - it can be
+--- CODE BLOCK 139 ---
+import { Inter } from 'next/font/google'
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={inter.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 140 ---
+import { Roboto } from 'next/font/google'
+const roboto = Roboto({
+weight: '400',
+subsets: ['latin'],
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={roboto.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+import { Roboto } from 'next/font/google'
+const roboto = Roboto({
+weight: '400',
+subsets: ['latin'],
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={roboto.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 142 ---
+const roboto = Roboto({
+weight: ['400', '700'],
+style: ['normal', 'italic'],
+subsets: ['latin'],
+display: 'swap',
+--- END CODE BLOCK ---
+: A string - it can take any value for
+--- CODE BLOCK 143 ---
+const roboto = Roboto({
+weight: ['400', '700'],
+style: ['normal', 'italic'],
+subsets: ['latin'],
+display: 'swap',
+--- END CODE BLOCK ---
+but is expected to come from
+standard font styles
+--- CODE BLOCK 144 ---
+Roboto Mono
+--- END CODE BLOCK ---
+: An array of 2 values for
+--- CODE BLOCK 145 ---
+Roboto_Mono
+--- END CODE BLOCK ---
+- the values are from
+--- CODE BLOCK 149 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<style jsx global>{`
+html {
+font-family: ${inter.style.fontFamily};
+`}</style>
+<Component {...pageProps} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 150 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+export default function MyApp({ Component, pageProps }) {
+return (
+<style jsx global>{`
+html {
+font-family: ${inter.style.fontFamily};
+`}</style>
+<Component {...pageProps} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 151 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+export default function Home() {
+return (
+<div className={inter.className}>
+<p>Hello World</p>
+</div>
+--- END CODE BLOCK ---
+The font
+--- CODE BLOCK 152 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+export default function Home() {
+return (
+<div className={inter.className}>
+<p>Hello World</p>
+</div>
+--- END CODE BLOCK ---
+defined by an array of string values with the names of each subset you would like to be
+preloaded
+. Fonts specified via
+--- CODE BLOCK 155 ---
+const inter = Inter({ subsets: ['latin'] })
+--- END CODE BLOCK ---
+will have a link preload tag injected into the head when the
+--- CODE BLOCK 156 ---
+const inter = Inter({ subsets: ['latin'] })
+--- END CODE BLOCK ---
+option is true, which is the default.
+Used in
+--- CODE BLOCK 158 ---
+import { Inter, Roboto_Mono } from 'next/font/google'
+export const inter = Inter({
+subsets: ['latin'],
+display: 'swap',
+export const roboto_mono = Roboto_Mono({
+subsets: ['latin'],
+display: 'swap',
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 159 ---
+import { Inter, Roboto_Mono } from 'next/font/google'
+export const inter = Inter({
+subsets: ['latin'],
+display: 'swap',
+export const roboto_mono = Roboto_Mono({
+subsets: ['latin'],
+display: 'swap',
+--- END CODE BLOCK ---
+: An array with the subset
+--- CODE BLOCK 161 ---
+Roboto Mono
+--- END CODE BLOCK ---
+You can find a list of all subsets on the Google Fonts page for your font.
+--- CODE BLOCK 162 ---
+html {
+font-family: var(--font-inter);
+h1 {
+font-family: var(--font-roboto-mono);
+--- END CODE BLOCK ---
+Some variable fonts have extra
+--- CODE BLOCK 163 ---
+html {
+font-family: var(--font-inter);
+h1 {
+font-family: var(--font-roboto-mono);
+--- END CODE BLOCK ---
+that can be included. By default, only the font weight is included to keep the file size down. The possible values of
+--- CODE BLOCK 166 ---
+Roboto Mono
+--- END CODE BLOCK ---
+depend on the specific font.
+Used in
+--- CODE BLOCK 167 ---
+next/font/local
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 169 ---
+import localFont from 'next/font/local'
+// Font files can be colocated inside of `pages`
+const myFont = localFont({ src: './my-font.woff2' })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={myFont.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+: An array with value
+--- CODE BLOCK 170 ---
+import localFont from 'next/font/local'
+// Font files can be colocated inside of `pages`
+const myFont = localFont({ src: './my-font.woff2' })
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={myFont.className}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+for the
+--- CODE BLOCK 172 ---
+const roboto = localFont({
+src: [
+path: './Roboto-Regular.woff2',
+weight: '400',
+style: 'normal',
+path: './Roboto-Italic.woff2',
+weight: '400',
+style: 'italic',
+path: './Roboto-Bold.woff2',
+weight: '700',
+style: 'normal',
+path: './Roboto-BoldItalic.woff2',
+weight: '700',
+style: 'italic',
+--- END CODE BLOCK ---
+variable font which has
+--- CODE BLOCK 173 ---
+const roboto = localFont({
+src: [
+path: './Roboto-Regular.woff2',
+weight: '400',
+style: 'normal',
+path: './Roboto-Italic.woff2',
+weight: '400',
+style: 'italic',
+path: './Roboto-Bold.woff2',
+weight: '700',
+style: 'normal',
+path: './Roboto-BoldItalic.woff2',
+weight: '700',
+style: 'italic',
+--- END CODE BLOCK ---
+as additional
+--- CODE BLOCK 176 ---
+Roboto_Mono
+--- END CODE BLOCK ---
+as shown
+here
+. You can find the possible
+--- CODE BLOCK 177 ---
+next/font/google
+--- END CODE BLOCK ---
+values for your font by using the filter on the
+Google variable fonts page
+and looking for axes other than
+--- CODE BLOCK 180 ---
+roboto_mono
+--- END CODE BLOCK ---
+--- CODE BLOCK 181 ---
+inter.variable
+--- END CODE BLOCK ---
+The font
+--- CODE BLOCK 182 ---
+roboto_mono.variable
+--- END CODE BLOCK ---
+with possible string
+values
+--- CODE BLOCK 185 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({
+subsets: ['latin'],
+variable: '--font-inter',
+const roboto_mono = Roboto_Mono({
+subsets: ['latin'],
+display: 'swap',
+variable: '--font-roboto-mono',
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={`${inter.variable} ${roboto_mono.variable} font-sans`}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 186 ---
+import { Inter } from 'next/font/google'
+const inter = Inter({
+subsets: ['latin'],
+variable: '--font-inter',
+const roboto_mono = Roboto_Mono({
+subsets: ['latin'],
+display: 'swap',
+variable: '--font-roboto-mono',
+export default function MyApp({ Component, pageProps }) {
+return (
+<main className={`${inter.variable} ${roboto_mono.variable} font-sans`}>
+<Component {...pageProps} />
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 187 ---
+@import "tailwindcss";
+@theme inline {
+--font-sans: var(--font-inter);
+--font-mono: var(--font-roboto-mono);
+--- END CODE BLOCK ---
+--- CODE BLOCK 188 ---
+@import "tailwindcss";
+@theme inline {
+--font-sans: var(--font-inter);
+--font-mono: var(--font-roboto-mono);
+--- END CODE BLOCK ---
+--- CODE BLOCK 189 ---
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+content: [
+'./pages/**/*.{js,ts,jsx,tsx}',
+'./components/**/*.{js,ts,jsx,tsx}',
+'./app/**/*.{js,ts,jsx,tsx}',
+theme: {
+extend: {
+fontFamily: {
+sans: ['var(--font-inter)'],
+mono: ['var(--font-roboto-mono)'],
+plugins: [],
+--- END CODE BLOCK ---
+with default value of
+--- CODE BLOCK 190 ---
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+content: [
+'./pages/**/*.{js,ts,jsx,tsx}',
+'./components/**/*.{js,ts,jsx,tsx}',
+'./app/**/*.{js,ts,jsx,tsx}',
+theme: {
+extend: {
+fontFamily: {
+sans: ['var(--font-inter)'],
+mono: ['var(--font-roboto-mono)'],
+plugins: [],
+--- END CODE BLOCK ---
+Used in
+--- CODE BLOCK 193 ---
+<p class="font-sans ...">The quick brown fox ...</p>
+<p class="font-mono ...">The quick brown fox ...</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 194 ---
+<p class="font-sans ...">The quick brown fox ...</p>
+<p class="font-mono ...">The quick brown fox ...</p>
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 199 ---
+<p className={inter.className}>Hello, Next.js!</p>
+--- END CODE BLOCK ---
+: A string assigned to the
+--- CODE BLOCK 200 ---
+<p className={inter.className}>Hello, Next.js!</p>
+--- END CODE BLOCK ---
+value
+--- CODE BLOCK 203 ---
+style.fontFamily
+--- END CODE BLOCK ---
+A boolean value that specifies whether the font should be
+preloaded
+or not. The default is
+--- CODE BLOCK 204 ---
+<p style={inter.style}>Hello World</p>
+--- END CODE BLOCK ---
+Used in
+--- CODE BLOCK 205 ---
+<p style={inter.style}>Hello World</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 206 ---
+import { Inter } from 'next/font/google'
+import styles from '../styles/component.module.css'
+const inter = Inter({
+variable: '--font-inter',
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 207 ---
+import { Inter } from 'next/font/google'
+import styles from '../styles/component.module.css'
+const inter = Inter({
+variable: '--font-inter',
+--- END CODE BLOCK ---
+--- CODE BLOCK 212 ---
+<main className={inter.variable}>
+<p className={styles.text}>Hello World</p>
+</main>
+--- END CODE BLOCK ---
+The fallback font to use if the font cannot be loaded. An array of strings of fallback fonts with no default.
+Optional
+Used in
+--- CODE BLOCK 213 ---
+<main className={inter.variable}>
+<p className={styles.text}>Hello World</p>
+</main>
+--- END CODE BLOCK ---
+--- CODE BLOCK 215 ---
+component.module.css
+--- END CODE BLOCK ---
+Examples:
+--- CODE BLOCK 216 ---
+.text {
+font-family: var(--font-inter);
+font-weight: 200;
+font-style: italic;
+--- END CODE BLOCK ---
+: An array setting the fallback fonts to
+--- CODE BLOCK 217 ---
+.text {
+font-family: var(--font-inter);
+font-weight: 200;
+font-style: italic;
+--- END CODE BLOCK ---
+--- CODE BLOCK 218 ---
+Hello World
+--- END CODE BLOCK ---
+--- CODE BLOCK 220 ---
+font-weight: 200
+--- END CODE BLOCK ---
+--- CODE BLOCK 221 ---
+font-style: italic
+--- END CODE BLOCK ---
+: A boolean value that sets whether an automatic fallback font should be used to reduce
+Cumulative Layout Shift
+. The default is
+--- CODE BLOCK 225 ---
+import { Inter, Lora, Source_Sans_3 } from 'next/font/google'
+import localFont from 'next/font/local'
+// define your variable fonts
+const inter = Inter()
+const lora = Lora()
+// define 2 weights of a non-variable font
+const sourceCodePro400 = Source_Sans_3({ weight: '400' })
+const sourceCodePro700 = Source_Sans_3({ weight: '700' })
+// define a custom local font where GreatVibes-Regular.ttf is stored in the styles folder
+const greatVibes = localFont({ src: './GreatVibes-Regular.ttf' })
+export { inter, lora, sourceCodePro400, sourceCodePro700, greatVibes }
+--- END CODE BLOCK ---
+--- CODE BLOCK 226 ---
+import { Inter, Lora, Source_Sans_3 } from 'next/font/google'
+import localFont from 'next/font/local'
+// define your variable fonts
+const inter = Inter()
+const lora = Lora()
+// define 2 weights of a non-variable font
+const sourceCodePro400 = Source_Sans_3({ weight: '400' })
+const sourceCodePro700 = Source_Sans_3({ weight: '700' })
+// define a custom local font where GreatVibes-Regular.ttf is stored in the styles folder
+const greatVibes = localFont({ src: './GreatVibes-Regular.ttf' })
+export { inter, lora, sourceCodePro400, sourceCodePro700, greatVibes }
+--- END CODE BLOCK ---
+: A string or boolean
+--- CODE BLOCK 227 ---
+import { inter, lora, sourceCodePro700, greatVibes } from '../styles/fonts'
+export default function Page() {
+return (
+<div>
+<p className={inter.className}>Hello world using Inter font</p>
+<p style={lora.style}>Hello world using Lora font</p>
+<p className={sourceCodePro700.className}>
+Hello world using Source_Sans_3 font with weight 700
+</p>
+<p className={greatVibes.className}>My title in Great Vibes font</p>
+</div>
+--- END CODE BLOCK ---
+value that sets whether an automatic fallback font should be used to reduce
+Cumulative Layout Shift
+. The possible values are
+--- CODE BLOCK 228 ---
+import { inter, lora, sourceCodePro700, greatVibes } from '../styles/fonts'
+export default function Page() {
+return (
+<div>
+<p className={inter.className}>Hello world using Inter font</p>
+<p style={lora.style}>Hello world using Lora font</p>
+<p className={sourceCodePro700.className}>
+Hello world using Source_Sans_3 font with weight 700
+</p>
+<p className={greatVibes.className}>My title in Great Vibes font</p>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 229 ---
+tsconfig.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 230 ---
+jsconfig.json
+--- END CODE BLOCK ---
+. The default is
+--- CODE BLOCK 231 ---
+"compilerOptions": {
+"paths": {
+"@/fonts": ["./styles/fonts"]
+--- END CODE BLOCK ---
+Used in
+--- CODE BLOCK 232 ---
+"compilerOptions": {
+"paths": {
+"@/fonts": ["./styles/fonts"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 233 ---
+import { greatVibes, sourceCodePro400 } from '@/fonts'
+--- END CODE BLOCK ---
+Optional
+Examples:
+--- CODE BLOCK 234 ---
+import { greatVibes, sourceCodePro400 } from '@/fonts'
+--- END CODE BLOCK ---
+: for
+[CODE_BLOCK_123]
+[CODE_BLOCK_124]
+: for
+[CODE_BLOCK_125]
+[CODE_BLOCK_126]
+A string value to define the CSS variable name to be used if the style is applied with the
+CSS variable method
+Used in
+[CODE_BLOCK_127]
+[CODE_BLOCK_128]
+Optional
+Examples:
+[CODE_BLOCK_129]
+: The CSS variable
+[CODE_BLOCK_130]
+is declared
+[CODE_BLOCK_131]
+An array of font face
+descriptor
+key-value pairs that define the generated
+[CODE_BLOCK_132]
+further.
+Used in
+[CODE_BLOCK_133]
+Optional
+Examples:
+[CODE_BLOCK_134]
+Examples
+Google Fonts
+To use a Google font, import it from
+[CODE_BLOCK_135]
+as a function. We recommend using
+variable fonts
+for the best performance and flexibility.
+To use the font in all your pages, add it to
+[CODE_BLOCK_136]
+file
+under
+[CODE_BLOCK_137]
+as shown below:
+pages/_app.js
+[CODE_BLOCK_138]
+If you can't use a variable font, you will
+need to specify a weight
+pages/_app.js
+[CODE_BLOCK_140]
+You can specify multiple weights and/or styles by using an array:
+app/layout.js
+[CODE_BLOCK_142]
+Good to know
+: Use an underscore (_) for font names with multiple words. E.g.
+[CODE_BLOCK_144]
+should be imported as
+[CODE_BLOCK_145]
+Apply the font in
+[CODE_BLOCK_146]
+You can also use the font without a wrapper and
+[CODE_BLOCK_147]
+by injecting it inside the
+[CODE_BLOCK_148]
+as follows:
+pages/_app.js
+[CODE_BLOCK_149]
+Single page usage
+To use the font on a single page, add it to the specific page as shown below:
+pages/index.js
+[CODE_BLOCK_151]
+Specifying a subset
+Google Fonts are automatically
+subset
+. This reduces the size of the font file and improves performance. You'll need to define which of these subsets you want to preload. Failing to specify any subsets while
+[CODE_BLOCK_153]
+[CODE_BLOCK_154]
+will result in a warning.
+This can be done by adding it to the function call:
+pages/_app.js
+[CODE_BLOCK_155]
+View the
+Font API Reference
+for more information.
+Using Multiple Fonts
+You can import and use multiple fonts in your application. There are two approaches you can take.
+The first approach is to create a utility function that exports a font, imports it, and applies its
+[CODE_BLOCK_157]
+where needed. This ensures the font is preloaded only when it's rendered:
+app/fonts.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_158]
+In the example above,
+[CODE_BLOCK_160]
+will be applied globally, and
+[CODE_BLOCK_161]
+can be imported and applied as needed.
+Alternatively, you can create a
+CSS variable
+and use it with your preferred CSS solution:
+app/global.css
+[CODE_BLOCK_162]
+In the example above,
+[CODE_BLOCK_164]
+will be applied globally, and any
+[CODE_BLOCK_165]
+tags will be styled with
+[CODE_BLOCK_166]
+Recommendation
+: Use multiple fonts conservatively since each new font is an additional resource the client has to download.
+Local Fonts
+Import
+[CODE_BLOCK_167]
+and specify the
+[CODE_BLOCK_168]
+of your local font file. We recommend using
+variable fonts
+for the best performance and flexibility.
+pages/_app.js
+[CODE_BLOCK_169]
+If you want to use multiple files for a single font family,
+[CODE_BLOCK_171]
+can be an array:
+[CODE_BLOCK_172]
+View the
+Font API Reference
+for more information.
+With Tailwind CSS
+[CODE_BLOCK_174]
+integrates seamlessly with
+Tailwind CSS
+using
+CSS variables
+In the example below, we use the
+[CODE_BLOCK_175]
+[CODE_BLOCK_176]
+fonts from
+[CODE_BLOCK_177]
+(you can use any Google Font or Local Font). Use the
+[CODE_BLOCK_178]
+option to define a CSS variable name, such as
+[CODE_BLOCK_179]
+[CODE_BLOCK_180]
+for these fonts, respectively. Then, apply
+[CODE_BLOCK_181]
+[CODE_BLOCK_182]
+to include the CSS variables in your HTML document.
+Good to know
+: You can add these variables to the
+[CODE_BLOCK_183]
+[CODE_BLOCK_184]
+tag, depending on your preference, styling needs or project requirements.
+pages/_app.js
+[CODE_BLOCK_185]
+Finally, add the CSS variable to your
+Tailwind CSS config
+Tailwind CSS v4
+As of
+Tailwind v4
+, there is zero configuration required by default. If you do need to configure Tailwind, you can follow the
+official documentation
+for configuring the global CSS file.
+global.css
+[CODE_BLOCK_187]
+Tailwind CSS v3
+tailwind.config.js
+[CODE_BLOCK_189]
+You can now use the
+[CODE_BLOCK_191]
+[CODE_BLOCK_192]
+utility classes to apply the font to your elements.
+[CODE_BLOCK_193]
+Applying Styles
+You can apply the font styles in three ways:
+[CODE_BLOCK_195]
+[CODE_BLOCK_196]
+CSS Variables
+[CODE_BLOCK_197]
+Returns a read-only CSS
+[CODE_BLOCK_198]
+for the loaded font to be passed to an HTML element.
+[CODE_BLOCK_199]
+[CODE_BLOCK_201]
+Returns a read-only CSS
+[CODE_BLOCK_202]
+object for the loaded font to be passed to an HTML element, including
+[CODE_BLOCK_203]
+to access the font family name and fallback fonts.
+[CODE_BLOCK_204]
+CSS Variables
+If you would like to set your styles in an external style sheet and specify additional options there, use the CSS variable method.
+In addition to importing the font, also import the CSS file where the CSS variable is defined and set the variable option of the font loader object as follows:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_206]
+To use the font, set the
+[CODE_BLOCK_208]
+of the parent container of the text you would like to style to the font loader's
+[CODE_BLOCK_209]
+value and the
+[CODE_BLOCK_210]
+of the text to the
+[CODE_BLOCK_211]
+property from the external CSS file.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_212]
+Define the
+[CODE_BLOCK_214]
+selector class in the
+[CODE_BLOCK_215]
+CSS file as follows:
+styles/component.module.css
+[CODE_BLOCK_216]
+In the example above, the text
+[CODE_BLOCK_218]
+is styled using the
+[CODE_BLOCK_219]
+font and the generated font fallback with
+[CODE_BLOCK_220]
+[CODE_BLOCK_221]
+Using a font definitions file
+Every time you call the
+[CODE_BLOCK_222]
+or Google font function, that font will be hosted as one instance in your application. Therefore, if you need to use the same font in multiple places, you should load it in one place and import the related font object where you need it. This is done using a font definitions file.
+For example, create a
+[CODE_BLOCK_223]
+file in a
+[CODE_BLOCK_224]
+folder at the root of your app directory.
+Then, specify your font definitions as follows:
+styles/fonts.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_225]
+You can now use these definitions in your code as follows:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_227]
+To make it easier to access the font definitions in your code, you can define a path alias in your
+[CODE_BLOCK_229]
+[CODE_BLOCK_230]
+files as follows:
+tsconfig.json
+[CODE_BLOCK_231]
+You can now import any font definition as follows:
+app/about/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_233]
+Preloading
+When a font function is called on a page of your site, it is not globally available and preloaded on all routes. Rather, the font is only preloaded on the related route/s based on the type of file where it is used:
+if it's a
+unique page
+, it is preloaded on the unique route for that page
+if it's in the
+custom App
+, it is preloaded on all the routes of the site under
+[CODE_BLOCK_235]
+Version Changes
+Version
+Changes
+[CODE_BLOCK_236]
+[CODE_BLOCK_237]
+renamed to
+[CODE_BLOCK_238]
+. Installation no longer required.
+[CODE_BLOCK_239]
+[CODE_BLOCK_240]
+was added.
+Was this helpful?
+supported.
+Send

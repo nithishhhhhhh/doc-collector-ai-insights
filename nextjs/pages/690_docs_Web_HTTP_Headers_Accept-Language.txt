@@ -1,0 +1,170 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Language
+SCRAPED: 2025-06-19 18:27:51
+================================================================================
+
+The HTTP
+--- CODE BLOCK 1 ---
+Accept-Language
+--- END CODE BLOCK ---
+request header
+indicates the natural language and locale that the client prefers.
+The server uses
+content negotiation
+to select one of the proposals and informs the client of the choice with the
+--- CODE BLOCK 2 ---
+Content-Language
+--- END CODE BLOCK ---
+response header.
+Browsers set required values for this header according to their active user interface language.
+Users can also configure additional preferred languages through browser settings.
+--- CODE BLOCK 3 ---
+Accept-Language
+--- END CODE BLOCK ---
+header generally lists the same locales as the
+--- CODE BLOCK 4 ---
+navigator.languages
+--- END CODE BLOCK ---
+property, with decreasing
+--- CODE BLOCK 6 ---
+Accept-Language
+--- END CODE BLOCK ---
+values (
+quality values
+). Some browsers, like Chrome and Safari, add language-only fallback tags in
+--- CODE BLOCK 7 ---
+en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
+--- END CODE BLOCK ---
+. For example,
+--- CODE BLOCK 8 ---
+navigator.languages
+--- END CODE BLOCK ---
+when
+--- CODE BLOCK 9 ---
+["en-US", "zh-CN"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+Accept-Language
+--- END CODE BLOCK ---
+. For privacy purposes (reducing
+fingerprinting
+), both
+--- CODE BLOCK 11 ---
+navigator.languages
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+Accept-Language
+--- END CODE BLOCK ---
+may not include the full list of user preferences. For example, in Safari (always) and Chrome's incognito mode, only one language is listed.
+This header serves as a hint when the server cannot determine the target content language otherwise (for example, use a specific URL that depends on an explicit user decision).
+The server should never override an explicit user language choice. The content of
+--- CODE BLOCK 13 ---
+406 Not Acceptable
+--- END CODE BLOCK ---
+is often out of a user's control (when traveling, for instance).
+A user may also want to visit a page in a language different from the user interface language.
+The server may send back a
+--- CODE BLOCK 14 ---
+Accept-Language
+--- END CODE BLOCK ---
+error code when unable to serve content in a matching language, but this is rarely implemented.
+Servers often ignore the
+--- CODE BLOCK 19 ---
+Accept-Language: <language>
+Accept-Language: *
+// Multiple types, weighted with the quality value syntax:
+Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+--- END CODE BLOCK ---
+header in such cases and send a successful response with the most appropriate resource instead for a better user experience.
+Header type
+Request header
+Forbidden request header
+CORS-safelisted request header
+Yes*
+* Values can only be
+--- CODE BLOCK 20 ---
+Accept-Language: <language>
+Accept-Language: *
+// Multiple types, weighted with the quality value syntax:
+Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+Accept-Language
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+Accept-Language: de
+--- END CODE BLOCK ---
+, space, or the characters
+--- CODE BLOCK 33 ---
+Accept-Language: de
+--- END CODE BLOCK ---
+Syntax
+http
+Copy to Clipboard
+--- CODE BLOCK 34 ---
+Accept-Language: da, en-gb;q=0.8, en;q=0.7
+--- END CODE BLOCK ---
+Directives
+--- CODE BLOCK 36 ---
+Content-Language
+--- END CODE BLOCK ---
+A language tag (which is sometimes referred to as a "locale identifier").
+This consists of a 2-3 letter base language tag that indicates a language, optionally followed by additional subtags separated by
+--- CODE BLOCK 38 ---
+Accept-Encoding
+--- END CODE BLOCK ---
+The most common extra information is the country or region variant (like
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+) or the type of alphabet to use (like
+[CODE_BLOCK_25]
+Other variants, like the type of orthography (
+[CODE_BLOCK_26]
+), are usually not used in the context of this header.
+[CODE_BLOCK_27]
+(wildcard)
+Any language not matched by any other language present in the
+[CODE_BLOCK_28]
+field.
+[CODE_BLOCK_29]
+(q-factor weighting)
+Any value placed in an order of preference expressed using a relative
+quality value
+called
+weight
+The quality value defaults to
+[CODE_BLOCK_30]
+Examples
+Using Accept-Language headers
+The following request has a preference for German using the
+[CODE_BLOCK_31]
+base language:
+http
+Copy to Clipboard
+[CODE_BLOCK_32]
+Using quality values in Accept-Language
+The following request indicates a stronger preference for Danish, but accepts British English and other types of English at a lower priority:
+http
+Copy to Clipboard
+[CODE_BLOCK_34]
+Specifications
+Specification
+HTTP Semantics
+field.accept-language
+Browser compatibility
+See also
+HTTP
+content negotiation
+A header with the result of the content negotiation:
+[CODE_BLOCK_36]
+Other similar headers:
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 23, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

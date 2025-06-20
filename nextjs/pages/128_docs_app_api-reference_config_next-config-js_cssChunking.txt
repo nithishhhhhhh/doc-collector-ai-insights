@@ -1,0 +1,78 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/cssChunking
+SCRAPED: 2025-06-19 17:24:10
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+cssChunking
+cssChunking
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+CSS Chunking is a strategy used to improve the performance of your web application by splitting and re-ordering CSS files into chunks. This allows you to load only the CSS that is needed for a specific route, instead of loading all the application's CSS at once.
+You can control how CSS files are chunked using the
+--- CODE BLOCK 1 ---
+experimental.cssChunking
+--- END CODE BLOCK ---
+option in your
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import type { NextConfig } from 'next'
+const nextConfig = {
+experimental: {
+cssChunking: true, // default
+} satisfies NextConfig
+export default nextConfig
+--- END CODE BLOCK ---
+Options
+[CODE_BLOCK_5]
+(default)
+: Next.js will try to merge CSS files whenever possible, determining explicit and implicit dependencies between files from import order to reduce the number of chunks and therefore the number of requests.
+[CODE_BLOCK_6]
+: Next.js will not attempt to merge or re-order your CSS files.
+[CODE_BLOCK_7]
+: Next.js will load CSS files in the correct order they are imported into your files, which can lead to more chunks and requests.
+You may consider using
+[CODE_BLOCK_8]
+if you run into unexpected CSS behavior. For example, if you import
+[CODE_BLOCK_9]
+[CODE_BLOCK_10]
+in different files using a different
+[CODE_BLOCK_11]
+order (
+[CODE_BLOCK_12]
+before
+[CODE_BLOCK_13]
+, or
+[CODE_BLOCK_14]
+before
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+will merge the files in any order and assume there are no dependencies between them. However, if
+[CODE_BLOCK_17]
+depends on
+[CODE_BLOCK_18]
+, you may want to use
+[CODE_BLOCK_19]
+to prevent the files from being merged, and instead, load them in the order they are imported - which can result in more chunks and requests.
+For most applications, we recommend
+[CODE_BLOCK_20]
+as it leads to fewer requests and better performance.
+Was this helpful?
+supported.
+Send

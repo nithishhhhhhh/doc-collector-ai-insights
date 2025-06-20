@@ -1,0 +1,150 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/incrementalCacheHandlerPath
+SCRAPED: 2025-06-19 17:42:05
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+cacheHandler
+Custom Next.js Cache Handler
+You can configure the Next.js cache location if you want to persist cached pages and data to durable storage, or share the cache across multiple containers or instances of your Next.js application.
+next.config.js
+--- CODE BLOCK 1 ---
+module.exports = {
+cacheHandler: require.resolve('./cache-handler.js'),
+cacheMaxMemorySize: 0, // disable default in-memory caching
+--- END CODE BLOCK ---
+View an example of a
+custom cache handler
+and learn more about the implementation.
+API Reference
+The cache handler can implement the following methods:
+--- CODE BLOCK 5 ---
+revalidateTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+resetRequestCache
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+{ tags: [] }
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 18 ---
+Promise<void>
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+revalidateTag()
+--- END CODE BLOCK ---
+Parameter
+Type
+Description
+--- CODE BLOCK 23 ---
+Promise<void>
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+revalidateTag()
+--- END CODE BLOCK ---
+The key to the cached value.
+Returns the cached value or
+--- CODE BLOCK 25 ---
+resetRequestCache()
+--- END CODE BLOCK ---
+if not found.
+--- CODE BLOCK 27 ---
+revalidatePath
+--- END CODE BLOCK ---
+Parameter
+Type
+Description
+--- CODE BLOCK 28 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+revalidateTag
+--- END CODE BLOCK ---
+The key to store the data under.
+--- CODE BLOCK 31 ---
+cacheHandler
+--- END CODE BLOCK ---
+Data or
+--- CODE BLOCK 33 ---
+incrementalCacheHandlerPath
+--- END CODE BLOCK ---
+The data to be cached.
+--- CODE BLOCK 34 ---
+revalidateTag
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+incrementalCacheHandlerPath
+--- END CODE BLOCK ---
+The cache tags provided.
+Returns
+--- CODE BLOCK 38 ---
+incrementalCacheHandlerPath
+--- END CODE BLOCK ---
+[CODE_BLOCK_19]
+Parameter
+Type
+Description
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+The cache tags to revalidate.
+Returns
+[CODE_BLOCK_23]
+. Learn more about
+revalidating data
+or the
+[CODE_BLOCK_24]
+function.
+[CODE_BLOCK_25]
+This method resets the temporary in-memory cache for a single request before the next request.
+Returns
+[CODE_BLOCK_26]
+Good to know:
+[CODE_BLOCK_27]
+is a convenience layer on top of cache tags. Calling
+[CODE_BLOCK_28]
+will call your
+[CODE_BLOCK_29]
+function, which you can then choose if you want to tag cache keys based on the path.
+Platform Support
+Deployment Option
+Supported
+Node.js server
+Docker container
+Static export
+Adapters
+Platform-specific
+Learn how to
+configure ISR
+when self-hosting Next.js.
+Version History
+Version
+Changes
+[CODE_BLOCK_30]
+Renamed to
+[CODE_BLOCK_31]
+and became stable.
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+support for
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+support for standalone output.
+[CODE_BLOCK_37]
+Experimental
+[CODE_BLOCK_38]
+added.
+Was this helpful?
+supported.
+Send

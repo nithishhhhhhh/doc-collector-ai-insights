@@ -1,0 +1,236 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/after
+SCRAPED: 2025-06-19 17:27:02
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+after
+after
+--- CODE BLOCK 2 ---
+generateMetadata
+--- END CODE BLOCK ---
+allows you to schedule work to be executed after a response (or prerender) is finished. This is useful for tasks and other side effects that should not block the response, such as logging and analytics.
+It can be used in
+Server Components
+(including
+--- CODE BLOCK 3 ---
+import { after } from 'next/server'
+// Custom logging function
+import { log } from '@/app/utils'
+export default function Layout({ children }: { children: React.ReactNode }) {
+after(() => {
+// Execute after the layout is rendered and sent to the user
+log()
+return <>{children}</>
+--- END CODE BLOCK ---
+Server Actions
+Route Handlers
+, and
+Middleware
+The function accepts a callback that will be executed after the response (or prerender) is finished:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 4 ---
+import { after } from 'next/server'
+// Custom logging function
+import { log } from '@/app/utils'
+export default function Layout({ children }: { children: React.ReactNode }) {
+after(() => {
+// Execute after the layout is rendered and sent to the user
+log()
+return <>{children}</>
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 19 ---
+import { after } from 'next/server'
+import { cookies, headers } from 'next/headers'
+import { logUserAction } from '@/app/utils'
+export async function POST(request: Request) {
+// Perform mutation
+// ...
+// Log user activity for analytics
+after(async () => {
+const userAgent = (await headers().get('user-agent')) || 'unknown'
+const sessionCookie =
+(await cookies().get('session-id'))?.value || 'anonymous'
+logUserAction({ sessionCookie, userAgent })
+return new Response(JSON.stringify({ status: 'success' }), {
+status: 200,
+headers: { 'Content-Type': 'application/json' },
+--- END CODE BLOCK ---
+is not a
+Dynamic API
+and calling it does not cause a route to become dynamic. If it's used within a static page, the callback will execute at build time, or whenever a page is revalidated.
+Reference
+Parameters
+A callback function which will be executed after the response (or prerender) is finished.
+Duration
+--- CODE BLOCK 20 ---
+import { after } from 'next/server'
+import { cookies, headers } from 'next/headers'
+import { logUserAction } from '@/app/utils'
+export async function POST(request: Request) {
+// Perform mutation
+// ...
+// Log user activity for analytics
+after(async () => {
+const userAgent = (await headers().get('user-agent')) || 'unknown'
+const sessionCookie =
+(await cookies().get('session-id'))?.value || 'anonymous'
+logUserAction({ sessionCookie, userAgent })
+return new Response(JSON.stringify({ status: 'success' }), {
+status: 200,
+headers: { 'Content-Type': 'application/json' },
+--- END CODE BLOCK ---
+will run for the platform's default or configured max duration of your route. If your platform supports it, you can configure the timeout limit using the
+--- CODE BLOCK 26 ---
+waitUntil(promise)
+--- END CODE BLOCK ---
+route segment config.
+Good to know
+--- CODE BLOCK 32 ---
+const RequestContext = globalThis[Symbol.for('@next/request-context')]
+const contextValue = RequestContext?.get()
+const waitUntil = contextValue?.waitUntil
+--- END CODE BLOCK ---
+will be executed even if the response didn't complete successfully. Including when an error is thrown or when
+--- CODE BLOCK 33 ---
+const RequestContext = globalThis[Symbol.for('@next/request-context')]
+const contextValue = RequestContext?.get()
+const waitUntil = contextValue?.waitUntil
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+globalThis[Symbol.for('@next/request-context')]
+--- END CODE BLOCK ---
+is called.
+You can use React
+--- CODE BLOCK 35 ---
+type NextRequestContext = {
+get(): NextRequestContextValue | undefined
+type NextRequestContextValue = {
+waitUntil?: (promise: Promise<any>) => void
+--- END CODE BLOCK ---
+to deduplicate functions called inside
+--- CODE BLOCK 36 ---
+type NextRequestContext = {
+get(): NextRequestContextValue | undefined
+type NextRequestContextValue = {
+waitUntil?: (promise: Promise<any>) => void
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+import { AsyncLocalStorage } from 'node:async_hooks'
+const RequestContextStorage = new AsyncLocalStorage<NextRequestContextValue>()
+// Define and inject the accessor that next.js will use
+const RequestContext: NextRequestContext = {
+get() {
+return RequestContextStorage.getStore()
+globalThis[Symbol.for('@next/request-context')] = RequestContext
+const handler = (req, res) => {
+const contextValue = { waitUntil: YOUR_WAITUNTIL }
+// Provide the value
+return RequestContextStorage.run(contextValue, () => nextJsHandler(req, res))
+--- END CODE BLOCK ---
+can be nested inside other
+--- CODE BLOCK 38 ---
+import { AsyncLocalStorage } from 'node:async_hooks'
+const RequestContextStorage = new AsyncLocalStorage<NextRequestContextValue>()
+// Define and inject the accessor that next.js will use
+const RequestContext: NextRequestContext = {
+get() {
+return RequestContextStorage.getStore()
+globalThis[Symbol.for('@next/request-context')] = RequestContext
+const handler = (req, res) => {
+const contextValue = { waitUntil: YOUR_WAITUNTIL }
+// Provide the value
+return RequestContextStorage.run(contextValue, () => nextJsHandler(req, res))
+--- END CODE BLOCK ---
+calls, for example, you can create utility functions that wrap
+--- CODE BLOCK 42 ---
+unstable_after
+--- END CODE BLOCK ---
+calls to add additional functionality.
+Examples
+With request APIs
+You can use request APIs such as
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+inside
+[CODE_BLOCK_18]
+Server Actions
+Route Handlers
+. This is useful for logging activity after a mutation. For example:
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_19]
+However, you cannot use these request APIs inside
+[CODE_BLOCK_21]
+Server Components
+. This is because Next.js needs to know which part of the tree access the request APIs to support
+Partial Prerendering
+, but
+[CODE_BLOCK_22]
+runs after React's rendering lifecycle.
+Platform Support
+Deployment Option
+Supported
+Node.js server
+Docker container
+Static export
+Adapters
+Platform-specific
+Learn how to
+configure
+[CODE_BLOCK_23]
+when self-hosting Next.js.
+Reference: supporting
+[CODE_BLOCK_24]
+for serverless platforms
+Using
+[CODE_BLOCK_25]
+in a serverless context requires waiting for asynchronous tasks to finish after the response has been sent. In Next.js and Vercel, this is achieved using a primitive called
+[CODE_BLOCK_26]
+, which extends the lifetime of a serverless invocation until all promises passed to
+[CODE_BLOCK_27]
+have settled.
+If you want your users to be able to run
+[CODE_BLOCK_28]
+, you will have to provide your implementation of
+[CODE_BLOCK_29]
+that behaves in an analogous way.
+When
+[CODE_BLOCK_30]
+is called, Next.js will access
+[CODE_BLOCK_31]
+like this:
+[CODE_BLOCK_32]
+Which means that
+[CODE_BLOCK_34]
+is expected to contain an object like this:
+[CODE_BLOCK_35]
+Here is an example of the implementation.
+[CODE_BLOCK_37]
+Version History
+Version History
+Description
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+became stable.
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+introduced.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,100 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/Methods
+SCRAPED: 2025-06-19 18:03:24
+================================================================================
+
+HTTP defines a set of
+request methods
+to indicate the purpose of the request and what is expected if the request is successful.
+Although they can also be nouns, these request methods are sometimes referred to as
+HTTP verbs
+Each request method has its own semantics, but some characteristics are shared across multiple methods, specifically request methods can be
+safe
+idempotent
+, or
+cacheable
+--- CODE BLOCK 32 ---
+Content-Location
+--- END CODE BLOCK ---
+[CODE_BLOCK_2]
+method requests a representation of the specified resource.
+Requests using
+[CODE_BLOCK_3]
+should only retrieve data and should not contain a request
+content
+[CODE_BLOCK_4]
+[CODE_BLOCK_5]
+method asks for a response identical to a
+[CODE_BLOCK_6]
+request, but without a response body.
+[CODE_BLOCK_7]
+[CODE_BLOCK_8]
+method submits an entity to the specified resource, often causing a change in state or side effects on the server.
+[CODE_BLOCK_9]
+[CODE_BLOCK_10]
+method replaces all current representations of the target resource with the request
+content
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+method deletes the specified resource.
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+method establishes a tunnel to the server identified by the target resource.
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+method describes the communication options for the target resource.
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+method performs a message loop-back test along the path to the target resource.
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+method applies partial modifications to a resource.
+Safe, idempotent, and cacheable request methods
+The following table lists HTTP request methods and their categorization in terms of safety, cacheability, and idempotency.
+Method
+Safe
+Idempotent
+Cacheable
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Conditional*
+[CODE_BLOCK_28]
+Conditional*
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+are cacheable when responses explicitly include
+freshness
+information and a matching
+[CODE_BLOCK_32]
+header.
+Specifications
+Specification
+HTTP Semantics
+HEAD
+HTTP Semantics
+HTTP Semantics
+POST
+HTTP Semantics
+CONNECT
+HTTP Semantics
+OPTIONS
+HTTP Semantics
+DELETE
+HTTP Semantics
+Browser compatibility
+See also
+HTTP response status codes
+HTTP headers
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

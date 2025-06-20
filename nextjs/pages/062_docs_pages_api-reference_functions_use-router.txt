@@ -1,0 +1,935 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/use-router
+SCRAPED: 2025-06-19 17:16:19
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useRouter
+You are currently viewing the documentation for Pages Router.
+useRouter
+If you want to access the
+--- CODE BLOCK 3 ---
+import { useRouter } from 'next/router'
+function ActiveLink({ children, href }) {
+const router = useRouter()
+const style = {
+marginRight: 10,
+color: router.asPath === href ? 'red' : 'black',
+const handleClick = (e) => {
+e.preventDefault()
+router.push(href)
+return (
+<a href={href} onClick={handleClick} style={style}>
+{children}
+</a>
+export default ActiveLink
+--- END CODE BLOCK ---
+object
+inside any function component in your app, you can use the
+--- CODE BLOCK 4 ---
+import { useRouter } from 'next/router'
+function ActiveLink({ children, href }) {
+const router = useRouter()
+const style = {
+marginRight: 10,
+color: router.asPath === href ? 'red' : 'black',
+const handleClick = (e) => {
+e.preventDefault()
+router.push(href)
+return (
+<a href={href} onClick={handleClick} style={style}>
+{children}
+</a>
+export default ActiveLink
+--- END CODE BLOCK ---
+hook, take a look at the following example:
+--- CODE BLOCK 15 ---
+trailingSlash: true
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+defaultLocale
+--- END CODE BLOCK ---
+is a
+React Hook
+, meaning it cannot be used with classes. You can either use
+withRouter
+or wrap your class in a function component.
+--- CODE BLOCK 34 ---
+domainLocales
+--- END CODE BLOCK ---
+object
+The following is the definition of the
+--- CODE BLOCK 35 ---
+Array<{domain, defaultLocale, locales}>
+--- END CODE BLOCK ---
+object returned by both
+--- CODE BLOCK 47 ---
+router.push(url, as, options)
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+router.push(url, as, options)
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+UrlObject | String
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+UrlObject | String
+--- END CODE BLOCK ---
+- The path for current route file that comes after
+--- CODE BLOCK 58 ---
+getStaticProps
+--- END CODE BLOCK ---
+. Therefore,
+--- CODE BLOCK 59 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+getInitialProps
+--- END CODE BLOCK ---
+and trailing slash (
+--- CODE BLOCK 63 ---
+router.push
+--- END CODE BLOCK ---
+) are not included.
+--- CODE BLOCK 64 ---
+pages/about.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/about')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+- The query string parsed to an object, including
+dynamic route
+parameters. It will be an empty object during prerendering if the page doesn't use
+Server-side Rendering
+. Defaults to
+--- CODE BLOCK 66 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/about')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 67 ---
+pages/post/[pid].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 68 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/post/abc')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+- The path as shown in the browser including the search params and respecting the
+--- CODE BLOCK 69 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/post/abc')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+configuration.
+--- CODE BLOCK 70 ---
+pages/login.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+// Here you would fetch and return the user
+const useUser = () => ({ user: null, loading: false })
+export default function Page() {
+const { user, loading } = useUser()
+const router = useRouter()
+useEffect(() => {
+if (!(user || loading)) {
+router.push('/login')
+}, [user, loading])
+return <p>Redirecting...</p>
+--- END CODE BLOCK ---
+are not included.
+--- CODE BLOCK 72 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+// Here you would fetch and return the user
+const useUser = () => ({ user: null, loading: false })
+export default function Page() {
+const { user, loading } = useUser()
+const router = useRouter()
+useEffect(() => {
+if (!(user || loading)) {
+router.push('/login')
+}, [user, loading])
+return <p>Redirecting...</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+export default function Page(props) {
+const router = useRouter()
+const [count, setCount] = useState(0)
+return (
+<div>
+<h1>Page: {router.query.slug}</h1>
+<p>Count: {count}</p>
+<button onClick={() => setCount(count + 1)}>Increase count</button>
+<Link href="/one">one</Link> <Link href="/two">two</Link>
+</div>
+--- END CODE BLOCK ---
+- Whether the current page is in
+fallback mode
+--- CODE BLOCK 74 ---
+import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+export default function Page(props) {
+const router = useRouter()
+const [count, setCount] = useState(0)
+return (
+<div>
+<h1>Page: {router.query.slug}</h1>
+<p>Count: {count}</p>
+<button onClick={() => setCount(count + 1)}>Increase count</button>
+<Link href="/one">one</Link> <Link href="/two">two</Link>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 80 ---
+useEffect(() => {
+setCount(0)
+}, [router.query.slug])
+--- END CODE BLOCK ---
+- The active
+basePath
+(if enabled).
+--- CODE BLOCK 81 ---
+useEffect(() => {
+setCount(0)
+}, [router.query.slug])
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+import { useRouter } from 'next/router'
+export default function MyApp({ Component, pageProps }) {
+const router = useRouter()
+return <Component key={router.asPath} {...pageProps} />
+--- END CODE BLOCK ---
+- The active locale (if enabled).
+--- CODE BLOCK 84 ---
+import { useRouter } from 'next/router'
+export default function MyApp({ Component, pageProps }) {
+const router = useRouter()
+return <Component key={router.asPath} {...pageProps} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+import { useRouter } from 'next/router'
+export default function ReadMore({ post }) {
+const router = useRouter()
+return (
+<button
+type="button"
+onClick={() => {
+router.push({
+pathname: '/post/[pid]',
+query: { pid: post.id },
+Click here to read more
+</button>
+--- END CODE BLOCK ---
+- All supported locales (if enabled).
+--- CODE BLOCK 89 ---
+import { useRouter } from 'next/router'
+export default function ReadMore({ post }) {
+const router = useRouter()
+return (
+<button
+type="button"
+onClick={() => {
+router.push({
+pathname: '/post/[pid]',
+query: { pid: post.id },
+Click here to read more
+</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+router.replace
+--- END CODE BLOCK ---
+- The current default locale (if enabled).
+--- CODE BLOCK 94 ---
+router.replace(url, as, options)
+--- END CODE BLOCK ---
+--- CODE BLOCK 95 ---
+router.replace(url, as, options)
+--- END CODE BLOCK ---
+- Any configured domain locales.
+--- CODE BLOCK 96 ---
+router.replace
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+router.push
+--- END CODE BLOCK ---
+- Whether the router fields are updated client-side and ready for use. Should only be used inside of
+--- CODE BLOCK 98 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.replace('/home')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+methods and not for conditionally rendering on the server. See related docs for use case with
+automatically statically optimized pages
+--- CODE BLOCK 99 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.replace('/home')}>
+Click me
+</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+router.prefetch(url, as, options)
+--- END CODE BLOCK ---
+- Whether the application is currently in
+preview mode
+Using the
+--- CODE BLOCK 103 ---
+router.prefetch(url, as, options)
+--- END CODE BLOCK ---
+field may lead to a mismatch between client and server if the page is rendered using server-side rendering or
+automatic static optimization
+. Avoid using
+--- CODE BLOCK 106 ---
+/product/[id]
+--- END CODE BLOCK ---
+until the
+--- CODE BLOCK 113 ---
+import { useCallback, useEffect } from 'react'
+import { useRouter } from 'next/router'
+export default function Login() {
+const router = useRouter()
+const handleSubmit = useCallback((e) => {
+e.preventDefault()
+fetch('/api/login', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+/* Form data */
+}).then((res) => {
+// Do a fast client-side transition to the already prefetched dashboard page
+if (res.ok) router.push('/dashboard')
+}, [])
+useEffect(() => {
+// Prefetch the dashboard page
+router.prefetch('/dashboard')
+}, [router])
+return (
+<form onSubmit={handleSubmit}>
+{/* Form fields */}
+<button type="submit">Login</button>
+</form>
+--- END CODE BLOCK ---
+field is
+--- CODE BLOCK 114 ---
+import { useCallback, useEffect } from 'react'
+import { useRouter } from 'next/router'
+export default function Login() {
+const router = useRouter()
+const handleSubmit = useCallback((e) => {
+e.preventDefault()
+fetch('/api/login', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+/* Form data */
+}).then((res) => {
+// Do a fast client-side transition to the already prefetched dashboard page
+if (res.ok) router.push('/dashboard')
+}, [])
+useEffect(() => {
+// Prefetch the dashboard page
+router.prefetch('/dashboard')
+}, [router])
+return (
+<form onSubmit={handleSubmit}>
+{/* Form fields */}
+<button type="submit">Login</button>
+</form>
+--- END CODE BLOCK ---
+The following methods are included inside
+--- CODE BLOCK 115 ---
+router.beforePopState(cb)
+--- END CODE BLOCK ---
+router.push
+Handles client-side transitions, this method is useful for cases where
+--- CODE BLOCK 116 ---
+router.beforePopState(cb)
+--- END CODE BLOCK ---
+is not enough.
+--- CODE BLOCK 129 ---
+beforePopState
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+useEffect(() => {
+router.beforePopState(({ url, as, options }) => {
+// I only want to allow these two routes!
+if (as !== '/' && as !== '/other') {
+// Have SSR render bad routes as a 404.
+window.location.href = as
+return false
+return true
+}, [router])
+return <p>Welcome to the page</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 132 ---
+window.history.back()
+--- END CODE BLOCK ---
+- The URL to navigate to (see
+Node.JS URL module documentation
+--- CODE BLOCK 133 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.back()}>
+Click here to go back
+</button>
+--- END CODE BLOCK ---
+properties).
+--- CODE BLOCK 134 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.back()}>
+Click here to go back
+</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+window.location.reload()
+--- END CODE BLOCK ---
+- Optional decorator for the path that will be shown in the browser URL bar. Before Next.js 9.5.3 this was used for dynamic routes.
+--- CODE BLOCK 136 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.reload()}>
+Click here to reload
+</button>
+--- END CODE BLOCK ---
+- Optional object with the following configuration options:
+--- CODE BLOCK 137 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.reload()}>
+Click here to reload
+</button>
+--- END CODE BLOCK ---
+- Optional boolean, controls scrolling to the top of the page after navigation. Defaults to
+--- CODE BLOCK 138 ---
+routeChangeStart(url, { shallow })
+--- END CODE BLOCK ---
+--- CODE BLOCK 139 ---
+routeChangeComplete(url, { shallow })
+--- END CODE BLOCK ---
+: Update the path of the current page without rerunning
+--- CODE BLOCK 140 ---
+routeChangeError(err, url, { shallow })
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+err.cancelled
+--- END CODE BLOCK ---
+--- CODE BLOCK 142 ---
+beforeHistoryChange(url, { shallow })
+--- END CODE BLOCK ---
+. Defaults to
+--- CODE BLOCK 143 ---
+hashChangeStart(url, { shallow })
+--- END CODE BLOCK ---
+--- CODE BLOCK 144 ---
+hashChangeComplete(url, { shallow })
+--- END CODE BLOCK ---
+- Optional string, indicates locale of the new page
+You don't need to use
+--- CODE BLOCK 147 ---
+routeChangeStart
+--- END CODE BLOCK ---
+for external URLs.
+window.location
+is better suited for those cases.
+Navigating to
+--- CODE BLOCK 148 ---
+pages/_app.js
+--- END CODE BLOCK ---
+, which is a predefined route:
+--- CODE BLOCK 149 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+export default function MyApp({ Component, pageProps }) {
+const router = useRouter()
+useEffect(() => {
+const handleRouteChange = (url, { shallow }) => {
+console.log(
+`App is changing to ${url} ${
+shallow ? 'with' : 'without'
+} shallow routing`
+router.events.on('routeChangeStart', handleRouteChange)
+// If the component is unmounted, unsubscribe
+// from the event with the `off` method:
+return () => {
+router.events.off('routeChangeStart', handleRouteChange)
+}, [router])
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+Navigating
+--- CODE BLOCK 151 ---
+pages/_app.js
+--- END CODE BLOCK ---
+, which is a dynamic route:
+--- CODE BLOCK 152 ---
+routeChangeError
+--- END CODE BLOCK ---
+Redirecting the user to
+--- CODE BLOCK 157 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+export default function MyApp({ Component, pageProps }) {
+const router = useRouter()
+useEffect(() => {
+const handleRouteChangeError = (err, url) => {
+if (err.cancelled) {
+console.log(`Route to ${url} was cancelled!`)
+router.events.on('routeChangeError', handleRouteChangeError)
+// If the component is unmounted, unsubscribe
+// from the event with the `off` method:
+return () => {
+router.events.off('routeChangeError', handleRouteChangeError)
+}, [router])
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+, useful for pages behind
+authentication
+--- CODE BLOCK 158 ---
+next/compat/router
+--- END CODE BLOCK ---
+Resetting state after navigation
+When navigating to the same page in Next.js, the page's state
+will not
+be reset by default as React does not unmount unless the parent component has changed.
+pages/[slug].js
+--- CODE BLOCK 163 ---
+NextRouter | null
+--- END CODE BLOCK ---
+In the above example, navigating between
+--- CODE BLOCK 168 ---
+import { useRouter } from 'next/router'
+const MyComponent = () => {
+const { isReady, query } = useRouter()
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 169 ---
+next/compat/router
+--- END CODE BLOCK ---
+will not
+reset the count . The
+--- CODE BLOCK 171 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/compat/router'
+import { useSearchParams } from 'next/navigation'
+const MyComponent = () => {
+const router = useRouter() // may be null or a NextRouter instance
+const searchParams = useSearchParams()
+useEffect(() => {
+if (router && !router.isReady) {
+return
+// In `app/`, searchParams will be ready immediately with the values, in
+// `pages/` it will be available after the router is ready.
+const search = searchParams.get('search')
+// ...
+}, [router, searchParams])
+// ...
+--- END CODE BLOCK ---
+is maintained between renders because the top-level React component,
+--- CODE BLOCK 172 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/compat/router'
+import { useSearchParams } from 'next/navigation'
+const MyComponent = () => {
+const router = useRouter() // may be null or a NextRouter instance
+const searchParams = useSearchParams()
+useEffect(() => {
+if (router && !router.isReady) {
+return
+// In `app/`, searchParams will be ready immediately with the values, in
+// `pages/` it will be available after the router is ready.
+const search = searchParams.get('search')
+// ...
+}, [router, searchParams])
+// ...
+--- END CODE BLOCK ---
+, is the same.
+If you do not want this behavior, you have a couple of options:
+Manually ensure each state is updated using
+--- CODE BLOCK 176 ---
+import { useSearchParams } from 'next/navigation'
+const MyComponent = () => {
+const searchParams = useSearchParams()
+// As this component is only used in `app/`, the compat router can be removed.
+const search = searchParams.get('search')
+// ...
+--- END CODE BLOCK ---
+. In the above example, that could look like:
+--- CODE BLOCK 177 ---
+import { useSearchParams } from 'next/navigation'
+const MyComponent = () => {
+const searchParams = useSearchParams()
+// As this component is only used in `app/`, the compat router can be removed.
+const search = searchParams.get('search')
+// ...
+--- END CODE BLOCK ---
+Use a React
+--- CODE BLOCK 181 ---
+import { renderToString } from 'react-dom/server'
+import { useRouter } from 'next/compat/router'
+const MyComponent = () => {
+const router = useRouter() // may be null or a NextRouter instance
+// ...
+export async function getServerSideProps() {
+const renderedComponent = renderToString(<MyComponent />)
+return {
+props: {
+renderedComponent,
+--- END CODE BLOCK ---
+tell React to remount the component
+. To do this for all pages, you can use a custom app:
+pages/_app.js
+--- CODE BLOCK 182 ---
+import { renderToString } from 'react-dom/server'
+import { useRouter } from 'next/compat/router'
+const MyComponent = () => {
+const router = useRouter() // may be null or a NextRouter instance
+// ...
+export async function getServerSideProps() {
+const renderedComponent = renderToString(<MyComponent />)
+return {
+props: {
+renderedComponent,
+--- END CODE BLOCK ---
+With URL object
+You can use a URL object in the same way you can use it for
+--- CODE BLOCK 189 ---
+router.replace
+--- END CODE BLOCK ---
+. Works for both the
+--- CODE BLOCK 190 ---
+router.prefetch
+--- END CODE BLOCK ---
+--- CODE BLOCK 191 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+// Here you would fetch and return the user
+const useUser = () => ({ user: null, loading: false })
+export default function Page() {
+const { user, loading } = useUser()
+const router = useRouter()
+useEffect(() => {
+// disable the linting on the next line - This is the cleanest solution
+// eslint-disable-next-line no-floating-promises
+router.push('/login')
+// void the Promise returned by router.push
+if (!(user || loading)) {
+void router.push('/login')
+// or use an async function, await the Promise, then void the function call
+async function handleRouteChange() {
+if (!(user || loading)) {
+await router.push('/login')
+void handleRouteChange()
+}, [user, loading])
+return <p>Redirecting...</p>
+--- END CODE BLOCK ---
+parameters:
+--- CODE BLOCK 192 ---
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+// Here you would fetch and return the user
+const useUser = () => ({ user: null, loading: false })
+export default function Page() {
+const { user, loading } = useUser()
+const router = useRouter()
+useEffect(() => {
+// disable the linting on the next line - This is the cleanest solution
+// eslint-disable-next-line no-floating-promises
+router.push('/login')
+// void the Promise returned by router.push
+if (!(user || loading)) {
+void router.push('/login')
+// or use an async function, await the Promise, then void the function call
+async function handleRouteChange() {
+if (!(user || loading)) {
+await router.push('/login')
+void handleRouteChange()
+}, [user, loading])
+return <p>Redirecting...</p>
+--- END CODE BLOCK ---
+router.replace
+Similar to the
+--- CODE BLOCK 197 ---
+import { withRouter } from 'next/router'
+function Page({ router }) {
+return <p>{router.pathname}</p>
+export default withRouter(Page)
+--- END CODE BLOCK ---
+prop in
+--- CODE BLOCK 199 ---
+import React from 'react'
+import { withRouter, NextRouter } from 'next/router'
+interface WithRouterProps {
+router: NextRouter
+interface MyComponentProps extends WithRouterProps {}
+class MyComponent extends React.Component<MyComponentProps> {
+render() {
+return <p>{this.props.router.pathname}</p>
+export default withRouter(MyComponent)
+--- END CODE BLOCK ---
+--- CODE BLOCK 200 ---
+import React from 'react'
+import { withRouter, NextRouter } from 'next/router'
+interface WithRouterProps {
+router: NextRouter
+interface MyComponentProps extends WithRouterProps {}
+class MyComponent extends React.Component<MyComponentProps> {
+render() {
+return <p>{this.props.router.pathname}</p>
+export default withRouter(MyComponent)
+--- END CODE BLOCK ---
+will prevent adding a new URL entry into the
+[CODE_BLOCK_93]
+stack.
+[CODE_BLOCK_94]
+The API for
+[CODE_BLOCK_96]
+is exactly the same as the API for
+[CODE_BLOCK_97]
+Take a look at the following example:
+[CODE_BLOCK_98]
+router.prefetch
+Prefetch pages for faster client-side transitions. This method is only useful for navigations without
+[CODE_BLOCK_100]
+, as
+[CODE_BLOCK_101]
+takes care of prefetching pages automatically.
+This is a production only feature. Next.js doesn't prefetch pages in development.
+[CODE_BLOCK_102]
+[CODE_BLOCK_104]
+- The URL to prefetch, including explicit routes (e.g.
+[CODE_BLOCK_105]
+) and dynamic routes (e.g.
+[CODE_BLOCK_106]
+[CODE_BLOCK_107]
+- Optional decorator for
+[CODE_BLOCK_108]
+. Before Next.js 9.5.3 this was used to prefetch dynamic routes.
+[CODE_BLOCK_109]
+- Optional object with the following allowed fields:
+[CODE_BLOCK_110]
+- allows providing a different locale from the active one. If
+[CODE_BLOCK_111]
+[CODE_BLOCK_112]
+has to include the locale as the active locale won't be used.
+Let's say you have a login page, and after a login, you redirect the user to the dashboard. For that case, we can prefetch the dashboard to make a faster transition, like in the following example:
+[CODE_BLOCK_113]
+router.beforePopState
+In some cases (for example, if using a
+Custom Server
+), you may wish to listen to
+popstate
+and do something before the router acts on it.
+[CODE_BLOCK_115]
+[CODE_BLOCK_117]
+- The function to run on incoming
+[CODE_BLOCK_118]
+events. The function receives the state of the event as an object with the following props:
+[CODE_BLOCK_119]
+[CODE_BLOCK_120]
+- the route for the new state. This is usually the name of a
+[CODE_BLOCK_121]
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+- the url that will be shown in the browser
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+- Additional options sent by
+router.push
+[CODE_BLOCK_126]
+returns
+[CODE_BLOCK_127]
+, the Next.js router will not handle
+[CODE_BLOCK_128]
+, and you'll be responsible for handling it in that case. See
+Disabling file-system routing
+You could use
+[CODE_BLOCK_129]
+to manipulate the request, or force a SSR refresh, as in the following example:
+[CODE_BLOCK_130]
+router.back
+Navigate back in history. Equivalent to clicking the browser’s back button. It executes
+[CODE_BLOCK_132]
+[CODE_BLOCK_133]
+router.reload
+Reload the current URL. Equivalent to clicking the browser’s refresh button. It executes
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+router.events
+You can listen to different events happening inside the Next.js Router. Here's a list of supported events:
+[CODE_BLOCK_138]
+- Fires when a route starts to change
+[CODE_BLOCK_139]
+- Fires when a route changed completely
+[CODE_BLOCK_140]
+- Fires when there's an error when changing routes, or a route load is cancelled
+[CODE_BLOCK_141]
+- Indicates if the navigation was cancelled
+[CODE_BLOCK_142]
+- Fires before changing the browser's history
+[CODE_BLOCK_143]
+- Fires when the hash will change but not the page
+[CODE_BLOCK_144]
+- Fires when the hash has changed but not the page
+Good to know
+: Here
+[CODE_BLOCK_145]
+is the URL shown in the browser, including the
+[CODE_BLOCK_146]
+For example, to listen to the router event
+[CODE_BLOCK_147]
+, open or create
+[CODE_BLOCK_148]
+and subscribe to the event, like so:
+[CODE_BLOCK_149]
+We use a
+Custom App
+[CODE_BLOCK_151]
+) for this example to subscribe to the event because it's not unmounted on page navigations, but you can subscribe to router events on any component in your application.
+Router events should be registered when a component mounts (
+useEffect
+componentDidMount
+componentWillUnmount
+) or imperatively when an event happens.
+If a route load is cancelled (for example, by clicking two links rapidly in succession),
+[CODE_BLOCK_152]
+will fire. And the passed
+[CODE_BLOCK_153]
+will contain a
+[CODE_BLOCK_154]
+property set to
+[CODE_BLOCK_155]
+, as in the following example:
+[CODE_BLOCK_156]
+[CODE_BLOCK_158]
+export
+This is the same
+[CODE_BLOCK_159]
+hook, but can be used in both
+[CODE_BLOCK_160]
+[CODE_BLOCK_161]
+directories.
+It differs from
+[CODE_BLOCK_162]
+in that it does not throw an error when the pages router is not mounted, and instead has a return type of
+[CODE_BLOCK_163]
+This allows developers to convert components to support running in both
+[CODE_BLOCK_164]
+[CODE_BLOCK_165]
+as they transition to the
+[CODE_BLOCK_166]
+router.
+A component that previously looked like this:
+[CODE_BLOCK_167]
+Will error when converted over to
+[CODE_BLOCK_169]
+, as
+[CODE_BLOCK_170]
+can not be destructured. Instead, developers will be able to take advantage of new hooks:
+[CODE_BLOCK_171]
+This component will now work in both
+[CODE_BLOCK_173]
+[CODE_BLOCK_174]
+directories. When the component is no longer used in
+[CODE_BLOCK_175]
+, you can remove the references to the compat router:
+[CODE_BLOCK_176]
+Using
+[CODE_BLOCK_178]
+outside of Next.js context in pages
+Another specific use case is when rendering components outside of a Next.js application context, such as inside
+[CODE_BLOCK_179]
+on the
+[CODE_BLOCK_180]
+directory. In this case, the compat router can be used to avoid errors:
+[CODE_BLOCK_181]
+Potential ESLint errors
+Certain methods accessible on the
+[CODE_BLOCK_183]
+object return a Promise. If you have the ESLint rule,
+no-floating-promises
+enabled, consider disabling it either globally, or for the affected line.
+If your application needs this rule, you should either
+[CODE_BLOCK_184]
+the promise – or use an
+[CODE_BLOCK_185]
+function,
+[CODE_BLOCK_186]
+the Promise, then void the function call.
+This is not applicable when the method is called from inside an
+[CODE_BLOCK_187]
+handler
+The affected methods are:
+[CODE_BLOCK_188]
+[CODE_BLOCK_189]
+[CODE_BLOCK_190]
+Potential solutions
+[CODE_BLOCK_191]
+withRouter
+[CODE_BLOCK_193]
+is not the best fit for you,
+[CODE_BLOCK_194]
+can also add the same
+[CODE_BLOCK_195]
+object
+to any component.
+Usage
+[CODE_BLOCK_196]
+TypeScript
+To use class components with
+[CODE_BLOCK_198]
+, the component needs to accept a router prop:
+[CODE_BLOCK_199]
+Was this helpful?
+supported.
+Send

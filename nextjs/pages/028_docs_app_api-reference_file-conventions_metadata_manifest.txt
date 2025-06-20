@@ -1,0 +1,106 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/manifest
+SCRAPED: 2025-06-19 17:12:15
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+File-system conventions
+Metadata Files
+manifest.json
+manifest.json
+Add or generate a
+--- CODE BLOCK 1 ---
+manifest.(json|webmanifest)
+--- END CODE BLOCK ---
+file that matches the
+Web Manifest Specification
+in the
+root
+--- CODE BLOCK 3 ---
+"name": "My Next.js Application",
+"short_name": "Next.js App",
+"description": "An application built with Next.js",
+"start_url": "/"
+// ...
+--- END CODE BLOCK ---
+directory to provide information about your web application for the browser.
+Static Manifest file
+app/manifest.json | app/manifest.webmanifest
+--- CODE BLOCK 4 ---
+"name": "My Next.js Application",
+"short_name": "Next.js App",
+"description": "An application built with Next.js",
+"start_url": "/"
+// ...
+--- END CODE BLOCK ---
+Generate a Manifest file
+Add a
+--- CODE BLOCK 6 ---
+manifest.ts
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+manifest.js
+--- END CODE BLOCK ---
+file that returns a
+--- CODE BLOCK 9 ---
+import type { MetadataRoute } from 'next'
+export default function manifest(): MetadataRoute.Manifest {
+return {
+name: 'Next.js App',
+short_name: 'Next.js App',
+description: 'Next.js App',
+start_url: '/',
+display: 'standalone',
+background_color: '#fff',
+theme_color: '#fff',
+icons: [
+src: '/favicon.ico',
+sizes: 'any',
+type: 'image/x-icon',
+--- END CODE BLOCK ---
+object
+Good to know:
+--- CODE BLOCK 10 ---
+import type { MetadataRoute } from 'next'
+export default function manifest(): MetadataRoute.Manifest {
+return {
+name: 'Next.js App',
+short_name: 'Next.js App',
+description: 'Next.js App',
+start_url: '/',
+display: 'standalone',
+background_color: '#fff',
+theme_color: '#fff',
+icons: [
+src: '/favicon.ico',
+sizes: 'any',
+type: 'image/x-icon',
+--- END CODE BLOCK ---
+is special Route Handlers that is cached by default unless it uses a
+Dynamic API
+dynamic config
+option.
+app/manifest.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 11 ---
+MetadataRoute.Manifest
+--- END CODE BLOCK ---
+Manifest Object
+The manifest object contains an extensive list of options that may be updated due to new web standards. For information on all the current options, refer to the
+[CODE_BLOCK_11]
+type in your code editor if using
+TypeScript
+or see the
+docs.
+Was this helpful?
+supported.
+Send

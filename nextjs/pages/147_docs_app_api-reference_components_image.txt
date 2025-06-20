@@ -1,0 +1,1851 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/components/image
+SCRAPED: 2025-06-19 17:26:26
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Components
+Image Component
+Image Component
+The Next.js Image component extends the HTML
+--- CODE BLOCK 2 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="/profile.png"
+width={500}
+height={500}
+alt="Picture of the author"
+--- END CODE BLOCK ---
+element for automatic image optimization.
+app/page.js
+--- CODE BLOCK 3 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="/profile.png"
+width={500}
+height={500}
+alt="Picture of the author"
+--- END CODE BLOCK ---
+Reference
+Props
+The following props are available:
+Prop
+Example
+Type
+Status
+--- CODE BLOCK 7 ---
+alt="Picture of the author"
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+width={500}
+--- END CODE BLOCK ---
+String
+Required
+--- CODE BLOCK 11 ---
+height={500}
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+fill={true}
+--- END CODE BLOCK ---
+String
+Required
+--- CODE BLOCK 15 ---
+loader={imageLoader}
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+sizes="(max-width: 768px) 100vw, 33vw"
+--- END CODE BLOCK ---
+Integer (px)
+--- CODE BLOCK 19 ---
+quality={80}
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+priority={true}
+--- END CODE BLOCK ---
+Integer (px)
+--- CODE BLOCK 22 ---
+placeholder
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+placeholder="blur"
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 25 ---
+style={{objectFit: "contain"}}
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+Function
+--- CODE BLOCK 27 ---
+onLoadingComplete={img => done())}
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+onLoad={event => done())}
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 31 ---
+onError(event => fail()}
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+loading="lazy"
+--- END CODE BLOCK ---
+Integer (1-100)
+--- CODE BLOCK 34 ---
+blurDataURL
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+blurDataURL="data:image/jpeg..."
+--- END CODE BLOCK ---
+Boolean
+--- CODE BLOCK 36 ---
+overrideSrc
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+overrideSrc="/seo.png"
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 39 ---
+<Image src="/profile.png" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+<Image src="/profile.png" />
+--- END CODE BLOCK ---
+Object
+--- CODE BLOCK 41 ---
+<Image src="https://example.com/profile.png" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+<Image src="https://example.com/profile.png" />
+--- END CODE BLOCK ---
+Function
+Deprecated
+--- CODE BLOCK 43 ---
+import profile from './profile.png'
+export default function Page() {
+return <Image src={profile} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+import profile from './profile.png'
+export default function Page() {
+return <Image src={profile} />
+--- END CODE BLOCK ---
+Function
+--- CODE BLOCK 53 ---
+<Image src="/profile.png" width={500} height={500} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+<Image src="/profile.png" width={500} height={500} />
+--- END CODE BLOCK ---
+Function
+--- CODE BLOCK 60 ---
+<Image src="/profile.png" fill={true} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+<Image src="/profile.png" fill={true} />
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 62 ---
+position: "relative"
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+position: "absolute"
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 76 ---
+'use client'
+import Image from 'next/image'
+const imageLoader = ({ src, width, quality }) => {
+return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+export default function Page() {
+return (
+<Image
+loader={imageLoader}
+src="me.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+'use client'
+import Image from 'next/image'
+const imageLoader = ({ src, width, quality }) => {
+return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+export default function Page() {
+return (
+<Image
+loader={imageLoader}
+src="me.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+String
+--- CODE BLOCK 79 ---
+next.config.js
+--- END CODE BLOCK ---
+The source of the image. Can be one of the following:
+An internal path string.
+--- CODE BLOCK 83 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<div className="grid-element">
+<Image
+fill
+src="/example.png"
+sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+</div>
+--- END CODE BLOCK ---
+An absolute external URL (must be configured with
+remotePatterns
+--- CODE BLOCK 100 ---
+// Default quality is 75
+<Image quality={75} />
+--- END CODE BLOCK ---
+A static import.
+--- CODE BLOCK 102 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+const imageStyle = {
+borderRadius: '50%',
+border: '1px solid #fff',
+width: '100px',
+height: 'auto',
+export default function ProfileImage() {
+return <Image src="..." style={imageStyle} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 107 ---
+height: 'auto'
+--- END CODE BLOCK ---
+property is used to describe the image for screen readers and search engines. It is also the fallback text if images have been disabled or an error occurs while loading the image.
+It should contain text that could replace the image
+without changing the meaning of the page
+. It is not meant to supplement the image and should not repeat information that is already provided in the captions above or below the image.
+If the image is
+purely decorative
+not intended for the user
+, the
+--- CODE BLOCK 109 ---
+// Default priority is false
+<Image priority={false} />
+--- END CODE BLOCK ---
+property should be an empty string (
+--- CODE BLOCK 110 ---
+// Default priority is false
+<Image priority={false} />
+--- END CODE BLOCK ---
+Learn more about
+image accessibility guidelines
+--- CODE BLOCK 115 ---
+// Defaults to lazy
+<Image loading="lazy" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 116 ---
+// Defaults to lazy
+<Image loading="lazy" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+placeholder
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+// defaults to empty
+<Image placeholder="empty" />
+--- END CODE BLOCK ---
+properties represent the
+intrinsic
+image size in pixels. This property is used to infer the correct
+aspect ratio
+used by browsers to reserve space for the image and avoid layout shift during loading. It does not determine the
+rendered size
+of the image, which is controlled by CSS.
+--- CODE BLOCK 123 ---
+// defaults to empty
+<Image placeholder="empty" />
+--- END CODE BLOCK ---
+must
+set both
+--- CODE BLOCK 127 ---
+data:image/...
+--- END CODE BLOCK ---
+--- CODE BLOCK 129 ---
+placeholder
+--- END CODE BLOCK ---
+properties unless:
+The image is statically imported.
+The image has the
+--- CODE BLOCK 130 ---
+blurDataURL
+--- END CODE BLOCK ---
+property
+If the height and width are unknown, we recommend using the
+--- CODE BLOCK 131 ---
+placeholder
+--- END CODE BLOCK ---
+property
+--- CODE BLOCK 132 ---
+blurDataURL
+--- END CODE BLOCK ---
+A boolean that causes the image to expand to the size of the parent element.
+--- CODE BLOCK 133 ---
+placeholder="blur"
+--- END CODE BLOCK ---
+Positioning
+The parent element
+must
+assign
+--- CODE BLOCK 135 ---
+<Image placeholder="blur" blurDataURL="..." />
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+blurDataURL
+--- END CODE BLOCK ---
+--- CODE BLOCK 142 ---
+blurDataURL
+--- END CODE BLOCK ---
+By default, the
+--- CODE BLOCK 143 ---
+blurDataURL
+--- END CODE BLOCK ---
+element uses
+--- CODE BLOCK 144 ---
+blurDataURL
+--- END CODE BLOCK ---
+Object Fit
+If no styles are applied to the image, the image will stretch to fit the container. You can use
+--- CODE BLOCK 146 ---
+<Image onLoad={(e) => console.log(e.target.naturalWidth)} />
+--- END CODE BLOCK ---
+to control cropping and scaling.
+--- CODE BLOCK 147 ---
+<Image onLoad={(e) => console.log(e.target.naturalWidth)} />
+--- END CODE BLOCK ---
+: The image will be scaled down to fit the container and preserve aspect ratio.
+--- CODE BLOCK 152 ---
+<Image onError={(e) => console.error(e.target.id)} />
+--- END CODE BLOCK ---
+: The image will fill the container and be cropped.
+Learn more about
+--- CODE BLOCK 153 ---
+<Image onError={(e) => console.error(e.target.id)} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+unoptimized
+--- END CODE BLOCK ---
+--- CODE BLOCK 156 ---
+import Image from 'next/image'
+const UnoptimizedImage = (props) => {
+// Default is false
+return <Image {...props} unoptimized />
+--- END CODE BLOCK ---
+A custom function used to generate the image URL. The function receives the following parameters, and returns a URL string for the image:
+--- CODE BLOCK 157 ---
+import Image from 'next/image'
+const UnoptimizedImage = (props) => {
+// Default is false
+return <Image {...props} unoptimized />
+--- END CODE BLOCK ---
+--- CODE BLOCK 161 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 162 ---
+module.exports = {
+images: {
+unoptimized: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 163 ---
+module.exports = {
+images: {
+unoptimized: true,
+--- END CODE BLOCK ---
+Good to know
+: Using props like
+--- CODE BLOCK 170 ---
+<Image src="/profile.jpg" />
+--- END CODE BLOCK ---
+, which accept a function, requires using
+Client Components
+to serialize the provided function.
+Alternatively, you can use the
+loaderFile
+configuration in
+--- CODE BLOCK 171 ---
+<Image src="/profile.jpg" />
+--- END CODE BLOCK ---
+to configure every instance of
+--- CODE BLOCK 172 ---
+<img
+srcset="
+/_next/image?url=%2Fme.jpg&w=640&q=75 1x,
+/_next/image?url=%2Fme.jpg&w=828&q=75 2x
+src="/_next/image?url=%2Fme.jpg&w=828&q=75"
+--- END CODE BLOCK ---
+in your application, without passing a prop.
+--- CODE BLOCK 173 ---
+<img
+srcset="
+/_next/image?url=%2Fme.jpg&w=640&q=75 1x,
+/_next/image?url=%2Fme.jpg&w=828&q=75 2x
+src="/_next/image?url=%2Fme.jpg&w=828&q=75"
+--- END CODE BLOCK ---
+Define the sizes of the image at different breakpoints. Used by the browser to choose the most appropriate size from the generated
+--- CODE BLOCK 175 ---
+overrideSrc
+--- END CODE BLOCK ---
+--- CODE BLOCK 179 ---
+<Image src="/profile.jpg" overrideSrc="/override.jpg" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 181 ---
+<img
+srcset="
+/_next/image?url=%2Fme.jpg&w=640&q=75 1x,
+/_next/image?url=%2Fme.jpg&w=828&q=75 2x
+src="/override.jpg"
+--- END CODE BLOCK ---
+should be used when:
+The image is using the
+--- CODE BLOCK 182 ---
+<img
+srcset="
+/_next/image?url=%2Fme.jpg&w=640&q=75 1x,
+/_next/image?url=%2Fme.jpg&w=828&q=75 2x
+src="/override.jpg"
+--- END CODE BLOCK ---
+prop
+CSS is used to make the image responsive
+--- CODE BLOCK 184 ---
+// Default is async
+<Image decoding="async" />
+--- END CODE BLOCK ---
+is missing, the browser assumes the image will be as wide as the viewport (
+--- CODE BLOCK 185 ---
+// Default is async
+<Image decoding="async" />
+--- END CODE BLOCK ---
+). This can cause unnecessarily large images to be downloaded.
+In addition,
+--- CODE BLOCK 193 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+affects how
+--- CODE BLOCK 196 ---
+'use client'
+<Image onLoadingComplete={(img) => console.log(img.naturalWidth)} />
+--- END CODE BLOCK ---
+is generated:
+Without
+--- CODE BLOCK 197 ---
+'use client'
+<Image onLoadingComplete={(img) => console.log(img.naturalWidth)} />
+--- END CODE BLOCK ---
+: Next.js generates a limited
+--- CODE BLOCK 198 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+(e.g. 1x, 2x), suitable for fixed-size images.
+With
+--- CODE BLOCK 199 ---
+next.config.js
+--- END CODE BLOCK ---
+: Next.js generates a full
+--- CODE BLOCK 200 ---
+localPatterns
+--- END CODE BLOCK ---
+(e.g. 640w, 750w, etc.), optimized for responsive layouts.
+Learn more about
+--- CODE BLOCK 201 ---
+localPatterns
+--- END CODE BLOCK ---
+--- CODE BLOCK 202 ---
+next.config.js
+--- END CODE BLOCK ---
+web.dev
+--- CODE BLOCK 203 ---
+module.exports = {
+images: {
+localPatterns: [
+pathname: '/assets/images/**',
+search: '',
+--- END CODE BLOCK ---
+An integer between
+--- CODE BLOCK 204 ---
+module.exports = {
+images: {
+localPatterns: [
+pathname: '/assets/images/**',
+search: '',
+--- END CODE BLOCK ---
+--- CODE BLOCK 207 ---
+/assets/images/
+--- END CODE BLOCK ---
+that sets the quality of the optimized image. Higher values increase file size and visual fidelity. Lower values reduce file size but may affect sharpness.
+--- CODE BLOCK 209 ---
+remotePatterns
+--- END CODE BLOCK ---
+If you’ve configured
+qualities
+--- CODE BLOCK 211 ---
+next.config.js
+--- END CODE BLOCK ---
+, the value must match one of the allowed entries.
+Good to know
+: If the original image is already low quality, setting a high quality value will increase the file size without improving appearance.
+--- CODE BLOCK 212 ---
+module.exports = {
+images: {
+remotePatterns: [new URL('https://example.com/account123/**')],
+--- END CODE BLOCK ---
+Allows passing CSS styles to the underlying image element.
+--- CODE BLOCK 213 ---
+module.exports = {
+images: {
+remotePatterns: [new URL('https://example.com/account123/**')],
+--- END CODE BLOCK ---
+Good to know
+: If you’re using the
+--- CODE BLOCK 215 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'example.com',
+port: '',
+pathname: '/account123/**',
+search: '',
+--- END CODE BLOCK ---
+prop to set a custom width, be sure to also set
+--- CODE BLOCK 216 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'example.com',
+port: '',
+pathname: '/account123/**',
+search: '',
+--- END CODE BLOCK ---
+to preserve the image’s aspect ratio.
+--- CODE BLOCK 219 ---
+https://example.com/account123/
+--- END CODE BLOCK ---
+A boolean that indicates if the image should be preloaded.
+--- CODE BLOCK 225 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: '**.example.com',
+port: '',
+search: '',
+--- END CODE BLOCK ---
+--- CODE BLOCK 227 ---
+image.example.com
+--- END CODE BLOCK ---
+Preloads
+the image. Disables lazy loading.
+--- CODE BLOCK 234 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'assets.example.com',
+search: '?v=1727111025337',
+--- END CODE BLOCK ---
+: Lazy loads the image.
+When to use it:
+The image is above the fold.
+The image is the
+Largest Contentful Paint (LCP)
+element.
+You want to improve the initial loading performance of your page.
+When not to use it:
+When the
+--- CODE BLOCK 235 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'assets.example.com',
+search: '?v=1727111025337',
+--- END CODE BLOCK ---
+prop isused (will trigger warnings).
+--- CODE BLOCK 238 ---
+https://assets.example.com
+--- END CODE BLOCK ---
+Controls when the image should start loading.
+--- CODE BLOCK 239 ---
+?v=1727111025337
+--- END CODE BLOCK ---
+--- CODE BLOCK 243 ---
+module.exports = {
+images: {
+loader: 'custom',
+loaderFile: './my/image/loader.js',
+--- END CODE BLOCK ---
+: Defer loading the image until it reaches a calculated distance from the viewport.
+--- CODE BLOCK 244 ---
+module.exports = {
+images: {
+loader: 'custom',
+loaderFile: './my/image/loader.js',
+--- END CODE BLOCK ---
+: Load the image immediately, regardless of its position in the page.
+--- CODE BLOCK 245 ---
+'use client'
+export default function myImageLoader({ src, width, quality }) {
+return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+--- END CODE BLOCK ---
+only when you want to ensure the image is loaded immediately.
+Learn more about the
+--- CODE BLOCK 246 ---
+'use client'
+export default function myImageLoader({ src, width, quality }) {
+return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+--- END CODE BLOCK ---
+attribute
+--- CODE BLOCK 249 ---
+deviceSizes
+--- END CODE BLOCK ---
+Specifies a placeholder to use while the image is loading, improving the perceived loading performance.
+--- CODE BLOCK 250 ---
+deviceSizes
+--- END CODE BLOCK ---
+--- CODE BLOCK 254 ---
+module.exports = {
+images: {
+deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+--- END CODE BLOCK ---
+: No placeholder while the image is loading.
+--- CODE BLOCK 257 ---
+module.exports = {
+images: {
+imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+--- END CODE BLOCK ---
+: Use a blurred version of the image as a placeholder. Must be used with the
+--- CODE BLOCK 258 ---
+module.exports = {
+images: {
+imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+--- END CODE BLOCK ---
+property.
+--- CODE BLOCK 262 ---
+deviceSizes
+--- END CODE BLOCK ---
+: Uses the
+Data URL
+as the placeholder.
+Examples:
+--- CODE BLOCK 265 ---
+module.exports = {
+images: {
+qualities: [25, 50, 75],
+--- END CODE BLOCK ---
+placeholder
+Shimmer effect with data URL
+--- CODE BLOCK 266 ---
+module.exports = {
+images: {
+qualities: [25, 50, 75],
+--- END CODE BLOCK ---
+prop
+Color effect with
+--- CODE BLOCK 271 ---
+module.exports = {
+images: {
+// Default
+formats: ['image/webp'],
+--- END CODE BLOCK ---
+prop
+Learn more about the
+--- CODE BLOCK 272 ---
+module.exports = {
+images: {
+// Default
+formats: ['image/webp'],
+--- END CODE BLOCK ---
+attribute
+--- CODE BLOCK 275 ---
+module.exports = {
+images: {
+formats: ['image/avif'],
+--- END CODE BLOCK ---
+Data URL
+be used as a placeholder image before the image successfully loads. Can be automatically set or used with the
+--- CODE BLOCK 276 ---
+module.exports = {
+images: {
+formats: ['image/avif'],
+--- END CODE BLOCK ---
+property.
+--- CODE BLOCK 278 ---
+minimumCacheTTL
+--- END CODE BLOCK ---
+The image is automatically enlarged and blurred, so a very small image (10px or less) is recommended.
+Automatic
+--- CODE BLOCK 280 ---
+Cache-Control
+--- END CODE BLOCK ---
+is a static import of a
+--- CODE BLOCK 282 ---
+module.exports = {
+images: {
+minimumCacheTTL: 60, // 1 minute
+--- END CODE BLOCK ---
+--- CODE BLOCK 283 ---
+module.exports = {
+images: {
+minimumCacheTTL: 60, // 1 minute
+--- END CODE BLOCK ---
+--- CODE BLOCK 284 ---
+module.exports = {
+images: {
+minimumCacheTTL: 2678400, // 31 days
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 285 ---
+module.exports = {
+images: {
+minimumCacheTTL: 2678400, // 31 days
+--- END CODE BLOCK ---
+file,
+--- CODE BLOCK 286 ---
+minimumCacheTTL
+--- END CODE BLOCK ---
+is added automatically—unless the image is animated.
+Manually set
+If the image is dynamic or remote, you must provide
+--- CODE BLOCK 287 ---
+Cache-Control
+--- END CODE BLOCK ---
+yourself. To generate one, you can use:
+A online tool like png-pixel.com
+A library like Plaiceholder
+A large blurDataURL may hurt performance. Keep it small and simple.
+Examples:
+Default
+--- CODE BLOCK 289 ---
+Cache-Control
+--- END CODE BLOCK ---
+prop
+Color effect with
+--- CODE BLOCK 290 ---
+/some-asset.jpg
+--- END CODE BLOCK ---
+prop
+--- CODE BLOCK 291 ---
+/_next/image
+--- END CODE BLOCK ---
+A callback function that is invoked once the image is completely loaded and the
+placeholder
+has been removed.
+--- CODE BLOCK 292 ---
+minimumCacheTTL
+--- END CODE BLOCK ---
+The callback function will be called with one argument, the event which has a
+--- CODE BLOCK 295 ---
+disableStaticImages
+--- END CODE BLOCK ---
+that references the underlying
+--- CODE BLOCK 296 ---
+disableStaticImages
+--- END CODE BLOCK ---
+element.
+Good to know
+: Using props like
+--- CODE BLOCK 297 ---
+import icon from './icon.png'
+--- END CODE BLOCK ---
+, which accept a function, requires using
+Client Components
+to serialize the provided function.
+--- CODE BLOCK 299 ---
+next.config.js
+--- END CODE BLOCK ---
+A callback function that is invoked if the image fails to load.
+--- CODE BLOCK 300 ---
+module.exports = {
+images: {
+disableStaticImages: true,
+--- END CODE BLOCK ---
+Good to know
+: Using props like
+--- CODE BLOCK 302 ---
+dangerouslyAllowSVG
+--- END CODE BLOCK ---
+, which accept a function, requires using
+Client Components
+to serialize the provided function.
+--- CODE BLOCK 303 ---
+dangerouslyAllowSVG
+--- END CODE BLOCK ---
+A boolean that indicates if the image should be optimized. This is useful for images that do not benefit from optimization such as small images (less than 1KB), vector images (SVG), or animated images (GIF).
+--- CODE BLOCK 304 ---
+module.exports = {
+images: {
+dangerouslyAllowSVG: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 306 ---
+unoptimized
+--- END CODE BLOCK ---
+: The source image will be served as-is from the
+--- CODE BLOCK 310 ---
+<Image src="/my-image.svg" unoptimized />
+--- END CODE BLOCK ---
+instead of changing quality, size, or format.
+--- CODE BLOCK 311 ---
+<Image src="/my-image.svg" unoptimized />
+--- END CODE BLOCK ---
+: The source image will be optimized.
+Since Next.js 12.3.0, this prop can be assigned to all images by updating
+--- CODE BLOCK 312 ---
+contentDispositionType
+--- END CODE BLOCK ---
+with the following configuration:
+next.config.js
+--- CODE BLOCK 313 ---
+contentSecurityPolicy
+--- END CODE BLOCK ---
+--- CODE BLOCK 315 ---
+module.exports = {
+images: {
+dangerouslyAllowSVG: true,
+contentDispositionType: 'attachment',
+contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+--- END CODE BLOCK ---
+When providing the
+--- CODE BLOCK 316 ---
+contentDispositionType
+--- END CODE BLOCK ---
+prop to the
+--- CODE BLOCK 317 ---
+contentDispositionType
+--- END CODE BLOCK ---
+component, both the
+--- CODE BLOCK 318 ---
+Content-Disposition
+--- END CODE BLOCK ---
+--- CODE BLOCK 319 ---
+module.exports = {
+images: {
+contentDispositionType: 'inline',
+--- END CODE BLOCK ---
+attributes are generated automatically for the resulting
+--- CODE BLOCK 320 ---
+module.exports = {
+images: {
+contentDispositionType: 'inline',
+--- END CODE BLOCK ---
+input.js
+--- CODE BLOCK 321 ---
+Content-Disposition
+--- END CODE BLOCK ---
+output.html
+--- CODE BLOCK 327 ---
+remotePatterns
+--- END CODE BLOCK ---
+In some cases, it is not desirable to have the
+--- CODE BLOCK 333 ---
+next.config.js
+--- END CODE BLOCK ---
+attribute generated and you may wish to override it using the
+--- CODE BLOCK 334 ---
+module.exports = {
+images: {
+domains: ['assets.acme.com'],
+--- END CODE BLOCK ---
+prop.
+For example, when upgrading an existing website from
+--- CODE BLOCK 335 ---
+module.exports = {
+images: {
+domains: ['assets.acme.com'],
+--- END CODE BLOCK ---
+--- CODE BLOCK 336 ---
+getImageProps
+--- END CODE BLOCK ---
+, you may wish to maintain the same
+--- CODE BLOCK 337 ---
+getImageProps
+--- END CODE BLOCK ---
+attribute for SEO purposes such as image ranking or avoiding recrawl.
+input.js
+--- CODE BLOCK 339 ---
+import { getImageProps } from 'next/image'
+const props = getImageProps({
+src: 'https://example.com/image.jpg',
+alt: 'A scenic mountain view',
+width: 1200,
+height: 800,
+function ImageWithCaption() {
+return (
+<figure>
+<img {...props} />
+<figcaption>A scenic mountain view</figcaption>
+</figure>
+--- END CODE BLOCK ---
+output.html
+--- CODE BLOCK 342 ---
+placeholder
+--- END CODE BLOCK ---
+--- CODE BLOCK 350 ---
+placeholder
+--- END CODE BLOCK ---
+A hint to the browser indicating if it should wait for the image to be decoded before presenting other content updates or not.
+--- CODE BLOCK 356 ---
+import styles from './styles.module.css'
+export default function MyImage() {
+return <Image className={styles.image} src="/my-image.png" alt="My Image" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 359 ---
+export default function MyImage() {
+return (
+<Image style={{ borderRadius: '8px' }} src="/my-image.png" alt="My Image" />
+--- END CODE BLOCK ---
+: Asynchronously decode the image and allow other content to be rendered before it completes.
+--- CODE BLOCK 360 ---
+export default function MyImage() {
+return (
+<Image style={{ borderRadius: '8px' }} src="/my-image.png" alt="My Image" />
+--- END CODE BLOCK ---
+: Synchronously decode the image for atomic presentation with other content.
+--- CODE BLOCK 362 ---
+position: relative
+--- END CODE BLOCK ---
+: No preference. The browser chooses the best approach.
+Learn more about the
+--- CODE BLOCK 363 ---
+display: block
+--- END CODE BLOCK ---
+attribute
+Other Props
+Other properties on the
+--- CODE BLOCK 364 ---
+<div style={{ position: 'relative' }}>
+<Image fill src="/my-image.png" alt="My Image" />
+</div>
+--- END CODE BLOCK ---
+component will be passed to the underlying
+--- CODE BLOCK 365 ---
+<div style={{ position: 'relative' }}>
+<Image fill src="/my-image.png" alt="My Image" />
+</div>
+--- END CODE BLOCK ---
+element with the exception of the following:
+--- CODE BLOCK 367 ---
+import Image from 'next/image'
+import mountains from '../public/mountains.jpg'
+export default function Responsive() {
+return (
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+<Image
+alt="Mountains"
+// Importing an image will
+// automatically set the width and height
+src={mountains}
+sizes="100vw"
+// Make the image display full width
+// and preserve its aspect ratio
+style={{
+width: '100%',
+height: 'auto',
+</div>
+--- END CODE BLOCK ---
+: Use
+Device Sizes
+instead.
+Deprecated props
+--- CODE BLOCK 368 ---
+import Image from 'next/image'
+import mountains from '../public/mountains.jpg'
+export default function Responsive() {
+return (
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+<Image
+alt="Mountains"
+// Importing an image will
+// automatically set the width and height
+src={mountains}
+sizes="100vw"
+// Make the image display full width
+// and preserve its aspect ratio
+style={{
+width: '100%',
+height: 'auto',
+</div>
+--- END CODE BLOCK ---
+Warning
+: Deprecated in Next.js 14, use
+--- CODE BLOCK 369 ---
+import Image from 'next/image'
+export default function Page({ photoUrl }) {
+return (
+<Image
+src={photoUrl}
+alt="Picture of the author"
+sizes="100vw"
+style={{
+width: '100%',
+height: 'auto',
+width={500}
+height={300}
+--- END CODE BLOCK ---
+instead.
+A callback function that is invoked once the image is completely loaded and the
+placeholder
+has been removed.
+The callback function will be called with one argument, a reference to the underlying
+--- CODE BLOCK 370 ---
+import Image from 'next/image'
+export default function Page({ photoUrl }) {
+return (
+<Image
+src={photoUrl}
+alt="Picture of the author"
+sizes="100vw"
+style={{
+width: '100%',
+height: 'auto',
+width={500}
+height={300}
+--- END CODE BLOCK ---
+element.
+--- CODE BLOCK 375 ---
+import Image from 'next/image'
+import mountains from '../public/mountains.jpg'
+export default function Fill() {
+return (
+<div
+style={{
+display: 'grid',
+gridGap: '8px',
+gridTemplateColumns: 'repeat(auto-fit, minmax(400px, auto))',
+<div style={{ position: 'relative', width: '400px' }}>
+<Image
+alt="Mountains"
+src={mountains}
+fill
+sizes="(min-width: 808px) 50vw, 100vw"
+style={{
+objectFit: 'cover', // cover, contain, none
+</div>
+{/* And more images in the grid... */}
+</div>
+--- END CODE BLOCK ---
+Good to know
+: Using props like
+--- CODE BLOCK 378 ---
+import Image from 'next/image'
+import mountains from '../public/mountains.jpg'
+export default function Background() {
+return (
+<Image
+alt="Mountains"
+src={mountains}
+placeholder="blur"
+quality={100}
+fill
+sizes="100vw"
+style={{
+objectFit: 'cover',
+--- END CODE BLOCK ---
+, which accept a function, requires using
+Client Components
+to serialize the provided function.
+Configuration options
+You can configure the Image Component in
+--- CODE BLOCK 379 ---
+import Image from 'next/image'
+import mountains from '../public/mountains.jpg'
+export default function Background() {
+return (
+<Image
+alt="Mountains"
+src={mountains}
+placeholder="blur"
+quality={100}
+fill
+sizes="100vw"
+style={{
+objectFit: 'cover',
+--- END CODE BLOCK ---
+. The following options are available:
+--- CODE BLOCK 381 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="https://s3.amazonaws.com/my-bucket/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+--- CODE BLOCK 382 ---
+import Image from 'next/image'
+export default function Page() {
+return (
+<Image
+src="https://s3.amazonaws.com/my-bucket/profile.png"
+alt="Picture of the author"
+width={500}
+height={500}
+--- END CODE BLOCK ---
+in your
+--- CODE BLOCK 385 ---
+blurDataURL
+--- END CODE BLOCK ---
+file to allow images from specific local paths to be optimized and block all others.
+next.config.js
+--- CODE BLOCK 390 ---
+next.config.js
+--- END CODE BLOCK ---
+The example above will ensure the
+--- CODE BLOCK 392 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 's3.amazonaws.com',
+port: '',
+pathname: '/my-bucket/**',
+search: '',
+--- END CODE BLOCK ---
+property of
+--- CODE BLOCK 394 ---
+.imgDark {
+display: none;
+@media (prefers-color-scheme: dark) {
+.imgLight {
+display: none;
+.imgDark {
+display: unset;
+--- END CODE BLOCK ---
+must start with
+--- CODE BLOCK 395 ---
+.imgDark {
+display: none;
+@media (prefers-color-scheme: dark) {
+.imgLight {
+display: none;
+.imgDark {
+display: unset;
+--- END CODE BLOCK ---
+and must not have a query string. Attempting to optimize any other path will respond with
+--- CODE BLOCK 396 ---
+import styles from './theme-image.module.css'
+import Image, { ImageProps } from 'next/image'
+type Props = Omit<ImageProps, 'src' | 'priority' | 'loading'> & {
+srcLight: string
+srcDark: string
+const ThemeImage = (props: Props) => {
+const { srcLight, srcDark, ...rest } = props
+return (
+<Image {...rest} src={srcLight} className={styles.imgLight} />
+<Image {...rest} src={srcDark} className={styles.imgDark} />
+--- END CODE BLOCK ---
+Bad Request error.
+--- CODE BLOCK 397 ---
+import styles from './theme-image.module.css'
+import Image, { ImageProps } from 'next/image'
+type Props = Omit<ImageProps, 'src' | 'priority' | 'loading'> & {
+srcLight: string
+srcDark: string
+const ThemeImage = (props: Props) => {
+const { srcLight, srcDark, ...rest } = props
+return (
+<Image {...rest} src={srcLight} className={styles.imgLight} />
+<Image {...rest} src={srcDark} className={styles.imgDark} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 398 ---
+loading="lazy"
+--- END CODE BLOCK ---
+in your
+--- CODE BLOCK 400 ---
+loading="eager"
+--- END CODE BLOCK ---
+file to allow images from specific external paths and block all others. This ensures that only external images from your account can be served.
+next.config.js
+--- CODE BLOCK 401 ---
+fetchPriority="high"
+--- END CODE BLOCK ---
+If using a version prior to 15.3.0, you can configure
+--- CODE BLOCK 407 ---
+import { getImageProps } from 'next/image'
+export default function Home() {
+const common = { alt: 'Art Direction Example', sizes: '100vw' }
+const {
+props: { srcSet: desktop },
+} = getImageProps({
+...common,
+width: 1440,
+height: 875,
+quality: 80,
+src: '/desktop.jpg',
+const {
+props: { srcSet: mobile, ...rest },
+} = getImageProps({
+...common,
+width: 750,
+height: 1334,
+quality: 70,
+src: '/mobile.jpg',
+return (
+<picture>
+<source media="(min-width: 1000px)" srcSet={desktop} />
+<source media="(min-width: 500px)" srcSet={mobile} />
+<img {...rest} style={{ width: '100%', height: 'auto' }} />
+</picture>
+--- END CODE BLOCK ---
+using the object:
+next.config.js
+--- CODE BLOCK 408 ---
+import { getImageProps } from 'next/image'
+export default function Home() {
+const common = { alt: 'Art Direction Example', sizes: '100vw' }
+const {
+props: { srcSet: desktop },
+} = getImageProps({
+...common,
+width: 1440,
+height: 875,
+quality: 80,
+src: '/desktop.jpg',
+const {
+props: { srcSet: mobile, ...rest },
+} = getImageProps({
+...common,
+width: 750,
+height: 1334,
+quality: 70,
+src: '/mobile.jpg',
+return (
+<picture>
+<source media="(min-width: 1000px)" srcSet={desktop} />
+<source media="(min-width: 500px)" srcSet={mobile} />
+<img {...rest} style={{ width: '100%', height: 'auto' }} />
+</picture>
+--- END CODE BLOCK ---
+The example above will ensure the
+--- CODE BLOCK 411 ---
+import { getImageProps } from 'next/image'
+function getBackgroundImage(srcSet = '') {
+const imageSet = srcSet
+.split(', ')
+.map((str) => {
+const [url, dpi] = str.split(' ')
+return `url("${url}") ${dpi}`
+.join(', ')
+return `image-set(${imageSet})`
+export default function Home() {
+const {
+props: { srcSet },
+} = getImageProps({ alt: '', width: 128, height: 128, src: '/img.png' })
+const backgroundImage = getBackgroundImage(srcSet)
+const style = { height: '100vh', width: '100vw', backgroundImage }
+return (
+<main style={style}>
+<h1>Hello World</h1>
+</main>
+--- END CODE BLOCK ---
+property of
+--- CODE BLOCK 412 ---
+import { getImageProps } from 'next/image'
+function getBackgroundImage(srcSet = '') {
+const imageSet = srcSet
+.split(', ')
+.map((str) => {
+const [url, dpi] = str.split(' ')
+return `url("${url}") ${dpi}`
+.join(', ')
+return `image-set(${imageSet})`
+export default function Home() {
+const {
+props: { srcSet },
+} = getImageProps({ alt: '', width: 128, height: 128, src: '/img.png' })
+const backgroundImage = getBackgroundImage(srcSet)
+const style = { height: '100vh', width: '100vw', backgroundImage }
+return (
+<main style={style}>
+<h1>Hello World</h1>
+</main>
+--- END CODE BLOCK ---
+must start with
+--- CODE BLOCK 414 ---
+remotePatterns
+--- END CODE BLOCK ---
+and must not have a query string. Any other protocol, hostname, port, or unmatched path will respond with
+--- CODE BLOCK 417 ---
+contentDispositionType
+--- END CODE BLOCK ---
+Bad Request.
+Wildcard Patterns:
+Wildcard patterns can be used for both
+--- CODE BLOCK 423 ---
+localPatterns
+--- END CODE BLOCK ---
+--- CODE BLOCK 425 ---
+remotePatterns.search
+--- END CODE BLOCK ---
+and have the following syntax:
+--- CODE BLOCK 427 ---
+overrideSrc
+--- END CODE BLOCK ---
+match a single path segment or subdomain
+--- CODE BLOCK 429 ---
+getImageProps()
+--- END CODE BLOCK ---
+match any number of path segments at the end or subdomains at the beginning. This syntax does not work in the middle of the pattern.
+next.config.js
+--- CODE BLOCK 431 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+This allows subdomains like
+--- CODE BLOCK 435 ---
+data:/image...
+--- END CODE BLOCK ---
+. Query strings and custom ports are still blocked.
+Good to know
+: When omitting
+--- CODE BLOCK 437 ---
+contentDispositionType
+--- END CODE BLOCK ---
+--- CODE BLOCK 442 ---
+next/legacy/image
+--- END CODE BLOCK ---
+--- CODE BLOCK 443 ---
+next/future/image
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 448 ---
+objectPosition
+--- END CODE BLOCK ---
+then the wildcard
+--- CODE BLOCK 449 ---
+lazyBoundary
+--- END CODE BLOCK ---
+is implied. This is not recommended because it may allow malicious actors to optimize urls you did not intend.
+Query Strings
+You can also restrict query strings using the
+--- CODE BLOCK 452 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+property:
+next.config.js
+--- CODE BLOCK 455 ---
+remotePatterns
+--- END CODE BLOCK ---
+The example above will ensure the
+--- CODE BLOCK 458 ---
+remotePatterns
+--- END CODE BLOCK ---
+property of
+--- CODE BLOCK 459 ---
+unoptimized
+--- END CODE BLOCK ---
+must start with
+--- CODE BLOCK 460 ---
+layout="raw"
+--- END CODE BLOCK ---
+and must have the exact query string
+--- CODE BLOCK 463 ---
+layout="raw"
+--- END CODE BLOCK ---
+. Any other protocol or query string will respond with
+--- CODE BLOCK 465 ---
+dangerouslyAllowSVG
+--- END CODE BLOCK ---
+Bad Request.
+--- CODE BLOCK 466 ---
+contentSecurityPolicy
+--- END CODE BLOCK ---
+--- CODE BLOCK 474 ---
+onLoadingComplete
+--- END CODE BLOCK ---
+allows you to use a custom image optimization service instead of Next.js.
+next.config.js
+--- CODE BLOCK 475 ---
+lazyBoundary
+--- END CODE BLOCK ---
+The path must be relative to the project root. The file must export a default function that returns a URL string:
+my/image/loader.js
+--- CODE BLOCK 479 ---
+blurDataURL
+--- END CODE BLOCK ---
+Example:
+Custom Image Loader Configuration
+Alternatively, you can use the
+[CODE_BLOCK_247]
+prop
+to configure each instance of
+[CODE_BLOCK_248]
+[CODE_BLOCK_249]
+[CODE_BLOCK_250]
+allows you to specify a list of device width breakpoints. These widths are used when the
+[CODE_BLOCK_251]
+component uses
+[CODE_BLOCK_252]
+prop to ensure the correct image is served for the user's device.
+If no configuration is provided, the default below is used:
+next.config.js
+[CODE_BLOCK_253]
+[CODE_BLOCK_255]
+[CODE_BLOCK_256]
+allows you to specify a list of image widths. These widths are concatenated with the array of
+device sizes
+to form the full array of sizes used to generate image
+srcset
+If no configuration is provided, the default below is used:
+next.config.js
+[CODE_BLOCK_257]
+[CODE_BLOCK_259]
+is only used for images which provide a
+[CODE_BLOCK_260]
+prop, which indicates that the image is less than the full width of the screen. Therefore, the sizes in
+[CODE_BLOCK_261]
+should all be smaller than the smallest size in
+[CODE_BLOCK_262]
+[CODE_BLOCK_263]
+[CODE_BLOCK_264]
+allows you to specify a list of image quality values.
+next.config.js
+[CODE_BLOCK_265]
+In the example above, only three qualities are allowed: 25, 50, and 75. If the
+[CODE_BLOCK_267]
+prop does not match a value in this array, the image will fail with a
+[CODE_BLOCK_268]
+Bad Request.
+[CODE_BLOCK_269]
+[CODE_BLOCK_270]
+allows you to specify a list of image formats to be used.
+next.config.js
+[CODE_BLOCK_271]
+Next.js automatically detects the browser's supported image formats via the request's
+[CODE_BLOCK_273]
+header in order to determine the best output format.
+If the
+[CODE_BLOCK_274]
+header matches more than one of the configured formats, the first match in the array is used. Therefore, the array order matters. If there is no match (or the source image is animated), it will use the original image's format.
+You can enable AVIF support, which will fallback to the original format of the src image if the browser
+does not support AVIF
+next.config.js
+[CODE_BLOCK_275]
+Good to know
+We still recommend using WebP for most use cases.
+AVIF generally takes 50% longer to encode but it compresses 20% smaller compared to WebP. This means that the first time an image is requested, it will typically be slower, but subsequent requests that are cached will be faster.
+If you self-host with a Proxy/CDN in front of Next.js, you must configure the Proxy to forward the
+[CODE_BLOCK_277]
+header.
+[CODE_BLOCK_278]
+[CODE_BLOCK_279]
+allows you to configure the Time to Live (TTL) in seconds for cached optimized images. In many cases, it's better to use a
+Static Image Import
+which will automatically hash the file contents and cache the image forever with a
+[CODE_BLOCK_280]
+header of
+[CODE_BLOCK_281]
+If no configuration is provided, the default below is used.
+next.config.js
+[CODE_BLOCK_282]
+You can increase the TTL to reduce the number of revalidations and potentionally lower cost:
+next.config.js
+[CODE_BLOCK_284]
+The expiration (or rather Max Age) of the optimized image is defined by either the
+[CODE_BLOCK_286]
+or the upstream image
+[CODE_BLOCK_287]
+header, whichever is larger.
+If you need to change the caching behavior per image, you can configure
+[CODE_BLOCK_288]
+to set the
+[CODE_BLOCK_289]
+header on the upstream image (e.g.
+[CODE_BLOCK_290]
+, not
+[CODE_BLOCK_291]
+itself).
+There is no mechanism to invalidate the cache at this time, so its best to keep
+[CODE_BLOCK_292]
+low. Otherwise you may need to manually change the
+[CODE_BLOCK_293]
+prop or delete the cached file
+[CODE_BLOCK_294]
+[CODE_BLOCK_295]
+[CODE_BLOCK_296]
+allows you to disable static image imports.
+The default behavior allows you to import static files such as
+[CODE_BLOCK_297]
+and then pass that to the
+[CODE_BLOCK_298]
+property. In some cases, you may wish to disable this feature if it conflicts with other plugins that expect the import to behave differently.
+You can disable static image imports inside your
+[CODE_BLOCK_299]
+next.config.js
+[CODE_BLOCK_300]
+[CODE_BLOCK_302]
+[CODE_BLOCK_303]
+allows you to serve SVG images.
+next.config.js
+[CODE_BLOCK_304]
+By default, Next.js does not optimize SVG images for a few reasons:
+SVG is a vector format meaning it can be resized losslessly.
+SVG has many of the same features as HTML/CSS, which can lead to vulnerabilities without proper
+Content Security Policy (CSP) headers
+We recommend using the
+[CODE_BLOCK_306]
+prop when the
+[CODE_BLOCK_307]
+prop is known to be SVG. This happens automatically when
+[CODE_BLOCK_308]
+ends with
+[CODE_BLOCK_309]
+[CODE_BLOCK_310]
+In addition, it is strongly recommended to also set
+[CODE_BLOCK_312]
+to force the browser to download the image, as well as
+[CODE_BLOCK_313]
+to prevent scripts embedded in the image from executing.
+next.config.js
+[CODE_BLOCK_314]
+[CODE_BLOCK_316]
+[CODE_BLOCK_317]
+allows you to configure the
+[CODE_BLOCK_318]
+header.
+next.config.js
+[CODE_BLOCK_319]
+By default, the
+loader
+sets the
+[CODE_BLOCK_321]
+header to
+[CODE_BLOCK_322]
+for added protection since the API can serve arbitrary remote images.
+The default value is
+[CODE_BLOCK_323]
+which forces the browser to download the image when visiting directly. This is particularly important when
+[CODE_BLOCK_324]
+is true.
+You can optionally configure
+[CODE_BLOCK_325]
+to allow the browser to render the image when visiting directly, without downloading it.
+Deprecated configuration options
+[CODE_BLOCK_326]
+Warning
+: Deprecated since Next.js 14 in favor of strict
+[CODE_BLOCK_327]
+in order to protect your application from malicious users. Only use
+[CODE_BLOCK_328]
+if you own all the content served from the domain.
+Similar to
+[CODE_BLOCK_329]
+, the
+[CODE_BLOCK_330]
+configuration can be used to provide a list of allowed hostnames for external images. However, the
+[CODE_BLOCK_331]
+configuration does not support wildcard pattern matching and it cannot restrict protocol, port, or pathname.
+Below is an example of the
+[CODE_BLOCK_332]
+property in the
+[CODE_BLOCK_333]
+file:
+next.config.js
+[CODE_BLOCK_334]
+Functions
+[CODE_BLOCK_336]
+[CODE_BLOCK_337]
+function can be used to get the props that would be passed to the underlying
+[CODE_BLOCK_338]
+element, and instead pass them to another component, style, canvas, etc.
+[CODE_BLOCK_339]
+This also avoid calling React
+[CODE_BLOCK_341]
+so it can lead to better performance, but it cannot be used with the
+[CODE_BLOCK_342]
+prop because the placeholder will never be removed.
+Known browser bugs
+This
+[CODE_BLOCK_343]
+component uses browser native
+lazy loading
+, which may fallback to eager loading for older browsers before Safari 15.4. When using the blur-up placeholder, older browsers before Safari 12 will fallback to empty placeholder. When using styles with
+[CODE_BLOCK_344]
+[CODE_BLOCK_345]
+[CODE_BLOCK_346]
+, it is possible to cause
+Layout Shift
+on older browsers before Safari 15 that don't
+preserve the aspect ratio
+. For more details, see
+this MDN video
+Safari 15 - 16.3
+display a gray border while loading. Safari 16.4
+fixed this issue
+. Possible solutions:
+Use CSS
+[CODE_BLOCK_347]
+[CODE_BLOCK_348]
+if the image is above the fold
+Firefox 67+
+displays a white background while loading. Possible solutions:
+Enable
+AVIF
+[CODE_BLOCK_349]
+[CODE_BLOCK_350]
+Examples
+Styling images
+Styling the Image component is similar to styling a normal
+[CODE_BLOCK_351]
+element, but there are a few guidelines to keep in mind:
+[CODE_BLOCK_352]
+[CODE_BLOCK_353]
+, not
+[CODE_BLOCK_354]
+. In most cases, we recommend using the
+[CODE_BLOCK_355]
+prop. This can be an imported
+CSS Module
+global stylesheet
+, etc.
+[CODE_BLOCK_356]
+You can also use the
+[CODE_BLOCK_358]
+prop to assign inline styles.
+[CODE_BLOCK_359]
+When using
+[CODE_BLOCK_361]
+, the parent element must have
+[CODE_BLOCK_362]
+[CODE_BLOCK_363]
+. This is necessary for the proper rendering of the image element in that layout mode.
+[CODE_BLOCK_364]
+You cannot use
+styled-jsx
+because it's scoped to the current component (unless you mark the style as
+[CODE_BLOCK_366]
+Responsive images with a static export
+When you import a static image, Next.js automatically sets its width and height based on the file. You can make the image responsive by setting the style:
+[CODE_BLOCK_367]
+Responsive images with a remote URL
+If the source image is a dynamic or a remote URL, you must provide the width and height props so Next.js can calculate the aspect ratio:
+components/page.js
+[CODE_BLOCK_369]
+Try it out:
+Demo the image responsive to viewport
+Responsive image with
+[CODE_BLOCK_371]
+If you don't know the aspect ratio of the image, you can add the
+[CODE_BLOCK_372]
+prop
+with the
+[CODE_BLOCK_373]
+prop set to
+[CODE_BLOCK_374]
+. This will make the image fill the full width of its parent container.
+[CODE_BLOCK_375]
+Background Image
+Use the
+[CODE_BLOCK_377]
+prop to make the image cover the entire screen area:
+[CODE_BLOCK_378]
+For examples of the Image component used with the various styles, see the
+Image Component Demo
+Remote images
+To use a remote image, the
+[CODE_BLOCK_380]
+property should be a URL string.
+app/page.js
+[CODE_BLOCK_381]
+Since Next.js does not have access to remote files during the build process, you'll need to provide the
+[CODE_BLOCK_383]
+[CODE_BLOCK_384]
+and optional
+[CODE_BLOCK_385]
+props manually.
+[CODE_BLOCK_386]
+[CODE_BLOCK_387]
+attributes are used to infer the correct aspect ratio of image and avoid layout shift from the image loading in. The
+[CODE_BLOCK_388]
+[CODE_BLOCK_389]
+determine the rendered size of the image file.
+To safely allow optimizing images, define a list of supported URL patterns in
+[CODE_BLOCK_390]
+. Be as specific as possible to prevent malicious usage. For example, the following configuration will only allow images from a specific AWS S3 bucket:
+next.config.js
+[CODE_BLOCK_391]
+Theme detection
+If you want to display a different image for light and dark mode, you can create a new component that wraps two
+[CODE_BLOCK_393]
+components and reveals the correct one based on a CSS media query.
+components/theme-image.module.css
+[CODE_BLOCK_394]
+components/theme-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_396]
+Good to know
+: The default behavior of
+[CODE_BLOCK_398]
+ensures that only the correct image is loaded. You cannot use
+[CODE_BLOCK_399]
+[CODE_BLOCK_400]
+because that would cause both images to load. Instead, you can use
+[CODE_BLOCK_401]
+Try it out:
+Demo light/dark mode theme detection
+Art direction
+If you want to display a different image for mobile and desktop, sometimes called
+Art Direction
+, you can provide different
+[CODE_BLOCK_402]
+[CODE_BLOCK_403]
+[CODE_BLOCK_404]
+, and
+[CODE_BLOCK_405]
+props to
+[CODE_BLOCK_406]
+app/page.js
+[CODE_BLOCK_407]
+Background CSS
+You can even convert the
+[CODE_BLOCK_409]
+string to the
+[CODE_BLOCK_410]
+CSS function to optimize a background image.
+app/page.js
+[CODE_BLOCK_411]
+Version History
+Version
+Changes
+[CODE_BLOCK_413]
+[CODE_BLOCK_414]
+added support for array of
+[CODE_BLOCK_415]
+objects.
+[CODE_BLOCK_416]
+[CODE_BLOCK_417]
+configuration default changed to
+[CODE_BLOCK_418]
+[CODE_BLOCK_419]
+[CODE_BLOCK_420]
+configuration added.
+[CODE_BLOCK_421]
+[CODE_BLOCK_422]
+prop added and
+[CODE_BLOCK_423]
+configuration added.
+[CODE_BLOCK_424]
+[CODE_BLOCK_425]
+prop added.
+[CODE_BLOCK_426]
+[CODE_BLOCK_427]
+prop added.
+[CODE_BLOCK_428]
+[CODE_BLOCK_429]
+is stable.
+[CODE_BLOCK_430]
+[CODE_BLOCK_431]
+prop and
+[CODE_BLOCK_432]
+config deprecated.
+[CODE_BLOCK_433]
+[CODE_BLOCK_434]
+prop support for
+[CODE_BLOCK_435]
+[CODE_BLOCK_436]
+[CODE_BLOCK_437]
+configuration added.
+[CODE_BLOCK_438]
+[CODE_BLOCK_439]
+prop added.
+[CODE_BLOCK_440]
+[CODE_BLOCK_441]
+import was renamed to
+[CODE_BLOCK_442]
+. The
+[CODE_BLOCK_443]
+import was renamed to
+[CODE_BLOCK_444]
+codemod is available
+to safely and automatically rename your imports.
+[CODE_BLOCK_445]
+wrapper removed.
+[CODE_BLOCK_446]
+[CODE_BLOCK_447]
+[CODE_BLOCK_448]
+[CODE_BLOCK_449]
+[CODE_BLOCK_450]
+props removed.
+[CODE_BLOCK_451]
+is required.
+[CODE_BLOCK_452]
+receives reference to
+[CODE_BLOCK_453]
+element. Built-in loader config removed.
+[CODE_BLOCK_454]
+[CODE_BLOCK_455]
+[CODE_BLOCK_456]
+configuration is stable.
+[CODE_BLOCK_457]
+Experimental
+[CODE_BLOCK_458]
+and experimental
+[CODE_BLOCK_459]
+configuration added.
+[CODE_BLOCK_460]
+removed.
+[CODE_BLOCK_461]
+[CODE_BLOCK_462]
+prop added. Experimental support for
+[CODE_BLOCK_463]
+added.
+[CODE_BLOCK_464]
+[CODE_BLOCK_465]
+[CODE_BLOCK_466]
+configuration added.
+[CODE_BLOCK_467]
+[CODE_BLOCK_468]
+prop added.
+[CODE_BLOCK_469]
+[CODE_BLOCK_470]
+configuration added.
+AVIF support added.
+Wrapper
+[CODE_BLOCK_471]
+changed to
+[CODE_BLOCK_472]
+[CODE_BLOCK_473]
+[CODE_BLOCK_474]
+[CODE_BLOCK_475]
+props added.
+[CODE_BLOCK_476]
+[CODE_BLOCK_477]
+prop support for static import.
+[CODE_BLOCK_478]
+prop added.
+[CODE_BLOCK_479]
+prop added.
+[CODE_BLOCK_480]
+[CODE_BLOCK_481]
+prop added.
+[CODE_BLOCK_482]
+[CODE_BLOCK_483]
+prop added.
+[CODE_BLOCK_484]
+[CODE_BLOCK_485]
+introduced.
+Was this helpful?
+supported.
+Send

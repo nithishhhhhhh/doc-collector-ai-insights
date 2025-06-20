@@ -1,0 +1,636 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/routing/api-routes
+SCRAPED: 2025-06-19 17:38:30
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Routing
+API Routes
+You are currently viewing the documentation for Pages Router.
+API Routes
+Examples
+API Routes Request Helpers
+API Routes with GraphQL
+API Routes with REST
+API Routes with CORS
+Good to know
+: If you are using the App Router, you can use
+Server Components
+Route Handlers
+instead of API Routes.
+API routes provide a solution to build a
+public API
+with Next.js.
+Any file inside the folder
+--- CODE BLOCK 5 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type ResponseData = {
+message: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ResponseData>
+res.status(200).json({ message: 'Hello from Next.js!' })
+--- END CODE BLOCK ---
+is mapped to
+--- CODE BLOCK 6 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type ResponseData = {
+message: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ResponseData>
+res.status(200).json({ message: 'Hello from Next.js!' })
+--- END CODE BLOCK ---
+and will be treated as an API endpoint instead of a
+--- CODE BLOCK 7 ---
+pageExtensions
+--- END CODE BLOCK ---
+. They are server-side only bundles and won't increase your client-side bundle size.
+For example, the following API route returns a JSON response with a status code of
+--- CODE BLOCK 8 ---
+next.config.js
+--- END CODE BLOCK ---
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+// ...
+--- END CODE BLOCK ---
+Good to know
+API Routes
+do not specify CORS headers
+, meaning they are
+same-origin only
+by default. You can customize such behavior by wrapping the request handler with the
+CORS request helpers
+API Routes can't be used with
+static exports
+. However,
+Route Handlers
+in the App Router can.
+API Routes will be affected by
+--- CODE BLOCK 14 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+if (req.method === 'POST') {
+// Process a POST request
+} else {
+// Handle any other HTTP method
+--- END CODE BLOCK ---
+configuration
+--- CODE BLOCK 15 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+if (req.method === 'POST') {
+// Process a POST request
+} else {
+// Handle any other HTTP method
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 17 ---
+req.cookies
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+export const config = {
+api: {
+bodyParser: {
+sizeLimit: '1mb',
+// Specifies the maximum allowed duration for this function to execute (in seconds)
+maxDuration: 5,
+--- END CODE BLOCK ---
+: An instance of
+http.IncomingMessage
+--- CODE BLOCK 26 ---
+export const config = {
+api: {
+bodyParser: {
+sizeLimit: '1mb',
+// Specifies the maximum allowed duration for this function to execute (in seconds)
+maxDuration: 5,
+--- END CODE BLOCK ---
+: An instance of
+http.ServerResponse
+HTTP Methods
+To handle different HTTP methods in an API route, you can use
+--- CODE BLOCK 31 ---
+bodyParsing
+--- END CODE BLOCK ---
+in your request handler, like so:
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 32 ---
+export const config = {
+api: {
+bodyParser: false,
+--- END CODE BLOCK ---
+Request Helpers
+API Routes provide built-in request helpers which parse the incoming request (
+--- CODE BLOCK 34 ---
+bodyParser.sizeLimit
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+export const config = {
+api: {
+bodyParser: {
+sizeLimit: '500kb',
+--- END CODE BLOCK ---
+- An object containing the cookies sent by the request. Defaults to
+--- CODE BLOCK 36 ---
+export const config = {
+api: {
+bodyParser: {
+sizeLimit: '500kb',
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+externalResolver
+--- END CODE BLOCK ---
+- An object containing the
+query string
+. Defaults to
+--- CODE BLOCK 38 ---
+export const config = {
+api: {
+externalResolver: true,
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+export const config = {
+api: {
+externalResolver: true,
+--- END CODE BLOCK ---
+- An object containing the body parsed by
+--- CODE BLOCK 40 ---
+responseLimit
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 42 ---
+export const config = {
+api: {
+responseLimit: false,
+--- END CODE BLOCK ---
+if no body was sent
+Custom config
+Every API Route can export a
+--- CODE BLOCK 43 ---
+export const config = {
+api: {
+responseLimit: false,
+--- END CODE BLOCK ---
+object to change the default configuration, which is the following:
+--- CODE BLOCK 44 ---
+responseLimit
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+export const config = {
+api: {
+responseLimit: '8mb',
+--- END CODE BLOCK ---
+is automatically enabled. If you want to consume the body as a
+--- CODE BLOCK 52 ---
+res.status(code)
+--- END CODE BLOCK ---
+or with
+--- CODE BLOCK 54 ---
+res.json(body)
+--- END CODE BLOCK ---
+, you can set this to
+--- CODE BLOCK 56 ---
+res.send(body)
+--- END CODE BLOCK ---
+One use case for disabling the automatic
+--- CODE BLOCK 61 ---
+res.redirect([status,] path)
+--- END CODE BLOCK ---
+is to allow you to verify the raw body of a
+webhook
+request, for example
+from GitHub
+--- CODE BLOCK 64 ---
+res.revalidate(urlPath)
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+Hello from Next.js!
+--- END CODE BLOCK ---
+is the maximum size allowed for the parsed body, in any format supported by
+bytes
+, like so:
+--- CODE BLOCK 72 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type ResponseData = {
+message: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ResponseData>
+res.status(200).json({ message: 'Hello from Next.js!' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+try {
+const result = await someAsyncOperation()
+res.status(200).json({ result })
+} catch (err) {
+res.status(500).json({ error: 'failed to load data' })
+--- END CODE BLOCK ---
+is an explicit flag that tells the server that this route is being handled by an external resolver like
+express
+connect
+. Enabling this option disables warnings for unresolved requests.
+--- CODE BLOCK 77 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+try {
+const result = await someAsyncOperation()
+res.status(200).json({ result })
+} catch (err) {
+res.status(500).json({ error: 'failed to load data' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 84 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+try {
+const result = await someAsyncOperation()
+res.status(200).send({ result })
+} catch (err) {
+res.status(500).send({ error: 'failed to fetch data' })
+--- END CODE BLOCK ---
+is automatically enabled, warning when an API Routes' response body is over 4MB.
+If you are not using Next.js in a serverless environment, and understand the performance implications of not using a CDN or dedicated media host, you can set this limit to
+--- CODE BLOCK 86 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+const { name, message } = req.body
+try {
+await handleFormInputAsync({ name, message })
+res.redirect(307, '/')
+} catch (err) {
+res.status(500).send({ error: 'Failed to fetch data' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+const { name, message } = req.body
+try {
+await handleFormInputAsync({ name, message })
+res.redirect(307, '/')
+} catch (err) {
+res.status(500).send({ error: 'Failed to fetch data' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 89 ---
+NextApiResponse
+--- END CODE BLOCK ---
+can also take the number of bytes or any string format supported by
+--- CODE BLOCK 91 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type ResponseData = {
+message: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ResponseData>
+res.status(200).json({ message: 'Hello from Next.js!' })
+--- END CODE BLOCK ---
+, for example
+--- CODE BLOCK 92 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type ResponseData = {
+message: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<ResponseData>
+res.status(200).json({ message: 'Hello from Next.js!' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+NextApiRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 96 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const { pid } = req.query
+res.end(`Post: ${pid}`)
+--- END CODE BLOCK ---
+This value will be the maximum response size before a warning is displayed. Default is 4MB. (see above)
+--- CODE BLOCK 97 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const { pid } = req.query
+res.end(`Post: ${pid}`)
+--- END CODE BLOCK ---
+Response Helpers
+Server Response object
+, (often abbreviated as
+--- CODE BLOCK 101 ---
+pages/api/post/[...slug].js
+--- END CODE BLOCK ---
+) includes a set of Express.js-like helper methods to improve the developer experience and increase the speed of creating new API endpoints.
+The included helpers are:
+--- CODE BLOCK 102 ---
+/api/post/a
+--- END CODE BLOCK ---
+- A function to set the status code.
+--- CODE BLOCK 103 ---
+/api/post/a/b
+--- END CODE BLOCK ---
+must be a valid
+HTTP status code
+--- CODE BLOCK 104 ---
+/api/post/a/b/c
+--- END CODE BLOCK ---
+- Sends a JSON response.
+--- CODE BLOCK 108 ---
+/api/post/a
+--- END CODE BLOCK ---
+must be a
+serializable object
+--- CODE BLOCK 110 ---
+{ "slug": ["a"] }
+--- END CODE BLOCK ---
+- Sends the HTTP response.
+--- CODE BLOCK 111 ---
+{ "slug": ["a"] }
+--- END CODE BLOCK ---
+can be a
+--- CODE BLOCK 112 ---
+/api/post/a/b
+--- END CODE BLOCK ---
+, an
+--- CODE BLOCK 113 ---
+{ "slug": ["a", "b"] }
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 114 ---
+{ "slug": ["a", "b"] }
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const { slug } = req.query
+res.end(`Post: ${slug.join(', ')}`)
+--- END CODE BLOCK ---
+- Redirects to a specified path or URL.
+--- CODE BLOCK 116 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const { slug } = req.query
+res.end(`Post: ${slug.join(', ')}`)
+--- END CODE BLOCK ---
+must be a valid
+HTTP status code
+. If not specified,
+--- CODE BLOCK 117 ---
+/api/post/a/b/c
+--- END CODE BLOCK ---
+defaults to "307" "Temporary redirect".
+--- CODE BLOCK 118 ---
+Post: a, b, c
+--- END CODE BLOCK ---
+Revalidate a page on demand
+using
+--- CODE BLOCK 119 ---
+[[...slug]]
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+pages/api/post/[[...slug]].js
+--- END CODE BLOCK ---
+must be a
+--- CODE BLOCK 122 ---
+/api/post/a
+--- END CODE BLOCK ---
+Setting the status code of a response
+When sending a response back to the client, you can set the status code of the response.
+The following example sets the status code of the response to
+--- CODE BLOCK 123 ---
+/api/post/a/b
+--- END CODE BLOCK ---
+--- CODE BLOCK 126 ---
+{ } // GET `/api/post` (empty object)
+{ "slug": ["a"] } // `GET /api/post/a` (single-element array)
+{ "slug": ["a", "b"] } // `GET /api/post/a/b` (multi-element array)
+--- END CODE BLOCK ---
+) and returns a
+--- CODE BLOCK 127 ---
+{ } // GET `/api/post` (empty object)
+{ "slug": ["a"] } // `GET /api/post/a` (single-element array)
+{ "slug": ["a", "b"] } // `GET /api/post/a/b` (multi-element array)
+--- END CODE BLOCK ---
+property with the value of
+--- CODE BLOCK 128 ---
+pages/api/post/create.js
+--- END CODE BLOCK ---
+as a JSON response:
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 129 ---
+/api/post/create
+--- END CODE BLOCK ---
+Sending a JSON response
+When sending a response back to the client you can send a JSON response, this must be a
+serializable object
+In a real world application you might want to let the client know the status of the request depending on the result of the requested endpoint.
+The following example sends a JSON response with the status code
+--- CODE BLOCK 131 ---
+/api/post/1
+--- END CODE BLOCK ---
+--- CODE BLOCK 132 ---
+/api/post/abc
+--- END CODE BLOCK ---
+) and the result of the async operation. It's contained in a try catch block to handle any errors that may occur, with the appropriate status code and error message caught and sent back to the client:
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 133 ---
+/api/post/create
+--- END CODE BLOCK ---
+Sending a HTTP response
+Sending an HTTP response works the same way as when sending a JSON response. The only difference is that the response body can be a
+--- CODE BLOCK 135 ---
+/api/post/1/2
+--- END CODE BLOCK ---
+, an
+--- CODE BLOCK 136 ---
+/api/post/a/b/c
+--- END CODE BLOCK ---
+or a
+--- CODE BLOCK 137 ---
+/api/post/create
+--- END CODE BLOCK ---
+The following example sends a HTTP response with the status code
+--- CODE BLOCK 138 ---
+/api/post/abc
+--- END CODE BLOCK ---
+--- CODE BLOCK 140 ---
+import { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+res.writeHead(200, {
+'Content-Type': 'text/event-stream',
+'Cache-Control': "no-store",
+let i = 0
+while (i < 10) {
+res.write(`data: ${i}\n\n`)
+await new Promise((resolve) => setTimeout(resolve, 1000))
+res.end()
+--- END CODE BLOCK ---
+) and the result of the async operation.
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 141 ---
+import { NextApiRequest, NextApiResponse } from 'next'
+export default async function handler(
+req: NextApiRequest,
+res: NextApiResponse
+res.writeHead(200, {
+'Content-Type': 'text/event-stream',
+'Cache-Control': "no-store",
+let i = 0
+while (i < 10) {
+res.write(`data: ${i}\n\n`)
+await new Promise((resolve) => setTimeout(resolve, 1000))
+res.end()
+--- END CODE BLOCK ---
+Redirects to a specified path or URL
+Taking a form as an example, you may want to redirect your client to a specified path or URL once they have submitted the form.
+The following example redirects the client to the
+[CODE_BLOCK_85]
+path if the form is successfully submitted:
+pages/api/hello.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_86]
+Adding TypeScript types
+You can make your API Routes more type-safe by importing the
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+types from
+[CODE_BLOCK_90]
+, in addition to those, you can also type your response data:
+[CODE_BLOCK_91]
+Good to know
+: The body of
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+because the client may include any payload. You should validate the type/shape of the body at runtime before using it.
+Dynamic API Routes
+API Routes support
+dynamic routes
+, and follow the same file naming rules used for
+[CODE_BLOCK_95]
+pages/api/post/[pid].ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_96]
+Now, a request to
+[CODE_BLOCK_98]
+will respond with the text:
+[CODE_BLOCK_99]
+Catch all API routes
+API Routes can be extended to catch all paths by adding three dots (
+[CODE_BLOCK_100]
+) inside the brackets. For example:
+[CODE_BLOCK_101]
+matches
+[CODE_BLOCK_102]
+, but also
+[CODE_BLOCK_103]
+[CODE_BLOCK_104]
+and so on.
+Good to know
+: You can use names other than
+[CODE_BLOCK_105]
+, such as:
+[CODE_BLOCK_106]
+Matched parameters will be sent as a query parameter (
+[CODE_BLOCK_107]
+in the example) to the page, and it will always be an array, so, the path
+[CODE_BLOCK_108]
+will have the following
+[CODE_BLOCK_109]
+object:
+[CODE_BLOCK_110]
+And in the case of
+[CODE_BLOCK_112]
+, and any other matching path, new parameters will be added to the array, like so:
+[CODE_BLOCK_113]
+For example:
+pages/api/post/[...slug].ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_115]
+Now, a request to
+[CODE_BLOCK_117]
+will respond with the text:
+[CODE_BLOCK_118]
+Optional catch all API routes
+Catch all routes can be made optional by including the parameter in double brackets (
+[CODE_BLOCK_119]
+For example,
+[CODE_BLOCK_120]
+will match
+[CODE_BLOCK_121]
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+, and so on.
+The main difference between catch all and optional catch all routes is that with optional, the route without the parameter is also matched (
+[CODE_BLOCK_124]
+in the example above).
+[CODE_BLOCK_125]
+objects are as follows:
+[CODE_BLOCK_126]
+Caveats
+Predefined API routes take precedence over dynamic API routes, and dynamic API routes over catch all API routes. Take a look at the following examples:
+[CODE_BLOCK_128]
+- Will match
+[CODE_BLOCK_129]
+[CODE_BLOCK_130]
+- Will match
+[CODE_BLOCK_131]
+[CODE_BLOCK_132]
+, etc. But not
+[CODE_BLOCK_133]
+[CODE_BLOCK_134]
+- Will match
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+, etc. But not
+[CODE_BLOCK_137]
+[CODE_BLOCK_138]
+Streaming responses
+While the Pages Router does support streaming responses with API Routes, we recommend incrementally adopting the App Router and using
+Route Handlers
+if you are on Next.js 14+.
+Here's how you can stream a response from an API Route with
+[CODE_BLOCK_139]
+pages/api/hello.js
+[CODE_BLOCK_140]
+Was this helpful?
+supported.
+Send

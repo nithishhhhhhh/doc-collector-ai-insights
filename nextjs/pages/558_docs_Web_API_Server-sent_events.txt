@@ -1,0 +1,54 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Server-sent_events
+SCRAPED: 2025-06-19 18:13:59
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+Traditionally, a web page has to send a request to the server to receive new data; that is, the page requests data from the server. With server-sent events, it's possible for a server to send new data to a web page at any time, by pushing messages to the web page. These incoming messages can be treated as
+Events
++ data
+inside the web page.
+Concepts and usage
+To learn how to use server-sent events, see our article
+Using server-sent events
+Interfaces
+--- CODE BLOCK 1 ---
+EventSource
+--- END CODE BLOCK ---
+Defines all the features that handle connecting to a server, receiving events/data, errors, closing a connection, etc.
+Examples
+Simple SSE demo using PHP
+Specifications
+Specification
+HTML
+server-sent-events
+See also
+Tools
+Mercure: a real-time communication protocol (publish-subscribe) built on top of SSE
+Transmit: a native opinionated Server-Sent-Event (SSE) module built for AdonisJS
+EventSource polyfill for Node.js
+Remy Sharp's
+EventSource polyfill
+Yaffle's
+EventSource polyfill
+Rick Waldron's
+jquery plugin
+intercooler.js
+declarative SSE support
+Related Topics
+Learn: Making network requests with JavaScript
+JavaScript
+WebSockets
+Other resources
+Creating a wall/feed social application
+powered by server-sent events and
+its code on GitHub
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 20, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

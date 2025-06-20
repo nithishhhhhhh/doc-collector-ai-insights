@@ -1,0 +1,945 @@
+SOURCE URL: https://playwright.dev/docs/api/class-testoptions#test-options-base-url
+SCRAPED: 2025-06-19 18:05:28
+================================================================================
+
+On this page
+Playwright Test provides many options to configure test environment,
+Browser
+BrowserContext
+and more.
+These options are usually provided in the
+configuration file
+through
+testConfig.use
+testProject.use
+playwright.config.ts
+--- CODE BLOCK 1 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    headless: false,    viewport: { width: 1280, height: 720 },    ignoreHTTPSErrors: true,    video: 'on-first-retry',  },});
+--- END CODE BLOCK ---
+Alternatively, with
+test.use()
+you can override some options for a file.
+example.spec.ts
+--- CODE BLOCK 3 ---
+import { test, expect } from '@playwright/test';// Run tests in this file with portrait-like viewport.test.use({ viewport: { width: 600, height: 900 } });test('my portrait test', async ({ page }) => {  // ...});
+--- END CODE BLOCK ---
+Properties
+acceptDownloads
+Added in: v1.10
+testOptions.acceptDownloads
+Whether to automatically download all the attachments. Defaults to
+--- CODE BLOCK 6 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    acceptDownloads: false,  },});
+--- END CODE BLOCK ---
+where all the downloads are accepted.
+Usage
+playwright.config.ts
+--- CODE BLOCK 7 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    acceptDownloads: false,  },});
+--- END CODE BLOCK ---
+Type
+boolean
+actionTimeout
+Added in: v1.10
+testOptions.actionTimeout
+Default timeout for each Playwright action in milliseconds, defaults to 0 (no timeout).
+This is a default timeout for all Playwright actions, same as configured via
+page.setDefaultTimeout()
+Usage
+--- CODE BLOCK 9 ---
+import { defineConfig, devices } from '@playwright/test';export default defineConfig({  use: {    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */    actionTimeout: 0,  },});
+--- END CODE BLOCK ---
+Learn more about
+various timeouts
+Type
+number
+baseURL
+Added in: v1.10
+testOptions.baseURL
+When using
+page.goto()
+page.route()
+page.waitForURL()
+page.waitForRequest()
+, or
+page.waitForResponse()
+it takes the base URL in consideration by using the
+--- CODE BLOCK 13 ---
+http://localhost:3000/bar.html
+--- END CODE BLOCK ---
+constructor for building the corresponding URL. Unset by default. Examples:
+baseURL:
+--- CODE BLOCK 14 ---
+http://localhost:3000/foo/
+--- END CODE BLOCK ---
+and navigating to
+--- CODE BLOCK 16 ---
+http://localhost:3000/foo/bar.html
+--- END CODE BLOCK ---
+results in
+--- CODE BLOCK 17 ---
+http://localhost:3000/foo
+--- END CODE BLOCK ---
+baseURL:
+--- CODE BLOCK 19 ---
+http://localhost:3000/bar.html
+--- END CODE BLOCK ---
+and navigating to
+--- CODE BLOCK 20 ---
+import { defineConfig, devices } from '@playwright/test';export default defineConfig({  use: {    /* Base URL to use in actions like `await page.goto('/')`. */    baseURL: 'http://localhost:3000',  },});
+--- END CODE BLOCK ---
+results in
+--- CODE BLOCK 21 ---
+import { defineConfig, devices } from '@playwright/test';export default defineConfig({  use: {    /* Base URL to use in actions like `await page.goto('/')`. */    baseURL: 'http://localhost:3000',  },});
+--- END CODE BLOCK ---
+baseURL:
+--- CODE BLOCK 23 ---
+browserName
+--- END CODE BLOCK ---
+(without trailing slash) and navigating to
+--- CODE BLOCK 24 ---
+import { defineConfig, devices } from '@playwright/test';export default defineConfig({  use: {    browserName: 'firefox',  },});
+--- END CODE BLOCK ---
+results in
+--- CODE BLOCK 25 ---
+import { defineConfig, devices } from '@playwright/test';export default defineConfig({  use: {    browserName: 'firefox',  },});
+--- END CODE BLOCK ---
+Usage
+--- CODE BLOCK 27 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    bypassCSP: true,  }});
+--- END CODE BLOCK ---
+Type
+string
+browserName
+Added in: v1.10
+testOptions.browserName
+Name of the browser that runs tests. Defaults to
+--- CODE BLOCK 29 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  projects: [    {      name: 'Microsoft Edge',      use: {        ...devices['Desktop Edge'],        channel: 'msedge'      },    },  ]});
+--- END CODE BLOCK ---
+. Most of the time you should set
+--- CODE BLOCK 30 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  projects: [    {      name: 'Microsoft Edge',      use: {        ...devices['Desktop Edge'],        channel: 'msedge'      },    },  ]});
+--- END CODE BLOCK ---
+in your
+TestConfig
+Usage
+playwright.config.ts
+--- CODE BLOCK 31 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    clientCertificates: [{      origin: 'https://example.com',      certPath: './cert.pem',      keyPath: './key.pem',      passphrase: 'mysecretpassword',    }],  },});
+--- END CODE BLOCK ---
+Type
+"chromium" | "firefox" | "webkit"
+bypassCSP
+Added in: v1.10
+testOptions.bypassCSP
+Toggles bypassing page's Content-Security-Policy. Defaults to
+--- CODE BLOCK 52 ---
+local.playwright
+--- END CODE BLOCK ---
+Usage
+playwright.config.ts
+--- CODE BLOCK 57 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    colorScheme: 'dark',  },});
+--- END CODE BLOCK ---
+Type
+boolean
+channel
+Added in: v1.10
+testOptions.channel
+Browser distribution channel.
+Use "chromium" to
+opt in to new headless mode
+Use "chrome", "chrome-beta", "chrome-dev", "chrome-canary", "msedge", "msedge-beta", "msedge-dev", or "msedge-canary" to use branded
+Google Chrome and Microsoft Edge
+Usage
+playwright.config.ts
+--- CODE BLOCK 59 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    connectOptions: {      wsEndpoint: 'ws://localhost:5678',    },  },});
+--- END CODE BLOCK ---
+Type
+string
+clientCertificates
+Added in: 1.46
+testOptions.clientCertificates
+TLS Client Authentication allows the server to request a client certificate and verify it.
+Usage
+playwright.config.ts
+--- CODE BLOCK 64 ---
+exposeNetwork
+--- END CODE BLOCK ---
+Type
+Array
+Object
+--- CODE BLOCK 66 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    contextOptions: {      reducedMotion: 'reduce',    },  },});
+--- END CODE BLOCK ---
+string
+Exact origin that the certificate is valid for. Origin includes
+--- CODE BLOCK 68 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    viewport: { width: 2560, height: 1440 },    deviceScaleFactor: 2,  },});
+--- END CODE BLOCK ---
+protocol, a hostname and optionally a port.
+--- CODE BLOCK 69 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    viewport: { width: 2560, height: 1440 },    deviceScaleFactor: 2,  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Path to the file with the certificate in PEM format.
+--- CODE BLOCK 70 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    extraHTTPHeaders: {      'X-My-Header': 'value',    },  },});
+--- END CODE BLOCK ---
+Buffer
+(optional)
+Direct value of the certificate in PEM format.
+--- CODE BLOCK 71 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    extraHTTPHeaders: {      'X-My-Header': 'value',    },  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Path to the file with the private key in PEM format.
+--- CODE BLOCK 72 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    geolocation: { longitude: 12.492507, latitude: 41.889938 },  },});
+--- END CODE BLOCK ---
+Buffer
+(optional)
+Direct value of the private key in PEM format.
+--- CODE BLOCK 73 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    geolocation: { longitude: 12.492507, latitude: 41.889938 },  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Path to the PFX or PKCS12 encoded private key and certificate chain.
+--- CODE BLOCK 78 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    hasTouch: true  },});
+--- END CODE BLOCK ---
+Buffer
+(optional)
+Direct value of the PFX or PKCS12 encoded private key and certificate chain.
+--- CODE BLOCK 79 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    hasTouch: true  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Passphrase for the private key (PEM or PFX).
+Details
+An array of client certificates to be used. Each certificate object must have either both
+--- CODE BLOCK 82 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    headless: false  },});
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    headless: false  },});
+--- END CODE BLOCK ---
+, a single
+--- CODE BLOCK 84 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    httpCredentials: {      username: 'user',      password: 'pass',    },  },});
+--- END CODE BLOCK ---
+, or their corresponding direct value equivalents (
+--- CODE BLOCK 85 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    httpCredentials: {      username: 'user',      password: 'pass',    },  },});
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+Authorization
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 92 ---
+'unauthorized
+--- END CODE BLOCK ---
+). Optionally,
+--- CODE BLOCK 93 ---
+WWW-Authenticate
+--- END CODE BLOCK ---
+property should be provided if the certificate is encrypted. The
+--- CODE BLOCK 94 ---
+'unauthorized'
+--- END CODE BLOCK ---
+property should be provided with an exact match to the request origin that the certificate is valid for.
+note
+When using WebKit on macOS, accessing
+--- CODE BLOCK 96 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    ignoreHTTPSErrors: true,  },});
+--- END CODE BLOCK ---
+will not pick up client certificates. You can make it work by replacing
+--- CODE BLOCK 97 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    ignoreHTTPSErrors: true,  },});
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 98 ---
+meta viewport
+--- END CODE BLOCK ---
+colorScheme
+Added in: v1.10
+testOptions.colorScheme
+Emulates
+prefers-colors-scheme
+media feature, supported values are
+--- CODE BLOCK 100 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    isMobile: false,  },});
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    isMobile: false,  },});
+--- END CODE BLOCK ---
+. See
+page.emulateMedia()
+for more details. Passing
+--- CODE BLOCK 103 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    javaScriptEnabled: false,  },});
+--- END CODE BLOCK ---
+resets emulation to system defaults. Defaults to
+--- CODE BLOCK 104 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    javaScriptEnabled: false,  },});
+--- END CODE BLOCK ---
+Usage
+playwright.config.ts
+--- CODE BLOCK 105 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  projects: [    {      name: 'chromium',      use: {        ...devices['Desktop Chrome'],        launchOptions: {          args: ['--start-maximized']        }      }    }  ]});
+--- END CODE BLOCK ---
+Type
+null
+| "light" | "dark" | "no-preference"
+connectOptions
+Added in: v1.10
+testOptions.connectOptions
+Usage
+playwright.config.ts
+--- CODE BLOCK 109 ---
+navigator.language
+--- END CODE BLOCK ---
+When connect options are specified, default
+fixtures.browser
+fixtures.context
+fixtures.page
+use the remote browser instead of launching a browser locally, and any launch options like
+testOptions.headless
+testOptions.channel
+are ignored.
+Type
+void
+Object
+--- CODE BLOCK 112 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    locale: 'it-IT',  },});
+--- END CODE BLOCK ---
+string
+A browser websocket endpoint to connect to.
+--- CODE BLOCK 113 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    locale: 'it-IT',  },});
+--- END CODE BLOCK ---
+void
+Object
+string
+string
+(optional)
+Additional HTTP headers to be sent with web socket connect request. Optional.
+--- CODE BLOCK 114 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    navigationTimeout: 3000,  },});
+--- END CODE BLOCK ---
+number
+(optional)
+Timeout in milliseconds for the connection to be established. Optional, defaults to no timeout.
+--- CODE BLOCK 115 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    navigationTimeout: 3000,  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Option to expose network available on the connecting client to the browser being connected to. See
+browserType.connect()
+for more details.
+contextOptions
+Added in: v1.10
+testOptions.contextOptions
+Options used to create the context, as passed to
+browser.newContext()
+. Specific options like
+testOptions.viewport
+take priority over this.
+Usage
+playwright.config.ts
+--- CODE BLOCK 117 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    offline: true  },});
+--- END CODE BLOCK ---
+Type
+Object
+deviceScaleFactor
+Added in: v1.10
+testOptions.deviceScaleFactor
+Specify device scale factor (can be thought of as dpr). Defaults to
+--- CODE BLOCK 119 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    permissions: ['notifications'],  },});
+--- END CODE BLOCK ---
+. Learn more about
+emulating devices with device scale factor
+Usage
+playwright.config.ts
+--- CODE BLOCK 120 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    permissions: ['notifications'],  },});
+--- END CODE BLOCK ---
+Type
+number
+extraHTTPHeaders
+Added in: v1.10
+testOptions.extraHTTPHeaders
+An object containing additional HTTP headers to be sent with every request. Defaults to none.
+Usage
+playwright.config.ts
+--- CODE BLOCK 122 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    proxy: {      server: 'http://myproxy.com:3128',      bypass: 'localhost',    },  },});
+--- END CODE BLOCK ---
+Type
+Object
+string
+string
+geolocation
+Added in: v1.10
+testOptions.geolocation
+Usage
+playwright.config.ts
+--- CODE BLOCK 125 ---
+socks5://myproxy.com:3128
+--- END CODE BLOCK ---
+Learn more about
+geolocation
+Type
+Object
+--- CODE BLOCK 128 ---
+".com, chromium.org, .domain.com"
+--- END CODE BLOCK ---
+number
+Latitude between -90 and 90.
+--- CODE BLOCK 134 ---
+'only-on-failure'
+--- END CODE BLOCK ---
+number
+Longitude between -180 and 180.
+--- CODE BLOCK 135 ---
+'on-first-failure'
+--- END CODE BLOCK ---
+number
+(optional)
+Non-negative accuracy value. Defaults to
+--- CODE BLOCK 136 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    screenshot: 'only-on-failure',  },});
+--- END CODE BLOCK ---
+hasTouch
+Added in: v1.10
+testOptions.hasTouch
+Specifies if viewport supports touch events. Defaults to false. Learn more about
+mobile emulation
+Usage
+playwright.config.ts
+--- CODE BLOCK 137 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    screenshot: 'only-on-failure',  },});
+--- END CODE BLOCK ---
+Type
+boolean
+headless
+Added in: v1.10
+testOptions.headless
+Whether to run browser in headless mode. More details for
+Chromium
+Firefox
+. Defaults to
+--- CODE BLOCK 147 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    serviceWorkers: 'allow'  },});
+--- END CODE BLOCK ---
+unless the
+devtools
+option is
+--- CODE BLOCK 148 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    serviceWorkers: 'allow'  },});
+--- END CODE BLOCK ---
+Usage
+playwright.config.ts
+--- CODE BLOCK 149 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    storageState: 'storage-state.json',  },});
+--- END CODE BLOCK ---
+Type
+boolean
+httpCredentials
+Added in: v1.10
+testOptions.httpCredentials
+Credentials for
+HTTP authentication
+. If no origin is specified, the username and password are sent to any servers upon unauthorized responses.
+Usage
+playwright.config.ts
+--- CODE BLOCK 162 ---
+localStorage
+--- END CODE BLOCK ---
+Type
+Object
+--- CODE BLOCK 166 ---
+import { test } from '@playwright/test';// Reset storage state for this file to avoid being authenticatedtest.use({ storageState: { cookies: [], origins: [] } });test('not signed in test', async ({ page }) => {  // ...});
+--- END CODE BLOCK ---
+string
+--- CODE BLOCK 167 ---
+data-testid
+--- END CODE BLOCK ---
+string
+--- CODE BLOCK 168 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    testIdAttribute: 'pw-test-id',  },});
+--- END CODE BLOCK ---
+string
+(optional)
+Restrain sending http credentials on specific origin (scheme://host
+:port
+--- CODE BLOCK 169 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    testIdAttribute: 'pw-test-id',  },});
+--- END CODE BLOCK ---
+"unauthorized" | "always"
+(optional)
+This option only applies to the requests sent from corresponding
+APIRequestContext
+and does not affect requests sent from the browser.
+--- CODE BLOCK 170 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    timezoneId: 'Europe/Rome',  },});
+--- END CODE BLOCK ---
+--- CODE BLOCK 171 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    timezoneId: 'Europe/Rome',  },});
+--- END CODE BLOCK ---
+header with basic authentication credentials will be sent with the each API request.
+--- CODE BLOCK 175 ---
+'on-first-retry'
+--- END CODE BLOCK ---
+- the credentials are only sent when 401 (Unauthorized) response with
+--- CODE BLOCK 176 ---
+'on-all-retries'
+--- END CODE BLOCK ---
+header is received. Defaults to
+--- CODE BLOCK 177 ---
+'retain-on-failure'
+--- END CODE BLOCK ---
+ignoreHTTPSErrors
+Added in: v1.10
+testOptions.ignoreHTTPSErrors
+Whether to ignore HTTPS errors when sending network requests. Defaults to
+--- CODE BLOCK 178 ---
+'retain-on-first-failure'
+--- END CODE BLOCK ---
+Usage
+playwright.config.ts
+--- CODE BLOCK 180 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    trace: 'on-first-retry'  },});
+--- END CODE BLOCK ---
+Type
+boolean
+isMobile
+Added in: v1.10
+testOptions.isMobile
+Whether the
+--- CODE BLOCK 183 ---
+attachments
+--- END CODE BLOCK ---
+tag is taken into account and touch events are enabled. isMobile is a part of device, so you don't actually need to set it manually. Defaults to
+--- CODE BLOCK 184 ---
+screenshots
+--- END CODE BLOCK ---
+and is not supported in Firefox. Learn more about
+mobile emulation
+Usage
+playwright.config.ts
+--- CODE BLOCK 187 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    userAgent: 'some custom ua',  },});
+--- END CODE BLOCK ---
+Type
+boolean
+javaScriptEnabled
+Added in: v1.10
+testOptions.javaScriptEnabled
+Whether or not to enable JavaScript in the context. Defaults to
+--- CODE BLOCK 192 ---
+'retain-on-failure'
+--- END CODE BLOCK ---
+. Learn more about
+disabling JavaScript
+Usage
+playwright.config.ts
+--- CODE BLOCK 193 ---
+'on-first-retry'
+--- END CODE BLOCK ---
+Type
+boolean
+launchOptions
+Added in: v1.10
+testOptions.launchOptions
+Options used to launch the browser, as passed to
+browserType.launch()
+. Specific options
+testOptions.headless
+testOptions.channel
+take priority over this.
+warning
+Use custom browser args at your own risk, as some of them may break Playwright functionality.
+Usage
+playwright.config.ts
+--- CODE BLOCK 198 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    video: 'on-first-retry',  },});
+--- END CODE BLOCK ---
+Type
+Object
+locale
+Added in: v1.10
+testOptions.locale
+Specify user locale, for example
+--- CODE BLOCK 206 ---
+import { defineConfig } from '@playwright/test';export default defineConfig({  use: {    viewport: { width: 100, height: 100 },  },});
+--- END CODE BLOCK ---
+[CODE_BLOCK_108]
+, etc. Locale will affect
+[CODE_BLOCK_109]
+value,
+[CODE_BLOCK_110]
+request header value as well as number and date formatting rules. Defaults to
+[CODE_BLOCK_111]
+. Learn more about emulation in our
+emulation guide
+Usage
+playwright.config.ts
+[CODE_BLOCK_112]
+Type
+string
+navigationTimeout
+Added in: v1.10
+testOptions.navigationTimeout
+Timeout for each navigation action in milliseconds. Defaults to 0 (no timeout).
+This is a default navigation timeout, same as configured via
+page.setDefaultNavigationTimeout()
+Usage
+playwright.config.ts
+[CODE_BLOCK_114]
+Learn more about
+various timeouts
+Type
+number
+offline
+Added in: v1.10
+testOptions.offline
+Whether to emulate network being offline. Defaults to
+[CODE_BLOCK_116]
+. Learn more about
+network emulation
+Usage
+playwright.config.ts
+[CODE_BLOCK_117]
+Type
+boolean
+permissions
+Added in: v1.10
+testOptions.permissions
+A list of permissions to grant to all pages in this context. See
+browserContext.grantPermissions()
+for more details. Defaults to none.
+Usage
+playwright.config.ts
+[CODE_BLOCK_119]
+Type
+Array
+string
+proxy
+Added in: v1.10
+testOptions.proxy
+Network proxy settings.
+Usage
+playwright.config.ts
+[CODE_BLOCK_121]
+Type
+Object
+[CODE_BLOCK_123]
+string
+Proxy to be used for all requests. HTTP and SOCKS proxies are supported, for example
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+. Short form
+[CODE_BLOCK_126]
+is considered an HTTP proxy.
+[CODE_BLOCK_127]
+string
+(optional)
+Optional comma-separated domains to bypass proxy, for example
+[CODE_BLOCK_128]
+[CODE_BLOCK_129]
+string
+(optional)
+Optional username to use if HTTP proxy requires authentication.
+[CODE_BLOCK_130]
+string
+(optional)
+Optional password to use if HTTP proxy requires authentication.
+screenshot
+Added in: v1.10
+testOptions.screenshot
+Whether to automatically capture a screenshot after each test. Defaults to
+[CODE_BLOCK_131]
+[CODE_BLOCK_132]
+: Do not capture screenshots.
+[CODE_BLOCK_133]
+: Capture screenshot after each test.
+[CODE_BLOCK_134]
+: Capture screenshot after each test failure.
+[CODE_BLOCK_135]
+: Capture screenshot after each test's first failure.
+Usage
+playwright.config.ts
+[CODE_BLOCK_136]
+Learn more about
+automatic screenshots
+Type
+Object
+| "off" | "on" | "only-on-failure" | "on-first-failure"
+[CODE_BLOCK_138]
+"off" | "on" | "only-on-failure" | "on-first-failure"
+Automatic screenshot mode.
+[CODE_BLOCK_139]
+boolean
+(optional)
+When true, takes a screenshot of the full scrollable page, instead of the currently visible viewport. Defaults to
+[CODE_BLOCK_140]
+[CODE_BLOCK_141]
+boolean
+(optional)
+Hides default white background and allows capturing screenshots with transparency. Not applicable to
+[CODE_BLOCK_142]
+images. Defaults to
+[CODE_BLOCK_143]
+serviceWorkers
+Added in: v1.10
+testOptions.serviceWorkers
+Whether to allow sites to register Service workers. Defaults to
+[CODE_BLOCK_144]
+[CODE_BLOCK_145]
+Service Workers
+can be registered.
+[CODE_BLOCK_146]
+: Playwright will block all registration of Service Workers.
+Usage
+playwright.config.ts
+[CODE_BLOCK_147]
+Type
+"allow" | "block"
+storageState
+Added in: v1.10
+testOptions.storageState
+Learn more about
+storage state and auth
+Populates context with given storage state. This option can be used to initialize context with logged-in information obtained via
+browserContext.storageState()
+Usage
+playwright.config.ts
+[CODE_BLOCK_149]
+Type
+string
+Object
+[CODE_BLOCK_151]
+Array
+Object
+[CODE_BLOCK_152]
+string
+[CODE_BLOCK_153]
+string
+[CODE_BLOCK_154]
+string
+Domain and path are required. For the cookie to apply to all subdomains as well, prefix domain with a dot, like this: ".example.com"
+[CODE_BLOCK_155]
+string
+Domain and path are required
+[CODE_BLOCK_156]
+number
+Unix time in seconds.
+[CODE_BLOCK_157]
+boolean
+[CODE_BLOCK_158]
+boolean
+[CODE_BLOCK_159]
+"Strict" | "Lax" | "None"
+sameSite flag
+Cookies to set for context
+[CODE_BLOCK_160]
+Array
+Object
+[CODE_BLOCK_161]
+string
+[CODE_BLOCK_162]
+Array
+Object
+[CODE_BLOCK_163]
+string
+[CODE_BLOCK_164]
+string
+localStorage to set for context
+Details
+When storage state is set up in the config, it is possible to reset storage state for a file:
+not-signed-in.spec.ts
+[CODE_BLOCK_165]
+testIdAttribute
+Added in: v1.27
+testOptions.testIdAttribute
+Custom attribute to be used in
+page.getByTestId()
+[CODE_BLOCK_167]
+is used by default.
+Usage
+playwright.config.ts
+[CODE_BLOCK_168]
+timezoneId
+Added in: v1.10
+testOptions.timezoneId
+Changes the timezone of the context. See
+ICU's metaZones.txt
+for a list of supported timezone IDs. Defaults to the system timezone.
+Usage
+playwright.config.ts
+[CODE_BLOCK_170]
+Type
+string
+trace
+Added in: v1.10
+testOptions.trace
+Whether to record trace for each test. Defaults to
+[CODE_BLOCK_172]
+[CODE_BLOCK_173]
+: Do not record trace.
+[CODE_BLOCK_174]
+: Record trace for each test.
+[CODE_BLOCK_175]
+: Record trace only when retrying a test for the first time.
+[CODE_BLOCK_176]
+: Record trace only when retrying a test.
+[CODE_BLOCK_177]
+: Record trace for each test. When test run passes, remove the recorded trace.
+[CODE_BLOCK_178]
+: Record trace for the first run of each test, but not for retries. When test run passes, remove the recorded trace.
+For more control, pass an object that specifies
+[CODE_BLOCK_179]
+and trace features to enable.
+Usage
+playwright.config.ts
+[CODE_BLOCK_180]
+Learn more about
+recording trace
+Type
+Object
+| "off" | "on" | "retain-on-failure" | "on-first-retry" | "retain-on-first-failure"
+[CODE_BLOCK_182]
+"off" | "on" | "retain-on-failure" | "on-first-retry" | "on-all-retries" | "retain-on-first-failure"
+Trace recording mode.
+[CODE_BLOCK_183]
+boolean
+(optional)
+Whether to include test attachments. Defaults to true. Optional.
+[CODE_BLOCK_184]
+boolean
+(optional)
+Whether to capture screenshots during tracing. Screenshots are used to build a timeline preview. Defaults to true. Optional.
+[CODE_BLOCK_185]
+boolean
+(optional)
+Whether to capture DOM snapshot on every action. Defaults to true. Optional.
+[CODE_BLOCK_186]
+boolean
+(optional)
+Whether to include source files for trace actions. Defaults to true. Optional.
+userAgent
+Added in: v1.10
+testOptions.userAgent
+Specific user agent to use in this context.
+Usage
+playwright.config.ts
+[CODE_BLOCK_187]
+Type
+string
+video
+Added in: v1.10
+testOptions.video
+Whether to record video for each test. Defaults to
+[CODE_BLOCK_189]
+[CODE_BLOCK_190]
+: Do not record video.
+[CODE_BLOCK_191]
+: Record video for each test.
+[CODE_BLOCK_192]
+: Record video for each test, but remove all videos from successful test runs.
+[CODE_BLOCK_193]
+: Record video only when retrying a test for the first time.
+To control video size, pass an object with
+[CODE_BLOCK_194]
+[CODE_BLOCK_195]
+properties. If video size is not specified, it will be equal to
+testOptions.viewport
+scaled down to fit into 800x800. If
+[CODE_BLOCK_196]
+is not configured explicitly the video size defaults to 800x450. Actual picture of each page will be scaled down if necessary to fit the specified size.
+Usage
+playwright.config.ts
+[CODE_BLOCK_197]
+Learn more about
+recording video
+Type
+Object
+| "off" | "on" | "retain-on-failure" | "on-first-retry"
+[CODE_BLOCK_199]
+"off" | "on" | "retain-on-failure" | "on-first-retry"
+Video recording mode.
+[CODE_BLOCK_200]
+Object
+(optional)
+[CODE_BLOCK_201]
+number
+[CODE_BLOCK_202]
+number
+Size of the recorded video. Optional.
+viewport
+Added in: v1.10
+testOptions.viewport
+Emulates consistent viewport for each page. Defaults to an 1280x720 viewport. Use
+[CODE_BLOCK_203]
+to disable the consistent viewport emulation. Learn more about
+viewport emulation
+note
+[CODE_BLOCK_204]
+value opts out from the default presets, makes viewport depend on the host window size defined by the operating system. It makes the execution of the tests non-deterministic.
+Usage
+playwright.config.ts
+[CODE_BLOCK_205]
+Type
+null
+Object
+[CODE_BLOCK_207]
+number
+page width in pixels.
+[CODE_BLOCK_208]
+number
+page height in pixels.
+Properties
+acceptDownloads
+actionTimeout
+baseURL
+browserName
+bypassCSP
+channel
+clientCertificates
+colorScheme
+connectOptions
+contextOptions
+deviceScaleFactor
+extraHTTPHeaders
+geolocation
+hasTouch
+headless
+httpCredentials
+ignoreHTTPSErrors
+isMobile
+javaScriptEnabled
+launchOptions
+locale
+navigationTimeout
+offline
+permissions
+proxy
+screenshot
+serviceWorkers
+storageState
+testIdAttribute
+timezoneId
+trace
+userAgent
+video
+viewport

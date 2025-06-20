@@ -1,0 +1,156 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
+SCRAPED: 2025-06-19 18:32:16
+================================================================================
+
+--- CODE BLOCK 1 ---
+Promise.allSettled()
+--- END CODE BLOCK ---
+static method takes an iterable of promises as input and returns a single
+--- CODE BLOCK 3 ---
+const promise1 = Promise.resolve(3);
+const promise2 = new Promise((resolve, reject) =>
+setTimeout(reject, 100, "foo"),
+const promises = [promise1, promise2];
+Promise.allSettled(promises).then((results) =>
+results.forEach((result) => console.log(result.status)),
+// Expected output:
+// "fulfilled"
+// "rejected"
+--- END CODE BLOCK ---
+. This returned promise fulfills when all of the input's promises settle (including when an empty iterable is passed), with an array of objects that describe the outcome of each promise.
+Try it
+--- CODE BLOCK 4 ---
+const promise1 = Promise.resolve(3);
+const promise2 = new Promise((resolve, reject) =>
+setTimeout(reject, 100, "foo"),
+const promises = [promise1, promise2];
+Promise.allSettled(promises).then((results) =>
+results.forEach((result) => console.log(result.status)),
+// Expected output:
+// "fulfilled"
+// "rejected"
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 6 ---
+Promise.allSettled(iterable)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 18 ---
+"fulfilled"
+--- END CODE BLOCK ---
+iterable
+(such as an
+--- CODE BLOCK 23 ---
+Promise.allSettled()
+--- END CODE BLOCK ---
+) of promises.
+Return value
+--- CODE BLOCK 24 ---
+Promise.allSettled()
+--- END CODE BLOCK ---
+that is:
+Already fulfilled
+, if the
+--- CODE BLOCK 25 ---
+Promise.all()
+--- END CODE BLOCK ---
+passed is empty.
+Asynchronously fulfilled
+, when all promises in the given
+--- CODE BLOCK 26 ---
+Promise.allSettled([
+Promise.resolve(33),
+new Promise((resolve) => setTimeout(() => resolve(66), 0)),
+Promise.reject(new Error("an error")),
+]).then((values) => console.log(values));
+// [
+//   { status: 'fulfilled', value: 33 },
+//   { status: 'fulfilled', value: 66 },
+//   { status: 'fulfilled', value: 99 },
+//   { status: 'rejected', reason: Error: an error }
+// ]
+--- END CODE BLOCK ---
+have settled (either fulfilled or rejected). The fulfillment value is an array of objects, each describing the outcome of one promise in the
+--- CODE BLOCK 27 ---
+Promise.allSettled([
+Promise.resolve(33),
+new Promise((resolve) => setTimeout(() => resolve(66), 0)),
+Promise.reject(new Error("an error")),
+]).then((values) => console.log(values));
+// [
+//   { status: 'fulfilled', value: 33 },
+//   { status: 'fulfilled', value: 66 },
+//   { status: 'fulfilled', value: 99 },
+//   { status: 'rejected', reason: Error: an error }
+// ]
+--- END CODE BLOCK ---
+, in the order of the promises passed, regardless of completion order. Each outcome object has the following properties:
+--- CODE BLOCK 28 ---
+Promise.allSettled
+--- END CODE BLOCK ---
+A string, either
+--- CODE BLOCK 30 ---
+Promise.allSettled
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+Promise.all()
+--- END CODE BLOCK ---
+, indicating the eventual state of the promise.
+--- CODE BLOCK 33 ---
+Promise.any()
+--- END CODE BLOCK ---
+Only present if
+--- CODE BLOCK 34 ---
+Promise.race()
+--- END CODE BLOCK ---
+[CODE_BLOCK_18]
+. The value that the promise was fulfilled with.
+[CODE_BLOCK_19]
+Only present if
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+. The reason that the promise was rejected with.
+If the
+[CODE_BLOCK_22]
+passed is non-empty but contains no pending promises, the returned promise is still asynchronously (instead of synchronously) fulfilled.
+Description
+[CODE_BLOCK_23]
+method is one of the
+promise concurrency
+methods.
+[CODE_BLOCK_24]
+is typically used when you have multiple asynchronous tasks that are not dependent on one another to complete successfully, or you'd always like to know the result of each promise.
+In comparison, the Promise returned by
+[CODE_BLOCK_25]
+may be more appropriate if the tasks are dependent on each other, or if you'd like to immediately reject upon any of them rejecting.
+Examples
+Using Promise.allSettled()
+Copy to Clipboard
+[CODE_BLOCK_26]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-promise.allsettled
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+es-shims polyfill of
+[CODE_BLOCK_30]
+Using promises
+guide
+Graceful asynchronous programming with promises
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 5, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

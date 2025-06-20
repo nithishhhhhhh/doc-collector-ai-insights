@@ -1,0 +1,147 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/WebSocket
+SCRAPED: 2025-06-19 18:21:40
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 3 ---
+WebSocket()
+--- END CODE BLOCK ---
+object provides the API for creating and managing a
+WebSocket
+connection to a server, as well as for sending and receiving data on the connection.
+To construct a
+--- CODE BLOCK 5 ---
+WebSocketStream
+--- END CODE BLOCK ---
+, use the
+--- CODE BLOCK 6 ---
+WebSocket()
+--- END CODE BLOCK ---
+constructor.
+Note:
+--- CODE BLOCK 8 ---
+WebSocket.binaryType
+--- END CODE BLOCK ---
+API has no way to apply
+backpressure
+, therefore when messages arrive faster than the application can process them, the application will either fill up the device's memory by buffering those messages, become unresponsive due to 100% CPU usage, or both. For an alternative that provides backpressure automatically, see
+--- CODE BLOCK 9 ---
+WebSocket.bufferedAmount
+--- END CODE BLOCK ---
+EventTarget
+WebSocket
+Constructor
+--- CODE BLOCK 10 ---
+WebSocket.extensions
+--- END CODE BLOCK ---
+Returns a newly created
+--- CODE BLOCK 11 ---
+WebSocket.protocol
+--- END CODE BLOCK ---
+object.
+Instance properties
+--- CODE BLOCK 12 ---
+WebSocket.readyState
+--- END CODE BLOCK ---
+The binary data type used by the connection.
+--- CODE BLOCK 13 ---
+WebSocket.url
+--- END CODE BLOCK ---
+Read only
+The number of bytes of queued data.
+--- CODE BLOCK 14 ---
+WebSocket.close()
+--- END CODE BLOCK ---
+Read only
+The extensions selected by the server.
+--- CODE BLOCK 15 ---
+WebSocket.send()
+--- END CODE BLOCK ---
+Read only
+The sub-protocol selected by the server.
+--- CODE BLOCK 16 ---
+addEventListener()
+--- END CODE BLOCK ---
+Read only
+The current state of the connection.
+--- CODE BLOCK 17 ---
+oneventname
+--- END CODE BLOCK ---
+Read only
+The absolute URL of the WebSocket.
+Instance methods
+--- CODE BLOCK 30 ---
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8080");
+// Connection opened
+socket.addEventListener("open", (event) => {
+socket.send("Hello Server!");
+// Listen for messages
+socket.addEventListener("message", (event) => {
+console.log("Message from server ", event.data);
+--- END CODE BLOCK ---
+Closes the connection.
+--- CODE BLOCK 31 ---
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8080");
+// Connection opened
+socket.addEventListener("open", (event) => {
+socket.send("Hello Server!");
+// Listen for messages
+socket.addEventListener("message", (event) => {
+console.log("Message from server ", event.data);
+--- END CODE BLOCK ---
+Enqueues data to be transmitted.
+Events
+Listen to these events using
+[CODE_BLOCK_16]
+or by assigning an event listener to the
+[CODE_BLOCK_17]
+property of this interface.
+[CODE_BLOCK_18]
+Fired when a connection with a
+[CODE_BLOCK_19]
+is closed.
+Also available via the
+[CODE_BLOCK_20]
+property
+[CODE_BLOCK_21]
+Fired when a connection with a
+[CODE_BLOCK_22]
+has been closed because of an error, such as when some data couldn't be sent.
+Also available via the
+[CODE_BLOCK_23]
+property.
+[CODE_BLOCK_24]
+Fired when data is received through a
+[CODE_BLOCK_25]
+Also available via the
+[CODE_BLOCK_26]
+property.
+[CODE_BLOCK_27]
+Fired when a connection with a
+[CODE_BLOCK_28]
+is opened.
+Also available via the
+[CODE_BLOCK_29]
+property.
+Examples
+Copy to Clipboard
+[CODE_BLOCK_30]
+Specifications
+Specification
+WebSockets
+the-websocket-interface
+Browser compatibility
+See also
+Writing WebSocket client applications
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

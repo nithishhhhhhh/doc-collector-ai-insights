@@ -1,0 +1,191 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/revalidatePath
+SCRAPED: 2025-06-19 17:27:16
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+revalidatePath
+revalidatePath
+--- CODE BLOCK 1 ---
+revalidatePath
+--- END CODE BLOCK ---
+allows you to purge
+cached data
+on-demand for a specific path.
+Good to know
+--- CODE BLOCK 2 ---
+revalidatePath
+--- END CODE BLOCK ---
+only invalidates the cache when the included path is next visited. This means calling
+--- CODE BLOCK 3 ---
+revalidatePath
+--- END CODE BLOCK ---
+with a dynamic route segment will not immediately trigger many revalidations at once. The invalidation only happens when the path is next visited.
+Currently,
+--- CODE BLOCK 4 ---
+revalidatePath
+--- END CODE BLOCK ---
+invalidates all the routes in the
+client-side Router Cache
+when used in a server action. This behavior is temporary and will be updated in the future to apply only to the specific path.
+Using
+--- CODE BLOCK 5 ---
+revalidatePath
+--- END CODE BLOCK ---
+invalidates
+only the specific path
+in the
+server-side Route Cache
+Parameters
+--- CODE BLOCK 6 ---
+revalidatePath(path: string, type?: 'page' | 'layout'): void;
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+/product/[slug]/page
+--- END CODE BLOCK ---
+: Either a string representing the filesystem path associated with the data you want to revalidate (for example,
+--- CODE BLOCK 10 ---
+/product/123
+--- END CODE BLOCK ---
+), or the literal route segment (for example,
+--- CODE BLOCK 15 ---
+/product/[slug]/page
+--- END CODE BLOCK ---
+). Must be less than 1024 characters. This value is case-sensitive.
+--- CODE BLOCK 17 ---
+/product/[slug]/page
+--- END CODE BLOCK ---
+: (optional)
+--- CODE BLOCK 19 ---
+revalidatePath
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/post-1')
+--- END CODE BLOCK ---
+string to change the type of path to revalidate. If
+--- CODE BLOCK 21 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/post-1')
+--- END CODE BLOCK ---
+contains a dynamic segment (for example,
+--- CODE BLOCK 22 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/[slug]', 'page')
+// or with route groups
+revalidatePath('/(main)/blog/[slug]', 'page')
+--- END CODE BLOCK ---
+), this parameter is required. If path refers to the literal route segment, e.g.,
+--- CODE BLOCK 23 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/[slug]', 'page')
+// or with route groups
+revalidatePath('/(main)/blog/[slug]', 'page')
+--- END CODE BLOCK ---
+for a dynamic page (e.g.,
+--- CODE BLOCK 25 ---
+/blog/[slug]
+--- END CODE BLOCK ---
+), you should not provide
+--- CODE BLOCK 26 ---
+/blog/[slug]/[author]
+--- END CODE BLOCK ---
+Returns
+--- CODE BLOCK 27 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/[slug]', 'layout')
+// or with route groups
+revalidatePath('/(main)/post/[slug]', 'layout')
+--- END CODE BLOCK ---
+does not return a value.
+Examples
+Revalidating A Specific URL
+--- CODE BLOCK 28 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/blog/[slug]', 'layout')
+// or with route groups
+revalidatePath('/(main)/post/[slug]', 'layout')
+--- END CODE BLOCK ---
+This will revalidate one specific URL on the next page visit.
+Revalidating A Page Path
+--- CODE BLOCK 31 ---
+import { revalidatePath } from 'next/cache'
+revalidatePath('/', 'layout')
+--- END CODE BLOCK ---
+This will revalidate any URL that matches the provided
+--- CODE BLOCK 33 ---
+'use server'
+import { revalidatePath } from 'next/cache'
+export default async function submit() {
+await submitForm()
+revalidatePath('/')
+--- END CODE BLOCK ---
+file on the next page visit. This will
+invalidate pages beneath the specific page. For example,
+--- CODE BLOCK 34 ---
+'use server'
+import { revalidatePath } from 'next/cache'
+export default async function submit() {
+await submitForm()
+revalidatePath('/')
+--- END CODE BLOCK ---
+won't invalidate
+--- CODE BLOCK 35 ---
+import { revalidatePath } from 'next/cache'
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const path = request.nextUrl.searchParams.get('path')
+if (path) {
+revalidatePath(path)
+return Response.json({ revalidated: true, now: Date.now() })
+return Response.json({
+revalidated: false,
+now: Date.now(),
+message: 'Missing path to revalidate',
+--- END CODE BLOCK ---
+Revalidating A Layout Path
+--- CODE BLOCK 36 ---
+import { revalidatePath } from 'next/cache'
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const path = request.nextUrl.searchParams.get('path')
+if (path) {
+revalidatePath(path)
+return Response.json({ revalidated: true, now: Date.now() })
+return Response.json({
+revalidated: false,
+now: Date.now(),
+message: 'Missing path to revalidate',
+--- END CODE BLOCK ---
+This will revalidate any URL that matches the provided
+[CODE_BLOCK_29]
+file on the next page visit. This will cause pages beneath with the same layout to revalidate on the next visit. For example, in the above case,
+[CODE_BLOCK_30]
+would also revalidate on the next visit.
+Revalidating All Data
+[CODE_BLOCK_31]
+This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
+Server Action
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_33]
+Route Handler
+app/api/revalidate/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_35]
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,97 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/URLPattern
+SCRAPED: 2025-06-19 18:19:27
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 2 ---
+URLPattern()
+--- END CODE BLOCK ---
+interface of the
+URL Pattern API
+matches URLs or parts of URLs against a pattern. The pattern can contain capturing groups that extract parts of the matched URL.
+More information about the syntax of patterns can be found on the API overview
+page:
+URL Pattern API
+Constructor
+[CODE_BLOCK_2]
+Returns a new
+[CODE_BLOCK_3]
+object based on the given pattern and base URL.
+Instance properties
+[CODE_BLOCK_4]
+Read only
+A string containing a pattern to match the
+hash
+part
+of a URL.
+[CODE_BLOCK_5]
+Read only
+A string containing a pattern to match the
+hostname
+part of a URL.
+[CODE_BLOCK_6]
+Read only
+A string containing a pattern to match the
+password
+part of a URL.
+[CODE_BLOCK_7]
+Read only
+A string containing a pattern to match the
+pathname
+part of a URL.
+[CODE_BLOCK_8]
+Read only
+A string containing a pattern to match the
+port
+part
+of a URL.
+[CODE_BLOCK_9]
+Read only
+A string containing a pattern to match the
+protocol
+part of a URL.
+[CODE_BLOCK_10]
+Read only
+A string containing a pattern to match the
+search
+part
+of a URL.
+[CODE_BLOCK_11]
+Read only
+A string containing a pattern to match the
+username
+part of a URL.
+Instance methods
+[CODE_BLOCK_12]
+Returns an object with the matched parts of the URL or
+[CODE_BLOCK_13]
+if the URL
+does not match.
+[CODE_BLOCK_14]
+Returns
+[CODE_BLOCK_15]
+if the URL matches the given pattern,
+[CODE_BLOCK_16]
+otherwise.
+Specifications
+Specification
+URL Pattern
+urlpattern
+Browser compatibility
+See also
+A polyfill of
+[CODE_BLOCK_17]
+is available
+on GitHub
+The pattern syntax used by URLPattern is similar to the syntax used by
+path-to-regexp
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 18, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

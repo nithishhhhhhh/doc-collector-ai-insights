@@ -1,0 +1,169 @@
+SOURCE URL: https://nextjs.org/docs/messages/sync-dynamic-apis
+SCRAPED: 2025-06-19 18:02:39
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Docs
+Errors
+Dynamic APIs are Asynchronous
+Dynamic APIs are Asynchronous
+Learn more about why accessing certain APIs synchronously now warns.
+Why This Warning Occurred
+Somewhere in your code you used an API that opts into
+dynamic rendering
+Dynamic APIs are:
+--- CODE BLOCK 2 ---
+searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+draftMode()
+--- END CODE BLOCK ---
+props that get provided to pages, layouts, metadata APIs, and route handlers.
+--- CODE BLOCK 6 ---
+next/headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+function Page({ params }) {
+// direct access of `params.id`.
+return <p>ID: {params.id}</p>
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 8 ---
+function Page({ params }) {
+// direct access of `params.id`.
+return <p>ID: {params.id}</p>
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 9 ---
+{...params}
+--- END CODE BLOCK ---
+In Next 15, these APIs have been made asynchronous. You can read more about this in the Next.js 15
+Upgrade Guide
+For example, the following code will issue a warning:
+app/[id]/page.js
+--- CODE BLOCK 10 ---
+Object.keys(params)
+--- END CODE BLOCK ---
+This also includes enumerating (e.g.
+--- CODE BLOCK 12 ---
+for (const cookie of cookies())
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 13 ---
+cookies()[Symbol.iterator]()
+--- END CODE BLOCK ---
+) or iterating over the return
+value of these APIs (e.g.
+--- CODE BLOCK 14 ---
+next-async-request-api
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+$ npx @next/codemod@canary next-async-request-api .
+--- END CODE BLOCK ---
+, or explicitly with
+--- CODE BLOCK 16 ---
+$ npx @next/codemod@canary next-async-request-api .
+--- END CODE BLOCK ---
+In the version of Next.js that issued this warning, access to these properties is still possible directly but will warn.
+In future versions, these APIs will be async and direct access will not work as expected.
+Possible Ways to Fix It
+--- CODE BLOCK 18 ---
+async function Page({ params }) {
+// asynchronous access of `params.id`.
+const { id } = await params
+return <p>ID: {id}</p>
+--- END CODE BLOCK ---
+codemod
+can fix many of these cases automatically:
+Terminal
+--- CODE BLOCK 19 ---
+async function Page({ params }) {
+// asynchronous access of `params.id`.
+const { id } = await params
+return <p>ID: {id}</p>
+--- END CODE BLOCK ---
+The codemod cannot cover all cases, so you may need to manually adjust some code.
+If the warning occurred on the Server (e.g. a route handler, or a Server Component),
+you must
+--- CODE BLOCK 21 ---
+'use client'
+import * as React from 'react'
+function Page({ params }) {
+// asynchronous access of `params.id`.
+const { id } = React.use(params)
+return <p>ID: {id}</p>
+--- END CODE BLOCK ---
+the dynamic API to access its properties:
+app/[id]/page.js
+--- CODE BLOCK 22 ---
+'use client'
+import * as React from 'react'
+function Page({ params }) {
+// asynchronous access of `params.id`.
+const { id } = React.use(params)
+return <p>ID: {id}</p>
+--- END CODE BLOCK ---
+If the warning occurred in a synchronous component (e.g. a Client component),
+you must use
+--- CODE BLOCK 25 ---
+export function MyCookiesComponent() {
+const c =
+/* @next-codemod-error Manually await this call and refactor the function to be async */
+cookies()
+return c.get('name')
+--- END CODE BLOCK ---
+to unwrap the Promise first:
+app/[id]/page.js
+--- CODE BLOCK 26 ---
+export function MyCookiesComponent() {
+const c =
+/* @next-codemod-error Manually await this call and refactor the function to be async */
+cookies()
+return c.get('name')
+--- END CODE BLOCK ---
+Unmigratable Cases
+If Next.js codemod found anything that is not able to be migrated by the codemod, it will leave a comment with
+--- CODE BLOCK 28 ---
+@next-codemod-error
+--- END CODE BLOCK ---
+prefix and the suggested action, for example:
+In this case, you need to manually await the call to
+--- CODE BLOCK 29 ---
+@next-codemod-ignore
+--- END CODE BLOCK ---
+, and change the function to async. Then refactor the usages of the function to be properly awaited:
+--- CODE BLOCK 30 ---
+@next-codemod-ignore
+--- END CODE BLOCK ---
+Enforced Migration with Linter
+If you didn't address the comments that starting with
+--- CODE BLOCK 32 ---
+- /* @next-codemod-error <suggested message> */
++ /* @next-codemod-ignore */
+--- END CODE BLOCK ---
+left by the codemod, Next.js will error in both dev and build to enforce you to address the issues.
+You can review the changes and follow the suggestion in the comments. You can either make the necessary changes and remove the comment, or replace the comment prefix
+[CODE_BLOCK_28]
+with
+[CODE_BLOCK_29]
+If there's no action to be taken, the comment prefix
+[CODE_BLOCK_30]
+will bypass the build error.
+[CODE_BLOCK_31]
+Good to know
+You can delay unwrapping the Promise (either with
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+) until you actually need to consume the value.
+This will allow Next.js to statically render more of your page.
+Was this helpful?
+supported.
+Send

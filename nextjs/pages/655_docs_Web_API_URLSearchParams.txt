@@ -1,0 +1,425 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/URLSearchParams
+SCRAPED: 2025-06-19 18:23:57
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+URLSearchParams
+--- END CODE BLOCK ---
+interface defines utility methods to work with the query string of a URL.
+--- CODE BLOCK 2 ---
+URLSearchParams
+--- END CODE BLOCK ---
+objects are
+iterable
+, so they can directly be used in a
+--- CODE BLOCK 4 ---
+for (const [key, value] of mySearchParams) {
+for (const [key, value] of mySearchParams.entries()) {
+--- END CODE BLOCK ---
+structure to iterate over key/value pairs in the same order as they appear in the query string, for example the following two lines are equivalent:
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+for (const [key, value] of mySearchParams) {
+for (const [key, value] of mySearchParams.entries()) {
+--- END CODE BLOCK ---
+Although
+--- CODE BLOCK 9 ---
+URLSearchParams()
+--- END CODE BLOCK ---
+is functionally similar to a
+--- CODE BLOCK 10 ---
+URLSearchParams
+--- END CODE BLOCK ---
+, when iterating, it may suffer from some
+pitfalls
+that
+--- CODE BLOCK 12 ---
+URLSearchParams[Symbol.iterator]()
+--- END CODE BLOCK ---
+doesn't encounter due to how it's implemented.
+Constructor
+--- CODE BLOCK 14 ---
+URLSearchParams.append()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 15 ---
+URLSearchParams.delete()
+--- END CODE BLOCK ---
+object instance.
+Instance properties
+--- CODE BLOCK 16 ---
+URLSearchParams.entries()
+--- END CODE BLOCK ---
+Read only
+Indicates the total number of search parameter entries.
+Instance methods
+--- CODE BLOCK 18 ---
+URLSearchParams.forEach()
+--- END CODE BLOCK ---
+Returns an
+--- CODE BLOCK 19 ---
+URLSearchParams.get()
+--- END CODE BLOCK ---
+allowing iteration through all key/value pairs contained in this object in the same order as they appear in the query string.
+--- CODE BLOCK 20 ---
+URLSearchParams.getAll()
+--- END CODE BLOCK ---
+Appends a specified key/value pair as a new search parameter.
+--- CODE BLOCK 21 ---
+URLSearchParams.has()
+--- END CODE BLOCK ---
+Deletes search parameters that match a name, and optional value, from the list of all search parameters.
+--- CODE BLOCK 22 ---
+URLSearchParams.keys()
+--- END CODE BLOCK ---
+Returns an
+--- CODE BLOCK 24 ---
+URLSearchParams.set()
+--- END CODE BLOCK ---
+allowing iteration through all key/value pairs contained in this object in the same order as they appear in the query string.
+--- CODE BLOCK 25 ---
+URLSearchParams.sort()
+--- END CODE BLOCK ---
+Allows iteration through all values contained in this object via a callback function.
+--- CODE BLOCK 26 ---
+URLSearchParams.toString()
+--- END CODE BLOCK ---
+Returns the first value associated with the given search parameter.
+--- CODE BLOCK 27 ---
+URLSearchParams.values()
+--- END CODE BLOCK ---
+Returns all the values associated with a given search parameter.
+--- CODE BLOCK 29 ---
+const paramsString = "q=URLUtils.searchParams&topic=api";
+const searchParams = new URLSearchParams(paramsString);
+// Iterating the search parameters
+for (const p of searchParams) {
+console.log(p);
+console.log(searchParams.has("topic")); // true
+console.log(searchParams.has("topic", "fish")); // false
+console.log(searchParams.get("topic") === "api"); // true
+console.log(searchParams.getAll("topic")); // ["api"]
+console.log(searchParams.get("foo") === null); // true
+console.log(searchParams.append("topic", "webdev"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams&topic=api&topic=webdev"
+console.log(searchParams.set("topic", "More webdev"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams&topic=More+webdev"
+console.log(searchParams.delete("topic"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams"
+--- END CODE BLOCK ---
+Returns a boolean value indicating if a given parameter, or parameter and value pair, exists.
+--- CODE BLOCK 30 ---
+const paramsString = "q=URLUtils.searchParams&topic=api";
+const searchParams = new URLSearchParams(paramsString);
+// Iterating the search parameters
+for (const p of searchParams) {
+console.log(p);
+console.log(searchParams.has("topic")); // true
+console.log(searchParams.has("topic", "fish")); // false
+console.log(searchParams.get("topic") === "api"); // true
+console.log(searchParams.getAll("topic")); // ["api"]
+console.log(searchParams.get("foo") === null); // true
+console.log(searchParams.append("topic", "webdev"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams&topic=api&topic=webdev"
+console.log(searchParams.set("topic", "More webdev"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams&topic=More+webdev"
+console.log(searchParams.delete("topic"));
+console.log(searchParams.toString()); // "q=URLUtils.searchParams"
+--- END CODE BLOCK ---
+Returns an
+--- CODE BLOCK 31 ---
+const paramsObj = { foo: "bar", baz: "bar" };
+const searchParams = new URLSearchParams(paramsObj);
+console.log(searchParams.toString()); // "foo=bar&baz=bar"
+console.log(searchParams.has("foo")); // true
+console.log(searchParams.get("foo")); // "bar"
+--- END CODE BLOCK ---
+allowing iteration through all keys of the key/value pairs contained in this object.
+--- CODE BLOCK 32 ---
+const paramsObj = { foo: "bar", baz: "bar" };
+const searchParams = new URLSearchParams(paramsObj);
+console.log(searchParams.toString()); // "foo=bar&baz=bar"
+console.log(searchParams.has("foo")); // true
+console.log(searchParams.get("foo")); // "bar"
+--- END CODE BLOCK ---
+Sets the value associated with a given search parameter to the given value. If there are several values, the others are deleted.
+--- CODE BLOCK 35 ---
+searchParams
+--- END CODE BLOCK ---
+Sorts all key/value pairs, if any, by their keys.
+--- CODE BLOCK 36 ---
+location.search
+--- END CODE BLOCK ---
+Returns a string containing a query string suitable for use in a URL.
+--- CODE BLOCK 37 ---
+URLSearchParams
+--- END CODE BLOCK ---
+Returns an
+--- CODE BLOCK 38 ---
+// Assume page has location:
+// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams?foo=a
+const paramsString = window.location.search;
+const searchParams = new URLSearchParams(paramsString);
+console.log(searchParams.get("foo")); // a
+--- END CODE BLOCK ---
+allowing iteration through all values of the key/value pairs contained in this object.
+Examples
+Using URLSearchParams
+Copy to Clipboard
+--- CODE BLOCK 39 ---
+// Assume page has location:
+// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams?foo=a
+const paramsString = window.location.search;
+const searchParams = new URLSearchParams(paramsString);
+console.log(searchParams.get("foo")); // a
+--- END CODE BLOCK ---
+Search parameters can also be an object.
+Copy to Clipboard
+--- CODE BLOCK 41 ---
+const paramStr = "foo=bar&foo=baz";
+const searchParams = new URLSearchParams(paramStr);
+console.log(searchParams.toString()); // "foo=bar&foo=baz"
+console.log(searchParams.has("foo")); // true
+console.log(searchParams.get("foo")); // bar, only returns the first value
+console.log(searchParams.getAll("foo")); // ["bar", "baz"]
+--- END CODE BLOCK ---
+Parsing window.location
+Unlike
+--- CODE BLOCK 44 ---
+const paramsString1 = "http://example.com/search?query=%40";
+const searchParams1 = new URLSearchParams(paramsString1);
+console.log(searchParams1.has("query")); // false
+console.log(searchParams1.has("http://example.com/search?query")); // true
+console.log(searchParams1.get("query")); // null
+console.log(searchParams1.get("http://example.com/search?query")); // "@" (equivalent to decodeURIComponent('%40'))
+const paramsString2 = "?query=value";
+const searchParams2 = new URLSearchParams(paramsString2);
+console.log(searchParams2.has("query")); // true
+const url = new URL("http://example.com/search?query=%40");
+const searchParams3 = new URLSearchParams(url.search);
+console.log(searchParams3.has("query")); // true
+--- END CODE BLOCK ---
+, the
+--- CODE BLOCK 45 ---
+const paramsString1 = "http://example.com/search?query=%40";
+const searchParams1 = new URLSearchParams(paramsString1);
+console.log(searchParams1.has("query")); // false
+console.log(searchParams1.has("http://example.com/search?query")); // true
+console.log(searchParams1.get("query")); // null
+console.log(searchParams1.get("http://example.com/search?query")); // "@" (equivalent to decodeURIComponent('%40'))
+const paramsString2 = "?query=value";
+const searchParams2 = new URLSearchParams(paramsString2);
+console.log(searchParams2.has("query")); // true
+const url = new URL("http://example.com/search?query=%40");
+const searchParams3 = new URLSearchParams(url.search);
+console.log(searchParams3.has("query")); // true
+--- END CODE BLOCK ---
+interface does not provide a readily-available
+--- CODE BLOCK 46 ---
+URLSearchParams
+--- END CODE BLOCK ---
+property. We can parse
+--- CODE BLOCK 47 ---
+application/x-www-form-urlencoded
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 53 ---
+// Creation from parsing a string: percent-encoding is decoded
+const params = new URLSearchParams("%24%25%26=%28%29%2B");
+// Retrieving all keys/values: only decoded values are returned
+console.log([...params]); // [["$%&", "()+"]]
+// Getting an individual value: use the decoded key and get the decoded value
+console.log(params.get("$%&")); // "()+"
+console.log(params.get("%24%25%26")); // null
+// Setting an individual value: use the unencoded key and value
+params.append("$%&$#@+", "$#&*@#()+");
+// Serializing: percent-encoding is applied
+console.log(params.toString());
+// "%24%25%26=%28%29%2B&%24%25%26%24%23%40%2B=%24%23%26*%40%23%28%29%2B"
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 54 ---
+// Creation from parsing a string: percent-encoding is decoded
+const params = new URLSearchParams("%24%25%26=%28%29%2B");
+// Retrieving all keys/values: only decoded values are returned
+console.log([...params]); // [["$%&", "()+"]]
+// Getting an individual value: use the decoded key and get the decoded value
+console.log(params.get("$%&")); // "()+"
+console.log(params.get("%24%25%26")); // null
+// Setting an individual value: use the unencoded key and value
+params.append("$%&$#@+", "$#&*@#()+");
+// Serializing: percent-encoding is applied
+console.log(params.toString());
+// "%24%25%26=%28%29%2B&%24%25%26%24%23%40%2B=%24%23%26*%40%23%28%29%2B"
+--- END CODE BLOCK ---
+Duplicate search parameters
+Copy to Clipboard
+--- CODE BLOCK 56 ---
+const params = new URLSearchParams();
+params.append("%24%26", "value");
+params.toString(); // "%2524%2526=value"
+--- END CODE BLOCK ---
+No URL parsing
+--- CODE BLOCK 61 ---
+URLSearchParams
+--- END CODE BLOCK ---
+constructor does
+parse full URLs. However, it will strip an initial leading
+--- CODE BLOCK 62 ---
+const rawData = "\x13à\x17@\x1F\x80";
+const base64Data = btoa(rawData); // 'E+AXQB+A'
+const searchParams = new URLSearchParams(`bin=${base64Data}`); // 'bin=E+AXQB+A'
+const binQuery = searchParams.get("bin"); // 'E AXQB A', '+' is replaced by spaces
+console.log(atob(binQuery) === rawData); // false
+--- END CODE BLOCK ---
+off of a string, if present.
+Copy to Clipboard
+--- CODE BLOCK 63 ---
+const rawData = "\x13à\x17@\x1F\x80";
+const base64Data = btoa(rawData); // 'E+AXQB+A'
+const searchParams = new URLSearchParams(`bin=${base64Data}`); // 'bin=E+AXQB+A'
+const binQuery = searchParams.get("bin"); // 'E AXQB A', '+' is replaced by spaces
+console.log(atob(binQuery) === rawData); // false
+--- END CODE BLOCK ---
+Percent encoding
+--- CODE BLOCK 66 ---
+const rawData = "\x13à\x17@\x1F\x80";
+const base64Data = btoa(rawData); // 'E+AXQB+A'
+const searchParams = new URLSearchParams();
+searchParams.append("bin", base64Data); // 'bin=E%2BAXQB%2BA'
+const binQuery = searchParams.get("bin"); // 'E+AXQB+A'
+console.log(atob(binQuery) === rawData); // true
+--- END CODE BLOCK ---
+objects
+percent-encode
+anything in the
+--- CODE BLOCK 67 ---
+const rawData = "\x13à\x17@\x1F\x80";
+const base64Data = btoa(rawData); // 'E+AXQB+A'
+const searchParams = new URLSearchParams();
+searchParams.append("bin", base64Data); // 'bin=E%2BAXQB%2BA'
+const binQuery = searchParams.get("bin"); // 'E+AXQB+A'
+console.log(atob(binQuery) === rawData); // true
+--- END CODE BLOCK ---
+percent-encode set
+(which contains all code points except ASCII alphanumeric,
+--- CODE BLOCK 68 ---
+URL.searchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 70 ---
+URLSearchParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+URLSearchParams
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 74 ---
+URLSearchParams
+--- END CODE BLOCK ---
+), and encode U+0020 SPACE as
+--- CODE BLOCK 77 ---
+searchParams
+--- END CODE BLOCK ---
+. However, it only handles percent-encoding when serializing and deserializing full URL search params syntax. When interacting with individual keys and values, you always use the unencoded version.
+Copy to Clipboard
+--- CODE BLOCK 78 ---
+const url = new URL("https://example.com/?a=b ~");
+console.log(url.href); // "https://example.com/?a=b%20~"
+console.log(url.searchParams.toString()); // "a=b+%7E"
+// This should be a no-op, but it changes the URL's query to the
+// serialization of its searchParams
+url.searchParams.sort();
+console.log(url.href); // "https://example.com/?a=b+%7E"
+const url2 = new URL("https://example.com?search=1234&param=my%20param");
+console.log(url2.search); // "?search=1234&param=my%20param"
+url2.searchParams.delete("search");
+console.log(url2.search); // "?param=my+param"
+--- END CODE BLOCK ---
+If you append a key/value pair with a percent-encoded key, that key is treated as unencoded and is encoded again.
+Copy to Clipboard
+--- CODE BLOCK 80 ---
+URLSearchParams
+--- END CODE BLOCK ---
+Preserving plus signs
+--- CODE BLOCK 84 ---
+const emptyVal = new URLSearchParams("foo=&bar=baz");
+console.log(emptyVal.get("foo")); // returns ''
+const noEquals = new URLSearchParams("foo&bar=baz");
+console.log(noEquals.get("foo")); // also returns ''
+console.log(noEquals.toString()); // 'foo=&bar=baz'
+--- END CODE BLOCK ---
+constructor interprets plus signs (
+--- CODE BLOCK 85 ---
+URLSearchParams
+--- END CODE BLOCK ---
+) as spaces, which might cause problems. In the example below, we use
+hexadecimal escape sequences
+to mimic a string containing binary data (where every byte carries information) that needs to be stored in the URL search params. Note how the encoded string produced by
+[CODE_BLOCK_59]
+contains
+[CODE_BLOCK_60]
+and isn't preserved by
+[CODE_BLOCK_61]
+Copy to Clipboard
+[CODE_BLOCK_62]
+Never construct
+[CODE_BLOCK_64]
+objects using dynamically interpolated strings. Instead, use the
+[CODE_BLOCK_65]
+method, which as mentioned above, interprets all characters as-is.
+Copy to Clipboard
+[CODE_BLOCK_66]
+Interaction with URL.searchParams
+[CODE_BLOCK_68]
+property exposes the URL's
+[CODE_BLOCK_69]
+string as a
+[CODE_BLOCK_70]
+object. When updating this
+[CODE_BLOCK_71]
+, the URL's
+[CODE_BLOCK_72]
+is updated with its serialization. However,
+[CODE_BLOCK_73]
+encodes a subset of characters that
+[CODE_BLOCK_74]
+does, and encodes spaces as
+[CODE_BLOCK_75]
+instead of
+[CODE_BLOCK_76]
+. This may cause some surprising interactions—if you update
+[CODE_BLOCK_77]
+, even with the same values, the URL may be serialized differently.
+Copy to Clipboard
+[CODE_BLOCK_78]
+Empty value vs. no value
+[CODE_BLOCK_80]
+doesn't distinguish between a parameter with nothing after the
+[CODE_BLOCK_81]
+, and a parameter that doesn't have a
+[CODE_BLOCK_82]
+altogether.
+Copy to Clipboard
+[CODE_BLOCK_83]
+Specifications
+Specification
+urlsearchparams
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+interface.
+Google Developers: Easy URL manipulation with URLSearchParams
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Feb 26, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

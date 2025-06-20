@@ -1,0 +1,34 @@
+SOURCE URL: https://vercel.com/docs/redis
+SCRAPED: 2025-06-19 18:14:40
+================================================================================
+
+Redis
+Search...
+Choose a framework to optimize documentation to:
+Copy page
+Redis on Vercel
+Vercel lets you connect external Redis databases through the
+Marketplace
+, allowing you to integrate high-performance caching and real-time data storage into your Vercel projects without managing Redis servers.
+Explore
+Marketplace storage integrations
+Learn how to
+add a Marketplace native integration
+Connecting to the Marketplace
+Vercel enables you to use Redis by integrating with external database providers. By using the Marketplace, you can:
+Select a
+Redis provider
+(e.g. Upstash, Redis).
+Provision and configure a Redis database with minimal setup.
+Have credentials and
+environment variables
+injected into your Vercel project.
+Last updated on
+April 24, 2025
+Previous
+Postgres
+Was this helpful?
+supported.
+Send
+On this page
+Connecting to the Marketplace

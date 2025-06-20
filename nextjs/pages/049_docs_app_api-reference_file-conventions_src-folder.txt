@@ -1,0 +1,89 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/src-folder
+SCRAPED: 2025-06-19 17:14:47
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+src Folder
+As an alternative to having the special Next.js
+--- CODE BLOCK 10 ---
+package.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+next.config.js
+--- END CODE BLOCK ---
+directories in the root of your project, Next.js also supports the common pattern of placing application code under the
+--- CODE BLOCK 12 ---
+tsconfig.json
+--- END CODE BLOCK ---
+folder.
+This separates application code from project configuration files which mostly live in the root of a project, which is preferred by some individuals and teams.
+To use the
+--- CODE BLOCK 19 ---
+/components
+--- END CODE BLOCK ---
+folder, move the
+--- CODE BLOCK 23 ---
+tailwind.config.js
+--- END CODE BLOCK ---
+Router folder or
+--- CODE BLOCK 26 ---
+tsconfig.json
+--- END CODE BLOCK ---
+Router folder to
+[CODE_BLOCK_7]
+[CODE_BLOCK_8]
+respectively.
+Good to know
+[CODE_BLOCK_9]
+directory should remain in the root of your project.
+Config files like
+[CODE_BLOCK_10]
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+should remain in the root of your project.
+[CODE_BLOCK_13]
+files should remain in the root of your project.
+[CODE_BLOCK_14]
+[CODE_BLOCK_15]
+will be ignored if
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+are present in the root directory.
+If you're using
+[CODE_BLOCK_18]
+, you'll probably also move other application folders such as
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+If you're using Middleware, ensure it is placed inside the
+[CODE_BLOCK_21]
+folder.
+If you're using Tailwind CSS, you'll need to add the
+[CODE_BLOCK_22]
+prefix to the
+[CODE_BLOCK_23]
+file in the
+content section
+If you are using TypeScript paths for imports such as
+[CODE_BLOCK_24]
+, you should update the
+[CODE_BLOCK_25]
+object in
+[CODE_BLOCK_26]
+to include
+[CODE_BLOCK_27]
+Next Steps
+Project Structure
+Learn the folder and file conventions in Next.js, and how to organize your project.
+Was this helpful?
+supported.
+Send

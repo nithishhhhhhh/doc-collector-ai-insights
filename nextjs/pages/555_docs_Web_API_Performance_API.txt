@@ -1,0 +1,228 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Performance_API
+SCRAPED: 2025-06-19 18:13:42
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+The Performance API is a group of standards used to measure the performance of web applications.
+Concepts and usage
+To ensure web applications are fast, it's important to measure and analyze various performance metrics. The Performance API provides important built-in metrics and the ability to add your own measurements to the browser's performance timeline. The performance timeline contains high precision timestamps and can be displayed in developer tools. You can also send its data to analytics end points to record performance metrics over time.
+Each performance metric is represented by a single
+--- CODE BLOCK 1 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+. A performance entry has a
+--- CODE BLOCK 6 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+Performance.getEntries()
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+PerformanceObserver
+--- END CODE BLOCK ---
+, and a
+--- CODE BLOCK 9 ---
+PerformanceEventTiming
+--- END CODE BLOCK ---
+. All performance metrics extend the
+--- CODE BLOCK 10 ---
+PerformanceMark
+--- END CODE BLOCK ---
+interface and qualify it further.
+Most of the performance entries are recorded for you without you having to do anything, and are then accessible either through
+--- CODE BLOCK 11 ---
+PerformanceMeasure
+--- END CODE BLOCK ---
+or (preferably) through
+--- CODE BLOCK 12 ---
+Performance
+--- END CODE BLOCK ---
+. For example,
+--- CODE BLOCK 15 ---
+PerformanceObserver
+--- END CODE BLOCK ---
+entries are recorded for events that take longer than a set threshold. But the Performance API also enables you to define and record your own custom events, using the
+--- CODE BLOCK 16 ---
+EventCounts
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+performance.eventCounts
+--- END CODE BLOCK ---
+interfaces.
+The main
+--- CODE BLOCK 18 ---
+LargestContentfulPaint
+--- END CODE BLOCK ---
+interface is available in both
+--- CODE BLOCK 19 ---
+LayoutShift
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+LayoutShiftAttribution
+--- END CODE BLOCK ---
+global scopes, and enables you to add custom performance entries, to clear performance entries, and to retrieve performance entries.
+--- CODE BLOCK 21 ---
+NotRestoredReasonDetails
+--- END CODE BLOCK ---
+interface enables you to listen for various types of performance entry as they are recorded.
+For more conceptual information, see the
+Performance API guides
+below.
+Reference
+The following interfaces are present in the Performance API:
+--- CODE BLOCK 22 ---
+NotRestoredReasons
+--- END CODE BLOCK ---
+A read-only map returned by
+--- CODE BLOCK 23 ---
+Performance
+--- END CODE BLOCK ---
+containing the number of events which have been dispatched per event type.
+--- CODE BLOCK 24 ---
+Window.performance
+--- END CODE BLOCK ---
+Measures the render time of the largest image or text block visible within the viewport, recorded from when the page first begins to load.
+--- CODE BLOCK 25 ---
+WorkerGlobalScope.performance
+--- END CODE BLOCK ---
+Provides insights into the layout stability of web pages based on movements of the elements on the page.
+--- CODE BLOCK 26 ---
+PerformanceElementTiming
+--- END CODE BLOCK ---
+Provides debugging information about elements which have shifted.
+--- CODE BLOCK 27 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+Represents a single reason why a navigated page was blocked from using the back/forward cache (
+bfcache
+--- CODE BLOCK 28 ---
+PerformanceEventTiming
+--- END CODE BLOCK ---
+Provides report data containing reasons why the current document was blocked from using the back/forward cache (
+bfcache
+) on navigation.
+--- CODE BLOCK 29 ---
+PerformanceLongAnimationFrameTiming
+--- END CODE BLOCK ---
+Main interface to access performance measurements. Available to window and worker contexts using
+--- CODE BLOCK 30 ---
+PerformanceLongTaskTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+PerformanceMark
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+PerformanceMeasure
+--- END CODE BLOCK ---
+Measures rendering timestamps of specific elements.
+--- CODE BLOCK 33 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+An entry on the performance timeline encapsulating a single performance metric. All performance metrics inherit from this interface.
+--- CODE BLOCK 34 ---
+PerformanceObserver
+--- END CODE BLOCK ---
+Measures latency of events and
+Interaction to Next Paint
+(INP).
+--- CODE BLOCK 35 ---
+PerformanceObserverEntryList
+--- END CODE BLOCK ---
+Provides metrics on
+long animation frames (LoAFs)
+that occupy rendering and block other tasks from being executed.
+--- CODE BLOCK 36 ---
+PerformancePaintTiming
+--- END CODE BLOCK ---
+Provides metrics on
+long tasks
+that occupy rendering and block other tasks from being executed.
+--- CODE BLOCK 37 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+Custom marker for your own entry on the performance timeline.
+--- CODE BLOCK 38 ---
+PerformanceScriptTiming
+--- END CODE BLOCK ---
+Custom time measurement between two performance entries.
+--- CODE BLOCK 39 ---
+PerformanceServerTiming
+--- END CODE BLOCK ---
+Measures document navigation events, like how much time it takes to load a document.
+--- CODE BLOCK 40 ---
+Server-Timing
+--- END CODE BLOCK ---
+Listens for new performance entries as they are recorded in the performance timeline.
+--- CODE BLOCK 41 ---
+TaskAttributionTiming
+--- END CODE BLOCK ---
+List of entries that were observed in a performance observer.
+--- CODE BLOCK 42 ---
+VisibilityStateEntry
+--- END CODE BLOCK ---
+Measures render operations during web page construction.
+[CODE_BLOCK_37]
+Measures network loading metrics such as redirect start and end times, fetch start, DNS lookup start and end times, response start and end times for resources such as images, scripts, fetch calls, etc.
+[CODE_BLOCK_38]
+Provides metrics on individual scripts causing
+long animation frames (LoAFs)
+[CODE_BLOCK_39]
+Surfaces server metrics that are sent with the response in the
+[CODE_BLOCK_40]
+HTTP header.
+[CODE_BLOCK_41]
+Identifies the type of task and the container that is responsible for the long task.
+[CODE_BLOCK_42]
+Measures the timing of page visibility state changes, i.e., when a tab changes from the foreground to the background or vice versa.
+Guides
+The following guides help you to understand key concepts of the Performance API and provide an overview about its abilities:
+Performance data
+: Collecting, accessing, and working with performance data.
+High precision timing
+: Measuring with high precision time and monotonic clocks.
+Resource timing
+: Measuring network timing for fetched resources, such as images, CSS, and JavaScript.
+Navigation timing
+: Measuring navigation timing of a document.
+User timing
+: Measuring and recording performance data custom to your application.
+Server timing
+: Collecting server-side metrics.
+Long animation frame timing
+: Collecting metrics on long animation frames (LoAFs) and their causes.
+Monitoring bfcache blocking reasons
+: Reporting on why the current document was blocked from using the back/forward cache (
+bfcache
+Specifications
+Specification
+Element Timing API
+Event Timing API
+High Resolution Time
+Largest Contentful Paint
+Layout Instability API
+Long Tasks API
+Navigation Timing Level 2
+Paint Timing
+Performance Timeline
+Resource Timing
+Server Timing
+User Timing
+Long Animation Frames API
+Measure Memory API
+HTML
+the-visibilitystateentry-interface
+HTML
+the-notrestoredreasons-interface
+See also
+Web performance
+Learn: Web performance
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Dec 19, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

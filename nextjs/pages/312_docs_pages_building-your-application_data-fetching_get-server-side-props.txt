@@ -1,0 +1,194 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/data-fetching/get-server-side-props
+SCRAPED: 2025-06-19 17:46:09
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Data Fetching
+getServerSideProps
+You are currently viewing the documentation for Pages Router.
+getServerSideProps
+--- CODE BLOCK 1 ---
+getServerSideProps
+--- END CODE BLOCK ---
+is a Next.js function that can be used to fetch data and render the contents of a page at request time.
+Example
+You can use
+--- CODE BLOCK 2 ---
+getServerSideProps
+--- END CODE BLOCK ---
+by exporting it from a Page Component. The example below shows how you can fetch data from a 3rd party API in
+--- CODE BLOCK 3 ---
+getServerSideProps
+--- END CODE BLOCK ---
+, and pass the data to the page as props:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 4 ---
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+type Repo = {
+name: string
+stargazers_count: number
+export const getServerSideProps = (async () => {
+// Fetch data from external API
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const repo: Repo = await res.json()
+// Pass data to the page via props
+return { props: { repo } }
+}) satisfies GetServerSideProps<{ repo: Repo }>
+export default function Page({
+repo,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+return (
+<main>
+<p>{repo.stargazers_count}</p>
+</main>
+--- END CODE BLOCK ---
+When should I use
+--- CODE BLOCK 6 ---
+getServerSideProps
+--- END CODE BLOCK ---
+You should use
+--- CODE BLOCK 7 ---
+getServerSideProps
+--- END CODE BLOCK ---
+if you need to render a page that relies on personalized user data, or information that can only be known at request time. For example,
+--- CODE BLOCK 8 ---
+authorization
+--- END CODE BLOCK ---
+headers or a geolocation.
+If you do not need to fetch the data at request time, or would prefer to cache the data and pre-rendered HTML, we recommend using
+--- CODE BLOCK 9 ---
+getStaticProps
+--- END CODE BLOCK ---
+Behavior
+--- CODE BLOCK 10 ---
+getServerSideProps
+--- END CODE BLOCK ---
+runs on the server.
+--- CODE BLOCK 11 ---
+getServerSideProps
+--- END CODE BLOCK ---
+can only be exported from a
+page
+--- CODE BLOCK 12 ---
+getServerSideProps
+--- END CODE BLOCK ---
+returns JSON.
+When a user visits a page,
+--- CODE BLOCK 13 ---
+getServerSideProps
+--- END CODE BLOCK ---
+will be used to fetch data at request time, and the data is used to render the initial HTML of the page.
+--- CODE BLOCK 17 ---
+next/router
+--- END CODE BLOCK ---
+passed to the page component can be viewed on the client as part of the initial HTML. This is to allow the page to be
+hydrated
+correctly. Make sure that you don't pass any sensitive information that shouldn't be available on the client in
+--- CODE BLOCK 18 ---
+getServerSideProps
+--- END CODE BLOCK ---
+When a user visits the page through
+--- CODE BLOCK 19 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+getServerSideProps
+--- END CODE BLOCK ---
+, Next.js sends an API request to the server, which runs
+--- CODE BLOCK 21 ---
+getServerSideProps
+--- END CODE BLOCK ---
+You do not have to call a Next.js
+API Route
+to fetch data when using
+--- CODE BLOCK 22 ---
+getServerSideProps
+--- END CODE BLOCK ---
+since the function runs on the server. Instead, you can call a CMS, database, or other third-party APIs directly from inside
+--- CODE BLOCK 23 ---
+getServerSideProps
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 24 ---
+pages/500.js
+--- END CODE BLOCK ---
+API reference
+for parameters and props that can be used with
+--- CODE BLOCK 25 ---
+Cache-Control
+--- END CODE BLOCK ---
+You can use the
+next-code-elimination tool
+to verify what Next.js eliminates from the client-side bundle.
+Error Handling
+If an error is thrown inside
+--- CODE BLOCK 26 ---
+getServerSideProps
+--- END CODE BLOCK ---
+, it will show the
+--- CODE BLOCK 27 ---
+stale-while-revalidate
+--- END CODE BLOCK ---
+file. Check out the documentation for
+500 page
+to learn more on how to create it. During development, this file will not be used and the development error overlay will be shown instead.
+Edge Cases
+Caching with Server-Side Rendering (SSR)
+You can use caching headers (
+--- CODE BLOCK 28 ---
+// This value is considered fresh for ten seconds (s-maxage=10).
+// If a request is repeated within the next 10 seconds, the previously
+// cached value will still be fresh. If the request is repeated before 59 seconds,
+// the cached value will be stale but still render (stale-while-revalidate=59).
+// In the background, a revalidation request will be made to populate the cache
+// with a fresh value. If you refresh the page, you will see the new value.
+export async function getServerSideProps({ req, res }) {
+res.setHeader(
+'Cache-Control',
+'public, s-maxage=10, stale-while-revalidate=59'
+return {
+props: {},
+--- END CODE BLOCK ---
+) inside
+--- CODE BLOCK 29 ---
+// This value is considered fresh for ten seconds (s-maxage=10).
+// If a request is repeated within the next 10 seconds, the previously
+// cached value will still be fresh. If the request is repeated before 59 seconds,
+// the cached value will be stale but still render (stale-while-revalidate=59).
+// In the background, a revalidation request will be made to populate the cache
+// with a fresh value. If you refresh the page, you will see the new value.
+export async function getServerSideProps({ req, res }) {
+res.setHeader(
+'Cache-Control',
+'public, s-maxage=10, stale-while-revalidate=59'
+return {
+props: {},
+--- END CODE BLOCK ---
+to cache dynamic responses. For example, using
+--- CODE BLOCK 30 ---
+cache-control
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+getStaticProps
+--- END CODE BLOCK ---
+However, before reaching for
+[CODE_BLOCK_30]
+, we recommend seeing if
+[CODE_BLOCK_31]
+with
+is a better fit for your use case.
+Was this helpful?
+supported.
+Send

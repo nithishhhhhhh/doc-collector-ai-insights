@@ -1,0 +1,243 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/internationalization
+SCRAPED: 2025-06-19 17:29:02
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Internationalization
+Internationalization
+Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.
+Terminology
+Locale:
+An identifier for a set of language and formatting preferences. This usually includes the preferred language of the user and possibly their geographic region.
+--- CODE BLOCK 4 ---
+Accept-Language
+--- END CODE BLOCK ---
+: English as spoken in the United States
+--- CODE BLOCK 7 ---
+import { match } from '@formatjs/intl-localematcher'
+import Negotiator from 'negotiator'
+let headers = { 'accept-language': 'en-US,en;q=0.5' }
+let languages = new Negotiator({ headers }).languages()
+let locales = ['en-US', 'nl-NL', 'nl']
+let defaultLocale = 'en-US'
+match(languages, locales, defaultLocale) // -> 'en-US'
+--- END CODE BLOCK ---
+: Dutch as spoken in the Netherlands
+--- CODE BLOCK 8 ---
+import { match } from '@formatjs/intl-localematcher'
+import Negotiator from 'negotiator'
+let headers = { 'accept-language': 'en-US,en;q=0.5' }
+let languages = new Negotiator({ headers }).languages()
+let locales = ['en-US', 'nl-NL', 'nl']
+let defaultLocale = 'en-US'
+match(languages, locales, defaultLocale) // -> 'en-US'
+--- END CODE BLOCK ---
+: Dutch, no specific region
+Routing Overview
+It’s recommended to use the user’s language preferences in the browser to select which locale to use. Changing your preferred language will modify the incoming
+--- CODE BLOCK 9 ---
+/fr/products
+--- END CODE BLOCK ---
+header to your application.
+For example, using the following libraries, you can look at an incoming
+--- CODE BLOCK 10 ---
+my-site.fr/products
+--- END CODE BLOCK ---
+to determine which locale to select, based on the
+--- CODE BLOCK 11 ---
+import { NextResponse } from "next/server";
+let locales = ['en-US', 'nl-NL', 'nl']
+// Get the preferred locale, similar to the above or using a library
+function getLocale(request) { ... }
+export function middleware(request) {
+// Check if there is any supported locale in the pathname
+const { pathname } = request.nextUrl
+const pathnameHasLocale = locales.some(
+(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+if (pathnameHasLocale) return
+// Redirect if there is no locale
+const locale = getLocale(request)
+request.nextUrl.pathname = `/${locale}${pathname}`
+// e.g. incoming request is /products
+// The new URL is now /en-US/products
+return NextResponse.redirect(request.nextUrl)
+export const config = {
+matcher: [
+// Skip all internal paths (_next)
+'/((?!_next).*)',
+// Optional: only run on root (/) URL
+// '/'
+--- END CODE BLOCK ---
+, locales you plan to support, and the default locale.
+middleware.js
+--- CODE BLOCK 12 ---
+import { NextResponse } from "next/server";
+let locales = ['en-US', 'nl-NL', 'nl']
+// Get the preferred locale, similar to the above or using a library
+function getLocale(request) { ... }
+export function middleware(request) {
+// Check if there is any supported locale in the pathname
+const { pathname } = request.nextUrl
+const pathnameHasLocale = locales.some(
+(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+if (pathnameHasLocale) return
+// Redirect if there is no locale
+const locale = getLocale(request)
+request.nextUrl.pathname = `/${locale}${pathname}`
+// e.g. incoming request is /products
+// The new URL is now /en-US/products
+return NextResponse.redirect(request.nextUrl)
+export const config = {
+matcher: [
+// Skip all internal paths (_next)
+'/((?!_next).*)',
+// Optional: only run on root (/) URL
+// '/'
+--- END CODE BLOCK ---
+Routing can be internationalized by either the sub-path (
+--- CODE BLOCK 17 ---
+// You now have access to the current locale
+// e.g. /en-US/products -> `lang` is "en-US"
+export default async function Page({
+params,
+}: {
+params: Promise<{ lang: string }>
+}) {
+const { lang } = await params
+return ...
+--- END CODE BLOCK ---
+) or domain (
+--- CODE BLOCK 18 ---
+app/[lang]/layout.js
+--- END CODE BLOCK ---
+). With this information, you can now redirect the user based on the locale inside
+Middleware
+middleware.js
+--- CODE BLOCK 19 ---
+"products": {
+"cart": "Add to Cart"
+--- END CODE BLOCK ---
+Finally, ensure all special files inside
+--- CODE BLOCK 21 ---
+"products": {
+"cart": "Toevoegen aan Winkelwagen"
+--- END CODE BLOCK ---
+are nested under
+--- CODE BLOCK 22 ---
+"products": {
+"cart": "Toevoegen aan Winkelwagen"
+--- END CODE BLOCK ---
+. This enables the Next.js router to dynamically handle different locales in the route, and forward the
+--- CODE BLOCK 23 ---
+getDictionary
+--- END CODE BLOCK ---
+parameter to every layout and page. For example:
+app/[lang]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 24 ---
+import 'server-only'
+const dictionaries = {
+en: () => import('./dictionaries/en.json').then((module) => module.default),
+nl: () => import('./dictionaries/nl.json').then((module) => module.default),
+export const getDictionary = async (locale: 'en' | 'nl') =>
+dictionaries[locale]()
+--- END CODE BLOCK ---
+The root layout can also be nested in the new folder (e.g.
+--- CODE BLOCK 26 ---
+import { getDictionary } from './dictionaries'
+export default async function Page({
+params,
+}: {
+params: Promise<{ lang: 'en' | 'nl' }>
+}) {
+const { lang } = await params
+const dict = await getDictionary(lang) // en
+return <button>{dict.products.cart}</button> // Add to Cart
+--- END CODE BLOCK ---
+Localization
+Changing displayed content based on the user’s preferred locale, or localization, is not something specific to Next.js. The patterns described below would work the same with any web application.
+Let’s assume we want to support both English and Dutch content inside our application. We might maintain two different “dictionaries”, which are objects that give us a mapping from some key to a localized string. For example:
+dictionaries/en.json
+--- CODE BLOCK 27 ---
+import { getDictionary } from './dictionaries'
+export default async function Page({
+params,
+}: {
+params: Promise<{ lang: 'en' | 'nl' }>
+}) {
+const { lang } = await params
+const dict = await getDictionary(lang) // en
+return <button>{dict.products.cart}</button> // Add to Cart
+--- END CODE BLOCK ---
+dictionaries/nl.json
+--- CODE BLOCK 30 ---
+export async function generateStaticParams() {
+return [{ lang: 'en-US' }, { lang: 'de' }]
+export default async function RootLayout({
+children,
+params,
+}: Readonly<{
+children: React.ReactNode
+params: Promise<{ lang: 'en-US' | 'de' }>
+}>) {
+return (
+<html lang={(await params).lang}>
+<body>{children}</body>
+</html>
+--- END CODE BLOCK ---
+We can then create a
+--- CODE BLOCK 33 ---
+next-international
+--- END CODE BLOCK ---
+function to load the translations for the requested locale:
+app/[lang]/dictionaries.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 34 ---
+next-i18n-router
+--- END CODE BLOCK ---
+Given the currently selected language, we can fetch the dictionary inside of a layout or page.
+app/[lang]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_26]
+Because all layouts and pages in the
+[CODE_BLOCK_28]
+directory default to
+Server Components
+, we do not need to worry about the size of the translation files affecting our client-side JavaScript bundle size. This code will
+only run on the server
+, and only the resulting HTML will be sent to the browser.
+Static Rendering
+To generate static routes for a given set of locales, we can use
+[CODE_BLOCK_29]
+with any page or layout. This can be global, for example, in the root layout:
+app/[lang]/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_30]
+Resources
+Minimal i18n routing and translations
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+Was this helpful?
+supported.
+Send

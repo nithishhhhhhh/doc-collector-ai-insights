@@ -1,0 +1,61 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Headers/values
+SCRAPED: 2025-06-19 18:34:22
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+Headers.values()
+--- END CODE BLOCK ---
+method returns an
+--- CODE BLOCK 7 ---
+// Create a test Headers object
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "text/xml");
+myHeaders.append("Vary", "Accept-Language");
+// Display the values
+for (const value of myHeaders.values()) {
+console.log(value);
+--- END CODE BLOCK ---
+allowing to go through all values contained
+in this object. The values are
+--- CODE BLOCK 8 ---
+// Create a test Headers object
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "text/xml");
+myHeaders.append("Vary", "Accept-Language");
+// Display the values
+for (const value of myHeaders.values()) {
+console.log(value);
+--- END CODE BLOCK ---
+objects.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 9 ---
+text/xml
+Accept-Language
+--- END CODE BLOCK ---
+Parameters
+None.
+Return value
+Returns an
+[CODE_BLOCK_6]
+Examples
+Copy to Clipboard
+[CODE_BLOCK_7]
+The result is:
+[CODE_BLOCK_9]
+Browser compatibility
+See also
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

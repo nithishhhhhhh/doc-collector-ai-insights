@@ -1,0 +1,143 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/TextDecoder
+SCRAPED: 2025-06-19 18:17:54
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+TextDecoder
+--- END CODE BLOCK ---
+interface represents a decoder for a specific text encoding, such as
+--- CODE BLOCK 6 ---
+TextDecoder()
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+TextDecoder
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+TextDecoder
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+TextDecoder.encoding
+--- END CODE BLOCK ---
+, etc. A decoder takes a stream of bytes as input and emits a stream of code points.
+Constructor
+--- CODE BLOCK 10 ---
+TextDecoder
+--- END CODE BLOCK ---
+Returns a newly constructed
+--- CODE BLOCK 11 ---
+TextDecoder.fatal
+--- END CODE BLOCK ---
+that will generate a code point stream with the decoding method specified in parameters.
+Instance properties
+--- CODE BLOCK 13 ---
+TextDecoder.ignoreBOM
+--- END CODE BLOCK ---
+interface doesn't inherit any properties.
+--- CODE BLOCK 15 ---
+TextDecoder
+--- END CODE BLOCK ---
+Read only
+A string containing the name of the decoder, which is a string describing the method the
+--- CODE BLOCK 16 ---
+TextDecoder.decode()
+--- END CODE BLOCK ---
+will use.
+--- CODE BLOCK 17 ---
+TextDecoder
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 20 ---
+Uint16Array
+--- END CODE BLOCK ---
+indicating whether the error mode is fatal.
+--- CODE BLOCK 23 ---
+let utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
+let u8arr = new Uint8Array([240, 160, 174, 183]);
+let i8arr = new Int8Array([-16, -96, -82, -73]);
+let u16arr = new Uint16Array([41200, 47022]);
+let i16arr = new Int16Array([-24336, -18514]);
+let i32arr = new Int32Array([-1213292304]);
+console.log(utf8decoder.decode(u8arr));
+console.log(utf8decoder.decode(i8arr));
+console.log(utf8decoder.decode(u16arr));
+console.log(utf8decoder.decode(i16arr));
+console.log(utf8decoder.decode(i32arr));
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 24 ---
+let utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
+let u8arr = new Uint8Array([240, 160, 174, 183]);
+let i8arr = new Int8Array([-16, -96, -82, -73]);
+let u16arr = new Uint16Array([41200, 47022]);
+let i16arr = new Int16Array([-24336, -18514]);
+let i32arr = new Int32Array([-1213292304]);
+console.log(utf8decoder.decode(u8arr));
+console.log(utf8decoder.decode(i8arr));
+console.log(utf8decoder.decode(u16arr));
+console.log(utf8decoder.decode(i16arr));
+console.log(utf8decoder.decode(i32arr));
+--- END CODE BLOCK ---
+indicating whether the
+byte order mark
+is ignored.
+Instance methods
+--- CODE BLOCK 25 ---
+TextDecoder()
+--- END CODE BLOCK ---
+interface doesn't inherit any methods
+--- CODE BLOCK 26 ---
+const win1251decoder = new TextDecoder("windows-1251");
+const bytes = new Uint8Array([
+207, 240, 232, 226, 229, 242, 44, 32, 236, 232, 240, 33,
+console.log(win1251decoder.decode(bytes)); // Привет, мир!
+--- END CODE BLOCK ---
+Returns a string containing the text decoded with the method of the specific
+--- CODE BLOCK 27 ---
+const win1251decoder = new TextDecoder("windows-1251");
+const bytes = new Uint8Array([
+207, 240, 232, 226, 229, 242, 44, 32, 236, 232, 240, 33,
+console.log(win1251decoder.decode(bytes)); // Привет, мир!
+--- END CODE BLOCK ---
+object.
+Examples
+Representing text with typed arrays
+This example shows how to decode a Chinese/Japanese character
+, as represented by five different typed arrays:
+--- CODE BLOCK 28 ---
+TextEncoder
+--- END CODE BLOCK ---
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+, and
+[CODE_BLOCK_22]
+Copy to Clipboard
+[CODE_BLOCK_23]
+Handling non-UTF8 text
+In this example, we decode the Russian text "Привет, мир!", which means "Hello, world." In our
+[CODE_BLOCK_25]
+constructor, we specify the Windows-1251 character encoding, which is appropriate for Cyrillic script.
+Copy to Clipboard
+[CODE_BLOCK_26]
+Specifications
+Specification
+Encoding
+interface-textdecoder
+Browser compatibility
+See also
+[CODE_BLOCK_28]
+interface describing the inverse operation.
+shim
+allowing to use this interface in browsers that do not support it.
+Node.js supports global export from v11.0.0
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,196 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter
+SCRAPED: 2025-06-19 18:22:32
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+interface of the
+Streams API
+is the object returned by
+--- CODE BLOCK 2 ---
+WritableStream.getWriter()
+--- END CODE BLOCK ---
+and once created locks the writer to the
+--- CODE BLOCK 3 ---
+WritableStream
+--- END CODE BLOCK ---
+ensuring that no other streams can write to the underlying sink.
+Constructor
+--- CODE BLOCK 4 ---
+WritableStreamDefaultWriter()
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 5 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+object instance.
+Instance properties
+--- CODE BLOCK 6 ---
+WritableStreamDefaultWriter.closed
+--- END CODE BLOCK ---
+Read only
+Allows you to write code that responds to an end to the streaming process. Returns a promise that fulfills if the stream becomes closed, or rejects if the stream errors or the writer's lock is released.
+--- CODE BLOCK 7 ---
+WritableStreamDefaultWriter.desiredSize
+--- END CODE BLOCK ---
+Read only
+Returns the desired size required to fill the stream's internal queue.
+--- CODE BLOCK 8 ---
+WritableStreamDefaultWriter.ready
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 10 ---
+WritableStreamDefaultWriter.abort()
+--- END CODE BLOCK ---
+that resolves when the desired size of the stream's internal queue transitions from non-positive to positive, signaling that it is no longer applying backpressure.
+Instance methods
+--- CODE BLOCK 11 ---
+WritableStreamDefaultWriter.close()
+--- END CODE BLOCK ---
+Aborts the stream, signaling that the producer can no longer successfully write to the stream and it is to be immediately moved to an error state, with any queued writes discarded.
+--- CODE BLOCK 12 ---
+WritableStreamDefaultWriter.releaseLock()
+--- END CODE BLOCK ---
+Closes the associated writable stream.
+--- CODE BLOCK 13 ---
+WritableStreamDefaultWriter.write()
+--- END CODE BLOCK ---
+Releases the writer's lock on the corresponding stream. After the lock is released, the writer is no longer active. If the associated stream is errored when the lock is released, the writer will appear errored in the same way from now on; otherwise, the writer will appear closed.
+--- CODE BLOCK 14 ---
+WritableStream
+--- END CODE BLOCK ---
+Writes a passed chunk of data to a
+--- CODE BLOCK 16 ---
+WritableStream
+--- END CODE BLOCK ---
+and its underlying sink, then returns a
+--- CODE BLOCK 17 ---
+sendMessage()
+--- END CODE BLOCK ---
+that resolves to indicate the success or failure of the write operation.
+Examples
+The following example shows the creation of a
+--- CODE BLOCK 18 ---
+getWriter()
+--- END CODE BLOCK ---
+with a custom sink and an API-supplied queuing strategy. It then calls a function called
+--- CODE BLOCK 19 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+, passing the newly created stream and a string. Inside this function it calls the stream's
+--- CODE BLOCK 23 ---
+const list = document.querySelector("ul");
+async function sendMessage(message, writableStream) {
+// defaultWriter is of type WritableStreamDefaultWriter
+const defaultWriter = writableStream.getWriter();
+const encoder = new TextEncoder();
+const encoded = encoder.encode(message);
+try {
+for (const chunk of encoded) {
+await defaultWriter.ready;
+await defaultWriter.write(chunk);
+console.log("Chunk written to sink.");
+// Call ready again to ensure that all chunks are written
+// before closing the writer.
+await defaultWriter.ready;
+await defaultWriter.close();
+console.log("All chunks written");
+} catch (err) {
+console.log("Error:", err);
+const decoder = new TextDecoder("utf-8");
+const queuingStrategy = new CountQueuingStrategy({ highWaterMark: 1 });
+let result = "";
+const writableStream = new WritableStream(
+// Implement the sink
+write(chunk) {
+return new Promise((resolve, reject) => {
+const buffer = new ArrayBuffer(1);
+const view = new Uint8Array(buffer);
+view[0] = chunk;
+const decoded = decoder.decode(view, { stream: true });
+const listItem = document.createElement("li");
+listItem.textContent = `Chunk decoded: ${decoded}`;
+list.appendChild(listItem);
+result += decoded;
+resolve();
+close() {
+const listItem = document.createElement("li");
+listItem.textContent = `[MESSAGE RECEIVED] ${result}`;
+list.appendChild(listItem);
+abort(err) {
+console.log("Sink error:", err);
+queuingStrategy,
+sendMessage("Hello, world.", writableStream);
+--- END CODE BLOCK ---
+method, which returns an instance of
+--- CODE BLOCK 24 ---
+const list = document.querySelector("ul");
+async function sendMessage(message, writableStream) {
+// defaultWriter is of type WritableStreamDefaultWriter
+const defaultWriter = writableStream.getWriter();
+const encoder = new TextEncoder();
+const encoded = encoder.encode(message);
+try {
+for (const chunk of encoded) {
+await defaultWriter.ready;
+await defaultWriter.write(chunk);
+console.log("Chunk written to sink.");
+// Call ready again to ensure that all chunks are written
+// before closing the writer.
+await defaultWriter.ready;
+await defaultWriter.close();
+console.log("All chunks written");
+} catch (err) {
+console.log("Error:", err);
+const decoder = new TextDecoder("utf-8");
+const queuingStrategy = new CountQueuingStrategy({ highWaterMark: 1 });
+let result = "";
+const writableStream = new WritableStream(
+// Implement the sink
+write(chunk) {
+return new Promise((resolve, reject) => {
+const buffer = new ArrayBuffer(1);
+const view = new Uint8Array(buffer);
+view[0] = chunk;
+const decoded = decoder.decode(view, { stream: true });
+const listItem = document.createElement("li");
+listItem.textContent = `Chunk decoded: ${decoded}`;
+list.appendChild(listItem);
+result += decoded;
+resolve();
+close() {
+const listItem = document.createElement("li");
+listItem.textContent = `[MESSAGE RECEIVED] ${result}`;
+list.appendChild(listItem);
+abort(err) {
+console.log("Sink error:", err);
+queuingStrategy,
+sendMessage("Hello, world.", writableStream);
+--- END CODE BLOCK ---
+[CODE_BLOCK_20]
+call is used to write each chunk of the string to the stream. Finally,
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+return promises that are processed to deal with success or failure of chunks and streams.
+Copy to Clipboard
+[CODE_BLOCK_23]
+You can find the full code in our
+Simple writer example
+Specifications
+Specification
+Streams
+default-writer-class
+Browser compatibility
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jul 24, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

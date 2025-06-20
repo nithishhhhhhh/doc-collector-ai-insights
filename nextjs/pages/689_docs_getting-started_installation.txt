@@ -1,0 +1,21 @@
+SOURCE URL: https://formatjs.io/docs/getting-started/installation
+SCRAPED: 2025-06-19 18:27:46
+================================================================================
+
+FORMATJS INTEGRATIONS
+FORMATJS CORE LIBS
+ECMA-402 + FORMATJS POLYFILLS
+FormatJS is a set of JavaScript libraries.
+FormatJS is a modular collection of JavaScript libraries for internationalization that are focused on formatting numbers, dates, and strings for displaying to people. It includes a set of core libraries that build on the JavaScript Intl built-ins and industry-wide i18n standards, plus a set of integrations for common template and component libraries.
+Integrates with other libraries.
+For most web projects, internationalization happens in the template or view layer, so we've built integrations with React & Vue.
+Built on standards.
+FormatJS is aligned with:
+ECMAScript Internationalization API (ECMA-402)
+Unicode CLDR
+, and
+ICU Message syntax
+. By building on these industry standards, FormatJS leverages APIs in modern browsers and works with the message syntax used by professional translators.
+Runs in the browser and Node.js.
+FormatJS has been tested in all the major browsers (IE11, Chrome, FF & Safari) on both desktop and mobile devices. For many web apps rendering happens on the server, so we made sure FormatJS works perfectly in Node.js. This allows developers to use FormatJS on both the server and client-side of their apps.
+Trusted by industry leaders.

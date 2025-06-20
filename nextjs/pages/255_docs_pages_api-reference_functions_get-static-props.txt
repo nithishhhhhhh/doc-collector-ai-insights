@@ -1,0 +1,414 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/get-static-props
+SCRAPED: 2025-06-19 17:39:20
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+getStaticProps
+You are currently viewing the documentation for Pages Router.
+getStaticProps
+Exporting a function called
+--- CODE BLOCK 1 ---
+getStaticProps
+--- END CODE BLOCK ---
+will pre-render a page at build time using the props returned from the function:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+import type { InferGetStaticPropsType, GetStaticProps } from 'next'
+type Repo = {
+name: string
+stargazers_count: number
+export const getStaticProps = (async (context) => {
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const repo = await res.json()
+return { props: { repo } }
+}) satisfies GetStaticProps<{
+repo: Repo
+export default function Page({
+repo,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+return repo.stargazers_count
+--- END CODE BLOCK ---
+You can import modules in top-level scope for use in
+--- CODE BLOCK 4 ---
+getStaticProps
+--- END CODE BLOCK ---
+. Imports used will
+not be bundled for the client-side
+. This means you can write
+server-side code directly in
+--- CODE BLOCK 5 ---
+getStaticProps
+--- END CODE BLOCK ---
+, including fetching data from your database.
+Context parameter
+--- CODE BLOCK 10 ---
+{ id: ... }
+--- END CODE BLOCK ---
+parameter is an object containing the following keys:
+Name
+Description
+--- CODE BLOCK 11 ---
+getStaticPaths
+--- END CODE BLOCK ---
+Contains the route parameters for pages using
+dynamic routes
+. For example, if the page name is
+--- CODE BLOCK 17 ---
+previewData
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 19 ---
+setPreviewData
+--- END CODE BLOCK ---
+will look like
+--- CODE BLOCK 26 ---
+defaultLocale
+--- END CODE BLOCK ---
+. You should use this together with
+--- CODE BLOCK 27 ---
+revalidateReason
+--- END CODE BLOCK ---
+, which we'll explain later.
+--- CODE BLOCK 28 ---
+getStaticProps
+--- END CODE BLOCK ---
+(Deprecated for
+--- CODE BLOCK 35 ---
+JSON.stringify
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+export async function getStaticProps(context) {
+return {
+props: { message: `Next.js is awesome` }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+export async function getStaticProps(context) {
+return {
+props: { message: `Next.js is awesome` }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+if the page is in the
+Preview Mode
+--- CODE BLOCK 41 ---
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
+const res = await fetch('https://.../posts')
+const posts = await res.json()
+return {
+props: {
+posts,
+// Next.js will attempt to re-generate the page:
+// - When a request comes in
+// - At most once every 10 seconds
+revalidate: 10, // In seconds
+--- END CODE BLOCK ---
+otherwise.
+--- CODE BLOCK 42 ---
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// revalidation is enabled and a new request comes in
+export async function getStaticProps() {
+const res = await fetch('https://.../posts')
+const posts = await res.json()
+return {
+props: {
+posts,
+// Next.js will attempt to re-generate the page:
+// - When a request comes in
+// - At most once every 10 seconds
+revalidate: 10, // In seconds
+--- END CODE BLOCK ---
+(Deprecated for
+--- CODE BLOCK 43 ---
+x-nextjs-cache
+--- END CODE BLOCK ---
+) The
+preview
+data set by
+--- CODE BLOCK 50 ---
+notFound: true
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+export async function getStaticProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+notFound: true,
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+export async function getStaticProps(context) {
+const res = await fetch(`https://.../data`)
+const data = await res.json()
+if (!data) {
+return {
+notFound: true,
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+fallback: false
+--- END CODE BLOCK ---
+if the page is in the
+Draft Mode
+--- CODE BLOCK 58 ---
+getStaticPaths
+--- END CODE BLOCK ---
+otherwise.
+--- CODE BLOCK 61 ---
+{ destination: string, permanent: boolean }
+--- END CODE BLOCK ---
+Contains the active locale (if enabled).
+--- CODE BLOCK 65 ---
+basePath: false
+--- END CODE BLOCK ---
+Contains all supported locales (if enabled).
+--- CODE BLOCK 66 ---
+next.config.js
+--- END CODE BLOCK ---
+Contains the configured default locale (if enabled).
+--- CODE BLOCK 67 ---
+export async function getStaticProps(context) {
+const res = await fetch(`https://...`)
+const data = await res.json()
+if (!data) {
+return {
+redirect: {
+destination: '/',
+permanent: false,
+// statusCode: 301
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+Provides a reason for why the function was called. Can be one of: "build" (run at build time), "stale" (revalidate period expired, or running in
+development mode
+), "on-demand" (triggered via
+on-demand revalidation
+getStaticProps return values
+--- CODE BLOCK 68 ---
+export async function getStaticProps(context) {
+const res = await fetch(`https://...`)
+const data = await res.json()
+if (!data) {
+return {
+redirect: {
+destination: '/',
+permanent: false,
+// statusCode: 301
+return {
+props: { data }, // will be passed to the page component as props
+--- END CODE BLOCK ---
+function should return an object containing either
+--- CODE BLOCK 69 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 70 ---
+process.cwd()
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 71 ---
+getStaticProps
+--- END CODE BLOCK ---
+followed by an
+optional
+--- CODE BLOCK 73 ---
+process.cwd()
+--- END CODE BLOCK ---
+property.
+--- CODE BLOCK 74 ---
+import { promises as fs } from 'fs'
+import path from 'path'
+// posts will be populated at build time by getStaticProps()
+function Blog({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li>
+<h3>{post.filename}</h3>
+<p>{post.content}</p>
+</li>
+</ul>
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+const postsDirectory = path.join(process.cwd(), 'posts')
+const filenames = await fs.readdir(postsDirectory)
+const posts = filenames.map(async (filename) => {
+const filePath = path.join(postsDirectory, filename)
+const fileContents = await fs.readFile(filePath, 'utf8')
+// Generally you would parse/transform the contents
+// For example you can transform markdown to HTML here
+return {
+filename,
+content: fileContents,
+// By returning { props: { posts } }, the Blog component
+// will receive `posts` as a prop at build time
+return {
+props: {
+posts: await Promise.all(posts),
+export default Blog
+--- END CODE BLOCK ---
+--- CODE BLOCK 75 ---
+import { promises as fs } from 'fs'
+import path from 'path'
+// posts will be populated at build time by getStaticProps()
+function Blog({ posts }) {
+return (
+<ul>
+{posts.map((post) => (
+<li>
+<h3>{post.filename}</h3>
+<p>{post.content}</p>
+</li>
+</ul>
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps() {
+const postsDirectory = path.join(process.cwd(), 'posts')
+const filenames = await fs.readdir(postsDirectory)
+const posts = filenames.map(async (filename) => {
+const filePath = path.join(postsDirectory, filename)
+const fileContents = await fs.readFile(filePath, 'utf8')
+// Generally you would parse/transform the contents
+// For example you can transform markdown to HTML here
+return {
+filename,
+content: fileContents,
+// By returning { props: { posts } }, the Blog component
+// will receive `posts` as a prop at build time
+return {
+props: {
+posts: await Promise.all(posts),
+export default Blog
+--- END CODE BLOCK ---
+object is a key-value pair, where each value is received by the page component. It should be a
+serializable object
+so that any props passed, could be serialized with
+--- CODE BLOCK 82 ---
+defaultLocale
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+fallback: 'blocking'
+--- END CODE BLOCK ---
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+property is the amount in seconds after which a page re-generation can occur (defaults to
+[CODE_BLOCK_40]
+or no revalidation).
+[CODE_BLOCK_41]
+Learn more about
+Incremental Static Regeneration
+The cache status of a page leveraging ISR can be determined by reading the value of the
+[CODE_BLOCK_43]
+response header. The possible values are the following:
+[CODE_BLOCK_44]
+- the path is not in the cache (occurs at most once, on the first visit)
+[CODE_BLOCK_45]
+- the path is in the cache but exceeded the revalidate time so it will be updated in the background
+[CODE_BLOCK_46]
+- the path is in the cache and has not exceeded the revalidate time
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+boolean allows the page to return a
+[CODE_BLOCK_49]
+status and
+404 Page
+. With
+[CODE_BLOCK_50]
+, the page will return a
+[CODE_BLOCK_51]
+even if there was a successfully generated page before. This is meant to support use cases like user-generated content getting removed by its author. Note,
+[CODE_BLOCK_52]
+follows the same
+[CODE_BLOCK_53]
+behavior
+described here
+[CODE_BLOCK_54]
+Good to know
+[CODE_BLOCK_56]
+is not needed for
+[CODE_BLOCK_57]
+mode as only paths returned from
+[CODE_BLOCK_58]
+will be pre-rendered.
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+object allows redirecting to internal or external resources. It should match the shape of
+[CODE_BLOCK_61]
+In some rare cases, you might need to assign a custom status code for older
+[CODE_BLOCK_62]
+clients to properly redirect. In these cases, you can use the
+[CODE_BLOCK_63]
+property instead of the
+[CODE_BLOCK_64]
+property,
+but not both
+. You can also set
+[CODE_BLOCK_65]
+similar to redirects in
+[CODE_BLOCK_66]
+[CODE_BLOCK_67]
+If the redirects are known at build-time, they should be added in
+[CODE_BLOCK_69]
+instead.
+Reading files: Use
+[CODE_BLOCK_70]
+Files can be read directly from the filesystem in
+[CODE_BLOCK_71]
+In order to do so you have to get the full path to a file.
+Since Next.js compiles your code into a separate directory you can't use
+[CODE_BLOCK_72]
+as the path it returns will be different from the Pages Router.
+Instead you can use
+[CODE_BLOCK_73]
+which gives you the directory where Next.js is being executed.
+[CODE_BLOCK_74]
+Version History
+Version
+Changes
+[CODE_BLOCK_76]
+App Router
+is now stable with simplified data fetching
+[CODE_BLOCK_77]
+On-Demand Incremental Static Regeneration
+is stable.
+[CODE_BLOCK_78]
+On-Demand Incremental Static Regeneration
+added (beta).
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+, and
+[CODE_BLOCK_83]
+options added.
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+return option added.
+[CODE_BLOCK_86]
+Stable
+Incremental Static Regeneration
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+introduced.
+Was this helpful?
+supported.
+Send

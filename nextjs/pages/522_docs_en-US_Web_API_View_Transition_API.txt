@@ -1,0 +1,157 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+SCRAPED: 2025-06-19 18:10:12
+================================================================================
+
+View Transition API
+provides a mechanism for easily creating animated transitions between different website views. This includes animating between DOM states in a single-page app (SPA), and animating the navigation between documents in a multi-page app (MPA).
+Concepts and usage
+View transitions are a popular design choice for reducing users' cognitive load, helping them stay in context, and reducing perceived loading latency as they move between states or views of an application.
+However, creating view transitions on the web has historically been difficult:
+Transitions between states in single-page apps (SPAs) tend to involve writing significant CSS and JavaScript to:
+Handle the loading and positioning of the old and new content.
+Animate the old and new states to create the transition.
+Stop accidental user interactions with the old content from causing problems.
+Remove the old content once the transition is complete.
+Accessibility issues like loss of reading position, focus confusion, and strange live region announcement behavior can also result from having the new and old content both present in the DOM at once.
+Cross-document view transitions (i.e., across navigations between different pages in MPAs) have historically been impossible.
+The View Transition API provides an easy way of handling the required view changes and transition animations for both the above use cases.
+Creating a view transition that uses the browser's default transition animations is very quick to do, and there are features that allow you to both customize the transition animation and manipulate the view transition itself (for example specify circumstances under which the animation is skipped), for both SPA and MPA view transitions.
+Using the View Transition API
+for more information.
+Interfaces
+--- CODE BLOCK 1 ---
+ViewTransition
+--- END CODE BLOCK ---
+Represents a view transition, and provides functionality to react to the transition reaching different states (e.g., ready to run the animation, or animation finished) or skip the transition altogether.
+Extensions to other interfaces
+--- CODE BLOCK 2 ---
+Document.startViewTransition()
+--- END CODE BLOCK ---
+Starts a new same-document (SPA) view transition and returns a
+--- CODE BLOCK 3 ---
+ViewTransition
+--- END CODE BLOCK ---
+object to represent it.
+--- CODE BLOCK 4 ---
+PageRevealEvent
+--- END CODE BLOCK ---
+The event object for the
+--- CODE BLOCK 6 ---
+ViewTransition
+--- END CODE BLOCK ---
+event. During a cross-document navigation, it allows you to manipulate the related view transition (providing access to the relevant
+--- CODE BLOCK 7 ---
+PageSwapEvent
+--- END CODE BLOCK ---
+object) from the document being navigated
+, if a view transition was triggered by the navigation.
+--- CODE BLOCK 9 ---
+ViewTransition
+--- END CODE BLOCK ---
+The event object for the
+--- CODE BLOCK 14 ---
+<link rel="expect">
+--- END CODE BLOCK ---
+event. During a cross-document navigation, it allows you to manipulate the related view transition (providing access to the relevant
+--- CODE BLOCK 15 ---
+@view-transition
+--- END CODE BLOCK ---
+object) from the document being navigated
+from
+, if a view transition was triggered by the navigation. It also provides access to information on the navigation type and current and destination document history entries.
+--- CODE BLOCK 16 ---
+@view-transition
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+view-transition-name
+--- END CODE BLOCK ---
+event
+Fired when a document is first rendered, either when loading a fresh document from the network or activating a document (either from
+back/forward cache
+(bfcache) or
+prerender
+--- CODE BLOCK 18 ---
+view-transition-class
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+view-transition-name
+--- END CODE BLOCK ---
+event
+Fired when a document is about to be unloaded due to a navigation.
+HTML additions
+--- CODE BLOCK 20 ---
+::view-transition
+--- END CODE BLOCK ---
+Identifies the most critical content in the associated document for the user's initial view of the page. Document rendering will be blocked until the critical content has been parsed, ensuring a consistent first paint — and therefore, view transition — across all supporting browsers.
+CSS additions
+At-rules
+--- CODE BLOCK 21 ---
+::view-transition-group()
+--- END CODE BLOCK ---
+In the case of a cross-document navigation,
+--- CODE BLOCK 22 ---
+::view-transition-image-pair()
+--- END CODE BLOCK ---
+is used to opt in the current and destination documents to undergo a view transition.
+Properties
+--- CODE BLOCK 23 ---
+::view-transition-old()
+--- END CODE BLOCK ---
+Specifies the view transition snapshot that selected elements will participate in, which enables an element to be animated separately from the rest of the page during a view transition.
+--- CODE BLOCK 24 ---
+::view-transition-new()
+--- END CODE BLOCK ---
+Provides an additional method of styling selected elements that have a
+--- CODE BLOCK 25 ---
+view-transition-name
+--- END CODE BLOCK ---
+Pseudo-elements
+--- CODE BLOCK 26 ---
+match-element
+--- END CODE BLOCK ---
+The root of the view transitions overlay, which contains all view transitions and sits over the top of all other page content.
+[CODE_BLOCK_21]
+The root of a single view transition.
+[CODE_BLOCK_22]
+The container for a view transition's old and new views — before and after the transition.
+[CODE_BLOCK_23]
+A static snapshot of the old view, before the transition.
+[CODE_BLOCK_24]
+A live representation of the new view, after the transition.
+Examples
+Basic View Transitions SPA demo
+: A basic image gallery demo with view transitions, featuring separate animations between old and new images, and old and new captions.
+Basic View Transitions MPA demo
+: A sample two-page site that demonstrates usage of cross-document (MPA) view transitions, providing a custom "swipe up" transition when the two pages are navigated between.
+View Transitions match-element demo
+: An SPA featuring animated list items, which demonstrates usage of the
+[CODE_BLOCK_25]
+property's
+[CODE_BLOCK_26]
+value.
+HTTP 203 playlist
+: A video player demo app that features several different SPA view transitions, many of which are explained in
+Smooth transitions with the View Transition API
+Chrome DevRel view transitions demos
+: A series of View Transition API demos.
+Specifications
+Specification
+CSS View Transitions Module Level 1
+Browser compatibility
+api.Document.startViewTransition
+css.at-rules.view-transition
+See also
+Smooth transitions with the View Transition API
+on developer.chrome.com (2024)
+View Transition API: Creating Smooth Page Transitions
+on stackdiary.com (2023)
+View Transitions API: Single Page Apps Without a Framework
+on DebugBear (2024)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 6, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,92 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/data-fetching
+SCRAPED: 2025-06-19 17:41:43
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Building Your Application
+Data Fetching
+You are currently viewing the documentation for Pages Router.
+Data Fetching
+Data fetching in Next.js allows you to render your content in different ways, depending on your application's use case. These include pre-rendering with
+Server-side Rendering
+Static Generation
+, and updating or creating content at runtime with
+Incremental Static Regeneration
+Examples
+Agility CMS Example
+Demo
+Builder.io Example
+Demo
+ButterCMS Example
+Demo
+Contentful Example
+Demo
+Cosmic Example
+Demo
+DatoCMS Example
+Demo
+DotCMS Example
+Demo
+Drupal Example
+Demo
+Enterspeed Example
+Demo
+GraphCMS Example
+Demo
+Keystone Example
+Demo
+Kontent.ai Example
+Demo
+Makeswift Example
+Demo
+Plasmic Example
+Demo
+Prepr Example
+Demo
+Prismic Example
+Demo
+Sanity Example
+Demo
+Sitecore XM Cloud Example
+Demo
+Storyblok Example
+Demo
+Strapi Example
+Demo
+TakeShape Example
+Demo
+Tina Example
+Demo
+Umbraco Example
+Demo
+Umbraco Heartcore Example
+Demo
+Webiny Example
+Demo
+WordPress Example
+Demo
+Blog Starter Example
+Demo
+Static Tweet (Demo)
+getStaticProps
+Fetch data and generate static pages with `getStaticProps`. Learn more about this API for data fetching in Next.js.
+getStaticPaths
+Fetch data and generate static pages with `getStaticPaths`. Learn more about this API for data fetching in Next.js.
+Forms and Mutations
+Learn how to handle form submissions and data mutations with Next.js.
+getServerSideProps
+Fetch data on each request with `getServerSideProps`.
+Client-side Fetching
+Learn about client-side data fetching, and how to use SWR, a data fetching React Hook library that handles caching, revalidation, focus tracking, refetching on interval and more.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,151 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/components/form
+SCRAPED: 2025-06-19 17:31:48
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Components
+Form
+You are currently viewing the documentation for Pages Router.
+Form
+--- CODE BLOCK 3 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+{/* On submission, the input value will be appended to
+the URL, e.g. /search?query=abc */}
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+component extends the HTML
+--- CODE BLOCK 4 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+{/* On submission, the input value will be appended to
+the URL, e.g. /search?query=abc */}
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+element to provide
+client-side navigation
+on submission, and
+progressive enhancement
+It's useful for forms that update URL search params as it reduces the boilerplate code needed to achieve the above.
+Basic usage:
+/ui/search.js
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 16 ---
+action="/search"
+--- END CODE BLOCK ---
+Reference
+The behavior of the
+--- CODE BLOCK 22 ---
+scroll={true}
+--- END CODE BLOCK ---
+component depends on whether the
+--- CODE BLOCK 31 ---
+event.preventDefault()
+--- END CODE BLOCK ---
+prop is passed a
+--- CODE BLOCK 38 ---
+formEncType
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+<input type="file">
+--- END CODE BLOCK ---
+When
+[CODE_BLOCK_9]
+is a
+string
+, the
+[CODE_BLOCK_10]
+behaves like a native HTML form that uses a
+[CODE_BLOCK_11]
+method. The form data is encoded into the URL as search params, and when the form is submitted, it navigates to the specified URL. In addition, Next.js:
+Performs a
+client-side navigation
+instead of a full page reload when the form is submitted. This retains shared UI and client-side state.
+[CODE_BLOCK_12]
+(string) Props
+When
+[CODE_BLOCK_13]
+is a string, the
+[CODE_BLOCK_14]
+component supports the following props:
+Prop
+Example
+Type
+Required
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+(URL or relative path)
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+: The URL or path to navigate to when the form is submitted.
+An empty string
+[CODE_BLOCK_25]
+will navigate to the same route with updated search params.
+[CODE_BLOCK_26]
+: Replaces the current history state instead of pushing a new one to the
+browser's history
+stack. Default is
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+: Controls the scroll behavior during navigation. Defaults to
+[CODE_BLOCK_29]
+, this means it will scroll to the top of the new route, and maintain the scroll position for backwards and forwards navigation.
+Caveats
+[CODE_BLOCK_30]
+: Can be used to handle form submission logic. However, calling
+[CODE_BLOCK_31]
+will override
+[CODE_BLOCK_32]
+behavior such as navigating to the specified URL.
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+: Are not supported as they override
+[CODE_BLOCK_36]
+behavior.
+Similarly,
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+, and
+[CODE_BLOCK_39]
+can be used to override the
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+, and
+[CODE_BLOCK_42]
+props respectively, and using them will fallback to native browser behavior.
+If you need to use these props, use the HTML
+[CODE_BLOCK_43]
+element instead.
+[CODE_BLOCK_44]
+: Using this input type when the
+[CODE_BLOCK_45]
+is a string will match browser behavior by submitting the filename instead of the file object.
+Was this helpful?
+supported.
+Send

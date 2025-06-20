@@ -1,0 +1,1832 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+SCRAPED: 2025-06-19 18:18:17
+================================================================================
+
+--- CODE BLOCK 10 ---
+arr.0; // a syntax error
+--- END CODE BLOCK ---
+object, as with arrays in other programming languages, enables
+storing a collection of multiple items under a single variable name
+, and has members for
+performing common array operations
+Description
+In JavaScript, arrays aren't
+primitives
+but are instead
+--- CODE BLOCK 11 ---
+arr.0; // a syntax error
+--- END CODE BLOCK ---
+objects with the following core characteristics:
+JavaScript arrays are resizable
+can contain a mix of different
+data types
+. (When those characteristics are undesirable, use
+typed arrays
+instead.)
+JavaScript arrays are not associative arrays
+and so, array elements cannot be accessed using arbitrary strings as indexes, but must be accessed using nonnegative integers (or their respective string form) as indexes.
+JavaScript arrays are
+zero-indexed
+: the first element of an array is at index
+--- CODE BLOCK 21 ---
+console.log(years["2"] !== years["02"]);
+--- END CODE BLOCK ---
+, the second is at index
+--- CODE BLOCK 22 ---
+console.log(years["2"] !== years["02"]);
+--- END CODE BLOCK ---
+, and so on — and the last element is at the value of the array's
+--- CODE BLOCK 24 ---
+years['02']
+--- END CODE BLOCK ---
+property minus
+--- CODE BLOCK 33 ---
+const fruits = [];
+fruits.push("banana", "apple", "peach");
+console.log(fruits.length); // 3
+--- END CODE BLOCK ---
+JavaScript
+array-copy operations
+create
+shallow copies
+. (All standard built-in copy operations with
+JavaScript objects create shallow copies, rather than
+deep copies
+Array indices
+--- CODE BLOCK 34 ---
+const fruits = [];
+fruits.push("banana", "apple", "peach");
+console.log(fruits.length); // 3
+--- END CODE BLOCK ---
+objects cannot use arbitrary strings as element indexes (as in an
+associative array
+) but must use nonnegative integers (or their respective string form). Setting or accessing via non-integers will not set or retrieve an element from the array list itself, but will set or access a variable associated with that array's
+object property collection
+. The array's object properties and list of array elements are separate, and the array's
+traversal and mutation operations
+cannot be applied to these named properties.
+Array elements are object properties in the same way that
+--- CODE BLOCK 36 ---
+fruits[5] = "mango";
+console.log(fruits[5]); // 'mango'
+console.log(Object.keys(fruits)); // ['0', '1', '2', '5']
+console.log(fruits.length); // 6
+--- END CODE BLOCK ---
+is a property (to be specific, however,
+--- CODE BLOCK 37 ---
+fruits[5] = "mango";
+console.log(fruits[5]); // 'mango'
+console.log(Object.keys(fruits)); // ['0', '1', '2', '5']
+console.log(fruits.length); // 6
+--- END CODE BLOCK ---
+is a method). Nevertheless, trying to access an element of an array as follows throws a syntax error because the property name is not valid:
+Copy to Clipboard
+--- CODE BLOCK 40 ---
+fruits.length = 10;
+console.log(fruits); // ['banana', 'apple', 'peach', empty x 2, 'mango', empty x 4]
+console.log(Object.keys(fruits)); // ['0', '1', '2', '5']
+console.log(fruits.length); // 10
+console.log(fruits[8]); // undefined
+--- END CODE BLOCK ---
+JavaScript syntax requires properties beginning with a digit to be accessed using
+bracket notation
+instead of
+dot notation
+. It's also possible to quote the array indices (e.g.,
+--- CODE BLOCK 43 ---
+fruits.length = 2;
+console.log(Object.keys(fruits)); // ['0', '1']
+console.log(fruits.length); // 2
+--- END CODE BLOCK ---
+instead of
+--- CODE BLOCK 44 ---
+fruits.length = 2;
+console.log(Object.keys(fruits)); // ['0', '1']
+console.log(fruits.length); // 2
+--- END CODE BLOCK ---
+), although usually not necessary.
+--- CODE BLOCK 49 ---
+copyWithin()
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+lastIndexOf()
+--- END CODE BLOCK ---
+is coerced into a string by the JavaScript engine through an implicit
+--- CODE BLOCK 59 ---
+reduceRight()
+--- END CODE BLOCK ---
+conversion. As a result,
+--- CODE BLOCK 68 ---
+const colors = ["red", "yellow", "blue"];
+colors[5] = "purple";
+colors.forEach((item, index) => {
+console.log(`${index}: ${item}`);
+// Output:
+// 0: red
+// 1: yellow
+// 2: blue
+// 5: purple
+colors.reverse(); // ['purple', empty × 2, 'blue', 'yellow', 'red']
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+const colors = ["red", "yellow", "blue"];
+colors[5] = "purple";
+colors.forEach((item, index) => {
+console.log(`${index}: ${item}`);
+// Output:
+// 0: red
+// 1: yellow
+// 2: blue
+// 5: purple
+colors.reverse(); // ['purple', empty × 2, 'blue', 'yellow', 'red']
+--- END CODE BLOCK ---
+would refer to two different slots on the
+--- CODE BLOCK 76 ---
+findIndex()
+--- END CODE BLOCK ---
+object, and the following example could be
+--- CODE BLOCK 78 ---
+findLastIndex()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 82 ---
+toLocaleString()
+--- END CODE BLOCK ---
+Only
+--- CODE BLOCK 85 ---
+toSpliced()
+--- END CODE BLOCK ---
+is an actual array index.
+--- CODE BLOCK 88 ---
+const colors = ["red", "yellow", "blue"];
+colors[5] = "purple";
+const iterator = colors.keys();
+for (const key of iterator) {
+console.log(`${key}: ${colors[key]}`);
+// Output
+// 0: red
+// 1: yellow
+// 2: blue
+// 3: undefined
+// 4: undefined
+// 5: purple
+const newColors = colors.toReversed(); // ['purple', undefined, undefined, 'blue', 'yellow', 'red']
+--- END CODE BLOCK ---
+is an arbitrary string property that will not be visited in array iteration.
+Relationship between length and numerical properties
+A JavaScript array's
+--- CODE BLOCK 89 ---
+const colors = ["red", "yellow", "blue"];
+colors[5] = "purple";
+const iterator = colors.keys();
+for (const key of iterator) {
+console.log(`${key}: ${colors[key]}`);
+// Output
+// 0: red
+// 1: yellow
+// 2: blue
+// 3: undefined
+// 4: undefined
+// 5: purple
+const newColors = colors.toReversed(); // ['purple', undefined, undefined, 'blue', 'yellow', 'red']
+--- END CODE BLOCK ---
+property and numerical properties are connected.
+Several of the built-in array methods (e.g.,
+--- CODE BLOCK 93 ---
+this.constructor[Symbol.species]
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+toReversed()
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+toSpliced()
+--- END CODE BLOCK ---
+, etc.) take into account the value of an array's
+--- CODE BLOCK 106 ---
+copyWithin()
+--- END CODE BLOCK ---
+property when they're called.
+Other methods (e.g.,
+--- CODE BLOCK 109 ---
+slice(0, -1)
+--- END CODE BLOCK ---
+--- CODE BLOCK 110 ---
+push(v1, v2)
+--- END CODE BLOCK ---
+, etc.) also result in updates to an array's
+--- CODE BLOCK 111 ---
+concat([v1, v2])
+--- END CODE BLOCK ---
+property.
+Copy to Clipboard
+--- CODE BLOCK 113 ---
+toReversed()
+--- END CODE BLOCK ---
+When setting a property on a JavaScript array when the property is a valid array index and that index is outside the current bounds of the array, the engine will update the array's
+--- CODE BLOCK 120 ---
+unshift(v1, v2)
+--- END CODE BLOCK ---
+property accordingly:
+Copy to Clipboard
+--- CODE BLOCK 121 ---
+toSpliced(0, 0, v1, v2)
+--- END CODE BLOCK ---
+Increasing the
+--- CODE BLOCK 124 ---
+arr.copyWithin(0, 1, 2); // mutates arr
+const arr2 = arr.slice().copyWithin(0, 1, 2); // does not mutate arr
+const arr3 = [...arr].copyWithin(0, 1, 2); // does not mutate arr
+--- END CODE BLOCK ---
+extends the array by adding empty slots without creating any new elements — not even
+--- CODE BLOCK 125 ---
+method(callbackFn, thisArg)
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 126 ---
+method(callbackFn, thisArg)
+--- END CODE BLOCK ---
+Decreasing the
+--- CODE BLOCK 157 ---
+findLastIndex()
+--- END CODE BLOCK ---
+property does, however, delete elements.
+Copy to Clipboard
+--- CODE BLOCK 164 ---
+findIndex()
+--- END CODE BLOCK ---
+This is explained further on the
+--- CODE BLOCK 170 ---
+reduceRight()
+--- END CODE BLOCK ---
+page.
+Array methods and empty slots
+Array methods have different behaviors when encountering empty slots in
+sparse arrays
+. In general, older methods (e.g.,
+--- CODE BLOCK 174 ---
+function method(callbackFn, thisArg) {
+const length = this.length;
+for (let i = 0; i < length; i++) {
+if (i in this) {
+const result = callbackFn.call(thisArg, this[i], i, this);
+// Do something with result; maybe return early
+--- END CODE BLOCK ---
+) treat empty slots differently from indices that contain
+--- CODE BLOCK 175 ---
+function method(callbackFn, thisArg) {
+const length = this.length;
+for (let i = 0; i < length; i++) {
+if (i in this) {
+const result = callbackFn.call(thisArg, this[i], i, this);
+// Do something with result; maybe return early
+--- END CODE BLOCK ---
+Methods that have special treatment for empty slots include the following:
+--- CODE BLOCK 180 ---
+findLastIndex
+--- END CODE BLOCK ---
+--- CODE BLOCK 182 ---
+for (let i = length - 1; i >= 0; i--)
+--- END CODE BLOCK ---
+--- CODE BLOCK 183 ---
+reduceRight()
+--- END CODE BLOCK ---
+--- CODE BLOCK 185 ---
+findLastIndex()
+--- END CODE BLOCK ---
+--- CODE BLOCK 187 ---
+reduceRight
+--- END CODE BLOCK ---
+--- CODE BLOCK 189 ---
+const arrayLike = {
+0: "a",
+1: "b",
+length: 2,
+console.log(Array.prototype.join.call(arrayLike, "+")); // 'a+b'
+--- END CODE BLOCK ---
+--- CODE BLOCK 190 ---
+const arrayLike = {
+0: "a",
+1: "b",
+length: 2,
+console.log(Array.prototype.join.call(arrayLike, "+")); // 'a+b'
+--- END CODE BLOCK ---
+--- CODE BLOCK 201 ---
+Array.prototype.flat.call({}); // []
+--- END CODE BLOCK ---
+--- CODE BLOCK 202 ---
+Array.prototype.flat.call({}); // []
+--- END CODE BLOCK ---
+--- CODE BLOCK 205 ---
+const a = { length: 0.7 };
+Array.prototype.push.call(a);
+console.log(a.length); // 0
+--- END CODE BLOCK ---
+--- CODE BLOCK 206 ---
+const a = { length: 0.7 };
+Array.prototype.push.call(a);
+console.log(a.length); // 0
+--- END CODE BLOCK ---
+--- CODE BLOCK 213 ---
+HTMLCollection
+--- END CODE BLOCK ---
+--- CODE BLOCK 215 ---
+function f() {
+console.log(Array.prototype.join.call(arguments, "+"));
+f("a", "b"); // 'a+b'
+--- END CODE BLOCK ---
+--- CODE BLOCK 216 ---
+function f() {
+console.log(Array.prototype.join.call(arguments, "+"));
+f("a", "b"); // 'a+b'
+--- END CODE BLOCK ---
+--- CODE BLOCK 219 ---
+Array[Symbol.species]
+--- END CODE BLOCK ---
+--- CODE BLOCK 221 ---
+Array.from()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 223 ---
+Array.fromAsync()
+--- END CODE BLOCK ---
+. Iteration methods such as
+--- CODE BLOCK 225 ---
+Array.isArray()
+--- END CODE BLOCK ---
+don't visit empty slots at all. Other methods, such as
+--- CODE BLOCK 230 ---
+Array.prototype
+--- END CODE BLOCK ---
+--- CODE BLOCK 232 ---
+Array.prototype.constructor
+--- END CODE BLOCK ---
+, etc., preserve empty slots when doing the copying, so in the end the array is still sparse.
+Copy to Clipboard
+--- CODE BLOCK 235 ---
+Array.prototype[Symbol.unscopables]
+--- END CODE BLOCK ---
+Newer methods (e.g.,
+--- CODE BLOCK 240 ---
+Array.prototype.concat()
+--- END CODE BLOCK ---
+) do not treat empty slots specially and treat them as if they contain
+--- CODE BLOCK 241 ---
+Array.prototype.copyWithin()
+--- END CODE BLOCK ---
+. Methods that conflate empty slots with
+--- CODE BLOCK 242 ---
+Array.prototype.entries()
+--- END CODE BLOCK ---
+elements include the following:
+--- CODE BLOCK 243 ---
+Array.prototype.every()
+--- END CODE BLOCK ---
+--- CODE BLOCK 245 ---
+Array.prototype.fill()
+--- END CODE BLOCK ---
+--- CODE BLOCK 246 ---
+Array.prototype.filter()
+--- END CODE BLOCK ---
+--- CODE BLOCK 248 ---
+Array.prototype.find()
+--- END CODE BLOCK ---
+--- CODE BLOCK 250 ---
+Array.prototype.findIndex()
+--- END CODE BLOCK ---
+--- CODE BLOCK 252 ---
+Array.prototype.findLast()
+--- END CODE BLOCK ---
+--- CODE BLOCK 254 ---
+Array.prototype.findLastIndex()
+--- END CODE BLOCK ---
+--- CODE BLOCK 256 ---
+Array.prototype.flat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 257 ---
+Array.prototype.flatMap()
+--- END CODE BLOCK ---
+--- CODE BLOCK 258 ---
+Array.prototype.forEach()
+--- END CODE BLOCK ---
+--- CODE BLOCK 259 ---
+Array.prototype.includes()
+--- END CODE BLOCK ---
+--- CODE BLOCK 262 ---
+Array.prototype.indexOf()
+--- END CODE BLOCK ---
+--- CODE BLOCK 263 ---
+Array.prototype.join()
+--- END CODE BLOCK ---
+--- CODE BLOCK 264 ---
+Array.prototype.keys()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 265 ---
+Array.prototype.lastIndexOf()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 267 ---
+Array.prototype.map()
+--- END CODE BLOCK ---
+Copying methods and mutating methods
+Some methods do not mutate the existing array that the method was called on, but instead return a new array. They do so by first constructing a new array and then populating it with elements. The copy always happens
+shallowly
+— the method never copies anything beyond the initially created array. Elements of the original array(s) are copied into the new array as follows:
+Objects: the object reference is copied into the new array. Both the original and new array refer to the same object. That is, if a referenced object is modified, the changes are visible to both the new and original arrays.
+Primitive types such as strings, numbers and booleans (not
+--- CODE BLOCK 269 ---
+Array.prototype.push()
+--- END CODE BLOCK ---
+--- CODE BLOCK 271 ---
+Array.prototype.reduce()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 272 ---
+Array.prototype.reduceRight()
+--- END CODE BLOCK ---
+objects): their values are copied into the new array.
+Other methods mutate the array that the method was called on, in which case their return value differs depending on the method: sometimes a reference to the same array, sometimes the length of the new array.
+The following methods create new arrays by accessing
+--- CODE BLOCK 273 ---
+Array.prototype.reverse()
+--- END CODE BLOCK ---
+to determine the constructor to use:
+--- CODE BLOCK 274 ---
+Array.prototype.shift()
+--- END CODE BLOCK ---
+--- CODE BLOCK 275 ---
+Array.prototype.slice()
+--- END CODE BLOCK ---
+--- CODE BLOCK 276 ---
+Array.prototype.some()
+--- END CODE BLOCK ---
+--- CODE BLOCK 278 ---
+Array.prototype.sort()
+--- END CODE BLOCK ---
+--- CODE BLOCK 279 ---
+Array.prototype.splice()
+--- END CODE BLOCK ---
+--- CODE BLOCK 280 ---
+Array.prototype.toLocaleString()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 281 ---
+Object.prototype.toLocaleString()
+--- END CODE BLOCK ---
+(to construct the array of removed elements that's returned).
+The following methods always create new arrays with the
+--- CODE BLOCK 282 ---
+Array.prototype.toReversed()
+--- END CODE BLOCK ---
+base constructor:
+--- CODE BLOCK 283 ---
+Array.prototype.toSorted()
+--- END CODE BLOCK ---
+--- CODE BLOCK 284 ---
+Array.prototype.toSpliced()
+--- END CODE BLOCK ---
+--- CODE BLOCK 285 ---
+Array.prototype.toString()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 286 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+The following table lists the methods that mutate the original array, and the corresponding non-mutating alternative:
+Mutating method
+Non-mutating alternative
+--- CODE BLOCK 287 ---
+Array.prototype.unshift()
+--- END CODE BLOCK ---
+No one-method alternative
+--- CODE BLOCK 289 ---
+Array.prototype.values()
+--- END CODE BLOCK ---
+No one-method alternative
+--- CODE BLOCK 290 ---
+Array.prototype.with()
+--- END CODE BLOCK ---
+--- CODE BLOCK 291 ---
+Array.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 294 ---
+String.prototype.split()
+--- END CODE BLOCK ---
+--- CODE BLOCK 295 ---
+// 'fruits' array created using array literal notation.
+const fruits = ["Apple", "Banana"];
+console.log(fruits.length);
+// 2
+// 'fruits2' array created using the Array() constructor.
+const fruits2 = new Array("Apple", "Banana");
+console.log(fruits2.length);
+// 2
+// 'fruits3' array created using String.prototype.split().
+const fruits3 = "Apple, Banana".split(", ");
+console.log(fruits3.length);
+// 2
+--- END CODE BLOCK ---
+--- CODE BLOCK 296 ---
+// 'fruits' array created using array literal notation.
+const fruits = ["Apple", "Banana"];
+console.log(fruits.length);
+// 2
+// 'fruits2' array created using the Array() constructor.
+const fruits2 = new Array("Apple", "Banana");
+console.log(fruits2.length);
+// 2
+// 'fruits3' array created using String.prototype.split().
+const fruits3 = "Apple, Banana".split(", ");
+console.log(fruits3.length);
+// 2
+--- END CODE BLOCK ---
+--- CODE BLOCK 299 ---
+const fruits = ["Apple", "Banana"];
+const fruitsString = fruits.join(", ");
+console.log(fruitsString);
+// "Apple, Banana"
+--- END CODE BLOCK ---
+--- CODE BLOCK 300 ---
+const fruits = ["Apple", "Banana"];
+const fruitsString = fruits.join(", ");
+console.log(fruitsString);
+// "Apple, Banana"
+--- END CODE BLOCK ---
+--- CODE BLOCK 302 ---
+const fruits = ["Apple", "Banana"];
+// The index of an array's first element is always 0.
+fruits[0]; // Apple
+// The index of an array's second element is always 1.
+fruits[1]; // Banana
+// The index of an array's last element is always one
+// less than the length of the array.
+fruits[fruits.length - 1]; // Banana
+// Using an index number larger than the array's length
+// returns 'undefined'.
+fruits[99]; // undefined
+--- END CODE BLOCK ---
+--- CODE BLOCK 303 ---
+const fruits = ["Apple", "Banana"];
+// The index of an array's first element is always 0.
+fruits[0]; // Apple
+// The index of an array's second element is always 1.
+fruits[1]; // Banana
+// The index of an array's last element is always one
+// less than the length of the array.
+fruits[fruits.length - 1]; // Banana
+// Using an index number larger than the array's length
+// returns 'undefined'.
+fruits[99]; // undefined
+--- END CODE BLOCK ---
+--- CODE BLOCK 307 ---
+const fruits = ["Apple", "Banana"];
+console.log(fruits.indexOf("Banana"));
+// 1
+--- END CODE BLOCK ---
+--- CODE BLOCK 308 ---
+const fruits = ["Apple", "Banana"];
+console.log(fruits.indexOf("Banana"));
+// 1
+--- END CODE BLOCK ---
+--- CODE BLOCK 315 ---
+const fruits = ["Apple", "Banana"];
+fruits.includes("Banana"); // true
+fruits.includes("Cherry"); // false
+// If indexOf() doesn't return -1, the array contains the given item.
+fruits.indexOf("Banana") !== -1; // true
+fruits.indexOf("Cherry") !== -1; // false
+--- END CODE BLOCK ---
+--- CODE BLOCK 316 ---
+const fruits = ["Apple", "Banana"];
+fruits.includes("Banana"); // true
+fruits.includes("Cherry"); // false
+// If indexOf() doesn't return -1, the array contains the given item.
+fruits.indexOf("Banana") !== -1; // true
+fruits.indexOf("Cherry") !== -1; // false
+--- END CODE BLOCK ---
+--- CODE BLOCK 319 ---
+const fruits = ["Apple", "Banana"];
+const newLength = fruits.push("Orange");
+console.log(fruits);
+// ["Apple", "Banana", "Orange"]
+console.log(newLength);
+// 3
+--- END CODE BLOCK ---
+An easy way to change a mutating method into a non-mutating alternative is to use the
+spread syntax
+--- CODE BLOCK 320 ---
+const fruits = ["Apple", "Banana"];
+const newLength = fruits.push("Orange");
+console.log(fruits);
+// ["Apple", "Banana", "Orange"]
+console.log(newLength);
+// 3
+--- END CODE BLOCK ---
+to create a copy first:
+Copy to Clipboard
+--- CODE BLOCK 323 ---
+const fruits = ["Apple", "Banana", "Orange"];
+const removedItem = fruits.pop();
+console.log(fruits);
+// ["Apple", "Banana"]
+console.log(removedItem);
+// Orange
+--- END CODE BLOCK ---
+Iterative methods
+Many array methods take a callback function as an argument. The callback function is called sequentially and at most once for each element in the array, and the return value of the callback function is used to determine the return value of the method. They all share the same signature:
+Copy to Clipboard
+--- CODE BLOCK 328 ---
+const fruits = ["Apple", "Banana", "Strawberry", "Mango", "Cherry"];
+const start = -3;
+const removedItems = fruits.splice(start);
+console.log(fruits);
+// ["Apple", "Banana"]
+console.log(removedItems);
+// ["Strawberry", "Mango", "Cherry"]
+--- END CODE BLOCK ---
+Where
+--- CODE BLOCK 332 ---
+const fruits = ["Apple", "Banana", "Strawberry", "Mango", "Cherry"];
+const start = 2;
+const removedItems = fruits.splice(start);
+console.log(fruits);
+// ["Apple", "Banana"]
+console.log(removedItems);
+// ["Strawberry", "Mango", "Cherry"]
+--- END CODE BLOCK ---
+takes three arguments:
+--- CODE BLOCK 333 ---
+const fruits = ["Apple", "Banana", "Strawberry", "Mango", "Cherry"];
+const start = 2;
+const removedItems = fruits.splice(start);
+console.log(fruits);
+// ["Apple", "Banana"]
+console.log(removedItems);
+// ["Strawberry", "Mango", "Cherry"]
+--- END CODE BLOCK ---
+The current element being processed in the array.
+--- CODE BLOCK 336 ---
+const fruits = ["Apple", "Banana"];
+const removedItem = fruits.shift();
+console.log(fruits);
+// ["Banana"]
+console.log(removedItem);
+// Apple
+--- END CODE BLOCK ---
+The index of the current element being processed in the array.
+--- CODE BLOCK 337 ---
+const fruits = ["Apple", "Banana"];
+const removedItem = fruits.shift();
+console.log(fruits);
+// ["Banana"]
+console.log(removedItem);
+// Apple
+--- END CODE BLOCK ---
+The array that the method was called upon.
+What
+--- CODE BLOCK 341 ---
+const fruits = ["Apple", "Strawberry", "Cherry", "Banana", "Mango"];
+const start = 0;
+const deleteCount = 3;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Banana", "Mango"]
+console.log(removedItems);
+// ["Apple", "Strawberry", "Cherry"]
+--- END CODE BLOCK ---
+is expected to return depends on the array method that was called.
+--- CODE BLOCK 342 ---
+const fruits = ["Apple", "Strawberry", "Cherry", "Banana", "Mango"];
+const start = 0;
+const deleteCount = 3;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Banana", "Mango"]
+console.log(removedItems);
+// ["Apple", "Strawberry", "Cherry"]
+--- END CODE BLOCK ---
+argument (defaults to
+--- CODE BLOCK 346 ---
+const fruits = ["Banana", "Mango"];
+const newLength = fruits.unshift("Strawberry");
+console.log(fruits);
+// ["Strawberry", "Banana", "Mango"]
+console.log(newLength);
+// 3
+--- END CODE BLOCK ---
+) will be used as the
+--- CODE BLOCK 347 ---
+const fruits = ["Banana", "Mango"];
+const newLength = fruits.unshift("Strawberry");
+console.log(fruits);
+// ["Strawberry", "Banana", "Mango"]
+console.log(newLength);
+// 3
+--- END CODE BLOCK ---
+value when calling
+--- CODE BLOCK 352 ---
+const fruits = ["Strawberry", "Banana", "Mango"];
+const start = fruits.indexOf("Banana");
+const deleteCount = 1;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Strawberry", "Mango"]
+console.log(removedItems);
+// ["Banana"]
+--- END CODE BLOCK ---
+. The
+--- CODE BLOCK 353 ---
+const fruits = ["Strawberry", "Banana", "Mango"];
+const start = fruits.indexOf("Banana");
+const deleteCount = 1;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Strawberry", "Mango"]
+console.log(removedItems);
+// ["Banana"]
+--- END CODE BLOCK ---
+value ultimately observable by
+--- CODE BLOCK 356 ---
+"Strawberry"
+--- END CODE BLOCK ---
+is determined according to
+the usual rules
+: if
+--- CODE BLOCK 359 ---
+const fruits = ["Apple", "Banana", "Strawberry", "Mango"];
+const start = 1;
+const deleteCount = 2;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Apple", "Mango"]
+console.log(removedItems);
+// ["Banana", "Strawberry"]
+--- END CODE BLOCK ---
+non-strict
+, primitive
+--- CODE BLOCK 360 ---
+const fruits = ["Apple", "Banana", "Strawberry", "Mango"];
+const start = 1;
+const deleteCount = 2;
+const removedItems = fruits.splice(start, deleteCount);
+console.log(fruits);
+// ["Apple", "Mango"]
+console.log(removedItems);
+// ["Banana", "Strawberry"]
+--- END CODE BLOCK ---
+values are wrapped into objects, and
+--- CODE BLOCK 363 ---
+const fruits = ["Apple", "Banana", "Strawberry"];
+const start = -2;
+const deleteCount = 2;
+const removedItems = fruits.splice(start, deleteCount, "Mango", "Cherry");
+console.log(fruits);
+// ["Apple", "Mango", "Cherry"]
+console.log(removedItems);
+// ["Banana", "Strawberry"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 364 ---
+const fruits = ["Apple", "Banana", "Strawberry"];
+const start = -2;
+const deleteCount = 2;
+const removedItems = fruits.splice(start, deleteCount, "Mango", "Cherry");
+console.log(fruits);
+// ["Apple", "Mango", "Cherry"]
+console.log(removedItems);
+// ["Banana", "Strawberry"]
+--- END CODE BLOCK ---
+is substituted with
+--- CODE BLOCK 367 ---
+const fruits = ["Apple", "Mango", "Cherry"];
+for (const fruit of fruits) {
+console.log(fruit);
+// Apple
+// Mango
+// Cherry
+--- END CODE BLOCK ---
+. The
+--- CODE BLOCK 368 ---
+const fruits = ["Apple", "Mango", "Cherry"];
+for (const fruit of fruits) {
+console.log(fruit);
+// Apple
+// Mango
+// Cherry
+--- END CODE BLOCK ---
+argument is irrelevant for any
+--- CODE BLOCK 375 ---
+reduceRight()
+--- END CODE BLOCK ---
+defined with an
+arrow function
+, as arrow functions don't have their own
+--- CODE BLOCK 379 ---
+const fruits = ["Apple", "Mango", "Cherry"];
+fruits.forEach((item, index, array) => {
+console.log(item, index);
+// Apple 0
+// Mango 1
+// Cherry 2
+--- END CODE BLOCK ---
+binding
+--- CODE BLOCK 380 ---
+const fruits = ["Apple", "Mango", "Cherry"];
+fruits.forEach((item, index, array) => {
+console.log(item, index);
+// Apple 0
+// Mango 1
+// Cherry 2
+--- END CODE BLOCK ---
+argument passed to
+--- CODE BLOCK 384 ---
+combinedFruits
+--- END CODE BLOCK ---
+is most useful if you want to read another index during iteration, because you may not always have an existing variable that refers to the current array. You should generally not mutate the array during iteration (see
+mutating initial array in iterative methods
+), but you can also use this argument to do so. The
+--- CODE BLOCK 387 ---
+const fruits = ["Apple", "Banana", "Strawberry"];
+const moreFruits = ["Mango", "Cherry"];
+const combinedFruits = fruits.concat(moreFruits);
+console.log(combinedFruits);
+// ["Apple", "Banana", "Strawberry", "Mango", "Cherry"]
+// The 'fruits' array remains unchanged.
+console.log(fruits);
+// ["Apple", "Banana", "Strawberry"]
+// The 'moreFruits' array also remains unchanged.
+console.log(moreFruits);
+// ["Mango", "Cherry"]
+--- END CODE BLOCK ---
+argument is
+the array that is being built, in the case of methods like
+--- CODE BLOCK 388 ---
+const fruits = ["Apple", "Banana", "Strawberry"];
+const moreFruits = ["Mango", "Cherry"];
+const combinedFruits = fruits.concat(moreFruits);
+console.log(combinedFruits);
+// ["Apple", "Banana", "Strawberry", "Mango", "Cherry"]
+// The 'fruits' array remains unchanged.
+console.log(fruits);
+// ["Apple", "Banana", "Strawberry"]
+// The 'moreFruits' array also remains unchanged.
+console.log(moreFruits);
+// ["Mango", "Cherry"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 392 ---
+const fruits = ["Strawberry", "Mango"];
+// Create a copy using spread syntax.
+const fruitsCopy = [...fruits];
+// ["Strawberry", "Mango"]
+// Create a copy using the from() method.
+const fruitsCopy2 = Array.from(fruits);
+// ["Strawberry", "Mango"]
+// Create a copy using the slice() method.
+const fruitsCopy3 = fruits.slice();
+// ["Strawberry", "Mango"]
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 393 ---
+const fruits = ["Strawberry", "Mango"];
+// Create a copy using spread syntax.
+const fruitsCopy = [...fruits];
+// ["Strawberry", "Mango"]
+// Create a copy using the from() method.
+const fruitsCopy2 = Array.from(fruits);
+// ["Strawberry", "Mango"]
+// Create a copy using the slice() method.
+const fruitsCopy3 = fruits.slice();
+// ["Strawberry", "Mango"]
+--- END CODE BLOCK ---
+— there is no way to access the array being built from the callback function.
+All iterative methods are
+copying
+generic
+, although they behave differently with
+empty slots
+The following methods are iterative:
+--- CODE BLOCK 394 ---
+Array.from()
+--- END CODE BLOCK ---
+--- CODE BLOCK 395 ---
+Array.prototype.slice()
+--- END CODE BLOCK ---
+--- CODE BLOCK 396 ---
+Array.prototype.concat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 397 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+--- CODE BLOCK 398 ---
+JSON.parse()
+--- END CODE BLOCK ---
+--- CODE BLOCK 399 ---
+const fruitsDeepCopy = JSON.parse(JSON.stringify(fruits));
+--- END CODE BLOCK ---
+--- CODE BLOCK 400 ---
+const fruitsDeepCopy = JSON.parse(JSON.stringify(fruits));
+--- END CODE BLOCK ---
+--- CODE BLOCK 401 ---
+structuredClone()
+--- END CODE BLOCK ---
+--- CODE BLOCK 402 ---
+const fruits = ["Strawberry", "Mango"];
+const fruitsAlias = fruits;
+// 'fruits' and 'fruitsAlias' are the same object, strictly equivalent.
+fruits === fruitsAlias; // true
+// Any changes to the 'fruits' array change 'fruitsAlias' too.
+fruits.unshift("Apple", "Banana");
+console.log(fruits);
+// ['Apple', 'Banana', 'Strawberry', 'Mango']
+console.log(fruitsAlias);
+// ['Apple', 'Banana', 'Strawberry', 'Mango']
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 403 ---
+const fruits = ["Strawberry", "Mango"];
+const fruitsAlias = fruits;
+// 'fruits' and 'fruitsAlias' are the same object, strictly equivalent.
+fruits === fruitsAlias; // true
+// Any changes to the 'fruits' array change 'fruitsAlias' too.
+fruits.unshift("Apple", "Banana");
+console.log(fruits);
+// ['Apple', 'Banana', 'Strawberry', 'Mango']
+console.log(fruitsAlias);
+// ['Apple', 'Banana', 'Strawberry', 'Mango']
+--- END CODE BLOCK ---
+In particular,
+--- CODE BLOCK 405 ---
+board[6][4]
+--- END CODE BLOCK ---
+--- CODE BLOCK 406 ---
+board[4][4]
+--- END CODE BLOCK ---
+--- CODE BLOCK 408 ---
+const board = [
+["R", "N", "B", "Q", "K", "B", "N", "R"],
+["P", "P", "P", "P", "P", "P", "P", "P"],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+["p", "p", "p", "p", "p", "p", "p", "p"],
+["r", "n", "b", "q", "k", "b", "n", "r"],
+console.log(`${board.join("\n")}\n\n`);
+// Move King's Pawn forward 2
+board[4][4] = board[6][4];
+board[6][4] = " ";
+console.log(board.join("\n"));
+--- END CODE BLOCK ---
+--- CODE BLOCK 409 ---
+const board = [
+["R", "N", "B", "Q", "K", "B", "N", "R"],
+["P", "P", "P", "P", "P", "P", "P", "P"],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+[" ", " ", " ", " ", " ", " ", " ", " "],
+["p", "p", "p", "p", "p", "p", "p", "p"],
+["r", "n", "b", "q", "k", "b", "n", "r"],
+console.log(`${board.join("\n")}\n\n`);
+// Move King's Pawn forward 2
+board[4][4] = board[6][4];
+board[6][4] = " ";
+console.log(board.join("\n"));
+--- END CODE BLOCK ---
+--- CODE BLOCK 410 ---
+R,N,B,Q,K,B,N,R
+P,P,P,P,P,P,P,P
+, , , , , , ,
+, , , , , , ,
+, , , , , , ,
+, , , , , , ,
+p,p,p,p,p,p,p,p
+r,n,b,q,k,b,n,r
+R,N,B,Q,K,B,N,R
+P,P,P,P,P,P,P,P
+, , , , , , ,
+, , , , , , ,
+, , , ,p, , ,
+, , , , , , ,
+p,p,p,p, ,p,p,p
+r,n,b,q,k,b,n,r
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 411 ---
+const values = [];
+for (let x = 0; x < 10; x++) {
+values.push([2 ** x, 2 * x ** 2]);
+console.table(values);
+--- END CODE BLOCK ---
+do not always invoke
+--- CODE BLOCK 412 ---
+const values = [];
+for (let x = 0; x < 10; x++) {
+values.push([2 ** x, 2 * x ** 2]);
+console.table(values);
+--- END CODE BLOCK ---
+on every element — they stop iteration as soon as the return value is determined.
+--- CODE BLOCK 413 ---
+// The first column is the index
+0  1    0
+1  2    2
+2  4    8
+3  8    18
+4  16   32
+5  32   50
+6  64   72
+7  128  98
+8  256  128
+9  512  162
+--- END CODE BLOCK ---
+--- CODE BLOCK 415 ---
+RegExp.prototype.exec()
+--- END CODE BLOCK ---
+methods also take a callback function and run it at most once for each element in the array, but they have slightly different signatures from typical iterative methods (for example, they don't accept
+--- CODE BLOCK 416 ---
+String.prototype.match()
+--- END CODE BLOCK ---
+--- CODE BLOCK 417 ---
+// Match one d followed by one or more b's followed by one d
+// Remember matched b's and the following d
+// Ignore case
+const myRe = /d(b+)(d)/i;
+const execResult = myRe.exec("cdbBdbsbz");
+console.log(execResult.input); // 'cdbBdbsbz'
+console.log(execResult.index); // 1
+console.log(execResult); // [ "dbBd", "bB", "d" ]
+--- END CODE BLOCK ---
+method also takes a callback function, but it is not an iterative method. It mutates the array in-place, doesn't accept
+--- CODE BLOCK 418 ---
+// Match one d followed by one or more b's followed by one d
+// Remember matched b's and the following d
+// Ignore case
+const myRe = /d(b+)(d)/i;
+const execResult = myRe.exec("cdbBdbsbz");
+console.log(execResult.input); // 'cdbBdbsbz'
+console.log(execResult.index); // 1
+console.log(execResult); // [ "dbBd", "bB", "d" ]
+--- END CODE BLOCK ---
+, and may invoke the callback multiple times on an index.
+Iterative methods iterate the array like the following (with a lot of technical details omitted):
+Copy to Clipboard
+--- CODE BLOCK 419 ---
+RegExp.prototype.exec()
+--- END CODE BLOCK ---
+Note the following:
+Not all methods do the
+--- CODE BLOCK 422 ---
+arrayLength - 1
+--- END CODE BLOCK ---
+test. The
+--- CODE BLOCK 423 ---
+arrayLength
+--- END CODE BLOCK ---
+--- CODE BLOCK 429 ---
+function testSideEffect(effect) {
+const arr = ["e1", "e2", "e3", "e4"];
+arr.forEach((elem, index, arr) => {
+console.log(`array: [${arr.join(", ")}], index: ${index}, elem: ${elem}`);
+effect(arr, index);
+console.log(`Final array: [${arr.join(", ")}]`);
+--- END CODE BLOCK ---
+--- CODE BLOCK 430 ---
+function testSideEffect(effect) {
+const arr = ["e1", "e2", "e3", "e4"];
+arr.forEach((elem, index, arr) => {
+console.log(`array: [${arr.join(", ")}], index: ${index}, elem: ${elem}`);
+effect(arr, index);
+console.log(`Final array: [${arr.join(", ")}]`);
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 431 ---
+testSideEffect((arr, index) => {
+if (index + 1 < arr.length) arr[index + 1] += "*";
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2*, e3, e4], index: 1, elem: e2*
+// array: [e1, e2*, e3*, e4], index: 2, elem: e3*
+// array: [e1, e2*, e3*, e4*], index: 3, elem: e4*
+// Final array: [e1, e2*, e3*, e4*]
+--- END CODE BLOCK ---
+methods do not, but other methods do.
+--- CODE BLOCK 432 ---
+testSideEffect((arr, index) => {
+if (index + 1 < arr.length) arr[index + 1] += "*";
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2*, e3, e4], index: 1, elem: e2*
+// array: [e1, e2*, e3*, e4], index: 2, elem: e3*
+// array: [e1, e2*, e3*, e4*], index: 3, elem: e4*
+// Final array: [e1, e2*, e3*, e4*]
+--- END CODE BLOCK ---
+is memorized before the loop starts. This affects how insertions and deletions during iteration are handled (see
+mutating initial array in iterative methods
+The method doesn't memorize the array contents, so if any index is modified during iteration, the new value might be observed.
+The code above iterates the array in ascending order of index. Some methods iterate in descending order of index (
+--- CODE BLOCK 433 ---
+testSideEffect((arr, index) => {
+if (index > 0) arr[index - 1] += "*";
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1*, e2, e3, e4], index: 2, elem: e3
+// array: [e1*, e2*, e3, e4], index: 3, elem: e4
+// Final array: [e1*, e2*, e3*, e4]
+--- END CODE BLOCK ---
+--- CODE BLOCK 434 ---
+testSideEffect((arr, index) => {
+if (index > 0) arr[index - 1] += "*";
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1*, e2, e3, e4], index: 2, elem: e3
+// array: [e1*, e2*, e3, e4], index: 3, elem: e4
+// Final array: [e1*, e2*, e3*, e4]
+--- END CODE BLOCK ---
+--- CODE BLOCK 435 ---
+testSideEffect((arr, index) => {
+if (index === 1) arr.splice(2, 0, "new");
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1, e2, new, e3, e4], index: 2, elem: new
+// array: [e1, e2, new, e3, e4], index: 3, elem: e3
+// Final array: [e1, e2, new, e3, e4]
+// e4 is not visited because it now has index 4
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 436 ---
+testSideEffect((arr, index) => {
+if (index === 1) arr.splice(2, 0, "new");
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1, e2, new, e3, e4], index: 2, elem: new
+// array: [e1, e2, new, e3, e4], index: 3, elem: e3
+// Final array: [e1, e2, new, e3, e4]
+// e4 is not visited because it now has index 4
+--- END CODE BLOCK ---
+--- CODE BLOCK 437 ---
+testSideEffect((arr) => arr.push("new"));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4, new], index: 1, elem: e2
+// array: [e1, e2, e3, e4, new, new], index: 2, elem: e3
+// array: [e1, e2, e3, e4, new, new, new], index: 3, elem: e4
+// Final array: [e1, e2, e3, e4, new, new, new, new]
+--- END CODE BLOCK ---
+--- CODE BLOCK 438 ---
+testSideEffect((arr) => arr.push("new"));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4, new], index: 1, elem: e2
+// array: [e1, e2, e3, e4, new, new], index: 2, elem: e3
+// array: [e1, e2, e3, e4, new, new, new], index: 3, elem: e4
+// Final array: [e1, e2, e3, e4, new, new, new, new]
+--- END CODE BLOCK ---
+have slightly different signatures and do not always start at the first/last element.
+Generic array methods
+Array methods are always generic — they don't access any internal data of the array object. They only access the array elements through the
+--- CODE BLOCK 439 ---
+testSideEffect((arr, index) => arr.splice(index, 0, "new"));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [new, e1, e2, e3, e4], index: 1, elem: e1
+// array: [new, new, e1, e2, e3, e4], index: 2, elem: e1
+// array: [new, new, new, e1, e2, e3, e4], index: 3, elem: e1
+// Final array: [new, new, new, new, e1, e2, e3, e4]
+// e1 keeps getting visited because it keeps getting shifted back
+--- END CODE BLOCK ---
+property and the indexed elements. This means that they can be called on array-like objects as well.
+Copy to Clipboard
+--- CODE BLOCK 440 ---
+testSideEffect((arr, index) => arr.splice(index, 0, "new"));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [new, e1, e2, e3, e4], index: 1, elem: e1
+// array: [new, new, e1, e2, e3, e4], index: 2, elem: e1
+// array: [new, new, new, e1, e2, e3, e4], index: 3, elem: e1
+// Final array: [new, new, new, new, e1, e2, e3, e4]
+// e1 keeps getting visited because it keeps getting shifted back
+--- END CODE BLOCK ---
+Normalization of the length property
+--- CODE BLOCK 443 ---
+testSideEffect((arr, index) => {
+if (index === 1) arr.splice(2, 1);
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1, e2, e4], index: 2, elem: e4
+// Final array: [e1, e2, e4]
+// Does not visit index 3 because it's out-of-bounds
+// Compare this with find(), which treats nonexistent indexes as undefined:
+const arr2 = ["e1", "e2", "e3", "e4"];
+arr2.find((elem, index, arr) => {
+console.log(`array: [${arr.join(", ")}], index: ${index}, elem: ${elem}`);
+if (index === 1) arr.splice(2, 1);
+return false;
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e1, e2, e3, e4], index: 1, elem: e2
+// array: [e1, e2, e4], index: 2, elem: e4
+// array: [e1, e2, e4], index: 3, elem: undefined
+--- END CODE BLOCK ---
+property is
+converted to an integer
+and then clamped to the range between 0 and 2
+- 1.
+--- CODE BLOCK 445 ---
+testSideEffect((arr, index) => arr.splice(index, 1));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// Does not visit e2 because e2 now has index 0, which has already been visited
+// array: [e2, e3, e4], index: 1, elem: e3
+// Does not visit e4 because e4 now has index 1, which has already been visited
+// Final array: [e2, e4]
+// Index 2 is out-of-bounds, so it's not visited
+// Compare this with find(), which treats nonexistent indexes as undefined:
+const arr2 = ["e1", "e2", "e3", "e4"];
+arr2.find((elem, index, arr) => {
+console.log(`array: [${arr.join(", ")}], index: ${index}, elem: ${elem}`);
+arr.splice(index, 1);
+return false;
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e2, e3, e4], index: 1, elem: e3
+// array: [e2, e4], index: 2, elem: undefined
+// array: [e2, e4], index: 3, elem: undefined
+--- END CODE BLOCK ---
+becomes
+--- CODE BLOCK 446 ---
+testSideEffect((arr, index) => arr.splice(index, 1));
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// Does not visit e2 because e2 now has index 0, which has already been visited
+// array: [e2, e3, e4], index: 1, elem: e3
+// Does not visit e4 because e4 now has index 1, which has already been visited
+// Final array: [e2, e4]
+// Index 2 is out-of-bounds, so it's not visited
+// Compare this with find(), which treats nonexistent indexes as undefined:
+const arr2 = ["e1", "e2", "e3", "e4"];
+arr2.find((elem, index, arr) => {
+console.log(`array: [${arr.join(", ")}], index: ${index}, elem: ${elem}`);
+arr.splice(index, 1);
+return false;
+// array: [e1, e2, e3, e4], index: 0, elem: e1
+// array: [e2, e3, e4], index: 1, elem: e3
+// array: [e2, e4], index: 2, elem: undefined
+// array: [e2, e4], index: 3, elem: undefined
+--- END CODE BLOCK ---
+, so even when
+--- CODE BLOCK 448 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+is not present or is
+[CODE_BLOCK_195]
+, it behaves as if it has value
+[CODE_BLOCK_196]
+The language avoids setting
+[CODE_BLOCK_197]
+to an
+unsafe integer
+. All built-in methods will throw a
+[CODE_BLOCK_198]
+[CODE_BLOCK_199]
+will be set to a number greater than 2
+- 1. However, because the
+[CODE_BLOCK_200]
+property of arrays throws an error if it's set to greater than 2
+- 1, the safe integer threshold is usually not reached unless the method is called on a non-array object.
+Copy to Clipboard
+[CODE_BLOCK_201]
+Some array methods set the
+[CODE_BLOCK_203]
+property of the array object. They always set the value after normalization, so
+[CODE_BLOCK_204]
+always ends as an integer.
+Copy to Clipboard
+[CODE_BLOCK_205]
+Array-like objects
+The term
+array-like object
+refers to any object that doesn't throw during the
+[CODE_BLOCK_207]
+conversion process described above. In practice, such object is expected to actually have a
+[CODE_BLOCK_208]
+property and to have indexed elements in the range
+[CODE_BLOCK_209]
+[CODE_BLOCK_210]
+. (If it doesn't have all indices, it will be functionally equivalent to a
+sparse array
+.) Any integer index less than zero or greater than
+[CODE_BLOCK_211]
+is ignored when an array method operates on an array-like object.
+Many DOM objects are array-like — for example,
+[CODE_BLOCK_212]
+[CODE_BLOCK_213]
+. The
+[CODE_BLOCK_214]
+object is also array-like. You can call array methods on them even if they don't have these methods themselves.
+Copy to Clipboard
+[CODE_BLOCK_215]
+Constructor
+[CODE_BLOCK_217]
+Creates a new
+[CODE_BLOCK_218]
+object.
+Static properties
+[CODE_BLOCK_219]
+Returns the
+[CODE_BLOCK_220]
+constructor.
+Static methods
+[CODE_BLOCK_221]
+Creates a new
+[CODE_BLOCK_222]
+instance from an iterable or array-like object.
+[CODE_BLOCK_223]
+Creates a new
+[CODE_BLOCK_224]
+instance from an async iterable, iterable, or array-like object.
+[CODE_BLOCK_225]
+Returns
+[CODE_BLOCK_226]
+if the argument is an array, or
+[CODE_BLOCK_227]
+otherwise.
+[CODE_BLOCK_228]
+Creates a new
+[CODE_BLOCK_229]
+instance with a variable number of arguments, regardless of number or type of the arguments.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_230]
+and shared by all
+[CODE_BLOCK_231]
+instances.
+[CODE_BLOCK_232]
+The constructor function that created the instance object. For
+[CODE_BLOCK_233]
+instances, the initial value is the
+[CODE_BLOCK_234]
+constructor.
+[CODE_BLOCK_235]
+Contains property names that were not included in the ECMAScript standard prior to the ES2015 version and that are ignored for
+[CODE_BLOCK_236]
+statement-binding purposes.
+These properties are own properties of each
+[CODE_BLOCK_237]
+instance.
+[CODE_BLOCK_238]
+Reflects the number of elements in an array.
+Instance methods
+[CODE_BLOCK_239]
+Returns the array item at the given index. Accepts negative integers, which count back from the last item.
+[CODE_BLOCK_240]
+Returns a new array that is the calling array joined with other array(s) and/or value(s).
+[CODE_BLOCK_241]
+Copies a sequence of array elements within an array.
+[CODE_BLOCK_242]
+Returns a new
+array iterator
+object that contains the key/value pairs for each index in an array.
+[CODE_BLOCK_243]
+Returns
+[CODE_BLOCK_244]
+if every element in the calling array satisfies the testing function.
+[CODE_BLOCK_245]
+Fills all the elements of an array from a start index to an end index with a static value.
+[CODE_BLOCK_246]
+Returns a new array containing all elements of the calling array for which the provided filtering function returns
+[CODE_BLOCK_247]
+[CODE_BLOCK_248]
+Returns the value of the first element in the array that satisfies the provided testing function, or
+[CODE_BLOCK_249]
+if no appropriate element is found.
+[CODE_BLOCK_250]
+Returns the index of the first element in the array that satisfies the provided testing function, or
+[CODE_BLOCK_251]
+if no appropriate element was found.
+[CODE_BLOCK_252]
+Returns the value of the last element in the array that satisfies the provided testing function, or
+[CODE_BLOCK_253]
+if no appropriate element is found.
+[CODE_BLOCK_254]
+Returns the index of the last element in the array that satisfies the provided testing function, or
+[CODE_BLOCK_255]
+if no appropriate element was found.
+[CODE_BLOCK_256]
+Returns a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+[CODE_BLOCK_257]
+Returns a new array formed by applying a given callback function to each element of the calling array, and then flattening the result by one level.
+[CODE_BLOCK_258]
+Calls a function for each element in the calling array.
+[CODE_BLOCK_259]
+Determines whether the calling array contains a value, returning
+[CODE_BLOCK_260]
+[CODE_BLOCK_261]
+as appropriate.
+[CODE_BLOCK_262]
+Returns the first (least) index at which a given element can be found in the calling array.
+[CODE_BLOCK_263]
+Joins all elements of an array into a string.
+[CODE_BLOCK_264]
+Returns a new
+array iterator
+that contains the keys for each index in the calling array.
+[CODE_BLOCK_265]
+Returns the last (greatest) index at which a given element can be found in the calling array, or
+[CODE_BLOCK_266]
+if none is found.
+[CODE_BLOCK_267]
+Returns a new array containing the results of invoking a function on every element in the calling array.
+[CODE_BLOCK_268]
+Removes the last element from an array and returns that element.
+[CODE_BLOCK_269]
+Adds one or more elements to the end of an array, and returns the new
+[CODE_BLOCK_270]
+of the array.
+[CODE_BLOCK_271]
+Executes a user-supplied "reducer" callback function on each element of the array (from left to right), to reduce it to a single value.
+[CODE_BLOCK_272]
+Executes a user-supplied "reducer" callback function on each element of the array (from right to left), to reduce it to a single value.
+[CODE_BLOCK_273]
+Reverses the order of the elements of an array
+in place
+. (First becomes the last, last becomes first.)
+[CODE_BLOCK_274]
+Removes the first element from an array and returns that element.
+[CODE_BLOCK_275]
+Extracts a section of the calling array and returns a new array.
+[CODE_BLOCK_276]
+Returns
+[CODE_BLOCK_277]
+if at least one element in the calling array satisfies the provided testing function.
+[CODE_BLOCK_278]
+Sorts the elements of an array in place and returns the array.
+[CODE_BLOCK_279]
+Adds and/or removes elements from an array.
+[CODE_BLOCK_280]
+Returns a localized string representing the calling array and its elements. Overrides the
+[CODE_BLOCK_281]
+method.
+[CODE_BLOCK_282]
+Returns a new array with the elements in reversed order, without modifying the original array.
+[CODE_BLOCK_283]
+Returns a new array with the elements sorted in ascending order, without modifying the original array.
+[CODE_BLOCK_284]
+Returns a new array with some elements removed and/or replaced at a given index, without modifying the original array.
+[CODE_BLOCK_285]
+Returns a string representing the calling array and its elements. Overrides the
+[CODE_BLOCK_286]
+method.
+[CODE_BLOCK_287]
+Adds one or more elements to the front of an array, and returns the new
+[CODE_BLOCK_288]
+of the array.
+[CODE_BLOCK_289]
+Returns a new
+array iterator
+object that contains the values for each index in the array.
+[CODE_BLOCK_290]
+Returns a new array with the element at the given index replaced with the given value, without modifying the original array.
+[CODE_BLOCK_291]
+An alias for the
+[CODE_BLOCK_292]
+method by default.
+Examples
+This section provides some examples of common array operations in JavaScript.
+Note:
+If you're not yet familiar with array basics, consider first reading
+JavaScript First Steps: Arrays
+, which
+explains what arrays are
+, and includes other examples of common array operations.
+Create an array
+This example shows three ways to create new array: first using
+array literal notation
+, then using the
+[CODE_BLOCK_293]
+constructor, and finally using
+[CODE_BLOCK_294]
+to build the array from a string.
+Copy to Clipboard
+[CODE_BLOCK_295]
+Create a string from an array
+This example uses the
+[CODE_BLOCK_297]
+method to create a string from the
+[CODE_BLOCK_298]
+array.
+Copy to Clipboard
+[CODE_BLOCK_299]
+Access an array item by its index
+This example shows how to access items in the
+[CODE_BLOCK_301]
+array by specifying the index number of their position in the array.
+Copy to Clipboard
+[CODE_BLOCK_302]
+Find the index of an item in an array
+This example uses the
+[CODE_BLOCK_304]
+method to find the position (index) of the string
+[CODE_BLOCK_305]
+in the
+[CODE_BLOCK_306]
+array.
+Copy to Clipboard
+[CODE_BLOCK_307]
+Check if an array contains a certain item
+This example shows two ways to check if the
+[CODE_BLOCK_309]
+array contains
+[CODE_BLOCK_310]
+[CODE_BLOCK_311]
+: first with the
+[CODE_BLOCK_312]
+method, and then with the
+[CODE_BLOCK_313]
+method to test for an index value that's not
+[CODE_BLOCK_314]
+Copy to Clipboard
+[CODE_BLOCK_315]
+Append an item to an array
+This example uses the
+[CODE_BLOCK_317]
+method to append a new string to the
+[CODE_BLOCK_318]
+array.
+Copy to Clipboard
+[CODE_BLOCK_319]
+Remove the last item from an array
+This example uses the
+[CODE_BLOCK_321]
+method to remove the last item from the
+[CODE_BLOCK_322]
+array.
+Copy to Clipboard
+[CODE_BLOCK_323]
+Note:
+[CODE_BLOCK_325]
+can only be used to remove the last item from an array. To remove multiple items from the end of an array, see the next example.
+Remove multiple items from the end of an array
+This example uses the
+[CODE_BLOCK_326]
+method to remove the last 3 items from the
+[CODE_BLOCK_327]
+array.
+Copy to Clipboard
+[CODE_BLOCK_328]
+Truncate an array down to just its first N items
+This example uses the
+[CODE_BLOCK_330]
+method to truncate the
+[CODE_BLOCK_331]
+array down to just its first 2 items.
+Copy to Clipboard
+[CODE_BLOCK_332]
+Remove the first item from an array
+This example uses the
+[CODE_BLOCK_334]
+method to remove the first item from the
+[CODE_BLOCK_335]
+array.
+Copy to Clipboard
+[CODE_BLOCK_336]
+Note:
+[CODE_BLOCK_338]
+can only be used to remove the first item from an array. To remove multiple items from the beginning of an array, see the next example.
+Remove multiple items from the beginning of an array
+This example uses the
+[CODE_BLOCK_339]
+method to remove the first 3 items from the
+[CODE_BLOCK_340]
+array.
+Copy to Clipboard
+[CODE_BLOCK_341]
+Add a new first item to an array
+This example uses the
+[CODE_BLOCK_343]
+method to add, at index
+[CODE_BLOCK_344]
+, a new item to the
+[CODE_BLOCK_345]
+array — making it the new first item in the array.
+Copy to Clipboard
+[CODE_BLOCK_346]
+Remove a single item by index
+This example uses the
+[CODE_BLOCK_348]
+method to remove the string
+[CODE_BLOCK_349]
+from the
+[CODE_BLOCK_350]
+array — by specifying the index position of
+[CODE_BLOCK_351]
+Copy to Clipboard
+[CODE_BLOCK_352]
+Remove multiple items by index
+This example uses the
+[CODE_BLOCK_354]
+method to remove the strings
+[CODE_BLOCK_355]
+[CODE_BLOCK_356]
+from the
+[CODE_BLOCK_357]
+array — by specifying the index position of
+[CODE_BLOCK_358]
+, along with a count of the number of total items to remove.
+Copy to Clipboard
+[CODE_BLOCK_359]
+Replace multiple items in an array
+This example uses the
+[CODE_BLOCK_361]
+method to replace the last 2 items in the
+[CODE_BLOCK_362]
+array with new items.
+Copy to Clipboard
+[CODE_BLOCK_363]
+Iterate over an array
+This example uses a
+[CODE_BLOCK_365]
+loop to iterate over the
+[CODE_BLOCK_366]
+array, logging each item to the console.
+Copy to Clipboard
+[CODE_BLOCK_367]
+[CODE_BLOCK_369]
+is just one of many ways to iterate over any array; for more ways, see
+Loops and iteration
+, and see the documentation for the
+[CODE_BLOCK_370]
+[CODE_BLOCK_371]
+[CODE_BLOCK_372]
+[CODE_BLOCK_373]
+[CODE_BLOCK_374]
+, and
+[CODE_BLOCK_375]
+methods — and see the next example, which uses the
+[CODE_BLOCK_376]
+method.
+Call a function on each element in an array
+This example uses the
+[CODE_BLOCK_377]
+method to call a function on each element in the
+[CODE_BLOCK_378]
+array; the function causes each item to be logged to the console, along with the item's index number.
+Copy to Clipboard
+[CODE_BLOCK_379]
+Merge multiple arrays together
+This example uses the
+[CODE_BLOCK_381]
+method to merge the
+[CODE_BLOCK_382]
+array with a
+[CODE_BLOCK_383]
+array, to produce a new
+[CODE_BLOCK_384]
+array. Notice that
+[CODE_BLOCK_385]
+[CODE_BLOCK_386]
+remain unchanged.
+Copy to Clipboard
+[CODE_BLOCK_387]
+Copy an array
+This example shows three ways to create a new array from the existing
+[CODE_BLOCK_389]
+array: first by using
+spread syntax
+, then by using the
+[CODE_BLOCK_390]
+method, and then by using the
+[CODE_BLOCK_391]
+method.
+Copy to Clipboard
+[CODE_BLOCK_392]
+All built-in array-copy operations (
+spread syntax
+[CODE_BLOCK_394]
+[CODE_BLOCK_395]
+, and
+[CODE_BLOCK_396]
+) create
+shallow copies
+. If you instead want a
+deep copy
+of an array, you can use
+[CODE_BLOCK_397]
+to convert the array to a JSON string, and then
+[CODE_BLOCK_398]
+to convert the string back into a new array that's completely independent from the original array.
+Copy to Clipboard
+[CODE_BLOCK_399]
+You can also create deep copies using the
+[CODE_BLOCK_401]
+method, which has the advantage of allowing
+transferable objects
+in the source to be
+transferred
+to the new copy, rather than just cloned.
+Finally, it's important to understand that assigning an existing array to a new variable doesn't create a copy of either the array or its elements. Instead the new variable is just a reference, or alias, to the original array; that is, the original array's name and the new variable name are just two names for the exact same object (and so will always evaluate as
+strictly equivalent
+). Therefore, if you make any changes at all either to the value of the original array or to the value of the new variable, the other will change, too:
+Copy to Clipboard
+[CODE_BLOCK_402]
+Creating a two-dimensional array
+The following creates a chessboard as a two-dimensional array of strings. The first move is made by copying the
+[CODE_BLOCK_404]
+[CODE_BLOCK_405]
+[CODE_BLOCK_406]
+. The old position at
+[CODE_BLOCK_407]
+is made blank.
+Copy to Clipboard
+[CODE_BLOCK_408]
+Here is the output:
+[CODE_BLOCK_410]
+Using an array to tabulate a set of values
+Copy to Clipboard
+[CODE_BLOCK_411]
+Results in
+[CODE_BLOCK_413]
+Creating an array using the result of a match
+The result of a match between a
+[CODE_BLOCK_414]
+and a string can create a JavaScript array that has properties and elements which provide information about the match. Such an array is returned by
+[CODE_BLOCK_415]
+[CODE_BLOCK_416]
+For example:
+Copy to Clipboard
+[CODE_BLOCK_417]
+For more information about the result of a match, see the
+[CODE_BLOCK_419]
+[CODE_BLOCK_420]
+pages.
+Mutating initial array in iterative methods
+Iterative methods
+do not mutate the array on which it is called, but the function provided as
+[CODE_BLOCK_421]
+can. The key principle to remember is that only indexes between 0 and
+[CODE_BLOCK_422]
+are visited, where
+[CODE_BLOCK_423]
+is the length of the array at the time the array method was first called, but the element passed to the callback is the value at the time the index is visited. Therefore:
+[CODE_BLOCK_424]
+will not visit any elements added beyond the array's initial length when the call to the iterative method began.
+Changes to already-visited indexes do not cause
+[CODE_BLOCK_425]
+to be invoked on them again.
+If an existing, yet-unvisited element of the array is changed by
+[CODE_BLOCK_426]
+, its value passed to the
+[CODE_BLOCK_427]
+will be the value at the time that element gets visited. Removed elements are not visited.
+Warning:
+Concurrent modifications of the kind described above frequently lead to hard-to-understand code and are generally to be avoided (except in special cases).
+The following examples use the
+[CODE_BLOCK_428]
+method as an example, but other methods that visit indexes in ascending order work in the same way. We will first define a helper function:
+Copy to Clipboard
+[CODE_BLOCK_429]
+Modification to indexes not visited yet will be visible once the index is reached:
+Copy to Clipboard
+[CODE_BLOCK_431]
+Modification to already visited indexes does not change iteration behavior, although the array will be different afterwards:
+Copy to Clipboard
+[CODE_BLOCK_433]
+Inserting
+elements at unvisited indexes that are less than the initial array length will make them be visited. The last
+elements in the original array that now have index greater than the initial array length will not be visited:
+Copy to Clipboard
+[CODE_BLOCK_435]
+Inserting
+elements with index greater than the initial array length will not make them be visited:
+Copy to Clipboard
+[CODE_BLOCK_437]
+Inserting
+elements at already visited indexes will not make them be visited, but it shifts remaining elements back by
+, so the current index and the
+n - 1
+elements before it are visited again:
+Copy to Clipboard
+[CODE_BLOCK_439]
+Deleting
+elements at unvisited indexes will make them not be visited anymore. Because the array has shrunk, the last
+iterations will visit out-of-bounds indexes. If the method ignores non-existent indexes (see
+array methods and empty slots
+), the last
+iterations will be skipped; otherwise, they will receive
+[CODE_BLOCK_441]
+Copy to Clipboard
+[CODE_BLOCK_442]
+Deleting
+elements at already visited indexes does not change the fact that they were visited before they get deleted. Because the array has shrunk, the next
+elements after the current index are skipped. If the method ignores non-existent indexes, the last
+iterations will be skipped; otherwise, they will receive
+[CODE_BLOCK_444]
+Copy to Clipboard
+[CODE_BLOCK_445]
+For methods that iterate in descending order of index, insertion causes elements to be skipped, and deletion causes elements to be visited multiple times. Adjust the code above yourself to see the effects.
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-array-objects
+Browser compatibility
+See also
+Indexed collections
+guide
+[CODE_BLOCK_447]
+[CODE_BLOCK_448]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

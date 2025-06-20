@@ -1,0 +1,66 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/IntersectionObserver/root
+SCRAPED: 2025-06-19 18:24:45
+================================================================================
+
+--- CODE BLOCK 1 ---
+IntersectionObserver
+--- END CODE BLOCK ---
+interface's read-only
+--- CODE BLOCK 9 ---
+IntersectionObserver()
+--- END CODE BLOCK ---
+property identifies the
+--- CODE BLOCK 13 ---
+observer.root.style.border = "2px solid #44aa44";
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+observer.root.style.border = "2px solid #44aa44";
+--- END CODE BLOCK ---
+whose bounds are treated as the
+bounding box
+of the
+viewport
+for the element which is the observer's target.
+If the
+[CODE_BLOCK_5]
+[CODE_BLOCK_6]
+, then the bounds of the actual document
+viewport are used.
+Value
+[CODE_BLOCK_7]
+[CODE_BLOCK_8]
+object whose bounding box is used
+as the bounds of the viewport for the purposes of determining how much of the target
+element is visible. The intersection of this bounding rectangle, offset by any margins
+specified in the options passed to the
+[CODE_BLOCK_9]
+constructor, the target element's bounds, minus the bounds of every element or other
+object which overlaps the target element, is considered to be the visible area of the
+target element.
+[CODE_BLOCK_10]
+[CODE_BLOCK_11]
+, then the owning document is used as the
+root, and the bounds its viewport (that is, the visible area of the document) are used
+as the root bounds.
+Examples
+This example sets the
+[CODE_BLOCK_12]
+of the intersection observer's root element
+to be a 2-pixel medium green line.
+Copy to Clipboard
+[CODE_BLOCK_13]
+Specifications
+Specification
+Intersection Observer
+dom-intersectionobserver-root
+Browser compatibility
+See also
+Timing element visibility with the Intersection Observer API
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 7, 2023
+MDN contributors
+View this page on GitHub
+Report a problem with this content

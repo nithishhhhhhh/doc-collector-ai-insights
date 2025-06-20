@@ -1,0 +1,133 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
+SCRAPED: 2025-06-19 18:07:50
+================================================================================
+
+--- CODE BLOCK 1 ---
+replaceState()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+replaceState(state, unused)
+replaceState(state, unused, url)
+--- END CODE BLOCK ---
+interface modifies the current
+history entry, replacing it with the state object and
+URL passed in the method parameters. This method is particularly useful
+when you want to update the state object or URL of the current history entry in response
+to some user action.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+replaceState(state, unused)
+replaceState(state, unused, url)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 10 ---
+replaceState()
+--- END CODE BLOCK ---
+An object which is associated with the history entry
+passed to the
+--- CODE BLOCK 12 ---
+SecurityError
+--- END CODE BLOCK ---
+method. The state object can be
+--- CODE BLOCK 13 ---
+DOMException
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+DataCloneError
+--- END CODE BLOCK ---
+This parameter exists for historical reasons, and cannot be omitted; passing the empty string is traditional, and safe against future changes to the method.
+--- CODE BLOCK 16 ---
+DOMException
+--- END CODE BLOCK ---
+Optional
+The URL of the history entry. The new URL must be of the same origin as the current
+URL; otherwise the
+--- CODE BLOCK 18 ---
+https://www.mozilla.org/foo.html
+--- END CODE BLOCK ---
+method throws an exception.
+Return value
+None (
+--- CODE BLOCK 19 ---
+const stateObj = { foo: "bar" };
+history.pushState(stateObj, "", "bar.html");
+--- END CODE BLOCK ---
+Exceptions
+--- CODE BLOCK 20 ---
+const stateObj = { foo: "bar" };
+history.pushState(stateObj, "", "bar.html");
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+history.state
+--- END CODE BLOCK ---
+Thrown if the associated document is not fully active, or if the provided
+--- CODE BLOCK 23 ---
+https://www.mozilla.org/bar.html
+--- END CODE BLOCK ---
+parameter is not a valid URL, or if the method is called too frequently.
+--- CODE BLOCK 24 ---
+history.replaceState(stateObj, "", "bar2.html");
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+history.replaceState(stateObj, "", "bar2.html");
+--- END CODE BLOCK ---
+Thrown if the provided
+--- CODE BLOCK 26 ---
+https://www.mozilla.org/bar2.html
+--- END CODE BLOCK ---
+parameter is not serializable.
+Examples
+Suppose
+--- CODE BLOCK 29 ---
+https://www.microsoft.com
+--- END CODE BLOCK ---
+executes the following JavaScript:
+Copy to Clipboard
+--- CODE BLOCK 30 ---
+https://www.mozilla.org/bar2.html
+--- END CODE BLOCK ---
+On the next page you could then use
+[CODE_BLOCK_21]
+to access the
+[CODE_BLOCK_22]
+that was just added.
+The explanation of these two lines above can be found in the
+Working with the History API
+article. Then suppose
+[CODE_BLOCK_23]
+executes the following
+JavaScript:
+Copy to Clipboard
+[CODE_BLOCK_24]
+This will cause the URL bar to display
+[CODE_BLOCK_26]
+, but won't cause the browser
+to load
+[CODE_BLOCK_27]
+or even check that
+[CODE_BLOCK_28]
+exists.
+Suppose now that the user navigates to
+[CODE_BLOCK_29]
+, then clicks the Back button. At this
+point, the URL bar will display
+[CODE_BLOCK_30]
+If the user now clicks Back again, the URL bar will
+display
+[CODE_BLOCK_31]
+, and totally bypass bar.html.
+Specifications
+Specification
+HTML
+dom-history-replacestate-dev
+Browser compatibility
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 27, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

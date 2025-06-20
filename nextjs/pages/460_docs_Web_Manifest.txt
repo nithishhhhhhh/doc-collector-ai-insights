@@ -1,0 +1,152 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/Manifest
+SCRAPED: 2025-06-19 18:03:13
+================================================================================
+
+web application manifest
+, defined in the
+Web Application Manifest
+specification, is a
+JSON
+text file that provides information about a web application.
+The most common use for a web application manifest is to provide information that the browser needs to install a
+progressive web app
+(PWA) on a device, such as the app's name and icon.
+A web application manifest contains a single JSON object where the top-level keys are called
+members
+Members
+This section lists
+reference pages for manifest members
+that are documented on MDN.
+All members are optional in the specification, but some applications require some members to be present. For example,
+PWAs must provide certain manifest members
+background_color
+categories
+description
+display
+display_override
+Experimental
+file_handlers
+Experimental
+icons
+launch_handler
+Experimental
+name
+note_taking
+Experimental
+orientation
+prefer_related_applications
+Experimental
+protocol_handlers
+Experimental
+related_applications
+Experimental
+scope
+scope_extensions
+Experimental
+screenshots
+serviceworker
+Experimental
+Non-standard
+share_target
+Experimental
+short_name
+shortcuts
+start_url
+theme_color
+Note:
+--- CODE BLOCK 3 ---
+iarc_rating_id
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+"short_name": "MDN",
+"name": "MDN Web Docs",
+"icons": [
+"src": "/favicon-192x192.png",
+"sizes": "192x192",
+"type": "image/png"
+"src": "/favicon-512x512.png",
+"sizes": "512x512",
+"type": "image/png"
+"start_url": ".",
+"display": "standalone",
+"theme_color": "#000000",
+"background_color": "#ffffff"
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 5 ---
+"short_name": "MDN",
+"name": "MDN Web Docs",
+"icons": [
+"src": "/favicon-192x192.png",
+"sizes": "192x192",
+"type": "image/png"
+"src": "/favicon-512x512.png",
+"sizes": "512x512",
+"type": "image/png"
+"start_url": ".",
+"display": "standalone",
+"theme_color": "#000000",
+"background_color": "#ffffff"
+--- END CODE BLOCK ---
+members are not implemented.
+Example manifest
+json
+Copy to Clipboard
+--- CODE BLOCK 8 ---
+<link rel="manifest" href="manifest.json" />
+--- END CODE BLOCK ---
+Deploying a manifest
+Web app manifests are deployed in your HTML pages using a
+--- CODE BLOCK 10 ---
+.webmanifest
+--- END CODE BLOCK ---
+element in the
+--- CODE BLOCK 11 ---
+Content-Type: application/manifest+json
+--- END CODE BLOCK ---
+of a document:
+html
+Copy to Clipboard
+--- CODE BLOCK 13 ---
+Content-Type: application/json
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+use-credentials
+--- END CODE BLOCK ---
+extension is specified in the
+Media type registration
+section of the specification (the response of the manifest file should return
+--- CODE BLOCK 16 ---
+<link rel="manifest" href="/app.webmanifest" crossorigin="use-credentials" />
+--- END CODE BLOCK ---
+). Browsers generally support manifests with other appropriate extensions like
+--- CODE BLOCK 17 ---
+<link rel="manifest" href="/app.webmanifest" crossorigin="use-credentials" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+background_color
+--- END CODE BLOCK ---
+If the manifest requires credentials to fetch, the
+[CODE_BLOCK_14]
+attribute must be set to
+[CODE_BLOCK_15]
+, even if the manifest file is in the same origin as the current page.
+html
+Copy to Clipboard
+[CODE_BLOCK_16]
+Splash screens
+In some browsers and operating systems, a splash screen is displayed when an installed PWA is launched. This splash screen is automatically generated and its appearance is defined by members in the web app manifest, specifically:
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+Browser compatibility
+See also
+Progressive Web Apps (PWAs)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 20, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

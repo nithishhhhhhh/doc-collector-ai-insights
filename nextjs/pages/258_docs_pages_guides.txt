@@ -1,0 +1,84 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides
+SCRAPED: 2025-06-19 17:39:41
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Next.js Docs
+Pages Router
+Guides
+You are currently viewing the documentation for Pages Router.
+Guides
+With minimal config, and without leaving React, you can start adding AMP and improve the performance and speed of your pages.
+Analytics
+Measure and track page performance using Next.js
+Authentication
+Learn how to implement authentication in Next.js, covering best practices, securing routes, authorization techniques, and session management.
+Babel
+Extend the babel preset added by Next.js with your own configs.
+CI Build Caching
+Learn how to configure CI to cache Next.js builds
+Content Security Policy
+Learn how to set a Content Security Policy (CSP) for your Next.js application.
+CSS-in-JS
+Use CSS-in-JS libraries with Next.js
+Custom Server
+Start a Next.js app programmatically using a custom server.
+Debugging
+Learn how to debug your Next.js application with VS Code or Chrome DevTools.
+Draft Mode
+Next.js has draft mode to toggle between static and dynamic pages. You can learn how it works with Pages Router.
+Environment Variables
+Learn to add and access environment variables in your Next.js application.
+Forms
+Learn how to handle form submissions and data mutations with Next.js.
+Learn how to create or update static pages at runtime with Incremental Static Regeneration.
+Instrumentation
+Learn how to use instrumentation to run code at server startup in your Next.js app
+Internationalization
+Next.js has built-in support for internationalized routing and language detection. Learn more here.
+Lazy Loading
+Lazy load imported libraries and React Components to improve your application's overall loading performance.
+Learn how to configure MDX to write JSX in your markdown files.
+Migrating
+Learn how to migrate from popular frameworks to Next.js
+Multi-Zones
+Learn how to build micro-frontends using Next.js Multi-Zones to deploy multiple Next.js apps under a single domain.
+OpenTelemetry
+Learn how to instrument your Next.js app with OpenTelemetry.
+Package Bundling
+Learn how to optimize your application's server and client bundles.
+PostCSS
+Extend the PostCSS config and plugins added by Next.js with your own.
+Preview Mode
+Next.js has the preview mode for statically generated pages. You can learn how it works here.
+Production
+Recommendations to ensure the best performance and user experience before taking your Next.js application to production.
+Redirecting
+Learn the different ways to handle redirects in Next.js.
+Sass
+Learn how to use Sass in your Next.js application.
+Scripts
+Optimize 3rd party scripts with the built-in Script component.
+Self-Hosting
+Learn how to self-host your Next.js application on a Node.js server, Docker image, or static HTML files (static exports).
+Static Exports
+Next.js enables starting as a static site or Single-Page Application (SPA), then later optionally upgrading to use features that require a server.
+Tailwind CSS
+Style your Next.js Application using Tailwind CSS.
+Testing
+Learn how to set up Next.js with three commonly used testing tools — Cypress, Playwright, Vitest, and Jest.
+Third Party Libraries
+Optimize the performance of third-party libraries in your application with the `@next/third-parties` package.
+Upgrading
+Learn how to upgrade to the latest versions of Next.js.
+Was this helpful?
+supported.
+Send

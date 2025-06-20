@@ -1,0 +1,116 @@
+URL: https://react.dev/reference/react/cache
+Section: Reference
+============================================================
+
+# cache
+# cache
+### React Server Components
+cache is only for use with React Server Components.
+cache lets you cache the result of a data fetch or computation.
+``````
+- Reference cache(fn)
+- Usage Cache an expensive computation Share a snapshot of data Preload data
+- Troubleshooting My memoized function still runs even though I’ve called it with the same arguments
+- cache(fn)
+- Cache an expensive computation
+- Share a snapshot of data
+- Preload data
+- My memoized function still runs even though I’ve called it with the same arguments
+## Reference
+### cache(fn)
+Call cache outside of any components to create a version of the function with caching.
+``````
+When getMetrics is first called with data, getMetrics will call calculateMetrics(data) and store the result in cache. If getMetrics is called again with the same data, it will return the cached result instead of calling calculateMetrics(data) again.
+See more examples below.
+#### Parameters
+- fn: The function you want to cache results for. fn can take any arguments and return any value.
+#### Returns
+cache returns a cached version of fn with the same type signature. It does not call fn in the process.
+When calling cachedFn with given arguments, it first checks if a cached result exists in the cache. If a cached result exists, it returns the result. If not, it calls fn with the arguments, stores the result in the cache, and returns the result. The only time fn is called is when there is a cache miss.
+### Note
+The optimization of caching return values based on inputs is known as memoization. We refer to the function returned from cache as a memoized function.
+#### Caveats
+- React will invalidate the cache for all memoized functions for each server request.
+- Each call to cache creates a new function. This means that calling cache with the same function multiple times will return different memoized functions that do not share the same cache.
+- cachedFn will also cache errors. If fn throws an error for certain arguments, it will be cached, and the same error is re-thrown when cachedFn is called with those same arguments.
+- cache is for use in Server Components only.
+## Usage
+### Cache an expensive computation
+Use cache to skip duplicate work.
+``````
+If the same user object is rendered in both Profile and TeamReport, the two components can share work and only call calculateUserMetrics once for that user.
+Assume Profile is rendered first. It will call getUserMetrics, and check if there is a cached result. Since it is the first time getUserMetrics is called with that user, there will be a cache miss. getUserMetrics will then call calculateUserMetrics with that user and write the result to cache.
+When TeamReport renders its list of users and reaches the same user object, it will call getUserMetrics and read the result from cache.
+### Pitfall
+##### Calling different memoized functions will read from different caches.
+To access the same cache, components must call the same memoized function.
+``````
+``````
+In the above example, Precipitation and Temperature each call cache to create a new memoized function with their own cache look-up. If both components render for the same cityData, they will do duplicate work to call calculateWeekReport.
+In addition, Temperature creates a new memoized function each time the component is rendered which doesn’t allow for any cache sharing.
+To maximize cache hits and reduce work, the two components should call the same memoized function to access the same cache. Instead, define the memoized function in a dedicated module that can be import-ed across components.
+``````
+``````
+``````
+Here, both components call the same memoized function exported from ./getWeekReport.js to read and write to the same cache.
+### Share a snapshot of data
+To share a snapshot of data between components, call cache with a data-fetching function like fetch. When multiple components make the same data fetch, only one request is made and the data returned is cached and shared across components. All components refer to the same snapshot of data across the server render.
+``````
+If AnimatedWeatherCard and MinimalWeatherCard both render for the same city, they will receive the same snapshot of data from the memoized function.
+If AnimatedWeatherCard and MinimalWeatherCard supply different city arguments to getTemperature, then fetchTemperature will be called twice and each call site will receive different data.
+The city acts as a cache key.
+### Note
+Asynchronous rendering is only supported for Server Components.
+``````
+### Preload data
+By caching a long-running data fetch, you can kick off asynchronous work prior to rendering the component.
+``````
+When rendering Page, the component calls getUser but note that it doesn’t use the returned data. This early getUser call kicks off the asynchronous database query that occurs while Page is doing other computational work and rendering children.
+When rendering Profile, we call getUser again. If the initial getUser call has already returned and cached the user data, when Profile asks and waits for this data, it can simply read from the cache without requiring another remote procedure call. If the  initial data request hasn’t been completed, preloading data in this pattern reduces delay in data-fetching.
+##### Deep Dive
+#### Caching asynchronous work
+When evaluating an asynchronous function, you will receive a Promise for that work. The promise holds the state of that work (pending, fulfilled, failed) and its eventual settled result.
+In this example, the asynchronous function fetchData returns a promise that is awaiting the fetch.
+``````
+In calling getData the first time, the promise returned from fetchData is cached. Subsequent look-ups will then return the same promise.
+Notice that the first getData call does not await whereas the second does. await is a JavaScript operator that will wait and return the settled result of the promise. The first getData call simply initiates the fetch to cache the promise for the second getData to look-up.
+If by the second call the promise is still pending, then await will pause for the result. The optimization is that while we wait on the fetch, React can continue with computational work, thus reducing the wait time for the second call.
+If the promise is already settled, either to an error or the fulfilled result, await will return that value immediately. In both outcomes, there is a performance benefit.
+### Pitfall
+##### Calling a memoized function outside of a component will not use the cache.
+``````
+React only provides cache access to the memoized function in a component. When calling getUser outside of a component, it will still evaluate the function but not read or update the cache.
+This is because cache access is provided through a context which is only accessible from a component.
+##### Deep Dive
+#### When should I use cache, memo, or useMemo?
+All mentioned APIs offer memoization but the difference is what they’re intended to memoize, who can access the cache, and when their cache is invalidated.
+#### useMemo
+In general, you should use useMemo for caching a expensive computation in a Client Component across renders. As an example, to memoize a transformation of data within a component.
+``````
+In this example, App renders two WeatherReports with the same record. Even though both components do the same work, they cannot share work. useMemo’s cache is only local to the component.
+However, useMemo does ensure that if App re-renders and the record object doesn’t change, each component instance would skip work and use the memoized value of avgTemp. useMemo will only cache the last computation of avgTemp with the given dependencies.
+#### cache
+In general, you should use cache in Server Components to memoize work that can be shared across components.
+``````
+Re-writing the previous example to use cache, in this case the second instance of WeatherReport will be able to skip duplicate work and read from the same cache as the first WeatherReport. Another difference from the previous example is that cache is also recommended for memoizing data fetches, unlike useMemo which should only be used for computations.
+At this time, cache should only be used in Server Components and the cache will be invalidated across server requests.
+#### memo
+You should use memo to prevent a component re-rendering if its props are unchanged.
+``````
+In this example, both MemoWeatherReport components will call calculateAvg when first rendered. However, if App re-renders, with no changes to record, none of the props have changed and MemoWeatherReport will not re-render.
+Compared to useMemo, memo memoizes the component render based on props vs. specific computations. Similar to useMemo, the memoized component only caches the last render with the last prop values. Once the props change, the cache invalidates and the component re-renders.
+## Troubleshooting
+### My memoized function still runs even though I’ve called it with the same arguments
+See prior mentioned pitfalls
+- Calling different memoized functions will read from different caches.
+- Calling a memoized function outside of a component will not use the cache.
+If none of the above apply, it may be a problem with how React checks if something exists in cache.
+If your arguments are not primitives (ex. objects, functions, arrays), ensure you’re passing the same object reference.
+When calling a memoized function, React will look up the input arguments to see if a result is already cached. React will use shallow equality of the arguments to determine if there is a cache hit.
+``````
+In this case the two MapMarkers look like they’re doing the same work and calling calculateNorm with the same value of {x: 10, y: 10, z:10}. Even though the objects contain the same values, they are not the same object reference as each component creates its own props object.
+React will call Object.is on the input to verify if there is a cache hit.
+``````
+One way to address this could be to pass the vector dimensions to calculateNorm. This works because the dimensions themselves are primitives.
+Another solution may be to pass the vector object itself as a prop to the component. We’ll need to pass the same object to both component instances.
+``````

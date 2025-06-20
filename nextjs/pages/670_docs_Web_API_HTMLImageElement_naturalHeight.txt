@@ -1,0 +1,113 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/HTMLImageElement/naturalHeight
+SCRAPED: 2025-06-19 18:25:38
+================================================================================
+
+--- CODE BLOCK 1 ---
+HTMLImageElement
+--- END CODE BLOCK ---
+interface's
+--- CODE BLOCK 2 ---
+naturalHeight
+--- END CODE BLOCK ---
+property is a read-only value which
+returns the intrinsic (natural), density-corrected height of the image in
+CSS pixels
+This is the height the image is if
+drawn with nothing constraining its height; if you don't specify a height for the image,
+or place the image inside a container that either limits or expressly specifies the
+image height, it will be rendered this tall.
+Note:
+Most of the time the natural height is the actual height of the image sent by the server.
+Nevertheless, browsers can modify an image before pushing it to the renderer. For example, Chrome
+degrades the resolution of images on low-end devices
+. In such cases,
+--- CODE BLOCK 3 ---
+naturalHeight
+--- END CODE BLOCK ---
+will consider the height of the image modified
+by such browser interventions as the natural height, and returns this value.
+Value
+An integer value indicating the intrinsic height, in CSS pixels, of the image. This is
+the height at which the image is naturally drawn when no constraint or specific value is
+established for the image. This natural height is corrected for the pixel density of the
+device on which it's being presented, unlike
+--- CODE BLOCK 5 ---
+naturalHeight
+--- END CODE BLOCK ---
+If the intrinsic height is not available—either because the image does not specify an
+intrinsic height or because the image data is not available in order to obtain this
+information,
+--- CODE BLOCK 6 ---
+<div class="box">
+<img
+src="/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-400px.png"
+class="image"
+alt="A round wall clock with a white dial and black numbers" />
+</div>
+<pre></pre>
+--- END CODE BLOCK ---
+returns 0.
+Examples
+This example displays both the natural, density-adjusted size of an image as well as
+its rendered size as altered by the page's CSS and other factors.
+HTML
+html
+Copy to Clipboard
+play
+--- CODE BLOCK 7 ---
+<div class="box">
+<img
+src="/en-US/docs/Web/HTML/Reference/Elements/img/clock-demo-400px.png"
+class="image"
+alt="A round wall clock with a white dial and black numbers" />
+</div>
+<pre></pre>
+--- END CODE BLOCK ---
+The HTML features a 400x398 pixel image which is placed inside a
+--- CODE BLOCK 10 ---
+.box {
+width: 200px;
+height: 200px;
+.image {
+width: 100%;
+--- END CODE BLOCK ---
+Copy to Clipboard
+play
+--- CODE BLOCK 11 ---
+const output = document.querySelector("pre");
+const image = document.querySelector("img");
+image.addEventListener("load", (event) => {
+const { naturalWidth, naturalHeight, width, height } = image;
+output.textContent = `
+Natural size: ${naturalWidth} x ${naturalHeight} pixels
+Displayed size: ${width} x ${height} pixels
+--- END CODE BLOCK ---
+The main thing of note in the CSS above is that the style used for the container the
+image will be drawn in is 200px wide, and the image will be drawn to fill its width
+(100%).
+JavaScript
+Copy to Clipboard
+play
+[CODE_BLOCK_11]
+The JavaScript code dumps the natural and as-displayed sizes into the
+[CODE_BLOCK_13]
+. This is done in response to
+the images's
+[CODE_BLOCK_14]
+event handler, in order to ensure
+that the image is available before attempting to examine its width and height.
+Result
+play
+Specifications
+Specification
+HTML
+dom-img-naturalheight-dev
+Browser compatibility
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 11, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

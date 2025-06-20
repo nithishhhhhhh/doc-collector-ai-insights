@@ -1,0 +1,286 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/typescript
+SCRAPED: 2025-06-19 17:41:07
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Configuration
+TypeScript
+You are currently viewing the documentation for Pages Router.
+TypeScript
+Next.js comes with built-in TypeScript, automatically installing the necessary packages and configuring the proper settings when you create a new project with
+--- CODE BLOCK 1 ---
+create-next-app
+--- END CODE BLOCK ---
+To add TypeScript to an existing project, rename a file to
+--- CODE BLOCK 6 ---
+tsconfig.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+jsconfig.json
+--- END CODE BLOCK ---
+. Run
+--- CODE BLOCK 9 ---
+jsconfig.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+tsconfig.json
+--- END CODE BLOCK ---
+to automatically install the necessary dependencies and add a
+--- CODE BLOCK 11 ---
+jsconfig.json
+--- END CODE BLOCK ---
+file with the recommended config options.
+Good to know
+: If you already have a
+--- CODE BLOCK 12 ---
+next.config.ts
+--- END CODE BLOCK ---
+file, copy the
+--- CODE BLOCK 13 ---
+next.config.ts
+--- END CODE BLOCK ---
+compiler option from the old
+--- CODE BLOCK 14 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+/* config options here */
+export default nextConfig
+--- END CODE BLOCK ---
+into the new
+--- CODE BLOCK 15 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+/* config options here */
+export default nextConfig
+--- END CODE BLOCK ---
+file, and delete the old
+--- CODE BLOCK 16 ---
+next.config.ts
+--- END CODE BLOCK ---
+file.
+Examples
+Type checking
+--- CODE BLOCK 18 ---
+next.config.ts
+--- END CODE BLOCK ---
+You can use TypeScript and import types in your Next.js configuration by using
+--- CODE BLOCK 19 ---
+next.config.js
+--- END CODE BLOCK ---
+next.config.ts
+--- CODE BLOCK 20 ---
+// @ts-check
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+/* config options here */
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Good to know
+: Module resolution in
+--- CODE BLOCK 22 ---
+getStaticProps
+--- END CODE BLOCK ---
+is currently limited to
+--- CODE BLOCK 23 ---
+getStaticPaths
+--- END CODE BLOCK ---
+. This may cause incompatibilities with ESM only packages being loaded in
+--- CODE BLOCK 24 ---
+getServerSideProps
+--- END CODE BLOCK ---
+When using the
+--- CODE BLOCK 25 ---
+GetStaticProps
+--- END CODE BLOCK ---
+file, you can add some type checking in your IDE using JSDoc as below:
+next.config.js
+--- CODE BLOCK 26 ---
+GetStaticPaths
+--- END CODE BLOCK ---
+Static Generation and Server-side Rendering
+--- CODE BLOCK 28 ---
+import type { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+export const getStaticProps = (async (context) => {
+// ...
+}) satisfies GetStaticProps
+export const getStaticPaths = (async () => {
+// ...
+}) satisfies GetStaticPaths
+export const getServerSideProps = (async (context) => {
+// ...
+}) satisfies GetServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+import type { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+export const getStaticProps = (async (context) => {
+// ...
+}) satisfies GetStaticProps
+export const getStaticPaths = (async () => {
+// ...
+}) satisfies GetStaticPaths
+export const getServerSideProps = (async (context) => {
+// ...
+}) satisfies GetServerSideProps
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 31 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+res.status(200).json({ name: 'John Doe' })
+--- END CODE BLOCK ---
+, you can use the
+--- CODE BLOCK 32 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+res.status(200).json({ name: 'John Doe' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type Data = {
+name: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<Data>
+res.status(200).json({ name: 'John Doe' })
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 34 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+type Data = {
+name: string
+export default function handler(
+req: NextApiRequest,
+res: NextApiResponse<Data>
+res.status(200).json({ name: 'John Doe' })
+--- END CODE BLOCK ---
+types respectively:
+pages/blog/[slug].tsx
+--- CODE BLOCK 38 ---
+./pages/_app.tsx
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 40 ---
+import type { AppProps } from 'next/app'
+export default function MyApp({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+was added to TypeScript in
+. We recommend upgrading to the latest version of TypeScript.
+With API Routes
+The following is an example of how to use the built-in types for API routes:
+pages/api/hello.ts
+--- CODE BLOCK 42 ---
+tsconfig.json
+--- END CODE BLOCK ---
+You can also type the response data:
+pages/api/hello.ts
+--- CODE BLOCK 45 ---
+ignoreBuildErrors
+--- END CODE BLOCK ---
+With custom
+--- CODE BLOCK 48 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+typescript: {
+// !! WARN !!
+// Dangerously allow production builds to successfully complete even if
+// your project has type errors.
+// !! WARN !!
+ignoreBuildErrors: true,
+export default nextConfig
+--- END CODE BLOCK ---
+If you have a
+custom
+--- CODE BLOCK 49 ---
+tsc --noEmit
+--- END CODE BLOCK ---
+, you can use the built-in type
+--- CODE BLOCK 50 ---
+next-env.d.ts
+--- END CODE BLOCK ---
+and change file name to
+--- CODE BLOCK 51 ---
+new-types.d.ts
+--- END CODE BLOCK ---
+like so:
+--- CODE BLOCK 52 ---
+tsconfig.json
+--- END CODE BLOCK ---
+Incremental type checking
+Since
+--- CODE BLOCK 54 ---
+"compilerOptions": {
+"skipLibCheck": true
+//...truncated...
+"include": [
+"new-types.d.ts",
+"next-env.d.ts",
+".next/types/**/*.ts",
+"**/*.ts",
+"**/*.tsx"
+"exclude": ["node_modules"]
+--- END CODE BLOCK ---
+Next.js supports
+incremental type checking
+when enabled in your
+--- CODE BLOCK 56 ---
+next.config.ts
+--- END CODE BLOCK ---
+, this can help speed up type checking in larger applications.
+Disabling TypeScript errors in production
+Next.js fails your
+production build
+--- CODE BLOCK 60 ---
+tsconfig.json
+--- END CODE BLOCK ---
+) when TypeScript errors are present in your project.
+If you'd like Next.js to dangerously produce production code even when your application has errors, you can disable the built-in type checking step.
+If disabled, be sure you are running type checks as part of your build or deploy process, otherwise this can be very dangerous.
+Open
+[CODE_BLOCK_44]
+and enable the
+[CODE_BLOCK_45]
+option in the
+[CODE_BLOCK_46]
+config:
+next.config.ts
+[CODE_BLOCK_47]
+Good to know
+: You can run
+[CODE_BLOCK_49]
+to check for TypeScript errors yourself before building. This is useful for CI/CD pipelines where you'd like to check for TypeScript errors before deploying.
+Custom type declarations
+When you need to declare custom types, you might be tempted to modify
+[CODE_BLOCK_50]
+. However, this file is automatically generated, so any changes you make will be overwritten. Instead, you should create a new file, let's call it
+[CODE_BLOCK_51]
+, and reference it in your
+[CODE_BLOCK_52]
+tsconfig.json
+[CODE_BLOCK_53]
+Version Changes
+Version
+Changes
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+support added for TypeScript projects.
+[CODE_BLOCK_57]
+Statically typed links are available in beta.
+[CODE_BLOCK_58]
+is now used by default to compile TypeScript and TSX for faster builds.
+[CODE_BLOCK_59]
+Incremental type checking
+support added when enabled in your
+[CODE_BLOCK_60]
+Was this helpful?
+supported.
+Send

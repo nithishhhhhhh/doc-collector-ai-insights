@@ -1,0 +1,19 @@
+SOURCE URL: https://github.com/vercel/next.js/edit/canary/docs/01-app/01-getting-started/05-server-and-client-components.mdx
+SCRAPED: 2025-06-19 17:57:08
+================================================================================
+
+Sign in to GitHub
+Username or email address
+Password
+Forgot password?
+To login using passkeys, ensure that JavaScript is enabled in your browser.
+Enable JavaScript to use your passkey.
+This browser or device is reporting partial passkey support.
+Webauthn isn't supported. Use a different browser or device to use your passkey.
+Loading
+Waiting for input from browser interaction...
+Continue with passkey
+Password login alternatives
+Sign in with a passkey
+New to GitHub?
+Create an account

@@ -1,0 +1,58 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/expireTime
+SCRAPED: 2025-06-19 17:15:58
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+expireTime
+expireTime
+You can specify a custom
+--- CODE BLOCK 1 ---
+stale-while-revalidate
+--- END CODE BLOCK ---
+expire time for CDNs to consume in the
+--- CODE BLOCK 2 ---
+Cache-Control
+--- END CODE BLOCK ---
+header for ISR enabled pages.
+Open
+--- CODE BLOCK 3 ---
+next.config.js
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 5 ---
+module.exports = {
+// one hour in seconds
+expireTime: 3600,
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 6 ---
+module.exports = {
+// one hour in seconds
+expireTime: 3600,
+--- END CODE BLOCK ---
+Now when sending the
+--- CODE BLOCK 8 ---
+Cache-Control
+--- END CODE BLOCK ---
+header the expire time will be calculated depending on the specific revalidate period.
+For example, if you have a revalidate of 15 minutes on a path and the expire time is one hour the generated
+--- CODE BLOCK 9 ---
+s-maxage=900, stale-while-revalidate=2700
+--- END CODE BLOCK ---
+header will be
+[CODE_BLOCK_9]
+so that it can stay stale for 15 minutes less than the configured expire time.
+Was this helpful?
+supported.
+Send

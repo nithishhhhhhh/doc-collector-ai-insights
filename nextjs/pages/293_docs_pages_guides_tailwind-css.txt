@@ -1,0 +1,105 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/tailwind-css
+SCRAPED: 2025-06-19 17:43:52
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Tailwind CSS
+You are currently viewing the documentation for Pages Router.
+Tailwind CSS
+Tailwind CSS
+is a utility-first CSS framework that is fully compatible with Next.js. This guide will walk you through how to install Tailwind CSS in your Next.js application.
+Installing Tailwind
+Install the necessary Tailwind CSS packages:
+Terminal
+--- CODE BLOCK 1 ---
+npm install -D tailwindcss @tailwindcss/postcss postcss
+--- END CODE BLOCK ---
+Good to know
+: If you're using the
+--- CODE BLOCK 3 ---
+create-next-app
+--- END CODE BLOCK ---
+CLI to create your project, Next.js will prompt if you'd like to install Tailwind and automatically configure the project.
+Configuring Tailwind
+Create a
+--- CODE BLOCK 4 ---
+postcss.config.mjs
+--- END CODE BLOCK ---
+file in the root of your project and add the
+--- CODE BLOCK 5 ---
+@tailwindcss/postcss
+--- END CODE BLOCK ---
+plugin to your PostCSS configuration:
+postcss.config.mjs
+--- CODE BLOCK 6 ---
+/** @type {import('tailwindcss').Config} */
+export default {
+plugins: {
+'@tailwindcss/postcss': {},
+--- END CODE BLOCK ---
+As of
+Tailwind v4
+, there is zero configuration required by default. If you do need to configure Tailwind, you can follow the
+official documentation
+for configuring the global CSS file.
+There is also an
+upgrade CLI
+guide
+if you have an existing Tailwind v3 project.
+Importing Styles
+Add the
+Tailwind CSS directives
+that Tailwind will use to inject its generated styles to a
+Global Stylesheet
+in your application, for example:
+styles/globals.css
+--- CODE BLOCK 8 ---
+@import 'tailwindcss';
+--- END CODE BLOCK ---
+Inside the
+custom app file
+--- CODE BLOCK 10 ---
+pages/_app.js
+--- END CODE BLOCK ---
+), import the
+--- CODE BLOCK 11 ---
+globals.css
+--- END CODE BLOCK ---
+stylesheet to apply the styles to every route in your application.
+pages/_app.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 12 ---
+// These styles apply to every route in the application
+import '@/styles/globals.css'
+import type { AppProps } from 'next/app'
+export default function App({ Component, pageProps }: AppProps) {
+return <Component {...pageProps} />
+--- END CODE BLOCK ---
+Using Classes
+After installing Tailwind CSS and adding the global styles, you can use Tailwind's utility classes in your application.
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+export default function Page() {
+return <h1 className="text-3xl font-bold underline">Hello, Next.js!</h1>
+--- END CODE BLOCK ---
+Usage with Turbopack
+As of Next.js 13.1, Tailwind CSS and PostCSS are supported with
+Turbopack
+Was this helpful?
+supported.
+Send

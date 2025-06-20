@@ -1,0 +1,181 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/unauthorized
+SCRAPED: 2025-06-19 17:33:13
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+unauthorized
+unauthorized
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+--- CODE BLOCK 1 ---
+unauthorized
+--- END CODE BLOCK ---
+function throws an error that renders a Next.js 401 error page. It's useful for handling authorization errors in your application. You can customize the UI using the
+--- CODE BLOCK 2 ---
+unauthorized.js
+--- END CODE BLOCK ---
+file
+To start using
+--- CODE BLOCK 3 ---
+unauthorized
+--- END CODE BLOCK ---
+, enable the experimental
+--- CODE BLOCK 4 ---
+authInterrupts
+--- END CODE BLOCK ---
+configuration option in your
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+authInterrupts: true,
+export default nextConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+unauthorized
+--- END CODE BLOCK ---
+can be invoked in
+Server Components
+Server Actions
+, and
+Route Handlers
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+export default async function DashboardPage() {
+const session = await verifySession()
+if (!session) {
+unauthorized()
+// Render the dashboard for authenticated users
+return (
+<main>
+<h1>Welcome to the Dashboard</h1>
+<p>Hi, {session.user.name}.</p>
+</main>
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 11 ---
+unauthorized
+--- END CODE BLOCK ---
+function cannot be called in the
+root layout
+Examples
+Displaying login UI to unauthenticated users
+You can use
+--- CODE BLOCK 12 ---
+unauthorized
+--- END CODE BLOCK ---
+function to display the
+--- CODE BLOCK 13 ---
+unauthorized.js
+--- END CODE BLOCK ---
+file with a login UI.
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+export default async function DashboardPage() {
+const session = await verifySession()
+if (!session) {
+unauthorized()
+return <div>Dashboard</div>
+--- END CODE BLOCK ---
+app/unauthorized.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 16 ---
+import Login from '@/app/components/Login'
+export default function UnauthorizedPage() {
+return (
+<main>
+<h1>401 - Unauthorized</h1>
+<p>Please log in to access this page.</p>
+<Login />
+</main>
+--- END CODE BLOCK ---
+Mutations with Server Actions
+You can invoke
+--- CODE BLOCK 18 ---
+unauthorized
+--- END CODE BLOCK ---
+in Server Actions to ensure only authenticated users can perform specific mutations.
+app/actions/update-profile.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+'use server'
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+import db from '@/app/lib/db'
+export async function updateProfile(data: FormData) {
+const session = await verifySession()
+// If the user is not authenticated, return a 401
+if (!session) {
+unauthorized()
+// Proceed with mutation
+// ...
+--- END CODE BLOCK ---
+Fetching data with Route Handlers
+You can use
+--- CODE BLOCK 21 ---
+unauthorized
+--- END CODE BLOCK ---
+in Route Handlers to ensure only authenticated users can access the endpoint.
+app/api/profile/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 22 ---
+import { NextRequest, NextResponse } from 'next/server'
+import { verifySession } from '@/app/lib/dal'
+import { unauthorized } from 'next/navigation'
+export async function GET(req: NextRequest): Promise<NextResponse> {
+// Verify the user's session
+const session = await verifySession()
+// If no session exists, return a 401 and render unauthorized.tsx
+if (!session) {
+unauthorized()
+// Fetch data
+// ...
+--- END CODE BLOCK ---
+Version History
+Version
+Changes
+--- CODE BLOCK 25 ---
+unauthorized
+--- END CODE BLOCK ---
+[CODE_BLOCK_25]
+introduced.
+Next Steps
+unauthorized.js
+API reference for the unauthorized.js special file.
+Was this helpful?
+supported.
+Send

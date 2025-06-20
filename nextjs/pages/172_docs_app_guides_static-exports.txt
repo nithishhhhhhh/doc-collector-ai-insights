@@ -1,0 +1,355 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/static-exports
+SCRAPED: 2025-06-19 17:29:24
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Static Exports
+How to create a static export of your Next.js application
+Next.js enables starting as a static site or Single-Page Application (SPA), then later optionally upgrading to use features that require a server.
+When running
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+, Next.js generates an HTML file per route. By breaking a strict SPA into individual HTML files, Next.js can avoid loading unnecessary JavaScript code on the client-side, reducing the bundle size and enabling faster page loads.
+Since Next.js supports this static export, it can be deployed and hosted on any web server that can serve HTML/CSS/JS static assets.
+Configuration
+To enable a static export, change the output mode inside
+--- CODE BLOCK 3 ---
+* @type {import('next').NextConfig}
+const nextConfig = {
+output: 'export',
+// Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+// trailingSlash: true,
+// Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+// skipTrailingSlashRedirect: true,
+// Optional: Change the output directory `out` -> `dist`
+// distDir: 'dist',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 4 ---
+* @type {import('next').NextConfig}
+const nextConfig = {
+output: 'export',
+// Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+// trailingSlash: true,
+// Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+// skipTrailingSlashRedirect: true,
+// Optional: Change the output directory `out` -> `dist`
+// distDir: 'dist',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+After running
+--- CODE BLOCK 10 ---
+export default async function Page() {
+// This fetch will run on the server during `next build`
+const res = await fetch('https://api.example.com/...')
+const data = await res.json()
+return <main>...</main>
+--- END CODE BLOCK ---
+, Next.js will create an
+--- CODE BLOCK 11 ---
+'use client'
+import useSWR from 'swr'
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+export default function Page() {
+const { data, error } = useSWR(
+`https://jsonplaceholder.typicode.com/posts/1`,
+fetcher
+if (error) return 'Failed to load'
+if (!data) return 'Loading...'
+return data.title
+--- END CODE BLOCK ---
+folder with the HTML/CSS/JS assets for your application.
+Supported Features
+The core of Next.js has been designed to support static exports.
+Server Components
+When you run
+--- CODE BLOCK 12 ---
+'use client'
+import useSWR from 'swr'
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+export default function Page() {
+const { data, error } = useSWR(
+`https://jsonplaceholder.typicode.com/posts/1`,
+fetcher
+if (error) return 'Failed to load'
+if (!data) return 'Loading...'
+return data.title
+--- END CODE BLOCK ---
+to generate a static export, Server Components consumed inside the
+--- CODE BLOCK 13 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<h1>Index Page</h1>
+<hr />
+<ul>
+<li>
+<Link href="/post/1">Post 1</Link>
+</li>
+<li>
+<Link href="/post/2">Post 2</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+directory will run during the build, similar to traditional static-site generation.
+The resulting component will be rendered into static HTML for the initial page load and a static payload for client navigation between routes. No changes are required for your Server Components when using the static export, unless they consume
+dynamic server functions
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+import Link from 'next/link'
+export default function Page() {
+return (
+<h1>Index Page</h1>
+<hr />
+<ul>
+<li>
+<Link href="/post/1">Post 1</Link>
+</li>
+<li>
+<Link href="/post/2">Post 2</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+Client Components
+If you want to perform data fetching on the client, you can use a Client Component with
+to memoize requests.
+app/other/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 17 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+output: 'export',
+images: {
+loader: 'custom',
+loaderFile: './my-loader.ts',
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Since route transitions happen client-side, this behaves like a traditional SPA. For example, the following index route allows you to navigate to different posts on the client:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+export default function cloudinaryLoader({
+src,
+width,
+quality,
+}: {
+src: string
+width: number
+quality?: number
+}) {
+const params = ['f_auto', 'c_limit', `w_${width}`, `q_${quality || 'auto'}`]
+return `https://res.cloudinary.com/demo/image/upload/${params.join(
+)}${src}`
+--- END CODE BLOCK ---
+Image Optimization
+Image Optimization
+through
+--- CODE BLOCK 22 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image alt="turtles" src="/turtles.jpg" width={300} height={300} />
+--- END CODE BLOCK ---
+can be used with a static export by defining a custom image loader in
+--- CODE BLOCK 23 ---
+import Image from 'next/image'
+export default function Page() {
+return <Image alt="turtles" src="/turtles.jpg" width={300} height={300} />
+--- END CODE BLOCK ---
+. For example, you can optimize images with a service like Cloudinary:
+next.config.js
+--- CODE BLOCK 26 ---
+export async function GET() {
+return Response.json({ name: 'Lee' })
+--- END CODE BLOCK ---
+This custom loader will define how to fetch images from a remote source. For example, the following loader will construct the URL for Cloudinary:
+my-loader.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+app/data.json/route.ts
+--- END CODE BLOCK ---
+You can then use
+--- CODE BLOCK 34 ---
+localStorage
+--- END CODE BLOCK ---
+in your application, defining relative paths to the image in Cloudinary:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 36 ---
+'use client';
+import { useEffect } from 'react';
+export default function ClientComponent() {
+useEffect(() => {
+// You now have access to `window`
+console.log(window.innerHeight);
+}, [])
+return ...;
+--- END CODE BLOCK ---
+Route Handlers
+Route Handlers will render a static response when running
+--- CODE BLOCK 38 ---
+dynamicParams: true
+--- END CODE BLOCK ---
+. Only the
+--- CODE BLOCK 39 ---
+generateStaticParams()
+--- END CODE BLOCK ---
+HTTP verb is supported. This can be used to generate static HTML, JSON, TXT, or other files from cached or uncached data. For example:
+app/data.json/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 44 ---
+export const dynamic = 'error'
+--- END CODE BLOCK ---
+The above file
+--- CODE BLOCK 51 ---
+/out/index.html
+--- END CODE BLOCK ---
+will render to a static file during
+--- CODE BLOCK 52 ---
+/out/404.html
+--- END CODE BLOCK ---
+, producing
+--- CODE BLOCK 53 ---
+/out/blog/post-1.html
+--- END CODE BLOCK ---
+containing
+--- CODE BLOCK 54 ---
+/out/blog/post-2.html
+--- END CODE BLOCK ---
+If you need to read dynamic values from the incoming request, you cannot use a static export.
+Browser APIs
+Client Components are pre-rendered to HTML during
+--- CODE BLOCK 55 ---
+server {
+listen 80;
+server_name acme.com;
+root /var/www/out;
+location / {
+try_files $uri $uri.html $uri/ =404;
+# This is necessary when `trailingSlash: false`.
+# You can omit this when `trailingSlash: true`.
+location /blog/ {
+rewrite ^/blog/(.*)$ /blog/$1.html break;
+error_page 404 /404.html;
+location = /404.html {
+internal;
+--- END CODE BLOCK ---
+. Because
+Web APIs
+like
+--- CODE BLOCK 56 ---
+server {
+listen 80;
+server_name acme.com;
+root /var/www/out;
+location / {
+try_files $uri $uri.html $uri/ =404;
+# This is necessary when `trailingSlash: false`.
+# You can omit this when `trailingSlash: true`.
+location /blog/ {
+rewrite ^/blog/(.*)$ /blog/$1.html break;
+error_page 404 /404.html;
+location = /404.html {
+internal;
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+next export
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 59 ---
+"output": "export"
+--- END CODE BLOCK ---
+are not available on the server, you need to safely access these APIs only when running in the browser. For example:
+--- CODE BLOCK 62 ---
+next export
+--- END CODE BLOCK ---
+Unsupported Features
+Features that require a Node.js server, or dynamic logic that cannot be computed during the build process, are
+supported:
+Dynamic Routes
+with
+[CODE_BLOCK_38]
+Dynamic Routes
+without
+[CODE_BLOCK_39]
+Route Handlers
+that rely on Request
+Cookies
+Rewrites
+Redirects
+Headers
+Middleware
+Incremental Static Regeneration
+Image Optimization
+with the default
+[CODE_BLOCK_40]
+Draft Mode
+Server Actions
+Intercepting Routes
+Attempting to use any of these features with
+[CODE_BLOCK_41]
+will result in an error, similar to setting the
+[CODE_BLOCK_42]
+option to
+[CODE_BLOCK_43]
+in the root layout.
+[CODE_BLOCK_44]
+Deploying
+With a static export, Next.js can be deployed and hosted on any web server that can serve HTML/CSS/JS static assets.
+When running
+[CODE_BLOCK_46]
+, Next.js generates the static export into the
+[CODE_BLOCK_47]
+folder. For example, let's say you have the following routes:
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+After running
+[CODE_BLOCK_50]
+, Next.js will generate the following files:
+[CODE_BLOCK_51]
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+If you are using a static host like Nginx, you can configure rewrites from incoming requests to the correct files:
+nginx.conf
+[CODE_BLOCK_55]
+Version History
+Version
+Changes
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+has been removed in favor of
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+App Router (Stable) adds enhanced static export support, including using React Server Components and Route Handlers.
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+is deprecated and replaced with
+[CODE_BLOCK_63]
+Was this helpful?
+supported.
+Send

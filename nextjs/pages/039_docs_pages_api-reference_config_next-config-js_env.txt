@@ -1,0 +1,82 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/env
+SCRAPED: 2025-06-19 17:13:35
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+You are currently viewing the documentation for Pages Router.
+Since the release of
+Next.js 9.4
+we now have a more intuitive and ergonomic experience for
+adding environment variables
+. Give it a try!
+Good to know
+: environment variables specified in this way will
+always
+be included in the JavaScript bundle, prefixing the environment variable name with
+--- CODE BLOCK 1 ---
+NEXT_PUBLIC_
+--- END CODE BLOCK ---
+only has an effect when specifying them
+through the environment or .env files
+To add environment variables to the JavaScript bundle, open
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+and add the
+--- CODE BLOCK 4 ---
+module.exports = {
+env: {
+customKey: 'my-value',
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 5 ---
+module.exports = {
+env: {
+customKey: 'my-value',
+--- END CODE BLOCK ---
+Now you can access
+--- CODE BLOCK 7 ---
+function Page() {
+return <h1>The value of customKey is: {process.env.customKey}</h1>
+export default Page
+--- END CODE BLOCK ---
+in your code. For example:
+--- CODE BLOCK 8 ---
+function Page() {
+return <h1>The value of customKey is: {process.env.customKey}</h1>
+export default Page
+--- END CODE BLOCK ---
+Next.js will replace
+--- CODE BLOCK 11 ---
+process.env
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 12 ---
+return <h1>The value of customKey is: {process.env.customKey}</h1>
+--- END CODE BLOCK ---
+at build time. Trying to destructure
+--- CODE BLOCK 13 ---
+return <h1>The value of customKey is: {process.env.customKey}</h1>
+--- END CODE BLOCK ---
+variables won't work due to the nature of webpack
+DefinePlugin
+For example, the following line:
+--- CODE BLOCK 14 ---
+return <h1>The value of customKey is: {'my-value'}</h1>
+--- END CODE BLOCK ---
+Will end up being:
+[CODE_BLOCK_14]
+Was this helpful?
+supported.
+Send

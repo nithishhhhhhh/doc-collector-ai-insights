@@ -1,0 +1,45 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/transpilePackages
+SCRAPED: 2025-06-19 17:52:07
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+transpilePackages
+You are currently viewing the documentation for Pages Router.
+transpilePackages
+Next.js can automatically transpile and bundle dependencies from local packages (like monorepos) or from external dependencies (
+--- CODE BLOCK 1 ---
+node_modules
+--- END CODE BLOCK ---
+). This replaces the
+--- CODE BLOCK 2 ---
+next-transpile-modules
+--- END CODE BLOCK ---
+package.
+next.config.js
+--- CODE BLOCK 3 ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+transpilePackages: ['package-name'],
+module.exports = nextConfig
+--- END CODE BLOCK ---
+Version History
+Version
+Changes
+--- CODE BLOCK 6 ---
+transpilePackages
+--- END CODE BLOCK ---
+[CODE_BLOCK_6]
+added.
+Was this helpful?
+supported.
+Send

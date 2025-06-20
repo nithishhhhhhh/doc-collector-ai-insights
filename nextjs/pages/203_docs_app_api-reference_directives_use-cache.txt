@@ -1,0 +1,381 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/directives/use-cache
+SCRAPED: 2025-06-19 17:33:06
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Directives
+use cache
+use cache
+This feature is currently available in the canary channel and subject to change. Try it out by
+upgrading Next.js
+, and share your feedback on
+GitHub
+--- CODE BLOCK 4 ---
+next.config.ts
+--- END CODE BLOCK ---
+directive allows you to mark a route, React component, or a function as cacheable. It can be used at the top of a file to indicate that all exports in the file should be cached, or inline at the top of function or component to cache the return value.
+Usage
+--- CODE BLOCK 5 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+useCache: true,
+export default nextConfig
+--- END CODE BLOCK ---
+is currently an experimental feature. To enable it, add the
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+useCache: true,
+export default nextConfig
+--- END CODE BLOCK ---
+option to your
+--- CODE BLOCK 10 ---
+// File level
+'use cache'
+export default async function Page() {
+// ...
+// Component level
+export async function MyComponent() {
+'use cache'
+return <></>
+// Function level
+export async function getData() {
+'use cache'
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 11 ---
+// File level
+'use cache'
+export default async function Page() {
+// ...
+// Component level
+export async function MyComponent() {
+'use cache'
+return <></>
+// Function level
+export async function getData() {
+'use cache'
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+Good to know:
+--- CODE BLOCK 16 ---
+function CachedComponent({ children }: { children: ReactNode }) {
+'use cache'
+return <div>{children}</div>
+--- END CODE BLOCK ---
+can also be enabled with the
+--- CODE BLOCK 17 ---
+function CachedComponent({ children }: { children: ReactNode }) {
+'use cache'
+return <div>{children}</div>
+--- END CODE BLOCK ---
+option.
+Then, add
+--- CODE BLOCK 34 ---
+'use cache'
+export default function Layout({ children }: { children: ReactNode }) {
+return <div>{children}</div>
+--- END CODE BLOCK ---
+at the file, component, or function level:
+--- CODE BLOCK 35 ---
+'use cache'
+export default function Layout({ children }: { children: ReactNode }) {
+return <div>{children}</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+'use cache'
+async function Users() {
+const users = await fetch('/api/users')
+// loop through users
+export default function Page() {
+return (
+<main>
+<Users />
+</main>
+--- END CODE BLOCK ---
+works
+Cache keys
+A cache entry's key is generated using a serialized version of its inputs, which includes:
+Build ID (generated for each build)
+Function ID (a secure identifier unique to the function)
+serializable
+function arguments (or props).
+The arguments passed to the cached function, as well as any values it reads from the parent scope automatically become a part of the key. This means, the same cache entry will be reused as long as its inputs are the same.
+Non-serializable arguments
+Any non-serializable arguments, props, or closed-over values will turn into references inside the cached function, and can be only passed through and not inspected nor modified. These non-serializable values will be filled in at the request time and won't become a part of the cache key.
+For example, a cached function can take in JSX as a
+--- CODE BLOCK 45 ---
+export async function Bookings({ type = 'haircut' }: BookingsProps) {
+'use cache'
+async function getBookingsData() {
+const data = await fetch(`/api/bookings?type=${encodeURIComponent(type)}`)
+return data
+return //...
+interface BookingsProps {
+type: string
+--- END CODE BLOCK ---
+prop and return
+--- CODE BLOCK 46 ---
+export async function Bookings({ type = 'haircut' }: BookingsProps) {
+'use cache'
+async function getBookingsData() {
+const data = await fetch(`/api/bookings?type=${encodeURIComponent(type)}`)
+return data
+return //...
+interface BookingsProps {
+type: string
+--- END CODE BLOCK ---
+, but it won't be able to introspect the actual
+--- CODE BLOCK 49 ---
+export async function getData() {
+'use cache'
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+object. This allows you to nest uncached content inside a cached component.
+app/ui/cached-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 50 ---
+export async function getData() {
+'use cache'
+const data = await fetch('/api/data')
+return data
+--- END CODE BLOCK ---
+Return values
+The return value of the cacheable function must be serializable. This ensures that the cached data can be stored and retrieved correctly.
+--- CODE BLOCK 54 ---
+export default async function Page() {
+const uncachedData = await getData()
+return (
+<CacheComponent>
+<DynamicComponent data={uncachedData} />
+</CacheComponent>
+async function CacheComponent({ children }: { children: ReactNode }) {
+'use cache'
+const cachedData = await fetch('/api/cached-data')
+return (
+<div>
+<PrerenderedComponent data={cachedData} />
+{children}
+</div>
+--- END CODE BLOCK ---
+at build time
+When used at the top of a
+layout
+page
+, the route segment will be prerendered, allowing it to later be
+revalidated
+This means
+--- CODE BLOCK 55 ---
+import ClientComponent from './ClientComponent'
+export default async function Page() {
+const performUpdate = async () => {
+'use server'
+// Perform some server-side update
+await db.update(...)
+return <CacheComponent performUpdate={performUpdate} />
+async function CachedComponent({
+performUpdate,
+}: {
+performUpdate: () => Promise<void>
+}) {
+'use cache'
+// Do not call performUpdate here
+return <ClientComponent action={performUpdate} />
+--- END CODE BLOCK ---
+cannot be used with
+request-time APIs
+like
+--- CODE BLOCK 56 ---
+import ClientComponent from './ClientComponent'
+export default async function Page() {
+const performUpdate = async () => {
+'use server'
+// Perform some server-side update
+await db.update(...)
+return <CacheComponent performUpdate={performUpdate} />
+async function CachedComponent({
+performUpdate,
+}: {
+performUpdate: () => Promise<void>
+}) {
+'use cache'
+// Do not call performUpdate here
+return <ClientComponent action={performUpdate} />
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+'use client'
+export default function ClientComponent({
+action,
+}: {
+action: () => Promise<void>
+}) {
+return <button onClick={action}>Update</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+'use client'
+export default function ClientComponent({
+action,
+}: {
+action: () => Promise<void>
+}) {
+return <button onClick={action}>Update</button>
+--- END CODE BLOCK ---
+at runtime
+On the
+server
+, the cache entries of individual components or functions will be cached in-memory.
+Then, on the
+client
+, any content returned from the server cache will be stored in the browser's memory for the duration of the session or until
+revalidated
+During revalidation
+By default,
+--- CODE BLOCK 60 ---
+"use cache"
+--- END CODE BLOCK ---
+has server-side revalidation period of
+15 minutes
+. While this period may be useful for content that doesn't require frequent updates, you can use the
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+APIs to configure when the individual cache entries should be revalidated.
+[CODE_BLOCK_26]
+: Configure the cache entry lifetime.
+[CODE_BLOCK_27]
+: Create tags for on-demand revalidation.
+Both of these APIs integrate across the client and server caching layers, meaning you can configure your caching semantics in one place and have them apply everywhere.
+See the
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+API docs for more information.
+Examples
+Caching an entire route with
+[CODE_BLOCK_30]
+To prerender an entire route, add
+[CODE_BLOCK_31]
+to the top of
+both
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+files. Each of these segments are treated as separate entry points in your application, and will be cached independently.
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_34]
+Any components imported and nested in
+[CODE_BLOCK_36]
+file will inherit the cache behavior of
+[CODE_BLOCK_37]
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_38]
+Good to know
+[CODE_BLOCK_40]
+is added only to the
+[CODE_BLOCK_41]
+or the
+[CODE_BLOCK_42]
+, only that route segment and any components imported into it will be cached.
+If any of the nested children in the route use
+Dynamic APIs
+, then the route will opt out of prerendering.
+Caching a component's output with
+[CODE_BLOCK_43]
+You can use
+[CODE_BLOCK_44]
+at the component level to cache any fetches or computations performed within that component. The cache entry will be reused as long as the serialized props produce the same value in each instance.
+app/components/bookings.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_45]
+Caching function output with
+[CODE_BLOCK_47]
+Since you can add
+[CODE_BLOCK_48]
+to any asynchronous function, you aren't limited to caching components or routes only. You might want to cache a network request, a database query, or a slow computation.
+app/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_49]
+Interleaving
+If you need to pass non-serializable arguments to a cacheable function, you can pass them as
+[CODE_BLOCK_51]
+. This means the
+[CODE_BLOCK_52]
+reference can change without affecting the cache entry.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_53]
+You can also pass Server Actions through cached components to Client Components without invoking them inside the cacheable function.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_55]
+app/ClientComponent.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_57]
+Platform Support
+Deployment Option
+Supported
+Node.js server
+Docker container
+Static export
+Adapters
+Platform-specific
+Learn how to
+configure caching
+when self-hosting Next.js.
+Version History
+Version
+Changes
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+is introduced as an experimental feature.
+Related
+View related API references.
+useCache
+Learn how to enable the useCache flag in Next.js.
+dynamicIO
+Learn how to enable the dynamicIO flag in Next.js.
+cacheLife
+Learn how to set up cacheLife configurations in Next.js.
+cacheTag
+Learn how to use the cacheTag function to manage cache invalidation in your Next.js application.
+cacheLife
+Learn how to use the cacheLife function to set the cache expiration time for a cached function or component.
+revalidateTag
+API Reference for the revalidateTag function.
+Was this helpful?
+supported.
+Send

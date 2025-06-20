@@ -1,0 +1,287 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
+SCRAPED: 2025-06-19 18:17:28
+================================================================================
+
+--- CODE BLOCK 1 ---
+parseFloat()
+--- END CODE BLOCK ---
+function parses a string argument and returns a floating point number.
+Try it
+--- CODE BLOCK 2 ---
+function circumference(r) {
+return parseFloat(r) * 2.0 * Math.PI;
+console.log(circumference(4.567));
+// Expected output: 28.695307297889173
+console.log(circumference("4.567abcdefgh"));
+// Expected output: 28.695307297889173
+console.log(circumference("abcdefgh"));
+// Expected output: NaN
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+parseFloat(string)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 10 ---
+parseFloat()
+--- END CODE BLOCK ---
+The value to parse,
+coerced to a string
+. Leading
+whitespace
+in this argument is ignored.
+Return value
+A floating point number parsed from the given
+--- CODE BLOCK 11 ---
+parseInt("42")
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 12 ---
+parseFloat("42")
+--- END CODE BLOCK ---
+when the first non-whitespace character cannot be converted to a number.
+Note:
+JavaScript does not have the distinction of "floating point numbers" and "integers" on the language level.
+--- CODE BLOCK 16 ---
+parseFloat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+parseFloat()
+--- END CODE BLOCK ---
+only differ in their parsing behavior, but not necessarily their return values. For example,
+--- CODE BLOCK 37 ---
+"-Infinity"
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+parseFloat()
+--- END CODE BLOCK ---
+would return the same value: a
+--- CODE BLOCK 41 ---
+parseFloat()
+--- END CODE BLOCK ---
+Description
+--- CODE BLOCK 43 ---
+parseFloat()
+--- END CODE BLOCK ---
+function converts its first argument to a string, parses that string as a decimal number literal, then returns a number or
+--- CODE BLOCK 47 ---
+parseFloat()
+--- END CODE BLOCK ---
+. The number syntax it accepts can be summarized as:
+The characters accepted by
+--- CODE BLOCK 52 ---
+parseFloat()
+--- END CODE BLOCK ---
+are plus sign (
+--- CODE BLOCK 53 ---
+-1.7976931348623158e+308
+--- END CODE BLOCK ---
+), minus sign (
+--- CODE BLOCK 54 ---
+1.7976931348623158e+308
+--- END CODE BLOCK ---
+U+002D HYPHEN-MINUS), decimal digits (
+--- CODE BLOCK 55 ---
+Number.MAX_VALUE
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+parseFloat(3.14);
+parseFloat("3.14");
+parseFloat("  3.14  ");
+parseFloat("314e-2");
+parseFloat("0.0314E+2");
+parseFloat("3.14some non-digit characters");
+parseFloat({
+toString() {
+return "3.14";
+--- END CODE BLOCK ---
+), decimal point (
+--- CODE BLOCK 60 ---
+parseFloat(3.14);
+parseFloat("3.14");
+parseFloat("  3.14  ");
+parseFloat("314e-2");
+parseFloat("0.0314E+2");
+parseFloat("3.14some non-digit characters");
+parseFloat({
+toString() {
+return "3.14";
+--- END CODE BLOCK ---
+), exponent indicator (
+--- CODE BLOCK 62 ---
+parseFloat("FF2");
+--- END CODE BLOCK ---
+--- CODE BLOCK 63 ---
+parseFloat("FF2");
+--- END CODE BLOCK ---
+), and the
+--- CODE BLOCK 65 ---
+parseFloat()
+--- END CODE BLOCK ---
+literal.
+--- CODE BLOCK 68 ---
+parseFloat("NaN"); // NaN
+--- END CODE BLOCK ---
+--- CODE BLOCK 69 ---
+parseFloat("NaN"); // NaN
+--- END CODE BLOCK ---
+signs can only appear strictly at the beginning of the string, or immediately following the
+--- CODE BLOCK 70 ---
+parseFloat("1.7976931348623159e+308"); // Infinity
+parseFloat("-1.7976931348623159e+308"); // -Infinity
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+parseFloat("1.7976931348623159e+308"); // Infinity
+parseFloat("-1.7976931348623159e+308"); // -Infinity
+--- END CODE BLOCK ---
+character. The decimal point can only appear once, and only before the
+--- CODE BLOCK 73 ---
+"-Infinity"
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+parseFloat("Infinity"); // Infinity
+parseFloat("-Infinity"); // -Infinity
+--- END CODE BLOCK ---
+character. The
+--- CODE BLOCK 75 ---
+parseFloat("Infinity"); // Infinity
+parseFloat("-Infinity"); // -Infinity
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+parseFloat()
+--- END CODE BLOCK ---
+character can only appear once, and only if there is at least one digit before it.
+Leading spaces in the argument are trimmed and ignored.
+--- CODE BLOCK 79 ---
+parseFloat()
+--- END CODE BLOCK ---
+can also parse and return
+--- CODE BLOCK 80 ---
+parseFloat(900719925474099267n); // 900719925474099300
+parseFloat("900719925474099267n"); // 900719925474099300
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+parseFloat(900719925474099267n); // 900719925474099300
+parseFloat("900719925474099267n"); // 900719925474099300
+--- END CODE BLOCK ---
+if the string starts with
+--- CODE BLOCK 84 ---
+BigInt("900719925474099267");
+// 900719925474099267n
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+BigInt("900719925474099267");
+// 900719925474099267n
+--- END CODE BLOCK ---
+preceded by none or more white spaces.
+--- CODE BLOCK 87 ---
+Number.parseFloat()
+--- END CODE BLOCK ---
+picks the longest substring starting from the beginning that generates a valid number literal. If it encounters an invalid character, it returns the number represented up to that point, ignoring the invalid character and all characters following it.
+If the argument's first character can't start a legal number literal per the syntax above,
+--- CODE BLOCK 88 ---
+Number.parseInt()
+--- END CODE BLOCK ---
+returns
+--- CODE BLOCK 89 ---
+Number.prototype.toFixed()
+--- END CODE BLOCK ---
+Syntax-wise,
+[CODE_BLOCK_41]
+parses a subset of the syntax that the
+[CODE_BLOCK_42]
+function accepts. Namely,
+[CODE_BLOCK_43]
+does not support non-decimal literals with
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+, or
+[CODE_BLOCK_46]
+prefixes but supports everything else. However,
+[CODE_BLOCK_47]
+is more lenient than
+[CODE_BLOCK_48]
+because it ignores trailing invalid characters, which would cause
+[CODE_BLOCK_49]
+to return
+[CODE_BLOCK_50]
+Similar to number literals and
+[CODE_BLOCK_51]
+, the number returned from
+[CODE_BLOCK_52]
+may not be exactly equal to the number represented by the string, due to floating point range and inaccuracy. For numbers outside the
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+range (see
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+is returned.
+Examples
+Using parseFloat()
+The following examples all return
+[CODE_BLOCK_58]
+Copy to Clipboard
+[CODE_BLOCK_59]
+parseFloat() returning NaN
+The following example returns
+[CODE_BLOCK_61]
+Copy to Clipboard
+[CODE_BLOCK_62]
+Anecdotally, because the string
+[CODE_BLOCK_64]
+itself is invalid syntax as accepted by
+[CODE_BLOCK_65]
+, passing
+[CODE_BLOCK_66]
+returns
+[CODE_BLOCK_67]
+as well.
+Copy to Clipboard
+[CODE_BLOCK_68]
+Returning Infinity
+Infinity values are returned when the number is outside the double-precision 64-bit IEEE 754-2019 format range:
+Copy to Clipboard
+[CODE_BLOCK_70]
+Infinity is also returned when the string starts with
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+Copy to Clipboard
+[CODE_BLOCK_74]
+Interaction with BigInt values
+[CODE_BLOCK_76]
+does not handle
+[CODE_BLOCK_77]
+values. It stops at the
+[CODE_BLOCK_78]
+character, and treats the preceding string as a normal integer, with possible loss of precision. If a BigInt value is passed to
+[CODE_BLOCK_79]
+, it will be converted to a string, and the string will be parsed as a floating-point number, which may result in loss of precision as well.
+Copy to Clipboard
+[CODE_BLOCK_80]
+You should pass the string to the
+[CODE_BLOCK_82]
+function instead, without the trailing
+[CODE_BLOCK_83]
+character.
+Copy to Clipboard
+[CODE_BLOCK_84]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-parsefloat-string
+Browser compatibility
+See also
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

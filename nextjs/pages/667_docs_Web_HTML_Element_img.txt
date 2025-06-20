@@ -1,0 +1,982 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-sizes
+SCRAPED: 2025-06-19 18:25:16
+================================================================================
+
+--- CODE BLOCK 2 ---
+<img
+class="fit-picture"
+src="/shared-assets/images/examples/grapefruit-slice.jpg"
+alt="Grapefruit slice atop a pile of other slices" />
+--- END CODE BLOCK ---
+HTML
+element embeds an image into the document.
+Try it
+--- CODE BLOCK 3 ---
+<img
+class="fit-picture"
+src="/shared-assets/images/examples/grapefruit-slice.jpg"
+alt="Grapefruit slice atop a pile of other slices" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+.fit-picture {
+width: 250px;
+--- END CODE BLOCK ---
+The above example shows usage of the
+--- CODE BLOCK 12 ---
+referrerpolicy
+--- END CODE BLOCK ---
+element:
+--- CODE BLOCK 31 ---
+attributionsrc
+--- END CODE BLOCK ---
+attribute holds the path to the image you want to embed. It is not mandatory if the
+srcset
+attribute is available. However, at least one of the
+--- CODE BLOCK 32 ---
+Attribution-Reporting-Eligible
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+Attribution-Reporting-Register-Source
+--- END CODE BLOCK ---
+attributes must be provided.
+--- CODE BLOCK 34 ---
+Attribution-Reporting-Register-Trigger
+--- END CODE BLOCK ---
+attribute holds a textual replacement for the image, which is mandatory and
+incredibly useful
+for accessibility — screen readers read the attribute value out to their users so they know what the image means. Alt text is also displayed on the page if the image can't be loaded for some reason: for example, network errors, content blocking, or link rot.
+There are many other attributes to achieve various purposes:
+Referrer
+CORS
+control for security and privacy: see
+--- CODE BLOCK 35 ---
+Attribution-Reporting-Eligible
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+attributionsrc
+--- END CODE BLOCK ---
+Use both
+--- CODE BLOCK 37 ---
+Attribution-Reporting-Eligible
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+<img
+src="image-file.png"
+alt="My image file description"
+attributionsrc="https://a.example/register-source
+https://b.example/register-source" />
+--- END CODE BLOCK ---
+to set the intrinsic size of the image, allowing it to take up space before it loads, to mitigate content layout shifts.
+Responsive image hints with
+--- CODE BLOCK 40 ---
+<img
+src="image-file.png"
+alt="My image file description"
+attributionsrc="https://a.example/register-source
+https://b.example/register-source" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+attributionsrc
+--- END CODE BLOCK ---
+(see also the
+--- CODE BLOCK 42 ---
+Attribution-Reporting-Eligible
+--- END CODE BLOCK ---
+element and our
+Responsive images
+tutorial).
+Supported image formats
+The HTML standard doesn't list what image formats to support, so
+user agents
+may support different formats.
+Note:
+Image file type and format guide
+provides comprehensive information about image formats and their web browser support.
+This section is just a summary!
+The image file formats that are most commonly used on the web are:
+APNG (Animated Portable Network Graphics)
+— Good choice for lossless animation sequences (GIF is less performant)
+AVIF (AV1 Image File Format)
+— Good choice for both images and animated images due to high performance.
+GIF (Graphics Interchange Format)
+— Good choice for
+simple
+images and animations.
+JPEG (Joint Photographic Expert Group image)
+— Good choice for lossy compression of still images (currently the most popular).
+PNG (Portable Network Graphics)
+— Good choice for lossless compression of still images (slightly better quality than JPEG).
+SVG (Scalable Vector Graphics)
+— Vector image format. Use for images that must be drawn accurately at different sizes.
+WebP (Web Picture format)
+— Excellent choice for both images and animated images
+Formats like
+WebP
+AVIF
+are recommended as they perform much better than PNG, JPEG, GIF for both still and animated images.
+SVG remains the recommended format for images that must be drawn accurately at different sizes.
+Image loading errors
+If an error occurs while loading or rendering an image, and an
+--- CODE BLOCK 43 ---
+attributionSrc
+--- END CODE BLOCK ---
+event handler has been set for the
+--- CODE BLOCK 44 ---
+Attribution-Reporting-Register-Source
+--- END CODE BLOCK ---
+event, that event handler will get called. This can happen in several situations, including:
+--- CODE BLOCK 45 ---
+Attribution-Reporting-Register-Trigger
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+crossorigin
+--- END CODE BLOCK ---
+attributes are empty (
+--- CODE BLOCK 48 ---
+crossorigin
+--- END CODE BLOCK ---
+) or
+--- CODE BLOCK 51 ---
+crossorigin
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+is the same as the URL of the page the user is currently on.
+The image is corrupted in some way that prevents it from being loaded.
+The image's metadata is corrupted in such a way that it's impossible to retrieve its dimensions, and no dimensions were specified in the
+--- CODE BLOCK 54 ---
+Access-Control-Allow-Origin
+--- END CODE BLOCK ---
+element's attributes.
+The image is in a format not supported by the
+user agent
+Attributes
+This element includes the
+global attributes
+--- CODE BLOCK 56 ---
+Authorization
+--- END CODE BLOCK ---
+Defines text that can replace the image in the page.
+Note:
+Browsers do not always display images. There are a number of situations in which a browser might not display images, such as:
+Non-visual browsers (such as those used by people with visual impairments)
+The user chooses not to display images (saving bandwidth, privacy reasons)
+The image is invalid or an
+unsupported type
+In these cases, the browser may replace the image with the text in the element's
+--- CODE BLOCK 57 ---
+use-credentials
+--- END CODE BLOCK ---
+attribute. For these reasons and others, provide a useful value for
+--- CODE BLOCK 58 ---
+Authorization
+--- END CODE BLOCK ---
+whenever possible.
+Setting this attribute to an empty string (
+--- CODE BLOCK 59 ---
+Access-Control-Allow-Credentials: true
+--- END CODE BLOCK ---
+) indicates that this image is
+a key part of the content (it's decoration or a tracking pixel), and that non-visual browsers may omit it from
+rendering
+. Visual browsers will also hide the broken image icon if the
+--- CODE BLOCK 69 ---
+HTMLImageElement.decoding
+--- END CODE BLOCK ---
+attribute is empty and the image failed to display.
+This attribute is also used when copying and pasting the image to text, or saving a linked image to a bookmark.
+--- CODE BLOCK 73 ---
+elementtiming
+--- END CODE BLOCK ---
+Experimental
+Specifies that you want the browser to send an
+--- CODE BLOCK 74 ---
+PerformanceElementTiming
+--- END CODE BLOCK ---
+header along with the image request.
+On the server-side this is used to trigger sending an
+--- CODE BLOCK 75 ---
+elementtiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+fetchpriority
+--- END CODE BLOCK ---
+header in the response, to register an image-based
+attribution source
+attribution trigger
+, respectively. Which response header should be sent back depends on the value of the
+--- CODE BLOCK 80 ---
+HTMLImageElement.fetchPriority
+--- END CODE BLOCK ---
+header that triggered the registration.
+The corresponding source or trigger event is set off once the browser receives the response containing the image file.
+Note:
+See the
+Attribution Reporting API
+for more details.
+There are two versions of this attribute that you can set:
+Boolean, i.e., just the
+--- CODE BLOCK 98 ---
+referrerpolicy
+--- END CODE BLOCK ---
+name. This specifies that you want the
+--- CODE BLOCK 99 ---
+no-referrer
+--- END CODE BLOCK ---
+header sent to the same server as the
+--- CODE BLOCK 101 ---
+no-referrer-when-downgrade
+--- END CODE BLOCK ---
+attribute points to. This is fine when you are handling the attribution source or trigger registration on the same server. When registering an attribution trigger this property is optional, and a boolean value will be used if it is omitted.
+Value containing one or more URLs, for example:
+html
+Copy to Clipboard
+--- CODE BLOCK 104 ---
+origin-when-cross-origin
+--- END CODE BLOCK ---
+This is useful in cases where the requested resource is not on a server you control, or you just want to handle registering the attribution source on a different server. In this case, you can specify one or more URLs as the value of
+--- CODE BLOCK 106 ---
+strict-origin
+--- END CODE BLOCK ---
+. When the resource request occurs the
+--- CODE BLOCK 107 ---
+strict-origin-when-cross-origin
+--- END CODE BLOCK ---
+header will be sent to the URL(s) specified in
+--- CODE BLOCK 110 ---
+(max-height: 500px) 1000px
+--- END CODE BLOCK ---
+in addition to the resource origin. These URLs can then respond with a
+--- CODE BLOCK 120 ---
+loading="lazy"
+--- END CODE BLOCK ---
+--- CODE BLOCK 150 ---
+vertical-align
+--- END CODE BLOCK ---
+header as appropriate to complete registration.
+Note:
+Specifying multiple URLs means that multiple attribution sources can be registered on the same feature. You might for example have different campaigns that you are trying to measure the success of, which involve generating different reports on different data.
+--- CODE BLOCK 152 ---
+vertical-align: top
+--- END CODE BLOCK ---
+Indicates if the fetching of the image must be done using a
+CORS
+request. Image data from a
+CORS-enabled image
+returned from a CORS request can be reused in the
+--- CODE BLOCK 153 ---
+vertical-align: text-top
+--- END CODE BLOCK ---
+element without being marked "
+tainted
+If the
+--- CODE BLOCK 155 ---
+vertical-align: -moz-middle-with-baseline
+--- END CODE BLOCK ---
+attribute is
+specified, then a non-CORS request is sent (without the
+--- CODE BLOCK 157 ---
+vertical-align: unset
+--- END CODE BLOCK ---
+request header), and the browser marks the image as tainted and restricts access to its image data, preventing its usage in
+--- CODE BLOCK 158 ---
+vertical-align: initial
+--- END CODE BLOCK ---
+elements.
+If the
+--- CODE BLOCK 160 ---
+float: left
+--- END CODE BLOCK ---
+attribute
+specified, then a CORS request is sent (with the
+--- CODE BLOCK 162 ---
+float: right
+--- END CODE BLOCK ---
+request header); but if the server does not opt into allowing cross-origin access to the image data by the origin site (by not sending any
+--- CODE BLOCK 169 ---
+aria-describedby
+--- END CODE BLOCK ---
+response header, or by not including the site's origin in any
+--- CODE BLOCK 170 ---
+aria-details
+--- END CODE BLOCK ---
+response header it does send), then the browser blocks the image from loading, and logs a CORS error to the devtools console.
+Allowed values:
+--- CODE BLOCK 178 ---
+inline-block
+--- END CODE BLOCK ---
+A CORS request is sent with credentials omitted (that is, no
+cookies
+X.509 certificates
+, or
+--- CODE BLOCK 180 ---
+border-radius
+--- END CODE BLOCK ---
+request header).
+--- CODE BLOCK 186 ---
+vertical-align: baseline
+--- END CODE BLOCK ---
+The CORS request is sent with any credentials included (that is, cookies, X.509 certificates, and the
+--- CODE BLOCK 187 ---
+object-position
+--- END CODE BLOCK ---
+request header). If the server does not opt into sharing credentials with the origin site (by sending back the
+--- CODE BLOCK 194 ---
+<img alt="image" src="penguin.jpg" />
+--- END CODE BLOCK ---
+response header), then the browser marks the image as tainted and restricts access to its image data.
+If the attribute has an invalid value, browsers handle it as if the
+--- CODE BLOCK 195 ---
+<img alt="image" src="penguin.jpg" />
+--- END CODE BLOCK ---
+value was used. See
+CORS settings attributes
+for additional information.
+--- CODE BLOCK 196 ---
+<img alt="A Penguin on a beach." src="penguin.jpg" />
+--- END CODE BLOCK ---
+This attribute provides a hint to the browser as to whether it should perform image decoding along with rendering the other DOM content in a single presentation step that looks more "correct" (
+--- CODE BLOCK 197 ---
+<img alt="A Penguin on a beach." src="penguin.jpg" />
+--- END CODE BLOCK ---
+), or render and present the other DOM content first and then decode the image and present it later (
+--- CODE BLOCK 202 ---
+alt="next page"
+--- END CODE BLOCK ---
+). In practice,
+--- CODE BLOCK 203 ---
+alt="arrow right"
+--- END CODE BLOCK ---
+means that the next paint does not wait for the image to decode.
+It is often difficult to perceive any noticeable effect when using
+--- CODE BLOCK 208 ---
+<img src="mdn.svg" alt="MDN" role="img" />
+--- END CODE BLOCK ---
+on static
+--- CODE BLOCK 209 ---
+<img src="mdn.svg" alt="MDN" role="img" />
+--- END CODE BLOCK ---
+elements. They'll likely be initially rendered as empty images while the image files are fetched (either from the network or from the cache) and then handled independently anyway, so the "syncing" of content updates is less apparent. However, the blocking of rendering while decoding happens, while often quite small,
+be measured — even if it is difficult to observe with the human eye. See
+What does the image decoding attribute actually do?
+for a more detailed analysis (tunetheweb.com, 2023).
+Using different
+--- CODE BLOCK 220 ---
+<img src="/shared-assets/images/examples/favicon144.png" alt="MDN" />
+--- END CODE BLOCK ---
+types can result in more noticeable differences when dynamically inserting
+--- CODE BLOCK 221 ---
+<img src="/shared-assets/images/examples/favicon144.png" alt="MDN" />
+--- END CODE BLOCK ---
+elements into the DOM via JavaScript — see
+--- CODE BLOCK 224 ---
+<a href="https://developer.mozilla.org">
+<img
+src="/shared-assets/images/examples/favicon144.png"
+alt="Visit the MDN site" />
+</a>
+--- END CODE BLOCK ---
+for more details.
+Allowed values:
+--- CODE BLOCK 225 ---
+<a href="https://developer.mozilla.org">
+<img
+src="/shared-assets/images/examples/favicon144.png"
+alt="Visit the MDN site" />
+</a>
+--- END CODE BLOCK ---
+Decode the image synchronously along with rendering the other DOM content, and present everything together.
+--- CODE BLOCK 231 ---
+<img
+src="/shared-assets/images/examples/favicon72.png"
+alt="MDN"
+srcset="/shared-assets/images/examples/favicon144.png 2x" />
+--- END CODE BLOCK ---
+Decode the image asynchronously, after rendering and presenting the other DOM content.
+--- CODE BLOCK 232 ---
+<img
+src="/shared-assets/images/examples/favicon72.png"
+alt="MDN"
+srcset="/shared-assets/images/examples/favicon144.png 2x" />
+--- END CODE BLOCK ---
+No preference for the decoding mode; the browser decides what is best for the user. This is the default value.
+--- CODE BLOCK 236 ---
+(max-width: 600px)
+--- END CODE BLOCK ---
+Marks the image for observation by the
+--- CODE BLOCK 238 ---
+<img
+src="clock-demo-200px.png"
+alt="The time is 12:45."
+srcset="clock-demo-200px.png 200w, clock-demo-400px.png 400w"
+sizes="(max-width: 600px) 200px, 50vw" />
+--- END CODE BLOCK ---
+API. The value given becomes an identifier for the observed image element. See also the
+--- CODE BLOCK 239 ---
+<img
+src="clock-demo-200px.png"
+alt="The time is 12:45."
+srcset="clock-demo-200px.png 200w, clock-demo-400px.png 400w"
+sizes="(max-width: 600px) 200px, 50vw" />
+--- END CODE BLOCK ---
+attribute page.
+--- CODE BLOCK 247 ---
+presentation
+--- END CODE BLOCK ---
+Provides a hint of the relative priority to use when fetching the image.
+Allowed values:
+--- CODE BLOCK 253 ---
+menuitemcheckbox
+--- END CODE BLOCK ---
+Fetch the image at a high priority relative to other images.
+--- CODE BLOCK 254 ---
+menuitemradio
+--- END CODE BLOCK ---
+Fetch the image at a low priority relative to other images.
+--- CODE BLOCK 256 ---
+progressbar
+--- END CODE BLOCK ---
+Don't set a preference for the fetch priority.
+This is the default.
+It is used if no value or an invalid value is set.
+--- CODE BLOCK 265 ---
+presentation
+--- END CODE BLOCK ---
+for more information.
+--- CODE BLOCK 268 ---
+HTMLImageElement
+--- END CODE BLOCK ---
+The intrinsic height of the image, in pixels. Must be an integer without a unit.
+Note:
+Including
+--- CODE BLOCK 273 ---
+object-position
+--- END CODE BLOCK ---
+--- CODE BLOCK 274 ---
+image-orientation
+--- END CODE BLOCK ---
+enables the
+aspect ratio
+of the image to be calculated by the browser prior to the image being loaded. This aspect ratio is used to reserve the space needed to display the image, reducing or even preventing a layout shift when the image is downloaded and painted to the screen. Reducing layout shift is a major component of good user experience and web performance.
+--- CODE BLOCK 275 ---
+image-rendering
+--- END CODE BLOCK ---
+This Boolean attribute indicates that the image is part of a
+server-side map
+. If so, the coordinates where the user clicked on the image are sent to the server.
+Note:
+This attribute is allowed only if the
+--- CODE BLOCK 276 ---
+image-resolution
+--- END CODE BLOCK ---
+element is a descendant of an
+--- CODE BLOCK 277 ---
+HTMLImageElement
+--- END CODE BLOCK ---
+element with a valid
+[CODE_BLOCK_87]
+attribute. This gives users without pointing devices a fallback destination.
+[CODE_BLOCK_88]
+Indicates how the browser should load the image:
+[CODE_BLOCK_89]
+Loads the image immediately, regardless of whether or not the image is currently within the visible viewport (this is the default value).
+[CODE_BLOCK_90]
+Defers loading the image until it reaches a calculated distance from the viewport, as defined by the browser. The intent is to avoid the network and storage bandwidth needed to handle the image until it's reasonably certain that it will be needed. This generally improves the performance of the content in most typical use cases.
+Note:
+Loading is only deferred when JavaScript is enabled. This is an anti-tracking measure, because if a user agent supported lazy loading when scripting is disabled, it would still be possible for a site to track a user's approximate scroll position throughout a session, by strategically placing images in a page's markup such that a server can track how many images are requested and when.
+Note:
+Images with
+[CODE_BLOCK_91]
+set to
+[CODE_BLOCK_92]
+will never be loaded if they do not intersect a visible part of an element, even if loading them would change that as unloaded images have a
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+. Putting
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+on lazy-loaded images fixes this issue and is a best practice,
+recommended by the specification
+. Doing so also helps prevent layout shifts.
+[CODE_BLOCK_98]
+A string indicating which referrer to use when fetching the resource:
+[CODE_BLOCK_99]
+: The
+[CODE_BLOCK_100]
+header will not be sent.
+[CODE_BLOCK_101]
+: The
+[CODE_BLOCK_102]
+header will not be sent to
+origin
+s without
+HTTPS
+[CODE_BLOCK_103]
+: The sent referrer will be limited to the origin of the referring page: its
+scheme
+host
+, and
+port
+[CODE_BLOCK_104]
+: The referrer sent to other origins will be limited to the scheme, the host, and the port. Navigations on the same origin will still include the path.
+[CODE_BLOCK_105]
+: A referrer will be sent for
+same origin
+, but cross-origin requests will contain no referrer information.
+[CODE_BLOCK_106]
+: Only send the origin of the document as the referrer when the protocol security level stays the same (HTTPS→HTTPS), but don't send it to a less secure destination (HTTPS→HTTP).
+[CODE_BLOCK_107]
+(default): Send a full URL when performing a same-origin request, only send the origin when the protocol security level stays the same (HTTPS→HTTPS), and send no header to a less secure destination (HTTPS→HTTP).
+[CODE_BLOCK_108]
+: The referrer will include the origin
+the path (but not the
+fragment
+password
+, or
+username
+This value is unsafe
+, because it leaks origins and paths from TLS-protected resources to insecure origins.
+[CODE_BLOCK_109]
+One or more strings separated by commas, indicating a set of source sizes. Each source size consists of:
+media condition
+. This must be omitted for the last item in the list.
+A source size value.
+Media Conditions describe properties of the
+viewport
+, not of the
+image
+. For example,
+[CODE_BLOCK_110]
+proposes to use a source of 1000px width, if the
+viewport
+is not higher than 500px. Because a source size descriptor is used to specify the width to use for the image during layout of the page, the media condition is typically (but not necessarily) based on the
+width
+information.
+Source size values specify the intended display size of the image.
+User agents
+use the current source size to select one of the sources supplied by the
+[CODE_BLOCK_111]
+attribute, when those sources are described using width (
+[CODE_BLOCK_112]
+) descriptors. The selected source size affects the
+intrinsic size
+of the image (the image's display size if no
+styling is applied). If the
+[CODE_BLOCK_113]
+attribute is absent, or contains no values with a width descriptor, then the
+[CODE_BLOCK_114]
+attribute has no effect.
+A source size value can be any non-negative
+length
+. It must not use CSS functions other than the
+math functions
+. Units are interpreted in the same way as
+media queries
+, meaning that all relative length units are relative to the document root rather than the
+[CODE_BLOCK_115]
+element, so an
+[CODE_BLOCK_116]
+value is relative to the root font size, rather than the font size of the image.
+Percentage
+values are not allowed.
+[CODE_BLOCK_117]
+attribute also accepts the following keyword values:
+[CODE_BLOCK_118]
+[CODE_BLOCK_119]
+can replace the whole list of sizes or the first entry in the list. It is only valid when combined with
+[CODE_BLOCK_120]
+, and resolves to the
+concrete size
+of the image. Since the intrinsic size of the image is not yet known,
+[CODE_BLOCK_121]
+[CODE_BLOCK_122]
+attributes (or CSS equivalents) should also be specified to
+prevent the browser assuming a default width of 300px
+[CODE_BLOCK_123]
+The image
+. Mandatory for the
+[CODE_BLOCK_124]
+element. On
+browsers
+supporting
+[CODE_BLOCK_125]
+[CODE_BLOCK_126]
+is treated like a candidate image with a pixel density descriptor
+[CODE_BLOCK_127]
+, unless an image with this pixel density descriptor is already defined in
+[CODE_BLOCK_128]
+, or unless
+[CODE_BLOCK_129]
+contains
+[CODE_BLOCK_130]
+descriptors.
+[CODE_BLOCK_131]
+One or more strings separated by commas, indicating possible image sources for the
+user agent
+to use. Each string is composed of:
+to an image
+Optionally, whitespace followed by one of:
+A width descriptor (a positive integer directly followed by
+[CODE_BLOCK_132]
+). The width descriptor is divided by the source size given in the
+[CODE_BLOCK_133]
+attribute to calculate the effective pixel density.
+A pixel density descriptor (a positive floating point number directly followed by
+[CODE_BLOCK_134]
+If no descriptor is specified, the source is assigned the default descriptor of
+[CODE_BLOCK_135]
+It is incorrect to mix width descriptors and pixel density descriptors in the same
+[CODE_BLOCK_136]
+attribute. Duplicate descriptors (for instance, two sources in the same
+[CODE_BLOCK_137]
+which are both described with
+[CODE_BLOCK_138]
+) are also invalid.
+If the
+[CODE_BLOCK_139]
+attribute uses width descriptors, the
+[CODE_BLOCK_140]
+attribute must also be present, or the
+[CODE_BLOCK_141]
+itself will be ignored.
+The user agent selects any of the available sources at its discretion. This provides them with significant leeway to tailor their selection based on things like user preferences or
+bandwidth
+conditions. See our
+Responsive images
+tutorial for an example.
+[CODE_BLOCK_142]
+The intrinsic width of the image in pixels. Must be an integer without a unit.
+[CODE_BLOCK_143]
+The partial
+(starting with
+[CODE_BLOCK_144]
+) of an
+image map
+associated with the element.
+Note:
+You cannot use this attribute if the
+[CODE_BLOCK_145]
+element is inside an
+[CODE_BLOCK_146]
+[CODE_BLOCK_147]
+element.
+Deprecated attributes
+[CODE_BLOCK_148]
+Deprecated
+Aligns the image with its surrounding context. Use the
+[CODE_BLOCK_149]
+and/or
+[CODE_BLOCK_150]
+properties instead of this attribute. Allowed values:
+[CODE_BLOCK_151]
+Equivalent to
+[CODE_BLOCK_152]
+[CODE_BLOCK_153]
+[CODE_BLOCK_154]
+Equivalent to
+[CODE_BLOCK_155]
+[CODE_BLOCK_156]
+The default, equivalent to
+[CODE_BLOCK_157]
+[CODE_BLOCK_158]
+[CODE_BLOCK_159]
+Equivalent to
+[CODE_BLOCK_160]
+[CODE_BLOCK_161]
+Equivalent to
+[CODE_BLOCK_162]
+[CODE_BLOCK_163]
+Deprecated
+The width of a border around the image. Use the
+[CODE_BLOCK_164]
+property instead.
+[CODE_BLOCK_165]
+Deprecated
+The number of pixels of white space on the left and right of the image. Use the
+[CODE_BLOCK_166]
+CSS property instead.
+[CODE_BLOCK_167]
+Deprecated
+A link to a more detailed description of the image. Possible values are a
+or an element
+[CODE_BLOCK_168]
+Note:
+This attribute is considered obsolete in the
+HTML spec
+. It has an uncertain future; authors should use a
+ARIA
+alternative such as
+[CODE_BLOCK_169]
+[CODE_BLOCK_170]
+[CODE_BLOCK_171]
+Deprecated
+A name for the element. Use the
+[CODE_BLOCK_172]
+attribute instead.
+[CODE_BLOCK_173]
+Deprecated
+The number of pixels of white space above and below the image. Use the
+[CODE_BLOCK_174]
+CSS property instead.
+Styling with CSS
+[CODE_BLOCK_175]
+is a
+replaced element
+; it has a
+[CODE_BLOCK_176]
+value of
+[CODE_BLOCK_177]
+by default, but its default dimensions are defined by the embedded image's intrinsic values, like it were
+[CODE_BLOCK_178]
+. You can set properties like
+[CODE_BLOCK_179]
+[CODE_BLOCK_180]
+[CODE_BLOCK_181]
+[CODE_BLOCK_182]
+[CODE_BLOCK_183]
+[CODE_BLOCK_184]
+, etc. on an image.
+[CODE_BLOCK_185]
+has no baseline, so when images are used in an inline formatting context with
+[CODE_BLOCK_186]
+, the bottom of the image will be placed on the text baseline.
+You can use the
+[CODE_BLOCK_187]
+property to position the image within the element's box, and the
+[CODE_BLOCK_188]
+property to adjust the sizing of the image within the box (for example, whether the image should fit the box or fill it even if clipping is required).
+Depending on its type, an image may have an intrinsic width and height. For some image types, however, intrinsic dimensions are unnecessary.
+images, for instance, have no intrinsic dimensions if their root
+[CODE_BLOCK_189]
+element doesn't have a
+[CODE_BLOCK_190]
+[CODE_BLOCK_191]
+set on it.
+Accessibility
+Authoring meaningful alternate descriptions
+[CODE_BLOCK_192]
+attribute's value should provide a clear and concise text replacement for the image's content. It should not describe the presence of the image itself or the file name of the image. If the
+[CODE_BLOCK_193]
+attribute is purposefully left off because the image has no textual equivalent, consider alternate methods to present what the image is trying to communicate.
+Don't
+html
+Copy to Clipboard
+[CODE_BLOCK_194]
+html
+Copy to Clipboard
+[CODE_BLOCK_196]
+An important accessibility test is to read the
+[CODE_BLOCK_198]
+attribute content together with preceding textual content to see if it conveys the same meaning as the image. For example, if the image was preceded by the sentence "On my travels, I saw a cute little animal:", the
+Don't
+example could be read by a screen reader as "On my travels, I saw a cute little animal: image", which doesn't make sense. The
+example could be read by a screen reader as "On my travels, I saw a cute little animal: A Penguin on a beach.", which does make sense.
+For images used to trigger an action, for example, images nested inside an
+[CODE_BLOCK_199]
+[CODE_BLOCK_200]
+element, consider describing the triggered action inside the
+[CODE_BLOCK_201]
+attribute value. For example, you could write
+[CODE_BLOCK_202]
+instead of
+[CODE_BLOCK_203]
+. You could also consider adding an optional further description inside a
+[CODE_BLOCK_204]
+attribute; this may be read by screen readers if requested by the user.
+When an
+[CODE_BLOCK_205]
+attribute is not present on an image, some screen readers may announce the image's file name instead. This can be a confusing experience if the file name isn't representative of the image's contents.
+An alt Decision Tree • Images • WAI Web Accessibility Tutorials
+Alt-texts: The Ultimate Guide — Axess Lab
+How to Design Great Alt Text: An Introduction | Deque
+MDN Understanding WCAG, Guideline 1.1 explanations
+Understanding Success Criterion 1.1.1 | W3C Understanding WCAG 2.0
+Identifying SVG as an image
+Due to a
+VoiceOver bug
+, VoiceOver does not correctly announce SVG images as images. Include
+[CODE_BLOCK_206]
+to all
+[CODE_BLOCK_207]
+elements with SVG source files to ensure assistive technologies correctly announce the SVG as image content.
+html
+Copy to Clipboard
+[CODE_BLOCK_208]
+The title attribute
+[CODE_BLOCK_210]
+attribute is not an acceptable substitute for the
+[CODE_BLOCK_211]
+attribute. Additionally, avoid duplicating the
+[CODE_BLOCK_212]
+attribute's value in a
+[CODE_BLOCK_213]
+attribute declared on the same image. Doing so may cause some screen readers to announce the same text twice, creating a confusing experience.
+[CODE_BLOCK_214]
+attribute should also not be used as supplemental captioning information to accompany an image's
+[CODE_BLOCK_215]
+description. If an image needs a caption, use the
+[CODE_BLOCK_216]
+[CODE_BLOCK_217]
+elements.
+The value of the
+[CODE_BLOCK_218]
+attribute is usually presented to the user as a tooltip, which appears shortly after the cursor stops moving over the image. While this
+provide additional information to the user, you should not assume that the user will ever see it: the user may only have keyboard or touchscreen. If you have information that's particularly important or valuable for the user, present it inline using one of the methods mentioned above instead of using
+[CODE_BLOCK_219]
+Using the HTML title attribute – updated | The Paciello Group
+Examples
+Alternative text
+The following example embeds an image into the page and includes alternative text for accessibility.
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_220]
+play
+Image link
+This example builds upon the previous one, showing how to turn the image into a link. To do so, nest the
+[CODE_BLOCK_222]
+tag inside the
+[CODE_BLOCK_223]
+. You should make the alternative text describe the resource the link is pointing to, as if you were using a text link instead.
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_224]
+play
+Using the srcset attribute
+In this example we include a
+[CODE_BLOCK_226]
+attribute with a reference to a high-resolution version of the logo; this will be loaded instead of the
+[CODE_BLOCK_227]
+image on high-resolution devices. The image referenced in the
+[CODE_BLOCK_228]
+attribute is counted as a
+[CODE_BLOCK_229]
+candidate in
+user agents
+that support
+[CODE_BLOCK_230]
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_231]
+play
+Using the srcset and sizes attributes
+[CODE_BLOCK_233]
+attribute is ignored in
+user agents
+that support
+[CODE_BLOCK_234]
+when
+[CODE_BLOCK_235]
+descriptors are included. When the
+[CODE_BLOCK_236]
+media condition matches, the 200 pixel-wide image will load (it is the one that matches
+[CODE_BLOCK_237]
+most closely), otherwise the other image will load.
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_238]
+play
+Note:
+To see the resizing in action,
+view the example on a separate page
+, so you can actually resize the content area.
+Security and privacy concerns
+Although
+[CODE_BLOCK_240]
+elements have innocent uses, they can have undesirable consequences for user security and privacy. See
+Referer header: privacy and security concerns
+for more information and mitigations.
+Technical summary
+Content categories
+Flow content
+phrasing content
+embedded content
+palpable content
+. If the element has a
+[CODE_BLOCK_241]
+attribute, it also is a part
+of the interactive content category.
+Permitted content
+None; it is a
+void element
+Tag omission
+Must have a start tag and must not have an end tag.
+Permitted parents
+Any element that accepts embedded content.
+Implicit ARIA role
+with non-empty
+[CODE_BLOCK_242]
+attribute or no
+[CODE_BLOCK_243]
+attribute:
+[CODE_BLOCK_244]
+with empty
+[CODE_BLOCK_246]
+attribute:
+[CODE_BLOCK_247]
+Permitted ARIA roles
+with non-empty
+[CODE_BLOCK_248]
+attribute:
+[CODE_BLOCK_249]
+[CODE_BLOCK_250]
+[CODE_BLOCK_251]
+[CODE_BLOCK_252]
+[CODE_BLOCK_253]
+[CODE_BLOCK_254]
+[CODE_BLOCK_255]
+[CODE_BLOCK_256]
+[CODE_BLOCK_257]
+[CODE_BLOCK_258]
+[CODE_BLOCK_259]
+[CODE_BLOCK_260]
+[CODE_BLOCK_261]
+[CODE_BLOCK_262]
+with empty
+[CODE_BLOCK_263]
+attribute,
+[CODE_BLOCK_264]
+[CODE_BLOCK_265]
+with no
+[CODE_BLOCK_266]
+attribute, no
+[CODE_BLOCK_267]
+permitted
+DOM interface
+[CODE_BLOCK_268]
+Specifications
+Specification
+HTML
+the-img-element
+Browser compatibility
+See also
+[CODE_BLOCK_269]
+[CODE_BLOCK_270]
+, and
+[CODE_BLOCK_271]
+elements
+[CODE_BLOCK_272]
+[CODE_BLOCK_273]
+[CODE_BLOCK_274]
+[CODE_BLOCK_275]
+, and
+[CODE_BLOCK_276]
+: Image-related CSS properties.
+[CODE_BLOCK_277]
+interface for this element
+HTML images
+Image file type and format guide
+Responsive images
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 7, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

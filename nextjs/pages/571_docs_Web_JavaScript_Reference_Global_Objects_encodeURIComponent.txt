@@ -1,0 +1,240 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+SCRAPED: 2025-06-19 18:15:27
+================================================================================
+
+--- CODE BLOCK 1 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+function encodes a
+by replacing each instance of certain characters by one, two, three, or four escape sequences representing the
+UTF-8
+encoding of the character (will only be four escape sequences for characters composed of two surrogate characters). Compared to
+--- CODE BLOCK 2 ---
+encodeURI()
+--- END CODE BLOCK ---
+, this function encodes more characters, including those that are part of the URI syntax.
+Try it
+--- CODE BLOCK 3 ---
+// Encodes characters such as ?,=,/,&,:
+console.log(`?x=${encodeURIComponent("test?")}`);
+// Expected output: "?x=test%3F"
+console.log(`?x=${encodeURIComponent("шеллы")}`);
+// Expected output: "?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B"
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+encodeURIComponent(uriComponent)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 7 ---
+uriComponent
+--- END CODE BLOCK ---
+A string to be encoded as a URI component (a path, query string, fragment, etc.). Other values are
+converted to strings
+Return value
+A new string representing the provided
+--- CODE BLOCK 8 ---
+uriComponent
+--- END CODE BLOCK ---
+encoded as a URI component.
+Exceptions
+--- CODE BLOCK 10 ---
+uriComponent
+--- END CODE BLOCK ---
+Thrown if
+--- CODE BLOCK 11 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+contains a
+lone surrogate
+Description
+--- CODE BLOCK 12 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+is a function property of the global object.
+--- CODE BLOCK 13 ---
+encodeURI()
+--- END CODE BLOCK ---
+uses the same encoding algorithm as described in
+--- CODE BLOCK 14 ---
+A–Z a–z 0–9 - _ . ! ~ * ' ( )
+--- END CODE BLOCK ---
+. It escapes all characters
+except
+--- CODE BLOCK 15 ---
+encodeURI()
+--- END CODE BLOCK ---
+Compared to
+--- CODE BLOCK 16 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+escapes a larger set of characters. Use
+--- CODE BLOCK 19 ---
+Jack & Jill
+--- END CODE BLOCK ---
+on user-entered fields from forms sent to the server — this will encode
+--- CODE BLOCK 20 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+symbols that may inadvertently be generated during data entry for
+character references
+or other characters that require encoding/decoding. For example, if a user writes
+--- CODE BLOCK 21 ---
+application/x-www-form-urlencoded
+--- END CODE BLOCK ---
+, without
+--- CODE BLOCK 23 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+, the ampersand could be interpreted on the server as the start of a new field and jeopardize the integrity of the data.
+--- CODE BLOCK 26 ---
+Content-Disposition
+--- END CODE BLOCK ---
+, spaces are to be replaced by
+--- CODE BLOCK 28 ---
+const fileName = "my file(2).txt";
+const header = `Content-Disposition: attachment; filename*=UTF-8''${encodeRFC5987ValueChars(
+fileName,
+)}`;
+console.log(header);
+// "Content-Disposition: attachment; filename*=UTF-8''my%20file%282%29.txt"
+function encodeRFC5987ValueChars(str) {
+return (
+encodeURIComponent(str)
+// The following creates the sequences %27 %28 %29 %2A (Note that
+// the valid encoding of "*" is %2A, which necessitates calling
+// toUpperCase() to properly encode). Although RFC3986 reserves "!",
+// RFC5987 does not, so we do not need to escape it.
+.replace(
+/['()*]/g,
+(c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+// The following are not required for percent-encoding per RFC5987,
+// so we can allow for a little better readability over the wire: |`^
+.replace(/%(7C|60|5E)/g, (str, hex) =>
+String.fromCharCode(parseInt(hex, 16)),
+--- END CODE BLOCK ---
+, so one may wish to follow a
+--- CODE BLOCK 29 ---
+const fileName = "my file(2).txt";
+const header = `Content-Disposition: attachment; filename*=UTF-8''${encodeRFC5987ValueChars(
+fileName,
+)}`;
+console.log(header);
+// "Content-Disposition: attachment; filename*=UTF-8''my%20file%282%29.txt"
+function encodeRFC5987ValueChars(str) {
+return (
+encodeURIComponent(str)
+// The following creates the sequences %27 %28 %29 %2A (Note that
+// the valid encoding of "*" is %2A, which necessitates calling
+// toUpperCase() to properly encode). Although RFC3986 reserves "!",
+// RFC5987 does not, so we do not need to escape it.
+.replace(
+/['()*]/g,
+(c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+// The following are not required for percent-encoding per RFC5987,
+// so we can allow for a little better readability over the wire: |`^
+.replace(/%(7C|60|5E)/g, (str, hex) =>
+String.fromCharCode(parseInt(hex, 16)),
+--- END CODE BLOCK ---
+replacement with an additional replacement of
+--- CODE BLOCK 38 ---
+encodeURI()
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 39 ---
+function encodeRFC3986URIComponent(str) {
+return encodeURIComponent(str).replace(
+/[!'()*]/g,
+(c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+--- END CODE BLOCK ---
+Examples
+Encoding for Content-Disposition and Link headers
+The following example provides the special encoding required within UTF-8
+--- CODE BLOCK 40 ---
+function encodeRFC3986URIComponent(str) {
+return encodeURIComponent(str).replace(
+/[!'()*]/g,
+(c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+// High-low pair OK
+encodeURIComponent("\uD800\uDFFF"); // "%F0%90%8F%BF"
+// Lone high-surrogate code unit throws "URIError: malformed URI sequence"
+encodeURIComponent("\uD800");
+// Lone high-surrogate code unit throws "URIError: malformed URI sequence"
+encodeURIComponent("\uDFFF");
+--- END CODE BLOCK ---
+server response header parameters (e.g., UTF-8 filenames):
+Copy to Clipboard
+--- CODE BLOCK 43 ---
+// High-low pair OK
+encodeURIComponent("\uD800\uDFFF"); // "%F0%90%8F%BF"
+// Lone high-surrogate code unit throws "URIError: malformed URI sequence"
+encodeURIComponent("\uD800");
+// Lone high-surrogate code unit throws "URIError: malformed URI sequence"
+encodeURIComponent("\uDFFF");
+--- END CODE BLOCK ---
+Encoding for RFC3986
+The more recent
+RFC3986
+reserves
+--- CODE BLOCK 45 ---
+String.prototype.isWellFormed()
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+decodeURI()
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+encodeURI()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 49 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+, even though these characters have no formalized URI delimiting uses. The following function encodes a string for RFC3986-compliant URL component format. It also encodes
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+, which are part of the
+IPv6
+URI syntax. An RFC3986-compliant
+[CODE_BLOCK_37]
+implementation should not escape them, which is demonstrated in the
+[CODE_BLOCK_38]
+example
+Copy to Clipboard
+[CODE_BLOCK_39]
+Encoding a lone surrogate throws
+[CODE_BLOCK_41]
+will be thrown if one attempts to encode a surrogate which is not part of a high-low pair. For example:
+Copy to Clipboard
+[CODE_BLOCK_42]
+You can use
+[CODE_BLOCK_44]
+, which replaces lone surrogates with the Unicode replacement character (U+FFFD), to avoid this error. You can also use
+[CODE_BLOCK_45]
+to check if a string contains lone surrogates before passing it to
+[CODE_BLOCK_46]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-encodeuricomponent-uricomponent
+Browser compatibility
+See also
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 22, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

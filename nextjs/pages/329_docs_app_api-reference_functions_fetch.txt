@@ -1,0 +1,202 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/fetch
+SCRAPED: 2025-06-19 17:48:09
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+fetch
+fetch
+Next.js extends the
+--- CODE BLOCK 7 ---
+export default async function Page() {
+let data = await fetch('https://api.vercel.app/blog')
+let posts = await data.json()
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.id}>{post.title}</li>
+</ul>
+--- END CODE BLOCK ---
+to allow each request on the server to set its own persistent caching and revalidation semantics.
+In the browser, the
+--- CODE BLOCK 8 ---
+export default async function Page() {
+let data = await fetch('https://api.vercel.app/blog')
+let posts = await data.json()
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.id}>{post.title}</li>
+</ul>
+--- END CODE BLOCK ---
+option indicates how a fetch request will interact with the
+browser's
+HTTP cache. With this extension,
+--- CODE BLOCK 9 ---
+fetch(url, options)
+--- END CODE BLOCK ---
+indicates how a
+server-side
+fetch request will interact with the framework's persistent
+Data Cache
+You can call
+--- CODE BLOCK 11 ---
+options.cache
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 12 ---
+fetch(`https://...`, { cache: 'force-cache' | 'no-store' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+fetch(`https://...`, { cache: 'force-cache' | 'no-store' })
+--- END CODE BLOCK ---
+directly within Server Components.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+auto no cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+options.next.revalidate
+--- END CODE BLOCK ---
+Since Next.js extends the
+--- CODE BLOCK 19 ---
+fetch(`https://...`, { next: { revalidate: false | 0 | number } })
+--- END CODE BLOCK ---
+, you can use any of the
+native options available
+--- CODE BLOCK 20 ---
+fetch(`https://...`, { next: { revalidate: false | 0 | number } })
+--- END CODE BLOCK ---
+Configure how the request should interact with Next.js
+Data Cache
+--- CODE BLOCK 22 ---
+revalidate: Infinity
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+options.next.tags
+--- END CODE BLOCK ---
+(default): Next.js fetches the resource from the remote server on every request in development, but will fetch once during
+--- CODE BLOCK 34 ---
+fetch(`https://...`, { next: { tags: ['collection'] } })
+--- END CODE BLOCK ---
+because the route will be statically prerendered. If
+Dynamic APIs
+are detected on the route, Next.js will fetch the resource on every request.
+--- CODE BLOCK 35 ---
+fetch(`https://...`, { next: { tags: ['collection'] } })
+--- END CODE BLOCK ---
+: Next.js fetches the resource from the remote server on every request, even if Dynamic APIs are not detected on the route.
+--- CODE BLOCK 36 ---
+revalidateTag
+--- END CODE BLOCK ---
+: Next.js looks for a matching request in its Data Cache.
+If there is a match and it is fresh, it will be returned from the cache.
+If there is no match or a stale match, Next.js will fetch the resource from the remote server and update the cache with the downloaded resource.
+--- CODE BLOCK 37 ---
+auto no store
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+cache: 'no-store'
+--- END CODE BLOCK ---
+Set the cache lifetime of a resource (in seconds).
+--- CODE BLOCK 41 ---
+cache: 'no-store'
+--- END CODE BLOCK ---
+- Cache the resource indefinitely. Semantically equivalent to
+--- CODE BLOCK 42 ---
+serverComponentsHmrCache
+--- END CODE BLOCK ---
+. The HTTP cache may evict older resources over time.
+--- CODE BLOCK 43 ---
+cache-control: no-cache
+--- END CODE BLOCK ---
+- Prevent the resource from being cached.
+--- CODE BLOCK 44 ---
+options.cache
+--- END CODE BLOCK ---
+- (in seconds) Specify the resource should have a cache lifetime of at most
+--- CODE BLOCK 45 ---
+options.next.revalidate
+--- END CODE BLOCK ---
+seconds.
+Good to know
+If an individual
+--- CODE BLOCK 46 ---
+options.next.tags
+--- END CODE BLOCK ---
+request sets a
+--- CODE BLOCK 48 ---
+cache-control: no-cache
+--- END CODE BLOCK ---
+number lower than the
+default
+[CODE_BLOCK_28]
+of a route, the whole route revalidation interval will be decreased.
+If two fetch requests with the same URL in the same route have different
+[CODE_BLOCK_29]
+values, the lower value will be used.
+As a convenience, it is not necessary to set the
+[CODE_BLOCK_30]
+option if
+[CODE_BLOCK_31]
+is set to a number.
+Conflicting options such as
+[CODE_BLOCK_32]
+will cause an error.
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+Set the cache tags of a resource. Data can then be revalidated on-demand using
+[CODE_BLOCK_36]
+. The max length for a custom tag is 256 characters and the max tag items is 128.
+Troubleshooting
+Fetch default
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+not showing fresh data in development
+Next.js caches
+[CODE_BLOCK_39]
+responses in Server Components across Hot Module Replacement (HMR) in local development for faster responses and to reduce costs for billed API calls.
+By default, the
+HMR cache
+applies to all fetch requests, including those with the default
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+option. This means uncached requests will not show fresh data between HMR refreshes. However, the cache will be cleared on navigation or full-page reloads.
+See the
+[CODE_BLOCK_42]
+docs for more information.
+Hard refresh and caching in development
+In development mode, if the request includes the
+[CODE_BLOCK_43]
+header,
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+, and
+[CODE_BLOCK_46]
+are ignored, and the
+[CODE_BLOCK_47]
+request is served from the source.
+Browsers typically include
+[CODE_BLOCK_48]
+when the cache is disabled in developer tools or during a hard refresh.
+Version History
+Version
+Changes
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+introduced.
+Was this helpful?
+supported.
+Send

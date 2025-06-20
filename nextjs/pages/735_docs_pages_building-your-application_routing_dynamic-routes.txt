@@ -1,0 +1,194 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments
+SCRAPED: 2025-06-19 18:33:14
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Building Your Application
+Routing
+Dynamic Routes
+You are currently viewing the documentation for Pages Router.
+Dynamic Routes
+When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or
+prerendered
+at build time.
+Convention
+A Dynamic Segment can be created by wrapping a file or folder name in square brackets:
+--- CODE BLOCK 1 ---
+[segmentName]
+--- END CODE BLOCK ---
+. For example,
+--- CODE BLOCK 5 ---
+pages/blog/[slug].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return <p>Post: {router.query.slug}</p>
+--- END CODE BLOCK ---
+Dynamic Segments can be accessed from
+--- CODE BLOCK 8 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return <p>Post: {router.query.slug}</p>
+--- END CODE BLOCK ---
+Example
+For example, a blog could include the following route
+--- CODE BLOCK 10 ---
+pages/blog/[slug].js
+--- END CODE BLOCK ---
+where
+--- CODE BLOCK 12 ---
+{ slug: 'a' }
+--- END CODE BLOCK ---
+is the Dynamic Segment for blog posts.
+--- CODE BLOCK 13 ---
+pages/blog/[slug].js
+--- END CODE BLOCK ---
+Route
+Example URL
+--- CODE BLOCK 16 ---
+pages/blog/[slug].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+{ slug: 'c' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+[...segmentName]
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+pages/shop/[...slug].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+/shop/clothes
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+/shop/clothes/tops
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+/shop/clothes/tops/t-shirts
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+pages/shop/[...slug].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+{ slug: ['a'] }
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+pages/shop/[...slug].js
+--- END CODE BLOCK ---
+Catch-all Segments
+Dynamic Segments can be extended to
+catch-all
+subsequent segments by adding an ellipsis inside the brackets
+--- CODE BLOCK 30 ---
+{ slug: ['a', 'b'] }
+--- END CODE BLOCK ---
+For example,
+--- CODE BLOCK 31 ---
+pages/shop/[...slug].js
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 32 ---
+/shop/a/b/c
+--- END CODE BLOCK ---
+, but also
+--- CODE BLOCK 33 ---
+{ slug: ['a', 'b', 'c'] }
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+[[...segmentName]]
+--- END CODE BLOCK ---
+, and so on.
+Route
+Example URL
+--- CODE BLOCK 35 ---
+pages/shop/[[...slug]].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+/shop/clothes
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+/shop/clothes/tops
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+/shop/clothes/tops/t-shirts
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+pages/shop/[[...slug]].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+{ slug: undefined }
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+pages/shop/[[...slug]].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+{ slug: ['a'] }
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+pages/shop/[[...slug]].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+{ slug: ['a', 'b'] }
+--- END CODE BLOCK ---
+Optional Catch-all Segments
+Catch-all Segments can be made
+optional
+by including the parameter in double square brackets:
+--- CODE BLOCK 51 ---
+pages/shop/[[...slug]].js
+--- END CODE BLOCK ---
+For example,
+--- CODE BLOCK 52 ---
+/shop/a/b/c
+--- END CODE BLOCK ---
+will
+also
+match
+--- CODE BLOCK 53 ---
+{ slug: ['a', 'b', 'c'] }
+--- END CODE BLOCK ---
+, in addition to
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+The difference between
+catch-all
+optional catch-all
+segments is that with optional, the route without the parameter is also matched (
+[CODE_BLOCK_40]
+in the example above).
+Route
+Example URL
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+Next Steps
+For more information on what to do next, we recommend the following sections
+Linking and Navigating
+Learn how navigation works in Next.js, and how to use the Link Component and `useRouter` hook.
+useRouter
+Learn more about the API of the Next.js Router, and access the router instance in your page with the useRouter hook.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,110 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/unstable_rethrow
+SCRAPED: 2025-06-19 17:28:26
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+unstable_rethrow
+unstable_rethrow
+This feature is currently unstable and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+--- CODE BLOCK 1 ---
+unstable_rethrow
+--- END CODE BLOCK ---
+can be used to avoid catching internal errors thrown by Next.js when attempting to handle errors thrown in your application code.
+For example, calling the
+--- CODE BLOCK 3 ---
+not-found.js
+--- END CODE BLOCK ---
+function will throw an internal Next.js error and render the
+--- CODE BLOCK 5 ---
+not-found.js
+--- END CODE BLOCK ---
+component. However, if used inside a
+--- CODE BLOCK 6 ---
+import { notFound } from 'next/navigation'
+export default async function Page() {
+try {
+const post = await fetch('https://.../posts/1').then((res) => {
+if (res.status === 404) notFound()
+if (!res.ok) throw new Error(res.statusText)
+return res.json()
+} catch (err) {
+console.error(err)
+--- END CODE BLOCK ---
+block, the error will be caught, preventing
+--- CODE BLOCK 7 ---
+import { notFound } from 'next/navigation'
+export default async function Page() {
+try {
+const post = await fetch('https://.../posts/1').then((res) => {
+if (res.status === 404) notFound()
+if (!res.ok) throw new Error(res.statusText)
+return res.json()
+} catch (err) {
+console.error(err)
+--- END CODE BLOCK ---
+from rendering:
+@/app/ui/component.tsx
+--- CODE BLOCK 8 ---
+unstable_rethrow
+--- END CODE BLOCK ---
+You can use
+--- CODE BLOCK 10 ---
+import { notFound, unstable_rethrow } from 'next/navigation'
+export default async function Page() {
+try {
+const post = await fetch('https://.../posts/1').then((res) => {
+if (res.status === 404) notFound()
+if (!res.ok) throw new Error(res.statusText)
+return res.json()
+} catch (err) {
+unstable_rethrow(err)
+console.error(err)
+--- END CODE BLOCK ---
+API to re-throw the internal error and continue with the expected behavior:
+@/app/ui/component.tsx
+--- CODE BLOCK 13 ---
+permanentRedirect()
+--- END CODE BLOCK ---
+The following Next.js APIs rely on throwing an error which should be rethrown and handled by Next.js itself:
+--- CODE BLOCK 17 ---
+fetch(..., { cache: 'no-store' })
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+fetch(..., { next: { revalidate: 0 } })
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+unstable_rethrow
+--- END CODE BLOCK ---
+If a route segment is marked to throw an error unless it's static, a Dynamic API call will also throw an error that should similarly not be caught by the developer. Note that Partial Prerendering (PPR) affects this behavior as well. These APIs are:
+--- CODE BLOCK 21 ---
+unstable_rethrow
+--- END CODE BLOCK ---
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+Good to know
+This method should be called at the top of the catch block, passing the error object as its only argument. It can also be used within a
+[CODE_BLOCK_19]
+handler of a promise.
+If you ensure that your calls to APIs that throw are not wrapped in a try/catch then you don't need to use
+[CODE_BLOCK_20]
+Any resource cleanup (like clearing intervals, timers, etc) would have to either happen prior to the call to
+[CODE_BLOCK_21]
+or within a
+[CODE_BLOCK_22]
+block.
+Was this helpful?
+supported.
+Send

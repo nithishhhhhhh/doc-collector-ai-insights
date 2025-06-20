@@ -1,0 +1,69 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/serverComponentsHmrCache
+SCRAPED: 2025-06-19 17:13:20
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+serverComponentsHmrCache
+serverComponentsHmrCache
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+The experimental
+--- CODE BLOCK 1 ---
+serverComponentsHmrCache
+--- END CODE BLOCK ---
+option allows you to cache
+--- CODE BLOCK 4 ---
+cache: 'no-store'
+--- END CODE BLOCK ---
+responses in Server Components across Hot Module Replacement (HMR) refreshes in local development. This results in faster responses and reduced costs for billed API calls.
+By default, the HMR cache applies to all
+--- CODE BLOCK 5 ---
+serverComponentsHmrCache
+--- END CODE BLOCK ---
+requests, including those with the
+--- CODE BLOCK 7 ---
+next.config.js
+--- END CODE BLOCK ---
+option. This means uncached requests will not show fresh data between HMR refreshes. However, the cache will be cleared on navigation or full-page reloads.
+You can disable the HMR cache by setting
+--- CODE BLOCK 8 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+serverComponentsHmrCache: false, // defaults to true
+export default nextConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+serverComponentsHmrCache: false, // defaults to true
+export default nextConfig
+--- END CODE BLOCK ---
+in your
+--- CODE BLOCK 10 ---
+logging.fetches
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_8]
+Good to know:
+For better observability, we recommend using the
+[CODE_BLOCK_10]
+option which logs fetch cache hits and misses in the console during development.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,492 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/preview-mode
+SCRAPED: 2025-06-19 17:39:56
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Preview Mode
+You are currently viewing the documentation for Pages Router.
+How to preview content with Preview Mode in Next.js
+This is a legacy API and no longer recommended. It's still supported for backward compatibility.
+Note
+: This feature is superseded by
+Draft Mode
+Examples
+Agility CMS Example
+Demo
+Builder.io Example
+Demo
+ButterCMS Example
+Demo
+Contentful Example
+Demo
+Cosmic Example
+Demo
+DatoCMS Example
+Demo
+DotCMS Example
+Demo
+Drupal Example
+Demo
+Enterspeed Example
+Demo
+GraphCMS Example
+Demo
+Keystone Example
+Demo
+Kontent.ai Example
+Demo
+Makeswift Example
+Demo
+Plasmic Example
+Demo
+Prepr Example
+Demo
+Prismic Example
+Demo
+Sanity Example
+Demo
+Sitecore XM Cloud Example
+Demo
+Storyblok Example
+Demo
+Strapi Example
+Demo
+TakeShape Example
+Demo
+Tina Example
+Demo
+Umbraco Example
+Demo
+Umbraco Heartcore Example
+Demo
+Webiny Example
+Demo
+WordPress Example
+Demo
+Blog Starter Example
+Demo
+In the
+Pages documentation
+and the
+Data Fetching documentation
+, we talked about how to pre-render a page at build time (
+Static Generation
+) using
+--- CODE BLOCK 1 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 2 ---
+getStaticPaths
+--- END CODE BLOCK ---
+Static Generation is useful when your pages fetch data from a headless CMS. However, it’s not ideal when you’re writing a draft on your headless CMS and want to
+preview
+the draft immediately on your page. You’d want Next.js to render these pages at
+request time
+instead of build time and fetch the draft content instead of the published content. You’d want Next.js to bypass Static Generation only for this specific case.
+Next.js has a feature called
+Preview Mode
+which solves this problem. Here are instructions on how to use it.
+Step 1: Create and access a preview API route
+Take a look at the
+API Routes documentation
+first if you’re not familiar with Next.js API Routes.
+First, create a
+preview API route
+. It can have any name - e.g.
+--- CODE BLOCK 3 ---
+pages/api/preview.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+setPreviewData
+--- END CODE BLOCK ---
+if using TypeScript).
+In this API route, you need to call
+--- CODE BLOCK 6 ---
+setPreviewData
+--- END CODE BLOCK ---
+on the response object. The argument for
+--- CODE BLOCK 7 ---
+getStaticProps
+--- END CODE BLOCK ---
+should be an object, and this can be used by
+--- CODE BLOCK 9 ---
+export default function handler(req, res) {
+// ...
+res.setPreviewData({})
+// ...
+--- END CODE BLOCK ---
+(more on this later). For now, we’ll use
+--- CODE BLOCK 10 ---
+export default function handler(req, res) {
+// ...
+res.setPreviewData({})
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+res.setPreviewData
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+// simple example for testing it manually from your browser.
+export default function handler(req, res) {
+res.setPreviewData({})
+res.end('Preview mode enabled')
+--- END CODE BLOCK ---
+sets some
+cookies
+on the browser which turns on the preview mode. Any requests to Next.js containing these cookies will be considered as the
+preview mode
+, and the behavior for statically generated pages will change (more on this later).
+You can test this manually by creating an API route like below and accessing it from your browser manually:
+pages/api/preview.js
+--- CODE BLOCK 14 ---
+/api/preview
+--- END CODE BLOCK ---
+If you open your browser’s developer tools and visit
+--- CODE BLOCK 16 ---
+__next_preview_data
+--- END CODE BLOCK ---
+, you’ll notice that the
+--- CODE BLOCK 17 ---
+pages/api/preview.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+https://<your-site>/api/preview?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+cookies will be set on this request.
+Securely accessing it from your Headless CMS
+In practice, you’d want to call this API route
+securely
+from your headless CMS. The specific steps will vary depending on which headless CMS you’re using, but here are some common steps you could take.
+These steps assume that the headless CMS you’re using supports setting
+custom preview URLs
+. If it doesn’t, you can still use this method to secure your preview URLs, but you’ll need to construct and access the preview URL manually.
+First
+, you should create a
+secret token string
+using a token generator of your choice. This secret will only be known by your Next.js app and your headless CMS. This secret prevents people who don’t have access to your CMS from accessing preview URLs.
+Second
+, if your headless CMS supports setting custom preview URLs, specify the following as the preview URL. This assumes that your preview API route is located at
+--- CODE BLOCK 19 ---
+https://<your-site>/api/preview?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 20 ---
+<your-site>
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+&slug=/posts/{entry.fields.slug}
+--- END CODE BLOCK ---
+should be your deployment domain.
+--- CODE BLOCK 28 ---
+res.setPreviewData
+--- END CODE BLOCK ---
+should be replaced with the secret token you generated.
+--- CODE BLOCK 30 ---
+export default async (req, res) => {
+// Check the secret and next parameters
+// This secret should only be known to this API route and the CMS
+if (req.query.secret !== 'MY_SECRET_TOKEN' || !req.query.slug) {
+return res.status(401).json({ message: 'Invalid token' })
+// Fetch the headless CMS to check if the provided `slug` exists
+// getPostBySlug would implement the required fetching logic to the headless CMS
+const post = await getPostBySlug(req.query.slug)
+// If the slug doesn't exist prevent preview mode from being enabled
+if (!post) {
+return res.status(401).json({ message: 'Invalid slug' })
+// Enable Preview Mode by setting the cookies
+res.setPreviewData({})
+// Redirect to the path from the fetched post
+// We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
+res.redirect(post.slug)
+--- END CODE BLOCK ---
+should be the path for the page that you want to preview. If you want to preview
+--- CODE BLOCK 31 ---
+export default async (req, res) => {
+// Check the secret and next parameters
+// This secret should only be known to this API route and the CMS
+if (req.query.secret !== 'MY_SECRET_TOKEN' || !req.query.slug) {
+return res.status(401).json({ message: 'Invalid token' })
+// Fetch the headless CMS to check if the provided `slug` exists
+// getPostBySlug would implement the required fetching logic to the headless CMS
+const post = await getPostBySlug(req.query.slug)
+// If the slug doesn't exist prevent preview mode from being enabled
+if (!post) {
+return res.status(401).json({ message: 'Invalid slug' })
+// Enable Preview Mode by setting the cookies
+res.setPreviewData({})
+// Redirect to the path from the fetched post
+// We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
+res.redirect(post.slug)
+--- END CODE BLOCK ---
+, then you should use
+--- CODE BLOCK 32 ---
+getStaticProps
+--- END CODE BLOCK ---
+Your headless CMS might allow you to include a variable in the preview URL so that
+--- CODE BLOCK 33 ---
+getStaticProps
+--- END CODE BLOCK ---
+can be set dynamically based on the CMS’s data like so:
+--- CODE BLOCK 34 ---
+getStaticProps
+--- END CODE BLOCK ---
+Finally
+, in the preview API route:
+Check that the secret matches and that the
+--- CODE BLOCK 35 ---
+res.setPreviewData
+--- END CODE BLOCK ---
+parameter exists (if not, the request should fail).
+Call
+--- CODE BLOCK 36 ---
+getStaticProps
+--- END CODE BLOCK ---
+Then redirect the browser to the path specified by
+--- CODE BLOCK 38 ---
+context.preview
+--- END CODE BLOCK ---
+. (The following example uses a
+307 redirect
+--- CODE BLOCK 40 ---
+context.previewData
+--- END CODE BLOCK ---
+If it succeeds, then the browser will be redirected to the path you want to preview with the preview mode cookies being set.
+Step 2: Update
+--- CODE BLOCK 42 ---
+export async function getStaticProps(context) {
+// If you request this page with the preview mode cookies set:
+// - context.preview will be true
+// - context.previewData will be the same as
+//   the argument used for `setPreviewData`.
+--- END CODE BLOCK ---
+The next step is to update
+--- CODE BLOCK 43 ---
+export async function getStaticProps(context) {
+// If you request this page with the preview mode cookies set:
+// - context.preview will be true
+// - context.previewData will be the same as
+//   the argument used for `setPreviewData`.
+--- END CODE BLOCK ---
+to support the preview mode.
+If you request a page which has
+--- CODE BLOCK 44 ---
+res.setPreviewData({})
+--- END CODE BLOCK ---
+with the preview mode cookies set (via
+--- CODE BLOCK 45 ---
+context.previewData
+--- END CODE BLOCK ---
+), then
+--- CODE BLOCK 47 ---
+getStaticProps
+--- END CODE BLOCK ---
+will be called at
+request time
+(instead of at build time).
+Furthermore, it will be called with a
+--- CODE BLOCK 48 ---
+getStaticPaths
+--- END CODE BLOCK ---
+object where:
+--- CODE BLOCK 49 ---
+context.params
+--- END CODE BLOCK ---
+will be
+--- CODE BLOCK 50 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+context.preview
+--- END CODE BLOCK ---
+will be the same as the argument used for
+--- CODE BLOCK 52 ---
+context.previewData
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+context.preview
+--- END CODE BLOCK ---
+We used
+--- CODE BLOCK 55 ---
+export async function getStaticProps(context) {
+// If context.preview is true, append "/preview" to the API endpoint
+// to request draft data instead of published data. This will vary
+// based on which headless CMS you're using.
+const res = await fetch(`https://.../${context.preview ? 'preview' : ''}`)
+// ...
+--- END CODE BLOCK ---
+in the preview API route, so
+--- CODE BLOCK 58 ---
+https://<your-site>/api/preview?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+will be
+--- CODE BLOCK 59 ---
+https://<your-site>/api/preview?secret=<token>&slug=<path>
+--- END CODE BLOCK ---
+. You can use this to pass session information from the preview API route to
+--- CODE BLOCK 60 ---
+next/router
+--- END CODE BLOCK ---
+if necessary.
+If you’re also using
+--- CODE BLOCK 62 ---
+setPreviewData
+--- END CODE BLOCK ---
+, then
+--- CODE BLOCK 66 ---
+setPreviewData(data, {
+maxAge: 60 * 60, // The preview mode cookies expire in 1 hour
+path: '/about', // The preview mode cookies apply to paths with /about
+--- END CODE BLOCK ---
+will also be available.
+Fetch preview data
+You can update
+--- CODE BLOCK 67 ---
+setPreviewData(data, {
+maxAge: 60 * 60, // The preview mode cookies expire in 1 hour
+path: '/about', // The preview mode cookies apply to paths with /about
+--- END CODE BLOCK ---
+to fetch different data based on
+--- CODE BLOCK 68 ---
+clearPreviewData()
+--- END CODE BLOCK ---
+and/or
+--- CODE BLOCK 69 ---
+export default function handler(req, res) {
+res.clearPreviewData({})
+--- END CODE BLOCK ---
+For example, your headless CMS might have a different API endpoint for draft posts. If so, you can use
+--- CODE BLOCK 70 ---
+export default function handler(req, res) {
+res.clearPreviewData({})
+--- END CODE BLOCK ---
+to modify the API endpoint URL like below:
+--- CODE BLOCK 71 ---
+/api/clear-preview-mode-cookies
+--- END CODE BLOCK ---
+That’s it! If you access the preview API route (with
+--- CODE BLOCK 74 ---
+clearPreviewData
+--- END CODE BLOCK ---
+--- CODE BLOCK 75 ---
+setPreviewData
+--- END CODE BLOCK ---
+) from your headless CMS or manually, you should now be able to see the preview content. And if you update your draft without publishing, you should be able to preview the draft.
+Set this as the preview URL on your headless CMS or access manually, and you should be able to see the preview.
+Terminal
+--- CODE BLOCK 76 ---
+clearPreviewData
+--- END CODE BLOCK ---
+More Details
+Good to know
+: during rendering
+--- CODE BLOCK 78 ---
+export default function handler(req, res) {
+const { path } = req.query
+res.clearPreviewData({ path })
+--- END CODE BLOCK ---
+exposes an
+--- CODE BLOCK 79 ---
+previewData
+--- END CODE BLOCK ---
+flag, see the
+router object docs
+for more info.
+Specify the Preview Mode duration
+--- CODE BLOCK 80 ---
+setPreviewData
+--- END CODE BLOCK ---
+takes an optional second parameter which should be an options object. It accepts the following keys:
+--- CODE BLOCK 81 ---
+getStaticProps
+--- END CODE BLOCK ---
+: Specifies the number (in seconds) for the preview session to last for.
+--- CODE BLOCK 82 ---
+getServerSideProps
+--- END CODE BLOCK ---
+: Specifies the path the cookie should be applied under. Defaults to
+--- CODE BLOCK 83 ---
+getServerSideProps
+--- END CODE BLOCK ---
+enabling preview mode for all paths.
+--- CODE BLOCK 86 ---
+previewData
+--- END CODE BLOCK ---
+Clear the Preview Mode cookies
+By default, no expiration date is set for Preview Mode cookies, so the preview session ends when the browser is closed.
+To clear the Preview Mode cookies manually, create an API route that calls
+--- CODE BLOCK 89 ---
+previewData
+--- END CODE BLOCK ---
+pages/api/clear-preview-mode-cookies.js
+--- CODE BLOCK 90 ---
+export default function myApiRoute(req, res) {
+const isPreview = req.preview
+const previewData = req.previewData
+// ...
+--- END CODE BLOCK ---
+Then, send a request to
+--- CODE BLOCK 93 ---
+previewData
+--- END CODE BLOCK ---
+to invoke the API Route. If calling this route using
+[CODE_BLOCK_72]
+, you must pass
+[CODE_BLOCK_73]
+to prevent calling
+[CODE_BLOCK_74]
+during link prefetching.
+If a path was specified in the
+[CODE_BLOCK_75]
+call, you must pass the same path to
+[CODE_BLOCK_76]
+pages/api/clear-preview-mode-cookies.js
+[CODE_BLOCK_77]
+[CODE_BLOCK_79]
+size limits
+You can pass an object to
+[CODE_BLOCK_80]
+and have it be available in
+[CODE_BLOCK_81]
+. However, because the data will be stored in a cookie, there’s a size limitation. Currently, preview data is limited to 2KB.
+Works with
+[CODE_BLOCK_82]
+The preview mode works on
+[CODE_BLOCK_83]
+as well. It will also be available on the
+[CODE_BLOCK_84]
+object containing
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+Good to know
+: You shouldn't set the
+[CODE_BLOCK_87]
+header when using Preview Mode because it cannot be bypassed. Instead, we recommend using
+Works with API Routes
+API Routes will have access to
+[CODE_BLOCK_88]
+[CODE_BLOCK_89]
+under the request object. For example:
+[CODE_BLOCK_90]
+Unique per
+[CODE_BLOCK_92]
+Both the bypass cookie value and the private key for encrypting the
+[CODE_BLOCK_93]
+change when
+[CODE_BLOCK_94]
+is completed.
+This ensures that the bypass cookie can’t be guessed.
+Good to know
+: To test Preview Mode locally over HTTP your browser will need to allow third-party cookies and local storage access.
+Was this helpful?
+supported.
+Send

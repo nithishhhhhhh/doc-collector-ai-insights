@@ -1,0 +1,77 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval
+SCRAPED: 2025-06-19 18:21:14
+================================================================================
+
+--- CODE BLOCK 1 ---
+clearInterval()
+--- END CODE BLOCK ---
+method of the
+--- CODE BLOCK 3 ---
+setInterval()
+--- END CODE BLOCK ---
+interface cancels a timed, repeating action which was previously established by a call to
+--- CODE BLOCK 4 ---
+clearInterval(intervalID)
+--- END CODE BLOCK ---
+. If the parameter provided does not identify a previously established action, this method does nothing.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+clearInterval(intervalID)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 8 ---
+setInterval()
+--- END CODE BLOCK ---
+The identifier of the repeated action you want to cancel. This ID was returned by
+the corresponding call to
+--- CODE BLOCK 9 ---
+setTimeout()
+--- END CODE BLOCK ---
+It's worth noting that the pool of IDs used by
+--- CODE BLOCK 10 ---
+clearInterval()
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+clearTimeout()
+--- END CODE BLOCK ---
+are shared, which
+means you can technically use
+--- CODE BLOCK 13 ---
+setInterval()
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+Window.setInterval()
+--- END CODE BLOCK ---
+interchangeably.
+However, for clarity, you should avoid doing so.
+Return value
+None (
+--- CODE BLOCK 15 ---
+WorkerGlobalScope.clearInterval()
+--- END CODE BLOCK ---
+Examples
+--- CODE BLOCK 16 ---
+Window.clearTimeout()
+--- END CODE BLOCK ---
+for examples.
+Specifications
+Specification
+HTML
+dom-clearinterval-dev
+Browser compatibility
+See also
+--- CODE BLOCK 17 ---
+Window.cancelAnimationFrame()
+--- END CODE BLOCK ---
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Oct 10, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

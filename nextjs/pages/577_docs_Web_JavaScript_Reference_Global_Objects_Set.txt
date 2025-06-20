@@ -1,0 +1,669 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set
+SCRAPED: 2025-06-19 18:16:04
+================================================================================
+
+--- CODE BLOCK 9 ---
+NaN !== NaN
+--- END CODE BLOCK ---
+object lets you store unique values of any type, whether
+primitive values
+or object references.
+Description
+--- CODE BLOCK 12 ---
+Array.prototype.includes
+--- END CODE BLOCK ---
+objects are collections of values. A value in the set
+may only occur once
+; it is unique in the set's collection. You can iterate through the elements of a set in insertion order. The
+insertion order
+corresponds to the order in which each element was inserted into the set by the
+--- CODE BLOCK 16 ---
+A.difference(B)
+--- END CODE BLOCK ---
+method successfully (that is, there wasn't an identical element already in the set when
+--- CODE BLOCK 18 ---
+A.intersection(B)
+--- END CODE BLOCK ---
+was called).
+The specification requires sets to be implemented "that, on average, provide access times that are sublinear on the number of elements in the collection". Therefore, it could be represented internally as a hash table (with O(1) lookup), a search tree (with O(log(N)) lookup), or any other data structure, as long as the complexity is better than O(N).
+Value equality
+Value equality is based on the
+SameValueZero
+algorithm. (It used to use
+SameValue
+, which treated
+--- CODE BLOCK 20 ---
+A.symmetricDifference(B)
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+A.isDisjointFrom(B)
+--- END CODE BLOCK ---
+as different. Check
+browser compatibility
+.) This means
+--- CODE BLOCK 26 ---
+A.isSubsetOf(B)
+--- END CODE BLOCK ---
+is considered the same as
+--- CODE BLOCK 28 ---
+A.isSupersetOf(B)
+--- END CODE BLOCK ---
+(even though
+--- CODE BLOCK 40 ---
+const a = new Set([1, 2, 3]);
+const b = new Map([
+[1, "one"],
+[2, "two"],
+[4, "four"],
+console.log(a.union(b)); // Set(4) {1, 2, 3, 4}
+--- END CODE BLOCK ---
+) and all other values are considered equal according to the semantics of the
+--- CODE BLOCK 41 ---
+const a = new Set([1, 2, 3]);
+const b = new Map([
+[1, "one"],
+[2, "two"],
+[4, "four"],
+console.log(a.union(b)); // Set(4) {1, 2, 3, 4}
+--- END CODE BLOCK ---
+operator.
+Performance
+--- CODE BLOCK 43 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+method checks if a value is in the set, using an approach that is, on average, quicker than testing most of the elements that have previously been added to the set. In particular, it is, on average, faster than the
+--- CODE BLOCK 56 ---
+GPUSupportedFeatures
+--- END CODE BLOCK ---
+method when an array has a
+--- CODE BLOCK 58 ---
+interface GPUSupportedFeatures {
+readonly setlike<DOMString>;
+--- END CODE BLOCK ---
+equal to a set's
+--- CODE BLOCK 59 ---
+interface GPUSupportedFeatures {
+readonly setlike<DOMString>;
+--- END CODE BLOCK ---
+Set composition
+--- CODE BLOCK 69 ---
+Symbol.iterator()
+--- END CODE BLOCK ---
+object provides some methods that allow you to compose sets like you would with mathematical operations. These methods include:
+Method
+Return type
+Mathematical equivalent
+Venn diagram
+--- CODE BLOCK 76 ---
+GPUSupportedFeatures
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+XRAnchorSet
+--- END CODE BLOCK ---
+A\setminus B
+--- CODE BLOCK 79 ---
+CustomStateSet
+--- END CODE BLOCK ---
+--- CODE BLOCK 80 ---
+FontFaceSet
+--- END CODE BLOCK ---
+A\cap B
+--- CODE BLOCK 84 ---
+Set[Symbol.species]
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+Set.prototype
+--- END CODE BLOCK ---
+(A\setminus B)\cup(B\setminus A)
+--- CODE BLOCK 87 ---
+Set.prototype.constructor
+--- END CODE BLOCK ---
+--- CODE BLOCK 90 ---
+Set.prototype.size
+--- END CODE BLOCK ---
+A\cup B
+--- CODE BLOCK 92 ---
+Set.prototype[Symbol.toStringTag]
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+A\cap B = \empty
+--- CODE BLOCK 95 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 96 ---
+Set.prototype.add()
+--- END CODE BLOCK ---
+A\subseteq B
+--- CODE BLOCK 99 ---
+Set.prototype.clear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+Set.prototype.delete()
+--- END CODE BLOCK ---
+A\supseteq B
+To make them more generalizable, these methods don't just accept
+--- CODE BLOCK 103 ---
+Set.prototype.has(value)
+--- END CODE BLOCK ---
+objects, but anything that's
+set-like
+Set-like objects
+set composition methods
+require
+--- CODE BLOCK 105 ---
+Set.prototype.difference()
+--- END CODE BLOCK ---
+to be an actual
+--- CODE BLOCK 106 ---
+Set.prototype.entries()
+--- END CODE BLOCK ---
+instance, but their arguments just need to be set-like. A
+set-like object
+is an object that provides the following:
+--- CODE BLOCK 107 ---
+[value, value]
+--- END CODE BLOCK ---
+property that contains a number.
+--- CODE BLOCK 111 ---
+Set.prototype.forEach()
+--- END CODE BLOCK ---
+method that takes an element and returns a boolean.
+--- CODE BLOCK 117 ---
+Set.prototype.has()
+--- END CODE BLOCK ---
+method that returns an
+iterator
+of the elements in the set.
+For example,
+--- CODE BLOCK 119 ---
+Set.prototype.intersection()
+--- END CODE BLOCK ---
+objects are set-like because they also have
+--- CODE BLOCK 120 ---
+Set.prototype.isDisjointFrom()
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+Set.prototype.isSubsetOf()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 122 ---
+Set.prototype.isSupersetOf()
+--- END CODE BLOCK ---
+, so they behave just like sets of keys when used in set methods:
+Copy to Clipboard
+--- CODE BLOCK 123 ---
+Set.prototype.keys()
+--- END CODE BLOCK ---
+Note:
+The set-like protocol invokes the
+--- CODE BLOCK 125 ---
+Set.prototype.symmetricDifference()
+--- END CODE BLOCK ---
+method instead of
+--- CODE BLOCK 126 ---
+Set.prototype.union()
+--- END CODE BLOCK ---
+to produce elements. This is to make maps valid set-like objects, because for maps, the iterator produces
+entries
+but the
+--- CODE BLOCK 127 ---
+Set.prototype.values()
+--- END CODE BLOCK ---
+method takes
+keys
+Arrays
+are not set-like because they don't have a
+--- CODE BLOCK 129 ---
+Set.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+method or the
+--- CODE BLOCK 131 ---
+const mySet1 = new Set();
+mySet1.add(1); // Set(1) { 1 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add("some text"); // Set(3) { 1, 5, 'some text' }
+const o = { a: 1, b: 2 };
+mySet1.add(o);
+mySet1.add({ a: 1, b: 2 }); // o is referencing a different object, so this is okay
+mySet1.has(1); // true
+mySet1.has(3); // false, since 3 has not been added to the set
+mySet1.has(5); // true
+mySet1.has(Math.sqrt(25)); // true
+mySet1.has("Some Text".toLowerCase()); // true
+mySet1.has(o); // true
+mySet1.size; // 5
+mySet1.delete(5); // removes 5 from the set
+mySet1.has(5); // false, 5 has been removed
+mySet1.size; // 4, since we just removed one value
+mySet1.add(5); // Set(5) { 1, 'some text', {...}, {...}, 5 } - a previously deleted item will be added as a new item, it will not retain its original position before deletion
+console.log(mySet1); // Set(5) { 1, "some text", {…}, {…}, 5 }
+--- END CODE BLOCK ---
+property, and their
+--- CODE BLOCK 132 ---
+const mySet1 = new Set();
+mySet1.add(1); // Set(1) { 1 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add("some text"); // Set(3) { 1, 5, 'some text' }
+const o = { a: 1, b: 2 };
+mySet1.add(o);
+mySet1.add({ a: 1, b: 2 }); // o is referencing a different object, so this is okay
+mySet1.has(1); // true
+mySet1.has(3); // false, since 3 has not been added to the set
+mySet1.has(5); // true
+mySet1.has(Math.sqrt(25)); // true
+mySet1.has("Some Text".toLowerCase()); // true
+mySet1.has(o); // true
+mySet1.size; // 5
+mySet1.delete(5); // removes 5 from the set
+mySet1.has(5); // false, 5 has been removed
+mySet1.size; // 4, since we just removed one value
+mySet1.add(5); // Set(5) { 1, 'some text', {...}, {...}, 5 } - a previously deleted item will be added as a new item, it will not retain its original position before deletion
+console.log(mySet1); // Set(5) { 1, "some text", {…}, {…}, 5 }
+--- END CODE BLOCK ---
+method produces indices instead of elements.
+--- CODE BLOCK 133 ---
+for (const item of mySet1) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+for (const item of mySet1.keys()) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+for (const item of mySet1.values()) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+// key and value are the same here
+for (const [key, value] of mySet1.entries()) {
+console.log(key);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+// Convert Set object to an Array object, with Array.from
+const myArr = Array.from(mySet1); // [1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2}, 5]
+// the following will also work if run in an HTML document
+mySet1.add(document.body);
+mySet1.has(document.querySelector("body")); // true
+// converting between Set and Array
+const mySet2 = new Set([1, 2, 3, 4]);
+console.log(mySet2.size); // 4
+console.log([...mySet2]); // [1, 2, 3, 4]
+// intersect can be simulated via
+const intersection = new Set([...mySet1].filter((x) => mySet2.has(x)));
+// difference can be simulated via
+const difference = new Set([...mySet1].filter((x) => !mySet2.has(x)));
+// Iterate set entries with forEach()
+mySet2.forEach((value) => {
+console.log(value);
+// 1
+// 2
+// 3
+// 4
+--- END CODE BLOCK ---
+objects are also not set-like because they don't have a
+--- CODE BLOCK 134 ---
+for (const item of mySet1) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+for (const item of mySet1.keys()) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+for (const item of mySet1.values()) {
+console.log(item);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+// key and value are the same here
+for (const [key, value] of mySet1.entries()) {
+console.log(key);
+// 1, "some text", { "a": 1, "b": 2 }, { "a": 1, "b": 2 }, 5
+// Convert Set object to an Array object, with Array.from
+const myArr = Array.from(mySet1); // [1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2}, 5]
+// the following will also work if run in an HTML document
+mySet1.add(document.body);
+mySet1.has(document.querySelector("body")); // true
+// converting between Set and Array
+const mySet2 = new Set([1, 2, 3, 4]);
+console.log(mySet2.size); // 4
+console.log([...mySet2]); // [1, 2, 3, 4]
+// intersect can be simulated via
+const intersection = new Set([...mySet1].filter((x) => mySet2.has(x)));
+// difference can be simulated via
+const difference = new Set([...mySet1].filter((x) => !mySet2.has(x)));
+// Iterate set entries with forEach()
+mySet2.forEach((value) => {
+console.log(value);
+// 1
+// 2
+// 3
+// 4
+--- END CODE BLOCK ---
+method.
+Set-like browser APIs
+Browser
+--- CODE BLOCK 135 ---
+function isSuperset(set, subset) {
+for (const elem of subset) {
+if (!set.has(elem)) {
+return false;
+return true;
+function union(setA, setB) {
+const _union = new Set(setA);
+for (const elem of setB) {
+_union.add(elem);
+return _union;
+function intersection(setA, setB) {
+const _intersection = new Set();
+for (const elem of setB) {
+if (setA.has(elem)) {
+_intersection.add(elem);
+return _intersection;
+function symmetricDifference(setA, setB) {
+const _difference = new Set(setA);
+for (const elem of setB) {
+if (_difference.has(elem)) {
+_difference.delete(elem);
+} else {
+_difference.add(elem);
+return _difference;
+function difference(setA, setB) {
+const _difference = new Set(setA);
+for (const elem of setB) {
+_difference.delete(elem);
+return _difference;
+// Examples
+const setA = new Set([1, 2, 3, 4]);
+const setB = new Set([2, 3]);
+const setC = new Set([3, 4, 5, 6]);
+isSuperset(setA, setB); // returns true
+union(setA, setC); // returns Set {1, 2, 3, 4, 5, 6}
+intersection(setA, setC); // returns Set {3, 4}
+symmetricDifference(setA, setC); // returns Set {1, 2, 5, 6}
+difference(setA, setC); // returns Set {1, 2}
+--- END CODE BLOCK ---
+-like objects
+(or "setlike objects") are
+Web API
+interfaces that behave in many ways like a
+--- CODE BLOCK 136 ---
+function isSuperset(set, subset) {
+for (const elem of subset) {
+if (!set.has(elem)) {
+return false;
+return true;
+function union(setA, setB) {
+const _union = new Set(setA);
+for (const elem of setB) {
+_union.add(elem);
+return _union;
+function intersection(setA, setB) {
+const _intersection = new Set();
+for (const elem of setB) {
+if (setA.has(elem)) {
+_intersection.add(elem);
+return _intersection;
+function symmetricDifference(setA, setB) {
+const _difference = new Set(setA);
+for (const elem of setB) {
+if (_difference.has(elem)) {
+_difference.delete(elem);
+} else {
+_difference.add(elem);
+return _difference;
+function difference(setA, setB) {
+const _difference = new Set(setA);
+for (const elem of setB) {
+_difference.delete(elem);
+return _difference;
+// Examples
+const setA = new Set([1, 2, 3, 4]);
+const setB = new Set([2, 3]);
+const setC = new Set([3, 4, 5, 6]);
+isSuperset(setA, setB); // returns true
+union(setA, setC); // returns Set {1, 2, 3, 4, 5, 6}
+intersection(setA, setC); // returns Set {3, 4}
+symmetricDifference(setA, setC); // returns Set {1, 2, 5, 6}
+difference(setA, setC); // returns Set {1, 2}
+--- END CODE BLOCK ---
+Just like
+--- CODE BLOCK 137 ---
+const myArray = ["value1", "value2", "value3"];
+// Use the regular Set constructor to transform an Array into a Set
+const mySet = new Set(myArray);
+mySet.has("value1"); // returns true
+// Use the spread syntax to transform a set into an Array.
+console.log([...mySet]); // Will show you exactly the same Array as myArray
+--- END CODE BLOCK ---
+, elements can be iterated in the same order that they were added to the object.
+--- CODE BLOCK 138 ---
+const myArray = ["value1", "value2", "value3"];
+// Use the regular Set constructor to transform an Array into a Set
+const mySet = new Set(myArray);
+mySet.has("value1"); // returns true
+// Use the spread syntax to transform a set into an Array.
+console.log([...mySet]); // Will show you exactly the same Array as myArray
+--- END CODE BLOCK ---
+-like objects and
+--- CODE BLOCK 139 ---
+// Use to remove duplicate elements from an array
+const numbers = [2, 13, 4, 4, 2, 13, 13, 4, 4, 5, 5, 6, 6, 7, 5, 32, 13, 4, 5];
+console.log([...new Set(numbers)]); // [2, 13, 4, 5, 6, 7, 32]
+--- END CODE BLOCK ---
+also have properties and methods that share the same name and behavior.
+However unlike
+--- CODE BLOCK 140 ---
+// Use to remove duplicate elements from an array
+const numbers = [2, 13, 4, 4, 2, 13, 13, 4, 4, 5, 5, 6, 6, 7, 5, 32, 13, 4, 5];
+console.log([...new Set(numbers)]); // [2, 13, 4, 5, 6, 7, 32]
+--- END CODE BLOCK ---
+they only allow a specific predefined type for each entry.
+The allowed types are set in the specification IDL definition.
+For example,
+--- CODE BLOCK 141 ---
+// Case sensitive (set will contain "F" and "f")
+new Set("Firefox"); // Set(7) [ "F", "i", "r", "e", "f", "o", "x" ]
+// Duplicate omission ("f" occurs twice in the string but set will contain only one)
+new Set("firefox"); // Set(6) [ "f", "i", "r", "e", "o", "x" ]
+--- END CODE BLOCK ---
+is a
+--- CODE BLOCK 142 ---
+// Case sensitive (set will contain "F" and "f")
+new Set("Firefox"); // Set(7) [ "F", "i", "r", "e", "f", "o", "x" ]
+// Duplicate omission ("f" occurs twice in the string but set will contain only one)
+new Set("firefox"); // Set(6) [ "f", "i", "r", "e", "o", "x" ]
+--- END CODE BLOCK ---
+-like object that must use strings as the key/value.
+This is defined in the specification IDL below:
+webidl
+Copy to Clipboard
+--- CODE BLOCK 143 ---
+const array = Array.from(document.querySelectorAll("[id]")).map((e) => e.id);
+const set = new Set(array);
+console.assert(set.size === array.length);
+--- END CODE BLOCK ---
+[CODE_BLOCK_60]
+-like objects are either read-only or read-writable (see the
+[CODE_BLOCK_61]
+keyword in the IDL above).
+Read-only
+[CODE_BLOCK_62]
+-like objects have the property
+[CODE_BLOCK_63]
+, and the methods:
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+, and
+[CODE_BLOCK_69]
+Writeable
+[CODE_BLOCK_70]
+-like objects additionally have the methods:
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+, and
+[CODE_BLOCK_73]
+The methods and properties have the same behavior as the equivalent entities in
+[CODE_BLOCK_74]
+, except for the restriction on the types of the entry.
+The following are examples of read-only
+[CODE_BLOCK_75]
+-like browser objects:
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+The following are examples of writable
+[CODE_BLOCK_78]
+-like browser objects:
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+Constructor
+[CODE_BLOCK_82]
+Creates a new
+[CODE_BLOCK_83]
+object.
+Static properties
+[CODE_BLOCK_84]
+The constructor function that is used to create derived objects.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_85]
+and shared by all
+[CODE_BLOCK_86]
+instances.
+[CODE_BLOCK_87]
+The constructor function that created the instance object. For
+[CODE_BLOCK_88]
+instances, the initial value is the
+[CODE_BLOCK_89]
+constructor.
+[CODE_BLOCK_90]
+Returns the number of values in the
+[CODE_BLOCK_91]
+object.
+[CODE_BLOCK_92]
+The initial value of the
+[CODE_BLOCK_93]
+property is the string
+[CODE_BLOCK_94]
+. This property is used in
+[CODE_BLOCK_95]
+Instance methods
+[CODE_BLOCK_96]
+Inserts a new element with a specified value in to a
+[CODE_BLOCK_97]
+object, if there isn't an element with the same value already in the
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+Removes all elements from the
+[CODE_BLOCK_100]
+object.
+[CODE_BLOCK_101]
+Removes the element associated to the
+[CODE_BLOCK_102]
+and returns a boolean asserting whether an element was successfully removed or not.
+[CODE_BLOCK_103]
+will return
+[CODE_BLOCK_104]
+afterwards.
+[CODE_BLOCK_105]
+Takes a set and returns a new set containing elements in this set but not in the given set.
+[CODE_BLOCK_106]
+Returns a new iterator object that contains
+an array of
+[CODE_BLOCK_107]
+for each element in the
+[CODE_BLOCK_108]
+object, in insertion order. This is similar to the
+[CODE_BLOCK_109]
+object, so that each entry's
+is the same as its
+value
+for a
+[CODE_BLOCK_110]
+[CODE_BLOCK_111]
+Calls
+[CODE_BLOCK_112]
+once for each value present in the
+[CODE_BLOCK_113]
+object, in insertion order. If a
+[CODE_BLOCK_114]
+parameter is provided, it will be used as the
+[CODE_BLOCK_115]
+value for each invocation of
+[CODE_BLOCK_116]
+[CODE_BLOCK_117]
+Returns a boolean asserting whether an element is present with the given value in the
+[CODE_BLOCK_118]
+object or not.
+[CODE_BLOCK_119]
+Takes a set and returns a new set containing elements in both this set and the given set.
+[CODE_BLOCK_120]
+Takes a set and returns a boolean indicating if this set has no elements in common with the given set.
+[CODE_BLOCK_121]
+Takes a set and returns a boolean indicating if all elements of this set are in the given set.
+[CODE_BLOCK_122]
+Takes a set and returns a boolean indicating if all elements of the given set are in this set.
+[CODE_BLOCK_123]
+An alias for
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+Takes a set and returns a new set containing elements which are in either this set or the given set, but not in both.
+[CODE_BLOCK_126]
+Takes a set and returns a new set containing elements which are in either or both of this set and the given set.
+[CODE_BLOCK_127]
+Returns a new iterator object that yields the
+values
+for each element in the
+[CODE_BLOCK_128]
+object in insertion order.
+[CODE_BLOCK_129]
+Returns a new iterator object that yields the
+values
+for each element in the
+[CODE_BLOCK_130]
+object in insertion order.
+Examples
+Using the Set object
+Copy to Clipboard
+[CODE_BLOCK_131]
+Iterating sets
+The iteration over a set visits elements in insertion order.
+Copy to Clipboard
+[CODE_BLOCK_133]
+Implementing basic set operations
+Copy to Clipboard
+[CODE_BLOCK_135]
+Relation to arrays
+Copy to Clipboard
+[CODE_BLOCK_137]
+Remove duplicate elements from an array
+Copy to Clipboard
+[CODE_BLOCK_139]
+Relation to strings
+Copy to Clipboard
+[CODE_BLOCK_141]
+Use a set to ensure the uniqueness of a list of values
+Copy to Clipboard
+[CODE_BLOCK_143]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-set-objects
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_145]
+[CODE_BLOCK_146]
+es-shims polyfill of
+[CODE_BLOCK_147]
+[CODE_BLOCK_148]
+[CODE_BLOCK_149]
+[CODE_BLOCK_150]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

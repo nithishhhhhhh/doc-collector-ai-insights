@@ -1,0 +1,530 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image
+SCRAPED: 2025-06-19 17:36:06
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+File-system conventions
+Metadata Files
+opengraph-image and twitter-image
+opengraph-image and twitter-image
+--- CODE BLOCK 1 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 2 ---
+twitter-image
+--- END CODE BLOCK ---
+file conventions allow you to set Open Graph and Twitter images for a route segment.
+They are useful for setting the images that appear on social networks and messaging apps when a user shares a link to your site.
+There are two ways to set Open Graph and Twitter images:
+Using image files (.jpg, .png, .gif)
+Using code to generate images (.js, .ts, .tsx)
+Image files (.jpg, .png, .gif)
+Use an image file to set a route segment's shared image by placing an
+--- CODE BLOCK 3 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+twitter-image
+--- END CODE BLOCK ---
+image file in the segment.
+Next.js will evaluate the file and automatically add the appropriate tags to your app's
+--- CODE BLOCK 6 ---
+opengraph-image
+--- END CODE BLOCK ---
+element.
+File convention
+Supported file types
+--- CODE BLOCK 11 ---
+twitter-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+opengraph-image.alt
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+twitter-image.alt
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+twitter-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+opengraph-image.(jpg|jpeg|png|gif)
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+<meta property="og:image" content="<generated>" />
+<meta property="og:image:type" content="<generated>" />
+<meta property="og:image:width" content="<generated>" />
+<meta property="og:image:height" content="<generated>" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+<meta property="og:image" content="<generated>" />
+<meta property="og:image:type" content="<generated>" />
+<meta property="og:image:width" content="<generated>" />
+<meta property="og:image:height" content="<generated>" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+twitter-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+twitter-image.(jpg|jpeg|png|gif)
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+<meta name="twitter:image" content="<generated>" />
+<meta name="twitter:image:type" content="<generated>" />
+<meta name="twitter:image:width" content="<generated>" />
+<meta name="twitter:image:height" content="<generated>" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+<meta name="twitter:image" content="<generated>" />
+<meta name="twitter:image:type" content="<generated>" />
+<meta name="twitter:image:width" content="<generated>" />
+<meta name="twitter:image:height" content="<generated>" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+opengraph-image.alt.txt
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 31 ---
+opengraph-image.alt.txt
+--- END CODE BLOCK ---
+file size must not exceed
+, and the
+--- CODE BLOCK 32 ---
+opengraph-image.(jpg|jpeg|png|gif)
+--- END CODE BLOCK ---
+file size must not exceed
+. If the image file size exceeds these limits, the build will fail.
+--- CODE BLOCK 35 ---
+<meta property="og:image:alt" content="About Acme" />
+--- END CODE BLOCK ---
+Add an
+--- CODE BLOCK 36 ---
+<meta property="og:image:alt" content="About Acme" />
+--- END CODE BLOCK ---
+image file to any route segment.
+<head> output
+--- CODE BLOCK 37 ---
+twitter-image.alt.txt
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+twitter-image.(jpg|jpeg|png|gif)
+--- END CODE BLOCK ---
+Add a
+--- CODE BLOCK 42 ---
+<meta property="twitter:image:alt" content="About Acme" />
+--- END CODE BLOCK ---
+image file to any route segment.
+<head> output
+--- CODE BLOCK 43 ---
+<meta property="twitter:image:alt" content="About Acme" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+twitter-image
+--- END CODE BLOCK ---
+Add an accompanying
+--- CODE BLOCK 46 ---
+opengraph-image
+--- END CODE BLOCK ---
+file in the same route segment as the
+--- CODE BLOCK 50 ---
+twitter-image
+--- END CODE BLOCK ---
+image it's alt text.
+opengraph-image.alt.txt
+--- CODE BLOCK 54 ---
+generateImageMetadata
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 56 ---
+twitter-image.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+// Image metadata
+export const alt = 'About Acme'
+export const size = {
+width: 1200,
+height: 630,
+export const contentType = 'image/png'
+// Image generation
+export default async function Image() {
+// Font loading, process.cwd() is Next.js project directory
+const interSemiBold = await readFile(
+join(process.cwd(), 'assets/Inter-SemiBold.ttf')
+return new ImageResponse(
+// ImageResponse JSX element
+<div
+style={{
+fontSize: 128,
+background: 'white',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+About Acme
+</div>
+// ImageResponse options
+// For convenience, we can re-use the exported opengraph-image
+// size config to also set the ImageResponse's width and height.
+...size,
+fonts: [
+name: 'Inter',
+data: interSemiBold,
+style: 'normal',
+weight: 400,
+--- END CODE BLOCK ---
+Add an accompanying
+--- CODE BLOCK 60 ---
+<meta property="og:image" content="<generated>" />
+<meta property="og:image:alt" content="About Acme" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+--- END CODE BLOCK ---
+file in the same route segment as the
+--- CODE BLOCK 61 ---
+<meta property="og:image" content="<generated>" />
+<meta property="og:image:alt" content="About Acme" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+--- END CODE BLOCK ---
+image it's alt text.
+twitter-image.alt.txt
+--- CODE BLOCK 63 ---
+opengraph-image
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 65 ---
+export default function Image({ params }: { params: { slug: string } }) {
+// ...
+--- END CODE BLOCK ---
+Generate images using code (.js, .ts, .tsx)
+In addition to using
+literal image files
+, you can programmatically
+generate
+images using code.
+Generate a route segment's shared image by creating an
+--- CODE BLOCK 68 ---
+app/shop/opengraph-image.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+app/shop/[slug]/opengraph-image.js
+--- END CODE BLOCK ---
+route that default exports a function.
+File convention
+Supported file types
+--- CODE BLOCK 73 ---
+{ slug: '1' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 74 ---
+app/shop/[tag]/[item]/opengraph-image.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 76 ---
+{ tag: '1', item: '2' }
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 81 ---
+ReadableStream
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+ImageResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+contentType
+--- END CODE BLOCK ---
+--- CODE BLOCK 87 ---
+opengraph-image
+--- END CODE BLOCK ---
+Good to know
+By default, generated images are
+statically optimized
+(generated at build time and cached) unless they use
+Dynamic APIs
+or uncached data.
+You can generate multiple Images in the same file using
+--- CODE BLOCK 88 ---
+twitter-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+{ width: number; height: number }
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+contentType
+--- END CODE BLOCK ---
+are special Route Handlers that is cached by default unless it uses a
+Dynamic API
+dynamic config
+option.
+The easiest way to generate an image is to use the
+ImageResponse
+API from
+--- CODE BLOCK 96 ---
+export const alt = 'My images alt text'
+export default function Image() {}
+--- END CODE BLOCK ---
+app/about/opengraph-image.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 97 ---
+export const alt = 'My images alt text'
+export default function Image() {}
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 99 ---
+<meta property="og:image:alt" content="My images alt text" />
+--- END CODE BLOCK ---
+Props
+The default export function receives the following props:
+--- CODE BLOCK 102 ---
+export const size = { width: 1200, height: 630 }
+export default function Image() {}
+--- END CODE BLOCK ---
+(optional)
+An object containing the
+dynamic route parameters
+object from the root segment down to the segment
+--- CODE BLOCK 103 ---
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+--- END CODE BLOCK ---
+is colocated in.
+app/shop/[slug]/opengraph-image.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 105 ---
+contentType
+--- END CODE BLOCK ---
+Route
+--- CODE BLOCK 107 ---
+export const contentType = 'image/png'
+export default function Image() {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 108 ---
+<meta property="og:image:type" content="image/png" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 109 ---
+<meta property="og:image:type" content="image/png" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 110 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 111 ---
+twitter-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+import { ImageResponse } from 'next/og'
+export const alt = 'About Acme'
+export const size = {
+width: 1200,
+height: 630,
+export const contentType = 'image/png'
+export default async function Image({ params }: { params: { slug: string } }) {
+const post = await fetch(`https://.../posts/${params.slug}`).then((res) =>
+res.json()
+return new ImageResponse(
+<div
+style={{
+fontSize: 48,
+background: 'white',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+{post.title}
+</div>
+...size,
+--- END CODE BLOCK ---
+--- CODE BLOCK 116 ---
+import { ImageResponse } from 'next/og'
+export const alt = 'About Acme'
+export const size = {
+width: 1200,
+height: 630,
+export const contentType = 'image/png'
+export default async function Image({ params }: { params: { slug: string } }) {
+const post = await fetch(`https://.../posts/${params.slug}`).then((res) =>
+res.json()
+return new ImageResponse(
+<div
+style={{
+fontSize: 48,
+background: 'white',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+{post.title}
+</div>
+...size,
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+import { ImageResponse } from 'next/og'
+import { join } from 'node:path'
+import { readFile } from 'node:fs/promises'
+export default async function Image() {
+const logoData = await readFile(join(process.cwd(), 'logo.png'))
+const logoSrc = Uint8Array.from(logoData).buffer
+return new ImageResponse(
+<div
+style={{
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+<img src={logoSrc} height="100" />
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+import { ImageResponse } from 'next/og'
+import { join } from 'node:path'
+import { readFile } from 'node:fs/promises'
+export default async function Image() {
+const logoData = await readFile(join(process.cwd(), 'logo.png'))
+const logoSrc = Uint8Array.from(logoData).buffer
+return new ImageResponse(
+<div
+style={{
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+<img src={logoSrc} height="100" />
+</div>
+--- END CODE BLOCK ---
+Returns
+The default export function should return a
+--- CODE BLOCK 123 ---
+opengraph-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+twitter-image
+--- END CODE BLOCK ---
+[CODE_BLOCK_79]
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+[CODE_BLOCK_82]
+Good to know
+[CODE_BLOCK_83]
+satisfies this return type.
+Config exports
+You can optionally configure the image's metadata by exporting
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+, and
+[CODE_BLOCK_86]
+variables from
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+route.
+Option
+Type
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+image MIME type
+[CODE_BLOCK_95]
+opengraph-image.tsx | twitter-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_96]
+<head> output
+[CODE_BLOCK_98]
+[CODE_BLOCK_100]
+opengraph-image.tsx | twitter-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_101]
+<head> output
+[CODE_BLOCK_103]
+[CODE_BLOCK_105]
+opengraph-image.tsx | twitter-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_106]
+<head> output
+[CODE_BLOCK_108]
+Route Segment Config
+[CODE_BLOCK_110]
+[CODE_BLOCK_111]
+are specialized
+Route Handlers
+that can use the same
+route segment configuration
+options as Pages and Layouts.
+Examples
+Using external data
+This example uses the
+[CODE_BLOCK_112]
+object and external data to generate the image.
+Good to know
+By default, this generated image will be
+statically optimized
+. You can configure the individual
+[CODE_BLOCK_113]
+[CODE_BLOCK_114]
+or route segments
+options
+to change this behavior.
+app/posts/[slug]/opengraph-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_115]
+Using Node.js runtime with local assets
+This example uses the Node.js runtime to fetch a local image on the file system and passes it as an
+[CODE_BLOCK_117]
+to the
+[CODE_BLOCK_118]
+attribute of an
+[CODE_BLOCK_119]
+element. The local asset should be placed relative to the root of your project, rather than the location of the example source file.
+app/opengraph-image.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_120]
+Version History
+Version
+Changes
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+[CODE_BLOCK_124]
+introduced.
+Was this helpful?
+supported.
+Send

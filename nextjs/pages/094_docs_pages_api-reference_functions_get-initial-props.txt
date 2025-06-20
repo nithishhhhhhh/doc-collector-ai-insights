@@ -1,0 +1,144 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/functions/get-initial-props
+SCRAPED: 2025-06-19 17:20:08
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Functions
+getInitialProps
+You are currently viewing the documentation for Pages Router.
+getInitialProps
+Good to know
+--- CODE BLOCK 1 ---
+getInitialProps
+--- END CODE BLOCK ---
+is a legacy API. We recommend using
+--- CODE BLOCK 2 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 3 ---
+getServerSideProps
+--- END CODE BLOCK ---
+instead.
+--- CODE BLOCK 4 ---
+getInitialProps
+--- END CODE BLOCK ---
+is an
+--- CODE BLOCK 7 ---
+import { NextPageContext } from 'next'
+Page.getInitialProps = async (ctx: NextPageContext) => {
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const json = await res.json()
+return { stars: json.stargazers_count }
+export default function Page({ stars }: { stars: number }) {
+return stars
+--- END CODE BLOCK ---
+function that can be added to the default exported React component for the page. It will run on both the server-side and again on the client-side during page transitions. The result of the function will be forwarded to the React component as
+--- CODE BLOCK 8 ---
+import { NextPageContext } from 'next'
+Page.getInitialProps = async (ctx: NextPageContext) => {
+const res = await fetch('https://api.github.com/repos/vercel/next.js')
+const json = await res.json()
+return { stars: json.stargazers_count }
+export default function Page({ stars }: { stars: number }) {
+return stars
+--- END CODE BLOCK ---
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+getInitialProps
+--- END CODE BLOCK ---
+Good to know
+Data returned from
+--- CODE BLOCK 15 ---
+getInitialProps
+--- END CODE BLOCK ---
+is serialized when server rendering. Ensure the returned object from
+--- CODE BLOCK 16 ---
+getInitialProps
+--- END CODE BLOCK ---
+is a plain
+--- CODE BLOCK 18 ---
+next/router
+--- END CODE BLOCK ---
+, and not using
+--- CODE BLOCK 19 ---
+getInitialProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+getInitialProps
+--- END CODE BLOCK ---
+For the initial page load,
+--- CODE BLOCK 23 ---
+getInitialProps
+--- END CODE BLOCK ---
+will run on the server only.
+--- CODE BLOCK 33 ---
+getInitialProps
+--- END CODE BLOCK ---
+will then also run on the client when navigating to a different route with the
+--- CODE BLOCK 35 ---
+getInitialProps
+--- END CODE BLOCK ---
+component or by using
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+is used in a custom
+[CODE_BLOCK_20]
+, and the page being navigated to is using
+[CODE_BLOCK_21]
+, then
+[CODE_BLOCK_22]
+will also run on the server.
+Context Object
+[CODE_BLOCK_23]
+receives a single argument called
+[CODE_BLOCK_24]
+, which is an object with the following properties:
+Name
+Description
+[CODE_BLOCK_25]
+Current route, the path of the page in
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+Query string of the URL, parsed as an object
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+of the actual path (including the query) shown in the browser
+[CODE_BLOCK_30]
+HTTP request object
+(server only)
+[CODE_BLOCK_31]
+HTTP response object
+(server only)
+[CODE_BLOCK_32]
+Error object if any error is encountered during the rendering
+Caveats
+[CODE_BLOCK_33]
+can only be used in
+[CODE_BLOCK_34]
+top level files, and not in nested components. To have nested data fetching at the component level, consider exploring the
+App Router
+Regardless of whether your route is static or dynamic, any data returned from
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+will be able to be examined on the client-side in the initial HTML. This is to allow the page to be
+hydrated
+correctly. Make sure that you don't pass any sensitive information that shouldn't be available on the client in
+[CODE_BLOCK_37]
+Was this helpful?
+supported.
+Send

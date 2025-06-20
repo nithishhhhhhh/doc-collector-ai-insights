@@ -1,0 +1,199 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/upgrading/version-13
+SCRAPED: 2025-06-19 17:09:01
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Guides
+Upgrading
+Version 13
+You are currently viewing the documentation for Pages Router.
+How to upgrade to version 13
+Upgrading from 12 to 13
+To update to Next.js version 13, run the following command using your preferred package manager:
+Terminal
+--- CODE BLOCK 1 ---
+npm i next@13 react@latest react-dom@latest eslint-config-next@13
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 3 ---
+yarn add next@13 react@latest react-dom@latest eslint-config-next@13
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 5 ---
+pnpm i next@13 react@latest react-dom@latest eslint-config-next@13
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 7 ---
+bun add next@13 react@latest react-dom@latest eslint-config-next@13
+--- END CODE BLOCK ---
+Good to know:
+If you are using TypeScript, ensure you also upgrade
+--- CODE BLOCK 9 ---
+@types/react
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+@types/react-dom
+--- END CODE BLOCK ---
+to their latest versions.
+v13 Summary
+Supported Browsers
+have been changed to drop Internet Explorer and target modern browsers.
+The minimum Node.js version has been bumped from 12.22.0 to 16.14.0, since 12.x and 14.x have reached end-of-life.
+The minimum React version has been bumped from 17.0.2 to 18.2.0.
+--- CODE BLOCK 15 ---
+next/legacy/image
+--- END CODE BLOCK ---
+configuration property was changed from
+--- CODE BLOCK 16 ---
+next/future/image
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+legacyBehavior
+--- END CODE BLOCK ---
+. See
+Next.js Compiler
+for more info.
+--- CODE BLOCK 27 ---
+next/future/image
+--- END CODE BLOCK ---
+import was renamed to
+--- CODE BLOCK 30 ---
+next/legacy/image
+--- END CODE BLOCK ---
+. The
+--- CODE BLOCK 31 ---
+next/legacy/image
+--- END CODE BLOCK ---
+import was renamed to
+--- CODE BLOCK 33 ---
+<Image src={img} layout="responsive" />
+--- END CODE BLOCK ---
+codemod is available
+to safely and automatically rename your imports.
+--- CODE BLOCK 34 ---
+<Image {...props} />
+--- END CODE BLOCK ---
+child can no longer be
+--- CODE BLOCK 40 ---
+import Link from 'next/link'
+// Next.js 12: `<a>` has to be nested otherwise it's excluded
+<Link href="/about">
+<a>About</a>
+</Link>
+// Next.js 13: `<Link>` always renders `<a>` under the hood
+<Link href="/about">
+About
+</Link>
+--- END CODE BLOCK ---
+. Add the
+--- CODE BLOCK 41 ---
+import Link from 'next/link'
+// Next.js 12: `<a>` has to be nested otherwise it's excluded
+<Link href="/about">
+<a>About</a>
+</Link>
+// Next.js 13: `<Link>` always renders `<a>` under the hood
+<Link href="/about">
+About
+</Link>
+--- END CODE BLOCK ---
+prop to use the legacy behavior or remove the
+--- CODE BLOCK 44 ---
+next/script
+--- END CODE BLOCK ---
+to upgrade. A
+codemod is available
+to automatically upgrade your code.
+[CODE_BLOCK_22]
+configuration property has been removed and superseded by
+Output File Tracing
+Migrating shared features
+Next.js 13 introduces a new
+[CODE_BLOCK_23]
+directory
+with new features and conventions. However, upgrading to Next.js 13 does
+require using the new
+[CODE_BLOCK_24]
+Router.
+You can continue using
+[CODE_BLOCK_25]
+with new features that work in both directories, such as the updated
+Image component
+Link component
+Script component
+, and
+Font optimization
+[CODE_BLOCK_26]
+Component
+Next.js 12 introduced many improvements to the Image Component with a temporary import:
+[CODE_BLOCK_27]
+. These improvements included less client-side JavaScript, easier ways to extend and style images, better accessibility, and native browser lazy loading.
+Starting in Next.js 13, this new behavior is now the default for
+[CODE_BLOCK_28]
+There are two codemods to help you migrate to the new Image Component:
+next-image-to-legacy-image
+: This codemod will safely and automatically rename
+[CODE_BLOCK_29]
+imports to
+[CODE_BLOCK_30]
+to maintain the same behavior as Next.js 12. We recommend running this codemod to quickly update to Next.js 13 automatically.
+next-image-experimental
+: After running the previous codemod, you can optionally run this experimental codemod to upgrade
+[CODE_BLOCK_31]
+to the new
+[CODE_BLOCK_32]
+, which will remove unused props and add inline styles. Please note this codemod is experimental and only covers static usage (such as
+[CODE_BLOCK_33]
+) but not dynamic usage (such as
+[CODE_BLOCK_34]
+Alternatively, you can manually update by following the
+migration guide
+and also see the
+legacy comparison
+[CODE_BLOCK_35]
+Component
+[CODE_BLOCK_36]
+Component
+no longer requires manually adding an
+[CODE_BLOCK_37]
+tag as a child. This behavior was added as an experimental option in
+version 12.2
+and is now the default. In Next.js 13,
+[CODE_BLOCK_38]
+always renders
+[CODE_BLOCK_39]
+and allows you to forward props to the underlying tag.
+For example:
+[CODE_BLOCK_40]
+To upgrade your links to Next.js 13, you can use the
+[CODE_BLOCK_42]
+codemod
+[CODE_BLOCK_43]
+Component
+The behavior of
+[CODE_BLOCK_44]
+has been updated to support both
+[CODE_BLOCK_45]
+[CODE_BLOCK_46]
+. If incrementally adopting
+[CODE_BLOCK_47]
+, read the
+upgrade guide
+Font Optimization
+Previously, Next.js helped you optimize fonts by inlining font CSS. Version 13 introduces the new
+[CODE_BLOCK_48]
+module which gives you the ability to customize your font loading experience while still ensuring great performance and privacy.
+Optimizing Fonts
+to learn how to use
+[CODE_BLOCK_49]
+Was this helpful?
+supported.
+Send

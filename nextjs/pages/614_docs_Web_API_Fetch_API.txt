@@ -1,0 +1,79 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Fetch_API
+SCRAPED: 2025-06-19 18:19:45
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+The Fetch API provides an interface for fetching resources (including across the network). It is a more powerful and flexible replacement for
+--- CODE BLOCK 1 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+Concepts and usage
+The Fetch API uses
+--- CODE BLOCK 15 ---
+FetchEvent.respondWith()
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+Window.fetch()
+--- END CODE BLOCK ---
+objects (and other things involved with network requests), as well as related concepts such as CORS and the HTTP Origin header semantics.
+For making a request and fetching a resource, use the
+--- CODE BLOCK 17 ---
+WorkerGlobalScope.fetch()
+--- END CODE BLOCK ---
+method. It is a global method in both
+[CODE_BLOCK_5]
+[CODE_BLOCK_6]
+contexts. This makes it available in pretty much any context you might want to fetch resources in.
+[CODE_BLOCK_7]
+method takes one mandatory argument, the path to the resource you want to fetch. It returns a
+[CODE_BLOCK_8]
+that resolves to the
+[CODE_BLOCK_9]
+to that request — as soon as the server responds with headers —
+even if the server response is an HTTP error status
+. You can also optionally pass in an
+[CODE_BLOCK_10]
+options object as the second argument (see
+[CODE_BLOCK_11]
+Once a
+[CODE_BLOCK_12]
+is retrieved, there are a number of methods available to define what the body content is and how it should be handled.
+You can create a request and response directly using the
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+constructors, but it's uncommon to do this directly. Instead, these are more likely to be created as results of other API actions (for example,
+[CODE_BLOCK_15]
+from service workers).
+Find out more about using the Fetch API features in
+Using Fetch
+Interfaces
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+method used to fetch a resource.
+[CODE_BLOCK_19]
+Represents response/request headers, allowing you to query them and take different actions depending on the results.
+[CODE_BLOCK_20]
+Represents a resource request.
+[CODE_BLOCK_21]
+Represents the response to a request.
+Specifications
+Specification
+Fetch
+fetch-method
+Browser compatibility
+See also
+Using Fetch
+Service Worker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 9, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

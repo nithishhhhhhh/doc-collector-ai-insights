@@ -1,0 +1,294 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/route-handlers-and-middleware
+SCRAPED: 2025-06-19 17:23:49
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Route Handlers and Middleware
+Route Handlers and Middleware
+Route Handlers
+Route Handlers allow you to create custom request handlers for a given route using the Web
+Request
+Response
+APIs.
+Good to know
+: Route Handlers are only available inside the
+--- CODE BLOCK 3 ---
+route.js|ts
+--- END CODE BLOCK ---
+directory. They are the equivalent of
+API Routes
+inside the
+--- CODE BLOCK 5 ---
+export async function GET(request: Request) {}
+--- END CODE BLOCK ---
+directory meaning you
+do not
+need to use API Routes and Route Handlers together.
+Convention
+Route Handlers are defined in a
+--- CODE BLOCK 6 ---
+export async function GET(request: Request) {}
+--- END CODE BLOCK ---
+file
+inside the
+--- CODE BLOCK 19 ---
+405 Method Not Allowed
+--- END CODE BLOCK ---
+directory:
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 20 ---
+NextRequest
+--- END CODE BLOCK ---
+Route Handlers can be nested anywhere inside the
+--- CODE BLOCK 22 ---
+NextRequest
+--- END CODE BLOCK ---
+directory, similar to
+--- CODE BLOCK 23 ---
+NextResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+export const dynamic = 'force-static'
+--- END CODE BLOCK ---
+. But there
+cannot
+be a
+--- CODE BLOCK 27 ---
+export const dynamic = 'force-static'
+export async function GET() {
+const res = await fetch('https://data.mongodb-api.com/...', {
+headers: {
+'Content-Type': 'application/json',
+'API-Key': process.env.DATA_API_KEY,
+const data = await res.json()
+return Response.json({ data })
+--- END CODE BLOCK ---
+file at the same route segment level as
+--- CODE BLOCK 28 ---
+export const dynamic = 'force-static'
+export async function GET() {
+const res = await fetch('https://data.mongodb-api.com/...', {
+headers: {
+'Content-Type': 'application/json',
+'API-Key': process.env.DATA_API_KEY,
+const data = await res.json()
+return Response.json({ data })
+--- END CODE BLOCK ---
+Supported HTTP Methods
+The following
+HTTP methods
+are supported:
+--- CODE BLOCK 31 ---
+opengraph-image.tsx
+--- END CODE BLOCK ---
+--- CODE BLOCK 37 ---
+app/page.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+app/route.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+app/page.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+app/api/route.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+app/[user]/page.js
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 42 ---
+app/api/route.js
+--- END CODE BLOCK ---
+. If an unsupported method is called, Next.js will return a
+--- CODE BLOCK 45 ---
+export default function Page() {
+return <h1>Hello, Next.js!</h1>
+// ❌ Conflict
+// `app/route.ts`
+export async function POST(request: Request) {}
+--- END CODE BLOCK ---
+response.
+Extended
+--- CODE BLOCK 46 ---
+export default function Page() {
+return <h1>Hello, Next.js!</h1>
+// ❌ Conflict
+// `app/route.ts`
+export async function POST(request: Request) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+options.cache
+--- END CODE BLOCK ---
+APIs
+In addition to supporting the native
+Request
+Response
+APIs, Next.js extends them with
+--- CODE BLOCK 48 ---
+options.next.revalidate
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+options.next.tags
+--- END CODE BLOCK ---
+to provide convenient helpers for advanced use cases.
+Caching
+Route Handlers are not cached by default. You can, however, opt into caching for
+--- CODE BLOCK 50 ---
+middleware.ts
+--- END CODE BLOCK ---
+methods. Other supported HTTP methods are
+cached. To cache a
+--- CODE BLOCK 55 ---
+middleware.ts
+--- END CODE BLOCK ---
+method, use a
+route config option
+such as
+--- CODE BLOCK 58 ---
+middleware.ts
+--- END CODE BLOCK ---
+in your Route Handler file.
+app/items/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 59 ---
+middleware.ts
+--- END CODE BLOCK ---
+Good to know
+: Other supported HTTP methods are
+cached, even if they are placed alongside a
+--- CODE BLOCK 61 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+// This function can be marked `async` if using `await` inside
+export function middleware(request: NextRequest) {
+return NextResponse.redirect(new URL('/home', request.url))
+// See "Matching Paths" below to learn more
+export const config = {
+matcher: '/about/:path*',
+--- END CODE BLOCK ---
+method that is cached, in the same file.
+Special Route Handlers
+Special Route Handlers like
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+, and
+[CODE_BLOCK_32]
+, and other
+metadata files
+remain static by default unless they use Dynamic APIs or dynamic config options.
+Route Resolution
+You can consider a
+[CODE_BLOCK_33]
+the lowest level routing primitive.
+They
+do not
+participate in layouts or client-side navigations like
+[CODE_BLOCK_34]
+There
+cannot
+be a
+[CODE_BLOCK_35]
+file at the same route as
+[CODE_BLOCK_36]
+Page
+Route
+Result
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+Conflict
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+Valid
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+Valid
+Each
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+file takes over all HTTP verbs for that route.
+app/page.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_45]
+Read more about how Route Handlers
+complement your frontend application
+, or explore the Route Handlers
+API Reference
+Middleware
+Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+Use cases
+Some common scenarios where Middleware is effective include:
+Quick redirects after reading parts of the incoming request
+Rewriting to different pages based on A/B tests or experiments
+Modifying headers for all pages or a subset of pages
+Middleware is
+a good fit for:
+Slow data fetching
+Session management
+Using fetch with
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+, or
+[CODE_BLOCK_49]
+, has no effect in Middleware.
+Convention
+Use the file
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+) in the root of your project to define Middleware. For example, at the same level as
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+, or inside
+[CODE_BLOCK_54]
+if applicable.
+Note
+: While only one
+[CODE_BLOCK_55]
+file is supported per project, you can still organize your middleware logic into modules. Break out middleware functionalities into separate
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+files and import them into your main
+[CODE_BLOCK_58]
+file. This allows for cleaner management of route-specific middleware, aggregated in the
+[CODE_BLOCK_59]
+for centralized control. By enforcing a single middleware file, it simplifies configuration, prevents potential conflicts, and optimizes performance by avoiding multiple middleware layers.
+Example
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_60]
+Read more about
+using
+[CODE_BLOCK_62]
+, or refer to the
+[CODE_BLOCK_63]
+API reference
+API Reference
+Learn more about Route Handlers and Middleware
+route.js
+API reference for the route.js special file.
+middleware.js
+API reference for the middleware.js file.
+Backend for Frontend
+Learn how to use Next.js as a backend framework
+Was this helpful?
+supported.
+Send

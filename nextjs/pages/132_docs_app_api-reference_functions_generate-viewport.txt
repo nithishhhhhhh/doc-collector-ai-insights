@@ -1,0 +1,264 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+SCRAPED: 2025-06-19 17:24:39
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+generateViewport
+generateViewport
+You can customize the initial viewport of the page with the static
+--- CODE BLOCK 2 ---
+generateViewport
+--- END CODE BLOCK ---
+object or the dynamic
+--- CODE BLOCK 4 ---
+generateViewport
+--- END CODE BLOCK ---
+function.
+Good to know
+--- CODE BLOCK 6 ---
+generateViewport
+--- END CODE BLOCK ---
+object and
+--- CODE BLOCK 12 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: 'black',
+export default function Page() {}
+--- END CODE BLOCK ---
+function exports are
+only supported in Server Components
+You cannot export both the
+--- CODE BLOCK 13 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: 'black',
+export default function Page() {}
+--- END CODE BLOCK ---
+object and
+--- CODE BLOCK 14 ---
+generateViewport
+--- END CODE BLOCK ---
+function from the same route segment.
+If you're coming from migrating
+--- CODE BLOCK 15 ---
+generateViewport
+--- END CODE BLOCK ---
+exports, you can use
+metadata-to-viewport-export codemod
+to update your changes.
+--- CODE BLOCK 17 ---
+export function generateViewport({ params }) {
+return {
+themeColor: '...',
+--- END CODE BLOCK ---
+object
+To define the viewport options, export a
+--- CODE BLOCK 18 ---
+export function generateViewport({ params }) {
+return {
+themeColor: '...',
+--- END CODE BLOCK ---
+object from a
+--- CODE BLOCK 20 ---
+generateViewport
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+theme-color
+--- END CODE BLOCK ---
+file.
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 23 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: 'black',
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+<meta name="theme-color" content="black" />
+--- END CODE BLOCK ---
+function
+--- CODE BLOCK 26 ---
+<meta name="theme-color" content="black" />
+--- END CODE BLOCK ---
+should return a
+--- CODE BLOCK 27 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: [
+{ media: '(prefers-color-scheme: light)', color: 'cyan' },
+{ media: '(prefers-color-scheme: dark)', color: 'black' },
+--- END CODE BLOCK ---
+object
+containing one or more viewport fields.
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: [
+{ media: '(prefers-color-scheme: light)', color: 'cyan' },
+{ media: '(prefers-color-scheme: dark)', color: 'black' },
+--- END CODE BLOCK ---
+Good to know
+If the viewport doesn't depend on runtime information, it should be defined using the static
+--- CODE BLOCK 30 ---
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="cyan" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+--- END CODE BLOCK ---
+object
+rather than
+--- CODE BLOCK 32 ---
+initialScale
+--- END CODE BLOCK ---
+Viewport Fields
+--- CODE BLOCK 33 ---
+maximumScale
+--- END CODE BLOCK ---
+Learn more about
+--- CODE BLOCK 34 ---
+userScalable
+--- END CODE BLOCK ---
+Simple theme color
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 36 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+width: 'device-width',
+initialScale: 1,
+maximumScale: 1,
+userScalable: false,
+// Also supported but less commonly used
+// interactiveWidget: 'resizes-visual',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 38 ---
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+--- END CODE BLOCK ---
+With media attribute
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 40 ---
+colorScheme
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 42 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+colorScheme: 'dark',
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+<meta name="color-scheme" content="dark" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+<meta name="color-scheme" content="dark" />
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: 'black',
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+import type { Viewport } from 'next'
+export const viewport: Viewport = {
+themeColor: 'black',
+--- END CODE BLOCK ---
+Good to know
+: The
+--- CODE BLOCK 50 ---
+generateViewport
+--- END CODE BLOCK ---
+meta tag is automatically set, and manual configuration is usually unnecessary as the default is sufficient. However, the information is provided for completeness.
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 51 ---
+import type { Viewport } from 'next'
+export function generateViewport(): Viewport {
+return {
+themeColor: 'black',
+--- END CODE BLOCK ---
+<head> output
+--- CODE BLOCK 53 ---
+import type { Viewport } from 'next'
+type Props = {
+params: Promise<{ id: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export function generateViewport({ params, searchParams }: Props): Viewport {
+return {
+themeColor: 'black',
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+/** @type {import("next").Viewport} */
+export const viewport = {
+themeColor: 'black',
+--- END CODE BLOCK ---
+Learn more about
+--- CODE BLOCK 56 ---
+/** @type {import("next").Viewport} */
+export const viewport = {
+themeColor: 'black',
+--- END CODE BLOCK ---
+layout.tsx | page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 59 ---
+generateViewport
+--- END CODE BLOCK ---
+<head> output
+[CODE_BLOCK_44]
+Types
+You can add type safety to your viewport object by using the
+[CODE_BLOCK_46]
+type. If you are using the
+built-in TypeScript plugin
+in your IDE, you do not need to manually add the type, but you can still explicitly add it if you want.
+[CODE_BLOCK_47]
+object
+[CODE_BLOCK_48]
+[CODE_BLOCK_50]
+function
+Regular function
+[CODE_BLOCK_51]
+With segment props
+[CODE_BLOCK_53]
+JavaScript Projects
+For JavaScript projects, you can use JSDoc to add type safety.
+[CODE_BLOCK_55]
+Version History
+Version
+Changes
+[CODE_BLOCK_57]
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+introduced.
+Next Steps
+View all the Metadata API options.
+Metadata Files
+API documentation for the metadata file conventions.
+Was this helpful?
+supported.
+Send

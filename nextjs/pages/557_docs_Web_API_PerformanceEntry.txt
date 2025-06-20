@@ -1,0 +1,187 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/PerformanceEntry
+SCRAPED: 2025-06-19 18:13:54
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+object encapsulates a single performance metric that is part of the browser's performance timeline.
+The Performance API offers built-in metrics which are specialized subclasses of
+--- CODE BLOCK 2 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+. This includes entries for resource loading, event timing, and more.
+A performance entry can also be created by calling the
+--- CODE BLOCK 3 ---
+Performance.mark()
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+Performance.measure()
+--- END CODE BLOCK ---
+methods at an explicit point in an application. This allows you to add your own metrics to the performance timeline.
+--- CODE BLOCK 5 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+instances will always be one of the following subclasses:
+--- CODE BLOCK 6 ---
+LargestContentfulPaint
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+LayoutShift
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+PerformanceEventTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+PerformanceLongAnimationFrameTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+PerformanceLongTaskTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+PerformanceMark
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+PerformanceMeasure
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+PerformanceNavigationTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+PerformancePaintTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+PerformanceResourceTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+PerformanceScriptTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+PerformanceServerTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+TaskAttributionTiming
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+VisibilityStateEntry
+--- END CODE BLOCK ---
+Instance properties
+--- CODE BLOCK 20 ---
+PerformanceEntry.name
+--- END CODE BLOCK ---
+Read only
+A string representing the name for a performance entry. The value depends on the subtype.
+--- CODE BLOCK 21 ---
+PerformanceEntry.entryType
+--- END CODE BLOCK ---
+Read only
+A string representing the type of performance metric. For example,
+--- CODE BLOCK 23 ---
+PerformanceMark
+--- END CODE BLOCK ---
+when
+--- CODE BLOCK 24 ---
+PerformanceEntry.startTime
+--- END CODE BLOCK ---
+is used.
+--- CODE BLOCK 25 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 26 ---
+PerformanceEntry.duration
+--- END CODE BLOCK ---
+representing the starting time for the performance metric.
+--- CODE BLOCK 27 ---
+DOMHighResTimeStamp
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 28 ---
+PerformanceEntry.toJSON()
+--- END CODE BLOCK ---
+representing the duration of the performance entry.
+Instance methods
+--- CODE BLOCK 29 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+Returns a JSON representation of the
+--- CODE BLOCK 30 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+object.
+Example
+Working with performance entries
+The following example creates
+--- CODE BLOCK 31 ---
+PerformanceMark
+--- END CODE BLOCK ---
+objects that are of the types
+--- CODE BLOCK 32 ---
+PerformanceMeasure
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+PerformanceMark
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+PerformanceMeasure
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+PerformanceEntry
+--- END CODE BLOCK ---
+subclasses inherit the
+--- CODE BLOCK 40 ---
+// Place at a location in the code that starts login
+performance.mark("login-started");
+// Place at a location in the code that finishes login
+performance.mark("login-finished");
+// Measure login duration
+performance.measure("login-duration", "login-started", "login-finished");
+function perfObserver(list, observer) {
+list.getEntries().forEach((entry) => {
+if (entry.entryType === "mark") {
+console.log(`${entry.name}'s startTime: ${entry.startTime}`);
+if (entry.entryType === "measure") {
+console.log(`${entry.name}'s duration: ${entry.duration}`);
+const observer = new PerformanceObserver(perfObserver);
+observer.observe({ entryTypes: ["measure", "mark"] });
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+// Place at a location in the code that starts login
+performance.mark("login-started");
+// Place at a location in the code that finishes login
+performance.mark("login-finished");
+// Measure login duration
+performance.measure("login-duration", "login-started", "login-finished");
+function perfObserver(list, observer) {
+list.getEntries().forEach((entry) => {
+if (entry.entryType === "mark") {
+console.log(`${entry.name}'s startTime: ${entry.startTime}`);
+if (entry.entryType === "measure") {
+console.log(`${entry.name}'s duration: ${entry.duration}`);
+const observer = new PerformanceObserver(perfObserver);
+observer.observe({ entryTypes: ["measure", "mark"] });
+--- END CODE BLOCK ---
+[CODE_BLOCK_37]
+, and
+[CODE_BLOCK_38]
+properties from
+[CODE_BLOCK_39]
+and set them to their appropriate values.
+Copy to Clipboard
+[CODE_BLOCK_40]
+Specifications
+Specification
+Performance Timeline
+dom-performanceentry
+Browser compatibility
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Nov 20, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

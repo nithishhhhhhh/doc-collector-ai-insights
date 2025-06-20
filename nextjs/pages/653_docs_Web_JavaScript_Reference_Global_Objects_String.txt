@@ -1,0 +1,866 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+SCRAPED: 2025-06-19 18:23:45
+================================================================================
+
+--- CODE BLOCK 6 ---
+substring()
+--- END CODE BLOCK ---
+object is used to represent and manipulate a
+sequence of characters.
+Description
+Strings are useful for holding data that can be represented in text form. Some of the
+most-used operations on strings are to check their
+--- CODE BLOCK 8 ---
+const string1 = "A string primitive";
+const string2 = 'Also a string primitive';
+const string3 = `Yet another string primitive`;
+--- END CODE BLOCK ---
+, to build and concatenate them using the
+--- CODE BLOCK 9 ---
+const string1 = "A string primitive";
+const string2 = 'Also a string primitive';
+const string3 = `Yet another string primitive`;
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+const string4 = new String("A String object");
+--- END CODE BLOCK ---
+string operators
+checking for the existence or location of substrings with the
+--- CODE BLOCK 11 ---
+const string4 = new String("A String object");
+--- END CODE BLOCK ---
+method, or extracting substrings
+with the
+--- CODE BLOCK 13 ---
+"cat".charAt(1); // gives value "a"
+--- END CODE BLOCK ---
+method.
+Creating strings
+Strings can be created as primitives, from string literals, or as objects, using the
+--- CODE BLOCK 14 ---
+"cat".charAt(1); // gives value "a"
+--- END CODE BLOCK ---
+constructor:
+Copy to Clipboard
+--- CODE BLOCK 15 ---
+"cat"[1]; // gives value "a"
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 17 ---
+Object.defineProperty()
+--- END CODE BLOCK ---
+String primitives and string objects share many behaviors, but have other important differences and caveats.
+See "
+String primitives and String objects
+" below.
+String literals can be specified using single or double quotes, which are treated
+identically, or using the backtick character
+. This last form specifies a
+template literal
+with this form you can interpolate expressions. For more information on the syntax of string literals, see
+lexical grammar
+Character access
+There are two ways to access an individual character in a string. The first is the
+--- CODE BLOCK 19 ---
+const a = "a";
+const b = "b";
+if (a < b) {
+// true
+console.log(`${a} is less than ${b}`);
+} else if (a > b) {
+console.log(`${a} is greater than ${b}`);
+} else {
+console.log(`${a} and ${b} are equal.`);
+--- END CODE BLOCK ---
+method:
+Copy to Clipboard
+--- CODE BLOCK 22 ---
+function areEqualCaseInsensitive(str1, str2) {
+return str1.toUpperCase() === str2.toUpperCase();
+--- END CODE BLOCK ---
+The other way is to treat the string as an array-like object, where individual characters correspond to a numerical index:
+Copy to Clipboard
+--- CODE BLOCK 24 ---
+toUpperCase()
+--- END CODE BLOCK ---
+When using bracket notation for character access, attempting to delete or assign a
+value to these properties will not succeed. The properties involved are neither writable
+nor configurable. (See
+--- CODE BLOCK 29 ---
+toUpperCase()
+--- END CODE BLOCK ---
+for more information.)
+Comparing strings
+Use the
+less-than and greater-than operators
+to compare strings:
+Copy to Clipboard
+--- CODE BLOCK 32 ---
+toLowerCase()
+--- END CODE BLOCK ---
+Note that all comparison operators, including
+--- CODE BLOCK 34 ---
+const areEqualInUpperCase = (str1, str2) =>
+str1.toUpperCase() === str2.toUpperCase();
+const areEqualInLowerCase = (str1, str2) =>
+str1.toLowerCase() === str2.toLowerCase();
+areEqualInUpperCase("ß", "ss"); // true; should be false
+areEqualInLowerCase("ı", "I"); // false; should be true
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+const areEqualInUpperCase = (str1, str2) =>
+str1.toUpperCase() === str2.toUpperCase();
+const areEqualInLowerCase = (str1, str2) =>
+str1.toLowerCase() === str2.toLowerCase();
+areEqualInUpperCase("ß", "ss"); // true; should be false
+areEqualInLowerCase("ı", "I"); // false; should be true
+--- END CODE BLOCK ---
+, compare strings case-sensitively. A common way to compare strings case-insensitively is to convert both to the same case (upper or lower) before comparing them.
+Copy to Clipboard
+--- CODE BLOCK 36 ---
+Intl.Collator
+--- END CODE BLOCK ---
+The choice of whether to transform by
+--- CODE BLOCK 38 ---
+sensitivity
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+const areEqual = (str1, str2, locale = "en-US") =>
+str1.localeCompare(str2, locale, { sensitivity: "accent" }) === 0;
+areEqual("ß", "ss", "de"); // false
+areEqual("ı", "I", "tr"); // true
+--- END CODE BLOCK ---
+is mostly arbitrary, and neither one is fully robust when extending beyond the Latin alphabet. For example, the German lowercase letter
+--- CODE BLOCK 42 ---
+const areEqual = (str1, str2, locale = "en-US") =>
+str1.localeCompare(str2, locale, { sensitivity: "accent" }) === 0;
+areEqual("ß", "ss", "de"); // false
+areEqual("ı", "I", "tr"); // true
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+localeCompare()
+--- END CODE BLOCK ---
+are both transformed to
+--- CODE BLOCK 50 ---
+const strPrim = "foo"; // A literal is a string primitive
+const strPrim2 = String(1); // Coerced into the string primitive "1"
+const strPrim3 = String(true); // Coerced into the string primitive "true"
+const strObj = new String(strPrim); // String with new returns a string wrapper object.
+console.log(typeof strPrim); // "string"
+console.log(typeof strPrim2); // "string"
+console.log(typeof strPrim3); // "string"
+console.log(typeof strObj); // "object"
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+const strPrim = "foo"; // A literal is a string primitive
+const strPrim2 = String(1); // Coerced into the string primitive "1"
+const strPrim3 = String(true); // Coerced into the string primitive "true"
+const strObj = new String(strPrim); // String with new returns a string wrapper object.
+console.log(typeof strPrim); // "string"
+console.log(typeof strPrim2); // "string"
+console.log(typeof strPrim3); // "string"
+console.log(typeof strObj); // "object"
+--- END CODE BLOCK ---
+, while the Turkish letter
+--- CODE BLOCK 57 ---
+const s1 = "2 + 2"; // creates a string primitive
+const s2 = new String("2 + 2"); // creates a String object
+console.log(eval(s1)); // returns the number 4
+console.log(eval(s2)); // returns the string "2 + 2"
+--- END CODE BLOCK ---
+would be falsely reported as unequal to
+--- CODE BLOCK 58 ---
+const s1 = "2 + 2"; // creates a string primitive
+const s2 = new String("2 + 2"); // creates a String object
+console.log(eval(s1)); // returns the number 4
+console.log(eval(s2)); // returns the string "2 + 2"
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+console.log(eval(s2.valueOf())); // returns the number 4
+--- END CODE BLOCK ---
+unless specifically using
+--- CODE BLOCK 63 ---
+console.log(eval(s2.valueOf())); // returns the number 4
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 66 ---
+"undefined"
+--- END CODE BLOCK ---
+A locale-aware and robust solution for testing case-insensitive equality is to use the
+--- CODE BLOCK 74 ---
+toString(10)
+--- END CODE BLOCK ---
+API or the string's
+--- CODE BLOCK 76 ---
+[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+method — they share the same interface — with the
+--- CODE BLOCK 85 ---
+"Symbol(description)"
+--- END CODE BLOCK ---
+option set to
+--- CODE BLOCK 86 ---
+description
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+encodeURI()
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 107 ---
+encodeURI()
+--- END CODE BLOCK ---
+--- CODE BLOCK 109 ---
+isWellFormed()
+--- END CODE BLOCK ---
+method enables string comparison in a similar fashion as
+--- CODE BLOCK 110 ---
+toWellFormed()
+--- END CODE BLOCK ---
+— it allows sorting strings in a locale-aware manner.
+String primitives and String objects
+Note that JavaScript distinguishes between
+--- CODE BLOCK 113 ---
+[Symbol.iterator]()
+--- END CODE BLOCK ---
+objects and
+primitive string
+values. (The same is true of
+--- CODE BLOCK 114 ---
+"😄".split(""); // ['\ud83d', '\ude04']; splits into two lone surrogates
+// "Backhand Index Pointing Right: Dark Skin Tone"
+[..."👉🏿"]; // ['👉', '🏿']
+// splits into the basic "Backhand Index Pointing Right" emoji and
+// the "Dark skin tone" emoji
+// "Family: Man, Boy"
+[..."👨‍👦"]; // [ '👨', '‍', '👦' ]
+// splits into the "Man" and "Boy" emoji, joined by a ZWJ
+// The United Nations flag
+[..."🇺🇳"]; // [ '🇺', '🇳' ]
+// splits into two "region indicator" letters "U" and "N".
+// All flag emojis are formed by joining two region indicator letters
+--- END CODE BLOCK ---
+--- CODE BLOCK 115 ---
+"😄".split(""); // ['\ud83d', '\ude04']; splits into two lone surrogates
+// "Backhand Index Pointing Right: Dark Skin Tone"
+[..."👉🏿"]; // ['👉', '🏿']
+// splits into the basic "Backhand Index Pointing Right" emoji and
+// the "Dark skin tone" emoji
+// "Family: Man, Boy"
+[..."👨‍👦"]; // [ '👨', '‍', '👦' ]
+// splits into the "Man" and "Boy" emoji, joined by a ZWJ
+// The United Nations flag
+[..."🇺🇳"]; // [ '🇺', '🇳' ]
+// splits into two "region indicator" letters "U" and "N".
+// All flag emojis are formed by joining two region indicator letters
+--- END CODE BLOCK ---
+String literals (denoted by double or single quotes) and strings returned from
+--- CODE BLOCK 118 ---
+String.fromCharCode()
+--- END CODE BLOCK ---
+calls in a non-constructor context (that is, called without using
+--- CODE BLOCK 119 ---
+String.fromCodePoint()
+--- END CODE BLOCK ---
+keyword) are primitive strings. In contexts where a
+method is to be invoked on a primitive string or a property lookup occurs, JavaScript
+will automatically wrap the string primitive and call the method or perform the property
+lookup on the wrapper object instead.
+Copy to Clipboard
+--- CODE BLOCK 120 ---
+String.raw()
+--- END CODE BLOCK ---
+Warning:
+You should rarely find yourself using
+--- CODE BLOCK 123 ---
+String.prototype.constructor
+--- END CODE BLOCK ---
+as a constructor.
+String primitives and
+--- CODE BLOCK 129 ---
+String.prototype.at()
+--- END CODE BLOCK ---
+objects also give different results when
+using
+--- CODE BLOCK 131 ---
+String.prototype.charAt()
+--- END CODE BLOCK ---
+. Primitives passed to
+--- CODE BLOCK 133 ---
+String.prototype.charCodeAt()
+--- END CODE BLOCK ---
+are treated as source code;
+--- CODE BLOCK 135 ---
+String.prototype.codePointAt()
+--- END CODE BLOCK ---
+objects are treated as
+all other objects are, by returning the object. For example:
+Copy to Clipboard
+--- CODE BLOCK 137 ---
+String.prototype.concat()
+--- END CODE BLOCK ---
+For these reasons, the code may break when it encounters
+--- CODE BLOCK 139 ---
+searchString
+--- END CODE BLOCK ---
+objects
+when it expects a primitive string instead, although generally, authors need not worry
+about the distinction.
+--- CODE BLOCK 140 ---
+String.prototype.includes()
+--- END CODE BLOCK ---
+object can always be converted to its primitive counterpart with
+--- CODE BLOCK 141 ---
+searchString
+--- END CODE BLOCK ---
+method.
+Copy to Clipboard
+--- CODE BLOCK 142 ---
+String.prototype.indexOf()
+--- END CODE BLOCK ---
+String coercion
+Many built-in operations that expect strings first coerce their arguments to strings (which is largely why
+--- CODE BLOCK 145 ---
+String.prototype.isWellFormed()
+--- END CODE BLOCK ---
+objects behave similarly to string primitives).
+The operation
+can be summarized as follows:
+Strings are returned as-is.
+--- CODE BLOCK 146 ---
+String.prototype.lastIndexOf()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 147 ---
+searchValue
+--- END CODE BLOCK ---
+--- CODE BLOCK 149 ---
+String.prototype.localeCompare()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 150 ---
+compareString
+--- END CODE BLOCK ---
+--- CODE BLOCK 151 ---
+String.prototype.match()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 153 ---
+String.prototype.matchAll()
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+String.prototype.normalize()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 156 ---
+String.prototype.padEnd()
+--- END CODE BLOCK ---
+Numbers are converted with the same algorithm as
+--- CODE BLOCK 157 ---
+targetLength
+--- END CODE BLOCK ---
+BigInts
+are converted with the same algorithm as
+--- CODE BLOCK 158 ---
+String.prototype.padStart()
+--- END CODE BLOCK ---
+Symbols
+throw a
+--- CODE BLOCK 159 ---
+targetLength
+--- END CODE BLOCK ---
+Objects are first
+converted to a primitive
+by calling its
+--- CODE BLOCK 160 ---
+String.prototype.repeat()
+--- END CODE BLOCK ---
+(with
+--- CODE BLOCK 162 ---
+String.prototype.replace()
+--- END CODE BLOCK ---
+as hint),
+--- CODE BLOCK 164 ---
+replaceWith
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 166 ---
+replaceWith
+--- END CODE BLOCK ---
+methods, in that order. The resulting primitive is then converted to a string.
+There are several ways to achieve nearly the same effect in JavaScript.
+Template literal
+--- CODE BLOCK 167 ---
+String.prototype.replaceAll()
+--- END CODE BLOCK ---
+does exactly the string coercion steps explained above for the embedded expression.
+--- CODE BLOCK 169 ---
+replaceWith
+--- END CODE BLOCK ---
+function:
+--- CODE BLOCK 171 ---
+replaceWith
+--- END CODE BLOCK ---
+uses the same algorithm to convert
+--- CODE BLOCK 172 ---
+String.prototype.search()
+--- END CODE BLOCK ---
+, except that
+Symbols
+don't throw a
+--- CODE BLOCK 174 ---
+String.prototype.slice()
+--- END CODE BLOCK ---
+, but return
+--- CODE BLOCK 175 ---
+String.prototype.split()
+--- END CODE BLOCK ---
+, where
+--- CODE BLOCK 177 ---
+String.prototype.startsWith()
+--- END CODE BLOCK ---
+is the
+description
+of the Symbol.
+Using the
+--- CODE BLOCK 178 ---
+searchString
+--- END CODE BLOCK ---
+operator
+--- CODE BLOCK 179 ---
+String.prototype.substr()
+--- END CODE BLOCK ---
+coerces its operand to a
+primitive
+instead of a
+string
+, and, for some objects, has entirely different behaviors from normal string coercion. See its
+reference page
+for more details.
+Depending on your use case, you may want to use
+--- CODE BLOCK 180 ---
+String.prototype.substring()
+--- END CODE BLOCK ---
+(to mimic built-in behavior) or
+--- CODE BLOCK 181 ---
+String.prototype.toLocaleLowerCase()
+--- END CODE BLOCK ---
+(to handle symbol values without throwing an error), but you should not use
+--- CODE BLOCK 182 ---
+toLowerCase()
+--- END CODE BLOCK ---
+UTF-16 characters, Unicode code points, and grapheme clusters
+Strings are represented fundamentally as sequences of
+UTF-16 code units
+. In UTF-16 encoding, every code unit is exact 16 bits long. This means there are a maximum of 2
+, or 65536 possible characters representable as single UTF-16 code units. This character set is called the
+basic multilingual plane (BMP)
+, and includes the most common characters like the Latin, Greek, Cyrillic alphabets, as well as many East Asian characters. Each code unit can be written in a string with
+--- CODE BLOCK 183 ---
+String.prototype.toLocaleUpperCase()
+--- END CODE BLOCK ---
+followed by exactly four hex digits.
+However, the entire Unicode character set is much, much bigger than 65536. The extra characters are stored in UTF-16 as
+surrogate pairs
+, which are pairs of 16-bit code units that represent a single character. To avoid ambiguity, the two parts of the pair must be between
+--- CODE BLOCK 184 ---
+toUpperCase()
+--- END CODE BLOCK ---
+--- CODE BLOCK 185 ---
+String.prototype.toLowerCase()
+--- END CODE BLOCK ---
+, and these code units are not used to encode single-code-unit characters. (More precisely, leading surrogates, also called high-surrogate code units, have values between
+--- CODE BLOCK 186 ---
+String.prototype.toString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 187 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+, inclusive, while trailing surrogates, also called low-surrogate code units, have values between
+--- CODE BLOCK 188 ---
+String.prototype.toUpperCase()
+--- END CODE BLOCK ---
+--- CODE BLOCK 189 ---
+String.prototype.toWellFormed()
+--- END CODE BLOCK ---
+, inclusive.) Each Unicode character, comprised of one or two UTF-16 code units, is also called a
+Unicode code point
+. Each Unicode code point can be written in a string with
+--- CODE BLOCK 190 ---
+String.prototype.trim()
+--- END CODE BLOCK ---
+where
+--- CODE BLOCK 191 ---
+String.prototype.trimEnd()
+--- END CODE BLOCK ---
+represents 1–6 hex digits.
+A "lone surrogate" is a 16-bit code unit satisfying one of the descriptions below:
+It is in the range
+--- CODE BLOCK 192 ---
+String.prototype.trimStart()
+--- END CODE BLOCK ---
+--- CODE BLOCK 193 ---
+String.prototype.valueOf()
+--- END CODE BLOCK ---
+, inclusive (i.e., is a leading surrogate), but it is the last code unit in the string, or the next code unit is not a trailing surrogate.
+It is in the range
+--- CODE BLOCK 194 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+--- CODE BLOCK 195 ---
+String.prototype[Symbol.iterator]()
+--- END CODE BLOCK ---
+, inclusive (i.e., is a trailing surrogate), but it is the first code unit in the string, or the previous code unit is not a leading surrogate.
+Lone surrogates do not represent any Unicode character. Although most JavaScript built-in methods handle them correctly because they all work based on UTF-16 code units, lone surrogates are often not valid values when interacting with other systems — for example,
+--- CODE BLOCK 197 ---
+document.createElement()
+--- END CODE BLOCK ---
+will throw a
+--- CODE BLOCK 198 ---
+String.prototype.anchor()
+--- END CODE BLOCK ---
+for lone surrogates, because URI encoding uses UTF-8 encoding, which does not have any encoding for lone surrogates. Strings not containing any lone surrogates are called
+well-formed
+strings, and are safe to be used with functions that do not deal with UTF-16 (such as
+--- CODE BLOCK 199 ---
+<a name="name">
+--- END CODE BLOCK ---
+--- CODE BLOCK 200 ---
+String.prototype.big()
+--- END CODE BLOCK ---
+). You can check if a string is well-formed with the
+--- CODE BLOCK 202 ---
+String.prototype.blink()
+--- END CODE BLOCK ---
+method, or sanitize lone surrogates with the
+--- CODE BLOCK 204 ---
+String.prototype.bold()
+--- END CODE BLOCK ---
+method.
+On top of Unicode characters, there are certain sequences of Unicode characters that should be treated as one visual unit, known as a
+grapheme cluster
+. The most common case is emojis: many emojis that have a range of variations are actually formed by multiple emojis, usually joined by the <ZWJ> (
+--- CODE BLOCK 206 ---
+String.prototype.fixed()
+--- END CODE BLOCK ---
+) character.
+You must be careful which level of characters you are iterating on. For example,
+--- CODE BLOCK 208 ---
+String.prototype.fontcolor()
+--- END CODE BLOCK ---
+will split by UTF-16 code units and will separate surrogate pairs. String indexes also refer to the index of each UTF-16 code unit. On the other hand,
+--- CODE BLOCK 209 ---
+<font color="color">
+--- END CODE BLOCK ---
+iterates by Unicode code points. Iterating through grapheme clusters will require some custom code.
+Copy to Clipboard
+--- CODE BLOCK 210 ---
+String.prototype.fontsize()
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 212 ---
+String.prototype.italics()
+--- END CODE BLOCK ---
+Creates
+--- CODE BLOCK 214 ---
+String.prototype.link()
+--- END CODE BLOCK ---
+objects. When called as a function, it returns primitive values of type String.
+Static methods
+--- CODE BLOCK 215 ---
+<a href="url">
+--- END CODE BLOCK ---
+Returns a string created by using the specified sequence of Unicode values.
+--- CODE BLOCK 216 ---
+String.prototype.small()
+--- END CODE BLOCK ---
+Returns a string created by using the specified sequence of code points.
+--- CODE BLOCK 218 ---
+String.prototype.strike()
+--- END CODE BLOCK ---
+Returns a string created from a raw template string.
+Instance properties
+These properties are defined on
+--- CODE BLOCK 220 ---
+String.prototype.sub()
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 222 ---
+String.prototype.sup()
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 224 ---
+"</b>".bold(); // <b></b></b>
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 225 ---
+"</b>".bold(); // <b></b></b>
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 228 ---
+fontcolor()
+--- END CODE BLOCK ---
+constructor.
+These properties are own properties of each
+--- CODE BLOCK 232 ---
+"foo".anchor('"Hello"'); // <a name="&quot;Hello&quot;">foo</a>
+--- END CODE BLOCK ---
+instance.
+--- CODE BLOCK 233 ---
+"foo".anchor('"Hello"'); // <a name="&quot;Hello&quot;">foo</a>
+--- END CODE BLOCK ---
+Reflects the
+--- CODE BLOCK 238 ---
+// You cannot access properties on null or undefined
+const nullVar = null;
+nullVar.toString(); // TypeError: Cannot read properties of null
+String(nullVar); // "null"
+const undefinedVar = undefined;
+undefinedVar.toString(); // TypeError: Cannot read properties of undefined
+String(undefinedVar); // "undefined"
+--- END CODE BLOCK ---
+of the string. Read-only.
+Instance methods
+--- CODE BLOCK 239 ---
+// You cannot access properties on null or undefined
+const nullVar = null;
+nullVar.toString(); // TypeError: Cannot read properties of null
+String(nullVar); // "null"
+const undefinedVar = undefined;
+undefinedVar.toString(); // TypeError: Cannot read properties of undefined
+String(undefinedVar); // "undefined"
+--- END CODE BLOCK ---
+Returns the character (exactly one UTF-16 code unit) at the specified
+[CODE_BLOCK_130]
+. Accepts negative integers, which count back from the last string character.
+[CODE_BLOCK_131]
+Returns the character (exactly one UTF-16 code unit) at the specified
+[CODE_BLOCK_132]
+[CODE_BLOCK_133]
+Returns a number that is the UTF-16 code unit value at the given
+[CODE_BLOCK_134]
+[CODE_BLOCK_135]
+Returns a nonnegative integer Number that is the code point value of the UTF-16
+encoded code point starting at the specified
+[CODE_BLOCK_136]
+[CODE_BLOCK_137]
+Combines the text of two (or more) strings and returns a new string.
+[CODE_BLOCK_138]
+Determines whether a string ends with the characters of the string
+[CODE_BLOCK_139]
+[CODE_BLOCK_140]
+Determines whether the calling string contains
+[CODE_BLOCK_141]
+[CODE_BLOCK_142]
+Returns the index within this string of the first
+occurrence of
+[CODE_BLOCK_143]
+, or
+[CODE_BLOCK_144]
+if not found.
+[CODE_BLOCK_145]
+Returns a boolean indicating whether this string contains any
+lone surrogates
+[CODE_BLOCK_146]
+Returns the index within this string of the last
+occurrence of
+[CODE_BLOCK_147]
+, or
+[CODE_BLOCK_148]
+if not found.
+[CODE_BLOCK_149]
+Returns a number indicating whether the reference string
+[CODE_BLOCK_150]
+comes before, after, or is equivalent to the
+given string in sort order.
+[CODE_BLOCK_151]
+Used to match regular expression
+[CODE_BLOCK_152]
+against a string.
+[CODE_BLOCK_153]
+Returns an iterator of all
+[CODE_BLOCK_154]
+'s matches.
+[CODE_BLOCK_155]
+Returns the Unicode Normalization Form of the calling string value.
+[CODE_BLOCK_156]
+Pads the current string from the end with a given string and returns a new string of
+the length
+[CODE_BLOCK_157]
+[CODE_BLOCK_158]
+Pads the current string from the start with a given string and returns a new string
+of the length
+[CODE_BLOCK_159]
+[CODE_BLOCK_160]
+Returns a string consisting of the elements of the object repeated
+[CODE_BLOCK_161]
+times.
+[CODE_BLOCK_162]
+Used to replace occurrences of
+[CODE_BLOCK_163]
+using
+[CODE_BLOCK_164]
+[CODE_BLOCK_165]
+may be a string
+or Regular Expression, and
+[CODE_BLOCK_166]
+may be a string or
+function.
+[CODE_BLOCK_167]
+Used to replace all occurrences of
+[CODE_BLOCK_168]
+using
+[CODE_BLOCK_169]
+[CODE_BLOCK_170]
+may be a string
+or Regular Expression, and
+[CODE_BLOCK_171]
+may be a string or
+function.
+[CODE_BLOCK_172]
+Search for a match between a regular expression
+[CODE_BLOCK_173]
+the calling string.
+[CODE_BLOCK_174]
+Extracts a section of a string and returns a new string.
+[CODE_BLOCK_175]
+Returns an array of strings populated by splitting the calling string at occurrences
+of the substring
+[CODE_BLOCK_176]
+[CODE_BLOCK_177]
+Determines whether the calling string begins with the characters of string
+[CODE_BLOCK_178]
+[CODE_BLOCK_179]
+Deprecated
+Returns a portion of the string, starting at the specified index and extending for a given number of characters afterwards.
+[CODE_BLOCK_180]
+Returns a new string containing characters of the calling string from (or between)
+the specified index (or indices).
+[CODE_BLOCK_181]
+The characters within a string are converted to lowercase while respecting the
+current locale.
+For most languages, this will return the same as
+[CODE_BLOCK_182]
+[CODE_BLOCK_183]
+The characters within a string are converted to uppercase while respecting the
+current locale.
+For most languages, this will return the same as
+[CODE_BLOCK_184]
+[CODE_BLOCK_185]
+Returns the calling string value converted to lowercase.
+[CODE_BLOCK_186]
+Returns a string representing the specified object. Overrides the
+[CODE_BLOCK_187]
+method.
+[CODE_BLOCK_188]
+Returns the calling string value converted to uppercase.
+[CODE_BLOCK_189]
+Returns a string where all
+lone surrogates
+of this string are replaced with the Unicode replacement character U+FFFD.
+[CODE_BLOCK_190]
+Trims whitespace from the beginning and end of the string.
+[CODE_BLOCK_191]
+Trims whitespace from the end of the string.
+[CODE_BLOCK_192]
+Trims whitespace from the beginning of the string.
+[CODE_BLOCK_193]
+Returns the primitive value of the specified object. Overrides the
+[CODE_BLOCK_194]
+method.
+[CODE_BLOCK_195]
+Returns a new iterator object that iterates over the code points of a String value,
+returning each code point as a String value.
+HTML wrapper methods
+Warning:
+Deprecated. Avoid these methods.
+They are of limited use, as they are based on a very old HTML standard and provide only a subset of the currently available HTML tags and attributes. Many of them create deprecated or non-standard markup today. In addition, they do string concatenation without any validation or sanitation, which makes them a potential security threat when directly inserted using
+[CODE_BLOCK_196]
+. Use
+DOM APIs
+such as
+[CODE_BLOCK_197]
+instead.
+[CODE_BLOCK_198]
+Deprecated
+[CODE_BLOCK_199]
+(hypertext target)
+[CODE_BLOCK_200]
+Deprecated
+[CODE_BLOCK_201]
+[CODE_BLOCK_202]
+Deprecated
+[CODE_BLOCK_203]
+[CODE_BLOCK_204]
+Deprecated
+[CODE_BLOCK_205]
+[CODE_BLOCK_206]
+Deprecated
+[CODE_BLOCK_207]
+[CODE_BLOCK_208]
+Deprecated
+[CODE_BLOCK_209]
+[CODE_BLOCK_210]
+Deprecated
+[CODE_BLOCK_211]
+[CODE_BLOCK_212]
+Deprecated
+[CODE_BLOCK_213]
+[CODE_BLOCK_214]
+Deprecated
+[CODE_BLOCK_215]
+(link to URL)
+[CODE_BLOCK_216]
+Deprecated
+[CODE_BLOCK_217]
+[CODE_BLOCK_218]
+Deprecated
+[CODE_BLOCK_219]
+[CODE_BLOCK_220]
+Deprecated
+[CODE_BLOCK_221]
+[CODE_BLOCK_222]
+Deprecated
+[CODE_BLOCK_223]
+Note that these methods do not check if the string itself contains HTML tags, so it's possible to create invalid HTML:
+Copy to Clipboard
+[CODE_BLOCK_224]
+The only escaping they do is to replace
+[CODE_BLOCK_226]
+in the attribute value (for
+[CODE_BLOCK_227]
+[CODE_BLOCK_228]
+[CODE_BLOCK_229]
+, and
+[CODE_BLOCK_230]
+) with
+[CODE_BLOCK_231]
+Copy to Clipboard
+[CODE_BLOCK_232]
+Examples
+String conversion
+[CODE_BLOCK_234]
+function is a more reliable way of converting values to strings than calling the
+[CODE_BLOCK_235]
+method of the value, as the former works when used on
+[CODE_BLOCK_236]
+[CODE_BLOCK_237]
+. For example:
+Copy to Clipboard
+[CODE_BLOCK_238]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-string-objects
+Browser compatibility
+See also
+Numbers and strings
+guide
+[CODE_BLOCK_240]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

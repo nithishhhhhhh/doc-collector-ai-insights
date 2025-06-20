@@ -1,0 +1,321 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/metadata-and-og-images
+SCRAPED: 2025-06-19 17:37:18
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Metadata and OG images
+Metadata and OG images
+The Metadata APIs can be used to define your application metadata for improved SEO and web shareability and include:
+The static
+--- CODE BLOCK 2 ---
+generateMetadata
+--- END CODE BLOCK ---
+object
+The dynamic
+--- CODE BLOCK 5 ---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+--- END CODE BLOCK ---
+function
+Special
+file conventions
+that can be used to add static or dynamically generated
+favicons
+OG images
+With all the options above, Next.js will automatically generate the relevant
+--- CODE BLOCK 6 ---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+--- END CODE BLOCK ---
+tags for your page, which can be inspected in the browser's developer tools.
+Default fields
+There are two default
+--- CODE BLOCK 8 ---
+generateMetadata
+--- END CODE BLOCK ---
+tags that are always added even if a route doesn't define metadata:
+meta charset tag
+sets the character encoding for the website.
+meta viewport tag
+sets the viewport width and scale for the website to adjust for different devices.
+--- CODE BLOCK 12 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'My Blog',
+description: '...',
+export default function Page() {}
+--- END CODE BLOCK ---
+The other metadata fields can be defined with the
+--- CODE BLOCK 14 ---
+generateMetadata
+--- END CODE BLOCK ---
+object (for
+static metadata
+) or the
+--- CODE BLOCK 15 ---
+generateMetadata
+--- END CODE BLOCK ---
+function (for
+generated metadata
+Static metadata
+To define static metadata, export a
+--- CODE BLOCK 17 ---
+import type { Metadata, ResolvingMetadata } from 'next'
+type Props = {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export async function generateMetadata(
+{ params, searchParams }: Props,
+parent: ResolvingMetadata
+): Promise<Metadata> {
+const slug = (await params).slug
+// fetch post information
+const post = await fetch(`https://api.vercel.app/blog/${slug}`).then((res) =>
+res.json()
+return {
+title: post.title,
+description: post.description,
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+object
+from a static
+--- CODE BLOCK 18 ---
+import type { Metadata, ResolvingMetadata } from 'next'
+type Props = {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+export async function generateMetadata(
+{ params, searchParams }: Props,
+parent: ResolvingMetadata
+): Promise<Metadata> {
+const slug = (await params).slug
+// fetch post information
+const post = await fetch(`https://api.vercel.app/blog/${slug}`).then((res) =>
+res.json()
+return {
+title: post.title,
+description: post.description,
+export default function Page({ params, searchParams }: Props) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+generateMetadata
+--- END CODE BLOCK ---
+file. For example, to add a title and description to the blog route:
+app/blog/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 21 ---
+import { cache } from 'react'
+import { db } from '@/app/lib/db'
+// getPost will be used twice, but execute only once
+export const getPost = cache(async (slug: string) => {
+const res = await db.query.posts.findFirst({ where: eq(posts.slug, slug) })
+return res
+--- END CODE BLOCK ---
+You can view a full list of available options, in the
+--- CODE BLOCK 23 ---
+import { getPost } from '@/app/lib/data'
+export async function generateMetadata({
+params,
+}: {
+params: { slug: string }
+}) {
+const post = await getPost(params.slug)
+return {
+title: post.title,
+description: post.description,
+export default async function Page({ params }: { params: { slug: string } }) {
+const post = await getPost(params.slug)
+return <div>{post.title}</div>
+--- END CODE BLOCK ---
+documentation
+Generated metadata
+You can use
+--- CODE BLOCK 24 ---
+import { getPost } from '@/app/lib/data'
+export async function generateMetadata({
+params,
+}: {
+params: { slug: string }
+}) {
+const post = await getPost(params.slug)
+return {
+title: post.title,
+description: post.description,
+export default async function Page({ params }: { params: { slug: string } }) {
+const post = await getPost(params.slug)
+return <div>{post.title}</div>
+--- END CODE BLOCK ---
+function to
+--- CODE BLOCK 25 ---
+favicon.ico
+--- END CODE BLOCK ---
+metadata that depends on data. For example, to fetch the title and description for a specific blog post:
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 26 ---
+opengraph-image.png
+--- END CODE BLOCK ---
+Streaming metadata
+For dynamically rendered pages, if resolving
+--- CODE BLOCK 29 ---
+opengraph-image.jpg
+--- END CODE BLOCK ---
+might block rendering, Next.js streams the resolved metadata separately and injects it into the HTML as soon as it's ready.
+Statically rendered pages don’t use this behavior since metadata is resolved at build time.
+Learn more about
+streaming metadata
+Memoizing data requests
+There may be cases where you need to fetch the
+same
+data for metadata and the page itself. To avoid duplicate requests, you can use React's
+--- CODE BLOCK 34 ---
+ImageResponse
+--- END CODE BLOCK ---
+function
+to memoize the return value and only fetch the data once. For example, to fetch the blog post information for both the metadata and the page:
+app/lib/data.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 35 ---
+opengraph-image.ts
+--- END CODE BLOCK ---
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 39 ---
+import { ImageResponse } from 'next/og'
+import { getPost } from '@/app/lib/data'
+// Image metadata
+export const size = {
+width: 1200,
+height: 630,
+export const contentType = 'image/png'
+// Image generation
+export default async function Image({ params }: { params: { slug: string } }) {
+const post = await getPost(params.slug)
+return new ImageResponse(
+// ImageResponse JSX element
+<div
+style={{
+fontSize: 128,
+background: 'white',
+width: '100%',
+height: '100%',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+{post.title}
+</div>
+--- END CODE BLOCK ---
+File-based metadata
+The following special files are available for metadata:
+favicon.ico, apple-icon.jpg, and icon.jpg
+opengraph-image.jpg and twitter-image.jpg
+robots.txt
+sitemap.xml
+You can use these for static metadata, or you can programmatically generate these files with code.
+Favicons
+Favicons are small icons that represent your site in bookmarks and search results. To add a favicon to your application, create a
+--- CODE BLOCK 41 ---
+ImageResponse
+--- END CODE BLOCK ---
+and add to the root of the app folder.
+You can also programmatically generate favicons using code. See the
+favicon docs
+for more information.
+Static Open Graph images
+Open Graph (OG) images are images that represent your site in social media. To add a static OG image to your application, create a
+--- CODE BLOCK 42 ---
+ImageResponse
+--- END CODE BLOCK ---
+file in the root of the app folder.
+You can also add OG images for specific routes by creating a
+--- CODE BLOCK 46 ---
+display: grid
+--- END CODE BLOCK ---
+deeper down the folder structure. For example, to create an OG image specific to the
+[CODE_BLOCK_28]
+route, add a
+[CODE_BLOCK_29]
+file inside the
+[CODE_BLOCK_30]
+folder.
+The more specific image will take precedence over any OG images above it in the folder structure.
+Other image formats such as
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+, and
+[CODE_BLOCK_33]
+are also supported. See the
+Open Graph Image docs
+for more information.
+Generated Open Graph images
+[CODE_BLOCK_34]
+constructor
+allows you to generate dynamic images using JSX and CSS. This is useful for OG images that depend on data.
+For example, to generate a unique OG image for each blog post, add a
+[CODE_BLOCK_35]
+file inside the
+[CODE_BLOCK_36]
+folder, and import the
+[CODE_BLOCK_37]
+constructor from
+[CODE_BLOCK_38]
+app/blog/[slug]/opengraph-image.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_39]
+[CODE_BLOCK_41]
+supports common CSS properties including flexbox and absolute positioning, custom fonts, text wrapping, centering, and nested images.
+See the full list of supported CSS properties
+Good to know
+Examples are available in the
+Vercel OG Playground
+[CODE_BLOCK_42]
+uses
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+, and
+[CODE_BLOCK_45]
+to convert HTML and CSS into PNG.
+Only flexbox and a subset of CSS properties are supported. Advanced layouts (e.g.
+[CODE_BLOCK_46]
+) will not work.
+API Reference
+Learn more about the Metadata APIs mentioned in this page.
+generateMetadata
+Learn how to add Metadata to your Next.js application for improved search engine optimization (SEO) and web shareability.
+generateViewport
+API Reference for the generateViewport function.
+ImageResponse
+API Reference for the ImageResponse constructor.
+Metadata Files
+API documentation for the metadata file conventions.
+favicon, icon, and apple-icon
+API Reference for the Favicon, Icon and Apple Icon file conventions.
+opengraph-image and twitter-image
+API Reference for the Open Graph Image and Twitter Image file conventions.
+robots.txt
+API Reference for robots.txt file.
+sitemap.xml
+API Reference for the sitemap.xml file.
+Was this helpful?
+supported.
+Send

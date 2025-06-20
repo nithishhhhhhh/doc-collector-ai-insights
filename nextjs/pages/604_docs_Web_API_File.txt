@@ -1,0 +1,105 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/File
+SCRAPED: 2025-06-19 18:18:46
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 5 ---
+DataTransfer
+--- END CODE BLOCK ---
+interface provides information about files and allows JavaScript in a web page to access their content.
+--- CODE BLOCK 11 ---
+URL.createObjectURL()
+--- END CODE BLOCK ---
+objects are generally retrieved from a
+--- CODE BLOCK 12 ---
+Window.createImageBitmap()
+--- END CODE BLOCK ---
+object returned as a result of a user selecting files using the
+--- CODE BLOCK 13 ---
+WorkerGlobalScope.createImageBitmap()
+--- END CODE BLOCK ---
+element, or from a drag and drop operation's
+--- CODE BLOCK 16 ---
+XMLHttpRequest.send()
+--- END CODE BLOCK ---
+object.
+--- CODE BLOCK 21 ---
+File.lastModified
+--- END CODE BLOCK ---
+object is a specific kind of
+--- CODE BLOCK 22 ---
+File.lastModifiedDate
+--- END CODE BLOCK ---
+, and can be used in any context that a Blob can. In particular, the following APIs accept both
+--- CODE BLOCK 27 ---
+File.webkitRelativePath
+--- END CODE BLOCK ---
+s and
+[CODE_BLOCK_9]
+objects:
+[CODE_BLOCK_10]
+[CODE_BLOCK_11]
+[CODE_BLOCK_12]
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+option to
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+Using files from web applications
+for more information and examples.
+Blob
+File
+Constructor
+[CODE_BLOCK_17]
+Returns a newly constructed
+[CODE_BLOCK_18]
+Instance properties
+[CODE_BLOCK_19]
+interface also inherits properties from the
+[CODE_BLOCK_20]
+interface.
+[CODE_BLOCK_21]
+Read only
+Returns the last modified time of the file, in millisecond since the UNIX epoch (January 1st, 1970 at Midnight).
+[CODE_BLOCK_22]
+Deprecated
+Read only
+Non-standard
+Returns the last modified
+[CODE_BLOCK_23]
+of the file referenced by the
+[CODE_BLOCK_24]
+object.
+[CODE_BLOCK_25]
+Read only
+Returns the name of the file referenced by the
+[CODE_BLOCK_26]
+object.
+[CODE_BLOCK_27]
+Read only
+Returns the path the URL of the
+[CODE_BLOCK_28]
+is relative to.
+Instance methods
+[CODE_BLOCK_29]
+interface also inherits methods from the
+[CODE_BLOCK_30]
+interface.
+Specifications
+Specification
+File API
+file-section
+Browser compatibility
+See also
+Using files from web applications
+[CODE_BLOCK_31]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Oct 2, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

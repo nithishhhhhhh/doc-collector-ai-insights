@@ -1,0 +1,310 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math
+SCRAPED: 2025-06-19 18:18:40
+================================================================================
+
+--- CODE BLOCK 18 ---
+Math.LOG10E
+--- END CODE BLOCK ---
+namespace object contains static properties and methods for mathematical constants and functions.
+--- CODE BLOCK 26 ---
+Math.SQRT1_2
+--- END CODE BLOCK ---
+works with the
+--- CODE BLOCK 31 ---
+Math[Symbol.toStringTag]
+--- END CODE BLOCK ---
+type. It doesn't work with
+--- CODE BLOCK 32 ---
+[Symbol.toStringTag]
+--- END CODE BLOCK ---
+Description
+Unlike most global objects,
+--- CODE BLOCK 34 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+is not a constructor. You cannot use it with the
+--- CODE BLOCK 36 ---
+Math.acos()
+--- END CODE BLOCK ---
+operator
+or invoke the
+--- CODE BLOCK 37 ---
+Math.acosh()
+--- END CODE BLOCK ---
+object as a function. All properties and methods of
+--- CODE BLOCK 38 ---
+Math.asin()
+--- END CODE BLOCK ---
+are static.
+Note:
+Many
+--- CODE BLOCK 39 ---
+Math.asinh()
+--- END CODE BLOCK ---
+functions have a precision that's
+implementation-dependent
+This means that different browsers can give a different result. Even the same JavaScript engine on a different OS or architecture can give different results!
+Static properties
+--- CODE BLOCK 40 ---
+Math.atan()
+--- END CODE BLOCK ---
+Euler's number and the base of natural logarithms; approximately
+--- CODE BLOCK 41 ---
+Math.atan2()
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+Math.atanh()
+--- END CODE BLOCK ---
+Natural logarithm of
+--- CODE BLOCK 43 ---
+Math.cbrt()
+--- END CODE BLOCK ---
+; approximately
+--- CODE BLOCK 44 ---
+Math.ceil()
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+Math.clz32()
+--- END CODE BLOCK ---
+Natural logarithm of
+--- CODE BLOCK 47 ---
+Math.cosh()
+--- END CODE BLOCK ---
+; approximately
+--- CODE BLOCK 50 ---
+Math.expm1()
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+Math.floor()
+--- END CODE BLOCK ---
+Base-10 logarithm of
+--- CODE BLOCK 54 ---
+Math.f16round()
+--- END CODE BLOCK ---
+; approximately
+--- CODE BLOCK 55 ---
+Math.fround()
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+Math.hypot()
+--- END CODE BLOCK ---
+Base-2 logarithm of
+--- CODE BLOCK 57 ---
+Math.imul()
+--- END CODE BLOCK ---
+; approximately
+--- CODE BLOCK 59 ---
+Math.log10()
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+Math.log1p()
+--- END CODE BLOCK ---
+Ratio of a circle's circumference to its diameter; approximately
+--- CODE BLOCK 63 ---
+Math.log2()
+--- END CODE BLOCK ---
+--- CODE BLOCK 71 ---
+Math.random()
+--- END CODE BLOCK ---
+Square root of ½; approximately
+--- CODE BLOCK 74 ---
+Math.round()
+--- END CODE BLOCK ---
+--- CODE BLOCK 75 ---
+Math.sign()
+--- END CODE BLOCK ---
+Square root of
+--- CODE BLOCK 77 ---
+Math.sinh()
+--- END CODE BLOCK ---
+; approximately
+--- CODE BLOCK 78 ---
+Math.sqrt()
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+Math.sumPrecise()
+--- END CODE BLOCK ---
+The initial value of the
+--- CODE BLOCK 81 ---
+Math.tanh()
+--- END CODE BLOCK ---
+property is the string
+--- CODE BLOCK 82 ---
+Math.trunc()
+--- END CODE BLOCK ---
+. This property is used in
+--- CODE BLOCK 90 ---
+function degToRad(degrees) {
+return degrees * (Math.PI / 180);
+function radToDeg(rad) {
+return rad / (Math.PI / 180);
+--- END CODE BLOCK ---
+Static methods
+--- CODE BLOCK 91 ---
+function degToRad(degrees) {
+return degrees * (Math.PI / 180);
+function radToDeg(rad) {
+return rad / (Math.PI / 180);
+--- END CODE BLOCK ---
+Returns the absolute value of the input.
+--- CODE BLOCK 92 ---
+50 * Math.tan(degToRad(60));
+--- END CODE BLOCK ---
+Returns the arccosine of the input.
+--- CODE BLOCK 93 ---
+50 * Math.tan(degToRad(60));
+--- END CODE BLOCK ---
+Returns the hyperbolic arccosine of the input.
+--- CODE BLOCK 96 ---
+Math.random()
+--- END CODE BLOCK ---
+Returns the arcsine of the input.
+--- CODE BLOCK 97 ---
+Math.floor()
+--- END CODE BLOCK ---
+Returns the hyperbolic arcsine of a number.
+--- CODE BLOCK 98 ---
+function random(min, max) {
+const num = Math.floor(Math.random() * (max - min + 1)) + min;
+return num;
+random(1, 10);
+--- END CODE BLOCK ---
+Returns the arctangent of the input.
+--- CODE BLOCK 99 ---
+function random(min, max) {
+const num = Math.floor(Math.random() * (max - min + 1)) + min;
+return num;
+random(1, 10);
+--- END CODE BLOCK ---
+Returns the arctangent of the quotient of its arguments.
+[CODE_BLOCK_42]
+Returns the hyperbolic arctangent of the input.
+[CODE_BLOCK_43]
+Returns the cube root of the input.
+[CODE_BLOCK_44]
+Returns the smallest integer greater than or equal to the input.
+[CODE_BLOCK_45]
+Returns the number of leading zero bits of the 32-bit integer input.
+[CODE_BLOCK_46]
+Returns the cosine of the input.
+[CODE_BLOCK_47]
+Returns the hyperbolic cosine of the input.
+[CODE_BLOCK_48]
+Returns e
+, where x is the argument, and e is Euler's number (
+[CODE_BLOCK_49]
+…, the base of the natural logarithm).
+[CODE_BLOCK_50]
+Returns subtracting
+[CODE_BLOCK_51]
+from
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+Returns the largest integer less than or equal to the input.
+[CODE_BLOCK_54]
+Returns the nearest
+half precision
+float representation of the input.
+[CODE_BLOCK_55]
+Returns the nearest
+single precision
+float representation of the input.
+[CODE_BLOCK_56]
+Returns the square root of the sum of squares of its arguments.
+[CODE_BLOCK_57]
+Returns the result of the 32-bit integer multiplication of the inputs.
+[CODE_BLOCK_58]
+Returns the natural logarithm (㏒
+; also, ㏑) of the input.
+[CODE_BLOCK_59]
+Returns the base-10 logarithm of the input.
+[CODE_BLOCK_60]
+Returns the natural logarithm (㏒
+; also ㏑) of
+[CODE_BLOCK_61]
+for the number
+[CODE_BLOCK_62]
+[CODE_BLOCK_63]
+Returns the base-2 logarithm of the input.
+[CODE_BLOCK_64]
+Returns the largest of zero or more numbers.
+[CODE_BLOCK_65]
+Returns the smallest of zero or more numbers.
+[CODE_BLOCK_66]
+Returns base
+[CODE_BLOCK_67]
+to the exponent power
+[CODE_BLOCK_68]
+(that is,
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+Returns a pseudo-random number between
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+[CODE_BLOCK_74]
+Returns the value of the input rounded to the nearest integer.
+[CODE_BLOCK_75]
+Returns the sign of the input, indicating whether it is positive, negative, or zero.
+[CODE_BLOCK_76]
+Returns the sine of the input.
+[CODE_BLOCK_77]
+Returns the hyperbolic sine of the input.
+[CODE_BLOCK_78]
+Returns the positive square root of the input.
+[CODE_BLOCK_79]
+Returns the sum of a passed iterable of numbers, avoiding floating point precision loss in intermediate results.
+[CODE_BLOCK_80]
+Returns the tangent of the input.
+[CODE_BLOCK_81]
+Returns the hyperbolic tangent of the input.
+[CODE_BLOCK_82]
+Returns the integer portion of the input, removing any fractional digits.
+Examples
+Converting between degrees and radians
+The trigonometric functions
+[CODE_BLOCK_83]
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+, and
+[CODE_BLOCK_89]
+expect (and return) angles in
+radians
+Since humans tend to think in degrees, and some functions (such as CSS transforms) can accept degrees, it is a good idea to keep functions handy that convert between the two:
+Copy to Clipboard
+[CODE_BLOCK_90]
+Calculating the height of an equilateral triangle
+If we want to calculate the height of an equilateral triangle, and we know its side length is 100, we can use the formulae
+length of the adjacent multiplied by the tangent of the angle is equal to the opposite.
+In JavaScript, we can do this with the following:
+Copy to Clipboard
+[CODE_BLOCK_92]
+We use our
+[CODE_BLOCK_94]
+function to convert 60 degrees to radians, as
+[CODE_BLOCK_95]
+expects an input value in radians.
+Returning a random integer between two bounds
+This can be achieved with a combination of
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+Copy to Clipboard
+[CODE_BLOCK_98]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-math-object
+Browser compatibility
+See also
+[CODE_BLOCK_100]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 7, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

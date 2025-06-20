@@ -1,0 +1,112 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-params
+SCRAPED: 2025-06-19 17:44:06
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useParams
+useParams
+--- CODE BLOCK 2 ---
+'use client'
+import { useParams } from 'next/navigation'
+export default function ExampleClientComponent() {
+const params = useParams<{ tag: string; item: string }>()
+// Route -> /shop/[tag]/[item]
+// URL -> /shop/shoes/nike-air-max-97
+// `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
+console.log(params)
+return '...'
+--- END CODE BLOCK ---
+is a
+Client Component
+hook that lets you read a route's
+dynamic params
+filled in by the current URL.
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+'use client'
+import { useParams } from 'next/navigation'
+export default function ExampleClientComponent() {
+const params = useParams<{ tag: string; item: string }>()
+// Route -> /shop/[tag]/[item]
+// URL -> /shop/shoes/nike-air-max-97
+// `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
+console.log(params)
+return '...'
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 5 ---
+const params = useParams()
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+app/shop/page.js
+--- END CODE BLOCK ---
+does not take any parameters.
+Returns
+--- CODE BLOCK 17 ---
+app/shop/[slug]/page.js
+--- END CODE BLOCK ---
+returns an object containing the current route's filled in
+dynamic parameters
+Each property in the object is an active dynamic segment.
+The properties name is the segment's name, and the properties value is what the segment is filled in with.
+The properties value will either be a
+--- CODE BLOCK 19 ---
+{ slug: '1' }
+--- END CODE BLOCK ---
+or array of
+--- CODE BLOCK 20 ---
+app/shop/[tag]/[item]/page.js
+--- END CODE BLOCK ---
+'s depending on the
+type of dynamic segment
+If the route contains no dynamic parameters,
+--- CODE BLOCK 22 ---
+{ tag: '1', item: '2' }
+--- END CODE BLOCK ---
+returns an empty object.
+If used in Pages Router,
+--- CODE BLOCK 23 ---
+app/shop/[...slug]/page.js
+--- END CODE BLOCK ---
+will return
+--- CODE BLOCK 25 ---
+{ slug: ['1', '2'] }
+--- END CODE BLOCK ---
+on the initial render and updates with properties following the rules above once the router is ready.
+For example:
+Route
+[CODE_BLOCK_13]
+[CODE_BLOCK_14]
+[CODE_BLOCK_15]
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+Version History
+Version
+Changes
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+introduced.
+Was this helpful?
+supported.
+Send

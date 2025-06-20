@@ -1,0 +1,79 @@
+URL: https://react.dev/reference/react/use
+Section: Reference
+============================================================
+
+# use
+# use
+use is a React API that lets you read the value of a resource like a Promise or context.
+``````
+- Reference use(resource)
+- Usage Reading context with use Streaming data from the server to the client Dealing with rejected Promises
+- Troubleshooting “Suspense Exception: This is not a real error!”
+- use(resource)
+- Reading context with use
+- Streaming data from the server to the client
+- Dealing with rejected Promises
+- “Suspense Exception: This is not a real error!”
+## Reference
+### use(resource)
+Call use in your component to read the value of a resource like a Promise or context.
+``````
+Unlike React Hooks, use can be called within loops and conditional statements like if. Like React Hooks, the function that calls use must be a Component or Hook.
+When called with a Promise, the use API integrates with Suspense and error boundaries. The component calling use suspends while the Promise passed to use is pending. If the component that calls use is wrapped in a Suspense boundary, the fallback will be displayed.  Once the Promise is resolved, the Suspense fallback is replaced by the rendered components using the data returned by the use API. If the Promise passed to use is rejected, the fallback of the nearest Error Boundary will be displayed.
+See more examples below.
+#### Parameters
+- resource: this is the source of the data you want to read a value from. A resource can be a Promise or a context.
+#### Returns
+The use API returns the value that was read from the resource like the resolved value of a Promise or context.
+#### Caveats
+- The use API must be called inside a Component or a Hook.
+- When fetching data in a Server Component, prefer async and await over use. async and await pick up rendering from the point where await was invoked, whereas use re-renders the component after the data is resolved.
+- Prefer creating Promises in Server Components and passing them to Client Components over creating Promises in Client Components. Promises created in Client Components are recreated on every render. Promises passed from a Server Component to a Client Component are stable across re-renders. See this example.
+## Usage
+### Reading context with use
+When a context is passed to use, it works similarly to useContext. While useContext must be called at the top level of your component, use can be called inside conditionals like if and loops like for. use is preferred over useContext because it is more flexible.
+``````
+use returns the context value for the context you passed. To determine the context value, React searches the component tree and finds the closest context provider above for that particular context.
+To pass context to a Button, wrap it or one of its parent components into the corresponding context provider.
+``````
+It doesn’t matter how many layers of components there are between the provider and the Button. When a Button anywhere inside of Form calls use(ThemeContext), it will receive "dark" as the value.
+Unlike useContext, use can be called in conditionals and loops like if.
+``````
+use is called from inside a if statement, allowing you to conditionally read values from a Context.
+### Pitfall
+Like useContext, use(context) always looks for the closest context provider above the component that calls it. It searches upwards and does not consider context providers in the component from which you’re calling use(context).
+``````
+### Streaming data from the server to the client
+Data can be streamed from the server to the client by passing a Promise as a prop from a Server Component to a Client Component.
+``````
+The Client Component then takes the Promise it received as a prop and passes it to the use API. This allows the Client Component to read the value from the Promise that was initially created by the Server Component.
+``````
+Because Message is wrapped in Suspense, the fallback will be displayed until the Promise is resolved. When the Promise is resolved, the value will be read by the use API and the Message component will replace the Suspense fallback.
+``````
+### Note
+When passing a Promise from a Server Component to a Client Component, its resolved value must be serializable to pass between server and client. Data types like functions aren’t serializable and cannot be the resolved value of such a Promise.
+##### Deep Dive
+#### Should I resolve a Promise in a Server or Client Component?
+A Promise can be passed from a Server Component to a Client Component and resolved in the Client Component with the use API. You can also resolve the Promise in a Server Component with await and pass the required data to the Client Component as a prop.
+``````
+But using await in a Server Component will block its rendering until the await statement is finished. Passing a Promise from a Server Component to a Client Component prevents the Promise from blocking the rendering of the Server Component.
+### Dealing with rejected Promises
+In some cases a Promise passed to use could be rejected. You can handle rejected Promises by either:
+- Displaying an error to users with an error boundary.
+- Providing an alternative value with Promise.catch
+### Pitfall
+use cannot be called in a try-catch block. Instead of a try-catch block wrap your component in an Error Boundary, or provide an alternative value to use with the Promise’s .catch method.
+#### Displaying an error to users with an error boundary
+If you’d like to display an error to your users when a Promise is rejected, you can use an error boundary. To use an error boundary, wrap the component where you are calling the use API in an error boundary. If the Promise passed to use is rejected the fallback for the error boundary will be displayed.
+``````
+#### Providing an alternative value with Promise.catch
+If you’d like to provide an alternative value when the Promise passed to use is rejected you can use the Promise’s catch method.
+``````
+To use the Promise’s catch method, call catch on the Promise object. catch takes a single argument: a function that takes an error message as an argument. Whatever is returned by the function passed to catch will be used as the resolved value of the Promise.
+## Troubleshooting
+### “Suspense Exception: This is not a real error!”
+You are either calling use outside of a React Component or Hook function, or calling use in a try–catch block. If you are calling use inside a try–catch block, wrap your component in an error boundary, or call the Promise’s catch to catch the error and resolve the Promise with another value. See these examples.
+If you are calling use outside a React Component or Hook function, move the use call to a React Component or Hook function.
+``````
+Instead, call use outside any component closures, where the function that calls use is a Component or Hook.
+``````

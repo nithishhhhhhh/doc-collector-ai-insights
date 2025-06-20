@@ -7,11 +7,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin, urlparse, parse_qs
+from urllib.parse import urljoin, urlparse
 
-BASE_URL = "https://nextjs.org/docs"
-EXAMPLES_URL = "https://nextjs.org/examples"
-OUT_DIR = "nextjs/pages"
+# React has two main sections we need to scrape
+REACT_SECTIONS = {
+    "learn": "https://react.dev/learn",
+    "reference": "https://react.dev/reference/react"
+}
+
+OUT_DIR = "react/pages"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 def setup_driver():
@@ -22,325 +26,273 @@ def setup_driver():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option('useAutomationExtension', False)
+    options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
     
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-    return driver
+    return webdriver.Chrome(service=service, options=options)
 
 visited_urls = set()
 seen_text_hash = set()
 
-def wait_for_content(driver, timeout=20):
-    """Wait for Next.js docs content to load"""
+def wait_for_react_content(driver, timeout=15):
+    """Wait for React docs content to load - they use client-side rendering"""
     try:
+        # Wait for main content
         WebDriverWait(driver, timeout).until(
-            EC.any_of(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "main")),
-                EC.presence_of_element_located((By.CSS_SELECTOR, "[data-docs-content]")),
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".nextra-content")),
-                EC.presence_of_element_located((By.CSS_SELECTOR, "article")),
-                EC.presence_of_element_located((By.CSS_SELECTOR, ".docs-content"))
-            )
+            EC.presence_of_element_located((By.CSS_SELECTOR, "main, article, .content"))
         )
-        time.sleep(4)
+        
+        # Wait for navigation to be populated
+        WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "nav a, .sidebar a"))
+        )
+        
+        # Extra wait for dynamic content and code examples
+        time.sleep(3)
         return True
-    except:
+    except Exception as e:
+        print(f"    ⚠️  Timeout waiting for content: {e}")
         return False
 
-def extract_nextjs_hydration_data(driver):
-    """Extract data from Next.js hydration scripts"""
-    hydration_data = {}
-    
-    try:
-        next_data_script = driver.find_element(By.ID, "__NEXT_DATA__")
-        if next_data_script:
-            try:
-                data = json.loads(next_data_script.get_attribute("innerHTML"))
-                hydration_data['next_data'] = data
-            except:
-                pass
-    except:
-        pass
-    
-    try:
-        script_elements = driver.find_elements(By.TAG_NAME, "script")
-        for script in script_elements:
-            content = script.get_attribute("innerHTML")
-            if content and "self.__next_f.push" in content:
-                hydration_data['next_f_push'] = content
-                break
-    except:
-        pass
-    
-    return hydration_data
-
-def extract_nextjs_links(driver, base_url):
-    """Extract all Next.js documentation and example links"""
+def extract_react_navigation_links(driver, base_url):
+    """Extract all React documentation links from navigation"""
     links = set()
     
     try:
+        # React docs use specific navigation patterns
         nav_selectors = [
-            "nav a", ".sidebar a", ".navigation a", ".menu a", 
-            "aside a", ".toc a", "[data-sidebar] a", ".nextra-sidebar a",
-            ".docs-sidebar a", "[data-docs-sidebar] a"
+            "nav a[href*='/learn']",
+            "nav a[href*='/reference']", 
+            ".sidebar a",
+            "aside a",
+            ".navigation a",
+            "[data-testid='sidebar'] a",
+            ".docs-nav a"
         ]
         
         for selector in nav_selectors:
-            nav_elements = driver.find_elements(By.CSS_SELECTOR, selector)
-            for element in nav_elements:
-                href = element.get_attribute("href")
-                if href and ("nextjs.org/docs" in href or "nextjs.org/examples" in href):
+            try:
+                nav_elements = driver.find_elements(By.CSS_SELECTOR, selector)
+                for element in nav_elements:
+                    href = element.get_attribute("href")
+                    if href and ("react.dev" in href or href.startswith("/")):
+                        # Convert relative URLs to absolute
+                        if href.startswith("/"):
+                            href = f"https://react.dev{href}"
+                        
+                        # Only include learn and reference sections
+                        if "/learn" in href or "/reference" in href:
+                            links.add(href)
+            except:
+                continue
+        
+        # Also look for in-page navigation (table of contents)
+        toc_links = driver.find_elements(By.CSS_SELECTOR, ".table-of-contents a, .toc a")
+        for element in toc_links:
+            href = element.get_attribute("href")
+            if href and ("react.dev" in href or href.startswith("/")):
+                if href.startswith("/"):
+                    href = f"https://react.dev{href}"
+                if "/learn" in href or "/reference" in href:
                     links.add(href)
-        
-        content_links = driver.find_elements(By.CSS_SELECTOR,
-            "main a, article a, .content a, .nextra-content a, [data-docs-content] a")
-        
-        for element in content_links:
-            href = element.get_attribute("href")
-            if href and ("nextjs.org/docs" in href or "nextjs.org/examples" in href):
-                links.add(href)
-        
-        router_links = driver.find_elements(By.CSS_SELECTOR,
-            "a[href*='app'], a[href*='pages'], .router-toggle a, [data-router] a")
-        
-        for element in router_links:
-            href = element.get_attribute("href")
-            if href and "nextjs.org/docs" in href:
-                links.add(href)
-                
+                    
     except Exception as e:
-        print(f"Error extracting links: {e}")
+        print(f"    ⚠️  Error extracting navigation: {e}")
     
     return list(links)
 
-def discover_all_docs_sections(driver):
-    """Discover all documentation sections including both routers"""
-    all_sections = set()
-    
-    main_sections = [
-        "https://nextjs.org/docs",
-        "https://nextjs.org/docs/app",
-        "https://nextjs.org/docs/pages", 
-        "https://nextjs.org/examples"
-    ]
-    
-    for section_url in main_sections:
-        try:
-            print(f"  🔍 Discovering from: {section_url}")
-            driver.get(section_url)
-            
-            if not wait_for_content(driver):
-                continue
-            
-            section_links = extract_nextjs_links(driver, section_url)
-            all_sections.update(section_links)
-            
-            try:
-                show_more_buttons = driver.find_elements(By.CSS_SELECTOR,
-                    "button[aria-label*='more'], .show-more, .load-more, .pagination a")
-                
-                for button in show_more_buttons:
-                    try:
-                        driver.execute_script("arguments[0].click();", button)
-                        time.sleep(3)
-                        more_links = extract_nextjs_links(driver, section_url)
-                        all_sections.update(more_links)
-                    except:
-                        pass
-            except:
-                pass
-                
-            time.sleep(2)
-            
-        except Exception as e:
-            print(f"    ❌ Error discovering section {section_url}: {e}")
-    
-    return list(all_sections)
-
-def get_page_content(driver):
-    """Extract meaningful content from Next.js pages"""
+def get_react_page_content(driver):
+    """Extract content from React documentation pages"""
     try:
-        if not wait_for_content(driver):
+        if not wait_for_react_content(driver):
             return ""
-        
-        hydration_data = extract_nextjs_hydration_data(driver)
-        
+            
         html = driver.page_source
         soup = BeautifulSoup(html, 'lxml')
         
+        # Remove unwanted elements
         for element in soup(["script", "style", "nav", "header", "footer", 
-                           ".sidebar", ".navigation", ".nextra-sidebar", 
-                           ".docs-sidebar", ".breadcrumbs", ".toc"]):
+                           ".sidebar", ".navigation", ".breadcrumb"]):
             element.decompose()
         
-        main_content = (
-            soup.find("main") or
-            soup.find(attrs={"data-docs-content": True}) or
-            soup.find(class_="nextra-content") or
-            soup.find(class_="docs-content") or
-            soup.find("article") or
-            soup.find(class_="content")
-        )
+        # React docs structure - try multiple content selectors
+        content_selectors = [
+            "main article",
+            "main .content", 
+            "main",
+            "article",
+            ".docs-content",
+            ".markdown-body"
+        ]
+        
+        main_content = None
+        for selector in content_selectors:
+            main_content = soup.select_one(selector)
+            if main_content:
+                break
+        
+        if not main_content:
+            main_content = soup.body
         
         if main_content:
-            title_elem = (
-                soup.find("h1") or 
-                soup.find(class_="docs-title") or
-                soup.find(attrs={"data-docs-title": True})
-            )
+            # Extract text while preserving code blocks
+            text_parts = []
             
-            title = title_elem.get_text(strip=True) if title_elem else ""
-            content = main_content.get_text(separator="\n", strip=True)
+            # Get title
+            title = soup.find("h1")
+            if title:
+                text_parts.append(f"# {title.get_text().strip()}\n")
             
-            if title and title not in content:
-                content = f"{title}\n{'=' * len(title)}\n\n{content}"
+            # Process content preserving structure
+            for element in main_content.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'code', 'ul', 'ol', 'li']):
+                if element.name.startswith('h'):
+                    level = int(element.name[1])
+                    text_parts.append(f"{'#' * level} {element.get_text().strip()}\n")
+                elif element.name == 'pre':
+                    # Preserve code blocks
+                    code_text = element.get_text().strip()
+                    text_parts.append(f"``````\n")
+                elif element.name == 'p':
+                    text_parts.append(f"{element.get_text().strip()}\n")
+                elif element.name in ['ul', 'ol']:
+                    # Handle lists
+                    for li in element.find_all('li', recursive=False):
+                        text_parts.append(f"- {li.get_text().strip()}")
+                    text_parts.append("")
+            
+            content = '\n'.join(text_parts)
         else:
             content = soup.get_text(separator="\n", strip=True)
         
+        # Clean up
         lines = []
         for line in content.split('\n'):
             line = line.strip()
-            if line and len(line) > 2:
-                if not any(nav_text in line.lower() for nav_text in 
-                          ['edit on github', 'feedback', 'was this helpful', 
-                           'next.js', 'vercel', 'deploy']):
-                    lines.append(line)
+            if line and not line.startswith('Skip to'):
+                lines.append(line)
         
-        clean_content = '\n'.join(lines)
-        
-        if hydration_:
-            clean_content += "\n\n--- HYDRATION DATA ---\n"
-            if 'next_data' in hydration_:
-                clean_content += f"\n__NEXT_DATA__:\n{json.dumps(hydration_data['next_data'], indent=2)}"
-            if 'next_f_push' in hydration_:
-                clean_content += f"\n\nself.__next_f.push data found in scripts"
-        
-        return clean_content
+        return '\n'.join(lines)
         
     except Exception as e:
-        print(f"Error extracting content: {e}")
+        print(f"    ❌ Error extracting content: {e}")
         return ""
 
-def save_content(idx, content, url):
-    """Save content with better naming for Next.js structure"""
-    url_parts = url.split('/')
+def save_react_content(idx, content, url, section):
+    """Save React content with better organization"""
+    # Create section subdirectory
+    section_dir = f"{OUT_DIR}/{section}"
+    os.makedirs(section_dir, exist_ok=True)
     
-    if '#' in url:
-        base_url, anchor = url.split('#', 1)
-        url_parts = base_url.split('/')
-        anchor_clean = re.sub(r'[^a-zA-Z0-9_-]', '_', anchor)
-        filename_suffix = f"_{anchor_clean}"
+    # Generate filename from URL
+    url_path = urlparse(url).path
+    path_parts = [p for p in url_path.split('/') if p and p not in ['learn', 'reference', 'react']]
+    
+    if path_parts:
+        filename = '_'.join(path_parts)
     else:
-        filename_suffix = ""
+        filename = "index"
     
-    if '/examples/' in url:
-        example_name = url_parts[-1] if url_parts[-1] else url_parts[-2]
-        filename = f"example_{example_name}"
-    elif '/docs/app/' in url:
-        doc_path = '/'.join(url_parts[url_parts.index('app')+1:])
-        filename = f"app_{doc_path.replace('/', '_')}" if doc_path else "app_index"
-    elif '/docs/pages/' in url:
-        doc_path = '/'.join(url_parts[url_parts.index('pages')+1:])
-        filename = f"pages_{doc_path.replace('/', '_')}" if doc_path else "pages_index"
-    elif '/docs/' in url:
-        doc_path = '/'.join(url_parts[url_parts.index('docs')+1:])
-        filename = f"docs_{doc_path.replace('/', '_')}" if doc_path else "docs_index"
-    else:
-        filename = url_parts[-1] if url_parts[-1] else "index"
-    
-    filename = re.sub(r'[^a-zA-Z0-9_-]', '_', filename)
-    filename = f"{filename}{filename_suffix}"
-    
-    if not filename or filename == '_':
+    # Clean filename
+    filename = re.sub(r'[^\w\-_]', '', filename)
+    if not filename:
         filename = f"page_{idx}"
     
-    filepath = f"{OUT_DIR}/{idx:03d}_{filename}.txt"
+    filepath = f"{section_dir}/{idx:03d}_{filename}.txt"
     
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(f"URL: {url}\n")
-        f.write("=" * 50 + "\n\n")
+        f.write(f"Section: {section.title()}\n")
+        f.write("=" * 60 + "\n\n")
         f.write(content)
     
     print(f"    ✅ Saved: {filepath}")
+    return filepath
 
-def scrape_nextjs():
-    """Main scraping function for Next.js documentation"""
+def scrape_react_section(driver, section_name, base_url):
+    """Scrape a specific React documentation section"""
+    print(f"\n🔍 Scraping React {section_name.title()} section...")
+    
+    # Load section page
+    print(f"📄 Loading: {base_url}")
+    driver.get(base_url)
+    
+    if not wait_for_react_content(driver):
+        print(f"❌ Failed to load {section_name} section")
+        return []
+    
+    # Extract all links in this section
+    all_links = extract_react_navigation_links(driver, base_url)
+    all_links.append(base_url)  # Include section index
+    
+    # Filter links for this section
+    section_links = [link for link in all_links if f"/{section_name}" in link]
+    unique_links = list(set(section_links))
+    
+    print(f"📋 Found {len(unique_links)} pages in {section_name} section")
+    
+    scraped_files = []
+    idx = 1
+    
+    for url in unique_links:
+        if url in visited_urls:
+            continue
+            
+        visited_urls.add(url)
+        print(f"  [{idx:03d}] 🌐 {url}")
+        
+        try:
+            driver.get(url)
+            content = get_react_page_content(driver)
+            
+            if not content or len(content.strip()) < 100:
+                print("    ⚠️  No meaningful content found")
+                continue
+            
+            # Check for duplicate content
+            content_hash = hashlib.sha256(content.encode()).hexdigest()
+            if content_hash in seen_text_hash:
+                print("    ⚠️  Duplicate content - skipped")
+                continue
+            
+            seen_text_hash.add(content_hash)
+            filepath = save_react_content(idx, content, url, section_name)
+            scraped_files.append(filepath)
+            idx += 1
+            
+            # Be respectful to React's servers
+            time.sleep(2)
+            
+        except Exception as e:
+            print(f"    ❌ Error scraping {url}: {e}")
+            continue
+    
+    return scraped_files
+
+def scrape_react_docs():
+    """Main React documentation scraping function"""
     driver = setup_driver()
+    all_files = []
     
     try:
-        print("🚀 Starting Next.js documentation scrape...")
+        print("🚀 Starting React documentation scrape...")
+        print("📚 This will scrape both Learn and Reference sections")
         
-        print("🔍 Discovering all documentation sections...")
-        all_links = discover_all_docs_sections(driver)
+        for section_name, base_url in REACT_SECTIONS.items():
+            files = scrape_react_section(driver, section_name, base_url)
+            all_files.extend(files)
         
-        important_links = [
-            "https://nextjs.org/docs",
-            "https://nextjs.org/docs/getting-started/installation",
-            "https://nextjs.org/docs/app/getting-started",
-            "https://nextjs.org/docs/pages/getting-started",
-            "https://nextjs.org/docs/app/building-your-application/routing",
-            "https://nextjs.org/docs/pages/building-your-application/routing",
-            "https://nextjs.org/docs/app/api-reference",
-            "https://nextjs.org/docs/pages/api-reference",
-            "https://nextjs.org/examples"
-        ]
+        print(f"\n🎉 React scraping complete!")
+        print(f"📊 Successfully scraped {len(all_files)} unique pages")
+        print(f"📁 Files saved to: {OUT_DIR}/")
         
-        all_links.extend(important_links)
-        
-        unique_links = []
-        for link in set(all_links):
-            if ("nextjs.org/docs" in link or "nextjs.org/examples" in link):
-                if not any(skip in link for skip in ['github.com', 'twitter.com', 'discord.com']):
-                    unique_links.append(link)
-        
-        print(f"📊 Total unique pages to scrape: {len(unique_links)}")
-        
-        idx = 1
-        successful_scrapes = 0
-        
-        for url in unique_links:
-            if url in visited_urls:
-                continue
-                
-            visited_urls.add(url)
-            print(f"\n[{idx:03d}] 🌐 {url}")
-            
-            try:
-                driver.get(url)
-                content = get_page_content(driver)
-                
-                if not content or len(content.strip()) < 100:
-                    print("    ⚠️  No meaningful content found")
-                    continue
-                
-                content_hash = hashlib.sha256(content.encode()).hexdigest()
-                if content_hash in seen_text_hash:
-                    print("    ⚠️  Duplicate content - skipped")
-                    continue
-                
-                seen_text_hash.add(content_hash)
-                save_content(idx, content, url)
-                successful_scrapes += 1
-                idx += 1
-                
-                time.sleep(3)
-                
-            except Exception as e:
-                print(f"    ❌ Error scraping {url}: {e}")
-                continue
-        
-        print(f"\n🎉 Next.js scraping complete!")
-        print(f"📊 Successfully scraped {successful_scrapes} unique pages")
+        return all_files
         
     finally:
         driver.quit()
 
 if __name__ == "__main__":
     start_time = time.time()
-    scrape_nextjs()
-    print(f"⏱️  Total time: {time.time() - start_time:.1f}s")
+    scraped_files = scrape_react_docs()
+    
+    print(f"\n⏱️  Total time: {time.time() - start_time:.1f}s")
+    print(f"📝 Next step: Run generate_llms.py to create the minified llms.txt file")

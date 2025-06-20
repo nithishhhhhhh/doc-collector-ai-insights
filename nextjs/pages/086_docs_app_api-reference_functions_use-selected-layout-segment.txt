@@ -1,0 +1,234 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-selected-layout-segment
+SCRAPED: 2025-06-19 17:19:11
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useSelectedLayoutSegment
+useSelectedLayoutSegment
+--- CODE BLOCK 1 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+is a
+Client Component
+hook that lets you read the active route segment
+one level below
+the Layout it is called from.
+It is useful for navigation UI, such as tabs inside a parent layout that change style depending on the active child segment.
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 2 ---
+'use client'
+import { useSelectedLayoutSegment } from 'next/navigation'
+export default function ExampleClientComponent() {
+const segment = useSelectedLayoutSegment()
+return <p>Active segment: {segment}</p>
+--- END CODE BLOCK ---
+Good to know
+Since
+--- CODE BLOCK 4 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+is a
+Client Component
+hook, and Layouts are
+Server Components
+by default,
+--- CODE BLOCK 5 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+is usually called via a Client Component that is imported into a Layout.
+--- CODE BLOCK 6 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+only returns the segment one level down. To return all active segments, see
+--- CODE BLOCK 7 ---
+useSelectedLayoutSegments
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 8 ---
+const segment = useSelectedLayoutSegment(parallelRoutesKey?: string)
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+optionally
+accepts a
+--- CODE BLOCK 11 ---
+parallelRoutesKey
+--- END CODE BLOCK ---
+, which allows you to read the active route segment within that slot.
+Returns
+--- CODE BLOCK 12 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+returns a string of the active segment or
+--- CODE BLOCK 14 ---
+app/layout.js
+--- END CODE BLOCK ---
+if one doesn't exist.
+For example, given the Layouts and URLs below, the returned segment would be:
+Layout
+Visited URL
+Returned Segment
+--- CODE BLOCK 17 ---
+app/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+'dashboard'
+--- END CODE BLOCK ---
+--- CODE BLOCK 20 ---
+app/dashboard/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+app/dashboard/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+/dashboard/settings
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+app/dashboard/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+/dashboard/analytics
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+'analytics'
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+app/dashboard/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+/dashboard/analytics/monthly
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+'analytics'
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+'use client'
+import Link from 'next/link'
+import { useSelectedLayoutSegment } from 'next/navigation'
+// This *client* component will be imported into a blog layout
+export default function BlogNavLink({
+slug,
+children,
+}: {
+slug: string
+children: React.ReactNode
+}) {
+// Navigating to `/blog/hello-world` will return 'hello-world'
+// for the selected layout segment
+const segment = useSelectedLayoutSegment()
+const isActive = slug === segment
+return (
+<Link
+href={`/blog/${slug}`}
+// Change style depending on whether the link is active
+style={{ fontWeight: isActive ? 'bold' : 'normal' }}
+{children}
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+'use client'
+import Link from 'next/link'
+import { useSelectedLayoutSegment } from 'next/navigation'
+// This *client* component will be imported into a blog layout
+export default function BlogNavLink({
+slug,
+children,
+}: {
+slug: string
+children: React.ReactNode
+}) {
+// Navigating to `/blog/hello-world` will return 'hello-world'
+// for the selected layout segment
+const segment = useSelectedLayoutSegment()
+const isActive = slug === segment
+return (
+<Link
+href={`/blog/${slug}`}
+// Change style depending on whether the link is active
+style={{ fontWeight: isActive ? 'bold' : 'normal' }}
+{children}
+</Link>
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+// Import the Client Component into a parent Layout (Server Component)
+import { BlogNavLink } from './blog-nav-link'
+import getFeaturedPosts from './get-featured-posts'
+export default async function Layout({
+children,
+}: {
+children: React.ReactNode
+}) {
+const featuredPosts = await getFeaturedPosts()
+return (
+<div>
+{featuredPosts.map((post) => (
+<div key={post.id}>
+<BlogNavLink slug={post.slug}>{post.title}</BlogNavLink>
+</div>
+<div>{children}</div>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+// Import the Client Component into a parent Layout (Server Component)
+import { BlogNavLink } from './blog-nav-link'
+import getFeaturedPosts from './get-featured-posts'
+export default async function Layout({
+children,
+}: {
+children: React.ReactNode
+}) {
+const featuredPosts = await getFeaturedPosts()
+return (
+<div>
+{featuredPosts.map((post) => (
+<div key={post.id}>
+<BlogNavLink slug={post.slug}>{post.title}</BlogNavLink>
+</div>
+<div>{children}</div>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+useSelectedLayoutSegment
+--- END CODE BLOCK ---
+[CODE_BLOCK_31]
+Examples
+Creating an active link component
+You can use
+[CODE_BLOCK_32]
+to create an active link component that changes style depending on the active segment. For example, a featured posts list in the sidebar of a blog:
+app/blog/blog-nav-link.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_33]
+app/blog/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_35]
+Version History
+Version
+Changes
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+introduced.
+Was this helpful?
+supported.
+Send

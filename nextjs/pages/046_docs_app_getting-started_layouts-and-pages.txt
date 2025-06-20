@@ -1,0 +1,334 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started/layouts-and-pages
+SCRAPED: 2025-06-19 17:14:25
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Getting Started
+Layouts and Pages
+Layouts and Pages
+Next.js uses
+file-system based routing
+, meaning you can use folders and files to define routes. This page will guide you through how to create layouts and pages, and link between them.
+Creating a page
+page
+is UI that is rendered on a specific route. To create a page, add a
+--- CODE BLOCK 4 ---
+export default function Page() {
+return <h1>Hello Next.js!</h1>
+--- END CODE BLOCK ---
+file
+inside the
+--- CODE BLOCK 5 ---
+export default function Page() {
+return <h1>Hello Next.js!</h1>
+--- END CODE BLOCK ---
+directory and default export a React component. For example, to create an index page (
+--- CODE BLOCK 10 ---
+export default function DashboardLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+{/* Layout UI */}
+{/* Place children where you want to render a page or nested layout */}
+<main>{children}</main>
+</body>
+</html>
+--- END CODE BLOCK ---
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 11 ---
+export default function DashboardLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>
+{/* Layout UI */}
+{/* Place children where you want to render a page or nested layout */}
+<main>{children}</main>
+</body>
+</html>
+--- END CODE BLOCK ---
+Creating a layout
+A layout is UI that is
+shared
+between multiple pages. On navigation, layouts preserve state, remain interactive, and do not rerender.
+You can define a layout by default exporting a React component from a
+--- CODE BLOCK 26 ---
+// Dummy imports
+import { getPosts } from '@/lib/posts'
+import { Post } from '@/ui/post'
+export default async function Page() {
+const posts = await getPosts()
+return (
+<ul>
+{posts.map((post) => (
+<Post key={post.id} post={post} />
+</ul>
+--- END CODE BLOCK ---
+file
+. The component should accept a
+--- CODE BLOCK 27 ---
+// Dummy imports
+import { getPosts } from '@/lib/posts'
+import { Post } from '@/ui/post'
+export default async function Page() {
+const posts = await getPosts()
+return (
+<ul>
+{posts.map((post) => (
+<Post key={post.id} post={post} />
+</ul>
+--- END CODE BLOCK ---
+prop which can be a page or another
+layout
+For example, to create a layout that accepts your index page as child, add a
+--- CODE BLOCK 31 ---
+function generateStaticParams() {}
+export default function Page() {
+return <h1>Hello, Blog Post Page!</h1>
+--- END CODE BLOCK ---
+file inside the
+--- CODE BLOCK 32 ---
+function generateStaticParams() {}
+export default function Page() {
+return <h1>Hello, Blog Post Page!</h1>
+--- END CODE BLOCK ---
+directory:
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 39 ---
+export default function BlogLayout({
+children,
+}: {
+children: React.ReactNode
+}) {
+return <section>{children}</section>
+--- END CODE BLOCK ---
+The layout above is called a
+root layout
+because it's defined at the root of the
+--- CODE BLOCK 41 ---
+app/layout.js
+--- END CODE BLOCK ---
+directory. The root layout is
+required
+and must contain
+--- CODE BLOCK 42 ---
+app/blog/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+app/blog/page.js
+--- END CODE BLOCK ---
+tags.
+Creating a nested route
+A nested route is a route composed of multiple URL segments. For example, the
+--- CODE BLOCK 44 ---
+app/blog/[slug]/page.js
+--- END CODE BLOCK ---
+route is composed of three segments:
+--- CODE BLOCK 45 ---
+[segmentName]
+--- END CODE BLOCK ---
+(Root Segment)
+--- CODE BLOCK 46 ---
+app/blog/[slug]/page.tsx
+--- END CODE BLOCK ---
+(Segment)
+--- CODE BLOCK 48 ---
+export default async function BlogPostPage({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+const post = await getPost(slug)
+return (
+<div>
+<h1>{post.title}</h1>
+<p>{post.content}</p>
+</div>
+--- END CODE BLOCK ---
+(Leaf Segment)
+In Next.js:
+Folders
+are used to define the route segments that map to URL segments.
+Files
+(like
+--- CODE BLOCK 49 ---
+export default async function BlogPostPage({
+params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params
+const post = await getPost(slug)
+return (
+<div>
+<h1>{post.title}</h1>
+<p>{post.content}</p>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+import Link from 'next/link'
+export default async function Post({ post }) {
+const posts = await getPosts()
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.slug}>
+<Link href={`/blog/${post.slug}`}>{post.title}</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+) are used to create UI that is shown for a segment.
+To create nested routes, you can nest folders inside each other. For example, to add a route for
+--- CODE BLOCK 57 ---
+import Link from 'next/link'
+export default async function Post({ post }) {
+const posts = await getPosts()
+return (
+<ul>
+{posts.map((post) => (
+<li key={post.slug}>
+<Link href={`/blog/${post.slug}`}>{post.title}</Link>
+</li>
+</ul>
+--- END CODE BLOCK ---
+, create a folder called
+[CODE_BLOCK_22]
+in the
+[CODE_BLOCK_23]
+directory. Then, to make
+[CODE_BLOCK_24]
+publicly accessible, add a
+[CODE_BLOCK_25]
+file:
+app/blog/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_26]
+You can continue nesting folders to create nested routes. For example, to create a route for a specific blog post, create a new
+[CODE_BLOCK_28]
+folder inside
+[CODE_BLOCK_29]
+and add a
+[CODE_BLOCK_30]
+file:
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_31]
+Wrapping a folder name in square brackets (e.g.
+[CODE_BLOCK_33]
+) creates a
+dynamic route segment
+which is used to generate multiple pages from data. e.g. blog posts, product pages, etc.
+Nesting layouts
+By default, layouts in the folder hierarchy are also nested, which means they wrap child layouts via their
+[CODE_BLOCK_34]
+prop. You can nest layouts by adding
+[CODE_BLOCK_35]
+inside specific route segments (folders).
+For example, to create a layout for the
+[CODE_BLOCK_36]
+route, add a new
+[CODE_BLOCK_37]
+file inside the
+[CODE_BLOCK_38]
+folder.
+app/blog/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_39]
+If you were to combine the two layouts above, the root layout (
+[CODE_BLOCK_41]
+) would wrap the blog layout (
+[CODE_BLOCK_42]
+), which would wrap the blog (
+[CODE_BLOCK_43]
+) and blog post page (
+[CODE_BLOCK_44]
+Creating a dynamic segment
+Dynamic segments
+allow you to create routes that are generated from data. For example, instead of manually creating a route for each individual blog post, you can create a dynamic segment to generate the routes based on blog post data.
+To create a dynamic segment, wrap the segment (folder) name in square brackets:
+[CODE_BLOCK_45]
+. For example, in the
+[CODE_BLOCK_46]
+route, the
+[CODE_BLOCK_47]
+is the dynamic segment.
+app/blog/[slug]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_48]
+Learn more about
+Dynamic Segments
+Linking between pages
+You can use the
+[CODE_BLOCK_50]
+component
+to navigate between routes.
+[CODE_BLOCK_51]
+is a built-in Next.js component that extends the HTML
+[CODE_BLOCK_52]
+tag to provide
+prefetching
+client-side navigation
+For example, to generate a list of blog posts, import
+[CODE_BLOCK_53]
+from
+[CODE_BLOCK_54]
+and pass a
+[CODE_BLOCK_55]
+prop to the component:
+app/ui/post.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_56]
+Good to know
+[CODE_BLOCK_58]
+is the primary way to navigate between routes in Next.js. You can also use the
+[CODE_BLOCK_59]
+hook
+for more advanced navigation.
+API Reference
+Learn more about the features mentioned in this page by reading the API Reference.
+Linking and Navigating
+Learn how the built-in navigation optimizations work, including prefetching, prerendering, and client-side navigation, and how to optimize navigation for dynamic routes and slow networks.
+layout.js
+API reference for the layout.js file.
+page.js
+API reference for the page.js file.
+Link Component
+Enable fast client-side navigation with the built-in `next/link` component.
+Dynamic Segments
+Dynamic Route Segments can be used to programmatically generate route segments from dynamic data.
+Was this helpful?
+supported.
+Send

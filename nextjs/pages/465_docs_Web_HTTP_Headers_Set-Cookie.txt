@@ -1,0 +1,441 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie
+SCRAPED: 2025-06-19 18:03:45
+================================================================================
+
+The HTTP
+--- CODE BLOCK 6 ---
+Set-Cookie: <cookie-name>=<cookie-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Expires=<date>
+Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
+Set-Cookie: <cookie-name>=<cookie-value>; Max-Age=<number>
+Set-Cookie: <cookie-name>=<cookie-value>; Partitioned
+Set-Cookie: <cookie-name>=<cookie-value>; Path=<path-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Secure
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=None; Secure
+// Multiple attributes are also possible, for example:
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
+--- END CODE BLOCK ---
+response header
+is used to send a cookie from the server to the user agent, so that the user agent can send it back to the server later.
+To send multiple cookies, multiple
+--- CODE BLOCK 7 ---
+Set-Cookie: <cookie-name>=<cookie-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Expires=<date>
+Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
+Set-Cookie: <cookie-name>=<cookie-value>; Max-Age=<number>
+Set-Cookie: <cookie-name>=<cookie-value>; Partitioned
+Set-Cookie: <cookie-name>=<cookie-value>; Path=<path-value>
+Set-Cookie: <cookie-name>=<cookie-value>; Secure
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
+Set-Cookie: <cookie-name>=<cookie-value>; SameSite=None; Secure
+// Multiple attributes are also possible, for example:
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>; Secure; HttpOnly
+--- END CODE BLOCK ---
+headers should be sent in the same response.
+Warning:
+Browsers block frontend JavaScript code from accessing the
+--- CODE BLOCK 8 ---
+<cookie-name>=<cookie-value>
+--- END CODE BLOCK ---
+header, as required by the Fetch spec, which defines
+--- CODE BLOCK 9 ---
+<cookie-name>
+--- END CODE BLOCK ---
+as a
+forbidden response header name
+that
+must be filtered out
+from any response exposed to frontend code.
+When a
+Fetch API
+XMLHttpRequest API
+request
+uses CORS
+, browsers will ignore
+--- CODE BLOCK 10 ---
+( ) < > @ , ; : \ " / [ ] ? = { }
+--- END CODE BLOCK ---
+headers present in the server's response unless the request includes credentials. Visit
+Using the Fetch API - Including credentials
+and the
+XMLHttpRequest article
+to learn how to include credentials.
+For more information, see the guide on
+Using HTTP cookies
+Header type
+Response header
+Forbidden request header
+Forbidden response header name
+Syntax
+http
+Copy to Clipboard
+--- CODE BLOCK 11 ---
+<cookie-value>
+--- END CODE BLOCK ---
+Attributes
+--- CODE BLOCK 13 ---
+<cookie-name>
+--- END CODE BLOCK ---
+Defines the cookie name and its value.
+A cookie definition begins with a name-value pair.
+--- CODE BLOCK 21 ---
+Domain=<domain-value>
+--- END CODE BLOCK ---
+can contain any US-ASCII characters except for: control characters (
+ASCII
+characters 0 up to 31 and ASCII character 127) or separator characters (space, tab and the characters:
+--- CODE BLOCK 22 ---
+.example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+Expires=<date>
+--- END CODE BLOCK ---
+can optionally be wrapped in double quotes and include any US-ASCII character excluding control characters (ASCII characters 0 up to 31 and ASCII character 127),
+Whitespace
+, double quotes, commas, semicolons, and backslashes.
+Encoding
+: Many implementations perform
+percent-encoding
+on cookie values.
+However, this is not required by the RFC specification.
+The percent-encoding does help to satisfy the requirements of the characters allowed for
+--- CODE BLOCK 28 ---
+Document.cookie
+--- END CODE BLOCK ---
+Note:
+Some
+--- CODE BLOCK 30 ---
+XMLHttpRequest.send()
+--- END CODE BLOCK ---
+have a specific semantic:
+--- CODE BLOCK 32 ---
+Max-Age=<number>
+--- END CODE BLOCK ---
+prefix
+: Cookies with names starting with
+--- CODE BLOCK 36 ---
+Partitioned
+--- END CODE BLOCK ---
+(dash is part of the prefix) must be set with the
+--- CODE BLOCK 38 ---
+Path=<path-value>
+--- END CODE BLOCK ---
+flag from a secure page (HTTPS).
+--- CODE BLOCK 45 ---
+/docs/Web/HTTP
+--- END CODE BLOCK ---
+prefix
+: Cookies with names starting with
+--- CODE BLOCK 50 ---
+SameSite=<samesite-value>
+--- END CODE BLOCK ---
+are sent only to the host subdomain or domain that set them, and not to any other host.
+They must be set with the
+--- CODE BLOCK 57 ---
+document.location
+--- END CODE BLOCK ---
+flag, must be from a secure page (HTTPS), must not have a domain specified, and the path must be
+--- CODE BLOCK 78 ---
+Set-Cookie: sessionId=38afes7a8
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+Set-Cookie: sessionId=38afes7a8
+--- END CODE BLOCK ---
+Optional
+Defines the host to which the cookie will be sent.
+Only the current domain can be set as the value, or a domain of a higher order, unless it is a public suffix. Setting the domain will make the cookie available to it, as well as to all its subdomains.
+If omitted, this attribute defaults to the host of the current document URL, not including subdomains.
+Contrary to earlier specifications, leading dots in domain names (
+--- CODE BLOCK 82 ---
+Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT
+--- END CODE BLOCK ---
+) are ignored.
+Multiple host/domain values are
+allowed, but if a domain
+specified, then subdomains are always included.
+--- CODE BLOCK 83 ---
+Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT
+--- END CODE BLOCK ---
+Optional
+Indicates the maximum lifetime of the cookie as an HTTP-date timestamp.
+--- CODE BLOCK 84 ---
+Set-Cookie: id=a3fWa; Max-Age=2592000
+--- END CODE BLOCK ---
+for the required formatting.
+If unspecified, the cookie becomes a
+session cookie
+A session finishes when the client shuts down, after which
+the session cookie is removed.
+Warning:
+Many web browsers have a
+session restore
+feature that will save all tabs and restore them the next time the browser is used. Session cookies will also be restored, as if the browser was never closed.
+--- CODE BLOCK 85 ---
+Set-Cookie: id=a3fWa; Max-Age=2592000
+--- END CODE BLOCK ---
+attribute is set by the server with a value relative to its own internal clock, which may differ from that of the client browser.
+Firefox and Chromium-based browsers internally use an expiry (max-age) value that is adjusted to compensate for clock difference, storing and expiring cookies based on the time intended by the server.
+The adjustment for clock skew is calculated from the value of the
+--- CODE BLOCK 86 ---
+original-company.com
+--- END CODE BLOCK ---
+header.
+Note that the specification explains how the attribute should be parsed, but does not indicate if/how the value should be corrected by the recipient.
+--- CODE BLOCK 87 ---
+Set-Cookie: qwerty=219ffwef9w0f; Domain=some-company.co.uk
+--- END CODE BLOCK ---
+Optional
+Forbids JavaScript from accessing the cookie, for example, through the
+--- CODE BLOCK 88 ---
+Set-Cookie: qwerty=219ffwef9w0f; Domain=some-company.co.uk
+--- END CODE BLOCK ---
+property.
+Note that a cookie that has been created with
+--- CODE BLOCK 89 ---
+example.com
+--- END CODE BLOCK ---
+will still be sent with JavaScript-initiated requests, for example, when calling
+--- CODE BLOCK 90 ---
+Set-Cookie: sessionId=e8bb43229de9; Domain=foo.example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+Set-Cookie: sessionId=e8bb43229de9; Domain=foo.example.com
+--- END CODE BLOCK ---
+This mitigates attacks against cross-site scripting (
+--- CODE BLOCK 98 ---
+// Both accepted when from a secure origin (HTTPS)
+Set-Cookie: __Secure-ID=123; Secure; Domain=example.com
+Set-Cookie: __Host-ID=123; Secure; Path=/
+// Rejected due to missing Secure attribute
+Set-Cookie: __Secure-id=1
+// Rejected due to the missing Path=/ attribute
+Set-Cookie: __Host-id=1; Secure
+// Rejected due to setting a Domain
+Set-Cookie: __Host-id=1; Secure; Path=/; Domain=example.com
+--- END CODE BLOCK ---
+Optional
+Indicates the number of seconds until the cookie expires. A zero or negative number will expire the cookie immediately. If both
+--- CODE BLOCK 99 ---
+// Both accepted when from a secure origin (HTTPS)
+Set-Cookie: __Secure-ID=123; Secure; Domain=example.com
+Set-Cookie: __Host-ID=123; Secure; Path=/
+// Rejected due to missing Secure attribute
+Set-Cookie: __Secure-id=1
+// Rejected due to the missing Path=/ attribute
+Set-Cookie: __Host-id=1; Secure
+// Rejected due to setting a Domain
+Set-Cookie: __Host-id=1; Secure; Path=/; Domain=example.com
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+Set-Cookie: __Host-example=34d8g; SameSite=None; Secure; Path=/; Partitioned;
+--- END CODE BLOCK ---
+are set,
+--- CODE BLOCK 101 ---
+Set-Cookie: __Host-example=34d8g; SameSite=None; Secure; Path=/; Partitioned;
+--- END CODE BLOCK ---
+has precedence.
+--- CODE BLOCK 105 ---
+Document.cookie
+--- END CODE BLOCK ---
+Optional
+Indicates that the cookie should be stored using partitioned storage.
+Note that if this is set, the
+[CODE_BLOCK_37]
+directive
+must also be set.
+Cookies Having Independent Partitioned State (CHIPS)
+for more details.
+[CODE_BLOCK_38]
+Optional
+Indicates the path that
+must
+exist in the requested URL for the browser to send the
+[CODE_BLOCK_39]
+header.
+The forward slash (
+[CODE_BLOCK_40]
+) character is interpreted as a directory separator, and subdirectories are matched as well. For example, for
+[CODE_BLOCK_41]
+the request paths
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+, and
+[CODE_BLOCK_45]
+will all match.
+the request paths
+[CODE_BLOCK_46]
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+will not match.
+Note:
+[CODE_BLOCK_49]
+attribute lets you control what cookies the browser sends based on the different parts of a site.
+It is not intended as a security measure, and
+does not protect
+against unauthorized reading of the cookie from a different path.
+[CODE_BLOCK_50]
+Optional
+Controls whether or not a cookie is sent with cross-site requests: that is, requests originating from a different
+site
+, including the scheme, from the site that set the cookie. This provides some protection against certain cross-site attacks, including
+cross-site request forgery (CSRF)
+attacks.
+The possible attribute values are:
+[CODE_BLOCK_51]
+Send the cookie only for requests originating from the same
+site
+that set the cookie.
+[CODE_BLOCK_52]
+Send the cookie only for requests originating from the same
+site
+that set the cookie, and for cross-site requests that meet both of the following criteria:
+The request is a top-level navigation: this essentially means that the request causes the URL shown in the browser's address bar to change.
+This would exclude, for example, requests made using the
+[CODE_BLOCK_53]
+API, or requests for subresources from
+[CODE_BLOCK_54]
+[CODE_BLOCK_55]
+elements, or navigations inside
+[CODE_BLOCK_56]
+elements.
+It would include requests made when the user clicks a link in the top-level browsing context from one site to another, or an assignment to
+[CODE_BLOCK_57]
+, or a
+[CODE_BLOCK_58]
+submission.
+The request uses a
+safe
+method: in particular, this excludes
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+, and
+[CODE_BLOCK_61]
+Some browsers use
+[CODE_BLOCK_62]
+as the default value if
+[CODE_BLOCK_63]
+is not specified: see
+Browser compatibility
+for details.
+Note:
+When
+[CODE_BLOCK_64]
+is applied as a default, a more permissive version is used. In this more permissive version, cookies are also included in
+[CODE_BLOCK_65]
+requests, as long as they were set no more than two minutes before the request was made.
+[CODE_BLOCK_66]
+Send the cookie with both cross-site and same-site requests.
+[CODE_BLOCK_67]
+attribute must also be set when using this value.
+[CODE_BLOCK_68]
+Optional
+Indicates that the cookie is sent to the server only when a request is made with the
+[CODE_BLOCK_69]
+scheme (except on localhost), and therefore, is more resistant to
+man-in-the-middle
+attacks.
+Note:
+Do not assume that
+[CODE_BLOCK_70]
+prevents all access to sensitive information in cookies (session keys, login details, etc.).
+Cookies with this attribute can still be read/modified either with access to the client's hard disk or from JavaScript if the
+[CODE_BLOCK_71]
+cookie attribute is not set.
+Insecure sites (
+[CODE_BLOCK_72]
+) cannot set cookies with the
+[CODE_BLOCK_73]
+attribute. The
+[CODE_BLOCK_74]
+requirements are ignored when the
+[CODE_BLOCK_75]
+attribute is set by localhost.
+Examples
+Session cookie
+Session cookies are removed when the client shuts down. Cookies are session cookies if they do not specify the
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+attribute.
+http
+Copy to Clipboard
+[CODE_BLOCK_78]
+Permanent cookie
+Permanent cookies are removed at a specific date (
+[CODE_BLOCK_80]
+) or after a specific length of time (
+[CODE_BLOCK_81]
+) and not when the client is closed.
+http
+Copy to Clipboard
+[CODE_BLOCK_82]
+http
+Copy to Clipboard
+[CODE_BLOCK_84]
+Invalid domains
+A cookie for a domain that does not include the server that set it
+should be rejected by the user agent
+The following cookie will be rejected if set by a server hosted on
+[CODE_BLOCK_86]
+http
+Copy to Clipboard
+[CODE_BLOCK_87]
+A cookie for a subdomain of the serving domain will be rejected.
+The following cookie will be rejected if set by a server hosted on
+[CODE_BLOCK_89]
+http
+Copy to Clipboard
+[CODE_BLOCK_90]
+Cookie prefixes
+Cookie names prefixed with
+[CODE_BLOCK_92]
+[CODE_BLOCK_93]
+can be used only if they are set with the
+[CODE_BLOCK_94]
+attribute from a secure (HTTPS) origin.
+In addition, cookies with the
+[CODE_BLOCK_95]
+prefix must have a path of
+[CODE_BLOCK_96]
+(meaning any path at the host) and must not have a
+[CODE_BLOCK_97]
+attribute.
+Warning:
+For clients that don't implement cookie prefixes, you cannot count on these additional assurances, and prefixed cookies will always be accepted.
+http
+Copy to Clipboard
+[CODE_BLOCK_98]
+Partitioned cookie
+http
+Copy to Clipboard
+[CODE_BLOCK_100]
+Note:
+Partitioned cookies must be set with
+[CODE_BLOCK_102]
+. In addition, it is recommended to use the
+[CODE_BLOCK_103]
+prefix when setting partitioned cookies to make them bound to the hostname and not the registrable domain.
+Specifications
+Specification
+HTTP State Management Mechanism
+sane-set-cookie
+Browser compatibility
+See also
+HTTP cookies
+[CODE_BLOCK_104]
+[CODE_BLOCK_105]
+Samesite cookies explained
+(web.dev blog)
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 23, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,29 @@
+SOURCE URL: https://nextjs.org/docs/pages/building-your-application
+SCRAPED: 2025-06-19 17:49:57
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Next.js Docs
+Pages Router
+Building Your Application
+You are currently viewing the documentation for Pages Router.
+Building Your Application
+Routing
+Learn the fundamentals of routing for front-end applications with the Pages Router.
+Rendering
+Learn the fundamentals of rendering in React and Next.js.
+Data Fetching
+Next.js allows you to fetch data in multiple ways, with pre-rendering, server-side rendering or static-site generation, and incremental static regeneration. Learn how to manage your application data in Next.js.
+Configuring
+Learn how to configure your Next.js application.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,96 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/babel
+SCRAPED: 2025-06-19 17:11:18
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Babel
+You are currently viewing the documentation for Pages Router.
+How to configure Babel in Next.js
+Examples
+Customizing babel configuration
+Next.js includes the
+--- CODE BLOCK 3 ---
+babel.config.js
+--- END CODE BLOCK ---
+preset to your app, which includes everything needed to compile React applications and server-side code. But if you want to extend the default Babel configs, it's also possible.
+Adding Presets and Plugins
+To start, you only need to define a
+--- CODE BLOCK 6 ---
+"presets": ["next/babel"],
+"plugins": []
+--- END CODE BLOCK ---
+file (or
+--- CODE BLOCK 7 ---
+"presets": ["next/babel"],
+"plugins": []
+--- END CODE BLOCK ---
+) in the root directory of your project. If such a file is found, it will be considered as the
+source of truth
+, and therefore it needs to define what Next.js needs as well, which is the
+--- CODE BLOCK 9 ---
+"presets": ["next/babel"],
+"plugins": ["@babel/plugin-proposal-do-expressions"]
+--- END CODE BLOCK ---
+preset.
+Here's an example
+--- CODE BLOCK 10 ---
+"presets": ["next/babel"],
+"plugins": ["@babel/plugin-proposal-do-expressions"]
+--- END CODE BLOCK ---
+file:
+.babelrc
+--- CODE BLOCK 12 ---
+"presets": [
+"next/babel",
+"preset-env": {},
+"transform-runtime": {},
+"styled-jsx": {},
+"class-properties": {}
+"plugins": []
+--- END CODE BLOCK ---
+You can
+take a look at this file
+to learn about the presets included by
+--- CODE BLOCK 15 ---
+"preset-env"
+--- END CODE BLOCK ---
+To add presets/plugins
+without configuring them
+, you can do it this way:
+.babelrc
+[CODE_BLOCK_9]
+Customizing Presets and Plugins
+To add presets/plugins
+with custom configuration
+, do it on the
+[CODE_BLOCK_11]
+preset like so:
+.babelrc
+[CODE_BLOCK_12]
+To learn more about the available options for each config, visit babel's
+documentation
+site.
+Good to know
+Next.js uses the
+current
+Node.js version
+for server-side compilations.
+[CODE_BLOCK_14]
+option on
+[CODE_BLOCK_15]
+should be kept to
+[CODE_BLOCK_16]
+, otherwise webpack code splitting is turned off.
+Was this helpful?
+supported.
+Send

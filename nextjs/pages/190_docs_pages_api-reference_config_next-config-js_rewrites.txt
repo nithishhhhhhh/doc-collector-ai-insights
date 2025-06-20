@@ -1,0 +1,669 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites
+SCRAPED: 2025-06-19 17:31:33
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+rewrites
+You are currently viewing the documentation for Pages Router.
+rewrites
+Rewrites allow you to map an incoming request path to a different destination path.
+Rewrites act as a URL proxy and mask the destination path, making it appear the user hasn't changed their location on the site. In contrast,
+redirects
+will reroute to a new page and show the URL changes.
+To use rewrites you can use the
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+key in
+--- CODE BLOCK 3 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/about',
+destination: '/',
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 4 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/about',
+destination: '/',
+--- END CODE BLOCK ---
+Rewrites are applied to client-side routing, a
+--- CODE BLOCK 8 ---
+destination
+--- END CODE BLOCK ---
+will have the rewrite applied in the above example.
+--- CODE BLOCK 11 ---
+destination
+--- END CODE BLOCK ---
+is an async function that expects to return either an array or an object of arrays (see below) holding objects with
+--- CODE BLOCK 31 ---
+module.exports = {
+async rewrites() {
+return {
+beforeFiles: [
+// These rewrites are checked after headers/redirects
+// and before all files including _next/public files which
+// allows overriding page files
+source: '/some-page',
+destination: '/somewhere-else',
+has: [{ type: 'query', key: 'overrideMe' }],
+afterFiles: [
+// These rewrites are checked after pages/public files
+// are checked but before dynamic routes
+source: '/non-existent',
+destination: '/somewhere-else',
+fallback: [
+// These rewrites are checked after both pages/public files
+// and dynamic routes are checked
+source: '/:path*',
+destination: `https://my-old-site.com/:path*`,
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+module.exports = {
+async rewrites() {
+return {
+beforeFiles: [
+// These rewrites are checked after headers/redirects
+// and before all files including _next/public files which
+// allows overriding page files
+source: '/some-page',
+destination: '/somewhere-else',
+has: [{ type: 'query', key: 'overrideMe' }],
+afterFiles: [
+// These rewrites are checked after pages/public files
+// are checked but before dynamic routes
+source: '/non-existent',
+destination: '/somewhere-else',
+fallback: [
+// These rewrites are checked after both pages/public files
+// and dynamic routes are checked
+source: '/:path*',
+destination: `https://my-old-site.com/:path*`,
+--- END CODE BLOCK ---
+properties:
+--- CODE BLOCK 33 ---
+beforeFiles
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+beforeFiles
+--- END CODE BLOCK ---
+- is the incoming request path pattern.
+--- CODE BLOCK 35 ---
+beforeFiles
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+_next/static
+--- END CODE BLOCK ---
+is the path you want to route to.
+--- CODE BLOCK 39 ---
+getStaticPaths
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+destination
+--- END CODE BLOCK ---
+- if false the basePath won't be included when matching, can be used for external rewrites only.
+--- CODE BLOCK 43 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/old-about/:path*',
+destination: '/about', // The :path parameter isn't used here so will be automatically passed in the query
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/old-about/:path*',
+destination: '/about', // The :path parameter isn't used here so will be automatically passed in the query
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/docs/:path*',
+destination: '/:path*', // The :path parameter is used here so will not be automatically passed in the query
+--- END CODE BLOCK ---
+- whether the locale should not be included when matching.
+--- CODE BLOCK 46 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/docs/:path*',
+destination: '/:path*', // The :path parameter is used here so will not be automatically passed in the query
+--- END CODE BLOCK ---
+is an array of
+has objects
+with the
+--- CODE BLOCK 47 ---
+destination
+--- END CODE BLOCK ---
+--- CODE BLOCK 48 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/:first/:second',
+destination: '/:first?second=:second',
+// Since the :first parameter is used in the destination the :second parameter
+// will not automatically be added in the query although we can manually add it
+// as shown above
+--- END CODE BLOCK ---
+--- CODE BLOCK 49 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/:first/:second',
+destination: '/:first?second=:second',
+// Since the :first parameter is used in the destination the :second parameter
+// will not automatically be added in the query although we can manually add it
+// as shown above
+--- END CODE BLOCK ---
+properties.
+--- CODE BLOCK 50 ---
+/blog/:slug
+--- END CODE BLOCK ---
+is an array of
+missing objects
+with the
+--- CODE BLOCK 51 ---
+/blog/hello-world
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog/:slug',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog/:slug',
+destination: '/news/:slug', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+properties.
+When the
+--- CODE BLOCK 55 ---
+/blog/:slug*
+--- END CODE BLOCK ---
+function returns an array, rewrites are applied after checking the filesystem (pages and
+--- CODE BLOCK 56 ---
+/blog/a/b/c/d/hello-world
+--- END CODE BLOCK ---
+files) and before dynamic routes. When the
+--- CODE BLOCK 57 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog/:slug*',
+destination: '/news/:slug*', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+function returns an object of arrays with a specific shape, this behavior can be changed and more finely controlled, as of
+--- CODE BLOCK 58 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog/:slug*',
+destination: '/news/:slug*', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+of Next.js:
+next.config.js
+--- CODE BLOCK 59 ---
+/blog/:slug(\\d{1,})
+--- END CODE BLOCK ---
+Good to know
+: rewrites in
+--- CODE BLOCK 63 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/old-blog/:post(\\d{1,})',
+destination: '/blog/:post', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+do not check the filesystem/dynamic routes immediately after matching a source, they continue until all
+--- CODE BLOCK 82 ---
+module.exports = {
+async rewrites() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+destination: '/en-us/:slug',
+--- END CODE BLOCK ---
+have been checked.
+The order Next.js routes are checked is:
+headers
+are checked/applied
+redirects
+are checked/applied
+--- CODE BLOCK 83 ---
+module.exports = {
+async rewrites() {
+return [
+// this will match `/english(default)/something` being requested
+source: '/english\\(default\\)/:slug',
+destination: '/en-us/:slug',
+--- END CODE BLOCK ---
+rewrites are checked/applied
+static files from the
+public directory
+--- CODE BLOCK 102 ---
+first-(?<paramName>.*)
+--- END CODE BLOCK ---
+files, and non-dynamic pages are checked/served
+--- CODE BLOCK 103 ---
+first-second
+--- END CODE BLOCK ---
+rewrites are checked/applied, if one of these rewrites is matched we check dynamic routes/static files after each match
+--- CODE BLOCK 106 ---
+module.exports = {
+async rewrites() {
+return [
+// if the header `x-rewrite-me` is present,
+// this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-rewrite-me',
+destination: '/another-page',
+// if the header `x-rewrite-me` is not present,
+// this rewrite will be applied
+source: '/:path*',
+missing: [
+type: 'header',
+key: 'x-rewrite-me',
+destination: '/another-page',
+// if the source, query, and cookie are matched,
+// this rewrite will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// destination since value is provided and doesn't
+// use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+destination: '/:path*/home',
+// if the header `x-authorized` is present and
+// contains a matching value, this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+destination: '/home?authorized=:authorized',
+// if the host is `example.com`,
+// this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'host',
+value: 'example.com',
+destination: '/another-page',
+--- END CODE BLOCK ---
+rewrites are checked/applied, these are applied before rendering the 404 page and after dynamic routes/all static assets have been checked. If you use
+fallback: true/'blocking'
+--- CODE BLOCK 107 ---
+module.exports = {
+async rewrites() {
+return [
+// if the header `x-rewrite-me` is present,
+// this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-rewrite-me',
+destination: '/another-page',
+// if the header `x-rewrite-me` is not present,
+// this rewrite will be applied
+source: '/:path*',
+missing: [
+type: 'header',
+key: 'x-rewrite-me',
+destination: '/another-page',
+// if the source, query, and cookie are matched,
+// this rewrite will be applied
+source: '/specific/:path*',
+has: [
+type: 'query',
+key: 'page',
+// the page value will not be available in the
+// destination since value is provided and doesn't
+// use a named capture group e.g. (?<page>home)
+value: 'home',
+type: 'cookie',
+key: 'authorized',
+value: 'true',
+destination: '/:path*/home',
+// if the header `x-authorized` is present and
+// contains a matching value, this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'header',
+key: 'x-authorized',
+value: '(?<authorized>yes|true)',
+destination: '/home?authorized=:authorized',
+// if the host is `example.com`,
+// this rewrite will be applied
+source: '/:path*',
+has: [
+type: 'host',
+value: 'example.com',
+destination: '/another-page',
+--- END CODE BLOCK ---
+, the fallback
+--- CODE BLOCK 109 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog',
+destination: 'https://example.com/blog',
+source: '/blog/:slug',
+destination: 'https://example.com/blog/:slug', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+defined in your
+--- CODE BLOCK 110 ---
+module.exports = {
+async rewrites() {
+return [
+source: '/blog',
+destination: 'https://example.com/blog',
+source: '/blog/:slug',
+destination: 'https://example.com/blog/:slug', // Matched parameters can be used in the destination
+--- END CODE BLOCK ---
+will
+be run.
+Rewrite parameters
+When using parameters in a rewrite the parameters will be passed in the query by default when none of the parameters are used in the
+--- CODE BLOCK 111 ---
+trailingSlash: true
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 113 ---
+destination
+--- END CODE BLOCK ---
+If a parameter is used in the destination none of the parameters will be automatically passed in the query.
+next.config.js
+--- CODE BLOCK 115 ---
+module.exports = {
+trailingSlash: true,
+async rewrites() {
+return [
+source: '/blog/',
+destination: 'https://example.com/blog/',
+source: '/blog/:path*/',
+destination: 'https://example.com/blog/:path*/',
+--- END CODE BLOCK ---
+You can still pass the parameters manually in the query if one is already used in the destination by specifying the query in the
+--- CODE BLOCK 117 ---
+module.exports = {
+async rewrites() {
+return {
+fallback: [
+source: '/:path*',
+destination: `https://custom-routes-proxying-endpoint.vercel.app/:path*`,
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 120 ---
+destination
+--- END CODE BLOCK ---
+Good to know
+: Static pages from
+Automatic Static Optimization
+prerendering
+params from rewrites will be parsed on the client after hydration and provided in the query.
+Path Matching
+Path matches are allowed, for example
+--- CODE BLOCK 123 ---
+module.exports = {
+basePath: '/docs',
+async rewrites() {
+return [
+source: '/with-basePath', // automatically becomes /docs/with-basePath
+destination: '/another', // automatically becomes /docs/another
+// does not add /docs to /without-basePath since basePath: false is set
+// Note: this can not be used for internal rewrites e.g. `destination: '/another'`
+source: '/without-basePath',
+destination: 'https://example.com',
+basePath: false,
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 124 ---
+module.exports = {
+basePath: '/docs',
+async rewrites() {
+return [
+source: '/with-basePath', // automatically becomes /docs/with-basePath
+destination: '/another', // automatically becomes /docs/another
+// does not add /docs to /without-basePath since basePath: false is set
+// Note: this can not be used for internal rewrites e.g. `destination: '/another'`
+source: '/without-basePath',
+destination: 'https://example.com',
+basePath: false,
+--- END CODE BLOCK ---
+(no nested paths):
+next.config.js
+--- CODE BLOCK 127 ---
+destination
+--- END CODE BLOCK ---
+Wildcard Path Matching
+To match a wildcard path you can use
+--- CODE BLOCK 130 ---
+locale: false
+--- END CODE BLOCK ---
+after a parameter, for example
+--- CODE BLOCK 132 ---
+destination
+--- END CODE BLOCK ---
+will match
+--- CODE BLOCK 133 ---
+module.exports = {
+i18n: {
+locales: ['en', 'fr', 'de'],
+defaultLocale: 'en',
+async rewrites() {
+return [
+source: '/with-locale', // automatically handles all locales
+destination: '/another', // automatically passes the locale on
+// does not handle locales automatically since locale: false is set
+source: '/nl/with-locale-manual',
+destination: '/nl/another',
+locale: false,
+// this matches '/' since `en` is the defaultLocale
+source: '/en',
+destination: '/en/another',
+locale: false,
+// it's possible to match all locales even when locale: false is set
+source: '/:locale/api-alias/:path*',
+destination: '/api/:path*',
+locale: false,
+// this gets converted to /(en|fr|de)/(.*) so will not match the top-level
+// `/` or `/fr` routes like /:path* would
+source: '/(.*)',
+destination: '/another',
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 134 ---
+module.exports = {
+i18n: {
+locales: ['en', 'fr', 'de'],
+defaultLocale: 'en',
+async rewrites() {
+return [
+source: '/with-locale', // automatically handles all locales
+destination: '/another', // automatically passes the locale on
+// does not handle locales automatically since locale: false is set
+source: '/nl/with-locale-manual',
+destination: '/nl/another',
+locale: false,
+// this matches '/' since `en` is the defaultLocale
+source: '/en',
+destination: '/en/another',
+locale: false,
+// it's possible to match all locales even when locale: false is set
+source: '/:locale/api-alias/:path*',
+destination: '/api/:path*',
+locale: false,
+// this gets converted to /(en|fr|de)/(.*) so will not match the top-level
+// `/` or `/fr` routes like /:path* would
+source: '/(.*)',
+destination: '/another',
+--- END CODE BLOCK ---
+Regex Path Matching
+To match a regex path you can wrap the regex in parenthesis after a parameter, for example
+[CODE_BLOCK_59]
+will match
+[CODE_BLOCK_60]
+but not
+[CODE_BLOCK_61]
+next.config.js
+[CODE_BLOCK_62]
+The following characters
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+[CODE_BLOCK_66]
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+[CODE_BLOCK_74]
+[CODE_BLOCK_75]
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+[CODE_BLOCK_79]
+are used for regex path matching, so when used in the
+[CODE_BLOCK_80]
+as non-special values they must be escaped by adding
+[CODE_BLOCK_81]
+before them:
+next.config.js
+[CODE_BLOCK_82]
+Header, Cookie, and Query Matching
+To only match a rewrite when header, cookie, or query values also match the
+[CODE_BLOCK_84]
+field or don't match the
+[CODE_BLOCK_85]
+field can be used. Both the
+[CODE_BLOCK_86]
+and all
+[CODE_BLOCK_87]
+items must match and all
+[CODE_BLOCK_88]
+items must not match for the rewrite to be applied.
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+items can have the following fields:
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+- must be either
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+[CODE_BLOCK_95]
+, or
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+- the key from the selected type to match against.
+[CODE_BLOCK_99]
+[CODE_BLOCK_100]
+[CODE_BLOCK_101]
+- the value to check for, if undefined any value will match. A regex like string can be used to capture a specific part of the value, e.g. if the value
+[CODE_BLOCK_102]
+is used for
+[CODE_BLOCK_103]
+then
+[CODE_BLOCK_104]
+will be usable in the destination with
+[CODE_BLOCK_105]
+next.config.js
+[CODE_BLOCK_106]
+Rewriting to an external URL
+Examples
+Using Multiple Zones
+Rewrites allow you to rewrite to an external URL. This is especially useful for incrementally adopting Next.js. The following is an example rewrite for redirecting the
+[CODE_BLOCK_108]
+route of your main app to an external site.
+next.config.js
+[CODE_BLOCK_109]
+If you're using
+[CODE_BLOCK_111]
+, you also need to insert a trailing slash in the
+[CODE_BLOCK_112]
+parameter. If the destination server is also expecting a trailing slash it should be included in the
+[CODE_BLOCK_113]
+parameter as well.
+next.config.js
+[CODE_BLOCK_114]
+Incremental adoption of Next.js
+You can also have Next.js fall back to proxying to an existing website after checking all Next.js routes.
+This way you don't have to change the rewrites configuration when migrating more pages to Next.js
+next.config.js
+[CODE_BLOCK_116]
+Rewrites with basePath support
+When leveraging
+[CODE_BLOCK_118]
+support
+with rewrites each
+[CODE_BLOCK_119]
+[CODE_BLOCK_120]
+is automatically prefixed with the
+[CODE_BLOCK_121]
+unless you add
+[CODE_BLOCK_122]
+to the rewrite:
+next.config.js
+[CODE_BLOCK_123]
+Rewrites with i18n support
+When leveraging
+[CODE_BLOCK_125]
+support
+with rewrites each
+[CODE_BLOCK_126]
+[CODE_BLOCK_127]
+is automatically prefixed to handle the configured
+[CODE_BLOCK_128]
+unless you add
+[CODE_BLOCK_129]
+to the rewrite. If
+[CODE_BLOCK_130]
+is used you must prefix the
+[CODE_BLOCK_131]
+[CODE_BLOCK_132]
+with a locale for it to be matched correctly.
+next.config.js
+[CODE_BLOCK_133]
+Version History
+Version
+Changes
+[CODE_BLOCK_135]
+[CODE_BLOCK_136]
+added.
+[CODE_BLOCK_137]
+[CODE_BLOCK_138]
+added.
+[CODE_BLOCK_139]
+Headers added.
+Was this helpful?
+supported.
+Send

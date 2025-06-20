@@ -1,0 +1,65 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/route-groups
+SCRAPED: 2025-06-19 17:28:40
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+Route Groups
+Route Groups
+Route Groups are a folder convention that let you organize routes by category or team.
+Convention
+A route group can be created by wrapping a folder's name in parenthesis:
+--- CODE BLOCK 1 ---
+(folderName)
+--- END CODE BLOCK ---
+This convention indicates the folder is for organizational purposes and should
+not be included
+in the route's URL path.
+Use cases
+Organizing routes by team, concern, or feature.
+Defining multiple
+root layouts
+Opting specific route segments into sharing a layout, while keeping others out.
+Caveats
+Full page load
+: If you navigate between routes that use different root layouts, it'll trigger a full page reload. For example, navigating from
+--- CODE BLOCK 3 ---
+app/(shop)/layout.js
+--- END CODE BLOCK ---
+that uses
+--- CODE BLOCK 5 ---
+app/(marketing)/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+(marketing)/about/page.js
+--- END CODE BLOCK ---
+that uses
+--- CODE BLOCK 7 ---
+(shop)/about/page.js
+--- END CODE BLOCK ---
+. This
+only
+applies to multiple root layouts.
+Conflicting paths
+: Routes in different groups should not resolve to the same URL path. For example,
+[CODE_BLOCK_6]
+[CODE_BLOCK_7]
+would both resolve to
+[CODE_BLOCK_8]
+and cause an error.
+Top-level root layout
+: If you use multiple root layouts without a top-level
+[CODE_BLOCK_9]
+file, make sure your home route (/) is defined within one of the route groups, e.g. app/(marketing)/page.js.
+Was this helpful?
+supported.
+Send

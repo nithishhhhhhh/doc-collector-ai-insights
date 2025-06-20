@@ -1,0 +1,115 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/urlImports
+SCRAPED: 2025-06-19 17:36:56
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+urlImports
+You are currently viewing the documentation for Pages Router.
+urlImports
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+URL imports are an experimental feature that allows you to import modules directly from external servers (instead of from the local disk).
+Warning
+: Only use domains that you trust to download and execute on your machine. Please exercise discretion, and caution until the feature is flagged as stable.
+To opt-in, add the allowed URL prefixes inside
+--- CODE BLOCK 1 ---
+next.config.js
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 2 ---
+module.exports = {
+experimental: {
+urlImports: ['https://example.com/assets/', 'https://cdn.skypack.dev'],
+--- END CODE BLOCK ---
+Then, you can import modules directly from URLs:
+--- CODE BLOCK 4 ---
+import { a, b, c } from 'https://example.com/assets/some/module.js'
+--- END CODE BLOCK ---
+URL Imports can be used everywhere normal package imports can be used.
+Security Model
+This feature is being designed with
+security as the top priority
+. To start, we added an experimental flag forcing you to explicitly allow the domains you accept URL imports from. We're working to take this further by limiting URL imports to execute in the browser sandbox using the
+Edge Runtime
+Lockfile
+When using URL imports, Next.js will create a
+--- CODE BLOCK 10 ---
+Cache-Control: no-cache
+--- END CODE BLOCK ---
+directory containing a lockfile and fetched assets.
+This directory
+must be committed to Git
+, not ignored by
+--- CODE BLOCK 12 ---
+import confetti from 'https://cdn.skypack.dev/canvas-confetti'
+import { useEffect } from 'react'
+export default () => {
+useEffect(() => {
+confetti()
+return <p>Hello</p>
+--- END CODE BLOCK ---
+When running
+--- CODE BLOCK 13 ---
+import confetti from 'https://cdn.skypack.dev/canvas-confetti'
+import { useEffect } from 'react'
+export default () => {
+useEffect(() => {
+confetti()
+return <p>Hello</p>
+--- END CODE BLOCK ---
+, Next.js will download and add all newly discovered URL Imports to your lockfile.
+When running
+--- CODE BLOCK 14 ---
+import Image from 'next/image'
+import logo from 'https://example.com/assets/logo.png'
+export default () => (
+<div>
+<Image src={logo} placeholder="blur" />
+</div>
+--- END CODE BLOCK ---
+, Next.js will use only the lockfile to build the application for production.
+Typically, no network requests are needed and any outdated lockfile will cause the build to fail.
+One exception is resources that respond with
+--- CODE BLOCK 15 ---
+import Image from 'next/image'
+import logo from 'https://example.com/assets/logo.png'
+export default () => (
+<div>
+<Image src={logo} placeholder="blur" />
+</div>
+--- END CODE BLOCK ---
+These resources will have a
+--- CODE BLOCK 16 ---
+.className {
+background: url('https://example.com/assets/hero.jpg');
+--- END CODE BLOCK ---
+entry in the lockfile and will always be fetched from the network on each build.
+Examples
+Skypack
+--- CODE BLOCK 17 ---
+.className {
+background: url('https://example.com/assets/hero.jpg');
+--- END CODE BLOCK ---
+Static Image Imports
+--- CODE BLOCK 19 ---
+const logo = new URL('https://example.com/assets/file.txt', import.meta.url)
+console.log(logo.pathname)
+// prints "/_next/static/media/file.a9727b5d.txt"
+--- END CODE BLOCK ---
+URLs in CSS
+[CODE_BLOCK_16]
+Asset Imports
+[CODE_BLOCK_18]
+Was this helpful?
+supported.
+Send

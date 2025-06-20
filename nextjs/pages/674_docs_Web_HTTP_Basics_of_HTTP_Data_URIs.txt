@@ -1,0 +1,199 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+SCRAPED: 2025-06-19 18:26:10
+================================================================================
+
+Data URLs
+, URLs prefixed with the
+--- CODE BLOCK 4 ---
+data:[<media-type>][;base64],<data>
+--- END CODE BLOCK ---
+scheme, allow content creators to embed small files inline in documents. They were formerly known as "data URIs" until that name was retired by the WHATWG.
+Note:
+Data URLs are treated as unique opaque origins by modern browsers, rather than inheriting the origin of the settings object responsible for the navigation.
+Syntax
+Data URLs are composed of four parts: a prefix (
+--- CODE BLOCK 6 ---
+'image/jpeg'
+--- END CODE BLOCK ---
+), a
+MIME type
+indicating the type of data, an optional
+--- CODE BLOCK 7 ---
+text/plain;charset=US-ASCII
+--- END CODE BLOCK ---
+token if non-textual, and the data itself:
+--- CODE BLOCK 9 ---
+data:,Hello%2C%20World%21
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+Hello, World!
+--- END CODE BLOCK ---
+is a
+MIME type
+string, such as
+--- CODE BLOCK 13 ---
+data:text/plain;base64,SGVsbG8sIFdvcmxkIQ==
+--- END CODE BLOCK ---
+for a JPEG image file. If omitted, defaults to
+--- CODE BLOCK 14 ---
+data:text/html,%3Ch1%3EHello%2C%20World%21%3C%2Fh1%3E
+--- END CODE BLOCK ---
+If the data contains
+characters defined in RFC 3986 as reserved characters
+, or contains space characters, newline characters, or other non-printing characters, those characters must be
+percent-encoded
+If the data is textual, you can embed the text (using the appropriate entities or escapes based on the enclosing document's type). Otherwise, you can specify
+--- CODE BLOCK 15 ---
+<h1>Hello, World!</h1>
+--- END CODE BLOCK ---
+to embed base64-encoded binary data. You can find
+a full dissection of MIME type structure
+a table of common MIME types on the web
+A few examples:
+--- CODE BLOCK 16 ---
+data:text/html,%3Cscript%3Ealert%28%27hi%27%29%3B%3C%2Fscript%3E
+--- END CODE BLOCK ---
+The text/plain data
+--- CODE BLOCK 17 ---
+<script>alert('hi');</script>
+--- END CODE BLOCK ---
+. Note how the comma is
+percent-encoded
+--- CODE BLOCK 23 ---
+echo -n hello|base64
+# outputs to console: aGVsbG8=
+echo -n hello>a.txt
+base64 a.txt
+# outputs to console: aGVsbG8=
+base64 a.txt>b.txt
+# outputs to file b.txt: aGVsbG8=
+--- END CODE BLOCK ---
+, and the space character as
+--- CODE BLOCK 24 ---
+echo -n hello|base64
+# outputs to console: aGVsbG8=
+echo -n hello>a.txt
+base64 a.txt
+# outputs to console: aGVsbG8=
+base64 a.txt>b.txt
+# outputs to file b.txt: aGVsbG8=
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+[convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("hello"))
+# outputs to console: aGVsbG8=
+--- END CODE BLOCK ---
+base64-encoded version of the above
+--- CODE BLOCK 27 ---
+bash$ echo -n hello | base64
+# outputs to console: aGVsbG8=
+--- END CODE BLOCK ---
+An HTML document with
+--- CODE BLOCK 28 ---
+bash$ echo -n hello | base64
+# outputs to console: aGVsbG8=
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+data:text/html,lots of text…<p><a name%3D"bottom">bottom</a>?arg=val</p>
+--- END CODE BLOCK ---
+An HTML document with
+--- CODE BLOCK 31 ---
+lots of text…
+<p><a name="bottom">bottom</a>?arg=val</p>
+--- END CODE BLOCK ---
+that executes a JavaScript alert. Note that the closing script tag is required.
+Encoding data into base64 format
+Base64 is a group of binary-to-text encoding schemes that represent binary data in an
+ASCII
+string format by translating it into a radix-64 representation. By consisting only of characters permitted by the URL syntax ("URL safe"), we can safely encode binary data in data URLs. Base64 uses the characters
+--- CODE BLOCK 32 ---
+lots of text…
+<p><a name="bottom">bottom</a>?arg=val</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+<url>?parameter-data
+--- END CODE BLOCK ---
+, which may have special meanings in URLs. Because Data URLs have no URL path segments or query parameters, this encoding is safe in this context.
+Encoding in JavaScript
+The Web APIs have native methods to encode or decode to base64:
+Base64
+Encoding on a Unix system
+Base64 encoding of a file or string on Linux and macOS systems can be achieved using the command-line
+[CODE_BLOCK_20]
+(or, as an alternative, the
+[CODE_BLOCK_21]
+utility with
+[CODE_BLOCK_22]
+argument).
+bash
+Copy to Clipboard
+[CODE_BLOCK_23]
+Encoding on Microsoft Windows
+On Windows,
+Convert.ToBase64String
+from PowerShell can be used to perform the Base64 encoding:
+[CODE_BLOCK_25]
+Alternatively, a GNU/Linux shell (such as
+) provides the utility
+[CODE_BLOCK_26]
+bash
+Copy to Clipboard
+[CODE_BLOCK_27]
+Common problems
+This section describes problems that commonly occur when creating and using
+[CODE_BLOCK_29]
+URLs.
+[CODE_BLOCK_30]
+This represents an HTML resource whose contents are:
+html
+Copy to Clipboard
+[CODE_BLOCK_31]
+Syntax
+The format for
+[CODE_BLOCK_33]
+URLs is very simple, but it's easy to forget to put a comma before the "data" segment, or to incorrectly encode the data into base64 format.
+Formatting in HTML
+[CODE_BLOCK_34]
+URL provides a file within a file, which can potentially be very wide relative to the width of the enclosing document. As a URL, the
+[CODE_BLOCK_35]
+should be formattable with whitespace (linefeed, tab, or spaces), but there are practical issues that arise
+when using base64 encoding
+Length limitations
+Browsers are not required to support any particular maximum length of data.
+Chromium and Firefox limit
+[CODE_BLOCK_36]
+URLs to 512MB, and Safari (WebKit) limits them to 2048MB.
+Note that Firefox 97 increased the limit from 256KB to 32MB, and
+Firefox 136 increased it to 512MB
+Lack of error handling
+Invalid parameters in media, or typos when specifying
+[CODE_BLOCK_37]
+, are ignored, but no error is provided.
+No support for query strings, etc.
+The data portion of a data URL is opaque, so an attempt to use a query string (page-specific parameters, with the syntax
+[CODE_BLOCK_38]
+) with a data URL will just include the query string in the data the URL represents.
+Security issues
+A number of security issues (for example, phishing) have been associated with data URLs, and navigating to them in the browser's top level. To mitigate such issues, top-level navigation to
+[CODE_BLOCK_39]
+URLs is blocked in all modern browsers. See
+this blog post from the Mozilla Security Team
+for more details.
+Specifications
+Specification
+The "data" URL scheme
+section-2
+Browser compatibility
+See also
+Base64
+Percent-encoding
+[CODE_BLOCK_40]
+[CODE_BLOCK_41]
+[CODE_BLOCK_42]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

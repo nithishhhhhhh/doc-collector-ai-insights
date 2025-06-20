@@ -1,0 +1,130 @@
+SOURCE URL: https://babeljs.io/docs/
+SCRAPED: 2025-06-19 18:00:07
+================================================================================
+
+On this page
+Babel is a JavaScript compiler
+Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments. Here are the main things Babel can do for you:
+Transform syntax
+Polyfill features that are missing in your target environment (through a third-party polyfill such as
+core-js
+Source code transformations (codemods)
+And more! (check out these
+videos
+for inspiration)
+JavaScript
+--- CODE BLOCK 1 ---
+// Babel Input: ES2015 arrow function[1, 2, 3].map(n => n + 1);// Babel Output: ES5 equivalent[1, 2, 3].map(function(n) {  return n + 1;});
+--- END CODE BLOCK ---
+For an awesome tutorial on compilers, check out
+the-super-tiny-compiler
+, which also explains how Babel itself works on a high level.
+ES2015 and beyond
+Babel has support for the latest version of JavaScript through syntax transformers.
+These
+plugins
+allow you to use new syntax,
+right now
+without waiting for browser support. Check out our
+usage guide
+to get started.
+JSX and React
+Babel can convert JSX syntax! Check out our
+React preset
+to get started. Use it together with the
+babel-sublime
+package to bring syntax highlighting to a whole new level.
+You can install this preset with
+Yarn
+pnpm
+--- CODE BLOCK 3 ---
+npm install --save-dev @babel/preset-react
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+yarn add --dev @babel/preset-react
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+pnpm add --save-dev @babel/preset-react
+--- END CODE BLOCK ---
+and add
+--- CODE BLOCK 9 ---
+@babel/preset-react
+--- END CODE BLOCK ---
+to your Babel configuration.
+--- CODE BLOCK 10 ---
+export default function DiceRoll(){  const getRandomNumber = () => {    return Math.ceil(Math.random() * 6);  };  const [num, setNum] = useState(getRandomNumber());  const handleClick = () => {    const newNum = getRandomNumber();    setNum(newNum);  };  return (    <div>      Your dice roll: {num}.      <button onClick={handleClick}>Click to get a new number</button>    </div>  );};
+--- END CODE BLOCK ---
+Learn more about
+Type Annotations (Flow and TypeScript)
+Babel can strip out type annotations! Check out either our
+Flow preset
+TypeScript preset
+to get started. Keep in mind that
+Babel doesn't do type checking
+; you'll still have to install and use Flow or TypeScript to check types.
+You can install the flow preset with
+Yarn
+pnpm
+--- CODE BLOCK 12 ---
+npm install --save-dev @babel/preset-flow
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+yarn add --dev @babel/preset-flow
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+pnpm add --save-dev @babel/preset-flow
+--- END CODE BLOCK ---
+JavaScript
+--- CODE BLOCK 18 ---
+// @flowfunction square(n: number): number {  return n * n;}
+--- END CODE BLOCK ---
+or the typescript preset with
+Yarn
+pnpm
+--- CODE BLOCK 20 ---
+npm install --save-dev @babel/preset-typescript
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+yarn add --dev @babel/preset-typescript
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+pnpm add --save-dev @babel/preset-typescript
+--- END CODE BLOCK ---
+JavaScript
+--- CODE BLOCK 26 ---
+function Greeter(greeting: string) {  this.greeting = greeting;}
+--- END CODE BLOCK ---
+Learn more about
+Flow
+TypeScript
+Pluggable
+Babel is built out of plugins. Compose your own transformation pipeline using existing plugins or write your own. Easily use a set of plugins by using or creating a
+preset
+Learn more →
+Create a plugin on the fly with
+astexplorer.net
+or use
+generator-babel-plugin
+to generate a plugin template.
+example-babel-plugin.js
+--- CODE BLOCK 28 ---
+// A plugin is just a functionexport default function({ types: t }) {  return {    visitor: {      Identifier(path) {        let name = path.node.name; // reverse the name: JavaScript -> tpircSavaJ        path.node.name = [...name]          .reverse()          .join("");      },    },  };}
+--- END CODE BLOCK ---
+Debuggable
+Source map
+support so you can debug your compiled code with ease.
+Spec Compliant
+Babel tries to stay true to the ECMAScript standard, as much as reasonably possible. It may also have specific options to be more spec compliant as a tradeoff to performance.
+Compact
+Babel tries using the least amount of code possible with no dependence on a bulky runtime.
+This may be difficult to do in cases, and there are
+"assumptions"
+options that tradeoff spec compliancy for readability, file size, and speed.
+Babel is a JavaScript compiler
+ES2015 and beyond
+JSX and React
+Type Annotations (Flow and TypeScript)
+Pluggable
+Debuggable
+Spec Compliant
+Compact

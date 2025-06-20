@@ -1,0 +1,72 @@
+URL: https://react.dev/reference/react/Activity
+Section: Reference
+============================================================
+
+# <Activity> - This feature is available in the latest Experimental version of React
+# <Activity> - This feature is available in the latest Experimental version of React
+### Experimental Feature
+This API is experimental and is not available in a stable version of React yet.
+You can try it by upgrading React packages to the most recent experimental version:
+- react@experimental
+- react-dom@experimental
+- eslint-plugin-react-hooks@experimental
+Experimental versions of React may contain bugs. Don’t use them in production.
+<Activity> lets you hide and show part of the UI.
+``````
+- Reference <Activity>
+- Usage Pre-render part of the UI Keeping state for part of the UI
+- Troubleshooting Effects don’t mount when an Activity is hidden My hidden Activity is not rendered in SSR
+- <Activity>
+- Pre-render part of the UI
+- Keeping state for part of the UI
+- Effects don’t mount when an Activity is hidden
+- My hidden Activity is not rendered in SSR
+## Reference
+### <Activity>
+Wrap a part of the UI in <Activity> to manage its visibility state:
+``````
+When “hidden”, the children of <Activity /> are not visible on the page. If a new <Activity> mounts as “hidden” then it pre-renders the content at lower priority without blocking the visible content on the page, but it does not mount by creating Effects. When a “visible” Activity switches to “hidden” it conceptually unmounts by destroying all the Effects, but saves its state. This allows fast switching between “visible” and “hidden” states without recreating the state for a “hidden” Activity.
+In the future, “hidden” Activities may automatically destroy state based on resources like memory.
+#### Props
+- children: The actual UI you intend to render.
+- optional mode: Either “visible” or “hidden”. Defaults to “visible”. When “hidden”, updates to the children are deferred to lower priority. The component will not create Effects until the Activity is switched to “visible”. If a “visible” Activity switches to “hidden”, the Effects will be destroyed.
+#### Caveats
+- While hidden, the children of <Activity> are hidden on the page.
+- <Activity> will unmount all Effects when switching from “visible” to “hidden” without destroying React or DOM state. This means Effects that are expected to run only once on mount will run again when switching from “hidden” to “visible”. Conceptually, “hidden” Activities are unmounted, but they are not destroyed either. We recommend using <StrictMode> to catch any unexpected side-effects from this behavior.
+- When used with <ViewTransition>, hidden activities that reveal in a transition will activate an “enter” animation. Visible Activities hidden in a transition will activate an “exit” animation.
+- Parts of the UI wrapped in <Activity mode="hidden"> are not included in the SSR response.
+- Parts of the UI wrapped in <Activity mode="visible"> will hydrate at a lower priority than other content.
+## Usage
+### Pre-render part of the UI
+You can pre-render part of the UI using <Activity mode="hidden">:
+``````
+When an Activity is rendered with mode="hidden", the children are not visible on the page, but are rendered at lower priority than the visible content on the page.
+When the mode later switches to “visible”, the pre-rendered children will mount and become visible. This can be used to prepare parts of the UI the user is likely to interact with next to reduce loading times.
+In the following example from useTransition, the PostsTab component fetches some data using use. When you click the “Posts” tab, the PostsTab component suspends, causing the button loading state to appear:
+``````
+In this example, the user needs to wait for the posts to load when clicking on the “Posts” tab.
+We can reduce the delay for the “Posts” tab by pre-rendering the inactive Tabs with a hidden <Activity>:
+``````
+### Keeping state for part of the UI
+You can keep state for parts of the UI by switching <Activity> from “visible” to “hidden”:
+``````
+When an Activity switches from mode="visible" to “hidden”, the children will become hidden on the page, and unmount by destroying all Effects, but will keep their React and DOM state.
+When the mode later switches to “visible”, the saved state will be re-used when mounting the children by creating all the Effects. This can be used to keep state in parts of the UI the user is likely to interact with again to maintain DOM or React state.
+In the following example from useTransition, the ContactTab includes a <textarea> with a draft message to send. If you enter some text and change to a different tab, then when you click the “Contact” tab again, the draft message is lost:
+``````
+This results in losing DOM state the user has input. We can keep the state for the Contact tab by hiding the inactive Tabs with <Activity>:
+``````
+## Troubleshooting
+### Effects don’t mount when an Activity is hidden
+When an <Activity> is “hidden”, all Effects are unmounted. Conceptually, the component is unmounted, but React saves the state for later.
+This is a feature of Activity because it means subscriptions won’t be subscribed for hidden parts of the UI, reducing the amount of work for hidden content. It also means cleanup, such as pausing a video (which would be expected if you unmounted without Activity) will fire. When an Activity switches to “visible”, it will mount by creating the Effects, which will subscribe and play the video.
+Consider the following example, where a different video is played for each button:
+``````
+Whenever you change videos and come back, the video re-loads from the beginning. To maintain the state, you may try to render both videos, and hide the inactive video in display: none. However, this will cause both videos to play at the same time:
+``````
+This is similar to what would happen if Activity mounted Effects when hidden. Similarly, if Activity didn’t unmount Effects when hiding, the videos would continue to play in the background.
+Activity solves this by not creating Effects when first rendered as “hidden” and destroying all Effects when switching from “visible” to “hidden”:
+``````
+For this reason, it’s best to think of Activity conceptually as “unmounting” and “remounting” the component, but saving the React or DOM state for later. In practice, this works as expected if you have followed the You Might Not Need an Effect guide. To eagerly find problematic Effects, we recommend adding <StrictMode> which will eagerly perform Activity unmounts and mounts to catch any unexpected side-effects.
+### My hidden Activity is not rendered in SSR
+When you use <Activity mode="hidden"> during server-side rendering, the content of the Activity will not be included in the SSR response. This is because the content is not visible on the page and is not needed for the initial render. If you need to include the content in the SSR response, you can use a different approach like useDeferredValue to defer rendering of the content.

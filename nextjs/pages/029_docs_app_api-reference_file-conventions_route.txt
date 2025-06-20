@@ -1,0 +1,609 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/route
+SCRAPED: 2025-06-19 17:12:22
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+route.js
+route.js
+Route Handlers allow you to create custom request handlers for a given route using the Web
+Request
+Response
+APIs.
+route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 1 ---
+export async function GET() {
+return Response.json({ message: 'Hello World' })
+--- END CODE BLOCK ---
+Reference
+HTTP Methods
+route
+file allows you to create custom request handlers for a given route. The following
+HTTP methods
+are supported:
+--- CODE BLOCK 10 ---
+export async function GET(request: Request) {}
+export async function HEAD(request: Request) {}
+export async function POST(request: Request) {}
+export async function PUT(request: Request) {}
+export async function DELETE(request: Request) {}
+export async function PATCH(request: Request) {}
+// If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and set the appropriate Response `Allow` header depending on the other methods defined in the Route Handler.
+export async function OPTIONS(request: Request) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+export async function GET(request: Request) {}
+export async function HEAD(request: Request) {}
+export async function POST(request: Request) {}
+export async function PUT(request: Request) {}
+export async function DELETE(request: Request) {}
+export async function PATCH(request: Request) {}
+// If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and set the appropriate Response `Allow` header depending on the other methods defined in the Route Handler.
+export async function OPTIONS(request: Request) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+NextRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const url = request.nextUrl
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const url = request.nextUrl
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+export async function GET(
+request: Request,
+{ params }: { params: Promise<{ team: string }> }
+const { team } = await params
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 22 ---
+export async function GET(
+request: Request,
+{ params }: { params: Promise<{ team: string }> }
+const { team } = await params
+--- END CODE BLOCK ---
+route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 24 ---
+app/dashboard/[team]/route.js
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 26 ---
+Promise<{ team: '1' }>
+--- END CODE BLOCK ---
+(optional)
+--- CODE BLOCK 27 ---
+app/shop/[tag]/[item]/route.js
+--- END CODE BLOCK ---
+object is a
+NextRequest
+object, which is an extension of the Web
+Request
+API.
+--- CODE BLOCK 29 ---
+Promise<{ tag: '1', item: '2' }>
+--- END CODE BLOCK ---
+gives you further control over the incoming request, including easily accessing
+--- CODE BLOCK 30 ---
+app/blog/[...slug]/route.js
+--- END CODE BLOCK ---
+and an extended, parsed, URL object
+--- CODE BLOCK 32 ---
+Promise<{ slug: ['1', '2'] }>
+--- END CODE BLOCK ---
+route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 34 ---
+next/headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+import { cookies } from 'next/headers'
+export async function GET(request: NextRequest) {
+const cookieStore = await cookies()
+const a = cookieStore.get('a')
+const b = cookieStore.set('b', '1')
+const c = cookieStore.delete('c')
+--- END CODE BLOCK ---
+(optional)
+--- CODE BLOCK 39 ---
+import { cookies } from 'next/headers'
+export async function GET(request: Request) {
+const cookieStore = await cookies()
+const token = cookieStore.get('token')
+return new Response('Hello, Next.js!', {
+status: 200,
+headers: { 'Set-Cookie': `token=${token.value}` },
+--- END CODE BLOCK ---
+: a promise that resolves to an object containing the
+dynamic route parameters
+for the current route.
+app/dashboard/[team]/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 40 ---
+import { cookies } from 'next/headers'
+export async function GET(request: Request) {
+const cookieStore = await cookies()
+const token = cookieStore.get('token')
+return new Response('Hello, Next.js!', {
+status: 200,
+headers: { 'Set-Cookie': `token=${token.value}` },
+--- END CODE BLOCK ---
+Example
+--- CODE BLOCK 42 ---
+import { type NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const token = request.cookies.get('token')
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+import { type NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const token = request.cookies.get('token')
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+next/headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+import { headers } from 'next/headers'
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const headersList = await headers()
+const referer = headersList.get('referer')
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+import { headers } from 'next/headers'
+import type { NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const headersList = await headers()
+const referer = headersList.get('referer')
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+import { headers } from 'next/headers'
+export async function GET(request: Request) {
+const headersList = await headers()
+const referer = headersList.get('referer')
+return new Response('Hello, Next.js!', {
+status: 200,
+headers: { referer: referer },
+--- END CODE BLOCK ---
+--- CODE BLOCK 52 ---
+import { headers } from 'next/headers'
+export async function GET(request: Request) {
+const headersList = await headers()
+const referer = headersList.get('referer')
+return new Response('Hello, Next.js!', {
+status: 200,
+headers: { referer: referer },
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+NextRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 54 ---
+import { type NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const requestHeaders = new Headers(request.headers)
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+import { type NextRequest } from 'next/server'
+export async function GET(request: NextRequest) {
+const requestHeaders = new Headers(request.headers)
+--- END CODE BLOCK ---
+Examples
+Cookies
+You can read or set cookies with
+--- CODE BLOCK 57 ---
+export const revalidate = 60
+export async function GET() {
+const data = await fetch('https://api.vercel.app/blog')
+const posts = await data.json()
+return Response.json(posts)
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 58 ---
+export const revalidate = 60
+export async function GET() {
+const data = await fetch('https://api.vercel.app/blog')
+const posts = await data.json()
+return Response.json(posts)
+--- END CODE BLOCK ---
+route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 59 ---
+import { redirect } from 'next/navigation'
+export async function GET(request: Request) {
+redirect('https://nextjs.org/')
+--- END CODE BLOCK ---
+Alternatively, you can return a new
+--- CODE BLOCK 61 ---
+export async function GET(
+request: Request,
+{ params }: { params: Promise<{ slug: string }> }
+const { slug } = await params // 'a', 'b', or 'c'
+--- END CODE BLOCK ---
+using the
+--- CODE BLOCK 62 ---
+export async function GET(
+request: Request,
+{ params }: { params: Promise<{ slug: string }> }
+const { slug } = await params // 'a', 'b', or 'c'
+--- END CODE BLOCK ---
+header.
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 64 ---
+app/items/[slug]/route.js
+--- END CODE BLOCK ---
+You can also use the underlying Web APIs to read cookies from the request (
+--- CODE BLOCK 67 ---
+app/items/[slug]/route.js
+--- END CODE BLOCK ---
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 69 ---
+Promise<{ slug: 'b' }>
+--- END CODE BLOCK ---
+Headers
+You can read headers with
+--- CODE BLOCK 72 ---
+Promise<{ slug: 'c' }>
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 73 ---
+NextRequest
+--- END CODE BLOCK ---
+route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 74 ---
+import { type NextRequest } from 'next/server'
+export function GET(request: NextRequest) {
+const searchParams = request.nextUrl.searchParams
+const query = searchParams.get('query')
+// query is "hello" for /api/search?query=hello
+--- END CODE BLOCK ---
+This
+--- CODE BLOCK 76 ---
+import { openai } from '@ai-sdk/openai'
+import { StreamingTextResponse, streamText } from 'ai'
+export async function POST(req: Request) {
+const { messages } = await req.json()
+const result = await streamText({
+model: openai('gpt-4-turbo'),
+messages,
+return new StreamingTextResponse(result.toAIStream())
+--- END CODE BLOCK ---
+instance is read-only. To set headers, you need to return a new
+--- CODE BLOCK 77 ---
+import { openai } from '@ai-sdk/openai'
+import { StreamingTextResponse, streamText } from 'ai'
+export async function POST(req: Request) {
+const { messages } = await req.json()
+const result = await streamText({
+model: openai('gpt-4-turbo'),
+messages,
+return new StreamingTextResponse(result.toAIStream())
+--- END CODE BLOCK ---
+with new
+--- CODE BLOCK 78 ---
+// https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
+function iteratorToStream(iterator: any) {
+return new ReadableStream({
+async pull(controller) {
+const { value, done } = await iterator.next()
+if (done) {
+controller.close()
+} else {
+controller.enqueue(value)
+function sleep(time: number) {
+return new Promise((resolve) => {
+setTimeout(resolve, time)
+const encoder = new TextEncoder()
+async function* makeIterator() {
+yield encoder.encode('<p>One</p>')
+await sleep(200)
+yield encoder.encode('<p>Two</p>')
+await sleep(200)
+yield encoder.encode('<p>Three</p>')
+export async function GET() {
+const iterator = makeIterator()
+const stream = iteratorToStream(iterator)
+return new Response(stream)
+--- END CODE BLOCK ---
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 79 ---
+// https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
+function iteratorToStream(iterator: any) {
+return new ReadableStream({
+async pull(controller) {
+const { value, done } = await iterator.next()
+if (done) {
+controller.close()
+} else {
+controller.enqueue(value)
+function sleep(time: number) {
+return new Promise((resolve) => {
+setTimeout(resolve, time)
+const encoder = new TextEncoder()
+async function* makeIterator() {
+yield encoder.encode('<p>One</p>')
+await sleep(200)
+yield encoder.encode('<p>Two</p>')
+await sleep(200)
+yield encoder.encode('<p>Three</p>')
+export async function GET() {
+const iterator = makeIterator()
+const stream = iteratorToStream(iterator)
+return new Response(stream)
+--- END CODE BLOCK ---
+You can also use the underlying Web APIs to read headers from the request (
+--- CODE BLOCK 82 ---
+export async function POST(request: Request) {
+const res = await request.json()
+return Response.json({ res })
+--- END CODE BLOCK ---
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 84 ---
+request.formData()
+--- END CODE BLOCK ---
+Revalidating Cached Data
+You can
+revalidate cached data
+using the
+--- CODE BLOCK 86 ---
+export async function POST(request: Request) {
+const formData = await request.formData()
+const name = formData.get('name')
+const email = formData.get('email')
+return Response.json({ name, email })
+--- END CODE BLOCK ---
+route segment config option.
+app/posts/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 88 ---
+zod-form-data
+--- END CODE BLOCK ---
+Redirects
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 91 ---
+export async function GET(request: Request) {
+return new Response('Hello, Next.js!', {
+status: 200,
+headers: {
+'Access-Control-Allow-Origin': '*',
+'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+--- END CODE BLOCK ---
+Dynamic Route Segments
+Route Handlers can use
+Dynamic Segments
+to create request handlers from dynamic data.
+app/items/[slug]/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 93 ---
+export async function POST(request: Request) {
+try {
+const text = await request.text()
+// Process the webhook payload
+} catch (error) {
+return new Response(`Webhook error: ${error.message}`, {
+status: 400,
+return new Response('Success!', {
+status: 200,
+--- END CODE BLOCK ---
+Route
+Example URL
+--- CODE BLOCK 96 ---
+sitemap.xml
+--- END CODE BLOCK ---
+--- CODE BLOCK 99 ---
+export async function GET() {
+return new Response(
+`<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>Next.js Documentation</title>
+<link>https://nextjs.org/docs</link>
+<description>The React Framework for the Web</description>
+</channel>
+</rss>`,
+headers: {
+'Content-Type': 'text/xml',
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+export async function GET() {
+return new Response(
+`<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>Next.js Documentation</title>
+<link>https://nextjs.org/docs</link>
+<description>The React Framework for the Web</description>
+</channel>
+</rss>`,
+headers: {
+'Content-Type': 'text/xml',
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+export const dynamic = 'auto'
+export const dynamicParams = true
+export const revalidate = false
+export const fetchCache = 'auto'
+export const runtime = 'nodejs'
+export const preferredRegion = 'auto'
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+export const dynamic = 'auto'
+export const dynamicParams = true
+export const revalidate = false
+export const fetchCache = 'auto'
+export const runtime = 'nodejs'
+export const preferredRegion = 'auto'
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+context.params
+--- END CODE BLOCK ---
+[CODE_BLOCK_69]
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+[CODE_BLOCK_72]
+URL Query Parameters
+The request object passed to the Route Handler is a
+[CODE_BLOCK_73]
+instance, which includes
+some additional convenience methods
+, such as those for more easily handling query parameters.
+app/api/search/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_74]
+Streaming
+Streaming is commonly used in combination with Large Language Models (LLMs), such as OpenAI, for AI-generated content. Learn more about the
+AI SDK
+app/api/chat/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_76]
+These abstractions use the Web APIs to create a stream. You can also use the underlying Web APIs directly.
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_78]
+Request Body
+You can read the
+[CODE_BLOCK_80]
+body using the standard Web API methods:
+app/items/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_81]
+Request Body FormData
+You can read the
+[CODE_BLOCK_83]
+using the
+[CODE_BLOCK_84]
+function:
+app/items/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_85]
+Since
+[CODE_BLOCK_87]
+data are all strings, you may want to use
+[CODE_BLOCK_88]
+to validate the request and retrieve data in the format you prefer (e.g.
+[CODE_BLOCK_89]
+CORS
+You can set CORS headers for a specific Route Handler using the standard Web API methods:
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_90]
+Good to know
+To add CORS headers to multiple Route Handlers, you can use
+Middleware
+or the
+[CODE_BLOCK_92]
+file
+Alternatively, see our
+CORS example
+package.
+Webhooks
+You can use a Route Handler to receive webhooks from third-party services:
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_93]
+Notably, unlike API Routes with the Pages Router, you do not need to use
+[CODE_BLOCK_95]
+to use any additional configuration.
+Non-UI Responses
+You can use Route Handlers to return non-UI content. Note that
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+, and
+open graph images
+all have built-in support.
+app/rss.xml/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_99]
+Segment Config Options
+Route Handlers use the same
+route segment configuration
+as pages and layouts.
+app/items/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_101]
+See the
+API reference
+for more details.
+Version History
+Version
+Changes
+[CODE_BLOCK_103]
+[CODE_BLOCK_104]
+is now a promise. A
+codemod
+is available
+[CODE_BLOCK_105]
+The default caching for
+[CODE_BLOCK_106]
+handlers was changed from static to dynamic
+[CODE_BLOCK_107]
+Route Handlers are introduced.
+Was this helpful?
+supported.
+Send

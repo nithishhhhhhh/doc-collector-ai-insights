@@ -1,0 +1,122 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/WritableStream
+SCRAPED: 2025-06-19 18:17:48
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+WritableStream
+--- END CODE BLOCK ---
+interface of the
+Streams API
+provides a standard abstraction for writing streaming data to a destination, known as a sink.
+This object comes with built-in backpressure and queuing.
+--- CODE BLOCK 2 ---
+WritableStream
+--- END CODE BLOCK ---
+is a
+transferable object
+Constructor
+--- CODE BLOCK 3 ---
+WritableStream()
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 4 ---
+WritableStream
+--- END CODE BLOCK ---
+object.
+Instance properties
+--- CODE BLOCK 5 ---
+WritableStream.locked
+--- END CODE BLOCK ---
+Read only
+A boolean indicating whether the
+--- CODE BLOCK 6 ---
+WritableStream
+--- END CODE BLOCK ---
+is locked to a writer.
+Instance methods
+--- CODE BLOCK 7 ---
+WritableStream.abort()
+--- END CODE BLOCK ---
+Aborts the stream, signaling that the producer can no longer successfully write to the stream and it is to be immediately moved to an error state, with any queued writes discarded.
+--- CODE BLOCK 8 ---
+WritableStream.close()
+--- END CODE BLOCK ---
+Closes the stream.
+--- CODE BLOCK 9 ---
+WritableStream.getWriter()
+--- END CODE BLOCK ---
+Returns a new instance of
+--- CODE BLOCK 10 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+and locks the stream to that instance. While the stream is locked, no other writer can be acquired until this one is released.
+Examples
+The following example illustrates several features of this interface. It creates the
+--- CODE BLOCK 11 ---
+WritableStream
+--- END CODE BLOCK ---
+with a custom sink. It then calls the stream's
+--- CODE BLOCK 12 ---
+getWriter()
+--- END CODE BLOCK ---
+method, which returns an instance of
+--- CODE BLOCK 13 ---
+WritableStreamDefaultWriter
+--- END CODE BLOCK ---
+. Next, several strings are written to the stream. Finally,
+--- CODE BLOCK 15 ---
+const writableStream = new WritableStream(
+// Implement the sink
+write(chunk) {
+const textElement = document.getElementById("text-output");
+textElement.textContent += chunk;
+const writer = writableStream.getWriter();
+try {
+writer.write("Hello, ");
+writer.write("world!\n");
+writer.write("This has been a demo!\n");
+await writer.close(); // wait for all chunks to be written
+console.log("All chunks written");
+} catch (error) {
+console.error("Stream error: ", error);
+--- END CODE BLOCK ---
+returns a promise that resolves when all the writes have successfully completed.
+Copy to Clipboard
+--- CODE BLOCK 16 ---
+const writableStream = new WritableStream(
+// Implement the sink
+write(chunk) {
+const textElement = document.getElementById("text-output");
+textElement.textContent += chunk;
+const writer = writableStream.getWriter();
+try {
+writer.write("Hello, ");
+writer.write("world!\n");
+writer.write("This has been a demo!\n");
+await writer.close(); // wait for all chunks to be written
+console.log("All chunks written");
+} catch (error) {
+console.error("Stream error: ", error);
+--- END CODE BLOCK ---
+This example does not support the
+backpressure
+feature of Streams.
+Specifications
+Specification
+Streams
+ws-class
+Browser compatibility
+See also
+WHATWG Stream Visualizer
+, for a basic visualization of readable, writable, and transform streams.
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 30, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

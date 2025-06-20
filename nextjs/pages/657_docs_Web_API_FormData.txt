@@ -1,0 +1,120 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/FormData
+SCRAPED: 2025-06-19 18:24:08
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 3 ---
+XMLHttpRequest.send()
+--- END CODE BLOCK ---
+interface provides a way to construct a set of key/value pairs representing form fields and their values, which can be sent using the
+--- CODE BLOCK 4 ---
+navigator.sendBeacon()
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+"multipart/form-data"
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+URLSearchParams
+--- END CODE BLOCK ---
+methods. It uses the same format a form would use if the encoding type were set to
+--- CODE BLOCK 12 ---
+for (const p of myFormData)
+--- END CODE BLOCK ---
+You can also pass it directly to the
+--- CODE BLOCK 13 ---
+for (const p of myFormData.entries())
+--- END CODE BLOCK ---
+constructor if you want to generate query parameters in the way a
+--- CODE BLOCK 16 ---
+FormData.append()
+--- END CODE BLOCK ---
+would do if it were using simple
+--- CODE BLOCK 18 ---
+FormData.delete()
+--- END CODE BLOCK ---
+submission.
+An object implementing
+--- CODE BLOCK 20 ---
+FormData.entries()
+--- END CODE BLOCK ---
+can directly be used in a
+--- CODE BLOCK 22 ---
+FormData.get()
+--- END CODE BLOCK ---
+structure, instead of
+--- CODE BLOCK 24 ---
+FormData.getAll()
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+FormData.has()
+--- END CODE BLOCK ---
+is equivalent to
+--- CODE BLOCK 28 ---
+FormData.keys()
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 30 ---
+FormData.set()
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 32 ---
+FormData.values()
+--- END CODE BLOCK ---
+object.
+Instance methods
+[CODE_BLOCK_16]
+Appends a new value onto an existing key inside a
+[CODE_BLOCK_17]
+object, or adds the key if it does not already exist.
+[CODE_BLOCK_18]
+Deletes a key/value pair from a
+[CODE_BLOCK_19]
+object.
+[CODE_BLOCK_20]
+Returns an
+iterator
+that iterates through all key/value pairs contained in the
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+Returns the first value associated with a given key from within a
+[CODE_BLOCK_23]
+object.
+[CODE_BLOCK_24]
+Returns an array of all the values associated with a given key from within a
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+Returns whether a
+[CODE_BLOCK_27]
+object contains a certain key.
+[CODE_BLOCK_28]
+Returns an
+iterator
+iterates through all keys of the key/value pairs contained in the
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+Sets a new value for an existing key inside a
+[CODE_BLOCK_31]
+object, or adds the key/value if it does not already exist.
+[CODE_BLOCK_32]
+Returns an
+iterator
+that iterates through all values contained in the
+[CODE_BLOCK_33]
+Specifications
+Specification
+XMLHttpRequest
+interface-formdata
+Browser compatibility
+See also
+Using FormData objects
+[CODE_BLOCK_34]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jul 23, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

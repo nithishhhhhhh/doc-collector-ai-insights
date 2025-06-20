@@ -1,0 +1,253 @@
+SOURCE URL: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition#as_a_response_header_for_the_main_body
+SCRAPED: 2025-06-19 18:24:38
+================================================================================
+
+The HTTP
+--- CODE BLOCK 1 ---
+Content-Disposition
+--- END CODE BLOCK ---
+header indicates whether content should be displayed
+inline
+in the browser as a web page or part of a web page or downloaded as an
+attachment
+locally.
+In a multipart body, the header must be used on each subpart to provide information about its corresponding field. The subpart is delimited by the
+boundary
+defined in the
+--- CODE BLOCK 2 ---
+Content-Type
+--- END CODE BLOCK ---
+header. When used on the body itself,
+--- CODE BLOCK 3 ---
+Content-Disposition
+--- END CODE BLOCK ---
+has no effect.
+--- CODE BLOCK 4 ---
+Content-Disposition
+--- END CODE BLOCK ---
+header is defined in the larger context of MIME messages for email, but only a subset of the possible parameters apply to HTTP forms and
+--- CODE BLOCK 12 ---
+Content-Disposition: inline
+Content-Disposition: attachment
+Content-Disposition: attachment; filename="file name.jpg"
+Content-Disposition: attachment; filename*=UTF-8''file%20name.jpg
+--- END CODE BLOCK ---
+requests. Only the value
+--- CODE BLOCK 13 ---
+Content-Disposition: inline
+Content-Disposition: attachment
+Content-Disposition: attachment; filename="file name.jpg"
+Content-Disposition: attachment; filename*=UTF-8''file%20name.jpg
+--- END CODE BLOCK ---
+, as well as the optional directive
+--- CODE BLOCK 31 ---
+Content-Disposition: inline
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+multipart/form-data
+--- END CODE BLOCK ---
+, can be used in the HTTP context.
+Header type
+Response header
+(for the main body),
+Request header
+Response header
+(for a subpart of a multipart body)
+Forbidden request header
+Syntax
+As a response header for the main body
+The first parameter in the HTTP context is either
+--- CODE BLOCK 33 ---
+Content-Disposition
+--- END CODE BLOCK ---
+(default value, indicating it can be displayed inside the Web page, or as the Web page) or
+--- CODE BLOCK 38 ---
+Content-Disposition: form-data; name="fieldName"
+Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
+--- END CODE BLOCK ---
+(indicating it should be downloaded; most browsers presenting a 'Save as' dialog, prefilled with the value of the
+--- CODE BLOCK 39 ---
+Content-Disposition: form-data; name="fieldName"
+Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
+--- END CODE BLOCK ---
+parameters if present).
+http
+Copy to Clipboard
+--- CODE BLOCK 42 ---
+<input type="file">
+--- END CODE BLOCK ---
+The quotes around the file name are optional, but are necessary if you use special characters in the file name, such as spaces.
+The parameters
+--- CODE BLOCK 49 ---
+200 OK
+Content-Type: text/html; charset=utf-8
+Content-Disposition: attachment; filename="cool.html"
+Content-Length: 21
+<HTML>Save me!</HTML>
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+200 OK
+Content-Type: text/html; charset=utf-8
+Content-Disposition: attachment; filename="cool.html"
+Content-Length: 21
+<HTML>Save me!</HTML>
+--- END CODE BLOCK ---
+differ only in that
+--- CODE BLOCK 53 ---
+multipart/form-data
+--- END CODE BLOCK ---
+uses the encoding defined in
+RFC 5987, section 3.2
+When both
+--- CODE BLOCK 54 ---
+Content-Disposition
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+delimiter123
+--- END CODE BLOCK ---
+are present in a single header field value,
+--- CODE BLOCK 56 ---
+----8721656041911415653955004498
+--- END CODE BLOCK ---
+is preferred over
+--- CODE BLOCK 57 ---
+POST /test.html HTTP/1.1
+Host: example.org
+Content-Type: multipart/form-data;boundary="delimiter123"
+--delimiter123
+Content-Disposition: form-data; name="field1"
+value1
+--delimiter123
+Content-Disposition: form-data; name="field2"; filename="example.txt"
+value2
+--delimiter123--
+--- END CODE BLOCK ---
+when both are understood. It's recommended to include both for maximum compatibility, and you can convert
+--- CODE BLOCK 58 ---
+POST /test.html HTTP/1.1
+Host: example.org
+Content-Type: multipart/form-data;boundary="delimiter123"
+--delimiter123
+Content-Disposition: form-data; name="field1"
+value1
+--delimiter123
+Content-Disposition: form-data; name="field2"; filename="example.txt"
+value2
+--delimiter123--
+--- END CODE BLOCK ---
+--- CODE BLOCK 59 ---
+Content-Type
+--- END CODE BLOCK ---
+by substituting non-ASCII characters with ASCII equivalents (such as converting
+--- CODE BLOCK 62 ---
+XMLHttpRequest
+--- END CODE BLOCK ---
+[CODE_BLOCK_24]
+You may want to avoid percent escape sequences in
+[CODE_BLOCK_25]
+, because they are handled inconsistently across browsers. (Firefox and Chrome decode them, while Safari does not.)
+Browsers may apply transformations to conform to the file system requirements, such as converting path separators (
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+) to underscores (
+[CODE_BLOCK_28]
+Note:
+Chrome, and Firefox 82 and later, prioritize the HTML
+[CODE_BLOCK_29]
+element's
+[CODE_BLOCK_30]
+attribute over the
+[CODE_BLOCK_31]
+parameter (for
+same-origin URLs
+). Earlier Firefox versions prioritize the header and will display the content inline.
+As a header for a multipart body
+[CODE_BLOCK_32]
+body requires a
+[CODE_BLOCK_33]
+header to provide information about each subpart of the form (e.g., for every form field and any files that are part of field data). The first directive is always
+[CODE_BLOCK_34]
+, and the header must also include a
+[CODE_BLOCK_35]
+parameter to identify the relevant field. Additional directives are case-insensitive and have arguments that use quoted-string syntax after the
+[CODE_BLOCK_36]
+sign. Multiple parameters are separated by a semicolon (
+[CODE_BLOCK_37]
+http
+Copy to Clipboard
+[CODE_BLOCK_38]
+Directives
+[CODE_BLOCK_40]
+Is followed by a string containing the name of the HTML field in the form that the content of this subpart refers to. When dealing with multiple files in the same field (for example, the
+[CODE_BLOCK_41]
+attribute of an
+[CODE_BLOCK_42]
+element), there can be several subparts with the same name.
+[CODE_BLOCK_43]
+with a value of
+[CODE_BLOCK_44]
+indicates that the part is not an HTML field, but the default charset to use for parts without explicit charset information.
+[CODE_BLOCK_45]
+Is followed by a string containing the original name of the file transmitted. This parameter provides mostly indicative information. The suggestions in
+RFC2183
+apply:
+Prefer ASCII characters if possible (the client may percent-encode it, as long as the server implementation decodes it).
+Any path information should be stripped, such as by replacing
+[CODE_BLOCK_46]
+with
+[CODE_BLOCK_47]
+When writing to disk, it should not overwrite an existing file.
+Avoid creating special files with security implications, such as creating a file on the command search path.
+Satisfy other file system requirements, such as restricted characters and length limits.
+Note that the request header does not have the
+[CODE_BLOCK_48]
+parameter and does not allow RFC 5987 encoding.
+Examples
+Triggering download prompt for a resource
+The following response triggers the "Save As" dialog in a browser:
+http
+Copy to Clipboard
+[CODE_BLOCK_49]
+The HTML file will be downloaded rather than displayed in the browser.
+Most browsers will prompt users to save it with the
+[CODE_BLOCK_51]
+file name by default (as specified in the
+[CODE_BLOCK_52]
+directive).
+HTML posting multipart/form-data content type
+The following example shows an HTML form sent using
+[CODE_BLOCK_53]
+using the
+[CODE_BLOCK_54]
+header.
+In practice, the boundary value
+[CODE_BLOCK_55]
+would be a browser-generated string like
+[CODE_BLOCK_56]
+http
+Copy to Clipboard
+[CODE_BLOCK_57]
+Specifications
+Specification
+Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)
+header.field.definition
+Returning Values from Forms: multipart/form-data
+section-4.2
+Browser compatibility
+See also
+HTML Forms
+[CODE_BLOCK_59]
+defining the boundary of the multipart body.
+[CODE_BLOCK_60]
+interface used to prepare form data for use in the
+[CODE_BLOCK_61]
+[CODE_BLOCK_62]
+APIs.
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+May 23, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

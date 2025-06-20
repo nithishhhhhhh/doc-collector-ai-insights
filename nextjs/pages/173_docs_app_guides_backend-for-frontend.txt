@@ -1,0 +1,671 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/backend-for-frontend
+SCRAPED: 2025-06-19 17:29:31
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Backend for Frontend
+How to use Next.js as a backend for your frontend
+Next.js supports the "Backend for Frontend" pattern. This lets you create public endpoints to handle HTTP requests and return any content type—not just HTML. You can also access data sources and perform side effects like updating remote data.
+If you are starting a new project, using
+--- CODE BLOCK 1 ---
+create-next-app
+--- END CODE BLOCK ---
+with the
+--- CODE BLOCK 5 ---
+npx create-next-app@latest --api
+--- END CODE BLOCK ---
+flag automatically includes an example
+--- CODE BLOCK 6 ---
+npx create-next-app@latest --api
+--- END CODE BLOCK ---
+in your new project’s
+--- CODE BLOCK 10 ---
+export function GET(request: Request) {}
+--- END CODE BLOCK ---
+folder, demonstrating how to create an API endpoint.
+Terminal
+--- CODE BLOCK 11 ---
+export function GET(request: Request) {}
+--- END CODE BLOCK ---
+Good to know
+: Next.js backend capabilities are not a full backend replacement. They serve as an API layer that:
+is publicly reachable
+handles any HTTP request
+can return any content type
+To implement this pattern, use:
+Route Handlers
+--- CODE BLOCK 16 ---
+import { submit } from '@/lib/submit'
+export function POST(request: Request) {
+try {
+await submit(request)
+return new Response(null, { status: 204 })
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected error'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+In Pages Router,
+API Routes
+Public Endpoints
+Route Handlers are public HTTP endpoints. Any client can access them.
+Create a Route Handler using the
+--- CODE BLOCK 17 ---
+sitemap.xml
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+opengraph-image.jpg
+--- END CODE BLOCK ---
+file convention:
+/app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+twitter-image
+--- END CODE BLOCK ---
+This handles
+--- CODE BLOCK 24 ---
+.well-known
+--- END CODE BLOCK ---
+requests sent to
+--- CODE BLOCK 25 ---
+app/rss.xml/route.ts
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+export async function GET(request: Request) {
+const rssResponse = await fetch(/* rss endpoint */)
+const rssData = await rssResponse.json()
+const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>${rssData.title}</title>
+<description>${rssData.description}</description>
+<link>${rssData.link}</link>
+<copyright>${rssData.copyright}</copyright>
+${rssData.items.map((item) => {
+return `<item>
+<title>${item.title}</title>
+<description>${item.description}</description>
+<link>${item.link}</link>
+<pubDate>${item.publishDate}</pubDate>
+<guid isPermaLink="false">${item.guid}</guid>
+</item>`
+</channel>
+</rss>`
+const headers = new Headers({ 'content-type': 'application/xml' })
+return new Response(rssFeed, { headers })
+--- END CODE BLOCK ---
+blocks for operations that may throw an exception:
+/app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 28 ---
+export async function GET(request: Request) {
+const rssResponse = await fetch(/* rss endpoint */)
+const rssData = await rssResponse.json()
+const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>${rssData.title}</title>
+<description>${rssData.description}</description>
+<link>${rssData.link}</link>
+<copyright>${rssData.copyright}</copyright>
+${rssData.items.map((item) => {
+return `<item>
+<title>${item.title}</title>
+<description>${item.description}</description>
+<link>${item.link}</link>
+<pubDate>${item.publishDate}</pubDate>
+<guid isPermaLink="false">${item.guid}</guid>
+</item>`
+</channel>
+</rss>`
+const headers = new Headers({ 'content-type': 'application/xml' })
+return new Response(rssFeed, { headers })
+--- END CODE BLOCK ---
+Avoid exposing sensitive information in error messages sent to the client.
+To restrict access, implement authentication and authorization. See
+Authentication
+Content types
+Route Handlers let you serve non-UI responses, including JSON, XML, images, files, and plain text.
+Next.js uses file conventions for common endpoints:
+--- CODE BLOCK 34 ---
+export async function POST(request: Request) {
+const res = await request.json()
+return Response.json({ res })
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+export async function POST(request: Request) {
+const res = await request.json()
+return Response.json({ res })
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+import { sendMail, validateInputs } from '@/lib/email-transporter'
+export async function POST(request: Request) {
+const formData = await request.formData()
+const email = formData.get('email')
+const contents = formData.get('contents')
+try {
+await validateInputs({ email, contents })
+const info = await sendMail({ email, contents })
+return Response.json({ messageId: info.messageId })
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+favicon, app icon, and apple-icon
+--- CODE BLOCK 37 ---
+import { sendMail, validateInputs } from '@/lib/email-transporter'
+export async function POST(request: Request) {
+const formData = await request.formData()
+const email = formData.get('email')
+const contents = formData.get('contents')
+try {
+await validateInputs({ email, contents })
+const info = await sendMail({ email, contents })
+return Response.json({ messageId: info.messageId })
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+--- CODE BLOCK 38 ---
+export async function POST(request: Request) {
+try {
+const clonedRequest = request.clone()
+await request.body()
+await clonedRequest.body()
+await request.body() // Throws error
+return new Response(null, { status: 204 })
+} catch {
+return new Response(null, { status: 500 })
+--- END CODE BLOCK ---
+You can also define custom ones, such as:
+--- CODE BLOCK 39 ---
+export async function POST(request: Request) {
+try {
+const clonedRequest = request.clone()
+await request.body()
+await clonedRequest.body()
+await request.body() // Throws error
+return new Response(null, { status: 204 })
+} catch {
+return new Response(null, { status: 500 })
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+import { parseWeatherData } from '@/lib/weather'
+export async function POST(request: Request) {
+const body = await request.json()
+const searchParams = new URLSearchParams({ lat: body.lat, lng: body.lng })
+try {
+const weatherResponse = await fetch(`${weatherEndpoint}?${searchParams}`)
+if (!weatherResponse.ok) {
+/* handle error */
+const weatherData = await weatherResponse.text()
+const payload = parseWeatherData.asJSON(weatherData)
+return new Response(payload, { status: 200 })
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+import { parseWeatherData } from '@/lib/weather'
+export async function POST(request: Request) {
+const body = await request.json()
+const searchParams = new URLSearchParams({ lat: body.lat, lng: body.lng })
+try {
+const weatherResponse = await fetch(`${weatherEndpoint}?${searchParams}`)
+if (!weatherResponse.ok) {
+/* handle error */
+const weatherData = await weatherResponse.text()
+const payload = parseWeatherData.asJSON(weatherData)
+return new Response(payload, { status: 200 })
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+For example,
+--- CODE BLOCK 44 ---
+import { isValidRequest } from '@/lib/utils'
+export async function POST(request: Request, { params }) {
+const clonedRequest = request.clone()
+const isValid = await isValidRequest(clonedRequest)
+if (!isValid) {
+return new Response(null, { status: 400, statusText: 'Bad Request' })
+const { slug } = await params
+const pathname = slug.join('/')
+const proxyURL = new URL(pathname, 'https://nextjs.org')
+const proxyRequest = new Request(proxyURL, request)
+try {
+return fetch(proxyRequest)
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+creates a Route Handler for
+--- CODE BLOCK 45 ---
+import { isValidRequest } from '@/lib/utils'
+export async function POST(request: Request, { params }) {
+const clonedRequest = request.clone()
+const isValid = await isValidRequest(clonedRequest)
+if (!isValid) {
+return new Response(null, { status: 400, statusText: 'Bad Request' })
+const { slug } = await params
+const pathname = slug.join('/')
+const proxyURL = new URL(pathname, 'https://nextjs.org')
+const proxyRequest = new Request(proxyURL, request)
+try {
+return fetch(proxyRequest)
+} catch (reason) {
+const message =
+reason instanceof Error ? reason.message : 'Unexpected exception'
+return new Response(message, { status: 500 })
+--- END CODE BLOCK ---
+/app/rss.xml/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 48 ---
+next.config.js
+--- END CODE BLOCK ---
+Sanitize any input used to generate markup.
+Consuming request payloads
+Use Request
+instance methods
+like
+--- CODE BLOCK 53 ---
+NextResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+NextRequest
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 60 ---
+NextResponse
+--- END CODE BLOCK ---
+to access the request body.
+--- CODE BLOCK 62 ---
+import { type NextRequest, NextResponse } from 'next/server'
+export async function GET(request: NextRequest) {
+const nextUrl = request.nextUrl
+if (nextUrl.searchParams.get('redirect')) {
+return NextResponse.redirect(new URL('/', request.url))
+if (nextUrl.searchParams.get('rewrite')) {
+return NextResponse.rewrite(new URL('/', request.url))
+return NextResponse.json({ pathname: nextUrl.pathname })
+--- END CODE BLOCK ---
+--- CODE BLOCK 63 ---
+import { type NextRequest, NextResponse } from 'next/server'
+export async function GET(request: NextRequest) {
+const nextUrl = request.nextUrl
+if (nextUrl.searchParams.get('redirect')) {
+return NextResponse.redirect(new URL('/', request.url))
+if (nextUrl.searchParams.get('rewrite')) {
+return NextResponse.rewrite(new URL('/', request.url))
+return NextResponse.json({ pathname: nextUrl.pathname })
+--- END CODE BLOCK ---
+requests don’t carry a body.
+/app/api/echo-body/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 64 ---
+NextRequest
+--- END CODE BLOCK ---
+Good to know
+: Validate data before passing it to other systems
+/app/api/send-email/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 66 ---
+import { type NextRequest, NextResponse } from 'next/server'
+export async function GET(request: NextRequest) {
+const token = request.nextUrl.searchParams.get('token')
+if (token !== process.env.REVALIDATE_SECRET_TOKEN) {
+return NextResponse.json({ success: false }, { status: 401 })
+const tag = request.nextUrl.searchParams.get('tag')
+if (!tag) {
+return NextResponse.json({ success: false }, { status: 400 })
+revalidateTag(tag)
+return NextResponse.json({ success: true })
+--- END CODE BLOCK ---
+You can only read the request body once. Clone the request if you need to read it again:
+/app/api/clone/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 68 ---
+import { type NextRequest, NextResponse } from 'next/server'
+export async function GET(request: NextRequest) {
+const token = request.nextUrl.searchParams.get('session_token')
+const redirectUrl = request.nextUrl.searchParams.get('redirect_url')
+const response = NextResponse.redirect(new URL(redirectUrl, request.url))
+response.cookies.set({
+value: token,
+name: '_token',
+path: '/',
+secure: true,
+httpOnly: true,
+expires: undefined, // session cookie
+return response
+--- END CODE BLOCK ---
+Manipulating data
+Route Handlers can transform, filter, and aggregate data from one or more sources. This keeps logic out of the frontend and avoids exposing internal systems.
+You can also offload heavy computations to the server and reduce client battery and data usage.
+--- CODE BLOCK 70 ---
+import { redirect } from 'next/navigation'
+export async function GET(request: Request) {
+redirect('https://nextjs.org/')
+--- END CODE BLOCK ---
+Good to know
+: This example uses
+--- CODE BLOCK 73 ---
+permanentRedirect
+--- END CODE BLOCK ---
+to avoid putting geo-location data in the URL.
+--- CODE BLOCK 74 ---
+config.matcher
+--- END CODE BLOCK ---
+requests may be cached or logged, which could expose sensitive info.
+Proxying to a backend
+You can use a Route Handler as a proxy to another backend. Add validation logic before forwarding the request.
+/app/api/[...slug]/route.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 76 ---
+import { isAuthenticated } from '@lib/auth'
+export const config = {
+matcher: '/api/:function*',
+export function middleware(request: Request) {
+if (!isAuthenticated(request)) {
+return Response.json(
+{ success: false, message: 'authentication failed' },
+{ status: 401 }
+--- END CODE BLOCK ---
+Or use:
+--- CODE BLOCK 79 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+if (request.nextUrl.pathname === '/proxy-this-path') {
+const rewriteUrl = new URL('https://nextjs.org')
+return NextResponse.rewrite(rewriteUrl)
+--- END CODE BLOCK ---
+rewrites
+--- CODE BLOCK 80 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+if (request.nextUrl.pathname === '/proxy-this-path') {
+const rewriteUrl = new URL('https://nextjs.org')
+return NextResponse.rewrite(rewriteUrl)
+--- END CODE BLOCK ---
+--- CODE BLOCK 82 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+if (request.nextUrl.pathname === '/v1/docs') {
+request.nextUrl.pathname = '/v2/docs'
+return NextResponse.redirect(request.nextUrl)
+--- END CODE BLOCK ---
+NextRequest and NextResponse
+Next.js extends the
+--- CODE BLOCK 83 ---
+import { NextResponse } from 'next/server'
+export function middleware(request: Request) {
+if (request.nextUrl.pathname === '/v1/docs') {
+request.nextUrl.pathname = '/v2/docs'
+return NextResponse.redirect(request.nextUrl)
+--- END CODE BLOCK ---
+--- CODE BLOCK 84 ---
+import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
+export async function POST(request: Request) {
+const { rateLimited } = await checkRateLimit(request)
+if (rateLimited) {
+return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 })
+return new Response(null, { status: 204 })
+--- END CODE BLOCK ---
+Web APIs with methods that simplify common operations. These extensions are available in both Route Handlers and Middleware.
+Both provide methods for reading and manipulating cookies.
+--- CODE BLOCK 85 ---
+import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
+export async function POST(request: Request) {
+const { rateLimited } = await checkRateLimit(request)
+if (rateLimited) {
+return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 })
+return new Response(null, { status: 204 })
+--- END CODE BLOCK ---
+includes the
+--- CODE BLOCK 89 ---
+import { createHandler } from 'third-party-library'
+const handler = createHandler({
+/* library-specific options */
+export const GET = handler
+// or
+export { handler as POST }
+--- END CODE BLOCK ---
+property, which exposes parsed values from the incoming request, for example, it makes it easier to access request pathname and search params.
+--- CODE BLOCK 90 ---
+import { createHandler } from 'third-party-library'
+const handler = createHandler({
+/* library-specific options */
+export const GET = handler
+// or
+export { handler as POST }
+--- END CODE BLOCK ---
+provides helpers like
+--- CODE BLOCK 96 ---
+import { createMiddleware } from 'third-party-library'
+export default createMiddleware()
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+import { createMiddleware } from 'third-party-library'
+export default createMiddleware()
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+react-query
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 104 ---
+export mode
+--- END CODE BLOCK ---
+You can pass
+--- CODE BLOCK 107 ---
+'force-static'
+--- END CODE BLOCK ---
+to any function expecting
+--- CODE BLOCK 108 ---
+export const dynamic = 'force-static'
+export function GET() {
+return new Response('Hello World', { status: 200 })
+--- END CODE BLOCK ---
+. Likewise, you can return
+--- CODE BLOCK 109 ---
+export const dynamic = 'force-static'
+export function GET() {
+return new Response('Hello World', { status: 200 })
+--- END CODE BLOCK ---
+where a
+[CODE_BLOCK_61]
+is expected.
+/app/echo-pathname/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_62]
+Learn more about
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+Webhooks and callback URLs
+Use Route Handlers to receive event notifications from third-party applications.
+For example, revalidate a route when content changes in a CMS. Configure the CMS to call a specific endpoint on changes.
+/app/webhook/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_66]
+Callback URLs are another use case. When a user completes a third-party flow, the third party sends them to a callback URL. Use a Route Handler to verify the response and decide where to redirect the user.
+/app/auth/callback/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_68]
+Redirects
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_70]
+Learn more about redirects in
+[CODE_BLOCK_72]
+[CODE_BLOCK_73]
+Middleware
+Only one middleware file is allowed per project. Use
+[CODE_BLOCK_74]
+to target specific paths. Learn more about
+middleware
+[CODE_BLOCK_75]
+to generate a response before the request reaches a route path.
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_76]
+You can also proxy requests using
+[CODE_BLOCK_78]
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_79]
+Another type of response
+[CODE_BLOCK_81]
+can produce are redirects:
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_82]
+Security
+Rate limiting
+You can implement rate limiting in your Next.js backend. In addition to code-based checks, enable any rate limiting features provided by your host.
+/app/resource/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_84]
+Verify payloads
+Never trust incoming request data. Validate content type and size, and sanitize against XSS before use.
+Use timeouts to prevent abuse and protect server resources.
+Store user-generated static assets in dedicated services. When possible, upload them from the browser and store the returned URI in your database to reduce request size.
+Access to protected resources
+Always verify credentials before granting access. Do not rely on middleware alone for authentication and authorization.
+Remove sensitive or unnecessary data from responses and backend logs.
+Rotate credentials and API keys regularly.
+Preflight Requests
+Preflight requests use the
+[CODE_BLOCK_86]
+method to ask the server if a request is allowed based on origin, method, and headers.
+[CODE_BLOCK_87]
+is not defined, Next.js adds it automatically and sets the
+[CODE_BLOCK_88]
+header based on the other defined methods.
+CORS
+Library patterns
+Community libraries often use the factory pattern for Route Handlers.
+/app/api/[...path]/route.ts
+[CODE_BLOCK_89]
+This creates a shared handler for
+[CODE_BLOCK_91]
+[CODE_BLOCK_92]
+requests. The library customizes behavior based on the
+[CODE_BLOCK_93]
+[CODE_BLOCK_94]
+in the request.
+Libraries can also provide a
+[CODE_BLOCK_95]
+factory.
+middleware.ts
+[CODE_BLOCK_96]
+More examples
+See more examples on using
+Router Handlers
+and the
+[CODE_BLOCK_98]
+API references.
+These examples include, working with
+Cookies
+Headers
+Streaming
+, Middleware
+negative matching
+, and other useful code snippets.
+Caveats
+Server Components
+Fetch data in Server Components directly from its source, not via Route Handlers.
+For Server Components pre-rendered at build time, using Route Handlers will fail the build step. This is because, while building there is no server listening for these requests.
+For Server Components rendered on demand, fetching from Route Handlers is slower due to the extra HTTP round trip between the handler and the render process.
+A server side
+[CODE_BLOCK_99]
+request uses absolute URLs. This implies an HTTP round trip, to an external server. During development, your own development server acts as the external server. At build time there is no server, and at runtime, the server is available through your public facing domain.
+Server Components cover most data-fetching needs. However, fetching data client side might be necessary for:
+Data that depends on client-only Web APIs:
+Geo-location API
+Storage API
+Audio API
+File API
+Frequently polled data
+For these, use community libraries like
+[CODE_BLOCK_100]
+[CODE_BLOCK_101]
+Server Actions
+Server Actions let you run server-side code from the client. Their primary purpose is to mutate data from your frontend client.
+Server Actions are queued. Using them for data fetching introduces sequential execution.
+[CODE_BLOCK_102]
+mode
+[CODE_BLOCK_103]
+mode outputs a static site without a runtime server. Features that require the Next.js runtime are
+not supported
+, because this mode produces a static site, and no runtime server.
+[CODE_BLOCK_104]
+, only
+[CODE_BLOCK_105]
+Route Handlers are supported, in combination with the
+[CODE_BLOCK_106]
+route segment config, set to
+[CODE_BLOCK_107]
+This can be used to generate static HTML, JSON, TXT, or other files.
+app/hello-world/route.ts
+[CODE_BLOCK_108]
+Deployment environment
+Some hosts deploy Route Handlers as lambda functions. This means:
+Route Handlers cannot share data between requests.
+The environment may not support writing to File System.
+Long-running handlers may be terminated due to timeouts.
+WebSockets won’t work because the connection closes on timeout, or after the response is generated.
+API Reference
+Learn more about Route Handlers and Middleware
+route.js
+API reference for the route.js special file.
+middleware.js
+API reference for the middleware.js file.
+Was this helpful?
+supported.
+Send

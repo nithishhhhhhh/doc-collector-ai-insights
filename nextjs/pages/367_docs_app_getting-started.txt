@@ -1,0 +1,68 @@
+SOURCE URL: https://nextjs.org/docs/app/getting-started
+SCRAPED: 2025-06-19 17:52:44
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Next.js Docs
+App Router
+Getting Started
+Getting Started
+Welcome to the Next.js documentation!
+This
+Getting Started
+section will help you create your first Next.js app and learn the core features you'll use in every project.
+Pre-requisite knowledge
+Our documentation assumes some familiarity with web development. Before getting started, it'll help if you're comfortable with:
+HTML
+JavaScript
+React
+If you're new to React or need a refresher, we recommend starting with our
+React Foundations course
+, and the
+Next.js Foundations course
+that has you building an application as you learn.
+Next Steps
+Installation
+Learn how to create a new Next.js application with the `create-next-app` CLI, and set up TypeScript, ESLint, and Module Path Aliases.
+Project Structure
+Learn the folder and file conventions in Next.js, and how to organize your project.
+Layouts and Pages
+Learn how to create your first pages and layouts, and link between them with the Link component.
+Linking and Navigating
+Learn how the built-in navigation optimizations work, including prefetching, prerendering, and client-side navigation, and how to optimize navigation for dynamic routes and slow networks.
+Server and Client Components
+Learn how you can use React Server and Client Components to render parts of your application on the server or the client.
+Partial Prerendering
+Learn how to use Partial Prerendering and combine the benefits of static and dynamic rendering.
+Fetching Data
+Learn how to fetch data and stream content that depends on data.
+Updating Data
+Learn how to mutate data using Server Functions.
+Caching and Revalidating
+Learn how to cache and revalidate data in your application.
+Error Handling
+Learn how to display expected errors and handle uncaught exceptions.
+Learn about the different ways to add CSS to your application, including CSS Modules, Global CSS, Tailwind CSS, and more.
+Image Optimization
+Learn how to optimize images in Next.js
+Font Optimization
+Learn how to optimize fonts in Next.js
+Metadata and OG images
+Learn how to add metadata to your pages and create dynamic OG images.
+Route Handlers and Middleware
+Learn how to use Route Handlers and Middleware
+Deploying
+Learn how to deploy your Next.js application.
+Upgrading
+Learn how to upgrade your Next.js application to the latest version or canary.
+Was this helpful?
+supported.
+Send

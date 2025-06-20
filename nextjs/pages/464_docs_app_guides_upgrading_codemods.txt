@@ -1,0 +1,703 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/upgrading/codemods#150
+SCRAPED: 2025-06-19 18:03:38
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Guides
+Upgrading
+Codemods
+Codemods
+Codemods are transformations that run on your codebase programmatically. This allows a large number of changes to be programmatically applied without having to manually go through every file.
+Next.js provides Codemod transformations to help upgrade your Next.js codebase when an API is updated or deprecated.
+Usage
+In your terminal, navigate (
+--- CODE BLOCK 2 ---
+npx @next/codemod <transform> <path>
+--- END CODE BLOCK ---
+) into your project's folder, then run:
+Terminal
+--- CODE BLOCK 3 ---
+npx @next/codemod <transform> <path>
+--- END CODE BLOCK ---
+Replacing
+--- CODE BLOCK 11 ---
+experimental-edge
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+app-dir-runtime-config-experimental-edge
+--- END CODE BLOCK ---
+with appropriate values.
+--- CODE BLOCK 14 ---
+npx @next/codemod@latest app-dir-runtime-config-experimental-edge .
+--- END CODE BLOCK ---
+- name of transform
+--- CODE BLOCK 15 ---
+npx @next/codemod@latest app-dir-runtime-config-experimental-edge .
+--- END CODE BLOCK ---
+- files or directory to transform
+--- CODE BLOCK 17 ---
+experimental-edge
+--- END CODE BLOCK ---
+Do a dry-run, no code will be edited
+--- CODE BLOCK 19 ---
+export const runtime = 'experimental-edge'
+--- END CODE BLOCK ---
+Prints the changed output for comparison
+Codemods
+15.0
+Transform App Router Route Segment Config
+--- CODE BLOCK 20 ---
+export const runtime = 'experimental-edge'
+--- END CODE BLOCK ---
+value from
+--- CODE BLOCK 21 ---
+export const runtime = 'edge'
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+export const runtime = 'edge'
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+next-async-request-api
+--- END CODE BLOCK ---
+Note
+: This codemod is App Router specific.
+Terminal
+--- CODE BLOCK 24 ---
+npx @next/codemod@latest next-async-request-api .
+--- END CODE BLOCK ---
+This codemod transforms
+Route Segment Config
+--- CODE BLOCK 28 ---
+draftMode()
+--- END CODE BLOCK ---
+value
+--- CODE BLOCK 29 ---
+next/headers
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+React.use()
+--- END CODE BLOCK ---
+For example:
+--- CODE BLOCK 31 ---
+import { cookies, headers } from 'next/headers'
+const token = cookies().get('token')
+function useToken() {
+const token = cookies().get('token')
+return token
+export default function Page() {
+const name = cookies().get('name')
+function getHeader() {
+return headers().get('x-foo')
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 33 ---
+import { use } from 'react'
+import {
+cookies,
+headers,
+type UnsafeUnwrappedCookies,
+type UnsafeUnwrappedHeaders,
+} from 'next/headers'
+const token = (cookies() as unknown as UnsafeUnwrappedCookies).get('token')
+function useToken() {
+const token = use(cookies()).get('token')
+return token
+export default async function Page() {
+const name = (await cookies()).get('name')
+function getHeader() {
+return (headers() as unknown as UnsafeUnwrappedHeaders).get('x-foo')
+--- END CODE BLOCK ---
+Migrate to async Dynamic APIs
+APIs that opted into dynamic rendering that previously supported synchronous access are now asynchronous. You can read more about this breaking change in the
+upgrade guide
+--- CODE BLOCK 36 ---
+searchParams
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 41 ---
+generateMetadata
+--- END CODE BLOCK ---
+This codemod will transform dynamic APIs (
+--- CODE BLOCK 44 ---
+// page.tsx
+export default function Page({
+params,
+searchParams,
+}: {
+params: { slug: string }
+searchParams: { [key: string]: string | string[] | undefined }
+}) {
+const { value } = searchParams
+if (value === 'foo') {
+// ...
+export function generateMetadata({ params }: { params: { slug: string } }) {
+const { slug } = params
+return {
+title: `My Page - ${slug}`,
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+// page.tsx
+export default function Page({
+params,
+searchParams,
+}: {
+params: { slug: string }
+searchParams: { [key: string]: string | string[] | undefined }
+}) {
+const { value } = searchParams
+if (value === 'foo') {
+// ...
+export function generateMetadata({ params }: { params: { slug: string } }) {
+const { slug } = params
+return {
+title: `My Page - ${slug}`,
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+// page.tsx
+export default async function Page(props: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const searchParams = await props.searchParams
+const { value } = searchParams
+if (value === 'foo') {
+// ...
+export async function generateMetadata(props: {
+params: Promise<{ slug: string }>
+}) {
+const params = await props.params
+const { slug } = params
+return {
+title: `My Page - ${slug}`,
+--- END CODE BLOCK ---
+from
+--- CODE BLOCK 47 ---
+// page.tsx
+export default async function Page(props: {
+params: Promise<{ slug: string }>
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const searchParams = await props.searchParams
+const { value } = searchParams
+if (value === 'foo') {
+// ...
+export async function generateMetadata(props: {
+params: Promise<{ slug: string }>
+}) {
+const params = await props.params
+const { slug } = params
+return {
+title: `My Page - ${slug}`,
+--- END CODE BLOCK ---
+) that are now asynchronous to be properly awaited or wrapped with
+--- CODE BLOCK 48 ---
+UnsafeUnwrapped
+--- END CODE BLOCK ---
+if applicable.
+When an automatic migration isn't possible, the codemod will either add a typecast (if a TypeScript file) or a comment to inform the user that it needs to be manually reviewed & updated.
+For example:
+--- CODE BLOCK 51 ---
+NextRequest
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 53 ---
+next-request-geo-ip
+--- END CODE BLOCK ---
+When we detect property access on the
+--- CODE BLOCK 55 ---
+npx @next/codemod@latest next-request-geo-ip .
+--- END CODE BLOCK ---
+--- CODE BLOCK 56 ---
+@vercel/functions
+--- END CODE BLOCK ---
+props in the page / route entries (
+--- CODE BLOCK 59 ---
+NextRequest
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+@vercel/functions
+--- END CODE BLOCK ---
+--- CODE BLOCK 61 ---
+import type { NextRequest } from 'next/server'
+export function GET(req: NextRequest) {
+const { geo, ip } = req
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 62 ---
+import type { NextRequest } from 'next/server'
+export function GET(req: NextRequest) {
+const { geo, ip } = req
+--- END CODE BLOCK ---
+) or the
+--- CODE BLOCK 63 ---
+import type { NextRequest } from 'next/server'
+import { geolocation, ipAddress } from '@vercel/functions'
+export function GET(req: NextRequest) {
+const geo = geolocation(req)
+const ip = ipAddress(req)
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+import type { NextRequest } from 'next/server'
+import { geolocation, ipAddress } from '@vercel/functions'
+export function GET(req: NextRequest) {
+const geo = geolocation(req)
+const ip = ipAddress(req)
+--- END CODE BLOCK ---
+APIs,
+it will attempt to transform the callsite from a sync to an async function, and await the property access. If it can't be made async (such as with a Client Component), it will use
+--- CODE BLOCK 65 ---
+ImageResponse
+--- END CODE BLOCK ---
+to unwrap the promise .
+For example:
+--- CODE BLOCK 66 ---
+next-og-import
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 68 ---
+npx @next/codemod@latest next-og-import .
+--- END CODE BLOCK ---
+Good to know:
+When this codemod identifies a spot that might require manual intervention, but we aren't able to determine the exact fix, it will add a comment or typecast to the code to inform the user that it needs to be manually updated. These comments are prefixed with
+@next/codemod
+, and typecasts are prefixed with
+--- CODE BLOCK 71 ---
+import { ImageResponse } from 'next/server'
+--- END CODE BLOCK ---
+Your build will error until these comments are explicitly removed.
+Read more
+Replace
+--- CODE BLOCK 72 ---
+import { ImageResponse } from 'next/server'
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+import { ImageResponse } from 'next/og'
+--- END CODE BLOCK ---
+properties of
+--- CODE BLOCK 74 ---
+import { ImageResponse } from 'next/og'
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 76 ---
+metadata-to-viewport-export
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+npx @next/codemod@latest metadata-to-viewport-export .
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 78 ---
+npx @next/codemod@latest metadata-to-viewport-export .
+--- END CODE BLOCK ---
+This codemod installs
+--- CODE BLOCK 81 ---
+export const metadata = {
+title: 'My App',
+themeColor: 'dark',
+viewport: {
+width: 1,
+--- END CODE BLOCK ---
+and transforms
+--- CODE BLOCK 82 ---
+export const metadata = {
+title: 'My App',
+export const viewport = {
+width: 1,
+themeColor: 'dark',
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+export const metadata = {
+title: 'My App',
+export const viewport = {
+width: 1,
+themeColor: 'dark',
+--- END CODE BLOCK ---
+properties of
+--- CODE BLOCK 84 ---
+built-in-next-font
+--- END CODE BLOCK ---
+with corresponding
+--- CODE BLOCK 85 ---
+npx @next/codemod@latest built-in-next-font .
+--- END CODE BLOCK ---
+features.
+For example:
+--- CODE BLOCK 86 ---
+npx @next/codemod@latest built-in-next-font .
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 91 ---
+import { Inter } from '@next/font/google'
+--- END CODE BLOCK ---
+14.0
+Migrate
+--- CODE BLOCK 93 ---
+import { Inter } from 'next/font/google'
+--- END CODE BLOCK ---
+imports
+--- CODE BLOCK 94 ---
+next-image-to-legacy-image
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 95 ---
+npx @next/codemod@latest next-image-to-legacy-image .
+--- END CODE BLOCK ---
+This codemod moves transforms imports from
+--- CODE BLOCK 98 ---
+next/legacy/image
+--- END CODE BLOCK ---
+--- CODE BLOCK 99 ---
+next/future/image
+--- END CODE BLOCK ---
+for usage of
+Dynamic OG Image Generation
+For example:
+--- CODE BLOCK 101 ---
+import Image1 from 'next/image'
+import Image2 from 'next/future/image'
+export default function Home() {
+return (
+<div>
+<Image1 src="/test.jpg" width="200" height="300" />
+<Image2 src="/test.png" width="500" height="400" />
+</div>
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 103 ---
+// 'next/image' becomes 'next/legacy/image'
+import Image1 from 'next/legacy/image'
+// 'next/future/image' becomes 'next/image'
+import Image2 from 'next/image'
+export default function Home() {
+return (
+<div>
+<Image1 src="/test.jpg" width="200" height="300" />
+<Image2 src="/test.png" width="500" height="400" />
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+next-image-experimental
+--- END CODE BLOCK ---
+export
+--- CODE BLOCK 106 ---
+npx @next/codemod@latest next-image-experimental .
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 107 ---
+npx @next/codemod@latest next-image-experimental .
+--- END CODE BLOCK ---
+This codemod migrates certain viewport metadata to
+--- CODE BLOCK 114 ---
+objectPosition
+--- END CODE BLOCK ---
+export.
+For example:
+--- CODE BLOCK 116 ---
+lazyBoundary
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 121 ---
+npx @next/codemod@latest new-link .
+--- END CODE BLOCK ---
+13.2
+Use Built-in Font
+--- CODE BLOCK 124 ---
+<Link href="/about">
+<a>About</a>
+</Link>
+// transforms into
+<Link href="/about">
+About
+</Link>
+<Link href="/about">
+<a onClick={() => console.log('clicked')}>About</a>
+</Link>
+// transforms into
+<Link href="/about" onClick={() => console.log('clicked')}>
+About
+</Link>
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 125 ---
+<Link href="/about">
+<a>About</a>
+</Link>
+// transforms into
+<Link href="/about">
+About
+</Link>
+<Link href="/about">
+<a onClick={() => console.log('clicked')}>About</a>
+</Link>
+// transforms into
+<Link href="/about" onClick={() => console.log('clicked')}>
+About
+</Link>
+--- END CODE BLOCK ---
+This codemod uninstalls the
+--- CODE BLOCK 127 ---
+const Component = () => <a>About</a>
+<Link href="/about">
+<Component />
+</Link>
+// becomes
+<Link href="/about" legacyBehavior>
+<Component />
+</Link>
+--- END CODE BLOCK ---
+package and transforms
+--- CODE BLOCK 128 ---
+const Component = () => <a>About</a>
+<Link href="/about">
+<Component />
+</Link>
+// becomes
+<Link href="/about" legacyBehavior>
+<Component />
+</Link>
+--- END CODE BLOCK ---
+imports into the built-in
+--- CODE BLOCK 129 ---
+cra-to-next
+--- END CODE BLOCK ---
+For example:
+--- CODE BLOCK 130 ---
+npx @next/codemod cra-to-next
+--- END CODE BLOCK ---
+Transforms into:
+--- CODE BLOCK 133 ---
+add-missing-react-import
+--- END CODE BLOCK ---
+13.0
+Rename Next Image Imports
+--- CODE BLOCK 135 ---
+npx @next/codemod add-missing-react-import
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 137 ---
+export default class Home extends React.Component {
+render() {
+return <div>Hello World</div>
+--- END CODE BLOCK ---
+Safely renames
+--- CODE BLOCK 139 ---
+import React from 'react'
+export default class Home extends React.Component {
+render() {
+return <div>Hello World</div>
+--- END CODE BLOCK ---
+imports in existing Next.js 10, 11, or 12 applications to
+--- CODE BLOCK 140 ---
+import React from 'react'
+export default class Home extends React.Component {
+render() {
+return <div>Hello World</div>
+--- END CODE BLOCK ---
+in Next.js 13. Also renames
+--- CODE BLOCK 141 ---
+name-default-component
+--- END CODE BLOCK ---
+--- CODE BLOCK 142 ---
+npx @next/codemod name-default-component
+--- END CODE BLOCK ---
+For example:
+pages/index.js
+--- CODE BLOCK 143 ---
+npx @next/codemod name-default-component
+--- END CODE BLOCK ---
+Transforms into:
+pages/index.js
+--- CODE BLOCK 145 ---
+export default function () {
+return <div>Hello World</div>
+--- END CODE BLOCK ---
+Migrate to the New Image Component
+--- CODE BLOCK 147 ---
+export default function MyComponent() {
+return <div>Hello World</div>
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 148 ---
+withamp-to-config
+--- END CODE BLOCK ---
+Dangerously migrates from
+--- CODE BLOCK 150 ---
+npx @next/codemod withamp-to-config
+--- END CODE BLOCK ---
+to the new
+--- CODE BLOCK 152 ---
+// Before
+import { withAmp } from 'next/amp'
+function Home() {
+return <h1>My AMP Page</h1>
+export default withAmp(Home)
+--- END CODE BLOCK ---
+by adding inline styles and removing unused props.
+Removes
+--- CODE BLOCK 153 ---
+// Before
+import { withAmp } from 'next/amp'
+function Home() {
+return <h1>My AMP Page</h1>
+export default withAmp(Home)
+--- END CODE BLOCK ---
+prop and adds
+--- CODE BLOCK 154 ---
+// After
+export default function Home() {
+return <h1>My AMP Page</h1>
+export const config = {
+amp: true,
+--- END CODE BLOCK ---
+Removes
+--- CODE BLOCK 155 ---
+// After
+export default function Home() {
+return <h1>My AMP Page</h1>
+export const config = {
+amp: true,
+--- END CODE BLOCK ---
+prop and adds
+--- CODE BLOCK 157 ---
+url-to-withrouter
+--- END CODE BLOCK ---
+Removes
+--- CODE BLOCK 158 ---
+npx @next/codemod url-to-withrouter
+--- END CODE BLOCK ---
+prop and adds
+--- CODE BLOCK 159 ---
+npx @next/codemod url-to-withrouter
+--- END CODE BLOCK ---
+Removes
+--- CODE BLOCK 163 ---
+import React from 'react'
+export default class extends React.Component {
+render() {
+const { pathname } = this.props.url
+return <div>Current pathname: {pathname}</div>
+--- END CODE BLOCK ---
+prop.
+Removes
+--- CODE BLOCK 164 ---
+import React from 'react'
+export default class extends React.Component {
+render() {
+const { pathname } = this.props.url
+return <div>Current pathname: {pathname}</div>
+--- END CODE BLOCK ---
+prop.
+Remove
+--- CODE BLOCK 165 ---
+import React from 'react'
+import { withRouter } from 'next/router'
+export default withRouter(
+class extends React.Component {
+render() {
+const { pathname } = this.props.router
+return <div>Current pathname: {pathname}</div>
+--- END CODE BLOCK ---
+Tags From Link Components
+--- CODE BLOCK 166 ---
+import React from 'react'
+import { withRouter } from 'next/router'
+export default withRouter(
+class extends React.Component {
+render() {
+const { pathname } = this.props.router
+return <div>Current pathname: {pathname}</div>
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 167 ---
+__testfixtures__
+--- END CODE BLOCK ---
+Remove
+[CODE_BLOCK_122]
+tags inside
+Link Components
+, or add a
+[CODE_BLOCK_123]
+prop to Links that cannot be auto-fixed.
+For example:
+[CODE_BLOCK_124]
+In cases where auto-fixing can't be applied, the
+[CODE_BLOCK_126]
+prop is added. This allows your app to keep functioning using the old behavior for that particular link.
+[CODE_BLOCK_127]
+Migrate from CRA
+[CODE_BLOCK_129]
+Terminal
+[CODE_BLOCK_130]
+Migrates a Create React App project to Next.js; creating a Pages Router and necessary config to match behavior. Client-side only rendering is leveraged initially to prevent breaking compatibility due to
+[CODE_BLOCK_132]
+usage during SSR and can be enabled seamlessly to allow the gradual adoption of Next.js specific features.
+Please share any feedback related to this transform
+in this discussion
+Add React imports
+[CODE_BLOCK_133]
+Terminal
+[CODE_BLOCK_134]
+Transforms files that do not import
+[CODE_BLOCK_136]
+to include the import in order for the new
+React JSX transform
+to work.
+For example:
+my-component.js
+[CODE_BLOCK_137]
+Transforms into:
+my-component.js
+[CODE_BLOCK_139]
+Transform Anonymous Components into Named Components
+[CODE_BLOCK_141]
+Terminal
+[CODE_BLOCK_142]
+Versions 9 and above.
+Transforms anonymous components into named components to make sure they work with
+Fast Refresh
+For example:
+my-component.js
+[CODE_BLOCK_144]
+Transforms into:
+my-component.js
+[CODE_BLOCK_146]
+The component will have a camel-cased name based on the name of the file, and it also works with arrow functions.
+Transform AMP HOC into page config
+[CODE_BLOCK_148]
+Terminal
+[CODE_BLOCK_149]
+Transforms the
+[CODE_BLOCK_151]
+HOC into Next.js 9 page configuration.
+For example:
+[CODE_BLOCK_152]
+[CODE_BLOCK_154]
+[CODE_BLOCK_156]
+[CODE_BLOCK_157]
+Terminal
+[CODE_BLOCK_158]
+Transforms the deprecated automatically injected
+[CODE_BLOCK_160]
+property on top level pages to using
+[CODE_BLOCK_161]
+and the
+[CODE_BLOCK_162]
+property it injects. Read more here:
+https://nextjs.org/docs/messages/url-deprecated
+For example:
+From
+[CODE_BLOCK_163]
+[CODE_BLOCK_165]
+This is one case. All the cases that are transformed (and tested) can be found in the
+[CODE_BLOCK_167]
+directory
+Was this helpful?
+supported.
+Send

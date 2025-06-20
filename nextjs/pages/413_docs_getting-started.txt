@@ -1,0 +1,333 @@
+SOURCE URL: https://jestjs.io/docs/getting-started
+SCRAPED: 2025-06-19 17:58:02
+================================================================================
+
+Version: 30.0
+On this page
+Install Jest using your favorite package manager:
+Yarn
+pnpm
+--- CODE BLOCK 1 ---
+npm install --save-dev jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 3 ---
+yarn add --dev jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+pnpm add --save-dev jest
+--- END CODE BLOCK ---
+Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a
+--- CODE BLOCK 8 ---
+function sum(a, b) {  return a + b;}module.exports = sum;
+--- END CODE BLOCK ---
+file:
+--- CODE BLOCK 9 ---
+function sum(a, b) {  return a + b;}module.exports = sum;
+--- END CODE BLOCK ---
+Then, create a file named
+--- CODE BLOCK 11 ---
+const sum = require('./sum');test('adds 1 + 2 to equal 3', () => {  expect(sum(1, 2)).toBe(3);});
+--- END CODE BLOCK ---
+. This will contain our actual test:
+--- CODE BLOCK 12 ---
+const sum = require('./sum');test('adds 1 + 2 to equal 3', () => {  expect(sum(1, 2)).toBe(3);});
+--- END CODE BLOCK ---
+Add the following section to your
+--- CODE BLOCK 14 ---
+{  "scripts": {    "test": "jest"  }}
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+{  "scripts": {    "test": "jest"  }}
+--- END CODE BLOCK ---
+Finally, run
+--- CODE BLOCK 19 ---
+PASS  ./sum.test.js✓ adds 1 + 2 to equal 3 (5ms)
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+yarn global add jest
+--- END CODE BLOCK ---
+and Jest will print this message:
+--- CODE BLOCK 24 ---
+npm install jest --global
+--- END CODE BLOCK ---
+You just successfully wrote your first test using Jest!
+This test used
+--- CODE BLOCK 27 ---
+jest my-test --notify --config=config.json
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+jest my-test --notify --config=config.json
+--- END CODE BLOCK ---
+to test that two values were exactly identical. To learn about the other things that Jest can test, see
+Using Matchers
+Running from command line
+You can run Jest directly from the CLI (if it's globally available in your
+--- CODE BLOCK 30 ---
+npm init jest@latest
+--- END CODE BLOCK ---
+, e.g. by
+--- CODE BLOCK 31 ---
+npm init jest@latest
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+yarn create jest
+--- END CODE BLOCK ---
+) with a variety of useful options.
+Here's how to run Jest on files matching
+--- CODE BLOCK 33 ---
+yarn create jest
+--- END CODE BLOCK ---
+, using
+--- CODE BLOCK 34 ---
+pnpm create jest
+--- END CODE BLOCK ---
+as a configuration file and display a native OS notification after the run:
+--- CODE BLOCK 35 ---
+pnpm create jest
+--- END CODE BLOCK ---
+If you'd like to learn more about running
+--- CODE BLOCK 37 ---
+npm install --save-dev babel-jest @babel/core @babel/preset-env
+--- END CODE BLOCK ---
+through the command line, take a look at the
+Jest CLI Options
+page.
+Additional Configuration
+Generate a basic configuration file
+Based on your project, Jest will ask you a few questions and will create a basic configuration file with a short description for each option:
+Yarn
+pnpm
+--- CODE BLOCK 38 ---
+yarn add --dev babel-jest @babel/core @babel/preset-env
+--- END CODE BLOCK ---
+--- CODE BLOCK 40 ---
+pnpm add --save-dev babel-jest @babel/core @babel/preset-env
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+babel.config.js
+--- END CODE BLOCK ---
+Using Babel
+To use
+Babel
+, install required dependencies:
+Yarn
+pnpm
+--- CODE BLOCK 44 ---
+module.exports = {  presets: [['@babel/preset-env', {targets: {node: 'current'}}]],};
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+module.exports = api => {  const isTest = api.env('test');  // You can use isTest to determine what presets and plugins to use.  return {    // ...  };};
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+module.exports = {  transform: {},};
+--- END CODE BLOCK ---
+Configure Babel to target your current version of Node by creating a
+--- CODE BLOCK 54 ---
+@babel/preset-typescript
+--- END CODE BLOCK ---
+file in the root of your project:
+babel.config.js
+--- CODE BLOCK 55 ---
+npm install --save-dev @babel/preset-typescript
+--- END CODE BLOCK ---
+The ideal configuration for Babel will depend on your project. See
+Babel's docs
+for more details.
+Making your Babel config jest-aware
+Jest will set
+--- CODE BLOCK 57 ---
+yarn add --dev @babel/preset-typescript
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+yarn add --dev @babel/preset-typescript
+--- END CODE BLOCK ---
+if it's not set to something else. You can use that in your configuration to conditionally setup only the compilation needed for Jest, e.g.
+babel.config.js
+--- CODE BLOCK 59 ---
+pnpm add --save-dev @babel/preset-typescript
+--- END CODE BLOCK ---
+note
+--- CODE BLOCK 61 ---
+@babel/preset-typescript
+--- END CODE BLOCK ---
+is automatically installed when installing Jest and will automatically transform files if a babel configuration exists in your project. To avoid this behavior, you can explicitly reset the
+--- CODE BLOCK 62 ---
+babel.config.js
+--- END CODE BLOCK ---
+configuration option:
+jest.config.js
+--- CODE BLOCK 63 ---
+module.exports = {  presets: [    ['@babel/preset-env', {targets: {node: 'current'}}],    '@babel/preset-typescript',  ],};
+--- END CODE BLOCK ---
+Using with bundlers
+Most of the time you do not need to do anything special to work with different bundlers - the exception is if you have some plugin or configuration which generates files or have custom file resolution rules.
+Using webpack
+Jest can be used in projects that use
+webpack
+to manage assets, styles, and compilation. webpack does offer some unique challenges over other tools. Refer to the
+webpack guide
+to get started.
+Using Vite
+Jest is not supported by Vite due to incompatibilities with the Vite
+plugin system
+There are examples for Jest integration with Vite in the
+vite-jest
+library. However, this library is not compatible with versions of Vite later than 2.4.2.
+One alternative is
+Vitest
+which has an API compatible Jest.
+Using Parcel
+Jest can be used in projects that use
+parcel-bundler
+to manage assets, styles, and compilation similar to webpack. Parcel requires zero configuration. Refer to the official
+docs
+to get started.
+Using TypeScript
+--- CODE BLOCK 66 ---
+npm install --save-dev ts-jest
+--- END CODE BLOCK ---
+Jest supports TypeScript, via Babel. First, make sure you followed the instructions on
+using Babel
+above. Next, install the
+--- CODE BLOCK 67 ---
+npm install --save-dev ts-jest
+--- END CODE BLOCK ---
+Yarn
+pnpm
+--- CODE BLOCK 68 ---
+yarn add --dev ts-jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 70 ---
+pnpm add --save-dev ts-jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+@jest/globals
+--- END CODE BLOCK ---
+Then add
+--- CODE BLOCK 75 ---
+npm install --save-dev @jest/globals
+--- END CODE BLOCK ---
+to the list of presets in your
+--- CODE BLOCK 76 ---
+yarn add --dev @jest/globals
+--- END CODE BLOCK ---
+babel.config.js
+--- CODE BLOCK 77 ---
+yarn add --dev @jest/globals
+--- END CODE BLOCK ---
+However, there are some
+caveats
+to using TypeScript with Babel. Because TypeScript support in Babel is purely transpilation, Jest will not type-check your tests as they are run. If you want that, you can use
+ts-jest
+instead, or just run the TypeScript compiler
+separately (or as part of your build process).
+--- CODE BLOCK 79 ---
+pnpm add --save-dev @jest/globals
+--- END CODE BLOCK ---
+ts-jest
+is a TypeScript preprocessor with source map support for Jest that lets you use Jest to test projects written in TypeScript.
+Yarn
+pnpm
+--- CODE BLOCK 80 ---
+import {describe, expect, test} from '@jest/globals';import {sum} from './sum';describe('sum module', () => {  test('adds 1 + 2 to equal 3', () => {    expect(sum(1, 2)).toBe(3);  });});
+--- END CODE BLOCK ---
+--- CODE BLOCK 82 ---
+describe.each
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+@types/jest
+--- END CODE BLOCK ---
+In order for Jest to transpile TypeScript with
+--- CODE BLOCK 87 ---
+npm install --save-dev @types/jest
+--- END CODE BLOCK ---
+, you may also need to create a
+configuration
+file.
+Type definitions
+There are two ways to have
+Jest global APIs
+typed for test files written in TypeScript.
+You can use type definitions which ships with Jest and will update each time you update Jest. Install the
+--- CODE BLOCK 88 ---
+yarn add --dev @types/jest
+--- END CODE BLOCK ---
+package:
+Yarn
+pnpm
+--- CODE BLOCK 89 ---
+yarn add --dev @types/jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+pnpm add --save-dev @types/jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+@types/jest
+--- END CODE BLOCK ---
+And import the APIs from it:
+sum.test.ts
+--- CODE BLOCK 99 ---
+@jest/globals
+--- END CODE BLOCK ---
+See the additional usage documentation of
+--- CODE BLOCK 103 ---
+import {defineConfig} from 'eslint/config';import globals from 'globals';export default defineConfig([  {    files: ['**/*.js'],    languageOptions: {      globals: {        ...globals.jest,      },    },    rules: {      'no-unused-vars': 'warn',      'no-undef': 'warn',    },  },]);
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+eslint-plugin-jest
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+{  "overrides": [    {      "files": ["tests/**/*"],      "plugins": ["jest"],      "env": {        "jest/globals": true      }    }  ]}
+--- END CODE BLOCK ---
+Or you may choose to install the
+--- CODE BLOCK 106 ---
+{  "overrides": [    {      "files": ["tests/**/*"],      "plugins": ["jest"],      "env": {        "jest/globals": true      }    }  ]}
+--- END CODE BLOCK ---
+package. It provides types for Jest globals without a need to import them.
+Yarn
+pnpm
+[CODE_BLOCK_86]
+[CODE_BLOCK_88]
+[CODE_BLOCK_90]
+info
+[CODE_BLOCK_92]
+is a third party library maintained at
+DefinitelyTyped
+, hence the latest Jest features or versions may not be covered yet. Try to match versions of Jest and
+[CODE_BLOCK_93]
+as closely as possible. For example, if you are using Jest
+[CODE_BLOCK_94]
+then installing
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+is ideal.
+Using ESLint
+Jest can be used with ESLint without any further configuration as long as you import the
+Jest global helpers
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+, etc.) from
+[CODE_BLOCK_99]
+before using them in your test file. This is necessary to avoid
+[CODE_BLOCK_100]
+errors from ESLint, which doesn't know about the Jest globals.
+If you'd like to avoid these imports, you can configure your
+ESLint environment
+to support these globals by adding the
+[CODE_BLOCK_101]
+environment:
+[CODE_BLOCK_102]
+Or use
+[CODE_BLOCK_104]
+, which has a similar effect:
+[CODE_BLOCK_105]
+Running from command line
+Additional Configuration
+Generate a basic configuration file
+Using Babel
+Using with bundlers
+Using webpack
+Using Vite
+Using Parcel
+Using TypeScript
+Using ESLint

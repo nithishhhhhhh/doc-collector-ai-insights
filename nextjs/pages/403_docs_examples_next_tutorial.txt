@@ -1,0 +1,397 @@
+SOURCE URL: https://docs.deno.com/examples/next_tutorial
+SCRAPED: 2025-06-19 17:56:44
+================================================================================
+
+On this page
+Create a Next.js app with Deno
+Add a backend
+/api/
+/api/dinosaurs
+/api/dinosaurs/[dinosaur]
+Build the frontend
+Define the dinosaur type
+Update the homepage
+Create the dinosaur page
+Run the app
+Build a Next.js App
+Next.js
+is a popular framework for building
+server-side-rendered applications. It is built on top of React and provides a
+lot of features out of the box.
+In this tutorial, we'll build a simple Next.js application and run it with Deno.
+The app will display a list of dinosaurs. When you click on one, it'll take you
+to a dinosaur page with more details.
+Start by verifying that you have the latest version of Deno installed, you will
+need at least Deno 1.46.0:
+--- CODE BLOCK 1 ---
+deno --version
+--- END CODE BLOCK ---
+Create a Next.js app with Deno
+Jump to heading
+Next provides a CLI tool to quickly scaffold a new Next.js app. In your terminal
+run the following command to create a new Next.js app with Deno:
+--- CODE BLOCK 3 ---
+deno run -A npm:create-next-app@latest
+--- END CODE BLOCK ---
+When prompted, select the default options to create a new Next.js app with
+TypeScript.
+Then,
+--- CODE BLOCK 6 ---
+deno install
+--- END CODE BLOCK ---
+into the newly created project folder and run the following command
+to install the dependencies
+--- CODE BLOCK 7 ---
+deno install
+--- END CODE BLOCK ---
+Next.js has some dependencies that still rely on
+--- CODE BLOCK 10 ---
+"unstable": ["unsafe-proto"]
+--- END CODE BLOCK ---
+so you need to allow it. In a new
+--- CODE BLOCK 11 ---
+"unstable": ["unsafe-proto"]
+--- END CODE BLOCK ---
+file, add the following lines:
+--- CODE BLOCK 12 ---
+deno task dev
+--- END CODE BLOCK ---
+Now you can serve your new Next.js app:
+--- CODE BLOCK 15 ---
+Welcome to the dinosaur API
+--- END CODE BLOCK ---
+This will start the Next.js server, click the output link to localhost to see
+your app in the browser.
+Add a backend
+Jump to heading
+The next step is to add a backend API. We'll create a very simple API that
+returns information about dinosaurs.
+We'll use Next.js's
+built in API route handlers
+to set up our dinosaur API. Next.js uses a file-system-based router, where the
+folder structure directly defines the routes.
+We'll define three routes, The first route at
+--- CODE BLOCK 17 ---
+/api/dinosaur/[dinosaur]
+--- END CODE BLOCK ---
+will return the string
+--- CODE BLOCK 21 ---
+api/route.ts
+--- END CODE BLOCK ---
+, then we'll set up
+--- CODE BLOCK 22 ---
+export async function GET() {
+return Response.json("welcome to the dinosaur API");
+--- END CODE BLOCK ---
+to return all
+the dinosaurs, and finally
+--- CODE BLOCK 23 ---
+export async function GET() {
+return Response.json("welcome to the dinosaur API");
+--- END CODE BLOCK ---
+to return a specific
+dinosaur based on the name in the URL.
+/api/
+Jump to heading
+In the
+--- CODE BLOCK 24 ---
+welcome to the dinosaur API
+--- END CODE BLOCK ---
+folder of your new project, create an
+--- CODE BLOCK 31 ---
+/api/dinosaurs
+--- END CODE BLOCK ---
+folder. In that folder,
+create a
+--- CODE BLOCK 33 ---
+import data from "./data.json" with { type: "json" };
+export async function GET() {
+return Response.json(data);
+--- END CODE BLOCK ---
+file, which will handle requests to `/api/.
+Copy and paste the following code into the
+--- CODE BLOCK 34 ---
+import data from "./data.json" with { type: "json" };
+export async function GET() {
+return Response.json(data);
+--- END CODE BLOCK ---
+file:
+route.ts
+--- CODE BLOCK 35 ---
+/api/dinosaurs/[dinosaur]
+--- END CODE BLOCK ---
+This code defines a simple route handler that returns a JSON response with the
+string
+--- CODE BLOCK 41 ---
+import { NextRequest } from "next/server";
+import data from "../data.json" with { type: "json" };
+type RouteParams = { params: Promise<{ dinosaur: string }> };
+export const GET = async (request: NextRequest, { params }: RouteParams) => {
+const { dinosaur } = await params;
+if (!dinosaur) {
+return Response.json("No dinosaur name provided.");
+const dinosaurData = data.find((item) =>
+item.name.toLowerCase() === dinosaur.toLowerCase()
+return Response.json(dinosaurData ? dinosaurData : "No dinosaur found.");
+--- END CODE BLOCK ---
+/api/dinosaurs
+Jump to heading
+In the
+--- CODE BLOCK 42 ---
+deno task dev
+--- END CODE BLOCK ---
+folder, create a folder called
+--- CODE BLOCK 43 ---
+http://localhost:3000/api/dinosaurs/brachiosaurus
+--- END CODE BLOCK ---
+. In that folder, make a
+--- CODE BLOCK 46 ---
+export type Dino = { name: string; description: string };
+--- END CODE BLOCK ---
+file, which will contain the hard coded dinosaur data. Copy and
+paste
+this json file
+into the
+--- CODE BLOCK 47 ---
+export type Dino = { name: string; description: string };
+--- END CODE BLOCK ---
+file.
+Create a
+--- CODE BLOCK 51 ---
+"use client";
+import { useEffect, useState } from "react";
+import { Dino } from "./types";
+import Link from "next/link";
+export default function Home() {
+--- END CODE BLOCK ---
+file in the
+--- CODE BLOCK 52 ---
+"use client";
+import { useEffect, useState } from "react";
+import { Dino } from "./types";
+import Link from "next/link";
+export default function Home() {
+--- END CODE BLOCK ---
+directory, which will handle
+requests to
+--- CODE BLOCK 55 ---
+const [dinosaurs, setDinosaurs] = useState<Dino[]>([]);
+useEffect(() => {
+(async () => {
+const response = await fetch(`/api/dinosaurs`);
+const allDinosaurs = await response.json() as Dino[];
+setDinosaurs(allDinosaurs);
+})();
+}, []);
+--- END CODE BLOCK ---
+. In this route we'll read the
+--- CODE BLOCK 56 ---
+const [dinosaurs, setDinosaurs] = useState<Dino[]>([]);
+useEffect(() => {
+(async () => {
+const response = await fetch(`/api/dinosaurs`);
+const allDinosaurs = await response.json() as Dino[];
+setDinosaurs(allDinosaurs);
+})();
+}, []);
+--- END CODE BLOCK ---
+file and
+return the dinosaurs as JSON:
+route.ts
+--- CODE BLOCK 58 ---
+return (
+<main>
+<h1>Welcome to the Dinosaur app</h1>
+<p>Click on a dinosaur below to learn more.</p>
+<ul>
+{dinosaurs.map((dinosaur: Dino) => {
+return (
+<li key={dinosaur.name}>
+<Link href={`/${dinosaur.name.toLowerCase()}`}>
+{dinosaur.name}
+</Link>
+</li>
+</ul>
+</main>
+--- END CODE BLOCK ---
+/api/dinosaurs/[dinosaur]
+Jump to heading
+And for the final route,
+--- CODE BLOCK 63 ---
+"use client";
+import { useEffect, useState } from "react";
+import { Dino } from "../types";
+import Link from "next/link";
+type RouteParams = { params: Promise<{ dinosaur: string }> };
+export default function Dinosaur({ params }: RouteParams) {
+--- END CODE BLOCK ---
+, we'll create a folder
+called
+--- CODE BLOCK 64 ---
+"use client";
+import { useEffect, useState } from "react";
+import { Dino } from "../types";
+import Link from "next/link";
+type RouteParams = { params: Promise<{ dinosaur: string }> };
+export default function Dinosaur({ params }: RouteParams) {
+--- END CODE BLOCK ---
+in the
+--- CODE BLOCK 67 ---
+const selectedDinosaur = params.then((params) => params.dinosaur);
+const [dinosaur, setDino] = useState<Dino>({ name: "", description: "" });
+useEffect(() => {
+(async () => {
+const resp = await fetch(`/api/dinosaurs/${await selectedDinosaur}`);
+const dino = await resp.json() as Dino;
+setDino(dino);
+})();
+}, []);
+--- END CODE BLOCK ---
+directory. In there, create a
+--- CODE BLOCK 68 ---
+const selectedDinosaur = params.then((params) => params.dinosaur);
+const [dinosaur, setDino] = useState<Dino>({ name: "", description: "" });
+useEffect(() => {
+(async () => {
+const resp = await fetch(`/api/dinosaurs/${await selectedDinosaur}`);
+const dino = await resp.json() as Dino;
+setDino(dino);
+})();
+}, []);
+--- END CODE BLOCK ---
+file. In this file we'll read the
+--- CODE BLOCK 70 ---
+return (
+<main>
+<h1>{dinosaur.name}</h1>
+<p>{dinosaur.description}</p>
+<Link href="/">🠠 Back to all dinosaurs</Link>
+</main>
+--- END CODE BLOCK ---
+file, find the dinosaur with the
+name in the URL, and return it as JSON:
+route.ts
+--- CODE BLOCK 71 ---
+return (
+<main>
+<h1>{dinosaur.name}</h1>
+<p>{dinosaur.description}</p>
+<Link href="/">🠠 Back to all dinosaurs</Link>
+</main>
+--- END CODE BLOCK ---
+Now, if you run the app with
+--- CODE BLOCK 73 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+and visit
+[CODE_BLOCK_43]
+in your browser, you should
+see the details of the brachiosaurus dinosaur.
+Build the frontend
+Jump to heading
+Now that we have our backend API set up, let's build the frontend to display the
+dinosaur data.
+Define the dinosaur type
+Jump to heading
+Firstly we'll set up a new type, to define the shape of the dinosaur data. In
+[CODE_BLOCK_44]
+directory, create a
+[CODE_BLOCK_45]
+file and add the following code:
+types.ts
+[CODE_BLOCK_46]
+Update the homepage
+Jump to heading
+We'll update the
+[CODE_BLOCK_48]
+file in the
+[CODE_BLOCK_49]
+directory to fetch the dinosaur
+data from our API and display it as a list of links.
+To execute client-side code in Next.js we need to use the
+[CODE_BLOCK_50]
+directive
+at the top of the file. Then we'll import the modules that we'll need in this
+page and export the default function that will render the page:
+page.tsx
+[CODE_BLOCK_51]
+Inside the body of the
+[CODE_BLOCK_53]
+function, we'll define a state variable to store
+the dinosaur data, and a
+[CODE_BLOCK_54]
+hook to fetch the data from the API when
+the component mounts:
+page.tsx
+[CODE_BLOCK_55]
+Beneath this, still inside the body of the
+[CODE_BLOCK_57]
+function, we'll return a list
+of links, each linking to the dinosaur's page:
+page.tsx
+[CODE_BLOCK_58]
+Create the dinosaur page
+Jump to heading
+Inside the
+[CODE_BLOCK_60]
+directory, create a new folder called
+[CODE_BLOCK_61]
+. Inside this
+folder create a
+[CODE_BLOCK_62]
+file. This file will fetch the details of a specific
+dinosaur from the API and render them on the page.
+Much like the homepage, we'll need client side code, and we'll import the
+modules we need and export a default function. We'll pass the incoming to the
+function and set up a type for this parameter:
+[dinosaur]/page.tsx
+[CODE_BLOCK_63]
+Inside the body of the
+[CODE_BLOCK_65]
+function we'll get the selected dinosaur from
+the request, set up a state variable to store the dinosaur data, and write a
+[CODE_BLOCK_66]
+hook to fetch the data from the API when the component mounts:
+[dinosaur]/page.tsx
+[CODE_BLOCK_67]
+Finally, still inside the
+[CODE_BLOCK_69]
+function body, we'll return a paragraph
+element containing the dinosaur's name and description:
+[dinosaur]/page.tsx
+[CODE_BLOCK_70]
+Run the app
+Jump to heading
+Now you can run the app with
+[CODE_BLOCK_72]
+and visit
+[CODE_BLOCK_73]
+in your browser to see the list of dinosaurs. Click on a dinosaur to see more
+details!
+🦕 Now you can build and run a Next.js app with Deno! To build on your app you
+could consider
+adding a database
+to replace your
+[CODE_BLOCK_74]
+file, or consider
+writing some tests
+to make your app reliable
+and production ready.
+Did you find what you needed?
+Edit this page
+What can we do to improve this page?
+GitHub username (
+optional
+If provided, you'll be @mentioned in the created GitHub issue
+Send us feedback
+Privacy policy
+Create a Next.js app with Deno
+Add a backend
+/api/
+/api/dinosaurs
+/api/dinosaurs/[dinosaur]
+Build the frontend
+Define the dinosaur type
+Update the homepage
+Create the dinosaur page
+Run the app

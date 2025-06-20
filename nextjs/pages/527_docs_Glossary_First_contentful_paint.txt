@@ -1,0 +1,26 @@
+SOURCE URL: https://developer.mozilla.org/docs/Glossary/First_contentful_paint
+SCRAPED: 2025-06-19 18:10:41
+================================================================================
+
+First Contentful Paint
+(FCP) is when the browser renders the first content from the DOM, providing feedback to the user that the page is loading. Completing the first contentful paint answers the question "Is it happening?"
+The First Contentful Paint
+timestamp is when the browser first rendered any text, image (including background images), video, canvas that had been drawn into, or non-empty SVG. This excludes any content of iframes, but includes text with pending webfonts. This is the first time users could start consuming page content.
+See also
+--- CODE BLOCK 1 ---
+PerformancePaintTiming
+--- END CODE BLOCK ---
+Related glossary terms:
+First Paint
+Largest Contentful Paint
+First Meaningful Paint
+First Contentful Paint
+at web.dev
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Nov 22, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

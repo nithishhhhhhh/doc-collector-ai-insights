@@ -1,0 +1,37 @@
+URL: https://react.dev/reference/react-dom/components/title
+Section: Reference
+============================================================
+
+# <title>
+# <title>
+The built-in browser <title> component lets you specify the title of the document.
+``````
+- Reference <title>
+- Usage Set the document title Use variables in the title
+- <title>
+- Set the document title
+- Use variables in the title
+## Reference
+### <title>
+To specify the title of the document, render the built-in browser <title> component. You can render <title> from any component and React will always place the corresponding DOM element in the document head.
+``````
+See more examples below.
+#### Props
+<title> supports all common element props.
+- children: <title> accepts only text as a child. This text will become the title of the document. You can also pass your own components as long as they only render text.
+#### Special rendering behavior
+React will always place the DOM element corresponding to the <title> component within the document’s <head>, regardless of where in the React tree it is rendered. The <head> is the only valid place for <title> to exist within the DOM, yet it’s convenient and keeps things composable if a component representing a specific page can render its <title> itself.
+There are two exception to this:
+- If <title> is within an <svg> component, then there is no special behavior, because in this context it doesn’t represent the document’s title but rather is an accessibility annotation for that SVG graphic.
+- If the <title> has an itemProp prop, there is no special behavior, because in this case it doesn’t represent the document’s title but rather metadata about a specific part of the page.
+### Pitfall
+Only render a single <title> at a time. If more than one component renders a <title> tag at the same time, React will place all of those titles in the document head. When this happens, the behavior of browsers and search engines is undefined.
+## Usage
+### Set the document title
+Render the <title> component from any component with text as its children. React will put a <title> DOM node in the document <head>.
+``````
+### Use variables in the title
+The children of the <title> component must be a single string of text. (Or a single number or a single object with a toString method.) It might not be obvious, but using JSX curly braces like this:
+``````
+… actually causes the <title> component to get a two-element array as its children (the string "Results page" and the value of pageNumber). This will cause an error. Instead, use string interpolation to pass <title> a single string:
+``````

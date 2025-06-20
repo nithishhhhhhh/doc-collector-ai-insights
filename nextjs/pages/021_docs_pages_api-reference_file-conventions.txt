@@ -1,0 +1,29 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/file-conventions
+SCRAPED: 2025-06-19 17:11:25
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+API Reference
+File-system conventions
+You are currently viewing the documentation for Pages Router.
+File-system conventions
+instrumentation.js
+API reference for the instrumentation.js file.
+Middleware
+Learn how to use Middleware to run code before a request is completed.
+public
+Next.js allows you to serve static files, like images, in the public directory. You can learn how it works here.
+src Directory
+Save pages under the `src` folder as an alternative to the root `pages` directory.
+Was this helpful?
+supported.
+Send

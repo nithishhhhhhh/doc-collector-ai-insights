@@ -1,0 +1,261 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Blob
+SCRAPED: 2025-06-19 18:20:25
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 2 ---
+ReadableStream
+--- END CODE BLOCK ---
+interface represents a blob, which is a file-like object of immutable, raw data; they can be read as text or binary data, or converted into a
+--- CODE BLOCK 18 ---
+Blob.arrayBuffer()
+--- END CODE BLOCK ---
+so its methods can be used for processing the data.
+Blobs can represent data that isn't necessarily in a JavaScript-native format. The
+--- CODE BLOCK 19 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+interface is based on
+--- CODE BLOCK 21 ---
+Blob.bytes()
+--- END CODE BLOCK ---
+, inheriting blob functionality and expanding it to support files on the user's system.
+Using blobs
+To construct a
+--- CODE BLOCK 24 ---
+Blob.slice()
+--- END CODE BLOCK ---
+from other non-blob objects and data, use the
+--- CODE BLOCK 26 ---
+Blob.stream()
+--- END CODE BLOCK ---
+constructor. To create a blob that contains a subset of another blob's data, use the
+--- CODE BLOCK 27 ---
+ReadableStream
+--- END CODE BLOCK ---
+method. To obtain a
+--- CODE BLOCK 29 ---
+Blob.text()
+--- END CODE BLOCK ---
+object for a file on the user's file system, see the
+--- CODE BLOCK 32 ---
+const obj = { hello: "world" };
+const blob = new Blob([JSON.stringify(obj, null, 2)], {
+type: "application/json",
+--- END CODE BLOCK ---
+documentation.
+The APIs accepting
+--- CODE BLOCK 33 ---
+const obj = { hello: "world" };
+const blob = new Blob([JSON.stringify(obj, null, 2)], {
+type: "application/json",
+--- END CODE BLOCK ---
+objects are also listed in the
+--- CODE BLOCK 35 ---
+URL.createObjectURL()
+--- END CODE BLOCK ---
+documentation.
+Constructor
+--- CODE BLOCK 36 ---
+This example creates a typed array containing the ASCII codes for the space
+character through the letter Z, then converts it to an object URL. A link to
+open that object URL is created. Click the link to see the decoded object URL.
+</p>
+--- END CODE BLOCK ---
+Returns a newly created
+--- CODE BLOCK 37 ---
+This example creates a typed array containing the ASCII codes for the space
+character through the letter Z, then converts it to an object URL. A link to
+open that object URL is created. Click the link to see the decoded object URL.
+</p>
+--- END CODE BLOCK ---
+object which contains a concatenation of all of the data in the array passed into the constructor.
+Instance properties
+--- CODE BLOCK 38 ---
+typedArrayToURL()
+--- END CODE BLOCK ---
+Read only
+The size, in bytes, of the data contained in the
+--- CODE BLOCK 42 ---
+function showViewLiveResultButton() {
+if (window.self !== window.top) {
+// Ensure that if our document is in a frame, we get the user
+// to first open it in its own tab or window. Otherwise, this
+// example won't work.
+const p = document.querySelector("p");
+p.textContent = "";
+const button = document.createElement("button");
+button.textContent = "View live result of the example code above";
+p.append(button);
+button.addEventListener("click", () => window.open(location.href));
+return true;
+return false;
+if (!showViewLiveResultButton()) {
+function typedArrayToURL(typedArray, mimeType) {
+return URL.createObjectURL(
+new Blob([typedArray.buffer], { type: mimeType }),
+const bytes = new Uint8Array(59);
+for (let i = 0; i < 59; i++) {
+bytes[i] = 32 + i;
+const url = typedArrayToURL(bytes, "text/plain");
+const link = document.createElement("a");
+link.href = url;
+link.innerText = "Open the array URL";
+document.body.appendChild(link);
+--- END CODE BLOCK ---
+object.
+--- CODE BLOCK 43 ---
+function showViewLiveResultButton() {
+if (window.self !== window.top) {
+// Ensure that if our document is in a frame, we get the user
+// to first open it in its own tab or window. Otherwise, this
+// example won't work.
+const p = document.querySelector("p");
+p.textContent = "";
+const button = document.createElement("button");
+button.textContent = "View live result of the example code above";
+p.append(button);
+button.addEventListener("click", () => window.open(location.href));
+return true;
+return false;
+if (!showViewLiveResultButton()) {
+function typedArrayToURL(typedArray, mimeType) {
+return URL.createObjectURL(
+new Blob([typedArray.buffer], { type: mimeType }),
+const bytes = new Uint8Array(59);
+for (let i = 0; i < 59; i++) {
+bytes[i] = 32 + i;
+const url = typedArrayToURL(bytes, "text/plain");
+const link = document.createElement("a");
+link.href = url;
+link.innerText = "Open the array URL";
+document.body.appendChild(link);
+--- END CODE BLOCK ---
+Read only
+A string indicating the MIME type of the data contained in the
+--- CODE BLOCK 47 ---
+const reader = new FileReader();
+reader.addEventListener("loadend", () => {
+// reader.result contains the contents of blob as a typed array
+reader.readAsArrayBuffer(blob);
+--- END CODE BLOCK ---
+. If the type is unknown, this string is empty.
+Instance methods
+--- CODE BLOCK 48 ---
+const reader = new FileReader();
+reader.addEventListener("loadend", () => {
+// reader.result contains the contents of blob as a typed array
+reader.readAsArrayBuffer(blob);
+--- END CODE BLOCK ---
+Returns a promise that resolves with an
+--- CODE BLOCK 52 ---
+const text = await new Response(blob).text();
+--- END CODE BLOCK ---
+containing the entire contents of the
+--- CODE BLOCK 53 ---
+const text = await new Response(blob).text();
+--- END CODE BLOCK ---
+as binary data.
+--- CODE BLOCK 54 ---
+Blob.text()
+--- END CODE BLOCK ---
+Returns a promise that resolves with an
+--- CODE BLOCK 55 ---
+const text = await blob.text();
+--- END CODE BLOCK ---
+containing the contents of the
+--- CODE BLOCK 56 ---
+const text = await blob.text();
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+URL.createObjectURL()
+--- END CODE BLOCK ---
+Returns a new
+[CODE_BLOCK_25]
+object containing the data in the specified range of bytes of the blob on which it's called.
+[CODE_BLOCK_26]
+Returns a
+[CODE_BLOCK_27]
+that can be used to read the contents of the
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+Returns a promise that resolves with a string containing the entire contents of the
+[CODE_BLOCK_30]
+interpreted as UTF-8 text.
+Examples
+Creating a blob
+[CODE_BLOCK_31]
+constructor can create blobs from other objects. For example, to construct a blob from a JSON string:
+Copy to Clipboard
+[CODE_BLOCK_32]
+Creating a URL representing the contents of a typed array
+The following example creates a JavaScript
+typed array
+and creates a new
+[CODE_BLOCK_34]
+containing the typed array's data. It then calls
+[CODE_BLOCK_35]
+to convert the blob into a
+html
+Copy to Clipboard
+play
+[CODE_BLOCK_36]
+The main piece of this code for example purposes is the
+[CODE_BLOCK_38]
+function, which creates a
+[CODE_BLOCK_39]
+from the given typed array and returns an object URL for it. Having converted the data into an object URL, it can be used in a number of ways, including as the value of the
+[CODE_BLOCK_40]
+element's
+[CODE_BLOCK_41]
+attribute (assuming the data contains an image, of course).
+Copy to Clipboard
+play
+[CODE_BLOCK_42]
+play
+Extracting data from a blob
+One way to read content from a
+[CODE_BLOCK_44]
+is to use a
+[CODE_BLOCK_45]
+. The following code reads the content of a
+[CODE_BLOCK_46]
+as a typed array:
+Copy to Clipboard
+[CODE_BLOCK_47]
+Another way to read content from a
+[CODE_BLOCK_49]
+is to use a
+[CODE_BLOCK_50]
+. The following code reads the content of a
+[CODE_BLOCK_51]
+as text:
+Copy to Clipboard
+[CODE_BLOCK_52]
+Or by using
+[CODE_BLOCK_54]
+Copy to Clipboard
+[CODE_BLOCK_55]
+By using other methods of
+[CODE_BLOCK_57]
+, it is possible to read the contents of a Blob as a string or a data URL.
+Specifications
+Specification
+File API
+blob-section
+Browser compatibility
+See also
+[CODE_BLOCK_58]
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+Using files from web applications
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

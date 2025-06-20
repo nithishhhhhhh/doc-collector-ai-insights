@@ -1,0 +1,520 @@
+SOURCE URL: https://nextjs.org/docs/messages/middleware-upgrade-guide
+SCRAPED: 2025-06-19 18:14:25
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Docs
+Errors
+Middleware Upgrade Guide
+Middleware Upgrade Guide
+As we work on improving Middleware for General Availability (GA), we've made some changes to the Middleware APIs (and how you define Middleware in your application) based on your feedback.
+This upgrade guide will help you understand the changes, why they were made, and how to migrate your existing Middleware to the new API. The guide is for Next.js developers who:
+Currently use the beta Next.js Middleware features
+Choose to upgrade to the next stable version of Next.js (
+--- CODE BLOCK 2 ---
+npm i next@latest
+--- END CODE BLOCK ---
+You can start upgrading your Middleware usage today with the latest release (
+--- CODE BLOCK 6 ---
+npm i eslint-config-next@latest --save-dev
+--- END CODE BLOCK ---
+Note
+: These changes described in this guide are included in Next.js
+--- CODE BLOCK 9 ---
+_middleware.ts
+--- END CODE BLOCK ---
+. You can keep your current site structure, including nested Middleware, until you move to
+--- CODE BLOCK 13 ---
+/dashboard/users/*
+--- END CODE BLOCK ---
+(or a
+--- CODE BLOCK 14 ---
+/dashboard/users/_middleware.ts
+--- END CODE BLOCK ---
+build of Next.js).
+If you have ESLint configured, you will need to run
+--- CODE BLOCK 15 ---
+/dashboard/_middleware.js
+--- END CODE BLOCK ---
+to upgrade your ESLint configuration to ensure the same version is being used as the Next.js version. You might also need to restart VSCode for the changes to take effect.
+Using Next.js Middleware on Vercel
+If you're using Next.js on Vercel, your existing deploys using Middleware will continue to work, and you can continue to deploy your site using Middleware. When you upgrade your site to the next stable version of Next.js (
+--- CODE BLOCK 21 ---
+/dashboard/:path*
+--- END CODE BLOCK ---
+), you will need to follow this upgrade guide to update your Middleware.
+Breaking changes
+No Nested Middleware
+No Response Body
+Cookies API Revamped
+New User-Agent Helper
+No More Page Match Data
+Executing Middleware on Internal Next.js Requests
+No Nested Middleware
+Summary of changes
+Define a single Middleware file next to your
+--- CODE BLOCK 22 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+export function middleware(request: NextRequest) {
+return NextResponse.rewrite(new URL('/about-2', request.url))
+// Supports both a single string value or an array of matchers
+export const config = {
+matcher: ['/about/:path*', '/dashboard/:path*'],
+--- END CODE BLOCK ---
+folder
+No need to prefix the file with an underscore
+A custom matcher can be used to define matching routes using an exported config object
+Explanation
+Previously, you could create a
+--- CODE BLOCK 23 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+export function middleware(request: NextRequest) {
+return NextResponse.rewrite(new URL('/about-2', request.url))
+// Supports both a single string value or an array of matchers
+export const config = {
+matcher: ['/about/:path*', '/dashboard/:path*'],
+--- END CODE BLOCK ---
+file under the
+--- CODE BLOCK 24 ---
+export const config = {
+matcher: [
+* Match all request paths except for the ones starting with:
+* - api (API routes)
+* - _next/static (static files)
+* - favicon.ico (favicon file)
+'/((?!api|_next/static|favicon.ico).*)',
+--- END CODE BLOCK ---
+directory at any level. Middleware execution was based on the file path where it was created.
+Based on customer feedback, we have replaced this API with a single root Middleware, which provides the following improvements:
+Faster execution with lower latency
+: With nested Middleware, a single request could invoke multiple Middleware functions. A single Middleware means a single function execution, which is more efficient.
+Less expensive
+: Middleware usage is billed per invocation. Using nested Middleware, a single request could invoke multiple Middleware functions, meaning multiple Middleware charges per request. A single Middleware means a single invocation per request and is more cost effective.
+Middleware can conveniently filter on things besides routes
+: With nested Middleware, the Middleware files were located in the
+--- CODE BLOCK 25 ---
+export const config = {
+matcher: [
+* Match all request paths except for the ones starting with:
+* - api (API routes)
+* - _next/static (static files)
+* - favicon.ico (favicon file)
+'/((?!api|_next/static|favicon.ico).*)',
+--- END CODE BLOCK ---
+directory and Middleware was executed based on request paths. By moving to a single root Middleware, you can still execute code based on request paths, but you can now more conveniently execute Middleware based on other conditions, like
+--- CODE BLOCK 26 ---
+import type { NextRequest } from 'next/server'
+export function middleware(request: NextRequest) {
+if (request.nextUrl.pathname.startsWith('/about')) {
+// This logic is only applied to /about
+if (request.nextUrl.pathname.startsWith('/dashboard')) {
+// This logic is only applied to /dashboard
+--- END CODE BLOCK ---
+or the presence of a request header.
+Deterministic execution ordering
+: With nested Middleware, a single request could match multiple Middleware functions. For example, a request to
+--- CODE BLOCK 27 ---
+import type { NextRequest } from 'next/server'
+export function middleware(request: NextRequest) {
+if (request.nextUrl.pathname.startsWith('/about')) {
+// This logic is only applied to /about
+if (request.nextUrl.pathname.startsWith('/dashboard')) {
+// This logic is only applied to /dashboard
+--- END CODE BLOCK ---
+would invoke Middleware defined in both
+--- CODE BLOCK 32 ---
+new Response('a text value')
+new Response(streamOrBuffer)
+new Response(JSON.stringify(obj), { headers: 'application/json' })
+NextResponse.json()
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+new Response('a text value')
+new Response(streamOrBuffer)
+new Response(JSON.stringify(obj), { headers: 'application/json' })
+NextResponse.json()
+--- END CODE BLOCK ---
+. However, the execution order is difficult to reason about. Moving to a single, root Middleware more explicitly defines execution order.
+Supports Next.js Layouts (RFC)
+: Moving to a single, root Middleware helps support the new
+Layouts (RFC) in Next.js
+How to upgrade
+You should declare
+one single Middleware file
+in your application, which should be located next to the
+--- CODE BLOCK 36 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { isAuthValid } from './lib/auth'
+export function middleware(request: NextRequest) {
+// Example function to validate auth
+if (isAuthValid(request)) {
+return NextResponse.next()
+return NextResponse.json({ message: 'Auth required' }, { status: 401 })
+--- END CODE BLOCK ---
+directory and named
+without
+--- CODE BLOCK 37 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { isAuthValid } from './lib/auth'
+export function middleware(request: NextRequest) {
+// Example function to validate auth
+if (isAuthValid(request)) {
+return NextResponse.next()
+return NextResponse.json({ message: 'Auth required' }, { status: 401 })
+--- END CODE BLOCK ---
+prefix. Your Middleware file can still have either a
+--- CODE BLOCK 38 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { isAuthValid } from './lib/auth'
+export function middleware(request: NextRequest) {
+// Example function to validate auth
+if (isAuthValid(request)) {
+return NextResponse.next()
+const loginUrl = new URL('/login', request.url)
+loginUrl.searchParams.set('from', request.nextUrl.pathname)
+return NextResponse.redirect(loginUrl)
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { isAuthValid } from './lib/auth'
+export function middleware(request: NextRequest) {
+// Example function to validate auth
+if (isAuthValid(request)) {
+return NextResponse.next()
+const loginUrl = new URL('/login', request.url)
+loginUrl.searchParams.set('from', request.nextUrl.pathname)
+return NextResponse.redirect(loginUrl)
+--- END CODE BLOCK ---
+extension.
+Middleware will be invoked for
+every route in the app
+, and a custom matcher can be used to define matching filters. The following is an example for a Middleware that triggers for
+--- CODE BLOCK 40 ---
+import { type NextRequest } from 'next/server'
+export const config = {
+runtime: 'edge',
+export default async function handler(req: NextRequest) {
+const authorization = req.cookies.get('authorization')
+return fetch('https://backend-api.com/api/protected', {
+method: req.method,
+headers: {
+authorization,
+redirect: 'manual',
+--- END CODE BLOCK ---
+--- CODE BLOCK 41 ---
+import { type NextRequest } from 'next/server'
+export const config = {
+runtime: 'edge',
+export default async function handler(req: NextRequest) {
+const authorization = req.cookies.get('authorization')
+return fetch('https://backend-api.com/api/protected', {
+method: req.method,
+headers: {
+authorization,
+redirect: 'manual',
+--- END CODE BLOCK ---
+, the custom matcher is defined in an exported config object:
+middleware.ts
+--- CODE BLOCK 42 ---
+cookies.set
+--- END CODE BLOCK ---
+The matcher config also allows full regex so matching like negative lookaheads or character matching is supported. An example of a negative lookahead to match all except specific paths can be seen here:
+middleware.ts
+--- CODE BLOCK 45 ---
+clearCookie
+--- END CODE BLOCK ---
+While the config option is preferred since it doesn't get invoked on every request, you can also use conditional statements to only run the Middleware when it matches specific paths. One advantage of using conditionals is defining explicit ordering for when Middleware executes. The following example shows how you can merge two previously nested Middleware:
+middleware.ts
+--- CODE BLOCK 48 ---
+NextRequest
+--- END CODE BLOCK ---
+No Response Body
+Summary of changes
+Middleware can no longer produce a response body
+If your Middleware
+does
+respond with a body, a runtime error will be thrown
+Migrate to using
+--- CODE BLOCK 53 ---
+NextResponse
+--- END CODE BLOCK ---
+--- CODE BLOCK 55 ---
+cookies.delete
+--- END CODE BLOCK ---
+to pages/APIs handling a response
+Explanation
+To respect the differences in client-side and server-side navigation, and to help ensure that developers do not build insecure Middleware, we are removing the ability to send response bodies in Middleware. This ensures that Middleware is only used to
+--- CODE BLOCK 56 ---
+cookies.set
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+cookies.getWithOptions
+--- END CODE BLOCK ---
+, or modify the incoming request (e.g.
+setting cookies
+The following patterns will no longer work:
+--- CODE BLOCK 59 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+export function middleware(request: NextRequest) {
+// create an instance of the class to access the public methods. This uses `next()`,
+// you could use `redirect()` or `rewrite()` as well
+let response = NextResponse.next()
+// get the cookies from the request
+let cookieFromRequest = request.cookies['my-cookie']
+// set the `cookie`
+response.cookie('hello', 'world')
+// set the `cookie` with options
+const cookieWithOptions = response.cookie('hello', 'world', {
+path: '/',
+maxAge: 1000 * 60 * 60 * 24 * 7,
+httpOnly: true,
+sameSite: 'strict',
+domain: 'example.com',
+// clear the `cookie`
+response.clearCookie('hello')
+return response
+--- END CODE BLOCK ---
+How to upgrade
+For cases where Middleware is used to respond (such as authorization), you should migrate to use
+--- CODE BLOCK 61 ---
+export function middleware() {
+const response = new NextResponse()
+// set a cookie
+response.cookies.set('vercel', 'fast')
+// set another cookie with options
+response.cookies.set('nextjs', 'awesome', { path: '/test' })
+// get all the details of a cookie
+const { value, ...options } = response.cookies.getWithOptions('vercel')
+console.log(value) // => 'fast'
+console.log(options) // => { name: 'vercel', Path: '/test' }
+// deleting a cookie will mark it as expired
+response.cookies.delete('vercel')
+return response
+--- END CODE BLOCK ---
+--- CODE BLOCK 62 ---
+export function middleware() {
+const response = new NextResponse()
+// set a cookie
+response.cookies.set('vercel', 'fast')
+// set another cookie with options
+response.cookies.set('nextjs', 'awesome', { path: '/test' })
+// get all the details of a cookie
+const { value, ...options } = response.cookies.getWithOptions('vercel')
+console.log(value) // => 'fast'
+console.log(options) // => { name: 'vercel', Path: '/test' }
+// deleting a cookie will mark it as expired
+response.cookies.delete('vercel')
+return response
+--- END CODE BLOCK ---
+to pages that show an authorization error, login forms, or to an API Route.
+Before
+pages/_middleware.ts
+--- CODE BLOCK 66 ---
+next/server
+--- END CODE BLOCK ---
+After
+middleware.ts
+--- CODE BLOCK 69 ---
+import { NextRequest, NextResponse } from 'next/server'
+export function middleware(request: NextRequest) {
+const url = request.nextUrl
+const viewport = request.ua.device.type === 'mobile' ? 'mobile' : 'desktop'
+url.searchParams.set('viewport', viewport)
+return NextResponse.rewrite(url)
+--- END CODE BLOCK ---
+Edge API Routes
+If you were previously using Middleware to forward headers to an external API, you can now use
+Edge API Routes
+pages/api/proxy.ts
+--- CODE BLOCK 71 ---
+import { NextRequest, NextResponse, userAgent } from 'next/server'
+export function middleware(request: NextRequest) {
+const url = request.nextUrl
+const { device } = userAgent(request)
+const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
+url.searchParams.set('viewport', viewport)
+return NextResponse.rewrite(url)
+--- END CODE BLOCK ---
+Cookies API Revamped
+Summary of changes
+Added
+Removed
+--- CODE BLOCK 74 ---
+request.page
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest, NextFetchEvent } from 'next/server'
+export function middleware(request: NextRequest, event: NextFetchEvent) {
+const { params } = event.request.page
+const { locale, slug } = params
+if (locale && slug) {
+const { search, protocol, host } = request.nextUrl
+const url = new URL(`${protocol}//${locale}.${host}/${slug}${search}`)
+return NextResponse.redirect(url)
+--- END CODE BLOCK ---
+--- CODE BLOCK 78 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest, NextFetchEvent } from 'next/server'
+export function middleware(request: NextRequest, event: NextFetchEvent) {
+const { params } = event.request.page
+const { locale, slug } = params
+if (locale && slug) {
+const { search, protocol, host } = request.nextUrl
+const url = new URL(`${protocol}//${locale}.${host}/${slug}${search}`)
+return NextResponse.redirect(url)
+--- END CODE BLOCK ---
+--- CODE BLOCK 79 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+const PATTERNS = [
+new URLPattern({ pathname: '/:locale/:slug' }),
+({ pathname }) => pathname.groups,
+const params = (url) => {
+const input = url.split('?')[0]
+let result = {}
+for (const [pattern, handler] of PATTERNS) {
+const patternResult = pattern.exec(input)
+if (patternResult !== null && 'pathname' in patternResult) {
+result = handler(patternResult)
+break
+return result
+export function middleware(request: NextRequest) {
+const { locale, slug } = params(request.url)
+if (locale && slug) {
+const { search, protocol, host } = request.nextUrl
+const url = new URL(`${protocol}//${locale}.${host}/${slug}${search}`)
+return NextResponse.redirect(url)
+--- END CODE BLOCK ---
+--- CODE BLOCK 80 ---
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+const PATTERNS = [
+new URLPattern({ pathname: '/:locale/:slug' }),
+({ pathname }) => pathname.groups,
+const params = (url) => {
+const input = url.split('?')[0]
+let result = {}
+for (const [pattern, handler] of PATTERNS) {
+const patternResult = pattern.exec(input)
+if (patternResult !== null && 'pathname' in patternResult) {
+result = handler(patternResult)
+break
+return result
+export function middleware(request: NextRequest) {
+const { locale, slug } = params(request.url)
+if (locale && slug) {
+const { search, protocol, host } = request.nextUrl
+const url = new URL(`${protocol}//${locale}.${host}/${slug}${search}`)
+return NextResponse.redirect(url)
+--- END CODE BLOCK ---
+[CODE_BLOCK_47]
+Explanation
+Based on beta feedback, we are changing the Cookies API in
+[CODE_BLOCK_48]
+[CODE_BLOCK_49]
+to align more to a
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+model. The
+[CODE_BLOCK_52]
+API extends Map, including methods like
+entries
+values
+How to upgrade
+[CODE_BLOCK_53]
+now has a
+[CODE_BLOCK_54]
+instance with:
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+[CODE_BLOCK_57]
+As well as other extended methods from
+[CODE_BLOCK_58]
+Before
+pages/_middleware.ts
+[CODE_BLOCK_59]
+After
+middleware.ts
+[CODE_BLOCK_61]
+New User-Agent Helper
+Summary of changes
+Accessing the user agent is no longer available on the request object
+We've added a new
+[CODE_BLOCK_63]
+helper to reduce Middleware size by
+[CODE_BLOCK_64]
+Explanation
+To help reduce the size of your Middleware, we have extracted the user agent from the request object and created a new helper
+[CODE_BLOCK_65]
+The helper is imported from
+[CODE_BLOCK_66]
+and allows you to opt in to using the user agent. The helper gives you access to the same properties that were available from the request object.
+How to upgrade
+Import the
+[CODE_BLOCK_67]
+helper from
+[CODE_BLOCK_68]
+Destructure the properties you need to work with
+Before
+pages/_middleware.ts
+[CODE_BLOCK_69]
+After
+middleware.ts
+[CODE_BLOCK_71]
+No More Page Match Data
+Summary of changes
+[CODE_BLOCK_73]
+to check if a Middleware is being invoked for a certain page match
+Explanation
+Currently, Middleware estimates whether you are serving an asset of a Page based on the Next.js routes manifest (internal configuration). This value is surfaced through
+[CODE_BLOCK_74]
+To make page and asset matching more accurate, we are now using the web standard
+[CODE_BLOCK_75]
+API.
+How to upgrade
+[CODE_BLOCK_76]
+to check if a Middleware is being invoked for a certain page match.
+Before
+pages/_middleware.ts
+[CODE_BLOCK_77]
+After
+middleware.ts
+[CODE_BLOCK_79]
+Executing Middleware on Internal Next.js Requests
+Summary of changes
+Middleware will be executed for
+requests, including
+[CODE_BLOCK_81]
+Explanation
+Prior to Next.js
+[CODE_BLOCK_82]
+, Middleware was not executed for
+[CODE_BLOCK_83]
+requests.
+For cases where Middleware is used for authorization, you should migrate to use
+[CODE_BLOCK_84]
+[CODE_BLOCK_85]
+to Pages that show an authorization error, login forms, or to an API Route.
+No Response Body
+for an example of how to migrate to use
+[CODE_BLOCK_86]
+[CODE_BLOCK_87]
+Was this helpful?
+supported.
+Send

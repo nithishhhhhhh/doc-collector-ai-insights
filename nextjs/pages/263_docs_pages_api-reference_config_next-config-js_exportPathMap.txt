@@ -1,0 +1,255 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/exportPathMap
+SCRAPED: 2025-06-19 17:40:17
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+exportPathMap
+You are currently viewing the documentation for Pages Router.
+exportPathMap
+This feature is exclusive to
+--- CODE BLOCK 1 ---
+next export
+--- END CODE BLOCK ---
+and currently
+deprecated
+in favor of
+--- CODE BLOCK 2 ---
+getStaticPaths
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 4 ---
+generateStaticParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+exportPathMap
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 7 ---
+exportPathMap
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+exportPathMap
+--- END CODE BLOCK ---
+allows you to specify a mapping of request paths to page destinations, to be used during export. Paths defined in
+--- CODE BLOCK 10 ---
+pages/index.js
+--- END CODE BLOCK ---
+will also be available when using
+--- CODE BLOCK 11 ---
+pages/about.js
+--- END CODE BLOCK ---
+Let's start with an example, to create a custom
+--- CODE BLOCK 12 ---
+pages/post.js
+--- END CODE BLOCK ---
+for an app with the following pages:
+--- CODE BLOCK 13 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+exportPathMap
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+module.exports = {
+exportPathMap: async function (
+defaultPathMap,
+{ dev, dir, outDir, distDir, buildId }
+return {
+'/': { page: '/' },
+'/about': { page: '/about' },
+'/p/hello-nextjs': { page: '/post', query: { title: 'hello-nextjs' } },
+'/p/learn-nextjs': { page: '/post', query: { title: 'learn-nextjs' } },
+'/p/deploy-nextjs': { page: '/post', query: { title: 'deploy-nextjs' } },
+--- END CODE BLOCK ---
+Open
+--- CODE BLOCK 16 ---
+module.exports = {
+exportPathMap: async function (
+defaultPathMap,
+{ dev, dir, outDir, distDir, buildId }
+return {
+'/': { page: '/' },
+'/about': { page: '/about' },
+'/p/hello-nextjs': { page: '/post', query: { title: 'hello-nextjs' } },
+'/p/learn-nextjs': { page: '/post', query: { title: 'learn-nextjs' } },
+'/p/deploy-nextjs': { page: '/post', query: { title: 'deploy-nextjs' } },
+--- END CODE BLOCK ---
+and add the following
+--- CODE BLOCK 18 ---
+exportPathMap
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 19 ---
+getStaticProps
+--- END CODE BLOCK ---
+Good to know
+: the
+--- CODE BLOCK 22 ---
+/about.html
+--- END CODE BLOCK ---
+field in
+--- CODE BLOCK 23 ---
+exportPathMap
+--- END CODE BLOCK ---
+cannot be used with
+automatically statically optimized pages
+--- CODE BLOCK 25 ---
+defaultPathMap
+--- END CODE BLOCK ---
+pages
+as they are rendered to HTML files at build-time and additional query information cannot be provided during
+--- CODE BLOCK 28 ---
+exportPathMap
+--- END CODE BLOCK ---
+The pages will then be exported as HTML files, for example,
+--- CODE BLOCK 30 ---
+next export
+--- END CODE BLOCK ---
+will become
+--- CODE BLOCK 31 ---
+exportPathMap
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+getInitialProps
+--- END CODE BLOCK ---
+is an
+--- CODE BLOCK 57 ---
+Content-Type
+--- END CODE BLOCK ---
+function that receives 2 arguments: the first one is
+--- CODE BLOCK 62 ---
+/about/index.html
+--- END CODE BLOCK ---
+, which is the default map used by Next.js. The second argument is an object with:
+--- CODE BLOCK 64 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+trailingSlash
+--- END CODE BLOCK ---
+when
+--- CODE BLOCK 66 ---
+module.exports = {
+trailingSlash: true,
+--- END CODE BLOCK ---
+is being called in development.
+--- CODE BLOCK 67 ---
+module.exports = {
+trailingSlash: true,
+--- END CODE BLOCK ---
+when running
+--- CODE BLOCK 68 ---
+next export
+--- END CODE BLOCK ---
+. In development
+--- CODE BLOCK 71 ---
+next export -o outdir
+--- END CODE BLOCK ---
+is used to define routes.
+--- CODE BLOCK 72 ---
+next export -o outdir
+--- END CODE BLOCK ---
+- Absolute path to the project directory
+--- CODE BLOCK 73 ---
+exportPathMap
+--- END CODE BLOCK ---
+- Absolute path to the
+--- CODE BLOCK 74 ---
+getStaticPaths
+--- END CODE BLOCK ---
+directory (
+configurable with
+[CODE_BLOCK_35]
+). When
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+the value of
+[CODE_BLOCK_38]
+will be
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+- Absolute path to the
+[CODE_BLOCK_41]
+directory (configurable with the
+[CODE_BLOCK_42]
+config)
+[CODE_BLOCK_43]
+- The generated build id
+The returned object is a map of pages where the
+[CODE_BLOCK_44]
+is the
+[CODE_BLOCK_45]
+and the
+[CODE_BLOCK_46]
+is an object that accepts the following fields:
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+- the page inside the
+[CODE_BLOCK_49]
+directory to render
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+- the
+[CODE_BLOCK_52]
+object passed to
+[CODE_BLOCK_53]
+when prerendering. Defaults to
+[CODE_BLOCK_54]
+The exported
+[CODE_BLOCK_55]
+can also be a filename (for example,
+[CODE_BLOCK_56]
+), but you may need to set the
+[CODE_BLOCK_57]
+header to
+[CODE_BLOCK_58]
+when serving its content if it is different than
+[CODE_BLOCK_59]
+Adding a trailing slash
+It is possible to configure Next.js to export pages as
+[CODE_BLOCK_60]
+files and require trailing slashes,
+[CODE_BLOCK_61]
+becomes
+[CODE_BLOCK_62]
+and is routable via
+[CODE_BLOCK_63]
+. This was the default behavior prior to Next.js 9.
+To switch back and add a trailing slash, open
+[CODE_BLOCK_64]
+and enable the
+[CODE_BLOCK_65]
+config:
+next.config.js
+[CODE_BLOCK_66]
+Customizing the output directory
+[CODE_BLOCK_68]
+will use
+[CODE_BLOCK_69]
+as the default output directory, you can customize this using the
+[CODE_BLOCK_70]
+argument, like so:
+Terminal
+[CODE_BLOCK_71]
+Warning
+: Using
+[CODE_BLOCK_73]
+is deprecated and is overridden by
+[CODE_BLOCK_74]
+inside
+[CODE_BLOCK_75]
+. We don't recommend using them together.
+Was this helpful?
+supported.
+Send

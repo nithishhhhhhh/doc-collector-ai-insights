@@ -1,0 +1,515 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/cli/next
+SCRAPED: 2025-06-19 17:33:42
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+next CLI
+You are currently viewing the documentation for Pages Router.
+next CLI
+The Next.js CLI allows you to develop, build, start your application, and more.
+Basic usage:
+Terminal
+--- CODE BLOCK 1 ---
+npx next [command] [options]
+--- END CODE BLOCK ---
+Reference
+The following options are available:
+Options
+Description
+--- CODE BLOCK 16 ---
+/components
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+[directory]
+--- END CODE BLOCK ---
+Shows all available options
+--- CODE BLOCK 26 ---
+--turbopack
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+--port <port>
+--- END CODE BLOCK ---
+Outputs the Next.js version number
+Commands
+The following commands are available:
+Command
+Description
+--- CODE BLOCK 30 ---
+--hostname <hostname>
+--- END CODE BLOCK ---
+Starts Next.js in development mode with Hot Module Reloading, error reporting, and more.
+--- CODE BLOCK 31 ---
+--experimental-https
+--- END CODE BLOCK ---
+Creates an optimized production build of your application. Displaying information about each route.
+--- CODE BLOCK 32 ---
+--experimental-https-key <path>
+--- END CODE BLOCK ---
+Starts Next.js in production mode. The application should be compiled with
+--- CODE BLOCK 33 ---
+--experimental-https-cert <path>
+--- END CODE BLOCK ---
+first.
+--- CODE BLOCK 34 ---
+--experimental-https-ca <path>
+--- END CODE BLOCK ---
+Prints relevant details about the current system which can be used to report Next.js bugs.
+--- CODE BLOCK 35 ---
+--experimental-upload-trace <traceUrl>
+--- END CODE BLOCK ---
+Runs ESLint for all files in the
+--- CODE BLOCK 38 ---
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          0 B               0 kB
+└ ƒ /products/[id]                       0 B               0 kB
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          0 B               0 kB
+└ ƒ /products/[id]                       0 B               0 kB
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+[directory]
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+--no-mangling
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 48 ---
+--experimental-app-only
+--- END CODE BLOCK ---
+directories. It also provides a guided setup to install any required dependencies if ESLint it is not already configured in your application.
+--- CODE BLOCK 49 ---
+--experimental-build-mode [mode]
+--- END CODE BLOCK ---
+Allows you to enable or disable Next.js' completely anonymous telemetry collection.
+Good to know
+: Running
+--- CODE BLOCK 56 ---
+[directory]
+--- END CODE BLOCK ---
+without a command is an alias for
+--- CODE BLOCK 58 ---
+--port <port>
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+--hostname <hostname>
+--- END CODE BLOCK ---
+options
+--- CODE BLOCK 61 ---
+--keepAliveTimeout <keepAliveTimeout>
+--- END CODE BLOCK ---
+starts the application in development mode with Hot Module Reloading (HMR), error reporting, and more. The following options are available when running
+--- CODE BLOCK 67 ---
+Operating System:
+Platform: darwin
+Arch: arm64
+Version: Darwin Kernel Version 23.6.0
+Available memory (MB): 65536
+Available CPU cores: 10
+Binaries:
+Node: 20.12.0
+npm: 10.5.0
+Yarn: 1.22.19
+pnpm: 9.6.0
+Relevant Packages:
+next: 15.0.0-canary.115 // Latest available version is detected (15.0.0-canary.115).
+eslint-config-next: 14.2.5
+react: 19.0.0-rc
+react-dom: 19.0.0
+typescript: 5.5.4
+Next.js Config:
+output: N/A
+--- END CODE BLOCK ---
+Option
+Description
+--- CODE BLOCK 68 ---
+Operating System:
+Platform: darwin
+Arch: arm64
+Version: Darwin Kernel Version 23.6.0
+Available memory (MB): 65536
+Available CPU cores: 10
+Binaries:
+Node: 20.12.0
+npm: 10.5.0
+Yarn: 1.22.19
+pnpm: 9.6.0
+Relevant Packages:
+next: 15.0.0-canary.115 // Latest available version is detected (15.0.0-canary.115).
+eslint-config-next: 14.2.5
+react: 19.0.0-rc
+react-dom: 19.0.0
+typescript: 5.5.4
+Next.js Config:
+output: N/A
+--- END CODE BLOCK ---
+Show all available options.
+--- CODE BLOCK 77 ---
+components/
+--- END CODE BLOCK ---
+A directory in which to build the application. If not provided, current directory is used.
+--- CODE BLOCK 81 ---
+[directory]
+--- END CODE BLOCK ---
+Starts development mode using
+Turbopack
+--- CODE BLOCK 82 ---
+-d, --dir, <dirs...>
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+--file, <files...>
+--- END CODE BLOCK ---
+Specify a port number on which to start the application. Default: 3000, env: PORT
+--- CODE BLOCK 84 ---
+--ext, [exts...]
+--- END CODE BLOCK ---
+--- CODE BLOCK 85 ---
+-c, --config, <config>
+--- END CODE BLOCK ---
+Specify a hostname on which to start the application. Useful for making the application available for other devices on the network. Default: 0.0.0.0
+--- CODE BLOCK 86 ---
+--resolve-plugins-relative-to, <rprt>
+--- END CODE BLOCK ---
+Starts the server with HTTPS and generates a self-signed certificate.
+--- CODE BLOCK 88 ---
+.eslintrc.json
+--- END CODE BLOCK ---
+Path to a HTTPS key file.
+--- CODE BLOCK 89 ---
+--rulesdir, <rulesdir...>
+--- END CODE BLOCK ---
+Path to a HTTPS certificate file.
+--- CODE BLOCK 91 ---
+--fix-type <fixType>
+--- END CODE BLOCK ---
+Path to a HTTPS certificate authority file.
+--- CODE BLOCK 92 ---
+--ignore-path <path>
+--- END CODE BLOCK ---
+Reports a subset of the debugging trace to a remote HTTP URL.
+--- CODE BLOCK 93 ---
+--no-ignore <path>
+--- END CODE BLOCK ---
+options
+--- CODE BLOCK 94 ---
+--ignore-path
+--- END CODE BLOCK ---
+creates an optimized production build of your application. The output displays information about each route. For example:
+Terminal
+--- CODE BLOCK 96 ---
+--max-warnings [maxWarnings]
+--- END CODE BLOCK ---
+Size
+: The size of assets downloaded when navigating to the page client-side. The size for each route only includes its dependencies.
+First Load JS
+: The size of assets downloaded when visiting the page from the server. The amount of JS shared by all is shown as a separate metric.
+Both of these values are
+compressed with gzip
+. The first load is indicated by green, yellow, or red. Aim for green for performant applications.
+The following options are available for the
+--- CODE BLOCK 98 ---
+-f, --format, <format>
+--- END CODE BLOCK ---
+command:
+Option
+Description
+--- CODE BLOCK 99 ---
+--no-inline-config
+--- END CODE BLOCK ---
+Show all available options.
+--- CODE BLOCK 100 ---
+--report-unused-disable-directives-severity <level>
+--- END CODE BLOCK ---
+A directory on which to build the application. If not provided, the current directory will be used.
+--- CODE BLOCK 102 ---
+--cache-location, <cacheLocation>
+--- END CODE BLOCK ---
+--- CODE BLOCK 103 ---
+--cache-strategy, [cacheStrategy]
+--- END CODE BLOCK ---
+Enables a more verbose build output. With this flag enabled additional build output like rewrites, redirects, and headers will be shown.
+--- CODE BLOCK 104 ---
+--error-on-unmatched-pattern
+--- END CODE BLOCK ---
+Enables production
+profiling for React
+--- CODE BLOCK 106 ---
+next telemetry
+--- END CODE BLOCK ---
+Disables linting.
+--- CODE BLOCK 107 ---
+next telemetry
+--- END CODE BLOCK ---
+Disables
+mangling
+. This may affect performance and should only be used for debugging purposes.
+--- CODE BLOCK 111 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+Builds only App Router routes.
+--- CODE BLOCK 114 ---
+next dev -p 4000
+--- END CODE BLOCK ---
+Uses an experimental build mode. (choices: "compile", "generate", default: "default")
+--- CODE BLOCK 115 ---
+next dev -p 4000
+--- END CODE BLOCK ---
+options
+--- CODE BLOCK 117 ---
+PORT=4000 next dev
+--- END CODE BLOCK ---
+starts the application in production mode. The application should be compiled with
+--- CODE BLOCK 118 ---
+PORT=4000 next dev
+--- END CODE BLOCK ---
+first.
+The following options are available for the
+--- CODE BLOCK 123 ---
+--experimental-https
+--- END CODE BLOCK ---
+command:
+Option
+Description
+--- CODE BLOCK 124 ---
+next dev --experimental-https
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+next dev --experimental-https
+--- END CODE BLOCK ---
+Show all available options.
+--- CODE BLOCK 126 ---
+https://localhost:3000
+--- END CODE BLOCK ---
+A directory on which to start the application. If no directory is provided, the current directory will be used.
+--- CODE BLOCK 131 ---
+--experimental-https-key
+--- END CODE BLOCK ---
+--- CODE BLOCK 132 ---
+--experimental-https-cert
+--- END CODE BLOCK ---
+Specify a port number on which to start the application. (default: 3000, env: PORT)
+--- CODE BLOCK 133 ---
+--experimental-https-ca
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+next dev --experimental-https --experimental-https-key ./certificates/localhost-key.pem --experimental-https-cert ./certificates/localhost.pem
+--- END CODE BLOCK ---
+Specify a hostname on which to start the application (default: 0.0.0.0).
+--- CODE BLOCK 135 ---
+next dev --experimental-https --experimental-https-key ./certificates/localhost-key.pem --experimental-https-cert ./certificates/localhost.pem
+--- END CODE BLOCK ---
+Specify the maximum amount of milliseconds to wait before closing the inactive connections.
+--- CODE BLOCK 136 ---
+next dev --experimental-https
+--- END CODE BLOCK ---
+options
+--- CODE BLOCK 138 ---
+--keepAliveTimeout
+--- END CODE BLOCK ---
+prints relevant details about the current system which can be used to report Next.js bugs when opening a
+GitHub issue
+. This information includes Operating System platform/arch/version, Binaries (Node.js, npm, Yarn, pnpm), package versions (
+--- CODE BLOCK 140 ---
+next start --keepAliveTimeout 70000
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+next start --keepAliveTimeout 70000
+--- END CODE BLOCK ---
+--- CODE BLOCK 143 ---
+NODE_OPTIONS='--throw-deprecation' next
+NODE_OPTIONS='-r esm' next
+NODE_OPTIONS='--inspect' next
+--- END CODE BLOCK ---
+), and more.
+The output should look like this:
+Terminal
+--- CODE BLOCK 144 ---
+NODE_OPTIONS='--throw-deprecation' next
+NODE_OPTIONS='-r esm' next
+NODE_OPTIONS='--inspect' next
+--- END CODE BLOCK ---
+The following options are available for the
+[CODE_BLOCK_69]
+command:
+Option
+Description
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+Show all available options
+[CODE_BLOCK_72]
+Collects additional information for debugging.
+[CODE_BLOCK_73]
+options
+[CODE_BLOCK_74]
+runs ESLint for all files in the
+[CODE_BLOCK_75]
+[CODE_BLOCK_76]
+[CODE_BLOCK_77]
+[CODE_BLOCK_78]
+, and
+[CODE_BLOCK_79]
+directories. It also provides a guided setup to install any required dependencies if ESLint is not already configured in your application.
+The following options are available for the
+[CODE_BLOCK_80]
+command:
+Option
+Description
+[CODE_BLOCK_81]
+A base directory on which to lint the application. If not provided, the current directory will be used.
+[CODE_BLOCK_82]
+Include directory, or directories, to run ESLint.
+[CODE_BLOCK_83]
+Include file, or files, to run ESLint.
+[CODE_BLOCK_84]
+Specify JavaScript file extensions. (default: [".js", ".mjs", ".cjs", ".jsx", ".ts", ".mts", ".cts", ".tsx"])
+[CODE_BLOCK_85]
+Uses this configuration file, overriding all other configuration options.
+[CODE_BLOCK_86]
+Specify a directory where plugins should be resolved from.
+[CODE_BLOCK_87]
+Creates a
+[CODE_BLOCK_88]
+file using the Next.js strict configuration.
+[CODE_BLOCK_89]
+Uses additional rules from this directory(s).
+[CODE_BLOCK_90]
+Automatically fix linting issues.
+[CODE_BLOCK_91]
+Specify the types of fixes to apply (e.g., problem, suggestion, layout).
+[CODE_BLOCK_92]
+Specify a file to ignore.
+[CODE_BLOCK_93]
+Disables the
+[CODE_BLOCK_94]
+option.
+[CODE_BLOCK_95]
+Reports errors only.
+[CODE_BLOCK_96]
+Specify the number of warnings before triggering a non-zero exit code. (default: -1)
+[CODE_BLOCK_97]
+Specify a file to write report to.
+[CODE_BLOCK_98]
+Uses a specific output format.
+[CODE_BLOCK_99]
+Prevents comments from changing config or rules.
+[CODE_BLOCK_100]
+Specify severity level for unused eslint-disable directives. (choices: "error", "off", "warn")
+[CODE_BLOCK_101]
+Disables caching.
+[CODE_BLOCK_102]
+Specify a location for cache.
+[CODE_BLOCK_103]
+Specify a strategy to use for detecting changed files in the cache. (default: "metadata")
+[CODE_BLOCK_104]
+Reports errors when any file patterns are unmatched.
+[CODE_BLOCK_105]
+Displays this message.
+[CODE_BLOCK_106]
+options
+Next.js collects
+completely anonymous
+telemetry data about general usage. Participation in this anonymous program is optional, and you can opt-out if you prefer not to share information.
+The following options are available for the
+[CODE_BLOCK_107]
+command:
+Option
+Description
+[CODE_BLOCK_108]
+Show all available options.
+[CODE_BLOCK_109]
+Enables Next.js' telemetry collection.
+[CODE_BLOCK_110]
+Disables Next.js' telemetry collection.
+Learn more about
+Telemetry
+Examples
+Changing the default port
+By default, Next.js uses
+[CODE_BLOCK_111]
+during development and with
+[CODE_BLOCK_112]
+. The default port can be changed with the
+[CODE_BLOCK_113]
+option, like so:
+Terminal
+[CODE_BLOCK_114]
+Or using the
+[CODE_BLOCK_116]
+environment variable:
+Terminal
+[CODE_BLOCK_117]
+Good to know
+[CODE_BLOCK_119]
+cannot be set in
+[CODE_BLOCK_120]
+as booting up the HTTP server happens before any other code is initialized.
+Using HTTPS during development
+For certain use cases like webhooks or authentication, you can use
+HTTPS
+to have a secure environment on
+[CODE_BLOCK_121]
+. Next.js can generate a self-signed certificate with
+[CODE_BLOCK_122]
+using the
+[CODE_BLOCK_123]
+flag:
+Terminal
+[CODE_BLOCK_124]
+With the generated certificate, the Next.js development server will exist at
+[CODE_BLOCK_126]
+. The default port
+[CODE_BLOCK_127]
+is used unless a port is specified with
+[CODE_BLOCK_128]
+[CODE_BLOCK_129]
+, or
+[CODE_BLOCK_130]
+You can also provide a custom certificate and key with
+[CODE_BLOCK_131]
+[CODE_BLOCK_132]
+. Optionally, you can provide a custom CA certificate with
+[CODE_BLOCK_133]
+as well.
+Terminal
+[CODE_BLOCK_134]
+[CODE_BLOCK_136]
+is only intended for development and creates a locally trusted certificate with
+[CODE_BLOCK_137]
+. In production, use properly issued certificates from trusted authorities.
+Configuring a timeout for downstream proxies
+When deploying Next.js behind a downstream proxy (e.g. a load-balancer like AWS ELB/ALB), it's important to configure Next's underlying HTTP server with
+keep-alive timeouts
+that are
+larger
+than the downstream proxy's timeouts. Otherwise, once a keep-alive timeout is reached for a given TCP connection, Node.js will immediately terminate that connection without notifying the downstream proxy. This results in a proxy error whenever it attempts to reuse a connection that Node.js has already terminated.
+To configure the timeout values for the production Next.js server, pass
+[CODE_BLOCK_138]
+(in milliseconds) to
+[CODE_BLOCK_139]
+, like so:
+Terminal
+[CODE_BLOCK_140]
+Passing Node.js arguments
+You can pass any
+node arguments
+[CODE_BLOCK_142]
+commands. For example:
+Terminal
+[CODE_BLOCK_143]
+Was this helpful?
+supported.
+Send

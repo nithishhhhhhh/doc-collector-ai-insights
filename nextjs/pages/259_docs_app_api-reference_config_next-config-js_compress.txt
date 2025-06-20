@@ -1,0 +1,61 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/compress
+SCRAPED: 2025-06-19 17:39:48
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+compress
+compress
+By default, Next.js uses
+--- CODE BLOCK 3 ---
+Accept-Encoding
+--- END CODE BLOCK ---
+to compress rendered content and static files when using
+--- CODE BLOCK 4 ---
+Content-Encoding
+--- END CODE BLOCK ---
+or a custom server. This is an optimization for applications that do not have compression configured. If compression is
+already
+configured in your application via a custom server, Next.js will not add compression.
+You can check if compression is enabled and which algorithm is used by looking at the
+--- CODE BLOCK 7 ---
+module.exports = {
+compress: false,
+--- END CODE BLOCK ---
+(browser accepted options) and
+--- CODE BLOCK 8 ---
+module.exports = {
+compress: false,
+--- END CODE BLOCK ---
+(currently used) headers in the response.
+Disabling compression
+To disable
+compression
+, set the
+[CODE_BLOCK_5]
+config option to
+[CODE_BLOCK_6]
+next.config.js
+[CODE_BLOCK_7]
+do not recommend disabling compression
+unless you have compression configured on your server, as compression reduces bandwidth usage and improves the performance of your application. For example, you're using
+nginx
+and want to switch to
+[CODE_BLOCK_9]
+, set the
+[CODE_BLOCK_10]
+option to
+[CODE_BLOCK_11]
+to allow nginx to handle compression.
+Was this helpful?
+supported.
+Send

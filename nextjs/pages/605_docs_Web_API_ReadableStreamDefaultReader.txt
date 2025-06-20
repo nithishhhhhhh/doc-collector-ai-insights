@@ -1,0 +1,145 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/ReadableStreamDefaultReader
+SCRAPED: 2025-06-19 18:18:51
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+ReadableStreamDefaultReader
+--- END CODE BLOCK ---
+interface of the
+Streams API
+represents a default reader that can be used to read stream data supplied from a network (such as a fetch request).
+--- CODE BLOCK 2 ---
+ReadableStreamDefaultReader
+--- END CODE BLOCK ---
+can be used to read from a
+--- CODE BLOCK 3 ---
+ReadableStream
+--- END CODE BLOCK ---
+that has an underlying source of any type (unlike a
+--- CODE BLOCK 4 ---
+ReadableStreamBYOBReader
+--- END CODE BLOCK ---
+, which can only be used with readable streams that have an
+underlying byte source
+Note however that zero-copy transfer from an underlying source is only supported for underlying byte sources that autoallocate buffers.
+In other words, the stream must have been
+constructed
+specifying both
+--- CODE BLOCK 5 ---
+type="bytes"
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+autoAllocateChunkSize
+--- END CODE BLOCK ---
+For any other underlying source, the stream will always satisfy read requests with data from internal queues.
+Constructor
+--- CODE BLOCK 7 ---
+ReadableStreamDefaultReader()
+--- END CODE BLOCK ---
+Creates and returns a
+--- CODE BLOCK 8 ---
+ReadableStreamDefaultReader
+--- END CODE BLOCK ---
+object instance.
+Instance properties
+--- CODE BLOCK 9 ---
+ReadableStreamDefaultReader.closed
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 11 ---
+ReadableStreamDefaultReader.cancel()
+--- END CODE BLOCK ---
+that fulfills when the stream closes, or rejects if the stream throws an error or the reader's lock is released. This property enables you to write code that responds to an end to the streaming process.
+Instance methods
+--- CODE BLOCK 14 ---
+ReadableStreamDefaultReader.read()
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 15 ---
+ReadableStreamDefaultReader.releaseLock()
+--- END CODE BLOCK ---
+that resolves when the stream is canceled. Calling this method signals a loss of interest in the stream by a consumer. The supplied
+--- CODE BLOCK 17 ---
+ReadableStream
+--- END CODE BLOCK ---
+argument will be given to the underlying source, which may or may not use it.
+--- CODE BLOCK 19 ---
+fetch("https://www.example.org/").then((response) => {
+const reader = response.body.getReader();
+const stream = new ReadableStream({
+start(controller) {
+// The following function handles each data chunk
+function push() {
+// "done" is a Boolean and value a "Uint8Array"
+return reader.read().then(({ done, value }) => {
+// Is there no more data to read?
+if (done) {
+// Tell the browser that we have finished sending data
+controller.close();
+return;
+// Get the data and send it to the browser via the controller
+controller.enqueue(value);
+push();
+push();
+return new Response(stream, { headers: { "Content-Type": "text/html" } });
+--- END CODE BLOCK ---
+Returns a promise providing access to the next chunk in the stream's internal queue.
+--- CODE BLOCK 20 ---
+fetch("https://www.example.org/").then((response) => {
+const reader = response.body.getReader();
+const stream = new ReadableStream({
+start(controller) {
+// The following function handles each data chunk
+function push() {
+// "done" is a Boolean and value a "Uint8Array"
+return reader.read().then(({ done, value }) => {
+// Is there no more data to read?
+if (done) {
+// Tell the browser that we have finished sending data
+controller.close();
+return;
+// Get the data and send it to the browser via the controller
+controller.enqueue(value);
+push();
+push();
+return new Response(stream, { headers: { "Content-Type": "text/html" } });
+--- END CODE BLOCK ---
+Releases the reader's lock on the stream.
+Examples
+In the following example, an artificial
+--- CODE BLOCK 21 ---
+ReadableStream
+--- END CODE BLOCK ---
+is created to stream HTML fragments fetched from another resource to the browser.
+It demonstrates the usage of a
+[CODE_BLOCK_17]
+in combination with a
+[CODE_BLOCK_18]
+Copy to Clipboard
+[CODE_BLOCK_19]
+Specifications
+Specification
+Streams
+default-reader-class
+Browser compatibility
+See also
+Streams API concepts
+Using readable streams
+[CODE_BLOCK_21]
+WHATWG Stream Visualizer
+, for a basic visualization of readable, writable, and transform streams.
+Web-streams-polyfill
+sd-streams
+- polyfills
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 22, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

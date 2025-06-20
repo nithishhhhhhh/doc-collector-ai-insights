@@ -1,0 +1,98 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/reactCompiler
+SCRAPED: 2025-06-19 17:38:15
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+reactCompiler
+reactCompiler
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+Next.js includes support for the
+React Compiler
+, a tool designed to improve performance by automatically optimizing component rendering. This reduces the need for manual memoization using
+--- CODE BLOCK 2 ---
+useCallback
+--- END CODE BLOCK ---
+--- CODE BLOCK 3 ---
+babel-plugin-react-compiler
+--- END CODE BLOCK ---
+Next.js includes a custom performance optimization written in SWC that makes the React Compiler more efficient. Instead of running the compiler on every file, Next.js analyzes your project and only applies the React Compiler to relevant files. This avoids unnecessary work and leads to faster builds compared to using the Babel plugin on its own.
+How It Works
+The React Compiler runs through a Babel plugin. To keep builds fast, Next.js uses a custom SWC optimization that only applies the React Compiler to relevant files—like those with JSX or React Hooks.
+This avoids compiling everything and keeps the performance cost minimal. You may still see slightly slower builds compared to the default Rust-based compiler, but the impact is small and localized.
+To use it, install the
+--- CODE BLOCK 4 ---
+npm install babel-plugin-react-compiler
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 5 ---
+npm install babel-plugin-react-compiler
+--- END CODE BLOCK ---
+Then, add
+--- CODE BLOCK 7 ---
+next.config.js
+--- END CODE BLOCK ---
+option in
+--- CODE BLOCK 8 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+reactCompiler: true,
+export default nextConfig
+--- END CODE BLOCK ---
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+reactCompiler: true,
+export default nextConfig
+--- END CODE BLOCK ---
+Annotations
+You can configure the compiler to run in "opt-in" mode as follows:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 11 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+reactCompiler: {
+compilationMode: 'annotation',
+export default nextConfig
+--- END CODE BLOCK ---
+Then, you can annotate specific components or hooks with the
+--- CODE BLOCK 14 ---
+export default function Page() {
+'use memo'
+// ...
+--- END CODE BLOCK ---
+directive from React to opt-in:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 15 ---
+"use no memo"
+--- END CODE BLOCK ---
+Note:
+You can also use the
+[CODE_BLOCK_15]
+directive from React for the opposite effect, to opt-out a component or hook.
+Was this helpful?
+supported.
+Send

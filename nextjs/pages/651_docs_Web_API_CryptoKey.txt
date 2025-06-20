@@ -1,0 +1,143 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/CryptoKey
+SCRAPED: 2025-06-19 18:23:32
+================================================================================
+
+Secure context:
+This feature is available only in
+secure contexts
+(HTTPS), in some or all
+supporting browsers
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 2 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+interface of the
+Web Crypto API
+represents a cryptographic
+obtained from one of the
+--- CODE BLOCK 3 ---
+generateKey()
+--- END CODE BLOCK ---
+methods
+--- CODE BLOCK 4 ---
+deriveKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+importKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 6 ---
+unwrapKey()
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 8 ---
+CryptoKey.type
+--- END CODE BLOCK ---
+For security reasons, the
+--- CODE BLOCK 12 ---
+CryptoKey.extractable
+--- END CODE BLOCK ---
+interface can only be used in a
+secure context
+Instance properties
+--- CODE BLOCK 13 ---
+SubtleCrypto.exportKey()
+--- END CODE BLOCK ---
+Read only
+The type of key the object represents. It may take one of the following values:
+--- CODE BLOCK 14 ---
+SubtleCrypto.wrapKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+CryptoKey.algorithm
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+CryptoKey.usages
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+"deriveKey"
+--- END CODE BLOCK ---
+Read only
+A boolean value indicating whether or not the key may be extracted using
+--- CODE BLOCK 23 ---
+"deriveBits"
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+"unwrapKey"
+--- END CODE BLOCK ---
+--- CODE BLOCK 26 ---
+SubtleCrypto
+--- END CODE BLOCK ---
+Read only
+An object describing the algorithm for which this key can be used and any associated extra parameters.
+--- CODE BLOCK 28 ---
+SubtleCrypto.generateKey()
+--- END CODE BLOCK ---
+Read only
+--- CODE BLOCK 29 ---
+SubtleCrypto.deriveKey()
+--- END CODE BLOCK ---
+of strings, indicating what can be done with the key. Possible values for array elements are
+--- CODE BLOCK 30 ---
+SubtleCrypto.importKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+SubtleCrypto.exportKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+SubtleCrypto.wrapKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+SubtleCrypto.unwrapKey()
+--- END CODE BLOCK ---
+--- CODE BLOCK 34 ---
+SubtleCrypto.encrypt()
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+SubtleCrypto.decrypt()
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+SubtleCrypto.sign()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 37 ---
+SubtleCrypto.verify()
+--- END CODE BLOCK ---
+Examples
+The examples for
+--- CODE BLOCK 39 ---
+Crypto.subtle
+--- END CODE BLOCK ---
+methods often use
+[CODE_BLOCK_27]
+objects. For example:
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+Specifications
+Specification
+Web Cryptography Level 2
+cryptokey-interface
+Browser compatibility
+See also
+Web Crypto API
+Web security
+Privacy, permissions, and information security
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 25, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

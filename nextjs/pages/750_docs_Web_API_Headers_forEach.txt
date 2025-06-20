@@ -1,0 +1,89 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Headers/forEach
+SCRAPED: 2025-06-19 18:34:48
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+Headers.forEach()
+--- END CODE BLOCK ---
+method executes a callback function once per each key/value pair in the
+--- CODE BLOCK 3 ---
+forEach(callbackFn)
+forEach(callbackFn, thisArg)
+--- END CODE BLOCK ---
+object.
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 4 ---
+forEach(callbackFn)
+forEach(callbackFn, thisArg)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 15 ---
+// Create a new test Headers object
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Cookie", "This is a demo cookie");
+myHeaders.append("compression", "gzip");
+// Display the key/value pairs
+myHeaders.forEach((value, key) => {
+console.log(`${key} ==> ${value}`);
+--- END CODE BLOCK ---
+Function to execute for each entry in the map. It takes the following arguments:
+--- CODE BLOCK 16 ---
+// Create a new test Headers object
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Cookie", "This is a demo cookie");
+myHeaders.append("compression", "gzip");
+// Display the key/value pairs
+myHeaders.forEach((value, key) => {
+console.log(`${key} ==> ${value}`);
+--- END CODE BLOCK ---
+Value of the currently visited header entry.
+--- CODE BLOCK 17 ---
+compression ==> gzip
+content-type ==> application/json
+cookie ==> This is a demo cookie
+--- END CODE BLOCK ---
+Name of the currently visited header entry.
+--- CODE BLOCK 18 ---
+Map.prototype.forEach()
+--- END CODE BLOCK ---
+The Headers object being iterated.
+[CODE_BLOCK_9]
+Optional
+Value to use as
+[CODE_BLOCK_10]
+when executing
+[CODE_BLOCK_11]
+Return value
+[CODE_BLOCK_12]
+Description
+[CODE_BLOCK_13]
+method executes the provided callback once for each key of the Headers which actually exist. It is not invoked for keys which have been deleted. However, it is executed for keys which are present but have the value undefined.
+Examples
+Printing the contents of Headers object
+The following code logs a line for each key/value in the
+[CODE_BLOCK_14]
+object.
+Copy to Clipboard
+[CODE_BLOCK_15]
+The result is:
+[CODE_BLOCK_17]
+Browser compatibility
+See also
+[CODE_BLOCK_18]
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

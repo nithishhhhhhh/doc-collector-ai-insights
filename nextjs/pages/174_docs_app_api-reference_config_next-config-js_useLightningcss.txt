@@ -1,0 +1,36 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/useLightningcss
+SCRAPED: 2025-06-19 17:29:38
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+useLightningcss
+useLightningcss
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+Experimental support for using
+Lightning CSS
+, a fast CSS bundler and minifier, written in Rust.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 1 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+useLightningcss: true,
+export default nextConfig
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

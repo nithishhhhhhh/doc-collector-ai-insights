@@ -1,0 +1,149 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/forbidden
+SCRAPED: 2025-06-19 17:51:45
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+forbidden
+forbidden
+This feature is currently experimental and subject to change, it's not recommended for production. Try it out and share your feedback on
+GitHub
+--- CODE BLOCK 2 ---
+forbidden.js
+--- END CODE BLOCK ---
+function throws an error that renders a Next.js 403 error page. It's useful for handling authorization errors in your application. You can customize the UI using the
+--- CODE BLOCK 4 ---
+authInterrupts
+--- END CODE BLOCK ---
+file
+To start using
+--- CODE BLOCK 5 ---
+next.config.js
+--- END CODE BLOCK ---
+, enable the experimental
+--- CODE BLOCK 6 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+authInterrupts: true,
+export default nextConfig
+--- END CODE BLOCK ---
+configuration option in your
+--- CODE BLOCK 7 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+experimental: {
+authInterrupts: true,
+export default nextConfig
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 9 ---
+import { verifySession } from '@/app/lib/dal'
+import { forbidden } from 'next/navigation'
+export default async function AdminPage() {
+const session = await verifySession()
+// Check if the user has the 'admin' role
+if (session.role !== 'admin') {
+forbidden()
+// Render the admin page for authorized users
+return <></>
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+import { verifySession } from '@/app/lib/dal'
+import { forbidden } from 'next/navigation'
+export default async function AdminPage() {
+const session = await verifySession()
+// Check if the user has the 'admin' role
+if (session.role !== 'admin') {
+forbidden()
+// Render the admin page for authorized users
+return (
+<main>
+<h1>Admin Dashboard</h1>
+<p>Welcome, {session.user.name}!</p>
+</main>
+--- END CODE BLOCK ---
+can be invoked in
+Server Components
+Server Actions
+, and
+Route Handlers
+app/auth/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 14 ---
+import { verifySession } from '@/app/lib/dal'
+import { forbidden } from 'next/navigation'
+export default async function AdminPage() {
+const session = await verifySession()
+// Check if the user has the 'admin' role
+if (session.role !== 'admin') {
+forbidden()
+// Render the admin page for authorized users
+return (
+<main>
+<h1>Admin Dashboard</h1>
+<p>Welcome, {session.user.name}!</p>
+</main>
+--- END CODE BLOCK ---
+Good to know
+--- CODE BLOCK 17 ---
+'use server'
+import { verifySession } from '@/app/lib/dal'
+import { forbidden } from 'next/navigation'
+import db from '@/app/lib/db'
+export async function updateRole(formData: FormData) {
+const session = await verifySession()
+// Ensure only admins can update roles
+if (session.role !== 'admin') {
+forbidden()
+// Perform the role update for authorized users
+// ...
+--- END CODE BLOCK ---
+function cannot be called in the
+root layout
+Examples
+Role-based route protection
+You can use
+[CODE_BLOCK_12]
+to restrict access to certain routes based on user roles. This ensures that users who are authenticated but lack the required permissions cannot access the route.
+app/admin/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_13]
+Mutations with Server Actions
+When implementing mutations in Server Actions, you can use
+[CODE_BLOCK_15]
+to only allow users with a specific role to update sensitive data.
+app/actions/update-role.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_16]
+Version History
+Version
+Changes
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+introduced.
+Next Steps
+forbidden.js
+API reference for the forbidden.js special file.
+Was this helpful?
+supported.
+Send

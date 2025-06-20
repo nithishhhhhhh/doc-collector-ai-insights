@@ -1,0 +1,358 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/redirecting
+SCRAPED: 2025-06-19 17:46:58
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+Redirecting
+You are currently viewing the documentation for Pages Router.
+How to handle redirects in Next.js
+There are a few ways you can handle redirects in Next.js. This page will go through each available option, use cases, and how to manage large numbers of redirects.
+Purpose
+Where
+Status Code
+--- CODE BLOCK 3 ---
+next.config.js
+--- END CODE BLOCK ---
+Perform a client-side navigation
+Components
+--- CODE BLOCK 4 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+NextResponse.redirect
+--- END CODE BLOCK ---
+Redirect an incoming request based on a path
+--- CODE BLOCK 6 ---
+useRouter()
+--- END CODE BLOCK ---
+file
+307 (Temporary) or 308 (Permanent)
+--- CODE BLOCK 9 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/dashboard')}>
+Dashboard
+</button>
+--- END CODE BLOCK ---
+Redirect an incoming request based on a condition
+Middleware
+--- CODE BLOCK 10 ---
+import { useRouter } from 'next/router'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/dashboard')}>
+Dashboard
+</button>
+--- END CODE BLOCK ---
+hook
+If you need to redirect inside a component, you can use the
+--- CODE BLOCK 14 ---
+next.config.js
+--- END CODE BLOCK ---
+method from the
+--- CODE BLOCK 16 ---
+next.config.js
+--- END CODE BLOCK ---
+hook. For example:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 19 ---
+next.config.js
+--- END CODE BLOCK ---
+Good to know
+If you don't need to programmatically navigate a user, you should use a
+--- CODE BLOCK 21 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+async redirects() {
+return [
+// Basic redirect
+source: '/about',
+destination: '/',
+permanent: true,
+// Wildcard path matching
+source: '/blog/:slug',
+destination: '/news/:slug',
+permanent: true,
+export default nextConfig
+--- END CODE BLOCK ---
+component.
+See the
+--- CODE BLOCK 27 ---
+NextResponse.redirect
+--- END CODE BLOCK ---
+API reference
+for more information.
+--- CODE BLOCK 28 ---
+NextResponse.redirect
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+import { NextResponse, NextRequest } from 'next/server'
+import { authenticate } from 'auth-provider'
+export function middleware(request: NextRequest) {
+const isAuthenticated = authenticate(request)
+// If the user is authenticated, continue as normal
+if (isAuthenticated) {
+return NextResponse.next()
+// Redirect to login page if not authenticated
+return NextResponse.redirect(new URL('/login', request.url))
+export const config = {
+matcher: '/dashboard/:path*',
+--- END CODE BLOCK ---
+--- CODE BLOCK 31 ---
+import { NextResponse, NextRequest } from 'next/server'
+import { authenticate } from 'auth-provider'
+export function middleware(request: NextRequest) {
+const isAuthenticated = authenticate(request)
+// If the user is authenticated, continue as normal
+if (isAuthenticated) {
+return NextResponse.next()
+// Redirect to login page if not authenticated
+return NextResponse.redirect(new URL('/login', request.url))
+export const config = {
+matcher: '/dashboard/:path*',
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 33 ---
+next.config.js
+--- END CODE BLOCK ---
+file allows you to redirect an incoming request path to a different destination path. This is useful when you change the URL structure of pages or have a list of redirects that are known ahead of time.
+--- CODE BLOCK 34 ---
+"/old": {
+"destination": "/new",
+"permanent": true
+"/blog/post-old": {
+"destination": "/blog/post-new",
+"permanent": true
+--- END CODE BLOCK ---
+supports
+path
+header, cookie, and query matching
+, giving you the flexibility to redirect users based on an incoming request.
+To use
+--- CODE BLOCK 35 ---
+"/old": {
+"destination": "/new",
+"permanent": true
+"/blog/post-old": {
+"destination": "/blog/post-new",
+"permanent": true
+--- END CODE BLOCK ---
+, add the option to your
+--- CODE BLOCK 36 ---
+import { NextResponse, NextRequest } from 'next/server'
+import { get } from '@vercel/edge-config'
+type RedirectEntry = {
+destination: string
+permanent: boolean
+export async function middleware(request: NextRequest) {
+const pathname = request.nextUrl.pathname
+const redirectData = await get(pathname)
+if (redirectData && typeof redirectData === 'string') {
+const redirectEntry: RedirectEntry = JSON.parse(redirectData)
+const statusCode = redirectEntry.permanent ? 308 : 307
+return NextResponse.redirect(redirectEntry.destination, statusCode)
+// No redirect found, continue without redirecting
+return NextResponse.next()
+--- END CODE BLOCK ---
+file:
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 37 ---
+import { NextResponse, NextRequest } from 'next/server'
+import { get } from '@vercel/edge-config'
+type RedirectEntry = {
+destination: string
+permanent: boolean
+export async function middleware(request: NextRequest) {
+const pathname = request.nextUrl.pathname
+const redirectData = await get(pathname)
+if (redirectData && typeof redirectData === 'string') {
+const redirectEntry: RedirectEntry = JSON.parse(redirectData)
+const statusCode = redirectEntry.permanent ? 308 : 307
+return NextResponse.redirect(redirectEntry.destination, statusCode)
+// No redirect found, continue without redirecting
+return NextResponse.next()
+--- END CODE BLOCK ---
+See the
+--- CODE BLOCK 39 ---
+import { NextResponse, NextRequest } from 'next/server'
+import { ScalableBloomFilter } from 'bloom-filters'
+import GeneratedBloomFilter from './redirects/bloom-filter.json'
+type RedirectEntry = {
+destination: string
+permanent: boolean
+// Initialize bloom filter from a generated JSON file
+const bloomFilter = ScalableBloomFilter.fromJSON(GeneratedBloomFilter as any)
+export async function middleware(request: NextRequest) {
+// Get the path for the incoming request
+const pathname = request.nextUrl.pathname
+// Check if the path is in the bloom filter
+if (bloomFilter.has(pathname)) {
+// Forward the pathname to the Route Handler
+const api = new URL(
+`/api/redirects?pathname=${encodeURIComponent(request.nextUrl.pathname)}`,
+request.nextUrl.origin
+try {
+// Fetch redirect data from the Route Handler
+const redirectData = await fetch(api)
+if (redirectData.ok) {
+const redirectEntry: RedirectEntry | undefined =
+await redirectData.json()
+if (redirectEntry) {
+// Determine the status code
+const statusCode = redirectEntry.permanent ? 308 : 307
+// Redirect to the destination
+return NextResponse.redirect(redirectEntry.destination, statusCode)
+} catch (error) {
+console.error(error)
+// No redirect found, continue the request without redirecting
+return NextResponse.next()
+--- END CODE BLOCK ---
+API reference
+for more information.
+Good to know
+--- CODE BLOCK 40 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+import redirects from '@/app/redirects/redirects.json'
+type RedirectEntry = {
+destination: string
+permanent: boolean
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const pathname = req.query.pathname
+if (!pathname) {
+return res.status(400).json({ message: 'Bad Request' })
+// Get the redirect entry from the redirects.json file
+const redirect = (redirects as Record<string, RedirectEntry>)[pathname]
+// Account for bloom filter false positives
+if (!redirect) {
+return res.status(400).json({ message: 'No redirect' })
+// Return the redirect entry
+return res.json(redirect)
+--- END CODE BLOCK ---
+can return a 307 (Temporary Redirect) or 308 (Permanent Redirect) status code with the
+--- CODE BLOCK 41 ---
+import type { NextApiRequest, NextApiResponse } from 'next'
+import redirects from '@/app/redirects/redirects.json'
+type RedirectEntry = {
+destination: string
+permanent: boolean
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const pathname = req.query.pathname
+if (!pathname) {
+return res.status(400).json({ message: 'Bad Request' })
+// Get the redirect entry from the redirects.json file
+const redirect = (redirects as Record<string, RedirectEntry>)[pathname]
+// Account for bloom filter false positives
+if (!redirect) {
+return res.status(400).json({ message: 'No redirect' })
+// Return the redirect entry
+return res.json(redirect)
+--- END CODE BLOCK ---
+option.
+--- CODE BLOCK 42 ---
+bloom-filters
+--- END CODE BLOCK ---
+may have a limit on platforms. For example, on Vercel, there's a limit of 1,024 redirects. To manage a large number of redirects (1000+), consider creating a custom solution using
+Middleware
+. See
+managing redirects at scale
+for more.
+[CODE_BLOCK_26]
+runs
+before
+Middleware.
+[CODE_BLOCK_27]
+in Middleware
+Middleware allows you to run code before a request is completed. Then, based on the incoming request, redirect to a different URL using
+[CODE_BLOCK_28]
+. This is useful if you want to redirect users based on a condition (e.g. authentication, session management, etc) or have
+a large number of redirects
+For example, to redirect the user to a
+[CODE_BLOCK_29]
+page if they are not authenticated:
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_30]
+Good to know
+Middleware runs
+after
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+before
+rendering.
+See the
+Middleware
+documentation for more information.
+Managing redirects at scale (advanced)
+To manage a large number of redirects (1000+), you may consider creating a custom solution using Middleware. This allows you to handle redirects programmatically without having to redeploy your application.
+To do this, you'll need to consider:
+Creating and storing a redirect map.
+Optimizing data lookup performance.
+Next.js Example
+: See our
+Middleware with Bloom filter
+example for an implementation of the recommendations below.
+1. Creating and storing a redirect map
+A redirect map is a list of redirects that you can store in a database (usually a key-value store) or JSON file.
+Consider the following data structure:
+[CODE_BLOCK_34]
+Middleware
+, you can read from a database such as Vercel's
+Edge Config
+Redis
+, and redirect the user based on the incoming request:
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_36]
+2. Optimizing data lookup performance
+Reading a large dataset for every incoming request can be slow and expensive. There are two ways you can optimize data lookup performance:
+Use a database that is optimized for fast reads
+Use a data lookup strategy such as a
+Bloom filter
+to efficiently check if a redirect exists
+before
+reading the larger redirects file or database.
+Considering the previous example, you can import a generated bloom filter file into Middleware, then, check if the incoming request pathname exists in the bloom filter.
+If it does, forward the request to a
+API Routes
+which will check the actual file and redirect the user to the appropriate URL. This avoids importing a large redirects file into Middleware, which can slow down every incoming request.
+middleware.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_38]
+Then, in the API Route:
+pages/api/redirects.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_40]
+Good to know:
+To generate a bloom filter, you can use a library like
+[CODE_BLOCK_42]
+You should validate requests made to your Route Handler to prevent malicious requests.
+Was this helpful?
+supported.
+Send

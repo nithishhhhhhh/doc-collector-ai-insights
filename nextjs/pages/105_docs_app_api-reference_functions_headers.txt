@@ -1,0 +1,144 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/headers
+SCRAPED: 2025-06-19 17:21:26
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+headers
+headers
+--- CODE BLOCK 2 ---
+import { headers } from 'next/headers'
+export default async function Page() {
+const headersList = await headers()
+const userAgent = headersList.get('user-agent')
+--- END CODE BLOCK ---
+is an
+async
+function that allows you to
+read
+the HTTP incoming request headers from a
+Server Component
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+import { headers } from 'next/headers'
+export default async function Page() {
+const headersList = await headers()
+const userAgent = headersList.get('user-agent')
+--- END CODE BLOCK ---
+Reference
+Parameters
+--- CODE BLOCK 8 ---
+Headers.forEach()
+--- END CODE BLOCK ---
+does not take any parameters.
+Returns
+--- CODE BLOCK 10 ---
+Headers.get()
+--- END CODE BLOCK ---
+returns a
+read-only
+Web Headers
+object.
+--- CODE BLOCK 13 ---
+Headers.has()
+--- END CODE BLOCK ---
+: Returns an
+--- CODE BLOCK 15 ---
+Headers.keys()
+--- END CODE BLOCK ---
+allowing to go through all key/value pairs contained in this object.
+--- CODE BLOCK 17 ---
+Headers.values()
+--- END CODE BLOCK ---
+: Executes a provided function once for each key/value pair in this
+--- CODE BLOCK 20 ---
+async/await
+--- END CODE BLOCK ---
+object.
+--- CODE BLOCK 27 ---
+import { headers } from 'next/headers'
+export default async function Page() {
+const authorization = (await headers()).get('authorization')
+const res = await fetch('...', {
+headers: { authorization }, // Forward the authorization header
+const user = await res.json()
+return <h1>{user.name}</h1>
+--- END CODE BLOCK ---
+: Returns a
+--- CODE BLOCK 28 ---
+import { headers } from 'next/headers'
+export default async function Page() {
+const authorization = (await headers()).get('authorization')
+const res = await fetch('...', {
+headers: { authorization }, // Forward the authorization header
+const user = await res.json()
+return <h1>{user.name}</h1>
+--- END CODE BLOCK ---
+sequence of all the values of a header within a
+[CODE_BLOCK_12]
+object with a given name.
+[CODE_BLOCK_13]
+: Returns a boolean stating whether a
+[CODE_BLOCK_14]
+object contains a certain header.
+[CODE_BLOCK_15]
+: Returns an
+[CODE_BLOCK_16]
+allowing you to go through all keys of the key/value pairs contained in this object.
+[CODE_BLOCK_17]
+: Returns an
+[CODE_BLOCK_18]
+allowing you to go through all values of the key/value pairs contained in this object.
+Good to know
+[CODE_BLOCK_19]
+is an
+asynchronous
+function that returns a promise. You must use
+[CODE_BLOCK_20]
+or React's
+[CODE_BLOCK_21]
+function.
+In version 14 and earlier,
+[CODE_BLOCK_22]
+was a synchronous function. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+Since
+[CODE_BLOCK_23]
+is read-only, you cannot
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+the outgoing request headers.
+[CODE_BLOCK_26]
+is a
+Dynamic API
+whose returned values cannot be known ahead of time. Using it in will opt a route into
+dynamic rendering
+Examples
+Using the Authorization header
+app/page.js
+[CODE_BLOCK_27]
+Version History
+Version
+Changes
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+is now an async function. A
+codemod
+is available.
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+introduced.
+Was this helpful?
+supported.
+Send

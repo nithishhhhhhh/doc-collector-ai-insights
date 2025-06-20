@@ -1,0 +1,243 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/Headers
+SCRAPED: 2025-06-19 18:19:33
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 3 ---
+Request.headers
+--- END CODE BLOCK ---
+interface of the
+Fetch API
+allows you to perform various actions on
+HTTP request and response headers
+. These actions include retrieving, setting, adding to, and removing headers from the list of the request's headers.
+You can retrieve a
+--- CODE BLOCK 4 ---
+Response.headers
+--- END CODE BLOCK ---
+object via the
+--- CODE BLOCK 13 ---
+for (const p of myHeaders)
+--- END CODE BLOCK ---
+--- CODE BLOCK 14 ---
+for (const p of myHeaders.entries())
+--- END CODE BLOCK ---
+properties, and create a new
+--- CODE BLOCK 25 ---
+Response.error()
+--- END CODE BLOCK ---
+object using the
+--- CODE BLOCK 26 ---
+Response.redirect()
+--- END CODE BLOCK ---
+constructor. Compared to using plain objects, using
+--- CODE BLOCK 29 ---
+Response.json()
+--- END CODE BLOCK ---
+objects to send requests provides some additional input sanitization. For example, it normalizes header names to lowercase, strips leading and trailing whitespace from header values, and prevents certain headers from being set.
+Note:
+You can find out more about the available headers by reading our
+HTTP headers
+reference.
+Description
+--- CODE BLOCK 34 ---
+Headers.append()
+--- END CODE BLOCK ---
+object has an associated header list, which is initially empty and consists of zero or more name and value pairs. You can add to this using methods like
+--- CODE BLOCK 36 ---
+Headers.delete()
+--- END CODE BLOCK ---
+(see
+Examples
+.) In all methods of this interface, header names are matched by case-insensitive byte sequence.
+An object implementing
+--- CODE BLOCK 38 ---
+Headers.entries()
+--- END CODE BLOCK ---
+can directly be used in a
+--- CODE BLOCK 40 ---
+Headers.forEach()
+--- END CODE BLOCK ---
+structure, instead of
+--- CODE BLOCK 42 ---
+Headers.get()
+--- END CODE BLOCK ---
+--- CODE BLOCK 45 ---
+Headers.getSetCookie()
+--- END CODE BLOCK ---
+is equivalent to
+--- CODE BLOCK 47 ---
+Headers.has()
+--- END CODE BLOCK ---
+Modification restrictions
+Some
+--- CODE BLOCK 49 ---
+Headers.keys()
+--- END CODE BLOCK ---
+objects have restrictions on whether the
+--- CODE BLOCK 51 ---
+Headers.set()
+--- END CODE BLOCK ---
+--- CODE BLOCK 53 ---
+Headers.values()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 55 ---
+Headers.set()
+--- END CODE BLOCK ---
+methods can mutate the header. The modification restrictions are set depending on how the
+--- CODE BLOCK 56 ---
+Headers.append()
+--- END CODE BLOCK ---
+object is created.
+For headers created with
+--- CODE BLOCK 57 ---
+Headers.set()
+--- END CODE BLOCK ---
+constructor, there are no modification restrictions.
+For headers of
+--- CODE BLOCK 58 ---
+Headers.append()
+--- END CODE BLOCK ---
+objects:
+If the request's
+--- CODE BLOCK 62 ---
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "text/xml");
+myHeaders.get("Content-Type"); // should return 'text/xml'
+--- END CODE BLOCK ---
+--- CODE BLOCK 63 ---
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "text/xml");
+myHeaders.get("Content-Type"); // should return 'text/xml'
+--- END CODE BLOCK ---
+, you can modify any
+CORS-safelisted request header
+name/value.
+Otherwise, you can modify any
+non-forbidden request header
+name/value.
+For headers of
+--- CODE BLOCK 64 ---
+let myHeaders = new Headers({
+"Content-Type": "text/xml",
+// or, using an array of arrays:
+myHeaders = new Headers([["Content-Type", "text/xml"]]);
+myHeaders.get("Content-Type"); // should return 'text/xml'
+--- END CODE BLOCK ---
+objects:
+If the response is created using
+--- CODE BLOCK 65 ---
+let myHeaders = new Headers({
+"Content-Type": "text/xml",
+// or, using an array of arrays:
+myHeaders = new Headers([["Content-Type", "text/xml"]]);
+myHeaders.get("Content-Type"); // should return 'text/xml'
+--- END CODE BLOCK ---
+[CODE_BLOCK_26]
+, or received from a
+[CODE_BLOCK_27]
+call, the headers are immutable and cannot be modified.
+Otherwise, if the response is created using
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+, you can modify any
+non-forbidden response header
+name/value.
+All of the Headers methods will throw a
+[CODE_BLOCK_30]
+if you try to pass in a reference to a name that isn't a
+valid HTTP Header name
+. The mutation operations will throw a
+[CODE_BLOCK_31]
+if the header is immutable. In any other failure case they fail silently.
+Constructor
+[CODE_BLOCK_32]
+Creates a new
+[CODE_BLOCK_33]
+object.
+Instance methods
+[CODE_BLOCK_34]
+Appends a new value onto an existing header inside a
+[CODE_BLOCK_35]
+object, or adds the header if it does not already exist.
+[CODE_BLOCK_36]
+Deletes a header from a
+[CODE_BLOCK_37]
+object.
+[CODE_BLOCK_38]
+Returns an
+[CODE_BLOCK_39]
+allowing to go through all key/value pairs contained in this object.
+[CODE_BLOCK_40]
+Executes a provided function once for each key/value pair in this
+[CODE_BLOCK_41]
+object.
+[CODE_BLOCK_42]
+Returns a
+[CODE_BLOCK_43]
+sequence of all the values of a header within a
+[CODE_BLOCK_44]
+object with a given name.
+[CODE_BLOCK_45]
+Returns an array containing the values of all
+[CODE_BLOCK_46]
+headers associated with a response.
+[CODE_BLOCK_47]
+Returns a boolean stating whether a
+[CODE_BLOCK_48]
+object contains a certain header.
+[CODE_BLOCK_49]
+Returns an
+[CODE_BLOCK_50]
+allowing you to go through all keys of the key/value pairs contained in this object.
+[CODE_BLOCK_51]
+Sets a new value for an existing header inside a
+[CODE_BLOCK_52]
+object, or adds the header if it does not already exist.
+[CODE_BLOCK_53]
+Returns an
+[CODE_BLOCK_54]
+allowing you to go through all values of the key/value pairs contained in this object.
+Note:
+To be clear, the difference between
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+is that if the specified header does already exist and does accept multiple values,
+[CODE_BLOCK_57]
+will overwrite the existing value with the new one, whereas
+[CODE_BLOCK_58]
+will append the new value onto the end of the set of values. See their dedicated pages for example code.
+Note:
+When Header values are iterated over, they are automatically sorted in lexicographical order, and values from duplicate header names are combined.
+Examples
+In the following snippet, we create a new header using the
+[CODE_BLOCK_59]
+constructor, add a new header to it using
+[CODE_BLOCK_60]
+, then return that header value using
+[CODE_BLOCK_61]
+Copy to Clipboard
+[CODE_BLOCK_62]
+The same can be achieved by passing an array of arrays or an object literal to the constructor:
+Copy to Clipboard
+[CODE_BLOCK_64]
+Specifications
+Specification
+Fetch
+headers-class
+Browser compatibility
+See also
+ServiceWorker API
+HTTP access control (CORS)
+HTTP
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,245 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader
+SCRAPED: 2025-06-19 18:15:53
+================================================================================
+
+Note:
+This feature is available in
+Web Workers
+--- CODE BLOCK 1 ---
+ReadableStreamBYOBReader
+--- END CODE BLOCK ---
+interface of the
+Streams API
+defines a reader for a
+--- CODE BLOCK 2 ---
+ReadableStream
+--- END CODE BLOCK ---
+that supports zero-copy reading from an underlying byte source.
+It is used for efficient copying from underlying sources where the data is delivered as an "anonymous" sequence of bytes, such as files.
+An instance of this reader type should usually be obtained by calling
+--- CODE BLOCK 3 ---
+ReadableStream.getReader()
+--- END CODE BLOCK ---
+on the stream, specifying
+--- CODE BLOCK 4 ---
+mode: "byob"
+--- END CODE BLOCK ---
+in the options parameter.
+The readable stream must have an
+underlying byte source
+. In other words, it must have been
+constructed
+specifying an underlying source with
+--- CODE BLOCK 5 ---
+type: "bytes"
+--- END CODE BLOCK ---
+Using this kind of reader, a
+--- CODE BLOCK 8 ---
+ReadableStreamDefaultReader
+--- END CODE BLOCK ---
+request when the readable stream's internal queues are empty will result in a zero copy transfer from the underlying source (bypassing the stream's internal queues).
+If the internal queues are not empty, a
+--- CODE BLOCK 10 ---
+ReadableStreamBYOBReader()
+--- END CODE BLOCK ---
+will satisfy the request from the buffered data.
+Note that the methods and properties are similar to those for the default reader (
+--- CODE BLOCK 11 ---
+ReadableStreamBYOBReader
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+ReadableStreamBYOBReader.closed
+--- END CODE BLOCK ---
+method differs in that it provides a view into which data should be written.
+Constructor
+--- CODE BLOCK 14 ---
+ReadableStreamBYOBReader.cancel()
+--- END CODE BLOCK ---
+Creates and returns a
+--- CODE BLOCK 17 ---
+ReadableStreamBYOBReader.read()
+--- END CODE BLOCK ---
+object instance.
+Instance properties
+--- CODE BLOCK 19 ---
+ReadableStreamBYOBReader.releaseLock()
+--- END CODE BLOCK ---
+Read only
+Returns a
+--- CODE BLOCK 20 ---
+ReadableStream.getReader()
+--- END CODE BLOCK ---
+that fulfills when the stream closes, or rejects if the stream throws an error or the reader's lock is released. This property enables you to write code that responds to an end to the streaming process.
+Instance methods
+--- CODE BLOCK 21 ---
+mode: "byob"
+--- END CODE BLOCK ---
+Returns a
+--- CODE BLOCK 22 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+that resolves when the stream is canceled. Calling this method signals a loss of interest in the stream by a consumer. The supplied
+--- CODE BLOCK 23 ---
+const reader = stream.getReader({ mode: "byob" });
+let buffer = new ArrayBuffer(200);
+--- END CODE BLOCK ---
+argument will be given to the underlying source, which may or may not use it.
+--- CODE BLOCK 24 ---
+const reader = stream.getReader({ mode: "byob" });
+let buffer = new ArrayBuffer(200);
+--- END CODE BLOCK ---
+Passes a view into which data must be written, and returns a
+--- CODE BLOCK 27 ---
+readStream(reader);
+function readStream(reader) {
+let bytesReceived = 0;
+let offset = 0;
+// read() returns a promise that resolves when a value has been received
+reader
+.read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
+.then(function processText({ done, value }) {
+// Result objects contain two properties:
+// done  - true if the stream has already given all its data.
+// value - some data. Always undefined when done is true.
+if (done) {
+logConsumer(`readStream() complete. Total bytes: ${bytesReceived}`);
+return;
+buffer = value.buffer;
+offset += value.byteLength;
+bytesReceived += value.byteLength;
+logConsumer(
+`Read ${value.byteLength} (${bytesReceived}) bytes: ${value}`,
+result += value;
+// Read some more, and call this function again
+return reader
+.read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
+.then(processText);
+--- END CODE BLOCK ---
+that resolves with the next chunk in the stream or rejects with an indication that the stream is closed or has errored.
+--- CODE BLOCK 28 ---
+readStream(reader);
+function readStream(reader) {
+let bytesReceived = 0;
+let offset = 0;
+// read() returns a promise that resolves when a value has been received
+reader
+.read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
+.then(function processText({ done, value }) {
+// Result objects contain two properties:
+// done  - true if the stream has already given all its data.
+// value - some data. Always undefined when done is true.
+if (done) {
+logConsumer(`readStream() complete. Total bytes: ${bytesReceived}`);
+return;
+buffer = value.buffer;
+offset += value.byteLength;
+bytesReceived += value.byteLength;
+logConsumer(
+`Read ${value.byteLength} (${bytesReceived}) bytes: ${value}`,
+result += value;
+// Read some more, and call this function again
+return reader
+.read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
+.then(processText);
+--- END CODE BLOCK ---
+Releases the reader's lock on the stream.
+Examples
+The example below is taken from the live examples in
+Using readable byte streams
+First create the reader using
+--- CODE BLOCK 32 ---
+ReadableStreamBYOBReader.closed
+--- END CODE BLOCK ---
+on the stream, specifying
+--- CODE BLOCK 33 ---
+reader.closed
+.then(() => {
+// Resolved - code to handle stream closing
+.catch(() => {
+// Rejected - code to handle error
+--- END CODE BLOCK ---
+in the options parameter.
+As this is a "Bring Your Own Buffer" reader, we also need to create an
+--- CODE BLOCK 34 ---
+reader.closed
+.then(() => {
+// Resolved - code to handle stream closing
+.catch(() => {
+// Rejected - code to handle error
+--- END CODE BLOCK ---
+to read into.
+Copy to Clipboard
+--- CODE BLOCK 35 ---
+ReadableStreamBYOBReader.cancel()
+--- END CODE BLOCK ---
+A function that uses the reader is shown below.
+This calls the
+--- CODE BLOCK 38 ---
+button.addEventListener("click", () => {
+reader.cancel("user choice").then(() => console.log("cancel complete"));
+--- END CODE BLOCK ---
+method recursively to read data into the buffer.
+The method takes a
+--- CODE BLOCK 39 ---
+releaseLock()
+--- END CODE BLOCK ---
+typed array
+which is a view over the part of the original array buffer that has not yet been written.
+The parameters of the view are calculated from the data that was received in previous calls, which define an offset into the original array buffer.
+Copy to Clipboard
+--- CODE BLOCK 40 ---
+reader.releaseLock();
+--- END CODE BLOCK ---
+When there is no more data in the stream, the
+--- CODE BLOCK 42 ---
+ReadableStream
+--- END CODE BLOCK ---
+method resolves with an object with the property
+[CODE_BLOCK_30]
+set to
+[CODE_BLOCK_31]
+, and the function returns.
+[CODE_BLOCK_32]
+property returns a promise that can be used to monitor for the stream being closed or errored, or the reader lock being released.
+Copy to Clipboard
+[CODE_BLOCK_33]
+To cancel the stream call
+[CODE_BLOCK_35]
+, optionally specifying a
+reason
+This returns a promise that will resolve when the stream has been cancelled.
+When the stream is cancelled the controller will in turn call
+[CODE_BLOCK_36]
+on the underlying source, passing in the optional reason.
+The example code in
+Using readable byte streams
+calls the cancel method when a button is pressed, as shown:
+Copy to Clipboard
+[CODE_BLOCK_37]
+The consumer can also call
+[CODE_BLOCK_39]
+to release the reader's hold on the stream, but only when no read is pending:
+Copy to Clipboard
+[CODE_BLOCK_40]
+Specifications
+Specification
+Streams
+byob-reader-class
+Browser compatibility
+See also
+Streams API concepts
+Using readable byte stream
+[CODE_BLOCK_42]
+WHATWG Stream Visualizer
+, for a basic visualization of readable, writable, and transform streams.
+Web-streams-polyfill
+sd-streams
+- polyfills
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 2, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

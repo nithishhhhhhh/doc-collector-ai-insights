@@ -1,0 +1,50 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/eslint
+SCRAPED: 2025-06-19 17:32:02
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+eslint
+eslint
+When ESLint is detected in your project, Next.js fails your
+production build
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+) when errors are present.
+If you'd like Next.js to produce production code even when your application has ESLint errors, you can disable the built-in linting step completely. This is not recommended unless you already have ESLint configured to run in a separate part of your workflow (for example, in CI or a pre-commit hook).
+Open
+--- CODE BLOCK 3 ---
+ignoreDuringBuilds
+--- END CODE BLOCK ---
+and enable the
+--- CODE BLOCK 5 ---
+module.exports = {
+eslint: {
+// Warning: This allows production builds to successfully complete even if
+// your project has ESLint errors.
+ignoreDuringBuilds: true,
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 6 ---
+module.exports = {
+eslint: {
+// Warning: This allows production builds to successfully complete even if
+// your project has ESLint errors.
+ignoreDuringBuilds: true,
+--- END CODE BLOCK ---
+config:
+next.config.js
+[CODE_BLOCK_5]
+Was this helpful?
+supported.
+Send

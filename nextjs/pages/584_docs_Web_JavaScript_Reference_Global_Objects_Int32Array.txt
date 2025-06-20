@@ -1,0 +1,138 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Int32Array
+SCRAPED: 2025-06-19 18:16:45
+================================================================================
+
+--- CODE BLOCK 6 ---
+Int32Array()
+--- END CODE BLOCK ---
+typed array represents an array of 32-bit signed integers in the platform byte order. If control over byte order is needed, use
+--- CODE BLOCK 9 ---
+Int32Array.BYTES_PER_ELEMENT
+--- END CODE BLOCK ---
+instead. The contents are initialized to
+--- CODE BLOCK 14 ---
+Int32Array.prototype
+--- END CODE BLOCK ---
+unless initialization data is explicitly provided. Once established, you can reference elements in the array using the object's methods, or using standard array index syntax (that is, using bracket notation).
+--- CODE BLOCK 16 ---
+Int32Array.prototype.BYTES_PER_ELEMENT
+--- END CODE BLOCK ---
+is a subclass of the hidden
+--- CODE BLOCK 19 ---
+Int32Array.prototype.constructor
+--- END CODE BLOCK ---
+class.
+Constructor
+--- CODE BLOCK 23 ---
+// From a length
+const int32 = new Int32Array(2);
+int32[0] = 42;
+console.log(int32[0]); // 42
+console.log(int32.length); // 2
+console.log(int32.BYTES_PER_ELEMENT); // 4
+// From an array
+const x = new Int32Array([21, 31]);
+console.log(x[1]); // 31
+// From another TypedArray
+const y = new Int32Array(x);
+console.log(y[0]); // 21
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(32);
+const z = new Int32Array(buffer, 4, 4);
+console.log(z.byteOffset); // 4
+// From an iterable
+const iterable = (function* () {
+yield* [1, 2, 3];
+})();
+const int32FromIterable = new Int32Array(iterable);
+console.log(int32FromIterable);
+// Int32Array [1, 2, 3]
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 24 ---
+// From a length
+const int32 = new Int32Array(2);
+int32[0] = 42;
+console.log(int32[0]); // 42
+console.log(int32.length); // 2
+console.log(int32.BYTES_PER_ELEMENT); // 4
+// From an array
+const x = new Int32Array([21, 31]);
+console.log(x[1]); // 31
+// From another TypedArray
+const y = new Int32Array(x);
+console.log(y[0]); // 21
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(32);
+const z = new Int32Array(buffer, 4, 4);
+console.log(z.byteOffset); // 4
+// From an iterable
+const iterable = (function* () {
+yield* [1, 2, 3];
+})();
+const int32FromIterable = new Int32Array(iterable);
+console.log(int32FromIterable);
+// Int32Array [1, 2, 3]
+--- END CODE BLOCK ---
+object.
+Static properties
+Also inherits static properties from its parent
+--- CODE BLOCK 28 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+[CODE_BLOCK_9]
+Returns a number value of the element size.
+[CODE_BLOCK_10]
+in the case of
+[CODE_BLOCK_11]
+Static methods
+Inherits static methods from its parent
+[CODE_BLOCK_12]
+Instance properties
+Also inherits instance properties from its parent
+[CODE_BLOCK_13]
+These properties are defined on
+[CODE_BLOCK_14]
+and shared by all
+[CODE_BLOCK_15]
+instances.
+[CODE_BLOCK_16]
+Returns a number value of the element size.
+[CODE_BLOCK_17]
+in the case of a
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+The constructor function that created the instance object. For
+[CODE_BLOCK_20]
+instances, the initial value is the
+[CODE_BLOCK_21]
+constructor.
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_22]
+Examples
+Different ways to create an Int32Array
+Copy to Clipboard
+[CODE_BLOCK_23]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+table-49
+Browser compatibility
+See also
+Polyfill of
+[CODE_BLOCK_25]
+[CODE_BLOCK_26]
+JavaScript typed arrays
+guide
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 12, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

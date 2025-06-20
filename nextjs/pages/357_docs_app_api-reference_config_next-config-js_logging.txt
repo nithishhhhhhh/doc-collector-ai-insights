@@ -1,0 +1,96 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/logging
+SCRAPED: 2025-06-19 17:51:30
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+logging
+logging
+Options
+Fetching
+You can configure the logging level and whether the full URL is logged to the console when running Next.js in development mode.
+Currently,
+--- CODE BLOCK 3 ---
+module.exports = {
+logging: {
+fetches: {
+fullUrl: true,
+--- END CODE BLOCK ---
+only applies to data fetching using the
+--- CODE BLOCK 4 ---
+module.exports = {
+logging: {
+fetches: {
+fullUrl: true,
+--- END CODE BLOCK ---
+API. It does not yet apply to other logs inside of Next.js.
+next.config.js
+--- CODE BLOCK 6 ---
+logging.fetches.hmrRefreshes
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+module.exports = {
+logging: {
+fetches: {
+hmrRefreshes: true,
+--- END CODE BLOCK ---
+requests that are restored from the
+Server Components HMR cache
+are not logged by default. However, this can be enabled by setting
+--- CODE BLOCK 10 ---
+incomingRequests
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+module.exports = {
+logging: {
+incomingRequests: {
+ignore: [/\api\/v1\/health/],
+--- END CODE BLOCK ---
+next.config.js
+--- CODE BLOCK 12 ---
+module.exports = {
+logging: {
+incomingRequests: {
+ignore: [/\api\/v1\/health/],
+--- END CODE BLOCK ---
+Incoming Requests
+By default all the incoming requests will be logged in the console during development. You can use the
+--- CODE BLOCK 15 ---
+module.exports = {
+logging: {
+incomingRequests: false,
+--- END CODE BLOCK ---
+option to decide which requests to ignore.
+Since this is only logged in development, this option doesn't affect production builds.
+next.config.js
+--- CODE BLOCK 16 ---
+module.exports = {
+logging: {
+incomingRequests: false,
+--- END CODE BLOCK ---
+Or you can disable incoming request logging by setting
+--- CODE BLOCK 20 ---
+module.exports = {
+logging: false,
+--- END CODE BLOCK ---
+[CODE_BLOCK_14]
+next.config.js
+[CODE_BLOCK_15]
+Disabling Logging
+In addition, you can disable the development logging by setting
+[CODE_BLOCK_17]
+[CODE_BLOCK_18]
+next.config.js
+[CODE_BLOCK_19]
+Was this helpful?
+supported.
+Send

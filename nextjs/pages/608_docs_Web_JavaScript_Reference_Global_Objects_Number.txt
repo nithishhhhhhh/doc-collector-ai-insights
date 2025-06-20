@@ -1,0 +1,497 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+SCRAPED: 2025-06-19 18:19:10
+================================================================================
+
+--- CODE BLOCK 8 ---
+255; // two-hundred and fifty-five
+255.0; // same number
+255 === 255.0; // true
+255 === 0xff; // true (hexadecimal notation)
+255 === 0b11111111; // true (binary notation)
+255 === 0.255e3; // true (decimal exponential notation)
+--- END CODE BLOCK ---
+values represent floating-point numbers like
+--- CODE BLOCK 9 ---
+255; // two-hundred and fifty-five
+255.0; // same number
+255 === 255.0; // true
+255 === 0xff; // true (hexadecimal notation)
+255 === 0b11111111; // true (binary notation)
+255 === 0.255e3; // true (decimal exponential notation)
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+Number(value)
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+Number("123"); // returns the number 123
+Number("123") === 123; // true
+Number("unicorn"); // NaN
+Number(undefined); // NaN
+--- END CODE BLOCK ---
+constructor contains constants and methods for working with numbers. Values of other types can be converted to numbers using the
+--- CODE BLOCK 16 ---
+Number("123"); // returns the number 123
+Number("123") === 123; // true
+Number("unicorn"); // NaN
+Number(undefined); // NaN
+--- END CODE BLOCK ---
+function.
+Description
+Numbers are most commonly expressed in literal forms like
+--- CODE BLOCK 20 ---
+Number.EPSILON
+--- END CODE BLOCK ---
+--- CODE BLOCK 21 ---
+Number.MAX_VALUE
+--- END CODE BLOCK ---
+. The
+lexical grammar
+contains a more detailed reference.
+Copy to Clipboard
+--- CODE BLOCK 23 ---
+Number.MIN_SAFE_INTEGER
+--- END CODE BLOCK ---
+A number literal like
+--- CODE BLOCK 43 ---
+[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+in JavaScript code is a floating-point value, not an integer. There is no separate integer type in common everyday use. (JavaScript also has a
+--- CODE BLOCK 53 ---
+Number.parseFloat()
+--- END CODE BLOCK ---
+type, but it's not designed to replace Number for everyday uses.
+--- CODE BLOCK 54 ---
+Number.parseInt()
+--- END CODE BLOCK ---
+is still a number, not a BigInt.)
+When used as a function,
+--- CODE BLOCK 57 ---
+parseFloat()
+--- END CODE BLOCK ---
+converts a string or other value to the Number type. If the value can't be converted, it returns
+--- CODE BLOCK 70 ---
+new Int32Array([1.1, 1.9, -1.1, -1.9]); // Int32Array(4) [ 1, 1, -1, -1 ]
+new Int8Array([257, -257]); // Int8Array(2) [ 1, -1 ]
+// 257 = 0001 0000 0001
+//     =      0000 0001 (mod 2^8)
+//     = 1
+// -257 = 1110 1111 1111
+//      =      1111 1111 (mod 2^8)
+//      = -1 (as signed integer)
+new Uint8Array([257, -257]); // Uint8Array(2) [ 1, 255 ]
+// -257 = 1110 1111 1111
+//      =      1111 1111 (mod 2^8)
+//      = 255 (as unsigned integer)
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 71 ---
+new Int32Array([1.1, 1.9, -1.1, -1.9]); // Int32Array(4) [ 1, 1, -1, -1 ]
+new Int8Array([257, -257]); // Int8Array(2) [ 1, -1 ]
+// 257 = 0001 0000 0001
+//     =      0000 0001 (mod 2^8)
+//     = 1
+// -257 = 1110 1111 1111
+//      =      1111 1111 (mod 2^8)
+//      = -1 (as signed integer)
+new Uint8Array([257, -257]); // Uint8Array(2) [ 1, 255 ]
+// -257 = 1110 1111 1111
+//      =      1111 1111 (mod 2^8)
+//      = 255 (as unsigned integer)
+--- END CODE BLOCK ---
+Number encoding
+The JavaScript
+--- CODE BLOCK 75 ---
+Number.MAX_SAFE_INTEGER
+--- END CODE BLOCK ---
+type is a
+double-precision 64-bit binary format IEEE 754
+value, like
+--- CODE BLOCK 76 ---
+Number.MAX_VALUE
+--- END CODE BLOCK ---
+in Java or C#. This means it can represent fractional values, but there are some limits to the stored number's magnitude and precision. Very briefly, an IEEE 754 double-precision number uses 64 bits to represent 3 parts:
+1 bit for the
+sign
+(positive or negative)
+11 bits for the
+exponent
+(-1022 to 1023)
+52 bits for the
+mantissa
+(representing a number between 0 and 1)
+The mantissa (also called
+significand
+) is the part of the number representing the actual value (significant digits). The exponent is the power of 2 that the mantissa should be multiplied by. Thinking about it as scientific notation:
+Number
+sign
+mantissa
+exponent
+\text{Number} = ({-1})^{\text{sign}} \cdot (1 + \text{mantissa}) \cdot 2^{\text{exponent}}
+The mantissa is stored with 52 bits, interpreted as digits after
+--- CODE BLOCK 77 ---
+Number.MIN_SAFE_INTEGER
+--- END CODE BLOCK ---
+in a binary fractional number. Therefore, the mantissa's precision is 2
+(obtainable via
+--- CODE BLOCK 78 ---
+Number.MIN_VALUE
+--- END CODE BLOCK ---
+), or about 15 to 17 decimal places; arithmetic above that level of precision is subject to
+rounding
+The largest value a number can hold is 2
+1023
+× (2 - 2
+) (with the exponent being 1023 and the mantissa being 0.1111… in base 2), which is obtainable via
+--- CODE BLOCK 80 ---
+Number.NEGATIVE_INFINITY
+--- END CODE BLOCK ---
+. Values higher than that are replaced with the special number constant
+--- CODE BLOCK 81 ---
+Number.POSITIVE_INFINITY
+--- END CODE BLOCK ---
+Integers can only be represented without loss of precision in the range -2
++ 1 to 2
+- 1, inclusive (obtainable via
+--- CODE BLOCK 82 ---
+Number.isFinite()
+--- END CODE BLOCK ---
+--- CODE BLOCK 83 ---
+Number.isInteger()
+--- END CODE BLOCK ---
+), because the mantissa can only hold 53 bits (including the leading 1).
+More details on this are described in the
+ECMAScript standard
+Number coercion
+Many built-in operations that expect numbers first coerce their arguments to numbers (which is largely why
+--- CODE BLOCK 84 ---
+Number.isNaN()
+--- END CODE BLOCK ---
+objects behave similarly to number primitives).
+The operation
+can be summarized as follows:
+Numbers are returned as-is.
+--- CODE BLOCK 86 ---
+Number.isSafeInteger()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 87 ---
+Number.parseFloat()
+--- END CODE BLOCK ---
+--- CODE BLOCK 88 ---
+parseFloat()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 89 ---
+Number.parseInt()
+--- END CODE BLOCK ---
+--- CODE BLOCK 91 ---
+Number.prototype
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 93 ---
+Number.prototype.constructor
+--- END CODE BLOCK ---
+--- CODE BLOCK 96 ---
+Number.prototype.toExponential()
+--- END CODE BLOCK ---
+turns into
+--- CODE BLOCK 97 ---
+Number.prototype.toFixed()
+--- END CODE BLOCK ---
+Strings are converted by parsing them as if they contain a
+number literal
+. Parsing failure results in
+--- CODE BLOCK 98 ---
+Number.prototype.toLocaleString()
+--- END CODE BLOCK ---
+. There are some minor differences compared to an actual number literal:
+Leading and trailing whitespace/line terminators are ignored.
+A leading
+--- CODE BLOCK 99 ---
+Object.prototype.toLocaleString()
+--- END CODE BLOCK ---
+digit does not cause the number to become an octal literal (or get rejected in strict mode).
+--- CODE BLOCK 100 ---
+Number.prototype.toPrecision()
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+Number.prototype.toString()
+--- END CODE BLOCK ---
+are allowed at the start of the string to indicate its sign. (In actual code, they "look like" part of the literal, but are actually separate unary operators.) However, the sign can only appear once, and must not be followed by whitespace.
+--- CODE BLOCK 102 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 103 ---
+Number.prototype.valueOf()
+--- END CODE BLOCK ---
+are recognized as literals. In actual code, they are global variables.
+Empty or whitespace-only strings are converted to
+--- CODE BLOCK 104 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+Numeric separators
+are not allowed.
+BigInts
+throw a
+--- CODE BLOCK 106 ---
+const biggestNum = Number.MAX_VALUE;
+const smallestNum = Number.MIN_VALUE;
+const infiniteNum = Number.POSITIVE_INFINITY;
+const negInfiniteNum = Number.NEGATIVE_INFINITY;
+const notANum = Number.NaN;
+--- END CODE BLOCK ---
+to prevent unintended implicit coercion causing loss of precision.
+Symbols
+throw a
+--- CODE BLOCK 107 ---
+const biggestNum = Number.MAX_VALUE;
+const smallestNum = Number.MIN_VALUE;
+const infiniteNum = Number.POSITIVE_INFINITY;
+const negInfiniteNum = Number.NEGATIVE_INFINITY;
+const notANum = Number.NaN;
+--- END CODE BLOCK ---
+Objects are first
+converted to a primitive
+by calling their
+--- CODE BLOCK 109 ---
+const biggestInt = Number.MAX_SAFE_INTEGER; // (2**53 - 1) => 9007199254740991
+const smallestInt = Number.MIN_SAFE_INTEGER; // -(2**53 - 1) => -9007199254740991
+--- END CODE BLOCK ---
+(with
+--- CODE BLOCK 110 ---
+const biggestInt = Number.MAX_SAFE_INTEGER; // (2**53 - 1) => 9007199254740991
+const smallestInt = Number.MIN_SAFE_INTEGER; // -(2**53 - 1) => -9007199254740991
+--- END CODE BLOCK ---
+as hint),
+--- CODE BLOCK 116 ---
+const d = new Date("1995-12-17T03:24:00");
+console.log(Number(d));
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 117 ---
+const d = new Date("1995-12-17T03:24:00");
+console.log(Number(d));
+--- END CODE BLOCK ---
+methods, in that order. The resulting primitive is then converted to a number.
+There are two ways to achieve nearly the same effect in JavaScript.
+Unary plus
+--- CODE BLOCK 118 ---
+819199440000
+--- END CODE BLOCK ---
+does exactly the number coercion steps explained above to convert
+--- CODE BLOCK 119 ---
+Number("123"); // 123
+Number("123") === 123; // true
+Number("12.3"); // 12.3
+Number("12.00"); // 12
+Number("123e-1"); // 12.3
+Number(""); // 0
+Number(null); // 0
+Number("0x11"); // 17
+Number("0b11"); // 3
+Number("0o11"); // 9
+Number("foo"); // NaN
+Number("100a"); // NaN
+Number("-Infinity"); // -Infinity
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+Number("123"); // 123
+Number("123") === 123; // true
+Number("12.3"); // 12.3
+Number("12.00"); // 12
+Number("123e-1"); // 12.3
+Number(""); // 0
+Number(null); // 0
+Number("0x11"); // 17
+Number("0b11"); // 3
+Number("0o11"); // 9
+Number("foo"); // NaN
+Number("100a"); // NaN
+Number("-Infinity"); // -Infinity
+--- END CODE BLOCK ---
+function:
+[CODE_BLOCK_50]
+uses the same algorithm to convert
+[CODE_BLOCK_51]
+, except that
+BigInts
+don't throw a
+[CODE_BLOCK_52]
+, but return their number value, with possible loss of precision.
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+are similar to
+[CODE_BLOCK_55]
+but only convert strings, and have slightly different parsing rules. For example,
+[CODE_BLOCK_56]
+doesn't recognize the decimal point, and
+[CODE_BLOCK_57]
+doesn't recognize the
+[CODE_BLOCK_58]
+prefix.
+Integer conversion
+Some operations expect integers, most notably those that work with array/string indices, date/time components, and number radixes. After performing the number coercion steps above, the result is
+truncated
+to an integer (by discarding the fractional part). If the number is ±Infinity, it's returned as-is. If the number is
+[CODE_BLOCK_59]
+[CODE_BLOCK_60]
+, it's returned as
+[CODE_BLOCK_61]
+. The result is therefore always an integer (which is not
+[CODE_BLOCK_62]
+) or ±Infinity.
+Notably, when converted to integers, both
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+become
+[CODE_BLOCK_65]
+, because
+[CODE_BLOCK_66]
+is converted to
+[CODE_BLOCK_67]
+, which also becomes
+[CODE_BLOCK_68]
+Fixed-width number conversion
+JavaScript has some lower-level functions that deal with the binary encoding of integer numbers, most notably
+bitwise operators
+[CODE_BLOCK_69]
+objects. Bitwise operators always convert the operands to 32-bit integers. In these cases, after converting the value to a number, the number is then normalized to the given width by first
+truncating
+the fractional part and then taking the lowest bits in the integer's two's complement encoding.
+Copy to Clipboard
+[CODE_BLOCK_70]
+Constructor
+[CODE_BLOCK_72]
+Creates
+[CODE_BLOCK_73]
+objects. When called as a function, it returns primitive values of type Number.
+Static properties
+[CODE_BLOCK_74]
+The smallest interval between two representable numbers.
+[CODE_BLOCK_75]
+The maximum safe integer in JavaScript (2
+- 1).
+[CODE_BLOCK_76]
+The largest positive representable number.
+[CODE_BLOCK_77]
+The minimum safe integer in JavaScript (-(2
+- 1)).
+[CODE_BLOCK_78]
+The smallest positive representable number—that is, the positive number closest to zero (without actually being zero).
+[CODE_BLOCK_79]
+Special "
+umber" value.
+[CODE_BLOCK_80]
+Special value representing negative infinity. Returned on overflow.
+[CODE_BLOCK_81]
+Special value representing infinity. Returned on overflow.
+Static methods
+[CODE_BLOCK_82]
+Determine whether the passed value is a finite number.
+[CODE_BLOCK_83]
+Determine whether the passed value is an integer.
+[CODE_BLOCK_84]
+Determine whether the passed value is
+[CODE_BLOCK_85]
+[CODE_BLOCK_86]
+Determine whether the passed value is a safe integer (number between -(2
+- 1) and 2
+- 1).
+[CODE_BLOCK_87]
+This is the same as the global
+[CODE_BLOCK_88]
+function.
+[CODE_BLOCK_89]
+This is the same as the global
+[CODE_BLOCK_90]
+function.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_91]
+and shared by all
+[CODE_BLOCK_92]
+instances.
+[CODE_BLOCK_93]
+The constructor function that created the instance object. For
+[CODE_BLOCK_94]
+instances, the initial value is the
+[CODE_BLOCK_95]
+constructor.
+Instance methods
+[CODE_BLOCK_96]
+Returns a string representing the number in exponential notation.
+[CODE_BLOCK_97]
+Returns a string representing the number in fixed-point notation.
+[CODE_BLOCK_98]
+Returns a string with a language sensitive representation of this number. Overrides the
+[CODE_BLOCK_99]
+method.
+[CODE_BLOCK_100]
+Returns a string representing the number to a specified precision in fixed-point or exponential notation.
+[CODE_BLOCK_101]
+Returns a string representing the specified object in the specified
+radix
+("base"). Overrides the
+[CODE_BLOCK_102]
+method.
+[CODE_BLOCK_103]
+Returns the primitive value of the specified object. Overrides the
+[CODE_BLOCK_104]
+method.
+Examples
+Using the Number object to assign values to numeric variables
+The following example uses the
+[CODE_BLOCK_105]
+object's properties to assign values to several numeric variables:
+Copy to Clipboard
+[CODE_BLOCK_106]
+Integer range for Number
+The following example shows the minimum and maximum integer values that can be represented as
+[CODE_BLOCK_108]
+object.
+Copy to Clipboard
+[CODE_BLOCK_109]
+When parsing data that has been serialized to JSON, integer values falling outside of this range can be expected to become corrupted when JSON parser coerces them to
+[CODE_BLOCK_111]
+type.
+A possible workaround is to use
+[CODE_BLOCK_112]
+instead.
+Larger numbers can be represented using the
+[CODE_BLOCK_113]
+type.
+Using Number() to convert a Date object
+The following example converts the
+[CODE_BLOCK_114]
+object to a numerical value using
+[CODE_BLOCK_115]
+as a function:
+Copy to Clipboard
+[CODE_BLOCK_116]
+This logs
+[CODE_BLOCK_118]
+Convert numeric strings and null to numbers
+Copy to Clipboard
+[CODE_BLOCK_119]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-number-objects
+Browser compatibility
+See also
+Polyfill of modern
+[CODE_BLOCK_121]
+behavior (with support binary and octal literals) in
+[CODE_BLOCK_122]
+[CODE_BLOCK_123]
+Arithmetic operators
+[CODE_BLOCK_124]
+[CODE_BLOCK_125]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 6, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

@@ -1,0 +1,1550 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/migrating/app-router-migration#migrating-from-pages-to-app
+SCRAPED: 2025-06-19 17:53:55
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Guides
+Migrating
+App Router
+How to migrate from Pages to the App Router
+This guide will help you:
+Update your Next.js application from version 12 to version 13
+Upgrade features that work in both the
+--- CODE BLOCK 5 ---
+npm install next@latest react@latest react-dom@latest
+--- END CODE BLOCK ---
+and the
+--- CODE BLOCK 6 ---
+npm install next@latest react@latest react-dom@latest
+--- END CODE BLOCK ---
+directories
+Incrementally migrate your existing application from
+--- CODE BLOCK 7 ---
+npm install -D eslint-config-next@latest
+--- END CODE BLOCK ---
+--- CODE BLOCK 8 ---
+npm install -D eslint-config-next@latest
+--- END CODE BLOCK ---
+Upgrading
+Node.js Version
+The minimum Node.js version is now
+v18.17
+. See the
+Node.js documentation
+for more information.
+Next.js Version
+To update to Next.js version 13, run the following command using your preferred package manager:
+Terminal
+--- CODE BLOCK 9 ---
+cmd+shift+p
+--- END CODE BLOCK ---
+ESLint Version
+If you're using ESLint, you need to upgrade your ESLint version:
+Terminal
+--- CODE BLOCK 11 ---
+ESLint: Restart ESLint Server
+--- END CODE BLOCK ---
+Good to know
+: You may need to restart the ESLint server in VS Code for the ESLint changes to take effect. Open the Command Palette (
+--- CODE BLOCK 22 ---
+next-image-to-legacy-image
+--- END CODE BLOCK ---
+on Mac;
+--- CODE BLOCK 24 ---
+next/legacy/image
+--- END CODE BLOCK ---
+on Windows) and search for
+--- CODE BLOCK 25 ---
+next-image-experimental
+--- END CODE BLOCK ---
+Next Steps
+After you've updated, see the following sections for next steps:
+Upgrade new features
+: A guide to help you upgrade to new features such as the improved Image and Link Components.
+Migrate from the
+--- CODE BLOCK 26 ---
+next-image-to-legacy-image
+--- END CODE BLOCK ---
+--- CODE BLOCK 32 ---
+import Link from 'next/link'
+// Next.js 12: `<a>` has to be nested otherwise it's excluded
+<Link href="/about">
+<a>About</a>
+</Link>
+// Next.js 13: `<Link>` always renders `<a>` under the hood
+<Link href="/about">
+About
+</Link>
+--- END CODE BLOCK ---
+directory
+: A step-by-step guide to help you incrementally migrate from the
+--- CODE BLOCK 33 ---
+import Link from 'next/link'
+// Next.js 12: `<a>` has to be nested otherwise it's excluded
+<Link href="/about">
+<a>About</a>
+</Link>
+// Next.js 13: `<Link>` always renders `<a>` under the hood
+<Link href="/about">
+About
+</Link>
+--- END CODE BLOCK ---
+to the
+--- CODE BLOCK 36 ---
+next/script
+--- END CODE BLOCK ---
+directory.
+Upgrading New Features
+Next.js 13 introduced the new
+App Router
+with new features and conventions. The new Router is available in the
+--- CODE BLOCK 39 ---
+beforeInteractive
+--- END CODE BLOCK ---
+directory and co-exists with the
+--- CODE BLOCK 40 ---
+_document.js
+--- END CODE BLOCK ---
+directory.
+Upgrading to Next.js 13 does
+require using the App Router. You can continue using
+--- CODE BLOCK 41 ---
+app/layout.tsx
+--- END CODE BLOCK ---
+with new features that work in both directories, such as the updated
+Image component
+Link component
+Script component
+, and
+Font optimization
+--- CODE BLOCK 70 ---
+getServerSideProps
+--- END CODE BLOCK ---
+Component
+Next.js 12 introduced new improvements to the Image Component with a temporary import:
+--- CODE BLOCK 71 ---
+getStaticProps
+--- END CODE BLOCK ---
+. These improvements included less client-side JavaScript, easier ways to extend and style images, better accessibility, and native browser lazy loading.
+In version 13, this new behavior is now the default for
+--- CODE BLOCK 73 ---
+getStaticPaths
+--- END CODE BLOCK ---
+There are two codemods to help you migrate to the new Image Component:
+--- CODE BLOCK 74 ---
+generateStaticParams
+--- END CODE BLOCK ---
+codemod
+: Safely and automatically renames
+--- CODE BLOCK 75 ---
+pages/_app.js
+--- END CODE BLOCK ---
+imports to
+--- CODE BLOCK 76 ---
+pages/_document.js
+--- END CODE BLOCK ---
+. Existing components will maintain the same behavior.
+--- CODE BLOCK 77 ---
+app/layout.js
+--- END CODE BLOCK ---
+codemod
+: Dangerously adds inline styles and removes unused props. This will change the behavior of existing components to match the new defaults. To use this codemod, you need to run the
+--- CODE BLOCK 78 ---
+pages/_error.js
+--- END CODE BLOCK ---
+codemod first.
+--- CODE BLOCK 80 ---
+pages/404.js
+--- END CODE BLOCK ---
+Component
+--- CODE BLOCK 81 ---
+not-found.js
+--- END CODE BLOCK ---
+Component
+no longer requires manually adding an
+--- CODE BLOCK 82 ---
+pages/api/*
+--- END CODE BLOCK ---
+tag as a child. This behavior was added as an experimental option in
+version 12.2
+and is now the default. In Next.js 13,
+--- CODE BLOCK 85 ---
+npm install next@latest
+--- END CODE BLOCK ---
+always renders
+--- CODE BLOCK 86 ---
+npm install next@latest
+--- END CODE BLOCK ---
+and allows you to forward props to the underlying tag.
+For example:
+--- CODE BLOCK 89 ---
+app/layout.tsx
+--- END CODE BLOCK ---
+To upgrade your links to Next.js 13, you can use the
+--- CODE BLOCK 93 ---
+export default function RootLayout({
+// Layouts must accept a children prop.
+// This will be populated with nested layouts or pages
+children,
+}: {
+children: React.ReactNode
+}) {
+return (
+<html lang="en">
+<body>{children}</body>
+</html>
+--- END CODE BLOCK ---
+codemod
+--- CODE BLOCK 97 ---
+pages/_app.tsx
+--- END CODE BLOCK ---
+Component
+The behavior of
+--- CODE BLOCK 98 ---
+pages/_document.tsx
+--- END CODE BLOCK ---
+has been updated to support both
+--- CODE BLOCK 103 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'Home',
+description: 'Welcome to Next.js',
+--- END CODE BLOCK ---
+--- CODE BLOCK 104 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'Home',
+description: 'Welcome to Next.js',
+--- END CODE BLOCK ---
+, but some changes need to be made to ensure a smooth migration:
+Move any
+--- CODE BLOCK 105 ---
+_document.js
+--- END CODE BLOCK ---
+scripts you previously included in
+--- CODE BLOCK 109 ---
+app/layout.tsx
+--- END CODE BLOCK ---
+to the root layout file (
+--- CODE BLOCK 110 ---
+app/layout.tsx
+--- END CODE BLOCK ---
+The experimental
+--- CODE BLOCK 115 ---
+getLayout()
+--- END CODE BLOCK ---
+strategy does not yet work in
+--- CODE BLOCK 118 ---
+export default function DashboardLayout({ children }) {
+return (
+<div>
+<h2>My Dashboard</h2>
+{children}
+</div>
+--- END CODE BLOCK ---
+and scripts denoted with this strategy will either have to be removed or modified to use a different strategy (e.g.
+--- CODE BLOCK 119 ---
+export default function DashboardLayout({ children }) {
+return (
+<div>
+<h2>My Dashboard</h2>
+{children}
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 120 ---
+import DashboardLayout from '../components/DashboardLayout'
+export default function Page() {
+return <p>My Page</p>
+Page.getLayout = function getLayout(page) {
+return <DashboardLayout>{page}</DashboardLayout>
+--- END CODE BLOCK ---
+--- CODE BLOCK 121 ---
+import DashboardLayout from '../components/DashboardLayout'
+export default function Page() {
+return <p>My Page</p>
+Page.getLayout = function getLayout(page) {
+return <DashboardLayout>{page}</DashboardLayout>
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 122 ---
+Page.getLayout
+--- END CODE BLOCK ---
+handlers will not work in Server Components so make sure to move them to a
+Client Component
+or remove them altogether.
+Font Optimization
+Previously, Next.js helped you optimize fonts by
+inlining font CSS
+. Version 13 introduces the new
+--- CODE BLOCK 123 ---
+pages/dashboard/index.js
+--- END CODE BLOCK ---
+module which gives you the ability to customize your font loading experience while still ensuring great performance and privacy.
+--- CODE BLOCK 125 ---
+export default function Page() {
+return <p>My Page</p>
+--- END CODE BLOCK ---
+is supported in both the
+--- CODE BLOCK 126 ---
+export default function Page() {
+return <p>My Page</p>
+--- END CODE BLOCK ---
+--- CODE BLOCK 127 ---
+DashboardLayout
+--- END CODE BLOCK ---
+directories.
+While
+inlining CSS
+still works in
+--- CODE BLOCK 129 ---
+'use client' // this directive should be at top of the file, before any imports.
+// This is a Client Component
+export default function DashboardLayout({ children }) {
+return (
+<div>
+<h2>My Dashboard</h2>
+{children}
+</div>
+--- END CODE BLOCK ---
+, it does not work in
+--- CODE BLOCK 130 ---
+'use client' // this directive should be at top of the file, before any imports.
+// This is a Client Component
+export default function DashboardLayout({ children }) {
+return (
+<div>
+<h2>My Dashboard</h2>
+{children}
+</div>
+--- END CODE BLOCK ---
+. You should use
+--- CODE BLOCK 131 ---
+DashboardLayout
+--- END CODE BLOCK ---
+instead.
+See the
+Font Optimization
+page to learn how to use
+--- CODE BLOCK 134 ---
+import DashboardLayout from './DashboardLayout'
+// This is a Server Component
+export default function Layout({ children }) {
+return <DashboardLayout>{children}</DashboardLayout>
+--- END CODE BLOCK ---
+Migrating from
+--- CODE BLOCK 135 ---
+import DashboardLayout from './DashboardLayout'
+// This is a Server Component
+export default function Layout({ children }) {
+return <DashboardLayout>{children}</DashboardLayout>
+--- END CODE BLOCK ---
+--- CODE BLOCK 136 ---
+DashboardLayout.js
+--- END CODE BLOCK ---
+🎥 Watch:
+Learn how to incrementally adopt the App Router →
+YouTube (16 minutes)
+Moving to the App Router may be the first time using React features that Next.js builds on top of such as Server Components, Suspense, and more. When combined with new Next.js features such as
+special files
+layouts
+, migration means new concepts, mental models, and behavioral changes to learn.
+We recommend reducing the combined complexity of these updates by breaking down your migration into smaller steps. The
+--- CODE BLOCK 146 ---
+import Head from 'next/head'
+export default function Page() {
+return (
+<Head>
+<title>My page title</title>
+</Head>
+--- END CODE BLOCK ---
+directory is intentionally designed to work simultaneously with the
+--- CODE BLOCK 147 ---
+import Head from 'next/head'
+export default function Page() {
+return (
+<Head>
+<title>My page title</title>
+</Head>
+--- END CODE BLOCK ---
+directory to allow for incremental page-by-page migration.
+--- CODE BLOCK 148 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'My Page Title',
+export default function Page() {
+return '...'
+--- END CODE BLOCK ---
+directory supports nested routes
+layouts.
+Learn more
+Use nested folders to define routes and a special
+--- CODE BLOCK 149 ---
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+title: 'My Page Title',
+export default function Page() {
+return '...'
+--- END CODE BLOCK ---
+file to make a route segment publicly accessible.
+Learn more
+Special file conventions
+are used to create UI for each route segment. The most common special files are
+--- CODE BLOCK 153 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 154 ---
+getStaticProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+getInitialProps
+--- END CODE BLOCK ---
+to define UI unique to a route.
+--- CODE BLOCK 164 ---
+about/page.js
+--- END CODE BLOCK ---
+to define UI that is shared across multiple routes.
+--- CODE BLOCK 166 ---
+blog/[slug].js
+--- END CODE BLOCK ---
+--- CODE BLOCK 167 ---
+blog/[slug]/page.js
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 168 ---
+/blog/post-1
+--- END CODE BLOCK ---
+file extensions can be used for special files.
+You can colocate other files inside the
+--- CODE BLOCK 173 ---
+app/home-page.tsx
+--- END CODE BLOCK ---
+directory such as components, styles, tests, and more.
+Learn more
+Data fetching functions like
+--- CODE BLOCK 174 ---
+'use client'
+--- END CODE BLOCK ---
+--- CODE BLOCK 175 ---
+pages/index.js
+--- END CODE BLOCK ---
+have been replaced with
+a new API
+inside
+--- CODE BLOCK 176 ---
+app/home-page.tsx
+--- END CODE BLOCK ---
+--- CODE BLOCK 177 ---
+'use client'
+// This is a Client Component (same as components in the `pages` directory)
+// It receives data as props, has access to state and effects, and is
+// prerendered on the server during the initial page load.
+export default function HomePage({ recentPosts }) {
+return (
+<div>
+{recentPosts.map((post) => (
+<div key={post.id}>{post.title}</div>
+</div>
+--- END CODE BLOCK ---
+has been replaced with
+--- CODE BLOCK 178 ---
+'use client'
+// This is a Client Component (same as components in the `pages` directory)
+// It receives data as props, has access to state and effects, and is
+// prerendered on the server during the initial page load.
+export default function HomePage({ recentPosts }) {
+return (
+<div>
+{recentPosts.map((post) => (
+<div key={post.id}>{post.title}</div>
+</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 179 ---
+app/page.tsx
+--- END CODE BLOCK ---
+--- CODE BLOCK 181 ---
+home-page.tsx
+--- END CODE BLOCK ---
+have been replaced with a single
+--- CODE BLOCK 182 ---
+pages/index.js
+--- END CODE BLOCK ---
+root layout.
+Learn more
+--- CODE BLOCK 183 ---
+// Import your Client Component
+import HomePage from './home-page'
+async function getPosts() {
+const res = await fetch('https://...')
+const posts = await res.json()
+return posts
+export default async function Page() {
+// Fetch data directly in a Server Component
+const recentPosts = await getPosts()
+// Forward fetched data to your Client Component
+return <HomePage recentPosts={recentPosts} />
+--- END CODE BLOCK ---
+has been replaced with more granular
+--- CODE BLOCK 184 ---
+// Import your Client Component
+import HomePage from './home-page'
+async function getPosts() {
+const res = await fetch('https://...')
+const posts = await res.json()
+return posts
+export default async function Page() {
+// Fetch data directly in a Server Component
+const recentPosts = await getPosts()
+// Forward fetched data to your Client Component
+return <HomePage recentPosts={recentPosts} />
+--- END CODE BLOCK ---
+special files.
+Learn more
+--- CODE BLOCK 186 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+has been replaced with the
+--- CODE BLOCK 189 ---
+next/navigation
+--- END CODE BLOCK ---
+file.
+--- CODE BLOCK 190 ---
+useRouter()
+--- END CODE BLOCK ---
+API Routes have been replaced with the
+--- CODE BLOCK 191 ---
+usePathname()
+--- END CODE BLOCK ---
+(Route Handler) special file.
+Step 1: Creating the
+--- CODE BLOCK 192 ---
+useSearchParams()
+--- END CODE BLOCK ---
+directory
+Update to the latest Next.js version (requires 13.4 or greater):
+--- CODE BLOCK 194 ---
+next/navigation
+--- END CODE BLOCK ---
+Then, create a new
+--- CODE BLOCK 199 ---
+next/router
+--- END CODE BLOCK ---
+directory at the root of your project (or
+--- CODE BLOCK 204 ---
+usePathname
+--- END CODE BLOCK ---
+directory).
+Step 2: Creating a Root Layout
+Create a new
+--- CODE BLOCK 207 ---
+useSearchParams
+--- END CODE BLOCK ---
+file inside the
+--- CODE BLOCK 209 ---
+useSearchParams
+--- END CODE BLOCK ---
+directory. This is a
+root layout
+that will apply to all routes inside
+--- CODE BLOCK 210 ---
+usePathname
+--- END CODE BLOCK ---
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 211 ---
+'use client'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+export default function ExampleClientComponent() {
+const router = useRouter()
+const pathname = usePathname()
+const searchParams = useSearchParams()
+// ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 218 ---
+defaultLocales
+--- END CODE BLOCK ---
+directory
+must
+include a root layout.
+The root layout must define
+--- CODE BLOCK 219 ---
+domainLocales
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 226 ---
+useSearchParams()
+--- END CODE BLOCK ---
+tags since Next.js does not automatically create them
+The root layout replaces the
+--- CODE BLOCK 228 ---
+usePathname
+--- END CODE BLOCK ---
+--- CODE BLOCK 229 ---
+useSelectedLayoutSegments()
+--- END CODE BLOCK ---
+files.
+--- CODE BLOCK 230 ---
+useRouter()
+--- END CODE BLOCK ---
+--- CODE BLOCK 236 ---
+next/compat/router
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 241 ---
+next/navigation
+--- END CODE BLOCK ---
+extensions can be used for layout files.
+To manage
+--- CODE BLOCK 243 ---
+getServerSideProps
+--- END CODE BLOCK ---
+HTML elements, you can use the
+built-in SEO support
+app/layout.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 244 ---
+getStaticProps
+--- END CODE BLOCK ---
+Migrating
+--- CODE BLOCK 249 ---
+export default async function Page() {
+// This request should be cached until manually invalidated.
+// Similar to `getStaticProps`.
+// `force-cache` is the default and can be omitted.
+const staticData = await fetch(`https://...`, { cache: 'force-cache' })
+// This request should be refetched on every request.
+// Similar to `getServerSideProps`.
+const dynamicData = await fetch(`https://...`, { cache: 'no-store' })
+// This request should be cached with a lifetime of 10 seconds.
+// Similar to `getStaticProps` with the `revalidate` option.
+const revalidatedData = await fetch(`https://...`, {
+next: { revalidate: 10 },
+return <div>...</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 250 ---
+getServerSideProps
+--- END CODE BLOCK ---
+If you have an existing
+--- CODE BLOCK 252 ---
+getServerSideProps
+--- END CODE BLOCK ---
+--- CODE BLOCK 253 ---
+// `pages` directory
+export async function getServerSideProps() {
+const res = await fetch(`https://...`)
+const projects = await res.json()
+return { props: { projects } }
+export default function Dashboard({ projects }) {
+return (
+<ul>
+{projects.map((project) => (
+<li key={project.id}>{project.name}</li>
+</ul>
+--- END CODE BLOCK ---
+file, you can copy the contents (e.g. global styles) to the root layout (
+--- CODE BLOCK 254 ---
+// `pages` directory
+export async function getServerSideProps() {
+const res = await fetch(`https://...`)
+const projects = await res.json()
+return { props: { projects } }
+export default function Dashboard({ projects }) {
+return (
+<ul>
+{projects.map((project) => (
+<li key={project.id}>{project.name}</li>
+</ul>
+--- END CODE BLOCK ---
+). Styles in
+--- CODE BLOCK 257 ---
+getServerSideProps
+--- END CODE BLOCK ---
+will
+apply to
+--- CODE BLOCK 259 ---
+// `app` directory
+// This function can be named anything
+async function getProjects() {
+const res = await fetch(`https://...`, { cache: 'no-store' })
+const projects = await res.json()
+return projects
+export default async function Dashboard() {
+const projects = await getProjects()
+return (
+<ul>
+{projects.map((project) => (
+<li key={project.id}>{project.name}</li>
+</ul>
+--- END CODE BLOCK ---
+. You should keep
+--- CODE BLOCK 260 ---
+// `app` directory
+// This function can be named anything
+async function getProjects() {
+const res = await fetch(`https://...`, { cache: 'no-store' })
+const projects = await res.json()
+return projects
+export default async function Dashboard() {
+const projects = await getProjects()
+return (
+<ul>
+{projects.map((project) => (
+<li key={project.id}>{project.name}</li>
+</ul>
+--- END CODE BLOCK ---
+--- CODE BLOCK 263 ---
+getServerSideProps
+--- END CODE BLOCK ---
+while migrating to prevent your
+--- CODE BLOCK 264 ---
+// `pages` directory
+export async function getServerSideProps({ req, query }) {
+const authHeader = req.getHeaders()['authorization'];
+const theme = req.cookies['theme'];
+return { props: { ... }}
+export default function Page(props) {
+return ...
+--- END CODE BLOCK ---
+routes from breaking. Once fully migrated, you can then safely delete them.
+If you are using any React Context providers, they will need to be moved to a
+Client Component
+Migrating the
+--- CODE BLOCK 265 ---
+// `pages` directory
+export async function getServerSideProps({ req, query }) {
+const authHeader = req.getHeaders()['authorization'];
+const theme = req.cookies['theme'];
+return { props: { ... }}
+export default function Page(props) {
+return ...
+--- END CODE BLOCK ---
+pattern to Layouts (Optional)
+Next.js recommended adding a
+property to Page components
+to achieve per-page layouts in the
+--- CODE BLOCK 269 ---
+// `app` directory
+import { cookies, headers } from 'next/headers'
+async function getData() {
+const authHeader = (await headers()).get('authorization')
+return '...'
+export default async function Page() {
+// You can use `cookies` or `headers` inside Server Components
+// directly or in your data fetching function
+const theme = (await cookies()).get('theme')
+const data = await getData()
+return '...'
+--- END CODE BLOCK ---
+directory. This pattern can be replaced with native support for
+nested layouts
+in the
+--- CODE BLOCK 270 ---
+// `app` directory
+import { cookies, headers } from 'next/headers'
+async function getData() {
+const authHeader = (await headers()).get('authorization')
+return '...'
+export default async function Page() {
+// You can use `cookies` or `headers` inside Server Components
+// directly or in your data fetching function
+const theme = (await cookies()).get('theme')
+const data = await getData()
+return '...'
+--- END CODE BLOCK ---
+directory.
+See before and after example
+Before
+components/DashboardLayout.js
+--- CODE BLOCK 271 ---
+getStaticProps
+--- END CODE BLOCK ---
+pages/dashboard/index.js
+--- CODE BLOCK 274 ---
+// `pages` directory
+export async function getStaticProps() {
+const res = await fetch(`https://...`)
+const projects = await res.json()
+return { props: { projects } }
+export default function Index({ projects }) {
+return projects.map((project) => <div>{project.name}</div>)
+--- END CODE BLOCK ---
+After
+Remove the
+--- CODE BLOCK 278 ---
+cache: 'force-cache'
+--- END CODE BLOCK ---
+property from
+--- CODE BLOCK 279 ---
+getStaticProps
+--- END CODE BLOCK ---
+and follow the
+steps for migrating pages
+to the
+--- CODE BLOCK 281 ---
+// `app` directory
+// This function can be named anything
+async function getProjects() {
+const res = await fetch(`https://...`)
+const projects = await res.json()
+return projects
+export default async function Index() {
+const projects = await getProjects()
+return projects.map((project) => <div>{project.name}</div>)
+--- END CODE BLOCK ---
+directory.
+app/dashboard/page.js
+--- CODE BLOCK 282 ---
+// `app` directory
+// This function can be named anything
+async function getProjects() {
+const res = await fetch(`https://...`)
+const projects = await res.json()
+return projects
+export default async function Index() {
+const projects = await getProjects()
+return projects.map((project) => <div>{project.name}</div>)
+--- END CODE BLOCK ---
+Move the contents of
+--- CODE BLOCK 285 ---
+getStaticPaths
+--- END CODE BLOCK ---
+into a new
+Client Component
+to retain
+--- CODE BLOCK 286 ---
+// `pages` directory
+import PostLayout from '@/components/post-layout'
+export async function getStaticPaths() {
+return {
+paths: [{ params: { id: '1' } }, { params: { id: '2' } }],
+export async function getStaticProps({ params }) {
+const res = await fetch(`https://.../posts/${params.id}`)
+const post = await res.json()
+return { props: { post } }
+export default function Post({ post }) {
+return <PostLayout post={post} />
+--- END CODE BLOCK ---
+directory behavior.
+app/dashboard/DashboardLayout.js
+--- CODE BLOCK 287 ---
+// `pages` directory
+import PostLayout from '@/components/post-layout'
+export async function getStaticPaths() {
+return {
+paths: [{ params: { id: '1' } }, { params: { id: '2' } }],
+export async function getStaticProps({ params }) {
+const res = await fetch(`https://.../posts/${params.id}`)
+const post = await res.json()
+return { props: { post } }
+export default function Post({ post }) {
+return <PostLayout post={post} />
+--- END CODE BLOCK ---
+Import the
+--- CODE BLOCK 290 ---
+generateStaticParams
+--- END CODE BLOCK ---
+into a new
+--- CODE BLOCK 291 ---
+generateStaticParams
+--- END CODE BLOCK ---
+file inside the
+--- CODE BLOCK 292 ---
+getStaticPaths
+--- END CODE BLOCK ---
+directory.
+app/dashboard/layout.js
+--- CODE BLOCK 293 ---
+generateStaticParams
+--- END CODE BLOCK ---
+You can incrementally move non-interactive parts of
+--- CODE BLOCK 296 ---
+// `app` directory
+import PostLayout from '@/components/post-layout'
+export async function generateStaticParams() {
+return [{ id: '1' }, { id: '2' }]
+async function getPost(params) {
+const res = await fetch(`https://.../posts/${(await params).id}`)
+const post = await res.json()
+return post
+export default async function Post({ params }) {
+const post = await getPost(params)
+return <PostLayout post={post} />
+--- END CODE BLOCK ---
+(Client Component) into
+--- CODE BLOCK 297 ---
+generateStaticParams
+--- END CODE BLOCK ---
+(Server Component) to reduce the amount of component JavaScript you send to the client.
+Step 3: Migrating
+--- CODE BLOCK 298 ---
+getStaticPaths
+--- END CODE BLOCK ---
+In the
+--- CODE BLOCK 302 ---
+getStaticProps
+--- END CODE BLOCK ---
+directory, the
+--- CODE BLOCK 303 ---
+getServerSideProps
+--- END CODE BLOCK ---
+React component is used to manage
+--- CODE BLOCK 309 ---
+getStaticPaths
+--- END CODE BLOCK ---
+HTML elements such as
+--- CODE BLOCK 313 ---
+// `pages` directory
+export async function getStaticPaths() {
+return {
+paths: [],
+fallback: 'blocking'
+export async function getStaticProps({ params }) {
+export default function Post({ post }) {
+return ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 314 ---
+// `pages` directory
+export async function getStaticPaths() {
+return {
+paths: [],
+fallback: 'blocking'
+export async function getStaticProps({ params }) {
+export default function Post({ post }) {
+return ...
+--- END CODE BLOCK ---
+. In the
+--- CODE BLOCK 316 ---
+config.dynamicParams
+--- END CODE BLOCK ---
+directory,
+--- CODE BLOCK 317 ---
+generateStaticParams
+--- END CODE BLOCK ---
+is replaced with the new
+built-in SEO support
+Before:
+pages/index.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 319 ---
+generateStaticParams
+--- END CODE BLOCK ---
+After:
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 322 ---
+fallback: true | false | 'blocking'
+--- END CODE BLOCK ---
+See all metadata options
+Step 4: Migrating Pages
+Pages in the
+--- CODE BLOCK 325 ---
+fallback: 'blocking'
+--- END CODE BLOCK ---
+directory
+Server Components
+by default. This is different from the
+--- CODE BLOCK 326 ---
+dynamicParams
+--- END CODE BLOCK ---
+directory where pages are
+Client Components
+Data fetching
+has changed in
+--- CODE BLOCK 329 ---
+// `app` directory
+export const dynamicParams = true;
+export async function generateStaticParams() {
+return [...]
+async function getPost(params) {
+export default async function Post({ params }) {
+const post = await getPost(params);
+return ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 330 ---
+// `app` directory
+export const dynamicParams = true;
+export async function generateStaticParams() {
+return [...]
+async function getPost(params) {
+export default async function Post({ params }) {
+const post = await getPost(params);
+return ...
+--- END CODE BLOCK ---
+--- CODE BLOCK 331 ---
+dynamicParams
+--- END CODE BLOCK ---
+--- CODE BLOCK 333 ---
+getStaticProps
+--- END CODE BLOCK ---
+have been replaced with a simpler API.
+--- CODE BLOCK 336 ---
+getStaticProps
+--- END CODE BLOCK ---
+directory uses nested folders to define routes and a special
+--- CODE BLOCK 338 ---
+// `pages` directory
+export async function getStaticProps() {
+const res = await fetch(`https://.../posts`)
+const posts = await res.json()
+return {
+props: { posts },
+revalidate: 60,
+export default function Index({ posts }) {
+return (
+<Layout>
+<PostList posts={posts} />
+</Layout>
+--- END CODE BLOCK ---
+file to make a route segment publicly accessible.
+--- CODE BLOCK 339 ---
+// `pages` directory
+export async function getStaticProps() {
+const res = await fetch(`https://.../posts`)
+const posts = await res.json()
+return {
+props: { posts },
+revalidate: 60,
+export default function Index({ posts }) {
+return (
+<Layout>
+<PostList posts={posts} />
+</Layout>
+--- END CODE BLOCK ---
+Directory
+--- CODE BLOCK 343 ---
+// `app` directory
+async function getPosts() {
+const res = await fetch(`https://.../posts`, { next: { revalidate: 60 } })
+const data = await res.json()
+return data.posts
+export default async function PostList() {
+const posts = await getPosts()
+return posts.map((post) => <div>{post.name}</div>)
+--- END CODE BLOCK ---
+Directory
+Route
+--- CODE BLOCK 344 ---
+// `app` directory
+async function getPosts() {
+const res = await fetch(`https://.../posts`, { next: { revalidate: 60 } })
+const data = await res.json()
+return data.posts
+export default async function PostList() {
+const posts = await getPosts()
+return posts.map((post) => <div>{post.name}</div>)
+--- END CODE BLOCK ---
+--- CODE BLOCK 347 ---
+export async function GET(request: Request) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 348 ---
+export async function GET(request: Request) {}
+--- END CODE BLOCK ---
+--- CODE BLOCK 350 ---
+pages/_app.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 353 ---
+tailwind.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 354 ---
+module.exports = {
+content: [
+'./app/**/*.{js,ts,jsx,tsx,mdx}', // <-- Add this line
+'./pages/**/*.{js,ts,jsx,tsx,mdx}',
+'./components/**/*.{js,ts,jsx,tsx,mdx}',
+--- END CODE BLOCK ---
+--- CODE BLOCK 355 ---
+module.exports = {
+content: [
+'./app/**/*.{js,ts,jsx,tsx,mdx}', // <-- Add this line
+'./pages/**/*.{js,ts,jsx,tsx,mdx}',
+'./components/**/*.{js,ts,jsx,tsx,mdx}',
+--- END CODE BLOCK ---
+--- CODE BLOCK 356 ---
+app/layout.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 357 ---
+import '../styles/globals.css'
+export default function RootLayout({ children }) {
+return (
+<html lang="en">
+<body>{children}</body>
+</html>
+--- END CODE BLOCK ---
+We recommend breaking down the migration of a page into two main steps:
+Step 1: Move the default exported Page Component into a new Client Component.
+Step 2: Import the new Client Component into a new
+--- CODE BLOCK 358 ---
+import '../styles/globals.css'
+export default function RootLayout({ children }) {
+return (
+<html lang="en">
+<body>{children}</body>
+</html>
+--- END CODE BLOCK ---
+file inside the
+[CODE_BLOCK_170]
+directory.
+Good to know
+: This is the easiest migration path because it has the most comparable behavior to the
+[CODE_BLOCK_171]
+directory.
+Step 1: Create a new Client Component
+Create a new separate file inside the
+[CODE_BLOCK_172]
+directory (i.e.
+[CODE_BLOCK_173]
+or similar) that exports a Client Component. To define Client Components, add the
+[CODE_BLOCK_174]
+directive to the top of the file (before any imports).
+Similar to the Pages Router, there is an
+optimization step
+to prerender Client Components to static HTML on the initial page load.
+Move the default exported page component from
+[CODE_BLOCK_175]
+[CODE_BLOCK_176]
+app/home-page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_177]
+Step 2: Create a new page
+Create a new
+[CODE_BLOCK_179]
+file inside the
+[CODE_BLOCK_180]
+directory. This is a Server Component by default.
+Import the
+[CODE_BLOCK_181]
+Client Component into the page.
+If you were fetching data in
+[CODE_BLOCK_182]
+, move the data fetching logic directly into the Server Component using the new
+data fetching APIs
+. See the
+data fetching upgrade guide
+for more details.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_183]
+If your previous page used
+[CODE_BLOCK_185]
+, you'll need to update to the new routing hooks.
+Learn more
+Start your development server and visit
+[CODE_BLOCK_186]
+. You should see your existing index route, now served through the app directory.
+Step 5: Migrating Routing Hooks
+A new router has been added to support the new behavior in the
+[CODE_BLOCK_187]
+directory.
+[CODE_BLOCK_188]
+, you should use the three new hooks imported from
+[CODE_BLOCK_189]
+[CODE_BLOCK_190]
+[CODE_BLOCK_191]
+, and
+[CODE_BLOCK_192]
+The new
+[CODE_BLOCK_193]
+hook is imported from
+[CODE_BLOCK_194]
+and has different behavior to the
+[CODE_BLOCK_195]
+hook in
+[CODE_BLOCK_196]
+which is imported from
+[CODE_BLOCK_197]
+[CODE_BLOCK_198]
+hook imported from
+[CODE_BLOCK_199]
+is not supported in the
+[CODE_BLOCK_200]
+directory but can continue to be used in the
+[CODE_BLOCK_201]
+directory.
+The new
+[CODE_BLOCK_202]
+does not return the
+[CODE_BLOCK_203]
+string. Use the separate
+[CODE_BLOCK_204]
+hook instead.
+The new
+[CODE_BLOCK_205]
+does not return the
+[CODE_BLOCK_206]
+object. Search parameters and dynamic route parameters are now separate. Use the
+[CODE_BLOCK_207]
+[CODE_BLOCK_208]
+hooks instead.
+You can use
+[CODE_BLOCK_209]
+[CODE_BLOCK_210]
+together to listen to page changes. See the
+Router Events
+section for more details.
+These new hooks are only supported in Client Components. They cannot be used in Server Components.
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_211]
+In addition, the new
+[CODE_BLOCK_213]
+hook has the following changes:
+[CODE_BLOCK_214]
+has been removed because
+[CODE_BLOCK_215]
+been replaced
+[CODE_BLOCK_216]
+[CODE_BLOCK_217]
+[CODE_BLOCK_218]
+[CODE_BLOCK_219]
+values have been removed because built-in i18n Next.js features are no longer necessary in the
+[CODE_BLOCK_220]
+directory.
+Learn more about i18n
+[CODE_BLOCK_221]
+has been removed. The alternative will not be part of
+[CODE_BLOCK_222]
+. It has not yet been implemented.
+[CODE_BLOCK_223]
+has been removed because the concept of
+[CODE_BLOCK_224]
+has been removed from the new router.
+[CODE_BLOCK_225]
+has been removed because it is no longer necessary. During
+static rendering
+, any component that uses the
+[CODE_BLOCK_226]
+hook will skip the prerendering step and instead be rendered on the client at runtime.
+[CODE_BLOCK_227]
+has been removed.
+[CODE_BLOCK_228]
+[CODE_BLOCK_229]
+provide an alternative.
+View the
+[CODE_BLOCK_230]
+API reference
+Sharing components between
+[CODE_BLOCK_231]
+[CODE_BLOCK_232]
+To keep components compatible between the
+[CODE_BLOCK_233]
+[CODE_BLOCK_234]
+routers, refer to the
+[CODE_BLOCK_235]
+hook from
+[CODE_BLOCK_236]
+This is the
+[CODE_BLOCK_237]
+hook from the
+[CODE_BLOCK_238]
+directory, but intended to be used while sharing components between routers. Once you are ready to use it only on the
+[CODE_BLOCK_239]
+router, update to the new
+[CODE_BLOCK_240]
+from
+[CODE_BLOCK_241]
+Step 6: Migrating Data Fetching Methods
+[CODE_BLOCK_242]
+directory uses
+[CODE_BLOCK_243]
+[CODE_BLOCK_244]
+to fetch data for pages. Inside the
+[CODE_BLOCK_245]
+directory, these previous data fetching functions are replaced with a
+simpler API
+built on top of
+[CODE_BLOCK_246]
+[CODE_BLOCK_247]
+React Server Components.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_248]
+Server-side Rendering (
+[CODE_BLOCK_250]
+In the
+[CODE_BLOCK_251]
+directory,
+[CODE_BLOCK_252]
+is used to fetch data on the server and forward props to the default exported React component in the file. The initial HTML for the page is prerendered from the server, followed by "hydrating" the page in the browser (making it interactive).
+pages/dashboard.js
+[CODE_BLOCK_253]
+In the App Router, we can colocate our data fetching inside our React components using
+Server Components
+. This allows us to send less JavaScript to the client, while maintaining the rendered HTML from the server.
+By setting the
+[CODE_BLOCK_255]
+option to
+[CODE_BLOCK_256]
+, we can indicate that the fetched data should
+never be cached
+. This is similar to
+[CODE_BLOCK_257]
+in the
+[CODE_BLOCK_258]
+directory.
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_259]
+Accessing Request Object
+In the
+[CODE_BLOCK_261]
+directory, you can retrieve request-based data based on the Node.js HTTP API.
+For example, you can retrieve the
+[CODE_BLOCK_262]
+object from
+[CODE_BLOCK_263]
+and use it to retrieve the request's cookies and headers.
+pages/index.js
+[CODE_BLOCK_264]
+[CODE_BLOCK_266]
+directory exposes new read-only functions to retrieve request data:
+[CODE_BLOCK_267]
+: Based on the Web Headers API, and can be used inside
+Server Components
+to retrieve request headers.
+[CODE_BLOCK_268]
+: Based on the Web Cookies API, and can be used inside
+Server Components
+to retrieve cookies.
+app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_269]
+Static Site Generation (
+[CODE_BLOCK_271]
+In the
+[CODE_BLOCK_272]
+directory, the
+[CODE_BLOCK_273]
+function is used to pre-render a page at build time. This function can be used to fetch data from an external API or directly from a database, and pass this data down to the entire page as it's being generated during the build.
+pages/index.js
+[CODE_BLOCK_274]
+In the
+[CODE_BLOCK_276]
+directory, data fetching with
+[CODE_BLOCK_277]
+will default to
+[CODE_BLOCK_278]
+, which will cache the request data until manually invalidated. This is similar to
+[CODE_BLOCK_279]
+in the
+[CODE_BLOCK_280]
+directory.
+app/page.js
+[CODE_BLOCK_281]
+Dynamic paths (
+[CODE_BLOCK_283]
+In the
+[CODE_BLOCK_284]
+directory, the
+[CODE_BLOCK_285]
+function is used to define the dynamic paths that should be pre-rendered at build time.
+pages/posts/[id].js
+[CODE_BLOCK_286]
+In the
+[CODE_BLOCK_288]
+directory,
+[CODE_BLOCK_289]
+is replaced with
+[CODE_BLOCK_290]
+[CODE_BLOCK_291]
+behaves similarly to
+[CODE_BLOCK_292]
+, but has a simplified API for returning route parameters and can be used inside
+layouts
+. The return shape of
+[CODE_BLOCK_293]
+is an array of segments instead of an array of nested
+[CODE_BLOCK_294]
+objects or a string of resolved paths.
+app/posts/[id]/page.js
+[CODE_BLOCK_295]
+Using the name
+[CODE_BLOCK_297]
+is more appropriate than
+[CODE_BLOCK_298]
+for the new model in the
+[CODE_BLOCK_299]
+directory. The
+[CODE_BLOCK_300]
+prefix is replaced with a more descriptive
+[CODE_BLOCK_301]
+, which sits better alone now that
+[CODE_BLOCK_302]
+[CODE_BLOCK_303]
+are no longer necessary. The
+[CODE_BLOCK_304]
+suffix is replaced by
+[CODE_BLOCK_305]
+, which is more appropriate for nested routing with multiple dynamic segments.
+Replacing
+[CODE_BLOCK_306]
+In the
+[CODE_BLOCK_307]
+directory, the
+[CODE_BLOCK_308]
+property returned from
+[CODE_BLOCK_309]
+is used to define the behavior of a page that isn't pre-rendered at build time. This property can be set to
+[CODE_BLOCK_310]
+to show a fallback page while the page is being generated,
+[CODE_BLOCK_311]
+to show a 404 page, or
+[CODE_BLOCK_312]
+to generate the page at request time.
+pages/posts/[id].js
+[CODE_BLOCK_313]
+In the
+[CODE_BLOCK_315]
+directory the
+[CODE_BLOCK_316]
+property
+controls how params outside of
+[CODE_BLOCK_317]
+are handled:
+[CODE_BLOCK_318]
+: (default) Dynamic segments not included in
+[CODE_BLOCK_319]
+are generated on demand.
+[CODE_BLOCK_320]
+: Dynamic segments not included in
+[CODE_BLOCK_321]
+will return a 404.
+This replaces the
+[CODE_BLOCK_322]
+option of
+[CODE_BLOCK_323]
+in the
+[CODE_BLOCK_324]
+directory. The
+[CODE_BLOCK_325]
+option is not included in
+[CODE_BLOCK_326]
+because the difference between
+[CODE_BLOCK_327]
+[CODE_BLOCK_328]
+is negligible with streaming.
+app/posts/[id]/page.js
+[CODE_BLOCK_329]
+With
+[CODE_BLOCK_331]
+set to
+[CODE_BLOCK_332]
+(the default), when a route segment is requested that hasn't been generated, it will be server-rendered and cached.
+Incremental Static Regeneration (
+[CODE_BLOCK_333]
+with
+[CODE_BLOCK_334]
+In the
+[CODE_BLOCK_335]
+directory, the
+[CODE_BLOCK_336]
+function allows you to add a
+[CODE_BLOCK_337]
+field to automatically regenerate a page after a certain amount of time.
+pages/index.js
+[CODE_BLOCK_338]
+In the
+[CODE_BLOCK_340]
+directory, data fetching with
+[CODE_BLOCK_341]
+can use
+[CODE_BLOCK_342]
+, which will cache the request for the specified amount of seconds.
+app/page.js
+[CODE_BLOCK_343]
+API Routes
+API Routes continue to work in the
+[CODE_BLOCK_345]
+directory without any changes. However, they have been replaced by
+Route Handlers
+in the
+[CODE_BLOCK_346]
+directory.
+Route Handlers allow you to create custom request handlers for a given route using the Web
+Request
+Response
+APIs.
+app/api/route.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_347]
+Good to know
+: If you previously used API routes to call an external API from the client, you can now use
+Server Components
+instead to securely fetch data. Learn more about
+data fetching
+Single-Page Applications
+If you are also migrating to Next.js from a Single-Page Application (SPA) at the same time, see our
+documentation
+to learn more.
+Step 7: Styling
+In the
+[CODE_BLOCK_349]
+directory, global stylesheets are restricted to only
+[CODE_BLOCK_350]
+. With the
+[CODE_BLOCK_351]
+directory, this restriction has been lifted. Global styles can be added to any layout, page, or component.
+CSS Modules
+Tailwind CSS
+Global Styles
+CSS-in-JS
+External Stylesheets
+Sass
+Tailwind CSS
+If you're using Tailwind CSS, you'll need to add the
+[CODE_BLOCK_352]
+directory to your
+[CODE_BLOCK_353]
+file:
+tailwind.config.js
+[CODE_BLOCK_354]
+You'll also need to import your global styles in your
+[CODE_BLOCK_356]
+file:
+app/layout.js
+[CODE_BLOCK_357]
+Learn more about
+styling with Tailwind CSS
+Using App Router together with Pages Router
+When navigating between routes served by the different Next.js routers, there will be a hard navigation. Automatic link prefetching with
+[CODE_BLOCK_359]
+will not prefetch across routers.
+Instead, you can
+optimize navigations
+between App Router and Pages Router to retain the prefetched and fast page transitions.
+Learn more
+Codemods
+Next.js provides Codemod transformations to help upgrade your codebase when a feature is deprecated. See
+Codemods
+for more information.
+Was this helpful?
+supported.
+Send

@@ -1,0 +1,39 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/poweredByHeader
+SCRAPED: 2025-06-19 17:15:36
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+poweredByHeader
+You are currently viewing the documentation for Pages Router.
+poweredByHeader
+By default Next.js will add the
+--- CODE BLOCK 1 ---
+x-powered-by
+--- END CODE BLOCK ---
+header. To opt-out of it, open
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+and disable the
+--- CODE BLOCK 3 ---
+poweredByHeader
+--- END CODE BLOCK ---
+config:
+next.config.js
+--- CODE BLOCK 4 ---
+module.exports = {
+poweredByHeader: false,
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send

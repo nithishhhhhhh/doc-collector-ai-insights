@@ -1,0 +1,46 @@
+SOURCE URL: https://opentelemetry.io/docs/
+SCRAPED: 2025-06-19 18:09:17
+================================================================================
+
+Documentation
+OpenTelemetry, also known as OTel, is a vendor-neutral open source
+Observability
+framework
+for instrumenting, generating, collecting, and exporting telemetry data such as
+traces
+metrics
+, and
+logs
+As an industry-standard, OpenTelemetry is
+supported by more than 40 observability vendors
+integrated by many
+libraries, services, and apps
+and adopted by
+numerous end users
+What is OpenTelemetry?
+A brief explanation of what OpenTelemetry is and isn’t.
+Getting Started
+Get started with OpenTelemetry based on your role.
+OpenTelemetry Concepts
+Key concepts in OpenTelemetry
+OpenTelemetry Demo Docs
+Language APIs & SDKs
+OpenTelemetry code instrumentation is supported for many popular programming languages
+Platforms and environments
+Hardware & software platforms and environments supporting OpenTelemetry
+Zero-code Instrumentation
+Collector
+Vendor-agnostic way to receive, process and export telemetry data.
+Migration
+How to migrate to OpenTelemetry
+Specifications
+Security
+Contributing
+Feedback
+Was this page helpful?
+Thank you. Your feedback is appreciated!
+Please let us know
+how we can improve this page
+. Your feedback is appreciated!
+Last modified May 6, 2025:
+Refactor resource-intro: get default resource from include file (#6824) (7caeb2b2)

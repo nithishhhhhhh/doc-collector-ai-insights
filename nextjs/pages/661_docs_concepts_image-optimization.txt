@@ -1,0 +1,395 @@
+SOURCE URL: https://vercel.com/docs/concepts/image-optimization?utm_source=next-site&utm_medium=docs&utm_campaign=next-website
+SCRAPED: 2025-06-19 18:24:31
+================================================================================
+
+Image Optimization
+Search...
+Choose a framework to optimize documentation to:
+Copy page
+Image Optimization with Vercel
+Image Optimization
+available
+plans
+Vercel supports dynamically transforming unoptimized images to reduce the file system while maintaining high quality. These optimized images are cached on the
+Vercel Edge Network
+, meaning they're available close to users whenever they're requested.
+Get started
+Image Optimization works with many frameworks, including Next.js, Astro, and Nuxt, enabling you to optimize images using built-in components.
+Get started with Next.js by following the
+Image Optimization Quickstart
+and selecting Next.js from the dropdown.
+Get started with Nuxt by following the
+Image Optimization Quickstart
+and selecting Nuxt from the dropdown.
+Get started with Astro by following the
+Image Optimization Quickstart
+and selecting Astro from the dropdown.
+For a live example which demonstrates usage with the
+--- CODE BLOCK 5 ---
+unoptimized
+--- END CODE BLOCK ---
+component, see the
+Image Optimization demo
+Why should I optimize my images on Vercel?
+Optimizing images on Vercel provides several advantages for your application:
+Reduces the size of images and data transferred, enhancing website performance, user experience, and
+Fast Data Transfer
+usage.
+Improving
+Core Web Vitals
+, reduced bounce rates, and speeding up page loads.
+Sizing images to support different devices and use modern formats like
+WebP
+AVIF
+Optimized images are cached after transformation, which allows them to be reused in subsequent requests.
+How Image Optimization works
+The flow of image optimization on Vercel involves several steps, starting from the image request to serving the optimized image.
+The optimization process starts with your component choice in your codebase:
+If you use a standard HTML
+--- CODE BLOCK 7 ---
+next.config.ts
+--- END CODE BLOCK ---
+element, the browser will be instructed to bypass optimization and serve the image directly from its source.
+If you use a framework's
+--- CODE BLOCK 8 ---
+unoptimized
+--- END CODE BLOCK ---
+component (like
+--- CODE BLOCK 11 ---
+unoptimized
+--- END CODE BLOCK ---
+) it will use Vercel's image optimization pipeline, allowing your images to be automatically optimized and cached.
+When Next.js receives an image request, it checks the
+--- CODE BLOCK 13 ---
+next.config.ts
+--- END CODE BLOCK ---
+prop on the
+--- CODE BLOCK 14 ---
+unoptimized
+--- END CODE BLOCK ---
+component or the configuration in the
+--- CODE BLOCK 15 ---
+next.config.ts
+--- END CODE BLOCK ---
+file to determine if optimization is disabled.
+If you set the
+--- CODE BLOCK 16 ---
+remotePatterns
+--- END CODE BLOCK ---
+prop on the
+--- CODE BLOCK 17 ---
+localPatterns
+--- END CODE BLOCK ---
+component to
+--- CODE BLOCK 21 ---
+unoptimized
+--- END CODE BLOCK ---
+, Next.js bypasses optimization and serves the image directly from its source.
+If you don't set the
+--- CODE BLOCK 24 ---
+next.config.ts
+--- END CODE BLOCK ---
+prop or set it to
+--- CODE BLOCK 27 ---
+src={myImage}
+--- END CODE BLOCK ---
+, Next.js checks the
+--- CODE BLOCK 28 ---
+next.config.ts
+--- END CODE BLOCK ---
+file to see if optimization is disabled. This configuration applies to all images and overrides the individual component prop.
+If neither the
+--- CODE BLOCK 29 ---
+module.exports = {
+images: {
+localPatterns: [
+pathname: '/assets/images/**',
+search: '',
+--- END CODE BLOCK ---
+prop is set nor optimization is disabled in the
+--- CODE BLOCK 30 ---
+module.exports = {
+images: {
+localPatterns: [
+pathname: '/assets/images/**',
+search: '',
+--- END CODE BLOCK ---
+file, Next.js continues with the optimization process.
+If optimization is enabled, Vercel validates the
+loader configuration
+(whether using the default or a custom loader) and verifies that the image
+source URL
+matches the allowed patterns defined in your configuration (
+--- CODE BLOCK 35 ---
+/assets/me.png
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+3399d02f49253deb9f5b5d1159292099
+--- END CODE BLOCK ---
+Vercel then checks the status of the edge cache to see if an image has been previously cached:
+--- CODE BLOCK 40 ---
+next.config.ts
+--- END CODE BLOCK ---
+: The image is fetched and served from the cache, either in region or from the shared global cache.
+If fetched from the global cache, it's billed as an
+image cache read
+which is reflected in your
+usage metrics
+--- CODE BLOCK 41 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'example.com',
+port: '',
+pathname: '/account123/**',
+search: '',
+--- END CODE BLOCK ---
+: The image is fetched, transformed, cached, and then served to the user.
+Billed as an
+image transformation
+image cache write
+which is reflected in your
+usage metrics
+--- CODE BLOCK 42 ---
+module.exports = {
+images: {
+remotePatterns: [
+protocol: 'https',
+hostname: 'example.com',
+port: '',
+pathname: '/account123/**',
+search: '',
+--- END CODE BLOCK ---
+: The image is fetched and served from the cache while revalidating in the background.
+Billed as an
+image transformation
+image cache write
+which is reflected in your
+usage metrics
+When to use Image Optimization
+Image Optimization is ideal for:
+Responsive layouts where images need to be optimized for different device sizes (e.g. mobile vs desktop)
+Large, high-quality images (e.g. product photos, hero images)
+User uploaded images
+Content where images play a central role (e.g. photography portfolios)
+In some cases, Image Optimization may not be necessary or beneficial, such as:
+Small icons or thumbnails (under 10 KB)
+Animated image formats such as GIFs
+Vector image formats such as SVG
+Frequently changing images where caching could lead to outdated content
+If your images meet any of the above criteria where Image Optimization is not beneficial, we recommend using the
+--- CODE BLOCK 45 ---
+pathname: '/account123/v12h2bv/**'
+--- END CODE BLOCK ---
+prop on the Next.js
+--- CODE BLOCK 53 ---
+Cache-Control
+--- END CODE BLOCK ---
+component. For guidance on
+SvelteKit
+Astro
+, or
+Nuxt
+, see their documentation.
+It's important that you are only optimizing images that need to be optimized otherwise you could end up using your
+image usage
+quota unnecessarily. For example, if you have a small icon or thumbnail that is under 10 KB, you should not use Image Optimization as these images are already very small and optimizing them further would not provide any benefits.
+Setting up remote or local patterns
+An important aspect of using the
+--- CODE BLOCK 55 ---
+minimumCacheTTL
+--- END CODE BLOCK ---
+component is properly setting up remote/local patterns in your
+--- CODE BLOCK 59 ---
+/_next/image?url={link/to/src/image}&w=3840&q=75
+--- END CODE BLOCK ---
+file. This configuration determines which images are allowed to be optimized.
+You can set up patterns for both
+local images
+(stored as static assets in your
+--- CODE BLOCK 60 ---
+/_vercel/image?url={link/to/src/image}&w=3840&q=75
+--- END CODE BLOCK ---
+folder) and
+remote images
+(stored externally). In both cases you specify the pathname the images are located at.
+Local images
+A local image is imported from your file system and analyzed at build time. The import is added to the
+--- CODE BLOCK 64 ---
+next.config.js
+--- END CODE BLOCK ---
+prop:
+[CODE_BLOCK_27]
+Setting up local patterns
+To set up local patterns, you need to specify the pathname of the images you want to optimize. This is done in the
+[CODE_BLOCK_28]
+file:
+next.config.ts
+[CODE_BLOCK_29]
+See the
+Next.js documentation for local patterns
+for more information.
+Local images cache key
+The cache key for local images is based on the query string parameters, the
+[CODE_BLOCK_31]
+HTTP header, and the content hash of the image URL.
+Cache Key
+Project ID
+Query string parameters:
+[CODE_BLOCK_32]
+: The quality of the optimized image, between 1 (lowest quality) and 100 (highest quality).
+[CODE_BLOCK_33]
+: The width (in pixels) of the optimized image.
+[CODE_BLOCK_34]
+: The URL of the optimized image is keyed by content hash e.g.
+[CODE_BLOCK_35]
+is converted to
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+HTTP header (normalized).
+Local image cache invalidation
+Redeploying your app doesn't invalidate the image cache.
+To invalidate, replace the image of the same name with different content, then
+redeploy
+Local image cache expiration
+Cached
+for up to 31 days
+on the Vercel Edge Network.
+Remote images
+A remote image requires the
+[CODE_BLOCK_38]
+property to be a URL string, which can be relative or absolute.
+Setting up remote patterns
+To set up remote patterns, you need to specify the
+[CODE_BLOCK_39]
+of the images you want to optimize. This is done in the
+[CODE_BLOCK_40]
+file:
+next.config.ts
+[CODE_BLOCK_41]
+In the case of external images, you should consider adding your account id to the
+[CODE_BLOCK_43]
+if you don't own the
+[CODE_BLOCK_44]
+. For example
+[CODE_BLOCK_45]
+. This helps protect your source images from potential abuse.
+See the
+Next.js documentation for remote patterns
+for more information.
+Remote images cache key
+The cache key for remote images is based on the query string parameters, the
+[CODE_BLOCK_46]
+HTTP header, and the content hash of the image URL.
+Cache Key
+Project ID
+Query string parameters:
+[CODE_BLOCK_47]
+: The quality of the optimized image, between 1 (lowest quality) and 100 (highest quality).
+[CODE_BLOCK_48]
+: The width (in pixels) of the optimized image.
+[CODE_BLOCK_49]
+: The URL of the optimized image e.g.
+https://example.com/assets/me.png
+[CODE_BLOCK_50]
+HTTP header (normalized).
+Remote image cache invalidation
+Redeploying your app doesn't invalidate the image cache
+To invalidate, add a query string to the
+[CODE_BLOCK_51]
+property (e.g.,
+[CODE_BLOCK_52]
+), then
+redeploy
+Alternatively, you can configure the cache to expire more frequently.
+Remote image cache expiration
+TTL is determined by the
+[CODE_BLOCK_53]
+[CODE_BLOCK_54]
+header from the upstream image or
+[CODE_BLOCK_55]
+config (default:
+[CODE_BLOCK_56]
+seconds), whichever is larger.
+If your image content changes frequently, it's best to keep this TTL short.
+Once an image is cached, it remains so even if you update the source image. For remote images, users accessing a URL with a previously cached image will see the old version until the cache expires or the image is invalidated. Each time an image is requested, it counts towards your
+Fast Data Transfer
+Edge Request
+usage for your billing cycle.
+Pricing
+for more information, and read more about
+caching behavior
+in the Next.js documentation.
+Image Transformation URL format
+When you use the
+[CODE_BLOCK_57]
+component in common frameworks and deploy your project on Vercel, Image Optimization automatically adjusts your images for different device screen sizes. The
+[CODE_BLOCK_58]
+prop you provided in your code is dynamically replaced with an optimized image URL. For example:
+Next.js:
+[CODE_BLOCK_59]
+Nuxt.js, Astro, etc:
+[CODE_BLOCK_60]
+The Image Optimization API has the following query parameters:
+[CODE_BLOCK_61]
+: The URL of the source image to be transformed. This can be a local image (relative url) or remote image (absolute url).
+[CODE_BLOCK_62]
+: The width of the transformed image in pixels. No height is needed since the source image aspect ratio is preserved.
+[CODE_BLOCK_63]
+: The quality of the transformed image, between 1 (lowest quality) and 100 (highest quality).
+The allowed values of those query parameters are determined by the framework you are using, such as
+[CODE_BLOCK_64]
+for Next.js.
+If you are not using a framework that comes with an
+[CODE_BLOCK_65]
+component or you are building your own framework, refer to the
+Build Output API
+to see how the build output from a framework can configure the Image Optimization API.
+Opt-in
+To switch to the transformation images-based pricing plan:
+Choose your team scope on the dashboard, and go to
+Settings
+, then
+Billing
+Scroll down to the
+Image Optimization
+section
+Select
+Review Cost Estimate
+. Proceed to enable this option in the dialog that shows the cost estimate.
+View your estimate
+Related
+For more information on what to do next, we recommend the following articles:
+Image Optimization quickstart
+Managing costs
+Pricing
+If you are building a custom web framework, you can also use the
+Build Output API
+to implement Image Optimization. To learn how to do this, see the
+Build your own web framework
+blog post.
+Last updated on
+May 30, 2025
+Previous
+Headers
+Next
+Redirects
+Was this helpful?
+supported.
+Send
+On this page
+Get started
+Why should I optimize my images on Vercel?
+How Image Optimization works
+When to use Image Optimization
+Setting up remote or local patterns
+Local images
+Setting up local patterns
+Local images cache key
+Remote images
+Setting up remote patterns
+Remote images cache key
+Image Transformation URL format
+Opt-in
+Related

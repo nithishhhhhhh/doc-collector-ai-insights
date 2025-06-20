@@ -1,0 +1,552 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/eslint
+SCRAPED: 2025-06-19 17:27:52
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+API Reference
+Configuration
+ESLint
+You are currently viewing the documentation for Pages Router.
+ESLint
+Next.js provides an ESLint plugin,
+--- CODE BLOCK 1 ---
+eslint-plugin-next
+--- END CODE BLOCK ---
+, already bundled within the base configuration that makes it possible to catch common issues and problems in a Next.js application.
+Reference
+Recommended rule-sets from the following ESLint plugins are all used within
+--- CODE BLOCK 2 ---
+eslint-config-next
+--- END CODE BLOCK ---
+--- CODE BLOCK 3 ---
+eslint-plugin-react
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+eslint-plugin-react-hooks
+--- END CODE BLOCK ---
+--- CODE BLOCK 5 ---
+eslint-plugin-next
+--- END CODE BLOCK ---
+This will take precedence over the configuration from
+--- CODE BLOCK 6 ---
+next.config.js
+--- END CODE BLOCK ---
+Rules
+The full set of rules is as follows:
+Enabled in recommended config
+Rule
+Description
+@next/next/google-font-display
+Enforce font-display behavior with Google Fonts.
+@next/next/google-font-preconnect
+Ensure
+--- CODE BLOCK 9 ---
+next/script
+--- END CODE BLOCK ---
+is used with Google Fonts.
+@next/next/inline-script-id
+Enforce
+--- CODE BLOCK 10 ---
+next/script
+--- END CODE BLOCK ---
+attribute on
+--- CODE BLOCK 12 ---
+next/script
+--- END CODE BLOCK ---
+components with inline content.
+@next/next/next-script-for-ga
+Prefer
+--- CODE BLOCK 13 ---
+beforeInteractive
+--- END CODE BLOCK ---
+component when using the inline script for Google Analytics.
+@next/next/no-assign-module-variable
+Prevent assignment to the
+--- CODE BLOCK 14 ---
+pages/_document.js
+--- END CODE BLOCK ---
+variable.
+@next/next/no-async-client-component
+Prevent Client Components from being async functions.
+@next/next/no-before-interactive-script-outside-document
+Prevent usage of
+--- CODE BLOCK 15 ---
+next/document
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+pages/_document.js
+--- END CODE BLOCK ---
+strategy outside of
+--- CODE BLOCK 18 ---
+pages/_document.js
+--- END CODE BLOCK ---
+@next/next/no-css-tags
+Prevent manual stylesheet tags.
+@next/next/no-document-import-in-page
+Prevent importing
+--- CODE BLOCK 21 ---
+pages/_document.js
+--- END CODE BLOCK ---
+outside of
+--- CODE BLOCK 24 ---
+next/script
+--- END CODE BLOCK ---
+@next/next/no-duplicate-head
+Prevent duplicate usage of
+--- CODE BLOCK 27 ---
+pages/_document.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 30 ---
+next/document
+--- END CODE BLOCK ---
+@next/next/no-head-element
+Prevent usage of
+--- CODE BLOCK 33 ---
+components/
+--- END CODE BLOCK ---
+element.
+@next/next/no-head-import-in-document
+Prevent usage of
+--- CODE BLOCK 38 ---
+next.config.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+module.exports = {
+eslint: {
+dirs: ['pages', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+--- END CODE BLOCK ---
+@next/next/no-html-link-for-pages
+Prevent usage of
+--- CODE BLOCK 40 ---
+module.exports = {
+eslint: {
+dirs: ['pages', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+--- END CODE BLOCK ---
+elements to navigate to internal Next.js pages.
+@next/next/no-img-element
+Prevent usage of
+--- CODE BLOCK 44 ---
+next lint --dir pages --dir utils --file bar.js
+--- END CODE BLOCK ---
+element due to slower LCP and higher bandwidth.
+@next/next/no-page-custom-font
+Prevent page-only custom fonts.
+@next/next/no-script-component-in-head
+Prevent usage of
+--- CODE BLOCK 45 ---
+next lint --dir pages --dir utils --file bar.js
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+eslint-plugin-next
+--- END CODE BLOCK ---
+component.
+@next/next/no-styled-jsx-in-document
+Prevent usage of
+--- CODE BLOCK 47 ---
+eslint-plugin-next
+--- END CODE BLOCK ---
+--- CODE BLOCK 50 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next'],
+settings: {
+next: {
+rootDir: 'packages/my-app/',
+export default eslintConfig
+--- END CODE BLOCK ---
+@next/next/no-sync-scripts
+Prevent synchronous scripts.
+@next/next/no-title-in-document-head
+Prevent usage of
+--- CODE BLOCK 51 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next'],
+settings: {
+next: {
+rootDir: 'packages/my-app/',
+export default eslintConfig
+--- END CODE BLOCK ---
+with
+--- CODE BLOCK 53 ---
+"packages/*/"
+--- END CODE BLOCK ---
+component from
+--- CODE BLOCK 54 ---
+.next/cache
+--- END CODE BLOCK ---
+@next/next/no-typos
+Prevent common typos in
+Next.js's data fetching functions
+@next/next/no-unwanted-polyfillio
+Prevent duplicate polyfills from Polyfill.io.
+We recommend using an appropriate
+integration
+to view warnings and errors directly in your code editor during development.
+Examples
+Linting custom directories and files
+By default, Next.js will run ESLint for all files in the
+--- CODE BLOCK 57 ---
+next lint --no-cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 58 ---
+next lint --no-cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 60 ---
+react-hooks
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next'],
+rules: {
+'react/no-unescaped-entities': 'off',
+'@next/next/no-page-custom-font': 'off',
+export default eslintConfig
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 65 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next'],
+rules: {
+'react/no-unescaped-entities': 'off',
+'@next/next/no-page-custom-font': 'off',
+export default eslintConfig
+--- END CODE BLOCK ---
+directories. However, you can specify which directories using the
+--- CODE BLOCK 66 ---
+next/core-web-vitals
+--- END CODE BLOCK ---
+option in the
+--- CODE BLOCK 68 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next/core-web-vitals'],
+export default eslintConfig
+--- END CODE BLOCK ---
+config in
+--- CODE BLOCK 69 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next/core-web-vitals'],
+export default eslintConfig
+--- END CODE BLOCK ---
+for production builds:
+next.config.js
+--- CODE BLOCK 70 ---
+next/core-web-vitals
+--- END CODE BLOCK ---
+Similarly, the
+--- CODE BLOCK 72 ---
+next/core-web-vitals
+--- END CODE BLOCK ---
+--- CODE BLOCK 73 ---
+create-next-app --typescript
+--- END CODE BLOCK ---
+flags can be used for
+--- CODE BLOCK 74 ---
+next/typescript
+--- END CODE BLOCK ---
+to lint specific directories and files:
+Terminal
+--- CODE BLOCK 75 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next/core-web-vitals', 'next/typescript'],
+export default eslintConfig
+--- END CODE BLOCK ---
+Specifying a root directory within a monorepo
+If you're using
+--- CODE BLOCK 77 ---
+plugin:@typescript-eslint/recommended
+--- END CODE BLOCK ---
+in a project where Next.js isn't installed in your root directory (such as a monorepo), you can tell
+--- CODE BLOCK 78 ---
+npm install --save-dev eslint-config-prettier
+yarn add --dev eslint-config-prettier
+pnpm add --save-dev eslint-config-prettier
+bun add --dev eslint-config-prettier
+--- END CODE BLOCK ---
+where to find your Next.js application using the
+--- CODE BLOCK 79 ---
+npm install --save-dev eslint-config-prettier
+yarn add --dev eslint-config-prettier
+pnpm add --save-dev eslint-config-prettier
+bun add --dev eslint-config-prettier
+--- END CODE BLOCK ---
+property in your
+--- CODE BLOCK 81 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next', 'prettier'],
+export default eslintConfig
+--- END CODE BLOCK ---
+eslint.config.mjs
+--- CODE BLOCK 82 ---
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+const eslintConfig = [
+...compat.config({
+extends: ['next', 'prettier'],
+export default eslintConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 86 ---
+const path = require('path')
+const buildEslintCommand = (filenames) =>
+`next lint --fix --file ${filenames
+.map((f) => path.relative(process.cwd(), f))
+.join(' --file ')}`
+module.exports = {
+'*.{js,jsx,ts,tsx}': [buildEslintCommand],
+--- END CODE BLOCK ---
+can be a path (relative or absolute), a glob (i.e.
+--- CODE BLOCK 87 ---
+const path = require('path')
+const buildEslintCommand = (filenames) =>
+`next lint --fix --file ${filenames
+.map((f) => path.relative(process.cwd(), f))
+.join(' --file ')}`
+module.exports = {
+'*.{js,jsx,ts,tsx}': [buildEslintCommand],
+--- END CODE BLOCK ---
+), or an array of paths and/or globs.
+Disabling the cache
+To improve performance, information of files processed by ESLint are cached by default. This is stored in
+--- CODE BLOCK 89 ---
+eslint.ignoreDuringBuilds
+--- END CODE BLOCK ---
+or in your defined
+build directory
+. If you include any ESLint rules that depend on more than the contents of a single source file and need to disable the cache, use the
+--- CODE BLOCK 90 ---
+next.config.js
+--- END CODE BLOCK ---
+flag with
+--- CODE BLOCK 92 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+eslint: {
+// Warning: This allows production builds to successfully complete even if
+// your project has ESLint errors.
+ignoreDuringBuilds: true,
+export default nextConfig
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 93 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+eslint: {
+// Warning: This allows production builds to successfully complete even if
+// your project has ESLint errors.
+ignoreDuringBuilds: true,
+export default nextConfig
+--- END CODE BLOCK ---
+Disabling rules
+If you would like to modify or disable any rules provided by the supported plugins (
+--- CODE BLOCK 98 ---
+react-hooks
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+parserOptions
+--- END CODE BLOCK ---
+--- CODE BLOCK 102 ---
+eslint-plugin-import
+--- END CODE BLOCK ---
+), you can directly change them using the
+--- CODE BLOCK 103 ---
+eslint-config-next
+--- END CODE BLOCK ---
+property in your
+--- CODE BLOCK 104 ---
+module.exports = {
+extends: [
+//...
+'plugin:@next/next/recommended',
+--- END CODE BLOCK ---
+eslint.config.mjs
+--- CODE BLOCK 105 ---
+module.exports = {
+extends: [
+//...
+'plugin:@next/next/recommended',
+--- END CODE BLOCK ---
+With Core Web Vitals
+--- CODE BLOCK 108 ---
+npm install --save-dev @next/eslint-plugin-next
+yarn add --dev @next/eslint-plugin-next
+pnpm add --save-dev @next/eslint-plugin-next
+bun add --dev @next/eslint-plugin-next
+--- END CODE BLOCK ---
+rule set is enabled when
+--- CODE BLOCK 109 ---
+eslint-config-next
+--- END CODE BLOCK ---
+is run for the first time and the
+strict
+option is selected.
+eslint.config.mjs
+--- CODE BLOCK 110 ---
+import js from '@eslint/js'
+import { FlatCompat } from '@eslint/eslintrc'
+const compat = new FlatCompat({
+// import.meta.dirname is available after Node.js v20.11.0
+baseDirectory: import.meta.dirname,
+recommendedConfig: js.configs.recommended,
+const eslintConfig = [
+...compat.config({
+extends: ['eslint:recommended', 'next'],
+export default eslintConfig
+--- END CODE BLOCK ---
+[CODE_BLOCK_70]
+updates
+[CODE_BLOCK_71]
+to error on a number of rules that are warnings by default if they affect
+Core Web Vitals
+[CODE_BLOCK_72]
+entry point is automatically included for new applications built with
+Create Next App
+With TypeScript
+In addition to the Next.js ESLint rules,
+[CODE_BLOCK_73]
+will also add TypeScript-specific lint rules with
+[CODE_BLOCK_74]
+to your config:
+eslint.config.mjs
+[CODE_BLOCK_75]
+Those rules are based on
+[CODE_BLOCK_77]
+typescript-eslint > Configs
+for more details.
+With Prettier
+ESLint also contains code formatting rules, which can conflict with your existing
+Prettier
+setup. We recommend including
+eslint-config-prettier
+in your ESLint config to make ESLint and Prettier work together.
+First, install the dependency:
+Terminal
+[CODE_BLOCK_78]
+Then, add
+[CODE_BLOCK_80]
+to your existing ESLint config:
+eslint.config.mjs
+[CODE_BLOCK_81]
+Running lint on staged files
+If you would like to use
+[CODE_BLOCK_83]
+with
+lint-staged
+to run the linter on staged git files, you'll have to add the following to the
+[CODE_BLOCK_84]
+file in the root of your project in order to specify usage of the
+[CODE_BLOCK_85]
+flag.
+.lintstagedrc.js
+[CODE_BLOCK_86]
+Disabling linting during production builds
+If you do not want ESLint to run during
+[CODE_BLOCK_88]
+, you can set the
+[CODE_BLOCK_89]
+option in
+[CODE_BLOCK_90]
+[CODE_BLOCK_91]
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_92]
+Migrating existing config
+If you already have ESLint configured in your application, we recommend extending from this plugin directly instead of including
+[CODE_BLOCK_94]
+unless a few conditions are met.
+Recommended plugin ruleset
+If the following conditions are true:
+You have one or more of the following plugins already installed (either separately or through a different config such as
+[CODE_BLOCK_95]
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+[CODE_BLOCK_100]
+You've defined specific
+[CODE_BLOCK_101]
+that are different from how Babel is configured within Next.js (this is not recommended unless you have
+customized your Babel configuration
+You have
+[CODE_BLOCK_102]
+installed with Node.js and/or TypeScript
+resolvers
+defined to handle imports
+Then we recommend either removing these settings if you prefer how these properties have been configured within
+[CODE_BLOCK_103]
+or extending directly from the Next.js ESLint plugin instead:
+[CODE_BLOCK_104]
+The plugin can be installed normally in your project without needing to run
+[CODE_BLOCK_106]
+Terminal
+[CODE_BLOCK_107]
+This eliminates the risk of collisions or errors that can occur due to importing the same plugin or parser across multiple configurations.
+Additional configurations
+If you already use a separate ESLint configuration and want to include
+[CODE_BLOCK_109]
+, ensure that it is extended last after other configurations. For example:
+eslint.config.mjs
+[CODE_BLOCK_110]
+[CODE_BLOCK_112]
+configuration already handles setting default values for the
+[CODE_BLOCK_113]
+[CODE_BLOCK_114]
+[CODE_BLOCK_115]
+properties. There is no need to manually re-declare any of these properties unless you need a different configuration for your use case.
+If you include any other shareable configurations,
+you will need to make sure that these properties are not overwritten or modified
+. Otherwise, we recommend removing any configurations that share behavior with the
+[CODE_BLOCK_116]
+configuration or extending directly from the Next.js ESLint plugin as mentioned above.
+Was this helpful?
+supported.
+Send

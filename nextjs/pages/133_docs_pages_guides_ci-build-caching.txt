@@ -1,0 +1,222 @@
+SOURCE URL: https://nextjs.org/docs/pages/guides/ci-build-caching
+SCRAPED: 2025-06-19 17:24:46
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Pages Router
+Guides
+CI Build Caching
+You are currently viewing the documentation for Pages Router.
+How to configure Continuous Integration (CI) build caching
+To improve build performance, Next.js saves a cache to
+--- CODE BLOCK 1 ---
+.next/cache
+--- END CODE BLOCK ---
+that is shared between builds.
+To take advantage of this cache in Continuous Integration (CI) environments, your CI workflow will need to be configured to correctly persist the cache between builds.
+If your CI is not configured to persist
+--- CODE BLOCK 2 ---
+.next/cache
+--- END CODE BLOCK ---
+between builds, you may see a
+No Cache Detected
+error.
+Here are some example cache configurations for common CI providers:
+Vercel
+Next.js caching is automatically configured for you. There's no action required on your part. If you are using Turborepo on Vercel,
+learn more here
+CircleCI
+Edit your
+--- CODE BLOCK 4 ---
+.circleci/config.yml
+--- END CODE BLOCK ---
+step in
+--- CODE BLOCK 5 ---
+.next/cache
+--- END CODE BLOCK ---
+to include
+--- CODE BLOCK 6 ---
+steps:
+- save_cache:
+key: dependency-cache-{{ checksum "yarn.lock" }}
+paths:
+- ./node_modules
+- ./.next/cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+steps:
+- save_cache:
+key: dependency-cache-{{ checksum "yarn.lock" }}
+paths:
+- ./node_modules
+- ./.next/cache
+--- END CODE BLOCK ---
+If you do not have a
+--- CODE BLOCK 10 ---
+cache:
+directories:
+- $HOME/.cache/yarn
+- node_modules
+- .next/cache
+--- END CODE BLOCK ---
+key, please follow CircleCI's
+documentation on setting up build caching
+Travis CI
+Add or merge the following into your
+--- CODE BLOCK 11 ---
+cache:
+directories:
+- $HOME/.cache/yarn
+- node_modules
+- .next/cache
+--- END CODE BLOCK ---
+--- CODE BLOCK 12 ---
+.gitlab-ci.yml
+--- END CODE BLOCK ---
+GitLab CI
+Add or merge the following into your
+--- CODE BLOCK 14 ---
+cache:
+key: ${CI_COMMIT_REF_SLUG}
+paths:
+- node_modules/
+- .next/cache/
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+@netlify/plugin-nextjs
+--- END CODE BLOCK ---
+Netlify CI
+Netlify Plugins
+with
+--- CODE BLOCK 17 ---
+cache:
+paths:
+- 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`
+- '.next/cache/**/*' # Cache Next.js for faster application rebuilds
+--- END CODE BLOCK ---
+AWS CodeBuild
+Add (or merge in) the following to your
+--- CODE BLOCK 18 ---
+cache:
+paths:
+- 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`
+- '.next/cache/**/*' # Cache Next.js for faster application rebuilds
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+uses: actions/cache@v4
+with:
+# See here for caching with `yarn`, `bun` or other package managers https://github.com/actions/cache/blob/main/examples.md or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+path: |
+~/.npm
+${{ github.workspace }}/.next/cache
+# Generate a new cache whenever packages or source files change.
+key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+# If source files changed but packages didn't, rebuild from a prior cache.
+restore-keys: |
+${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+--- END CODE BLOCK ---
+GitHub Actions
+Using GitHub's
+actions/cache
+, add the following step in your workflow file:
+--- CODE BLOCK 21 ---
+bitbucket-pipelines.yml
+--- END CODE BLOCK ---
+Bitbucket Pipelines
+Add or merge the following into your
+--- CODE BLOCK 24 ---
+definitions:
+caches:
+nextcache: .next/cache
+--- END CODE BLOCK ---
+at the top level (same level as
+--- CODE BLOCK 27 ---
+- step:
+name: your_step_name
+caches:
+- node
+- nextcache
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+- step:
+name: your_step_name
+caches:
+- node
+- nextcache
+--- END CODE BLOCK ---
+Then reference it in the
+--- CODE BLOCK 30 ---
+"cacheDirectories": [".next/cache"]
+--- END CODE BLOCK ---
+section of your pipeline's
+--- CODE BLOCK 31 ---
+"cacheDirectories": [".next/cache"]
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+- task: Cache@2
+displayName: 'Cache .next/cache'
+inputs:
+key: next | $(Agent.OS) | yarn.lock
+path: '$(System.DefaultWorkingDirectory)/.next/cache'
+--- END CODE BLOCK ---
+Heroku
+Using Heroku's
+custom cache
+, add a
+--- CODE BLOCK 35 ---
+Jenkinsfile
+--- END CODE BLOCK ---
+array in your top-level package.json:
+--- CODE BLOCK 37 ---
+npm install
+--- END CODE BLOCK ---
+Azure Pipelines
+Using Azure Pipelines'
+Cache task
+, add the following task to your pipeline yaml file somewhere prior to the task that executes
+--- CODE BLOCK 39 ---
+stage("Restore npm packages") {
+steps {
+// Writes lock-file to cache based on the GIT_COMMIT hash
+writeFile file: "next-lock.cache", text: "$GIT_COMMIT"
+cache(caches: [
+arbitraryFileCache(
+path: "node_modules",
+includes: "**/*",
+cacheValidityDecidingFile: "package-lock.json"
+]) {
+sh "npm install"
+stage("Build") {
+steps {
+// Writes lock-file to cache based on the GIT_COMMIT hash
+writeFile file: "next-lock.cache", text: "$GIT_COMMIT"
+cache(caches: [
+arbitraryFileCache(
+path: ".next/cache",
+includes: "**/*",
+cacheValidityDecidingFile: "next-lock.cache"
+]) {
+// aka `next build`
+sh "npm run build"
+--- END CODE BLOCK ---
+[CODE_BLOCK_33]
+Jenkins (Pipeline)
+Using Jenkins'
+Job Cacher
+plugin, add the following build step to your
+[CODE_BLOCK_35]
+where you would normally run
+[CODE_BLOCK_36]
+[CODE_BLOCK_37]
+[CODE_BLOCK_38]
+Was this helpful?
+supported.
+Send

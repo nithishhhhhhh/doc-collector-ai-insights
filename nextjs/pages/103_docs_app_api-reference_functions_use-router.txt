@@ -1,0 +1,272 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/functions/use-router
+SCRAPED: 2025-06-19 17:21:12
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Functions
+useRouter
+useRouter
+--- CODE BLOCK 4 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/dashboard')}>
+Dashboard
+</button>
+--- END CODE BLOCK ---
+hook allows you to programmatically change routes inside
+Client Components
+Recommendation:
+Use the
+--- CODE BLOCK 5 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export default function Page() {
+const router = useRouter()
+return (
+<button type="button" onClick={() => router.push('/dashboard')}>
+Dashboard
+</button>
+--- END CODE BLOCK ---
+component
+for navigation unless you have a specific requirement for using
+--- CODE BLOCK 6 ---
+useRouter()
+--- END CODE BLOCK ---
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 7 ---
+router.push(href: string, { scroll: boolean })
+--- END CODE BLOCK ---
+--- CODE BLOCK 9 ---
+router.refresh()
+--- END CODE BLOCK ---
+--- CODE BLOCK 11 ---
+router.prefetch(href: string)
+--- END CODE BLOCK ---
+: Perform a client-side navigation to the provided route. Adds a new entry into the
+browser’s history
+stack.
+--- CODE BLOCK 12 ---
+router.back()
+--- END CODE BLOCK ---
+: Perform a client-side navigation to the provided route without adding a new entry into the
+browser’s history stack
+--- CODE BLOCK 13 ---
+router.forward()
+--- END CODE BLOCK ---
+: Refresh the current route. Making a new request to the server, re-fetching data requests, and re-rendering Server Components. The client will merge the updated React Server Component payload without losing unaffected client-side React (e.g.
+--- CODE BLOCK 14 ---
+router.push
+--- END CODE BLOCK ---
+) or browser state (e.g. scroll position).
+--- CODE BLOCK 15 ---
+router.replace
+--- END CODE BLOCK ---
+Prefetch
+the provided route for faster client-side transitions.
+--- CODE BLOCK 16 ---
+javascript:
+--- END CODE BLOCK ---
+: Navigate back to the previous route in the browser’s history stack.
+--- CODE BLOCK 17 ---
+router.push
+--- END CODE BLOCK ---
+: Navigate forwards to the next page in the browser’s history stack.
+Good to know
+You must not send untrusted or unsanitized URLs to
+--- CODE BLOCK 18 ---
+router.replace
+--- END CODE BLOCK ---
+--- CODE BLOCK 23 ---
+next/router
+--- END CODE BLOCK ---
+, as this can open your site to cross-site scripting (XSS) vulnerabilities. For example,
+--- CODE BLOCK 25 ---
+next/navigation
+--- END CODE BLOCK ---
+URLs sent to
+--- CODE BLOCK 26 ---
+next/router
+--- END CODE BLOCK ---
+--- CODE BLOCK 28 ---
+usePathname()
+--- END CODE BLOCK ---
+will be executed in the context of your page.
+--- CODE BLOCK 30 ---
+useSearchParams()
+--- END CODE BLOCK ---
+component automatically prefetch routes as they become visible in the viewport.
+--- CODE BLOCK 31 ---
+router.events
+--- END CODE BLOCK ---
+could re-produce the same result if fetch requests are cached. Other Dynamic APIs like
+--- CODE BLOCK 32 ---
+usePathname
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+useSearchParams
+--- END CODE BLOCK ---
+could also change the response.
+Migrating from
+--- CODE BLOCK 34 ---
+'use client'
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+export function NavigationEvents() {
+const pathname = usePathname()
+const searchParams = useSearchParams()
+useEffect(() => {
+const url = `${pathname}?${searchParams}`
+console.log(url)
+// You can now use the current URL
+// ...
+}, [pathname, searchParams])
+return '...'
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+'use client'
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+export function NavigationEvents() {
+const pathname = usePathname()
+const searchParams = useSearchParams()
+useEffect(() => {
+const url = `${pathname}?${searchParams}`
+console.log(url)
+// You can now use the current URL
+// ...
+}, [pathname, searchParams])
+return '...'
+--- END CODE BLOCK ---
+hook should be imported from
+--- CODE BLOCK 36 ---
+import { Suspense } from 'react'
+import { NavigationEvents } from './components/navigation-events'
+export default function Layout({ children }) {
+return (
+<html lang="en">
+<body>
+{children}
+<Suspense fallback={null}>
+<NavigationEvents />
+</Suspense>
+</body>
+</html>
+--- END CODE BLOCK ---
+and not
+--- CODE BLOCK 37 ---
+import { Suspense } from 'react'
+import { NavigationEvents } from './components/navigation-events'
+export default function Layout({ children }) {
+return (
+<html lang="en">
+<body>
+{children}
+<Suspense fallback={null}>
+<NavigationEvents />
+</Suspense>
+</body>
+</html>
+--- END CODE BLOCK ---
+when using the App Router
+--- CODE BLOCK 38 ---
+<NavigationEvents>
+--- END CODE BLOCK ---
+string has been removed and is replaced by
+--- CODE BLOCK 40 ---
+useSearchParams()
+--- END CODE BLOCK ---
+--- CODE BLOCK 42 ---
+scroll: false
+--- END CODE BLOCK ---
+object has been removed and is replaced by
+--- CODE BLOCK 43 ---
+router.push()
+--- END CODE BLOCK ---
+--- CODE BLOCK 44 ---
+router.replace()
+--- END CODE BLOCK ---
+has been replaced.
+See below.
+View the full migration guide
+Examples
+Router events
+You can listen for page changes by composing other Client Component hooks like
+--- CODE BLOCK 45 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export default function Page() {
+const router = useRouter()
+return (
+<button
+type="button"
+onClick={() => router.push('/dashboard', { scroll: false })}
+Dashboard
+</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 46 ---
+'use client'
+import { useRouter } from 'next/navigation'
+export default function Page() {
+const router = useRouter()
+return (
+<button
+type="button"
+onClick={() => router.push('/dashboard', { scroll: false })}
+Dashboard
+</button>
+--- END CODE BLOCK ---
+app/components/navigation-events.js
+--- CODE BLOCK 49 ---
+next/navigation
+--- END CODE BLOCK ---
+Which can be imported into a layout.
+app/layout.js
+[CODE_BLOCK_36]
+Good to know
+[CODE_BLOCK_38]
+is wrapped in a
+[CODE_BLOCK_39]
+boundary
+because
+[CODE_BLOCK_40]
+causes client-side rendering up to the closest
+[CODE_BLOCK_41]
+boundary during
+static rendering
+Learn more
+Disabling scroll to top
+By default, Next.js will scroll to the top of the page when navigating to a new route. You can disable this behavior by passing
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+app/example-client-component.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_45]
+Version History
+Version
+Changes
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+from
+[CODE_BLOCK_49]
+introduced.
+Was this helpful?
+supported.
+Send

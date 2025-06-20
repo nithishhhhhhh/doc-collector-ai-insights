@@ -1,0 +1,147 @@
+SOURCE URL: https://nextjs.org/docs/pages/api-reference/config/next-config-js/webpack
+SCRAPED: 2025-06-19 17:13:06
+================================================================================
+
+Menu
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Using Pages Router
+Features available in /pages
+Using Latest Version
+15.3.4
+Configuration
+next.config.js Options
+webpack
+You are currently viewing the documentation for Pages Router.
+Custom Webpack Config
+Good to know
+: changes to webpack config are not covered by semver so proceed at your own risk
+Before continuing to add custom webpack configuration to your application make sure Next.js doesn't already support your use-case:
+CSS imports
+CSS modules
+Sass/SCSS imports
+Sass/SCSS modules
+Customizing babel configuration
+Some commonly asked for features are available as plugins:
+@next/mdx
+@next/bundle-analyzer
+In order to extend our usage of
+--- CODE BLOCK 2 ---
+next.config.js
+--- END CODE BLOCK ---
+, you can define a function that extends its config inside
+--- CODE BLOCK 3 ---
+module.exports = {
+webpack: (
+config,
+{ buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+) => {
+// Important: return the modified config
+return config
+--- END CODE BLOCK ---
+, like so:
+next.config.js
+--- CODE BLOCK 4 ---
+module.exports = {
+webpack: (
+config,
+{ buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+) => {
+// Important: return the modified config
+return config
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+String | undefined
+--- END CODE BLOCK ---
+function is executed three times, twice for the server (nodejs / edge runtime) and once for the client. This allows you to distinguish between client and server configuration using the
+--- CODE BLOCK 21 ---
+defaultLoaders
+--- END CODE BLOCK ---
+property.
+The second argument to the
+--- CODE BLOCK 25 ---
+babel-loader
+--- END CODE BLOCK ---
+function is an object with the following properties:
+--- CODE BLOCK 26 ---
+defaultLoaders.babel
+--- END CODE BLOCK ---
+--- CODE BLOCK 27 ---
+// Example config for adding a loader that depends on babel-loader
+// This source was taken from the @next/mdx plugin source:
+// https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+module.exports = {
+webpack: (config, options) => {
+config.module.rules.push({
+test: /\.mdx/,
+use: [
+options.defaultLoaders.babel,
+loader: '@mdx-js/loader',
+options: pluginOptions.options,
+return config
+--- END CODE BLOCK ---
+- The build id, used as a unique identifier between builds.
+--- CODE BLOCK 28 ---
+// Example config for adding a loader that depends on babel-loader
+// This source was taken from the @next/mdx plugin source:
+// https://github.com/vercel/next.js/tree/canary/packages/next-mdx
+module.exports = {
+webpack: (config, options) => {
+config.module.rules.push({
+test: /\.mdx/,
+use: [
+options.defaultLoaders.babel,
+loader: '@mdx-js/loader',
+options: pluginOptions.options,
+return config
+--- END CODE BLOCK ---
+--- CODE BLOCK 29 ---
+nextRuntime
+--- END CODE BLOCK ---
+- Indicates if the compilation will be done in development.
+--- CODE BLOCK 32 ---
+nextRuntime
+--- END CODE BLOCK ---
+--- CODE BLOCK 35 ---
+nextRuntime
+--- END CODE BLOCK ---
+- It's
+[CODE_BLOCK_14]
+for server-side compilation, and
+[CODE_BLOCK_15]
+for client-side compilation.
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+- The target runtime for server-side compilation; either
+[CODE_BLOCK_18]
+[CODE_BLOCK_19]
+, it's
+[CODE_BLOCK_20]
+for client-side compilation.
+[CODE_BLOCK_21]
+[CODE_BLOCK_22]
+- Default loaders used internally by Next.js:
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+- Default
+[CODE_BLOCK_25]
+configuration.
+Example usage of
+[CODE_BLOCK_26]
+[CODE_BLOCK_27]
+[CODE_BLOCK_29]
+Notice that
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+when
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+[CODE_BLOCK_36]
+is currently for middleware and Server Components in edge runtime only.
+Was this helpful?
+supported.
+Send

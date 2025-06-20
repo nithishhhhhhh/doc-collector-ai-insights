@@ -1,0 +1,319 @@
+SOURCE URL: https://vercel.com/docs/observability/otel-overview
+SCRAPED: 2025-06-19 17:54:14
+================================================================================
+
+OpenTelemetry
+Next.js (/app)
+Search...
+Choose a framework to optimize documentation to:
+Next.js (/app)
+Next.js (/pages)
+Other frameworks
+Copy page
+Quickstart for using the Vercel OpenTelemetry Collector
+Vercel's OpenTelemetry collector
+available
+plans
+Vercel has an OpenTelemetry (OTEL)
+collector
+that allows you to send OTEL traces from your Serverless or Edge Functions to application performance monitoring (APM) vendors such as
+New Relic
+You can use the Vercel OTEL collector or configure the OTEL SDK to use
+custom trace exporters
+Traces are a way to collect data about the performance and behavior of your application and help identify the cause of performance issues, errors, and other problems. Learn more about traces
+in the OpenTelemetry
+docs.
+To start using OpenTelemetry on Vercel, follow the steps below. This guide gives examples using Next.js and other frameworks where you can use Serverless or Edge Functions.
+Supported OTEL integrations
+DataDog
+: Only traces are supported in
+Beta
+to teams on Pro and Enterprise plans.
+New Relic
+: Traces, metrics and logs are supported in
+Beta
+to teams on Pro and Enterprise plans.
+Get started with the Vercel OTEL collector
+Install an OTEL integration to visualize traces
+Select an integration from the
+Observability
+category in the
+Marketplace
+such as
+DataDog
+New Relic
+Click the
+Add Integration
+button to begin the
+installation
+and follow each step to add the correct
+Scope
+If you already have installed an OTEL integration, you can skip this step.
+Enable traces
+To use OTEL, you must enable Traces for the Integration. You can do this either during initial setup, or if you already have the integration installed, select
+Manage
+next to the Integration in the
+Integrations
+tab and then select
+Configure
+Initialize OTEL
+Using
+--- CODE BLOCK 1 ---
+@vercel/otel
+--- END CODE BLOCK ---
+wrapper
+Using OpenTelemetry SDK
+For JavaScript and Typescript users on Vercel, you can use the
+--- CODE BLOCK 2 ---
+@vercel/otel
+--- END CODE BLOCK ---
+package to call the correct OpenTelemetry SDK for you.
+Install the OpenTelemetry JavaScript SDK and
+--- CODE BLOCK 3 ---
+@vercel/otel
+--- END CODE BLOCK ---
+pnpm
+yarn
+--- CODE BLOCK 4 ---
+pnpm i @opentelemetry/api @vercel/otel
+--- END CODE BLOCK ---
+Create an
+--- CODE BLOCK 6 ---
+instrumentation.ts
+--- END CODE BLOCK ---
+file in the root of your project, or, on Next.js
+it must be placed
+in the
+--- CODE BLOCK 8 ---
+@vercel/otel
+--- END CODE BLOCK ---
+directory if you are using one. Add the following code to initialize and configure OTEL using
+--- CODE BLOCK 9 ---
+import { registerOTel } from '@vercel/otel';
+export function register() {
+registerOTel({ serviceName: 'your-project-name' });
+// NOTE: You can replace `your-project-name` with the actual name of your project
+--- END CODE BLOCK ---
+Next.js (/app)
+Next.js (/pages)
+Other frameworks
+instrumentation.ts
+TypeScript
+TypeScript
+JavaScript
+--- CODE BLOCK 10 ---
+import { registerOTel } from '@vercel/otel';
+export function register() {
+registerOTel({ serviceName: 'your-project-name' });
+// NOTE: You can replace `your-project-name` with the actual name of your project
+--- END CODE BLOCK ---
+Before receiving traces from an APM vendor (such as DataDog), it may be
+necessary to first create the service you intend to use as a
+--- CODE BLOCK 12 ---
+pnpm i @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/resources @opentelemetry/semantic-conventions @opentelemetry/sdk-trace-base @opentelemetry/exporter-trace-otlp-http @opentelemetry/sdk-trace-node
+--- END CODE BLOCK ---
+within the service catalog. Refer to the APM vendor's documentation for
+specific requirements.
+You can use standard OpenTelemetry SDK to send traces to our collector. List of all
+supported languages by OpenTelemetry and their SDK can be found in
+OpenTelemetry docs
+Begin by installing the following packages:
+pnpm
+yarn
+--- CODE BLOCK 13 ---
+pnpm i @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/resources @opentelemetry/semantic-conventions @opentelemetry/sdk-trace-base @opentelemetry/exporter-trace-otlp-http @opentelemetry/sdk-trace-node
+--- END CODE BLOCK ---
+Next, create an
+--- CODE BLOCK 15 ---
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
+export function register() {
+const sdk = new NodeSDK({
+resource: new Resource({
+[SemanticResourceAttributes.SERVICE_NAME]: 'your-project-name',
+// NOTE: You can replace `your-project-name` with the actual name of your project
+spanProcessor: new SimpleSpanProcessor(new OTLPTraceExporter()),
+sdk.start();
+--- END CODE BLOCK ---
+file in the root of your project and add the following code to initialize and configure OTEL.
+Next.js (/app)
+Next.js (/pages)
+Other frameworks
+instrumentation.ts
+TypeScript
+TypeScript
+JavaScript
+--- CODE BLOCK 16 ---
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { Resource } from '@opentelemetry/resources';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
+export function register() {
+const sdk = new NodeSDK({
+resource: new Resource({
+[SemanticResourceAttributes.SERVICE_NAME]: 'your-project-name',
+// NOTE: You can replace `your-project-name` with the actual name of your project
+spanProcessor: new SimpleSpanProcessor(new OTLPTraceExporter()),
+sdk.start();
+--- END CODE BLOCK ---
+The provided service name will be used in your OpenTelemetry backend to distinguish traces from different services.
+You need to specify what you want to do with generated spans, there are two types of span processors:
+--- CODE BLOCK 18 ---
+BatchSpanProcessor
+--- END CODE BLOCK ---
+: sends each span to the collector right away. This type is shown in code above
+--- CODE BLOCK 19 ---
+processor.forceFlush()
+--- END CODE BLOCK ---
+: collects a number of spans and sends them together to the collector. If you choose this type, you'll need to call
+--- CODE BLOCK 20 ---
+@opentelemetry/exporter-trace-otlp-http
+--- END CODE BLOCK ---
+at the end of the invocation to immediately export all spans
+A span processor needs to know what to do with processed traces.
+In order to export traces to Vercel OpenTelemetry collector, you need to use one of these exporters:
+--- CODE BLOCK 21 ---
+@opentelemetry/exporter-trace-otlp-grpc
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+experimental.instrumentationHook = true
+--- END CODE BLOCK ---
+Start tracing requests in your project
+Next.js 13.4+
+Other frameworks
+Next.js 13.4+ supports auto-instrumentation which means you no longer have to create a span for each request. To use this feature in Next.js 13 & 14, you must explicitly opt-in by adding
+--- CODE BLOCK 23 ---
+next.config.js
+--- END CODE BLOCK ---
+to your
+--- CODE BLOCK 25 ---
+import { trace, context } from '@opentelemetry/api';
+export default async function getUser(_request, response) {
+const tracer = trace.getTracer('your-project-name');
+tracer.startActiveSpan(name, async (span) => {
+try {
+const result = someFnThatMightThrowError(span);
+span.end();
+return result;
+} catch (e) {
+span.recordException(e);
+span.setStatus({ code: SpanStatusCode.ERROR, message: e.message });
+throw e;
+--- END CODE BLOCK ---
+. This is not required in Next.js 15+.
+For more information, please refer to the
+Next.js docs for auto-instrumentation
+For non-Next.js frameworks or Next.js version older than
+--- CODE BLOCK 26 ---
+import { trace, context } from '@opentelemetry/api';
+export default async function getUser(_request, response) {
+const tracer = trace.getTracer('your-project-name');
+tracer.startActiveSpan(name, async (span) => {
+try {
+const result = someFnThatMightThrowError(span);
+span.end();
+return result;
+} catch (e) {
+span.recordException(e);
+span.setStatus({ code: SpanStatusCode.ERROR, message: e.message });
+throw e;
+--- END CODE BLOCK ---
+, you will need to manually create spans for each request.
+pages/api/get-user.js
+--- CODE BLOCK 27 ---
+pages/api/get-user.ts
+--- END CODE BLOCK ---
+In the code above we are importing the OTEL tracer to the
+--- CODE BLOCK 29 ---
+@vercel/otel
+--- END CODE BLOCK ---
+file to create spans for tracking performance. You'll need to include this import to any file that uses the tracer.
+Deploy your project to Vercel
+If you have an existing project, you must trigger a redeployment to use traces.
+You can either deploy your project through the
+dashboard
+or through the
+Custom OTEL exporters
+The use of OTEL collector is recommended due to its performance benefits. However, if you need to export tracing to an unsupported APM vendor, you can do so using environment variables or configuration options in the
+--- CODE BLOCK 30 ---
+traceExporter
+--- END CODE BLOCK ---
+package.
+Most of OpenTelemetry's
+SDK environment variables
+are supported by
+--- CODE BLOCK 31 ---
+spanProcessors
+--- END CODE BLOCK ---
+, including
+OTLP exporter variables
+. You can configure these variables using Vercel's
+environment variables
+And you can supply completely custom exporter using the
+--- CODE BLOCK 32 ---
+registerOTel()
+--- END CODE BLOCK ---
+--- CODE BLOCK 33 ---
+import { registerOTel, OTLPHttpJsonTraceExporter } from '@vercel/otel';
+export function register() {
+registerOTel({
+serviceName: 'your-project-name',
+traceExporter: new OTLPHttpJsonTraceExporter({
+url: 'https://your-trace-exporter-url',
+headers: {
+'authentication-header-name': 'authentication-header-value',
+'another-header-name': 'another-header-value',
+--- END CODE BLOCK ---
+configuration options in the
+--- CODE BLOCK 34 ---
+import { registerOTel, OTLPHttpJsonTraceExporter } from '@vercel/otel';
+export function register() {
+registerOTel({
+serviceName: 'your-project-name',
+traceExporter: new OTLPHttpJsonTraceExporter({
+url: 'https://your-trace-exporter-url',
+headers: {
+'authentication-header-name': 'authentication-header-value',
+'another-header-name': 'another-header-value',
+--- END CODE BLOCK ---
+API.
+Next.js (/app)
+Next.js (/pages)
+Other frameworks
+instrumentation.ts
+TypeScript
+TypeScript
+JavaScript
+[CODE_BLOCK_33]
+Using custom OpenTelemetry setup with Sentry
+If you are using Sentry v8+, follow the
+Sentry documentation
+to learn how to use your existing custom OpenTelemetry setup.
+Last updated on
+May 5, 2025
+Previous
+Runtime
+Next
+Session Tracing
+Was this helpful?
+supported.
+Send
+Next.js (/app)
+Choose a framework to optimize documentation to:
+Next.js (/app)
+Next.js (/pages)
+Other frameworks
+On this page
+Supported OTEL integrations
+Get started with the Vercel OTEL collector
+Install an OTEL integration to visualize traces
+Enable traces
+Initialize OTEL
+Start tracing requests in your project
+Deploy your project to Vercel
+Custom OTEL exporters
+Using custom OpenTelemetry setup with Sentry

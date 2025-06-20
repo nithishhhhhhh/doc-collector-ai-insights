@@ -1,0 +1,944 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
+SCRAPED: 2025-06-19 18:20:14
+================================================================================
+
+JavaScript
+--- CODE BLOCK 7 ---
+Number.MAX_SAFE_INTEGER
+--- END CODE BLOCK ---
+objects represent a single moment in time in a platform-independent format.
+--- CODE BLOCK 11 ---
+console.log(new Date(8.64e15).toString()); // "Sat Sep 13 275760 00:00:00 GMT+0000 (Coordinated Universal Time)"
+console.log(new Date(8.64e15 + 1).toString()); // "Invalid Date"
+--- END CODE BLOCK ---
+objects encapsulate an integral number that represents milliseconds since the midnight at the beginning of January 1, 1970, UTC (the
+epoch
+Note:
+With the introduction of the
+--- CODE BLOCK 12 ---
+console.log(new Date(8.64e15).toString()); // "Sat Sep 13 275760 00:00:00 GMT+0000 (Coordinated Universal Time)"
+console.log(new Date(8.64e15 + 1).toString()); // "Invalid Date"
+--- END CODE BLOCK ---
+API, the
+--- CODE BLOCK 16 ---
+[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+object is considered a legacy feature. Consider using
+--- CODE BLOCK 20 ---
+Date.parse()
+--- END CODE BLOCK ---
+for new code and migrate existing code over to it if possible (check the
+browser compatibility
+. We will be writing a usage guide soon!
+Description
+The epoch, timestamps, and invalid date
+A JavaScript date is fundamentally specified as the time in milliseconds that has elapsed since the
+epoch
+, which is defined as the midnight at the beginning of January 1, 1970, UTC (equivalent to the
+UNIX epoch
+). This timestamp is
+timezone-agnostic
+and uniquely defines an instant in history.
+Note:
+While the time value at the heart of a Date object is UTC, the basic methods to fetch the date and time or its components all work in the local (i.e., host system) time zone and offset.
+The maximum timestamp representable by a
+--- CODE BLOCK 24 ---
+getTimezoneOffset()
+--- END CODE BLOCK ---
+object is slightly smaller than the maximum safe integer (
+--- CODE BLOCK 28 ---
+getFullYear()
+--- END CODE BLOCK ---
+, which is 9,007,199,254,740,991). A
+--- CODE BLOCK 29 ---
+setFullYear()
+--- END CODE BLOCK ---
+object can represent a maximum of ±8,640,000,000,000,000 milliseconds, or ±100,000,000 (one hundred million) days, relative to the epoch. This is the range from April 20, 271821 BC to September 13, 275760 AD. Any attempt to represent a time outside this range results in the
+--- CODE BLOCK 30 ---
+getUTCFullYear()
+--- END CODE BLOCK ---
+object holding a timestamp value of
+--- CODE BLOCK 31 ---
+setUTCFullYear()
+--- END CODE BLOCK ---
+, which is an "Invalid Date".
+Copy to Clipboard
+--- CODE BLOCK 34 ---
+getUTCMonth()
+--- END CODE BLOCK ---
+There are various methods that allow you to interact with the timestamp stored in the date:
+You can interact with the timestamp value directly using the
+--- CODE BLOCK 38 ---
+getUTCDate()
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+setUTCDate()
+--- END CODE BLOCK ---
+methods.
+--- CODE BLOCK 42 ---
+getUTCHours()
+--- END CODE BLOCK ---
+--- CODE BLOCK 43 ---
+setUTCHours()
+--- END CODE BLOCK ---
+(when passed
+--- CODE BLOCK 44 ---
+getMinutes()
+--- END CODE BLOCK ---
+) methods — which are automatically called in
+number coercion
+— return the timestamp, causing
+--- CODE BLOCK 45 ---
+setMinutes()
+--- END CODE BLOCK ---
+objects to behave like their timestamps when used in number contexts.
+All static methods (
+--- CODE BLOCK 46 ---
+getUTCMinutes()
+--- END CODE BLOCK ---
+--- CODE BLOCK 47 ---
+setUTCMinutes()
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 48 ---
+getSeconds()
+--- END CODE BLOCK ---
+) return timestamps instead of
+--- CODE BLOCK 49 ---
+setSeconds()
+--- END CODE BLOCK ---
+objects.
+--- CODE BLOCK 50 ---
+getUTCSeconds()
+--- END CODE BLOCK ---
+constructor can be called with a timestamp as the only argument.
+Date components and time zones
+A date is represented internally as a single number, the
+timestamp
+. When interacting with it, the timestamp needs to be interpreted as a structured date-and-time representation. There are always two ways to interpret a timestamp: as a local time or as a Coordinated Universal Time (UTC), the global standard time defined by the World Time Standard. The local timezone is not stored in the date object, but is determined by the host environment (user's device).
+Note:
+UTC should not be confused with the
+Greenwich Mean Time
+(GMT), because they are not always equal — this is explained in more detail in the linked Wikipedia page.
+For example, the timestamp 0 represents a unique instant in history, but it can be interpreted in two ways:
+As a UTC time, it is midnight at the beginning of January 1, 1970, UTC,
+As a local time in New York (UTC-5), it is 19:00:00 on December 31, 1969.
+--- CODE BLOCK 51 ---
+setUTCSeconds()
+--- END CODE BLOCK ---
+method returns the difference between UTC and the local time in minutes. Note that the timezone offset does not only depend on the current timezone, but also on the time represented by the
+--- CODE BLOCK 52 ---
+getMilliseconds()
+--- END CODE BLOCK ---
+object, because of daylight saving time and historical changes. In essence, the timezone offset is the offset from UTC time, at the time represented by the
+--- CODE BLOCK 53 ---
+setMilliseconds()
+--- END CODE BLOCK ---
+object and at the location of the host environment.
+There are two groups of
+--- CODE BLOCK 54 ---
+getUTCMilliseconds()
+--- END CODE BLOCK ---
+methods: one group gets and sets various date components by interpreting the timestamp as a local time, while the other uses UTC.
+Component
+Local
+Year
+--- CODE BLOCK 55 ---
+setUTCMilliseconds()
+--- END CODE BLOCK ---
+--- CODE BLOCK 57 ---
+getUTCDay()
+--- END CODE BLOCK ---
+--- CODE BLOCK 64 ---
+new Date(99, 5, 24)
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+YYYY-MM-DDTHH:mm:ss.sssZ
+--- END CODE BLOCK ---
+Month
+--- CODE BLOCK 110 ---
+HH:mm:ss.sss
+--- END CODE BLOCK ---
+--- CODE BLOCK 111 ---
+"2011-10-10"
+--- END CODE BLOCK ---
+--- CODE BLOCK 112 ---
+"2011-10-10T14:48:00"
+--- END CODE BLOCK ---
+--- CODE BLOCK 113 ---
+"2011-10-10T14:48:00.000+09:00"
+--- END CODE BLOCK ---
+Date (of month)
+--- CODE BLOCK 114 ---
+Date.parse()
+--- END CODE BLOCK ---
+--- CODE BLOCK 116 ---
+toISOString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 118 ---
+Date.parse()
+--- END CODE BLOCK ---
+--- CODE BLOCK 119 ---
+toISOString()
+--- END CODE BLOCK ---
+Hours
+--- CODE BLOCK 120 ---
+1970-01-01T00:00:00.000Z
+--- END CODE BLOCK ---
+--- CODE BLOCK 122 ---
+toISOString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 124 ---
+Thu Jan 01 1970 00:00:00 GMT+0000 (Coordinated Universal Time)
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+toDateString()
+--- END CODE BLOCK ---
+Minutes
+--- CODE BLOCK 126 ---
+toTimeString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 127 ---
+[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+--- CODE BLOCK 131 ---
+toUTCString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 132 ---
+Thu, 01 Jan 1970 00:00:00 GMT
+--- END CODE BLOCK ---
+Seconds
+--- CODE BLOCK 133 ---
+toLocaleDateString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 134 ---
+toLocaleTimeString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 135 ---
+toLocaleString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+Date.parse()
+--- END CODE BLOCK ---
+Milliseconds
+--- CODE BLOCK 143 ---
+Date.prototype
+--- END CODE BLOCK ---
+--- CODE BLOCK 145 ---
+Date.prototype.constructor
+--- END CODE BLOCK ---
+--- CODE BLOCK 148 ---
+Date.prototype.getDate()
+--- END CODE BLOCK ---
+--- CODE BLOCK 151 ---
+Date.prototype.getDay()
+--- END CODE BLOCK ---
+Day (of week)
+--- CODE BLOCK 154 ---
+Date.prototype.getFullYear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 155 ---
+Date.prototype.getHours()
+--- END CODE BLOCK ---
+--- CODE BLOCK 158 ---
+Date.prototype.getMilliseconds()
+--- END CODE BLOCK ---
+constructor can be called with two or more arguments, in which case they are interpreted as the year, month, day, hour, minute, second, and millisecond, respectively, in local time.
+--- CODE BLOCK 161 ---
+Date.prototype.getMinutes()
+--- END CODE BLOCK ---
+works similarly, but it interprets the components as UTC time and also accepts a single argument representing the year.
+Note:
+Some methods, including the
+--- CODE BLOCK 164 ---
+Date.prototype.getMonth()
+--- END CODE BLOCK ---
+constructor,
+--- CODE BLOCK 167 ---
+Date.prototype.getSeconds()
+--- END CODE BLOCK ---
+, and the deprecated
+--- CODE BLOCK 170 ---
+Date.prototype.getTime()
+--- END CODE BLOCK ---
+--- CODE BLOCK 171 ---
+Date.prototype.getTimezoneOffset()
+--- END CODE BLOCK ---
+methods, interpret a two-digit year as a year in the 1900s. For example,
+--- CODE BLOCK 172 ---
+Date.prototype.getUTCDate()
+--- END CODE BLOCK ---
+is interpreted as June 24, 1999, not June 24, 99. See
+Interpretation of two-digit years
+for more information.
+When a segment overflows or underflows its expected range, it usually "carries over to" or "borrows from" the higher segment. For example, if the month is set to 12 (months are zero-based, so December is 11), it becomes the January of the next year. If the day of month is set to 0, it becomes the last day of the previous month. This also applies to dates specified with the
+date time string format
+Date time string format
+There are many ways to format a date as a string. The JavaScript specification only specifies one format to be universally supported: the
+date time string format
+, a simplification of the ISO 8601 calendar date extended format. The format is as follows:
+--- CODE BLOCK 175 ---
+Date.prototype.getUTCDay()
+--- END CODE BLOCK ---
+--- CODE BLOCK 178 ---
+Date.prototype.getUTCFullYear()
+--- END CODE BLOCK ---
+is the year, with four digits (
+--- CODE BLOCK 179 ---
+Date.prototype.getUTCHours()
+--- END CODE BLOCK ---
+--- CODE BLOCK 182 ---
+Date.prototype.getUTCMilliseconds()
+--- END CODE BLOCK ---
+), or as an
+expanded year
+--- CODE BLOCK 185 ---
+Date.prototype.getUTCMinutes()
+--- END CODE BLOCK ---
+--- CODE BLOCK 188 ---
+Date.prototype.getUTCMonth()
+--- END CODE BLOCK ---
+followed by six digits. The sign is required for expanded years.
+--- CODE BLOCK 191 ---
+Date.prototype.getUTCSeconds()
+--- END CODE BLOCK ---
+is explicitly disallowed as a valid year.
+--- CODE BLOCK 194 ---
+Date.prototype.getYear()
+--- END CODE BLOCK ---
+is the month, with two digits (
+--- CODE BLOCK 195 ---
+getFullYear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 196 ---
+Date.prototype.setDate()
+--- END CODE BLOCK ---
+). Defaults to
+--- CODE BLOCK 197 ---
+Date.prototype.setFullYear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 198 ---
+Date.prototype.setHours()
+--- END CODE BLOCK ---
+is the day of the month, with two digits (
+--- CODE BLOCK 199 ---
+Date.prototype.setMilliseconds()
+--- END CODE BLOCK ---
+--- CODE BLOCK 200 ---
+Date.prototype.setMinutes()
+--- END CODE BLOCK ---
+). Defaults to
+--- CODE BLOCK 201 ---
+Date.prototype.setMonth()
+--- END CODE BLOCK ---
+--- CODE BLOCK 202 ---
+Date.prototype.setSeconds()
+--- END CODE BLOCK ---
+is a literal character, which indicates the beginning of the
+time
+part of the string. The
+--- CODE BLOCK 203 ---
+Date.prototype.setTime()
+--- END CODE BLOCK ---
+is required when specifying the time part.
+--- CODE BLOCK 205 ---
+Date.prototype.setUTCDate()
+--- END CODE BLOCK ---
+is the hour, with two digits (
+--- CODE BLOCK 206 ---
+Date.prototype.setUTCFullYear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 207 ---
+Date.prototype.setUTCHours()
+--- END CODE BLOCK ---
+). As a special case,
+--- CODE BLOCK 208 ---
+Date.prototype.setUTCMilliseconds()
+--- END CODE BLOCK ---
+is allowed, and is interpreted as midnight at the beginning of the next day. Defaults to
+--- CODE BLOCK 209 ---
+Date.prototype.setUTCMinutes()
+--- END CODE BLOCK ---
+--- CODE BLOCK 210 ---
+Date.prototype.setUTCMonth()
+--- END CODE BLOCK ---
+is the minute, with two digits (
+--- CODE BLOCK 211 ---
+Date.prototype.setUTCSeconds()
+--- END CODE BLOCK ---
+--- CODE BLOCK 212 ---
+Date.prototype.setYear()
+--- END CODE BLOCK ---
+). Defaults to
+--- CODE BLOCK 213 ---
+setFullYear()
+--- END CODE BLOCK ---
+--- CODE BLOCK 214 ---
+Date.prototype.toDateString()
+--- END CODE BLOCK ---
+is the second, with two digits (
+--- CODE BLOCK 216 ---
+'Thu Apr 12 2018'
+--- END CODE BLOCK ---
+--- CODE BLOCK 217 ---
+Date.prototype.toISOString()
+--- END CODE BLOCK ---
+). Defaults to
+--- CODE BLOCK 218 ---
+Date.prototype.toJSON()
+--- END CODE BLOCK ---
+--- CODE BLOCK 220 ---
+toISOString()
+--- END CODE BLOCK ---
+is the millisecond, with three digits (
+--- CODE BLOCK 221 ---
+JSON.stringify()
+--- END CODE BLOCK ---
+--- CODE BLOCK 222 ---
+Date.prototype.toLocaleDateString()
+--- END CODE BLOCK ---
+). Defaults to
+--- CODE BLOCK 223 ---
+Date.prototype.toLocaleString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 224 ---
+Object.prototype.toLocaleString()
+--- END CODE BLOCK ---
+is the timezone offset, which can either be the literal character
+--- CODE BLOCK 225 ---
+Date.prototype.toLocaleTimeString()
+--- END CODE BLOCK ---
+(indicating UTC), or
+--- CODE BLOCK 226 ---
+Date.prototype.toString()
+--- END CODE BLOCK ---
+--- CODE BLOCK 228 ---
+Object.prototype.toString()
+--- END CODE BLOCK ---
+followed by
+--- CODE BLOCK 229 ---
+Date.prototype.toTemporalInstant()
+--- END CODE BLOCK ---
+, the offset in hours and minutes from UTC.
+Various components can be omitted, so the following are all valid:
+Date-only form:
+--- CODE BLOCK 230 ---
+Temporal.Instant
+--- END CODE BLOCK ---
+--- CODE BLOCK 231 ---
+epochMilliseconds
+--- END CODE BLOCK ---
+--- CODE BLOCK 232 ---
+Date.prototype.toTimeString()
+--- END CODE BLOCK ---
+Date-time form: one of the above date-only forms, followed by
+--- CODE BLOCK 234 ---
+Date.prototype.toUTCString()
+--- END CODE BLOCK ---
+, followed by
+--- CODE BLOCK 235 ---
+Date.prototype.valueOf()
+--- END CODE BLOCK ---
+--- CODE BLOCK 237 ---
+Object.prototype.valueOf()
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 238 ---
+Date.prototype[Symbol.toPrimitive]()
+--- END CODE BLOCK ---
+. Each combination can be followed by a time zone offset.
+For example,
+--- CODE BLOCK 240 ---
+const today = new Date();
+const birthday = new Date("December 17, 1995 03:24:00"); // DISCOURAGED: may not work in all runtimes
+const birthday2 = new Date("1995-12-17T03:24:00"); // This is standardized and will work reliably
+const birthday3 = new Date(1995, 11, 17); // the month is 0-indexed
+const birthday4 = new Date(1995, 11, 17, 3, 24, 0);
+const birthday5 = new Date(628021800000); // passing epoch timestamp
+--- END CODE BLOCK ---
+date-only
+form),
+--- CODE BLOCK 241 ---
+const today = new Date();
+const birthday = new Date("December 17, 1995 03:24:00"); // DISCOURAGED: may not work in all runtimes
+const birthday2 = new Date("1995-12-17T03:24:00"); // This is standardized and will work reliably
+const birthday3 = new Date(1995, 11, 17); // the month is 0-indexed
+const birthday4 = new Date(1995, 11, 17, 3, 24, 0);
+const birthday5 = new Date(628021800000); // passing epoch timestamp
+--- END CODE BLOCK ---
+date-time
+form), or
+--- CODE BLOCK 242 ---
+const date = new Date("2020-05-12T23:50:21.817Z");
+date.toString(); // Tue May 12 2020 18:50:21 GMT-0500 (Central Daylight Time)
+date.toDateString(); // Tue May 12 2020
+date.toTimeString(); // 18:50:21 GMT-0500 (Central Daylight Time)
+date[Symbol.toPrimitive]("string"); // Tue May 12 2020 18:50:21 GMT-0500 (Central Daylight Time)
+date.toISOString(); // 2020-05-12T23:50:21.817Z
+date.toJSON(); // 2020-05-12T23:50:21.817Z
+date.toUTCString(); // Tue, 12 May 2020 23:50:21 GMT
+date.toLocaleString(); // 5/12/2020, 6:50:21 PM
+date.toLocaleDateString(); // 5/12/2020
+date.toLocaleTimeString(); // 6:50:21 PM
+--- END CODE BLOCK ---
+date-time
+form with milliseconds and time zone) are all valid date time strings.
+When the time zone offset is absent,
+date-only forms are interpreted as a UTC time and date-time forms are interpreted as a local time.
+The interpretation as a UTC time is due to a historical spec error that was not consistent with ISO 8601 but could not be changed due to web compatibility. See
+Broken Parser – A Web Reality Issue
+--- CODE BLOCK 243 ---
+const date = new Date("2020-05-12T23:50:21.817Z");
+date.toString(); // Tue May 12 2020 18:50:21 GMT-0500 (Central Daylight Time)
+date.toDateString(); // Tue May 12 2020
+date.toTimeString(); // 18:50:21 GMT-0500 (Central Daylight Time)
+date[Symbol.toPrimitive]("string"); // Tue May 12 2020 18:50:21 GMT-0500 (Central Daylight Time)
+date.toISOString(); // 2020-05-12T23:50:21.817Z
+date.toJSON(); // 2020-05-12T23:50:21.817Z
+date.toUTCString(); // Tue, 12 May 2020 23:50:21 GMT
+date.toLocaleString(); // 5/12/2020, 6:50:21 PM
+date.toLocaleDateString(); // 5/12/2020
+date.toLocaleTimeString(); // 6:50:21 PM
+--- END CODE BLOCK ---
+and the
+--- CODE BLOCK 244 ---
+const date = new Date("2000-01-17T16:45:30");
+const [month, day, year] = [
+date.getMonth(),
+date.getDate(),
+date.getFullYear(),
+// [0, 17, 2000] as month are 0-indexed
+const [hour, minutes, seconds] = [
+date.getHours(),
+date.getMinutes(),
+date.getSeconds(),
+// [16, 45, 30]
+--- END CODE BLOCK ---
+constructor both accept strings in the date time string format as input. Furthermore, implementations are allowed to support other date formats when the input fails to match this format.
+--- CODE BLOCK 245 ---
+const date = new Date("2000-01-17T16:45:30");
+const [month, day, year] = [
+date.getMonth(),
+date.getDate(),
+date.getFullYear(),
+// [0, 17, 2000] as month are 0-indexed
+const [hour, minutes, seconds] = [
+date.getHours(),
+date.getMinutes(),
+date.getSeconds(),
+// [16, 45, 30]
+--- END CODE BLOCK ---
+method returns a string representation of the date in the date time string format, with the time zone offset always set to
+--- CODE BLOCK 250 ---
+let date = new Date(98, 1); // Sun Feb 01 1998 00:00:00 GMT+0000 (GMT)
+date = new Date(22, 1); // Wed Feb 01 1922 00:00:00 GMT+0000 (GMT)
+date = new Date("2/1/22"); // Tue Feb 01 2022 00:00:00 GMT+0000 (GMT)
+// Legacy method; always interprets two-digit year values as relative to 1900
+date.setYear(98);
+date.toString(); // Sun Feb 01 1998 00:00:00 GMT+0000 (GMT)
+date.setYear(22);
+date.toString(); // Wed Feb 01 1922 00:00:00 GMT+0000 (GMT)
+--- END CODE BLOCK ---
+(UTC).
+Note:
+You are encouraged to make sure your input conforms to the date time string format above for maximum compatibility, because support for other formats is not guaranteed. However, there are some formats that are supported in all major implementations — like
+RFC 2822
+format — in which case their usage can be acceptable. Always conduct
+cross-browser tests
+to ensure your code works in all target browsers. A library can help if many different formats are to be accommodated.
+Non-standard strings can be parsed in any way as desired by the implementation, including the time zone — most implementations use the local time zone by default. Implementations are not required to return invalid date for out-of-bounds date components, although they usually do. A string may have in-bounds date components (with the bounds defined above), but does not represent a date in reality (for example, "February 30"). Implementations behave inconsistently in this case. The
+--- CODE BLOCK 251 ---
+let date = new Date(98, 1); // Sun Feb 01 1998 00:00:00 GMT+0000 (GMT)
+date = new Date(22, 1); // Wed Feb 01 1922 00:00:00 GMT+0000 (GMT)
+date = new Date("2/1/22"); // Tue Feb 01 2022 00:00:00 GMT+0000 (GMT)
+// Legacy method; always interprets two-digit year values as relative to 1900
+date.setYear(98);
+date.toString(); // Sun Feb 01 1998 00:00:00 GMT+0000 (GMT)
+date.setYear(22);
+date.toString(); // Wed Feb 01 1922 00:00:00 GMT+0000 (GMT)
+--- END CODE BLOCK ---
+page offers more examples about these non-standard cases.
+Other ways to format a date
+--- CODE BLOCK 254 ---
+setFullYear()
+--- END CODE BLOCK ---
+returns a string in the format
+--- CODE BLOCK 255 ---
+getFullYear()
+--- END CODE BLOCK ---
+(the date time string format introduced above, which is simplified
+ISO 8601
+--- CODE BLOCK 256 ---
+// Preferred method; never interprets any value as being a relative offset,
+// but instead uses the year value as-is
+date.setFullYear(98);
+date.getFullYear(); // 98 (not 1998)
+date.setFullYear(22);
+date.getFullYear(); // 22 (not 1922, not 2022)
+--- END CODE BLOCK ---
+calls
+--- CODE BLOCK 257 ---
+// Preferred method; never interprets any value as being a relative offset,
+// but instead uses the year value as-is
+date.setFullYear(98);
+date.getFullYear(); // 98 (not 1998)
+date.setFullYear(22);
+date.getFullYear(); // 22 (not 1922, not 2022)
+--- END CODE BLOCK ---
+and returns the result.
+--- CODE BLOCK 258 ---
+// Using Date objects
+const start = Date.now();
+// The event to time goes here:
+doSomethingForALongTime();
+const end = Date.now();
+const elapsed = end - start; // elapsed time in milliseconds
+--- END CODE BLOCK ---
+returns a string in the format
+--- CODE BLOCK 259 ---
+// Using Date objects
+const start = Date.now();
+// The event to time goes here:
+doSomethingForALongTime();
+const end = Date.now();
+const elapsed = end - start; // elapsed time in milliseconds
+--- END CODE BLOCK ---
+, while
+--- CODE BLOCK 260 ---
+// Using built-in methods
+const start = new Date();
+// The event to time goes here:
+doSomethingForALongTime();
+const end = new Date();
+const elapsed = end.getTime() - start.getTime(); // elapsed time in milliseconds
+--- END CODE BLOCK ---
+--- CODE BLOCK 261 ---
+// Using built-in methods
+const start = new Date();
+// The event to time goes here:
+doSomethingForALongTime();
+const end = new Date();
+const elapsed = end.getTime() - start.getTime(); // elapsed time in milliseconds
+--- END CODE BLOCK ---
+return the date and time parts of the string, respectively.
+--- CODE BLOCK 262 ---
+// To test a function and get back its return
+function printElapsedTime(testFn) {
+const startTime = Date.now();
+const result = testFn();
+const endTime = Date.now();
+console.log(`Elapsed time: ${String(endTime - startTime)} milliseconds`);
+return result;
+const yourFunctionReturn = printElapsedTime(yourFunction);
+--- END CODE BLOCK ---
+(when passed
+--- CODE BLOCK 263 ---
+// To test a function and get back its return
+function printElapsedTime(testFn) {
+const startTime = Date.now();
+const result = testFn();
+const endTime = Date.now();
+console.log(`Elapsed time: ${String(endTime - startTime)} milliseconds`);
+return result;
+const yourFunctionReturn = printElapsedTime(yourFunction);
+--- END CODE BLOCK ---
+--- CODE BLOCK 264 ---
+Performance.now()
+--- END CODE BLOCK ---
+) calls
+--- CODE BLOCK 266 ---
+const seconds = Math.floor(Date.now() / 1000);
+--- END CODE BLOCK ---
+and returns the result.
+--- CODE BLOCK 267 ---
+const seconds = Math.floor(Date.now() / 1000);
+--- END CODE BLOCK ---
+returns a string in the format
+--- CODE BLOCK 268 ---
+Math.floor()
+--- END CODE BLOCK ---
+(generalized
+RFC 7231
+--- CODE BLOCK 269 ---
+Math.round()
+--- END CODE BLOCK ---
+[CODE_BLOCK_134]
+, and
+[CODE_BLOCK_135]
+use locale-specific date and time formats, usually provided by the
+[CODE_BLOCK_136]
+API.
+See the
+Formats of
+[CODE_BLOCK_137]
+method return values
+section for examples.
+Constructor
+[CODE_BLOCK_138]
+When called as a constructor, returns a new
+[CODE_BLOCK_139]
+object. When called as a function, returns a string representation of the current date and time.
+Static methods
+[CODE_BLOCK_140]
+Returns the numeric value corresponding to the current time—the number of milliseconds since January 1, 1970 00:00:00 UTC, with leap seconds ignored.
+[CODE_BLOCK_141]
+Parses a string representation of a date and returns the number of milliseconds since January 1, 1970 00:00:00 UTC, with leap seconds ignored.
+[CODE_BLOCK_142]
+Accepts the same parameters as the longest form of the constructor (i.e., 2 to 7) and returns the number of milliseconds since January 1, 1970 00:00:00 UTC, with leap seconds ignored.
+Instance properties
+These properties are defined on
+[CODE_BLOCK_143]
+and shared by all
+[CODE_BLOCK_144]
+instances.
+[CODE_BLOCK_145]
+The constructor function that created the instance object. For
+[CODE_BLOCK_146]
+instances, the initial value is the
+[CODE_BLOCK_147]
+constructor.
+Instance methods
+[CODE_BLOCK_148]
+Returns the day of the month (
+[CODE_BLOCK_149]
+[CODE_BLOCK_150]
+) for the specified date according to local time.
+[CODE_BLOCK_151]
+Returns the day of the week (
+[CODE_BLOCK_152]
+[CODE_BLOCK_153]
+) for the specified date according to local time.
+[CODE_BLOCK_154]
+Returns the year (4 digits for 4-digit years) of the specified date according to local time.
+[CODE_BLOCK_155]
+Returns the hour (
+[CODE_BLOCK_156]
+[CODE_BLOCK_157]
+) in the specified date according to local time.
+[CODE_BLOCK_158]
+Returns the milliseconds (
+[CODE_BLOCK_159]
+[CODE_BLOCK_160]
+) in the specified date according to local time.
+[CODE_BLOCK_161]
+Returns the minutes (
+[CODE_BLOCK_162]
+[CODE_BLOCK_163]
+) in the specified date according to local time.
+[CODE_BLOCK_164]
+Returns the month (
+[CODE_BLOCK_165]
+[CODE_BLOCK_166]
+) in the specified date according to local time.
+[CODE_BLOCK_167]
+Returns the seconds (
+[CODE_BLOCK_168]
+[CODE_BLOCK_169]
+) in the specified date according to local time.
+[CODE_BLOCK_170]
+Returns the numeric value of the specified date as the number of milliseconds since January 1, 1970 00:00:00 UTC. (Negative values are returned for prior times.)
+[CODE_BLOCK_171]
+Returns the time-zone offset in minutes for the current locale.
+[CODE_BLOCK_172]
+Returns the day (date) of the month (
+[CODE_BLOCK_173]
+[CODE_BLOCK_174]
+) in the specified date according to universal time.
+[CODE_BLOCK_175]
+Returns the day of the week (
+[CODE_BLOCK_176]
+[CODE_BLOCK_177]
+) in the specified date according to universal time.
+[CODE_BLOCK_178]
+Returns the year (4 digits for 4-digit years) in the specified date according to universal time.
+[CODE_BLOCK_179]
+Returns the hours (
+[CODE_BLOCK_180]
+[CODE_BLOCK_181]
+) in the specified date according to universal time.
+[CODE_BLOCK_182]
+Returns the milliseconds (
+[CODE_BLOCK_183]
+[CODE_BLOCK_184]
+) in the specified date according to universal time.
+[CODE_BLOCK_185]
+Returns the minutes (
+[CODE_BLOCK_186]
+[CODE_BLOCK_187]
+) in the specified date according to universal time.
+[CODE_BLOCK_188]
+Returns the month (
+[CODE_BLOCK_189]
+[CODE_BLOCK_190]
+) in the specified date according to universal time.
+[CODE_BLOCK_191]
+Returns the seconds (
+[CODE_BLOCK_192]
+[CODE_BLOCK_193]
+) in the specified date according to universal time.
+[CODE_BLOCK_194]
+Deprecated
+Returns the year (usually 2–3 digits) in the specified date according to local time. Use
+[CODE_BLOCK_195]
+instead.
+[CODE_BLOCK_196]
+Sets the day of the month for a specified date according to local time.
+[CODE_BLOCK_197]
+Sets the full year (e.g., 4 digits for 4-digit years) for a specified date according to local time.
+[CODE_BLOCK_198]
+Sets the hours for a specified date according to local time.
+[CODE_BLOCK_199]
+Sets the milliseconds for a specified date according to local time.
+[CODE_BLOCK_200]
+Sets the minutes for a specified date according to local time.
+[CODE_BLOCK_201]
+Sets the month for a specified date according to local time.
+[CODE_BLOCK_202]
+Sets the seconds for a specified date according to local time.
+[CODE_BLOCK_203]
+Sets the
+[CODE_BLOCK_204]
+object to the time represented by the number of milliseconds since January 1, 1970 00:00:00 UTC. Use negative numbers for times prior.
+[CODE_BLOCK_205]
+Sets the day of the month for a specified date according to universal time.
+[CODE_BLOCK_206]
+Sets the full year (e.g., 4 digits for 4-digit years) for a specified date according to universal time.
+[CODE_BLOCK_207]
+Sets the hour for a specified date according to universal time.
+[CODE_BLOCK_208]
+Sets the milliseconds for a specified date according to universal time.
+[CODE_BLOCK_209]
+Sets the minutes for a specified date according to universal time.
+[CODE_BLOCK_210]
+Sets the month for a specified date according to universal time.
+[CODE_BLOCK_211]
+Sets the seconds for a specified date according to universal time.
+[CODE_BLOCK_212]
+Deprecated
+Sets the year (usually 2–3 digits) for a specified date according to local time. Use
+[CODE_BLOCK_213]
+instead.
+[CODE_BLOCK_214]
+Returns the "date" portion of the
+[CODE_BLOCK_215]
+as a human-readable string like
+[CODE_BLOCK_216]
+[CODE_BLOCK_217]
+Converts a date to a string following the ISO 8601 Extended Format.
+[CODE_BLOCK_218]
+Returns a string representing the
+[CODE_BLOCK_219]
+using
+[CODE_BLOCK_220]
+. Intended to be implicitly called by
+[CODE_BLOCK_221]
+[CODE_BLOCK_222]
+Returns a string with a locality sensitive representation of the date portion of this date based on system settings.
+[CODE_BLOCK_223]
+Returns a string with a locality-sensitive representation of this date. Overrides the
+[CODE_BLOCK_224]
+method.
+[CODE_BLOCK_225]
+Returns a string with a locality-sensitive representation of the time portion of this date, based on system settings.
+[CODE_BLOCK_226]
+Returns a string representing the specified
+[CODE_BLOCK_227]
+object. Overrides the
+[CODE_BLOCK_228]
+method.
+[CODE_BLOCK_229]
+Experimental
+Returns a new
+[CODE_BLOCK_230]
+object with the same
+[CODE_BLOCK_231]
+value as this date's
+timestamp
+[CODE_BLOCK_232]
+Returns the "time" portion of the
+[CODE_BLOCK_233]
+as a human-readable string.
+[CODE_BLOCK_234]
+Converts a date to a string using the UTC timezone.
+[CODE_BLOCK_235]
+Returns the primitive value of a
+[CODE_BLOCK_236]
+object. Overrides the
+[CODE_BLOCK_237]
+method.
+[CODE_BLOCK_238]
+Converts this
+[CODE_BLOCK_239]
+object to a primitive value.
+Examples
+Several ways to create a Date object
+The following examples show several ways to create JavaScript dates:
+Note:
+Creating a date from a string has a lot of behavior inconsistencies. See
+date time string format
+for caveats on using different formats.
+Copy to Clipboard
+[CODE_BLOCK_240]
+Formats of toString method return values
+Copy to Clipboard
+[CODE_BLOCK_242]
+To get Date, Month and Year or Time
+Copy to Clipboard
+[CODE_BLOCK_244]
+Interpretation of two-digit years
+[CODE_BLOCK_246]
+exhibits legacy undesirable, inconsistent behavior with two-digit year values; specifically, when a
+[CODE_BLOCK_247]
+call is given a two-digit year value, that year value does not get treated as a literal year and used as-is but instead gets interpreted as a relative offset — in some cases as an offset from the year
+[CODE_BLOCK_248]
+, but in other cases, as an offset from the year
+[CODE_BLOCK_249]
+Copy to Clipboard
+[CODE_BLOCK_250]
+So, to create and get dates between the years
+[CODE_BLOCK_252]
+[CODE_BLOCK_253]
+, instead use the preferred
+[CODE_BLOCK_254]
+[CODE_BLOCK_255]
+methods:.
+Copy to Clipboard
+[CODE_BLOCK_256]
+Calculating elapsed time
+The following examples show how to determine the elapsed time between two JavaScript dates in milliseconds.
+Due to the differing lengths of days (due to daylight saving changeover), months, and years, expressing elapsed time in units greater than hours, minutes, and seconds requires addressing a number of issues, and should be thoroughly researched before being attempted.
+Copy to Clipboard
+[CODE_BLOCK_258]
+Copy to Clipboard
+[CODE_BLOCK_260]
+Copy to Clipboard
+[CODE_BLOCK_262]
+Note:
+In browsers that support the
+Performance API
+'s high-resolution time feature,
+[CODE_BLOCK_264]
+can provide more reliable and precise measurements of elapsed time than
+[CODE_BLOCK_265]
+Get the number of seconds since the ECMAScript Epoch
+Copy to Clipboard
+[CODE_BLOCK_266]
+In this case, it's important to return only an integer—so a simple division won't do. It's also important to only return actually elapsed seconds. (That's why this code uses
+[CODE_BLOCK_268]
+, and
+[CODE_BLOCK_269]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-date-objects
+Browser compatibility
+See also
+[CODE_BLOCK_270]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Jun 6, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

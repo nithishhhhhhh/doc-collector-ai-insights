@@ -1,0 +1,156 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RangeError
+SCRAPED: 2025-06-19 18:20:19
+================================================================================
+
+--- CODE BLOCK 3 ---
+String.prototype.normalize()
+--- END CODE BLOCK ---
+object indicates an error when a value is not in the set or range of allowed values.
+Description
+--- CODE BLOCK 5 ---
+Number.prototype.toExponential()
+--- END CODE BLOCK ---
+is thrown when trying to pass a value as an argument to a function that does not allow a range that includes the value.
+This can be encountered when:
+passing a value that is not one of the allowed string values to
+--- CODE BLOCK 6 ---
+Number.prototype.toFixed()
+--- END CODE BLOCK ---
+, or
+when attempting to create an array of an illegal length with the
+--- CODE BLOCK 7 ---
+Number.prototype.toPrecision()
+--- END CODE BLOCK ---
+constructor, or
+when passing bad values to the numeric methods
+--- CODE BLOCK 9 ---
+structuredClone()
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+postMessage()
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+RangeError()
+--- END CODE BLOCK ---
+--- CODE BLOCK 16 ---
+RangeError.prototype
+--- END CODE BLOCK ---
+is a
+serializable object
+, so it can be cloned with
+--- CODE BLOCK 18 ---
+RangeError.prototype.constructor
+--- END CODE BLOCK ---
+or copied between
+Workers
+using
+--- CODE BLOCK 21 ---
+RangeError.prototype.name
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+RangeError.prototype.name
+--- END CODE BLOCK ---
+is a subclass of
+--- CODE BLOCK 23 ---
+"RangeError"
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 25 ---
+function check(n) {
+if (!(n >= -500 && n <= 500)) {
+throw new RangeError("The argument must be between -500 and 500.");
+try {
+check(2000);
+} catch (error) {
+if (error instanceof RangeError) {
+// Handle the error
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 26 ---
+function check(n) {
+if (!(n >= -500 && n <= 500)) {
+throw new RangeError("The argument must be between -500 and 500.");
+try {
+check(2000);
+} catch (error) {
+if (error instanceof RangeError) {
+// Handle the error
+--- END CODE BLOCK ---
+object.
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 27 ---
+function check(value) {
+if (!["apple", "banana", "carrot"].includes(value)) {
+throw new RangeError(
+'The argument must be an "apple", "banana", or "carrot".',
+try {
+check("cabbage");
+} catch (error) {
+if (error instanceof RangeError) {
+// Handle the error
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 28 ---
+function check(value) {
+if (!["apple", "banana", "carrot"].includes(value)) {
+throw new RangeError(
+'The argument must be an "apple", "banana", or "carrot".',
+try {
+check("cabbage");
+} catch (error) {
+if (error instanceof RangeError) {
+// Handle the error
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 31 ---
+Number.prototype.toExponential()
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 32 ---
+Number.prototype.toFixed()
+--- END CODE BLOCK ---
+The constructor function that created the instance object. For
+--- CODE BLOCK 33 ---
+Number.prototype.toPrecision()
+--- END CODE BLOCK ---
+instances, the initial value is the
+--- CODE BLOCK 34 ---
+String.prototype.normalize()
+--- END CODE BLOCK ---
+constructor.
+[CODE_BLOCK_21]
+Represents the name for the type of error. For
+[CODE_BLOCK_22]
+, the initial value is
+[CODE_BLOCK_23]
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_24]
+Examples
+Using RangeError (for numeric values)
+Copy to Clipboard
+[CODE_BLOCK_25]
+Using RangeError (for non-numeric values)
+Copy to Clipboard
+[CODE_BLOCK_27]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-native-error-types-used-in-this-standard-rangeerror
+Browser compatibility
+See also
+[CODE_BLOCK_29]
+[CODE_BLOCK_30]
+[CODE_BLOCK_31]
+[CODE_BLOCK_32]
+[CODE_BLOCK_33]
+[CODE_BLOCK_34]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Sep 26, 2024
+MDN contributors
+View this page on GitHub
+Report a problem with this content

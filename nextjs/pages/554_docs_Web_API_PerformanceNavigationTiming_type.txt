@@ -1,0 +1,107 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/API/PerformanceNavigationTiming/type
+SCRAPED: 2025-06-19 18:13:37
+================================================================================
+
+--- CODE BLOCK 6 ---
+back_forward
+--- END CODE BLOCK ---
+read-only property returns the type of navigation.
+You can use this property to categorize your navigation timing data as each of these types will have different performance characteristics. Users going back and forth might experience a faster site than users performing navigation for the first time or submitting forms, etc.
+For example, if your site provides new content frequently, you might want to refresh that content using
+Fetch
+or similar and avoid users having to hit reload for the entire page all the time. The
+--- CODE BLOCK 8 ---
+location.reload()
+--- END CODE BLOCK ---
+type can help you find pages that are reloaded frequently.
+Value
+--- CODE BLOCK 9 ---
+<meta http-equiv="refresh" content="300">
+--- END CODE BLOCK ---
+property can have the following values:
+--- CODE BLOCK 10 ---
+"back_forward"
+--- END CODE BLOCK ---
+Navigation started by clicking a link, entering the URL in the browser's address bar, form submission, or initializing through a script operation other than
+--- CODE BLOCK 11 ---
+"prerender"
+--- END CODE BLOCK ---
+--- CODE BLOCK 15 ---
+PerformanceObserver
+--- END CODE BLOCK ---
+as listed below.
+--- CODE BLOCK 18 ---
+const observer = new PerformanceObserver((list) => {
+list.getEntries().forEach((entry) => {
+if (entry.type === "reload") {
+console.log(`${entry.name} was reloaded!`);
+console.log(entry);
+observer.observe({ type: "navigation", buffered: true });
+--- END CODE BLOCK ---
+Navigation is through the browser's reload operation,
+--- CODE BLOCK 19 ---
+const observer = new PerformanceObserver((list) => {
+list.getEntries().forEach((entry) => {
+if (entry.type === "reload") {
+console.log(`${entry.name} was reloaded!`);
+console.log(entry);
+observer.observe({ type: "navigation", buffered: true });
+--- END CODE BLOCK ---
+or a Refresh pragma directive like
+--- CODE BLOCK 20 ---
+Performance.getEntriesByType()
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+const entries = performance.getEntriesByType("navigation");
+entries.forEach((entry) => {
+if (entry.type === "reload") {
+console.log(`${entry.name} was reloaded!`);
+console.log(entry);
+--- END CODE BLOCK ---
+Navigation is through the browser's history traversal operation.
+--- CODE BLOCK 23 ---
+const entries = performance.getEntriesByType("navigation");
+entries.forEach((entry) => {
+if (entry.type === "reload") {
+console.log(`${entry.name} was reloaded!`);
+console.log(entry);
+--- END CODE BLOCK ---
+Navigation is initiated by a
+prerender hint
+Examples
+Logging reload navigation
+[CODE_BLOCK_12]
+property can be used to check whether the navigation was of type
+[CODE_BLOCK_13]
+. You could collect these
+[CODE_BLOCK_14]
+entries in a server-side endpoint to determine which pages of your site gets reloaded the most, or collect all navigation types and determine what percent of users go back and forward, for example.
+Example using a
+[CODE_BLOCK_15]
+, which notifies of new
+[CODE_BLOCK_16]
+performance entries as they are recorded in the browser's performance timeline. Use the
+[CODE_BLOCK_17]
+option to access entries from before the observer creation.
+Copy to Clipboard
+[CODE_BLOCK_18]
+Example using
+[CODE_BLOCK_20]
+, which only shows
+[CODE_BLOCK_21]
+performance entries present in the browser's performance timeline at the time you call this method:
+Copy to Clipboard
+[CODE_BLOCK_22]
+Specifications
+Specification
+Navigation Timing Level 2
+dom-performancenavigationtiming-type
+Browser compatibility
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Apr 10, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

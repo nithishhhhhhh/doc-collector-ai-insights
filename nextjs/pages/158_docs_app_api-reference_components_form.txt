@@ -1,0 +1,462 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/components/form
+SCRAPED: 2025-06-19 17:27:45
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+Components
+Form Component
+Form Component
+--- CODE BLOCK 3 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+{/* On submission, the input value will be appended to
+the URL, e.g. /search?query=abc */}
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+component extends the HTML
+--- CODE BLOCK 4 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+{/* On submission, the input value will be appended to
+the URL, e.g. /search?query=abc */}
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+element to provide
+prefetching
+loading UI
+client-side navigation
+on submission, and
+progressive enhancement
+It's useful for forms that update URL search params as it reduces the boilerplate code needed to achieve the above.
+Basic usage:
+/app/ui/search.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 20 ---
+action="/search"
+--- END CODE BLOCK ---
+Reference
+The behavior of the
+--- CODE BLOCK 26 ---
+scroll={true}
+--- END CODE BLOCK ---
+component depends on whether the
+--- CODE BLOCK 29 ---
+prefetch={true}
+--- END CODE BLOCK ---
+prop is passed a
+--- CODE BLOCK 43 ---
+action={myAction}
+--- END CODE BLOCK ---
+--- CODE BLOCK 51 ---
+<input type="submit">
+--- END CODE BLOCK ---
+When
+--- CODE BLOCK 55 ---
+formAction="/base-path/search"
+--- END CODE BLOCK ---
+is a
+string
+, the
+--- CODE BLOCK 61 ---
+event.preventDefault()
+--- END CODE BLOCK ---
+behaves like a native HTML form that uses a
+--- CODE BLOCK 68 ---
+formEncType
+--- END CODE BLOCK ---
+method. The form data is encoded into the URL as search params, and when the form is submitted, it navigates to the specified URL. In addition, Next.js:
+Prefetches
+the path when the form becomes visible, this preloads shared UI (e.g.
+--- CODE BLOCK 74 ---
+<input type="file">
+--- END CODE BLOCK ---
+--- CODE BLOCK 77 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+), resulting in faster navigation.
+Performs a
+client-side navigation
+instead of a full page reload when the form is submitted. This retains shared UI and client-side state.
+When
+--- CODE BLOCK 78 ---
+import Form from 'next/form'
+export default function Page() {
+return (
+<Form action="/search">
+<input name="query" />
+<button type="submit">Submit</button>
+</Form>
+--- END CODE BLOCK ---
+is a
+function
+(Server Action),
+--- CODE BLOCK 79 ---
+/search?query=abc
+--- END CODE BLOCK ---
+behaves like a
+React form
+, executing the action when the form is submitted.
+--- CODE BLOCK 82 ---
+searchParams
+--- END CODE BLOCK ---
+(string) Props
+When
+--- CODE BLOCK 84 ---
+import { getSearchResults } from '@/lib/search'
+export default async function SearchPage({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const results = await getSearchResults((await searchParams).query)
+return <div>...</div>
+--- END CODE BLOCK ---
+is a string, the
+--- CODE BLOCK 85 ---
+import { getSearchResults } from '@/lib/search'
+export default async function SearchPage({
+searchParams,
+}: {
+searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+const results = await getSearchResults((await searchParams).query)
+return <div>...</div>
+--- END CODE BLOCK ---
+component supports the following props:
+Prop
+Example
+Type
+Required
+--- CODE BLOCK 91 ---
+export default function Loading() {
+return <div>Loading...</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 92 ---
+export default function Loading() {
+return <div>Loading...</div>
+--- END CODE BLOCK ---
+--- CODE BLOCK 93 ---
+useFormStatus
+--- END CODE BLOCK ---
+(URL or relative path)
+--- CODE BLOCK 94 ---
+'use client'
+import { useFormStatus } from 'react-dom'
+export default function SearchButton() {
+const status = useFormStatus()
+return (
+<button type="submit">{status.pending ? 'Searching...' : 'Search'}</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 95 ---
+'use client'
+import { useFormStatus } from 'react-dom'
+export default function SearchButton() {
+const status = useFormStatus()
+return (
+<button type="submit">{status.pending ? 'Searching...' : 'Search'}</button>
+--- END CODE BLOCK ---
+--- CODE BLOCK 96 ---
+SearchButton
+--- END CODE BLOCK ---
+--- CODE BLOCK 97 ---
+import Form from 'next/form'
+import { SearchButton } from '@/ui/search-button'
+export default function Page() {
+return (
+<Form action="/search">
+<input name="query" />
+<SearchButton />
+</Form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 98 ---
+import Form from 'next/form'
+import { SearchButton } from '@/ui/search-button'
+export default function Page() {
+return (
+<Form action="/search">
+<input name="query" />
+<SearchButton />
+</Form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+import Form from 'next/form'
+import { createPost } from '@/posts/actions'
+export default function Page() {
+return (
+<Form action={createPost}>
+<input name="title" />
+{/* ... */}
+<button type="submit">Create Post</button>
+</Form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 101 ---
+import Form from 'next/form'
+import { createPost } from '@/posts/actions'
+export default function Page() {
+return (
+<Form action={createPost}>
+<input name="title" />
+{/* ... */}
+<button type="submit">Create Post</button>
+</Form>
+--- END CODE BLOCK ---
+--- CODE BLOCK 103 ---
+next/navigation
+--- END CODE BLOCK ---
+--- CODE BLOCK 105 ---
+'use server'
+import { redirect } from 'next/navigation'
+export async function createPost(formData: FormData) {
+// Create a new post
+// ...
+// Redirect to the new post
+redirect(`/posts/${data.id}`)
+--- END CODE BLOCK ---
+--- CODE BLOCK 106 ---
+'use server'
+import { redirect } from 'next/navigation'
+export async function createPost(formData: FormData) {
+// Create a new post
+// ...
+// Redirect to the new post
+redirect(`/posts/${data.id}`)
+--- END CODE BLOCK ---
+: The URL or path to navigate to when the form is submitted.
+An empty string
+--- CODE BLOCK 108 ---
+import { getPost } from '@/posts/data'
+export default async function PostPage({
+params,
+}: {
+params: Promise<{ id: string }>
+}) {
+const { id } = await params
+const data = await getPost(id)
+return (
+<div>
+<h1>{data.title}</h1>
+{/* ... */}
+</div>
+--- END CODE BLOCK ---
+will navigate to the same route with updated search params.
+--- CODE BLOCK 109 ---
+import { getPost } from '@/posts/data'
+export default async function PostPage({
+params,
+}: {
+params: Promise<{ id: string }>
+}) {
+const { id } = await params
+const data = await getPost(id)
+return (
+<div>
+<h1>{data.title}</h1>
+{/* ... */}
+</div>
+--- END CODE BLOCK ---
+: Replaces the current history state instead of pushing a new one to the
+browser's history
+stack. Default is
+[CODE_BLOCK_34]
+[CODE_BLOCK_35]
+: Controls the scroll behavior during navigation. Defaults to
+[CODE_BLOCK_36]
+, this means it will scroll to the top of the new route, and maintain the scroll position for backwards and forwards navigation.
+[CODE_BLOCK_37]
+: Controls whether the path should be prefetched when the form becomes visible in the user's viewport. Defaults to
+[CODE_BLOCK_38]
+[CODE_BLOCK_39]
+(function) Props
+When
+[CODE_BLOCK_40]
+is a function, the
+[CODE_BLOCK_41]
+component supports the following prop:
+Prop
+Example
+Type
+Required
+[CODE_BLOCK_42]
+[CODE_BLOCK_43]
+[CODE_BLOCK_44]
+(Server Action)
+[CODE_BLOCK_45]
+: The Server Action to be called when the form is submitted. See the
+React docs
+for more.
+Good to know
+: When
+[CODE_BLOCK_46]
+is a function, the
+[CODE_BLOCK_47]
+[CODE_BLOCK_48]
+props are ignored.
+Caveats
+[CODE_BLOCK_49]
+: Can be used in a
+[CODE_BLOCK_50]
+[CODE_BLOCK_51]
+fields to override the
+[CODE_BLOCK_52]
+prop. Next.js will perform a client-side navigation, however, this approach doesn't support prefetching.
+When using
+[CODE_BLOCK_53]
+, you must also include it in the
+[CODE_BLOCK_54]
+path. e.g.
+[CODE_BLOCK_55]
+[CODE_BLOCK_56]
+: Passing a
+[CODE_BLOCK_57]
+prop to a string
+[CODE_BLOCK_58]
+is not supported. If you'd like to trigger a re-render or perform a mutation, consider using a function
+[CODE_BLOCK_59]
+instead.
+[CODE_BLOCK_60]
+: Can be used to handle form submission logic. However, calling
+[CODE_BLOCK_61]
+will override
+[CODE_BLOCK_62]
+behavior such as navigating to the specified URL.
+[CODE_BLOCK_63]
+[CODE_BLOCK_64]
+[CODE_BLOCK_65]
+: Are not supported as they override
+[CODE_BLOCK_66]
+behavior.
+Similarly,
+[CODE_BLOCK_67]
+[CODE_BLOCK_68]
+, and
+[CODE_BLOCK_69]
+can be used to override the
+[CODE_BLOCK_70]
+[CODE_BLOCK_71]
+, and
+[CODE_BLOCK_72]
+props respectively, and using them will fallback to native browser behavior.
+If you need to use these props, use the HTML
+[CODE_BLOCK_73]
+element instead.
+[CODE_BLOCK_74]
+: Using this input type when the
+[CODE_BLOCK_75]
+is a string will match browser behavior by submitting the filename instead of the file object.
+Examples
+Search form that leads to a search result page
+You can create a search form that navigates to a search results page by passing the path as an
+[CODE_BLOCK_76]
+/app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_77]
+When the user updates the query input field and submits the form, the form data will be encoded into the URL as search params, e.g.
+[CODE_BLOCK_79]
+Good to know
+: If you pass an empty string
+[CODE_BLOCK_80]
+[CODE_BLOCK_81]
+, the form will navigate to the same route with updated search params.
+On the results page, you can access the query using the
+[CODE_BLOCK_82]
+[CODE_BLOCK_83]
+prop and use it to fetch data from an external source.
+/app/search/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_84]
+When the
+[CODE_BLOCK_86]
+becomes visible in the user's viewport, shared UI (such as
+[CODE_BLOCK_87]
+[CODE_BLOCK_88]
+) on the
+[CODE_BLOCK_89]
+page will be prefetched. On submission, the form will immediately navigate to the new route and show loading UI while the results are being fetched. You can design the fallback UI using
+[CODE_BLOCK_90]
+/app/search/loading.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_91]
+To cover cases when shared UI hasn't yet loaded, you can show instant feedback to the user using
+[CODE_BLOCK_93]
+First, create a component that displays a loading state when the form is pending:
+/app/ui/search-button.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_94]
+Then, update the search form page to use the
+[CODE_BLOCK_96]
+component:
+/app/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_97]
+Mutations with Server Actions
+You can perform mutations by passing a function to the
+[CODE_BLOCK_99]
+prop.
+/app/posts/create/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_100]
+After a mutation, it's common to redirect to the new resource. You can use the
+[CODE_BLOCK_102]
+function from
+[CODE_BLOCK_103]
+to navigate to the new post page.
+Good to know
+: Since the "destination" of the form submission is not known until the action is executed,
+[CODE_BLOCK_104]
+cannot automatically prefetch shared UI.
+/app/posts/actions.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_105]
+Then, in the new page, you can fetch data using the
+[CODE_BLOCK_107]
+prop:
+/app/posts/[id]/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_108]
+See the
+Server Actions
+docs for more examples.
+Was this helpful?
+supported.
+Send

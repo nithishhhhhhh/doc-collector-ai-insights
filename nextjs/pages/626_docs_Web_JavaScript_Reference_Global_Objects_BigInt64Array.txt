@@ -1,0 +1,191 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/BigInt64Array
+SCRAPED: 2025-06-19 18:20:57
+================================================================================
+
+--- CODE BLOCK 1 ---
+BigInt64Array
+--- END CODE BLOCK ---
+typed array represents an array of 64-bit signed integers in the platform byte order. If control over byte order is needed, use
+--- CODE BLOCK 4 ---
+BigInt64Array
+--- END CODE BLOCK ---
+instead. The contents are initialized to
+--- CODE BLOCK 6 ---
+const buffer = new ArrayBuffer(24);
+const bigint64 = new BigInt64Array(buffer);
+bigint64[0] = 5886014448488689n;
+bigint64[1] = 1881938909131133n;
+bigint64[2] = 1898875537769492n;
+bigint64[0] = 6118793953620967n;
+console.log(bigint64);
+// Expected Output: BigInt64Array [6118793953620967n, 1881938909131133n, 1898875537769492n]
+console.log(bigint64[2]);
+// Expected Output: 1898875537769492n
+console.log("Array length:", bigint64.length);
+// Expected Output: Array length: 3
+console.log("Array byte length:", bigint64.byteLength);
+// Expected Output: Array byte length: 24
+console.log("Array byte offset:", bigint64.byteOffset);
+// Expected Output: Array byte offset: 0
+bigint64.set([100n, 200n], 1);
+console.log(bigint64);
+// Expected Output: BigInt64Array [6118793953620967n, 100n, 200n]
+--- END CODE BLOCK ---
+unless initialization data is explicitly provided. Once established, you can reference elements in the array using the object's methods, or using standard array index syntax (that is, using bracket notation).
+--- CODE BLOCK 7 ---
+const buffer = new ArrayBuffer(24);
+const bigint64 = new BigInt64Array(buffer);
+bigint64[0] = 5886014448488689n;
+bigint64[1] = 1881938909131133n;
+bigint64[2] = 1898875537769492n;
+bigint64[0] = 6118793953620967n;
+console.log(bigint64);
+// Expected Output: BigInt64Array [6118793953620967n, 1881938909131133n, 1898875537769492n]
+console.log(bigint64[2]);
+// Expected Output: 1898875537769492n
+console.log("Array length:", bigint64.length);
+// Expected Output: Array length: 3
+console.log("Array byte length:", bigint64.byteLength);
+// Expected Output: Array byte length: 24
+console.log("Array byte offset:", bigint64.byteOffset);
+// Expected Output: Array byte offset: 0
+bigint64.set([100n, 200n], 1);
+console.log(bigint64);
+// Expected Output: BigInt64Array [6118793953620967n, 100n, 200n]
+--- END CODE BLOCK ---
+is a subclass of the hidden
+--- CODE BLOCK 8 ---
+BigInt64Array()
+--- END CODE BLOCK ---
+class.
+Try it
+--- CODE BLOCK 9 ---
+BigInt64Array
+--- END CODE BLOCK ---
+Constructor
+--- CODE BLOCK 13 ---
+BigInt64Array
+--- END CODE BLOCK ---
+Creates a new
+--- CODE BLOCK 16 ---
+BigInt64Array.prototype
+--- END CODE BLOCK ---
+object.
+Static properties
+Also inherits static properties from its parent
+--- CODE BLOCK 17 ---
+BigInt64Array
+--- END CODE BLOCK ---
+--- CODE BLOCK 18 ---
+BigInt64Array.prototype.BYTES_PER_ELEMENT
+--- END CODE BLOCK ---
+Returns a number value of the element size.
+--- CODE BLOCK 20 ---
+BigInt64Array
+--- END CODE BLOCK ---
+in the case of
+--- CODE BLOCK 21 ---
+BigInt64Array.prototype.constructor
+--- END CODE BLOCK ---
+Static methods
+Inherits static methods from its parent
+--- CODE BLOCK 22 ---
+BigInt64Array
+--- END CODE BLOCK ---
+Instance properties
+Also inherits instance properties from its parent
+--- CODE BLOCK 23 ---
+BigInt64Array
+--- END CODE BLOCK ---
+These properties are defined on
+--- CODE BLOCK 25 ---
+// From a length
+const bigint64 = new BigInt64Array(2);
+bigint64[0] = 42n;
+console.log(bigint64[0]); // 42n
+console.log(bigint64.length); // 2
+console.log(bigint64.BYTES_PER_ELEMENT); // 8
+// From an array
+const x = new BigInt64Array([21n, 31n]);
+console.log(x[1]); // 31n
+// From another TypedArray
+const y = new BigInt64Array(x);
+console.log(y[0]); // 21n
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(64);
+const z = new BigInt64Array(buffer, 8, 4);
+console.log(z.byteOffset); // 8
+// From an iterable
+const iterable = (function* () {
+yield* [1n, 2n, 3n];
+})();
+const bigint64FromIterable = new BigInt64Array(iterable);
+console.log(bigint64FromIterable);
+// BigInt64Array [1n, 2n, 3n]
+--- END CODE BLOCK ---
+and shared by all
+--- CODE BLOCK 26 ---
+// From a length
+const bigint64 = new BigInt64Array(2);
+bigint64[0] = 42n;
+console.log(bigint64[0]); // 42n
+console.log(bigint64.length); // 2
+console.log(bigint64.BYTES_PER_ELEMENT); // 8
+// From an array
+const x = new BigInt64Array([21n, 31n]);
+console.log(x[1]); // 31n
+// From another TypedArray
+const y = new BigInt64Array(x);
+console.log(y[0]); // 21n
+// From an ArrayBuffer
+const buffer = new ArrayBuffer(64);
+const z = new BigInt64Array(buffer, 8, 4);
+console.log(z.byteOffset); // 8
+// From an iterable
+const iterable = (function* () {
+yield* [1n, 2n, 3n];
+})();
+const bigint64FromIterable = new BigInt64Array(iterable);
+console.log(bigint64FromIterable);
+// BigInt64Array [1n, 2n, 3n]
+--- END CODE BLOCK ---
+instances.
+--- CODE BLOCK 28 ---
+ArrayBuffer
+--- END CODE BLOCK ---
+Returns a number value of the element size.
+[CODE_BLOCK_19]
+in the case of a
+[CODE_BLOCK_20]
+[CODE_BLOCK_21]
+The constructor function that created the instance object. For
+[CODE_BLOCK_22]
+instances, the initial value is the
+[CODE_BLOCK_23]
+constructor.
+Instance methods
+Inherits instance methods from its parent
+[CODE_BLOCK_24]
+Examples
+Different ways to create a BigInt64Array
+Copy to Clipboard
+[CODE_BLOCK_25]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-typedarray-objects
+Browser compatibility
+See also
+JavaScript typed arrays
+guide
+[CODE_BLOCK_27]
+[CODE_BLOCK_28]
+[CODE_BLOCK_29]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

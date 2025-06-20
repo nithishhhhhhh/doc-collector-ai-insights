@@ -1,0 +1,114 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
+SCRAPED: 2025-06-19 18:15:46
+================================================================================
+
+--- CODE BLOCK 1 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+function decodes a Uniform Resource Identifier (URI) component previously created by
+--- CODE BLOCK 2 ---
+encodeURIComponent()
+--- END CODE BLOCK ---
+or by a similar routine.
+Try it
+--- CODE BLOCK 3 ---
+function containsEncodedComponents(x) {
+// ie ?,=,&,/ etc
+return decodeURI(x) !== decodeURIComponent(x);
+console.log(containsEncodedComponents("%3Fx%3Dtest")); // ?x=test
+// Expected output: true
+console.log(containsEncodedComponents("%D1%88%D0%B5%D0%BB%D0%BB%D1%8B")); // шеллы
+// Expected output: false
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 5 ---
+decodeURIComponent(encodedURI)
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 11 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+An encoded component of a Uniform Resource Identifier.
+Return value
+A new string representing the decoded version of the given encoded Uniform Resource Identifier (URI) component.
+Exceptions
+--- CODE BLOCK 12 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+Thrown if
+--- CODE BLOCK 13 ---
+decodeURI()
+--- END CODE BLOCK ---
+contains a
+--- CODE BLOCK 14 ---
+encodeURIComponent
+--- END CODE BLOCK ---
+not followed by two hexadecimal digits, or if the escape sequence does not encode a valid UTF-8 character.
+Description
+--- CODE BLOCK 16 ---
+decodeURIComponent("JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B");
+// "JavaScript_шеллы"
+--- END CODE BLOCK ---
+is a function property of the global object.
+--- CODE BLOCK 17 ---
+decodeURIComponent("JavaScript_%D1%88%D0%B5%D0%BB%D0%BB%D1%8B");
+// "JavaScript_шеллы"
+--- END CODE BLOCK ---
+uses the same decoding algorithm as described in
+--- CODE BLOCK 18 ---
+try {
+const a = decodeURIComponent("%E0%A4%A");
+} catch (e) {
+console.error(e);
+// URIError: malformed URI sequence
+--- END CODE BLOCK ---
+. It decodes
+escape sequences, including those that are not created by
+--- CODE BLOCK 19 ---
+try {
+const a = decodeURIComponent("%E0%A4%A");
+} catch (e) {
+console.error(e);
+// URIError: malformed URI sequence
+--- END CODE BLOCK ---
+, like
+--- CODE BLOCK 20 ---
+decodeURIComponent()
+--- END CODE BLOCK ---
+Examples
+Decoding a Cyrillic URL component
+Copy to Clipboard
+--- CODE BLOCK 21 ---
+function decodeQueryParam(p) {
+return decodeURIComponent(p.replace(/\+/g, " "));
+decodeQueryParam("search+query%20%28correct%29");
+// 'search query (correct)'
+--- END CODE BLOCK ---
+Catching errors
+Copy to Clipboard
+--- CODE BLOCK 25 ---
+encodeURIComponent
+--- END CODE BLOCK ---
+Decoding query parameters from a URL
+[CODE_BLOCK_20]
+cannot be used directly to parse query parameters from a URL. It needs a bit of preparation.
+Copy to Clipboard
+[CODE_BLOCK_21]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-decodeuricomponent-encodeduricomponent
+Browser compatibility
+See also
+[CODE_BLOCK_23]
+[CODE_BLOCK_24]
+[CODE_BLOCK_25]
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

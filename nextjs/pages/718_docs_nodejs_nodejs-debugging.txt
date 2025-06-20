@@ -1,0 +1,1313 @@
+SOURCE URL: https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_breakpoints
+SCRAPED: 2025-06-19 18:31:33
+================================================================================
+
+Edit
+Node.js debugging in VS Code
+The Visual Studio Code editor has built-in debugging support for the
+Node.js
+runtime and can debug JavaScript, TypeScript, and many other languages that are transpiled into JavaScript. Setting up a project for Node.js debugging is straightforward with VS Code providing appropriate launch configuration defaults and snippets.
+There are a few ways you can debug your Node.js programs in VS Code:
+auto attach
+to debug processes you run in VS Code's integrated terminal.
+Use the
+JavaScript debug terminal
+, similar to using the integrated terminal.
+Use a
+launch config
+to start your program, or
+attach to a process
+launched outside of VS Code.
+Auto Attach
+If the
+Auto Attach
+feature is enabled, the Node debugger automatically attaches to certain Node.js processes that have been launched from VS Code's Integrated Terminal. To enable the feature, either use the
+Toggle Auto Attach
+command from the Command Palette (
+Ctrl+Shift+P
+) or, if it's already activated, use the
+Auto Attach
+Status bar item.
+There are three modes for auto attach, which you can select in the resulting Quick Pick and via the
+debug.javascript.autoAttachFilter
+setting:
+--- CODE BLOCK 2 ---
+node_modules
+--- END CODE BLOCK ---
+- If you execute a script outside of your
+--- CODE BLOCK 3 ---
+debug.javascript.autoAttachSmartPattern
+--- END CODE BLOCK ---
+folder or use a common 'runner' script like mocha or ts-node, the process will be debugged. You can configure the 'runner' script allow list using the
+Auto Attach Smart Pattern
+setting (
+--- CODE BLOCK 5 ---
+onlyWithFlag
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+--inspect-brk
+--- END CODE BLOCK ---
+- All Node.js processes launched in the Integrated Terminal will be debugged.
+--- CODE BLOCK 8 ---
+Auto Attach
+--- END CODE BLOCK ---
+- Only processes launched with the
+--- CODE BLOCK 9 ---
+"debug.javascript.terminalOptions": {
+"skipFiles": [
+"<node_internals>/**"
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+"debug.javascript.terminalOptions": {
+"skipFiles": [
+"<node_internals>/**"
+--- END CODE BLOCK ---
+flag will be debugged.
+After enabling
+Auto Attach
+, you'll need to restart your terminal by clicking the ⚠ icon in the top right of the terminal, or just creating a new one. Then, the debugger should attach to your program within a second:
+When auto attach is on, the
+--- CODE BLOCK 12 ---
+'!**/node_modules/**', // exclude scripts in node_modules folders
+'**/$KNOWN_TOOLS$/**' // but include some common tools
+Copy
+--- END CODE BLOCK ---
+item will appear in the status bar across the bottom of the VS Code window. Clicking it allows you to change the auto attach mode, or temporarily turn it off. Temporarily turning off auto attach is useful if you're running some one-off programs where you don't need debugging, but you don't want to disable the feature entirely.
+Additional Configuration
+Other Launch Configuration Properties
+You can apply
+other properties normally found in launch.json
+to auto attach in the
+debug.javascript.terminalOptions
+setting. For example, to add node internals to your skipFiles, you could add the following to your user or workspace settings:
+--- CODE BLOCK 13 ---
+'!**/node_modules/**', // exclude scripts in node_modules folders
+'**/$KNOWN_TOOLS$/**' // but include some common tools
+--- END CODE BLOCK ---
+Auto Attach Smart Patterns
+--- CODE BLOCK 19 ---
+my-cool-test-runner
+--- END CODE BLOCK ---
+Auto Attach mode, VS Code will try to attach to your code, and not attach to build tools you aren't interested in debugging. It does this by matching the main script against a list of
+glob patterns
+. The glob patterns are configurable in the
+debug.javascript.autoAttachSmartPattern
+setting, which defaults to:
+--- CODE BLOCK 20 ---
+'!**/node_modules/**',
+'**/$KNOWN_TOOLS$/**',
+'!**/node_modules/mocha/**', // use "!" to exclude all scripts in "mocha" node modules
+'**/node_modules/my-cool-test-runner/**' // include scripts in the custom test runner
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 22 ---
+kbs(workbench.action.showCommands)
+--- END CODE BLOCK ---
+is replaced with a list of common 'code runners' such as
+--- CODE BLOCK 23 ---
+"debug.javascript.terminalOptions": {
+"skipFiles": [
+"<node_internals>/**"
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 24 ---
+"debug.javascript.terminalOptions": {
+"skipFiles": [
+"<node_internals>/**"
+--- END CODE BLOCK ---
+--- CODE BLOCK 25 ---
+launch.json
+--- END CODE BLOCK ---
+, and so on. You can modify this list if these settings don't work. For example, to exclude
+--- CODE BLOCK 26 ---
+launch.json
+--- END CODE BLOCK ---
+and include
+--- CODE BLOCK 28 ---
+launch.json
+--- END CODE BLOCK ---
+, you could add two lines:
+--- CODE BLOCK 32 ---
+resolveSourceMapLocations
+--- END CODE BLOCK ---
+JavaScript Debug Terminal
+In a similar way to
+auto attach
+, the JavaScript Debug Terminal will automatically debug any Node.js process you run in it. You can create a Debug Terminal by running the
+Debug: Create JavaScript Debug Terminal
+command from the Command Palette (
+--- CODE BLOCK 44 ---
+runtimeExecutable
+--- END CODE BLOCK ---
+), or by selecting the
+Create JavaScript Debug Terminal
+from the terminal switcher dropdown.
+Additional Configuration
+Other Launch Configuration Properties
+You can apply
+other properties normally found in launch.json
+to the debug terminal in the
+debug.javascript.terminalOptions
+setting. For example, to add node internals to your skipFiles, you could add the following to your user or workspace settings:
+--- CODE BLOCK 46 ---
+runtimeArgs
+--- END CODE BLOCK ---
+Launch Configuration
+Launch configs are the traditional way to set up debugging in VS Code, and provide you the most configuration options for running complex applications.
+In this section we'll go into more detail about configurations and features for more advanced debugging scenarios. You'll find instruction for debugging with
+source maps
+stepping over external code
+, doing
+remote debugging
+, and much more.
+If you'd like to watch an introductory video, see
+Getting started with debugging in VS Code
+Note
+: If you are just getting started with VS Code, you can learn about general debugging features and creating
+--- CODE BLOCK 51 ---
+internalConsole
+--- END CODE BLOCK ---
+configuration files in the
+Debugging
+topic.
+Launch configuration attributes
+Debugging configurations are stored in a
+--- CODE BLOCK 52 ---
+integratedTerminal
+--- END CODE BLOCK ---
+file located in your workspace's
+--- CODE BLOCK 53 ---
+externalTerminal
+--- END CODE BLOCK ---
+folder. An introduction into the creation and use of debugging configuration files is in the general
+Debugging
+article.
+Below is a reference of common
+--- CODE BLOCK 54 ---
+outputCapture
+--- END CODE BLOCK ---
+attributes specific to the Node.js debugger. You can view the complete set of options in the
+vscode-js-debug options
+documentation.
+The following attributes are supported in launch configurations of type
+--- CODE BLOCK 64 ---
+continueOnAttach
+--- END CODE BLOCK ---
+--- CODE BLOCK 65 ---
+--inspect-brk
+--- END CODE BLOCK ---
+--- CODE BLOCK 66 ---
+launch.json
+--- END CODE BLOCK ---
+- array of
+glob patterns
+for locating generated JavaScript files. See section
+Source maps
+--- CODE BLOCK 67 ---
+launch.json
+--- END CODE BLOCK ---
+- an array of
+glob patterns
+for locations where source maps should be parsed. See section
+Source maps
+--- CODE BLOCK 72 ---
+node_modules
+--- END CODE BLOCK ---
+- when restarting a session, give up after this number of milliseconds. See section
+Attaching to Node.js
+--- CODE BLOCK 73 ---
+node_modules
+--- END CODE BLOCK ---
+- break immediately when the program launches.
+--- CODE BLOCK 75 ---
+node_modules
+--- END CODE BLOCK ---
+- VS Code's root directory. See section
+Remote debugging
+below.
+--- CODE BLOCK 76 ---
+node_modules/.bin
+--- END CODE BLOCK ---
+- Node's root directory. See section
+Remote debugging
+below.
+--- CODE BLOCK 78 ---
+externalTerminal
+--- END CODE BLOCK ---
+- try to automatically step over code that doesn't map to source files. See section
+Smart stepping
+--- CODE BLOCK 79 ---
+integratedTerminal
+--- END CODE BLOCK ---
+- automatically skip files covered by these
+glob patterns
+. See section
+Skipping uninteresting code
+--- CODE BLOCK 80 ---
+internalConsole
+--- END CODE BLOCK ---
+- enable diagnostic output.
+These attributes are only available for launch configurations of request type
+--- CODE BLOCK 81 ---
+terminal.external.windowsExec
+--- END CODE BLOCK ---
+--- CODE BLOCK 82 ---
+terminal.external.osxExec
+--- END CODE BLOCK ---
+- an absolute path to the Node.js program to debug.
+--- CODE BLOCK 83 ---
+terminal.external.linuxExec
+--- END CODE BLOCK ---
+- arguments passed to the program to debug. This attribute is of type array and expects individual arguments as array elements.
+--- CODE BLOCK 84 ---
+runtimeExecutable
+--- END CODE BLOCK ---
+- launch the program to debug in this directory.
+--- CODE BLOCK 85 ---
+runtimeArgs
+--- END CODE BLOCK ---
+- absolute path to the runtime executable to be used. Default is
+--- CODE BLOCK 87 ---
+package.json
+--- END CODE BLOCK ---
+. See section
+Launch configuration support for 'npm' and other tools
+--- CODE BLOCK 88 ---
+"scripts": {
+"debug": "node myProgram.js"
+Copy
+--- END CODE BLOCK ---
+- optional arguments passed to the runtime executable.
+--- CODE BLOCK 89 ---
+"scripts": {
+"debug": "node myProgram.js"
+--- END CODE BLOCK ---
+- if "
+" (or "
+nvm-windows
+") or "
+" is used for managing Node.js versions, this attribute can be used to select a specific version of Node.js. See section
+Multi version support
+below.
+--- CODE BLOCK 90 ---
+"name": "Launch via npm",
+"type": "node",
+"request": "launch",
+"cwd": "${workspaceFolder}",
+"runtimeExecutable": "npm",
+"runtimeArgs": ["run-script", "debug"]
+Copy
+--- END CODE BLOCK ---
+- optional environment variables. This attribute expects environment variables as a list of string typed key/value pairs.
+--- CODE BLOCK 91 ---
+"name": "Launch via npm",
+"type": "node",
+"request": "launch",
+"cwd": "${workspaceFolder}",
+"runtimeExecutable": "npm",
+"runtimeArgs": ["run-script", "debug"]
+--- END CODE BLOCK ---
+- optional path to a file containing environment variable definitions. See section
+Load environment variables from external file
+below.
+--- CODE BLOCK 92 ---
+runtimeVersion
+--- END CODE BLOCK ---
+- the console to launch the program (
+--- CODE BLOCK 93 ---
+"type": "node",
+"request": "launch",
+"name": "Launch test",
+"runtimeVersion": "14",
+"program": "${workspaceFolder}/test.js"
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 94 ---
+"type": "node",
+"request": "launch",
+"name": "Launch test",
+"runtimeVersion": "14",
+"program": "${workspaceFolder}/test.js"
+--- END CODE BLOCK ---
+--- CODE BLOCK 95 ---
+runtimeVersion
+--- END CODE BLOCK ---
+). See section
+Node Console
+below.
+--- CODE BLOCK 96 ---
+"type": "node",
+"request": "launch",
+"name": "Launch test",
+"runtimeVersion": "chackracore/8.9.4/x64",
+"program": "${workspaceFolder}/test.js"
+Copy
+--- END CODE BLOCK ---
+- if set to
+--- CODE BLOCK 97 ---
+"type": "node",
+"request": "launch",
+"name": "Launch test",
+"runtimeVersion": "chackracore/8.9.4/x64",
+"program": "${workspaceFolder}/test.js"
+--- END CODE BLOCK ---
+, output from the process stdout/stderr will be shown in the Debug Console, instead of listening to output over the debug port. This is useful for programs or log libraries that write directly to the stdout/stderr streams instead of using
+--- CODE BLOCK 98 ---
+runtimeVersion
+--- END CODE BLOCK ---
+APIs.
+This attribute is only available for launch configurations of request type
+--- CODE BLOCK 99 ---
+nvm install 7.10.1
+--- END CODE BLOCK ---
+--- CODE BLOCK 100 ---
+nvs add 7.10.1
+--- END CODE BLOCK ---
+- restart the connection on termination. See section
+Restarting debug session automatically
+--- CODE BLOCK 101 ---
+"runtimeVersion": "7.10.1"
+--- END CODE BLOCK ---
+- debug port to use. See sections
+Attaching to Node.js
+Remote debugging
+--- CODE BLOCK 102 ---
+"runtimeVersion": "14"
+--- END CODE BLOCK ---
+- TCP/IP address of the debug port. See sections
+Attaching to Node.js
+Remote debugging
+--- CODE BLOCK 105 ---
+//...
+"envFile": "${workspaceFolder}/.env",
+"env": { "USER": "john doe" }
+//...
+Copy
+--- END CODE BLOCK ---
+- the debugger tries to attach to this process after having sent a USR1 signal. With this setting, the debugger can attach to an already running process that was not started in debug mode. When using the
+--- CODE BLOCK 106 ---
+//...
+"envFile": "${workspaceFolder}/.env",
+"env": { "USER": "john doe" }
+//...
+--- END CODE BLOCK ---
+attribute, the debug port is determined automatically based on the Node.js version (and the used protocol) and cannot be configured explicitly. So don't specify a
+--- CODE BLOCK 109 ---
+USER=doe
+PASSWORD=abc123
+# a comment
+# an empty value:
+empty=
+# new lines expanded in quoted strings:
+lines="foo\nbar"
+Copy
+--- END CODE BLOCK ---
+attribute.
+--- CODE BLOCK 110 ---
+USER=doe
+PASSWORD=abc123
+# a comment
+# an empty value:
+empty=
+# new lines expanded in quoted strings:
+lines="foo\nbar"
+--- END CODE BLOCK ---
+- whether to continue the process if it's paused when we attach to it. This option is useful if you launch your program with
+--- CODE BLOCK 111 ---
+node --inspect program.js
+Copy
+--- END CODE BLOCK ---
+Launch configurations for common scenarios
+You can trigger IntelliSense (
+Ctrl+Space
+) in your
+--- CODE BLOCK 112 ---
+node --inspect program.js
+--- END CODE BLOCK ---
+file to see launch configuration snippets for commonly used Node.js debugging scenarios.
+You can also bring up the snippets with the
+Add Configuration...
+button in the lower right of the
+--- CODE BLOCK 113 ---
+node --inspect-brk program.js
+Copy
+--- END CODE BLOCK ---
+editor window.
+The following snippets are available:
+Launch Program
+: Launch a Node.js program in debug mode.
+Launch via npm
+: Launch a Node.js program through an npm 'debug' script. You can use an npm debug script from your launch configuration if it has been defined in your package.json. The debug port used in the npm script must correspond to the port specified in the snippet.
+Attach
+: Attach to the debug port of a locally running Node.js program. Make sure that the Node.js program to debug has been started in debug mode, and the debug port used is the same as the one specified in the snippet.
+Attach to Remote Program
+: Attach to the debug port of a Node.js program running on the host specified by the
+--- CODE BLOCK 114 ---
+node --inspect-brk program.js
+--- END CODE BLOCK ---
+attribute. Make sure that the Node.js program to debug has been started in debug mode, and the debug port used is the same as the one specified in the snippet. To help VS Code map source files between your workspace and the filesystem of the remote host, make sure to specify correct paths for the
+--- CODE BLOCK 116 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"port": 9229
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"port": 9229
+--- END CODE BLOCK ---
+attributes.
+Attach by Process ID
+: Open the process picker to select a node or gulp process for debugging. With this launch configuration, you can even attach to a node or gulp process that was not started in debug mode.
+Nodemon Setup
+: Use nodemon to relaunch a debug session automatically whenever the JavaScript source has changed. Make sure that you have nodemon installed globally. Note that terminating the debug session only terminates the program to debug, not nodemon itself. To terminate nodemon, press
+Ctrl+C
+in the Integrated Terminal.
+Mocha Tests
+: Debug mocha tests in a
+--- CODE BLOCK 120 ---
+--inspect-brk
+--- END CODE BLOCK ---
+folder of your project. Make sure that your project has 'mocha' installed in its
+--- CODE BLOCK 122 ---
+--inspect=12345
+--- END CODE BLOCK ---
+folder.
+Yeoman generator
+: Debug a yeoman generator. The snippet asks you to specify the name of the generator. Make sure that your project has 'yo' installed in its
+--- CODE BLOCK 123 ---
+--inspect-brk=12345
+--- END CODE BLOCK ---
+folder and that your generated project has been installed for debugging by running
+--- CODE BLOCK 125 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"processId": "53426"
+Copy
+--- END CODE BLOCK ---
+in the project folder.
+Gulp task
+: Debug a gulp task. Make sure that your project has 'gulp' installed in its
+--- CODE BLOCK 126 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"processId": "53426"
+--- END CODE BLOCK ---
+folder.
+Electron Main
+: Debug the main Node.js process of an Electron application. The snippet assumes that the Electron executable has been installed inside the
+--- CODE BLOCK 127 ---
+PickProcess
+--- END CODE BLOCK ---
+directory of the workspace.
+Node console
+By default, Node.js debug sessions launch the target in the internal VS Code Debug Console. Since the Debug Console does not support programs that need to read input from the console, you can enable either an external terminal or use the VS Code Integrated Terminal by setting the
+--- CODE BLOCK 128 ---
+PickProcess
+--- END CODE BLOCK ---
+attribute in your launch configuration to
+--- CODE BLOCK 129 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"processId": "${command:PickProcess}"
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 130 ---
+"name": "Attach to Process",
+"type": "node",
+"request": "attach",
+"processId": "${command:PickProcess}"
+--- END CODE BLOCK ---
+respectively. The default is
+--- CODE BLOCK 138 ---
+--sourceMap
+--- END CODE BLOCK ---
+In an external terminal, you can configure which terminal program to use via the
+--- CODE BLOCK 140 ---
+"sourceMap": true
+--- END CODE BLOCK ---
+--- CODE BLOCK 141 ---
+tsc --sourceMap --outDir bin app.ts
+Copy
+--- END CODE BLOCK ---
+, and
+--- CODE BLOCK 142 ---
+tsc --sourceMap --outDir bin app.ts
+--- END CODE BLOCK ---
+settings.
+Launch configuration support for 'npm' and other tools
+Instead of launching the Node.js program directly with node, you can use 'npm' scripts or other task runner tools directly from a launch configuration:
+You can use any program available on the PATH (for example 'npm', 'mocha', 'gulp', etc.) for the
+--- CODE BLOCK 144 ---
+--source-maps
+--- END CODE BLOCK ---
+attribute and arguments can be passed via
+--- CODE BLOCK 145 ---
+npx babel script.js --out-file script-compiled.js --source-maps
+Copy
+--- END CODE BLOCK ---
+You do not have to set the
+--- CODE BLOCK 146 ---
+npx babel script.js --out-file script-compiled.js --source-maps
+--- END CODE BLOCK ---
+attribute if your npm script or other tool implicitly specifies the program to launch.
+Let's look at an 'npm' example. If your
+--- CODE BLOCK 147 ---
+devtool: "source-map"
+--- END CODE BLOCK ---
+has a 'debug' script, for example:
+--- CODE BLOCK 148 ---
+webpack.config.js
+--- END CODE BLOCK ---
+the corresponding launch configuration would look like this:
+--- CODE BLOCK 151 ---
+launch.json
+--- END CODE BLOCK ---
+Multi version support
+If you are using '
+' (or '
+nvm-windows
+') to manage your Node.js versions, it is possible to specify a
+--- CODE BLOCK 155 ---
+"version": "0.2.0",
+"configurations": [
+"name": "Launch TypeScript",
+"type": "node",
+"request": "launch",
+"program": "app.ts",
+"outFiles": ["${workspaceFolder}/bin/**/*.js"]
+--- END CODE BLOCK ---
+attribute in a launch configuration for selecting a specific version of Node.js:
+--- CODE BLOCK 160 ---
+src/index.ts
+--- END CODE BLOCK ---
+If you are using '
+' to manage your Node.js versions, it is possible to use
+--- CODE BLOCK 162 ---
+resolveSourceMapLocations
+--- END CODE BLOCK ---
+attribute to select a specific version, architecture, and flavor Node.js, for example:
+--- CODE BLOCK 164 ---
+node_modules/some-dependency
+--- END CODE BLOCK ---
+Make sure to have those Node.js versions installed that you want to use with the
+--- CODE BLOCK 166 ---
+"resolveSourceMapLocations": [
+"out/**/*.js",
+"node_modules/some-dependency/**/*.js",
+--- END CODE BLOCK ---
+attribute, as the feature will not download and install the version automatically. For example, you'll have to run something like
+--- CODE BLOCK 171 ---
+"Breakpoint ignored because generated code not found (source map problem?)"
+--- END CODE BLOCK ---
+--- CODE BLOCK 176 ---
+launch.json
+--- END CODE BLOCK ---
+from the integrated terminal if you plan to add
+--- CODE BLOCK 201 ---
+sourceMapPathOverrides
+--- END CODE BLOCK ---
+to your launch configuration.
+If you omit the minor and patch version and have, for example,
+--- CODE BLOCK 202 ---
+'webpack:///./~/*': "${workspaceFolder}/node_modules/*",
+'webpack:////*': '/*',
+'webpack://@?:*/?:*/*': "${workspaceFolder}/*",
+// and some more patterns...
+Copy
+--- END CODE BLOCK ---
+, then the most recent
+--- CODE BLOCK 203 ---
+'webpack:///./~/*': "${workspaceFolder}/node_modules/*",
+'webpack:////*': '/*',
+'webpack://@?:*/?:*/*': "${workspaceFolder}/*",
+// and some more patterns...
+--- END CODE BLOCK ---
+version installed on your system will be used.
+Load environment variables from external file
+The VS Code Node debugger supports loading environment variables from a file and passing them to the Node.js runtime. To use this feature, add an attribute
+--- CODE BLOCK 207 ---
+webpack://@my/package/foo/bar
+--- END CODE BLOCK ---
+to your launch configuration and specify the absolute path to the file containing the environment variables:
+--- CODE BLOCK 208 ---
+${workspaceFolder}/foo/bar
+--- END CODE BLOCK ---
+Any environment variable specified in the
+--- CODE BLOCK 211 ---
+sourceMapPathOverrides
+--- END CODE BLOCK ---
+dictionary will override variables loaded from the file.
+Here's an example of an
+--- CODE BLOCK 213 ---
+"type": "node",
+"request": "attach",
+"name": "Attach to remote",
+"address": "192.168.148.2", // <- remote address here
+"port": 9229
+Copy
+--- END CODE BLOCK ---
+file:
+--- CODE BLOCK 214 ---
+"type": "node",
+"request": "attach",
+"name": "Attach to remote",
+"address": "192.168.148.2", // <- remote address here
+"port": 9229
+--- END CODE BLOCK ---
+Attaching to Node.js
+If you want to attach the VS Code debugger to an external Node.js program, launch Node.js as follows:
+--- CODE BLOCK 222 ---
+"type": "node",
+"request": "attach",
+"name": "Attach to remote",
+"address": "TCP/IP address of process to be debugged",
+"port": 9229,
+"localRoot": "${workspaceFolder}",
+"remoteRoot": "C:\\Users\\username\\project\\server"
+--- END CODE BLOCK ---
+or if the program shouldn't start running, but must wait for the debugger to attach:
+--- CODE BLOCK 228 ---
+nodemon --inspect server.js
+--- END CODE BLOCK ---
+Options to attach the debugger to your program:
+Open a "process picker" that lists all potential candidate processes and let you pick one, or
+Create an "attach" configuration that explicitly specifies all configuration options and then press
+Let's go through these options in detail:
+Attach to Node Process action
+Attach to Node Process
+command from the Command Palette (
+Ctrl+Shift+P
+) opens a Quick Pick menu that lists all potential processes that are available to the Node.js debugger:
+The individual processes listed in the picker show the debug port and process ID. Once you select your Node.js process in that list, the Node.js debugger will try to attach to it.
+In addition to Node.js processes, the picker also shows other programs that were launched with one of the various forms
+--- CODE BLOCK 230 ---
+"name": "Attach to node",
+"type": "node",
+"request": "attach",
+"restart": true,
+"port": 9229
+--- END CODE BLOCK ---
+arguments. This makes it possible to attach to Electron's or VS Code's helper processes.
+Setting up an "Attach" configuration
+This option requires more work but in contrast to the previous two options it allows you to configure various debug configuration options explicitly.
+The simplest "attach" configuration looks like this:
+--- CODE BLOCK 232 ---
+"name": "Launch server.js via nodemon",
+"type": "node",
+"request": "launch",
+"runtimeExecutable": "nodemon",
+"program": "${workspaceFolder}/server.js",
+"console": "integratedTerminal",
+"internalConsoleOptions": "neverOpen"
+Copy
+--- END CODE BLOCK ---
+The port
+--- CODE BLOCK 234 ---
+integratedTerminal
+--- END CODE BLOCK ---
+is the default debug port of the
+--- CODE BLOCK 236 ---
+current value is: {myVariable.property}
+--- END CODE BLOCK ---
+--- CODE BLOCK 237 ---
+location is /usr/local
+--- END CODE BLOCK ---
+options. To use a different port (for example
+--- CODE BLOCK 252 ---
+runtimeArgs
+--- END CODE BLOCK ---
+), add it to the options like this:
+--- CODE BLOCK 255 ---
+"skipFiles": [
+"${workspaceFolder}/node_modules/**/*.js",
+"${workspaceFolder}/lib/**/*.js"
+Copy
+--- END CODE BLOCK ---
+--- CODE BLOCK 256 ---
+"skipFiles": [
+"${workspaceFolder}/node_modules/**/*.js",
+"${workspaceFolder}/lib/**/*.js"
+--- END CODE BLOCK ---
+and change the
+--- CODE BLOCK 257 ---
+node_modules
+--- END CODE BLOCK ---
+attribute in the launch configuration to match.
+To attach to a Node.js process that hasn't been started in debug mode, you can do this by specifying the process ID of the Node.js process as a string:
+--- CODE BLOCK 260 ---
+console.log
+--- END CODE BLOCK ---
+To avoid repeatedly entering a new process ID in the launch configuration, Node debug supports a command variable
+--- CODE BLOCK 262 ---
+"skipFiles": [
+"<node_internals>/**/*.js"
+Copy
+--- END CODE BLOCK ---
+that will open the process picker (from above).
+Using the
+--- CODE BLOCK 263 ---
+"skipFiles": [
+"<node_internals>/**/*.js"
+--- END CODE BLOCK ---
+variable the launch configuration looks like this:
+--- CODE BLOCK 267 ---
+"skipFiles": [
+"${workspaceFolder}/node_modules/**/*.js",
+"!${workspaceFolder}/node_modules/math/**/*.js"
+Copy
+--- END CODE BLOCK ---
+Stop debugging
+Using the
+Debug: Stop
+action (available in the Debug toolbar or via the
+Command Palette
+) stops the debug session.
+If the debug session was started in "attach" mode (and the red terminate button in the Debug toolbar shows a superimposed "plug"), pressing
+Stop
+disconnects the Node.js debugger from the debuggee that then continues execution.
+If the debug session is in "launch" mode, pressing
+Stop
+does the following:
+When pressing
+Stop
+for the first time, the debuggee is requested to shut down gracefully by sending a
+--- CODE BLOCK 272 ---
+wasm-pack build
+--- END CODE BLOCK ---
+signal. The debuggee is free to intercept this signal and clean up anything as necessary and then shut down. If there are no breakpoints (or problems) in that shutdown code, the debuggee and the debug session will terminate.
+However, if the debugger hits a breakpoint in the shutdown code or if the debuggee does not terminate properly by itself, then the debug session will not end. In this case, pressing
+Stop
+again will force terminate the debuggee and its child processes (
+--- CODE BLOCK 273 ---
+cargo install wasm-bindgen-cli
+--- END CODE BLOCK ---
+If you see that a debug session doesn't end when you press the red
+Stop
+button, then press the button again to force a shutdown of the debuggee.
+On Windows, pressing
+Stop
+forcibly kills the debuggee and its child processes.
+Source maps
+The JavaScript debugger of VS Code supports source maps that help debugging of transpiled languages, for example, TypeScript or minified/uglified JavaScript. With source maps, it's possible to single step through or set breakpoints in the original source. If no source map exists for the original source, or if the source map is broken and cannot successfully map between the source and the generated JavaScript, then breakpoints show up as unverified (gray hollow circles).
+--- CODE BLOCK 274 ---
+cargo build --target wasm32-unknown-unknown
+--- END CODE BLOCK ---
+attribute that defaults to
+--- CODE BLOCK 275 ---
+wasm-bindgen --keep-debug --out-dir pkg ./target/wasm32-unknown-unknown/debug/<library-name>.wasm <extra-arguments>
+--- END CODE BLOCK ---
+controls the source map feature. The debugger always tries to use source maps (if it can find any) and as a consequence, you can even specify a source file (for example, app.ts) with the
+--- CODE BLOCK 276 ---
+<library-name>
+--- END CODE BLOCK ---
+attribute. If you need to disable source maps for some reason, you can set the
+--- CODE BLOCK 277 ---
+<extra-arguments>
+--- END CODE BLOCK ---
+attribute to
+--- CODE BLOCK 281 ---
+--preserve-symlinks
+--- END CODE BLOCK ---
+Tool Configuration
+Since source maps are not always automatically created, you should make sure to configure your transpiler to create them. For example:
+TypeScript
+For TypeScript, you can enable sourcemaps by passing
+--- CODE BLOCK 282 ---
+runtimeArgs
+--- END CODE BLOCK ---
+--- CODE BLOCK 283 ---
+runtimeArgs
+--- END CODE BLOCK ---
+, or by adding
+--- CODE BLOCK 284 ---
+"runtimeArgs": ["--preserve-symlinks"]
+Copy
+--- END CODE BLOCK ---
+in your tsconfig.json file.
+--- CODE BLOCK 285 ---
+"runtimeArgs": ["--preserve-symlinks"]
+--- END CODE BLOCK ---
+Babel
+For Babel, you'll want to set the
+sourceMaps
+option to
+--- CODE BLOCK 287 ---
+--experimental-modules
+--- END CODE BLOCK ---
+, or pass the
+--- CODE BLOCK 288 ---
+runtimeArgs
+--- END CODE BLOCK ---
+option when compiling your code.
+--- CODE BLOCK 289 ---
+launch.json
+--- END CODE BLOCK ---
+Webpack
+Webpack has
+numerous
+source map options. We recommend setting the property
+--- CODE BLOCK 291 ---
+"runtimeArgs": ["-r", "esm"]
+--- END CODE BLOCK ---
+in your
+--- CODE BLOCK 293 ---
+NODE_OPTIONS
+--- END CODE BLOCK ---
+for the best fidelity of results, although you can experiment with other settings causes slowdowns in your build.
+Also, if you have additional compilation steps in webpack, such as using a TypeScript loader, you'll also want to make sure that those steps are set up to generate sourcemaps. Otherwise, the sourcemaps that webpack generates will map back to the compiled code from the loader, instead of the real sources.
+Source Map Discovery
+By default, VS Code will search your entire workspace, excluding
+--- CODE BLOCK 295 ---
+export NODE_OPTIONS="$NODE_OPTIONS --some-other-option=here"
+Copy
+--- END CODE BLOCK ---
+, for sourcemaps. In large workspaces, this search might be slow. You can configure the locations where VS Code will search for source maps by setting the
+--- CODE BLOCK 296 ---
+export NODE_OPTIONS="$NODE_OPTIONS --some-other-option=here"
+--- END CODE BLOCK ---
+attribute in your
+[CODE_BLOCK_151]
+. For example, this configuration will only discover sourcemaps for
+[CODE_BLOCK_152]
+files in the
+[CODE_BLOCK_153]
+folder:
+[CODE_BLOCK_154]
+Note that the
+[CODE_BLOCK_156]
+should match your JavaScript files, not the source map files (which may end in
+[CODE_BLOCK_157]
+instead of
+[CODE_BLOCK_158]
+Source Map Resolution
+By default, only source maps in your
+[CODE_BLOCK_159]
+will be resolved. This behavior is used to prevent dependencies from interfering with breakpoints you set. For example, if you had a file
+[CODE_BLOCK_160]
+and a dependency had a source map that referenced
+[CODE_BLOCK_161]
+, that would incorrectly resolve to your source file and could lead to surprising results.
+You can configure this behavior by setting the
+[CODE_BLOCK_162]
+option. If set to
+[CODE_BLOCK_163]
+, every source map will be resolved. For example, this configuration will additionally allow source maps in
+[CODE_BLOCK_164]
+to be resolved:
+[CODE_BLOCK_165]
+Smart stepping
+With the
+[CODE_BLOCK_167]
+attribute set to
+[CODE_BLOCK_168]
+in a launch configuration, VS Code will automatically skip 'uninteresting code' when stepping through code in the debugger. 'Uninteresting code' is code that is generated by a transpiling process but is not covered by a source map so it does not map back to the original source. This code gets in your way when stepping through source code in the debugger because it makes the debugger switch between the original source code and generated code that you are not interested in.
+[CODE_BLOCK_169]
+will automatically step through code not covered by a source map until it reaches a location that is covered by a source map again.
+Smart stepping is especially useful for cases like async/await downcompilation in TypeScript, where the compiler injects helper code that is not covered by a source map.
+[CODE_BLOCK_170]
+feature only applies to JavaScript code that was generated from source and therefore has a source map. For JavaScript without sources, the smart stepping option has no effect.
+JavaScript source map tips
+A common issue when debugging with source maps is that you'll set a breakpoint, and it will turn gray. If you hover the cursor over it, you'll see the message,
+[CODE_BLOCK_171]
+. What now? There are a range of issues that can lead to this. First, a quick explanation of how the Node debug adapter handles source maps.
+When you set a breakpoint in
+[CODE_BLOCK_172]
+, the debug adapter has to figure out the path to
+[CODE_BLOCK_173]
+, the transpiled version of your TypeScript file, which is what is actually running in Node. But, there is not a straightforward way to figure this out starting from the
+[CODE_BLOCK_174]
+file. Instead, the debug adapter uses the
+[CODE_BLOCK_175]
+attribute in the
+[CODE_BLOCK_176]
+to find all the transpiled
+[CODE_BLOCK_177]
+files, and parses them for a source map, which contains the locations of its associated
+[CODE_BLOCK_178]
+files.
+When you build your
+[CODE_BLOCK_179]
+file in TypeScript with source maps enabled, it either produces an
+[CODE_BLOCK_180]
+file, or a source map inlined as a base64-encoded string in a comment at the bottom of the
+[CODE_BLOCK_181]
+file. To find the
+[CODE_BLOCK_182]
+files associated with this map, the debug adapter looks at two properties in the source map,
+[CODE_BLOCK_183]
+, and
+[CODE_BLOCK_184]
+[CODE_BLOCK_185]
+is optional - if present, it is prepended to each path in
+[CODE_BLOCK_186]
+, which is an array of paths. The result is an array of absolute or relative paths to
+[CODE_BLOCK_187]
+files. Relative paths are resolved relative to the source map.
+Finally, the debug adapter searches for the full path of
+[CODE_BLOCK_188]
+in this resulting list of
+[CODE_BLOCK_189]
+files. If there's a match, it has found the source map file to use when mapping
+[CODE_BLOCK_190]
+[CODE_BLOCK_191]
+. If there is no match, then it can't bind the breakpoint, and it will turn gray.
+Here are some things to try when your breakpoints turn gray:
+While debugging, run the
+Debug: Diagnose Breakpoint Problems
+command. This command will bring up a tool that can provide hints to help you resolve any issues from the Command Palette (
+Ctrl+Shift+P
+Did you build with source maps enabled? Make sure there are
+[CODE_BLOCK_192]
+files, or inlined source maps in your
+[CODE_BLOCK_193]
+files.
+Are the
+[CODE_BLOCK_194]
+[CODE_BLOCK_195]
+properties in your source map correct? Can they be combined to get the correct path to the
+[CODE_BLOCK_196]
+file?
+Have you opened the folder in VS Code with the incorrect case? It's possible to open folder
+[CODE_BLOCK_197]
+from the command line like
+[CODE_BLOCK_198]
+in which case source maps may not be resolved correctly.
+Try searching for help with your particular setup on Stack Overflow or by filing an issue on GitHub.
+Try adding a
+[CODE_BLOCK_199]
+statement. If it breaks into the
+[CODE_BLOCK_200]
+file there, but breakpoints at that spot don't bind, that is useful information to include with a GitHub issue.
+Overriding source map paths
+The debugger uses
+[CODE_BLOCK_201]
+to implement custom sourcemap-to-disk path mapping. Good defaults are in place for most tools, but in advanced cases you may need to customize it. The default paths overrides is an object map that looks like this:
+[CODE_BLOCK_202]
+This maps paths or URLs in the source map from the left to the right. The pattern
+[CODE_BLOCK_204]
+is a non-greedy, non-capturing match, and
+[CODE_BLOCK_205]
+is a greedy capturing match. The debugger then replaces the corresponding
+[CODE_BLOCK_206]
+in the right-hand pattern with the fragment captured from the source map path. For example, the last pattern in the above example would map
+[CODE_BLOCK_207]
+[CODE_BLOCK_208]
+Note that for browser debugging, the
+[CODE_BLOCK_209]
+is used in place of the
+[CODE_BLOCK_210]
+in the default
+[CODE_BLOCK_211]
+Remote debugging
+Note:
+VS Code now has universal
+remote development capabilities
+. Using the
+Remote Development
+extensions, Node.js development in remote scenarios and containers is no different than Node.js development in a local setup.
+This is the recommended way to remote debug Node.js programs
+. Check out the
+Getting started
+section and
+Remote tutorials
+to learn more.
+If you are unable to use any of the Remote Development extensions to debug your Node.js program, below is a guide on how to debug a remote Node.js program from your local instance of VS Code.
+The Node.js debugger supports remote debugging where you attach to a process running on a different machine, or in a container. Specify a remote host via the
+[CODE_BLOCK_212]
+attribute. For example:
+[CODE_BLOCK_213]
+By default, VS Code will stream the debugged source from the remote Node.js folder to the local VS Code and show it in a read-only editor. You can step through this code, but cannot modify it. If you want VS Code to open the editable source from your workspace instead, you can set up a mapping between the remote and local locations. A
+[CODE_BLOCK_215]
+and a
+[CODE_BLOCK_216]
+attribute can be used to map paths between a local VS Code project and a (remote) Node.js folder. This works even locally on the same system or across different operating systems. Whenever a code path needs to be converted from the remote Node.js folder to a local VS Code path, the
+[CODE_BLOCK_217]
+path is stripped off the path and replaced by
+[CODE_BLOCK_218]
+. For the reverse conversion, the
+[CODE_BLOCK_219]
+path is replaced by the
+[CODE_BLOCK_220]
+[CODE_BLOCK_221]
+Access Loaded Scripts
+If you need to set a breakpoint in a script that is not part of your workspace and therefore cannot be easily located and opened through normal VS Code file browsing, you can access the loaded scripts via the
+LOADED SCRIPTS
+view in the
+Run and Debug
+view:
+LOADED SCRIPTS
+view lets you quickly select the script by typing its name or filter the list when
+Enable Filter on Type
+is on.
+Scripts are loaded into a read-only editor where you can set breakpoints. These breakpoints are remembered across debug sessions but you only have access to the script content while a debug session is running.
+Restarting debug sessions automatically when source is edited
+[CODE_BLOCK_223]
+attribute of a launch configuration controls whether the Node.js debugger automatically restarts after the debug session has ended. This feature is useful if you use
+nodemon
+to restart Node.js on file changes. Setting the launch configuration attribute
+[CODE_BLOCK_224]
+[CODE_BLOCK_225]
+makes the node debugger automatically try to reattach to Node.js after Node.js has terminated.
+If you have started your program
+[CODE_BLOCK_226]
+nodemon
+on the command line like this:
+[CODE_BLOCK_227]
+you can attach the VS Code debugger to it with the following launch configuration:
+[CODE_BLOCK_229]
+Alternatively, you can start your program
+[CODE_BLOCK_231]
+nodemon
+directly with a launch config and attach the VS Code debugger:
+[CODE_BLOCK_232]
+Tip:
+Pressing the
+Stop
+button stops the debug session and disconnects from Node.js, but
+nodemon
+(and Node.js) will continue to run. To stop
+nodemon
+, you will have to kill it from the command line (which is easily possible if you use the
+[CODE_BLOCK_234]
+as shown above).
+Tip:
+In case of syntax errors,
+nodemon
+will not be able to start Node.js successfully until the error has been fixed. In this case, VS Code will continue trying to attach to Node.js but eventually give up (after 10 seconds). To avoid this, you can increase the timeout by adding a
+[CODE_BLOCK_235]
+attribute with a larger value (in milliseconds).
+Restart frame
+The Node debugger supports restarting execution at a stack frame. This can be useful in situations where you have found a problem in your source code and you want to rerun a small portion of the code with modified input values. Stopping and then restarting the full debug session can be time-consuming. The
+Restart Frame
+action allows you to reenter the current function after you have changed variables with the
+Set Value
+action:
+Restart Frame
+won't roll back mutation to state outside of the function, so it may not always work as expected.
+Breakpoints
+Conditional Breakpoints
+Conditional breakpoints are breakpoints that only pause when an expression returns a truthy value. You can create one by right-clicking in the gutter beside a line number and selecting "Conditional Breakpoint":
+Logpoints
+Sometimes you want to just log a message or value when code hits a certain location, rather than pausing. You can do this with logpoints. Logpoints don't pause, but rather log a message to the Debug Console when hit. In the JavaScript debugger, you can use curly braces to interpolate expressions into the message, like
+[CODE_BLOCK_236]
+You can create one by right-clicking in the gutter beside a line number and selecting "Logpoint". For example, this might log something like
+[CODE_BLOCK_237]
+Hit count breakpoints
+The 'hit count condition' controls how many times a breakpoint needs to be hit before it will 'break' execution. You can place a hit count breakpoint by right-clicking in the gutter beside a line number, selecting "Conditional Breakpoint", and then switching to "Hit Count".
+The hit count syntax supported by the Node.js debugger is either an integer or one of the operators
+[CODE_BLOCK_238]
+[CODE_BLOCK_239]
+[CODE_BLOCK_240]
+[CODE_BLOCK_241]
+[CODE_BLOCK_242]
+[CODE_BLOCK_243]
+followed by an integer.
+Some examples:
+[CODE_BLOCK_244]
+break always after 10 hits
+[CODE_BLOCK_245]
+break on the first two hits only
+[CODE_BLOCK_246]
+same as
+[CODE_BLOCK_247]
+[CODE_BLOCK_248]
+break on every other hit
+Triggered breakpoints
+A triggered breakpoint is a breakpoint that is automatically enabled once another breakpoint is hit. They can be very useful when diagnosing failure cases in code that happen only after a certain precondition.
+Triggered breakpoints can be set by right-clicking on the glyph margin, selecting
+Add Triggered Breakpoint
+, and then choosing which other breakpoint enables the breakpoint.
+Breakpoint validation
+For performance reasons, Node.js parses the functions inside JavaScript files lazily on first access. As a consequence, breakpoints don't work in source code areas that haven't been seen (parsed) by Node.js.
+Since this behavior is not ideal for debugging, VS Code passes the
+[CODE_BLOCK_249]
+option to Node.js automatically. This prevents the delayed parsing and ensures that breakpoints can be validated before running the code (so they no longer "jump").
+Since the
+[CODE_BLOCK_250]
+option might increase the start-up time of the debug target significantly, you can easily opt out by passing a
+[CODE_BLOCK_251]
+as a
+[CODE_BLOCK_252]
+attribute.
+When doing so, you will find that some of your breakpoints don't "stick" to the line requested but instead "jump" for the next possible line in already-parsed code. To avoid confusion, VS Code always shows breakpoints at the location where Node.js thinks the breakpoint is. In the
+BREAKPOINTS
+section, these breakpoints are shown with an arrow between requested and actual line number:
+This breakpoint validation occurs when a session starts and the breakpoints are registered with Node.js, or when a session is already running and a new breakpoint is set. In this case, the breakpoint may "jump" to a different location. After Node.js has parsed all the code (for example, by running through it), breakpoints can be easily reapplied to the requested locations with the
+Reapply
+button in the
+BREAKPOINTS
+section header. This should make the breakpoints "jump back" to the requested location.
+Skipping uninteresting code
+VS Code Node.js debugging has a feature to avoid source code that you don't want to step through (also known as 'Just My Code'). This feature can be enabled with the
+[CODE_BLOCK_253]
+attribute in your launch configuration.
+[CODE_BLOCK_254]
+is an array of
+glob patterns
+for script paths to skip.
+For example, using:
+[CODE_BLOCK_255]
+all code in the
+[CODE_BLOCK_257]
+[CODE_BLOCK_258]
+folders in your project will be skipped. The
+[CODE_BLOCK_259]
+also apply to the location shown when calling
+[CODE_BLOCK_260]
+and similar methods: the first non-skipped location in the stack will be shown beside the output in the Debug Console.
+Built-in
+core modules
+of Node.js can be referred to by the 'magic name'
+[CODE_BLOCK_261]
+in a
+glob patterns
+. The following example skips all internal modules:
+[CODE_BLOCK_262]
+The exact 'skipping' rules are as follows:
+If you step into a skipped file, you won't stop there - you will stop on the next executed line that is not in a skipped file.
+If you have set the option to break on thrown exceptions, then you won't break on exceptions thrown from skipped files unless they bubble up into a non-skipped file.
+If you set a breakpoint in a skipped file, you will stop at that breakpoint, and you will be able to step through it until you step out of it, at which point normal skipping behavior will resume.
+The location of console messages from inside skip files will be shown as the first non-skipped location in the call stack.
+Skipped source is shown in a 'dimmed' style in the CALL STACK view:
+Hovering over the dimmed entries explains why the stack frame is dimmed.
+A context menu item on the call stack,
+Toggle skipping this file
+enables you to easily skip a file at runtime without adding it to your launch config. This option only persists for the current debugging session. You can also use it to stop skipping a file that is skipped by the
+[CODE_BLOCK_264]
+option in your launch config.
+Note:
+[CODE_BLOCK_265]
+protocol debugger supports negative
+glob patterns
+, but they must
+follow
+a positive pattern: positive patterns add to the set of skipped files, while negative patterns subtract from that set.
+In the following (
+[CODE_BLOCK_266]
+protocol-only) example all but a 'math' module is skipped:
+[CODE_BLOCK_267]
+Note:
+[CODE_BLOCK_269]
+protocol debugger has to emulate the
+[CODE_BLOCK_270]
+feature because the
+V8 Debugger Protocol
+does not support it natively. This might result in slow stepping performance.
+Debugging WebAssembly
+The JavaScript debugger can debug code compiled into WebAssembly if it includes
+DWARF
+debug information. Many toolchains support emitting this information:
+C/C++ with Emscripten
+: Compile with the the
+[CODE_BLOCK_271]
+flag to emit debug information.
+: DWARF information is automatically emittted in the "Debug" build mode.
+Rust
+: Rust emits DWARF debug information. However, wasm-pack
+does not yet
+retain it during the build. So, instead of running
+[CODE_BLOCK_272]
+, users of the common wasm-bindgen/wasm-pack libraries should build manually build using two commands:
+[CODE_BLOCK_273]
+once to install the necessary command-line tool.
+[CODE_BLOCK_274]
+to build your library.
+[CODE_BLOCK_275]
+to generate the WebAssembly bindings, replacing
+[CODE_BLOCK_276]
+with the name from your Cargo.toml and configuring
+[CODE_BLOCK_277]
+as necessary.
+After you have your code built, you'll want to install the
+WebAssembly DWARF Debugging
+extension. This is shipped as a separate extension in order to keep the VS Code core 'streamlined.' Once installed, restart any active debugging sessions, and native code should then be mapped in the debugger! You should see your source code appear in the
+Loaded Sources
+view, and breakpoints should work.
+In the image below, the debugger is stopped on a breakpoint in C++ source code that creates a Mandelbrot fractal. The call stack is visible, with frames from the JavaScript code, to WebAssembly, to the mapped C++ code. You can also see the variables in the C++ code, and an edit to the memory associated with the int32
+[CODE_BLOCK_278]
+variable.
+While close to parity, debugging WebAssembly is a little different than ordinary JavaScript:
+Variables in the
+Variables
+view cannot be edited directly. However, you can select the
+View Binary Data
+action beside the variable to edit their associated memory.
+Basic expression evaluation in the
+Debug Console
+Watch
+views is provided by
+lldb-eval
+. This is different than ordinary JavaScript expressions.
+Locations not mapped to source code will be shown in disassembled WebAssembly Text Format. For WebAssembly, the command
+Disable Source Map Stepping
+will cause the debugger to step only in disassembled code.
+VS Code's WebAssembly debugging is built upon the
+C/C++ Debugging Extension
+from the Chromium authors.
+Supported Node-like runtimes
+The current VS Code JavaScript debugger supports Node version at or above 8.x, recent Chrome versions, and recent Edge versions (via the
+[CODE_BLOCK_279]
+launch type).
+Next steps
+In case you didn't already read the Node.js section, take a look at:
+Node.js
+- End to end Node scenario with a sample application
+To see a tutorial on the basics of debugging in VS Code, check out this video:
+Getting started with debugging in VS Code
+To learn about VS Code's task running support, go to:
+Tasks
+- Running tasks with Gulp, Grunt, and Jake.  Showing Errors and Warnings
+To write your own debugger extension, visit:
+Debugger Extension
+- Steps to create a VS Code debug extension starting from a mock sample
+Common questions
+Can I debug if I'm using symlinks?
+Yes, if you've created symlinks for folders inside your project, such as with
+[CODE_BLOCK_280]
+, you can debug the symlinked sources by telling the Node.js runtime to preserve symlinked paths. Use the node.exe
+[CODE_BLOCK_281]
+switch
+in your launch configuration
+[CODE_BLOCK_282]
+attribute.
+[CODE_BLOCK_283]
+, an array of strings, are passed to the debugging session runtime executable, which defaults to node.exe.
+[CODE_BLOCK_284]
+If your main script is inside a symlinked path, then you will also need to add the
+[CODE_BLOCK_286]
+option. This option is only available in Node 10+.
+How do I debug ECMAScript modules?
+If you use esm or pass
+[CODE_BLOCK_287]
+to Node.js in order to use ECMAScript modules, you can pass these options through the
+[CODE_BLOCK_288]
+attribute of
+[CODE_BLOCK_289]
+[CODE_BLOCK_290]
+- Use the
+experimental ECMAScript modules support
+in Node v8.5.0+
+[CODE_BLOCK_291]
+- Use the
+esm ES module loader
+[CODE_BLOCK_292]
+without a comma won't work)
+How can I set NODE_OPTIONS?
+The debugger uses the special
+[CODE_BLOCK_293]
+environment variable to set up debugging with your application, and overwriting it will prevent debugging from working correctly. Instead of overwriting it, you should append to it instead. For example, a
+[CODE_BLOCK_294]
+file might have something like this:
+[CODE_BLOCK_295]
+Was this documentation helpful?
+, this page was helpful
+, this page was not helpful
+06/12/2025

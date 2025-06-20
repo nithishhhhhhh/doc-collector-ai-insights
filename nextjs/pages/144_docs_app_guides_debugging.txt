@@ -1,0 +1,325 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/debugging
+SCRAPED: 2025-06-19 17:26:04
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Debugging
+How to use debugging tools with Next.js
+This documentation explains how you can debug your Next.js frontend and backend code with full source maps support using the
+VS Code debugger
+Chrome DevTools
+, or
+Firefox DevTools
+Any debugger that can attach to Node.js can also be used to debug a Next.js application. You can find more details in the Node.js
+Debugging Guide
+Debugging with VS Code
+Create a file named
+--- CODE BLOCK 1 ---
+.vscode/launch.json
+--- END CODE BLOCK ---
+at the root of your project with the following content:
+launch.json
+--- CODE BLOCK 2 ---
+"version": "0.2.0",
+"configurations": [
+"name": "Next.js: debug server-side",
+"type": "node-terminal",
+"request": "launch",
+"command": "npm run dev"
+"name": "Next.js: debug client-side",
+"type": "chrome",
+"request": "launch",
+"url": "http://localhost:3000"
+"name": "Next.js: debug client-side (Firefox)",
+"type": "firefox",
+"request": "launch",
+"url": "http://localhost:3000",
+"reAttach": true,
+"pathMappings": [
+"url": "webpack://_N_E",
+"path": "${workspaceFolder}"
+"name": "Next.js: debug full stack",
+"type": "node",
+"request": "launch",
+"program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+"runtimeArgs": ["--inspect"],
+"skipFiles": ["<node_internals>/**"],
+"serverReadyAction": {
+"action": "debugWithEdge",
+"killOnServerStop": true,
+"pattern": "- Local:.+(https?://.+)",
+"uriFormat": "%s",
+"webRoot": "${workspaceFolder}"
+--- END CODE BLOCK ---
+Note
+: To use Firefox debugging in VS Code, you'll need to install the
+Firefox Debugger extension
+--- CODE BLOCK 4 ---
+npm run dev
+--- END CODE BLOCK ---
+can be replaced with
+--- CODE BLOCK 7 ---
+serverReadyAction.action
+--- END CODE BLOCK ---
+if you're using Yarn or
+--- CODE BLOCK 8 ---
+debugWithEdge
+--- END CODE BLOCK ---
+if you're using pnpm.
+In the "Next.js: debug full stack" configuration,
+--- CODE BLOCK 9 ---
+debugWithChrome
+--- END CODE BLOCK ---
+specifies which browser to open when the server is ready.
+--- CODE BLOCK 11 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+means to launch the Edge browser. If you are using Chrome, change this value to
+--- CODE BLOCK 13 ---
+"cwd": "${workspaceFolder}/apps/web"
+--- END CODE BLOCK ---
+If you're
+changing the port number
+your application starts on, replace the
+--- CODE BLOCK 14 ---
+Ctrl+Shift+D
+--- END CODE BLOCK ---
+--- CODE BLOCK 17 ---
+Edit Configurations...
+--- END CODE BLOCK ---
+with the port you're using instead.
+If you're running Next.js from a directory other than root (for example, if you're using Turborepo) then you need to add
+--- CODE BLOCK 18 ---
+JavaScript Debug
+--- END CODE BLOCK ---
+to the server-side and full stack debugging tasks. For example,
+--- CODE BLOCK 19 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+Now go to the Debug panel (
+--- CODE BLOCK 22 ---
+npm run dev
+--- END CODE BLOCK ---
+on Windows/Linux,
+--- CODE BLOCK 24 ---
+http://localhost:3000
+--- END CODE BLOCK ---
+on macOS), select a launch configuration, then press
+--- CODE BLOCK 25 ---
+Ctrl+Shift+J
+--- END CODE BLOCK ---
+or select
+Debug: Start Debugging
+from the Command Palette to start your debugging session.
+Using the Debugger in Jetbrains WebStorm
+Click the drop down menu listing the runtime configuration, and click
+--- CODE BLOCK 27 ---
+Ctrl+Shift+I
+--- END CODE BLOCK ---
+. Create a
+--- CODE BLOCK 34 ---
+webpack://_N_E/./
+--- END CODE BLOCK ---
+debug configuration with
+--- CODE BLOCK 36 ---
+NODE_OPTIONS='--inspect' next dev
+--- END CODE BLOCK ---
+as the URL. Customize to your liking (e.g. Browser for debugging, store as project file), and click
+--- CODE BLOCK 37 ---
+NODE_OPTIONS='--inspect' next dev
+--- END CODE BLOCK ---
+. Run this debug configuration, and the selected browser should automatically open. At this point, you should have 2 applications in debug mode: the NextJS node application, and the client/browser application.
+Debugging with Browser DevTools
+Client-side code
+Start your development server as usual by running
+--- CODE BLOCK 38 ---
+NODE_OPTIONS='--inspect=0.0.0.0'
+--- END CODE BLOCK ---
+--- CODE BLOCK 39 ---
+npm run dev
+--- END CODE BLOCK ---
+, or
+--- CODE BLOCK 42 ---
+package.json
+--- END CODE BLOCK ---
+. Once the server starts, open
+--- CODE BLOCK 43 ---
+"scripts": {
+"dev": "NODE_OPTIONS='--inspect' next dev"
+--- END CODE BLOCK ---
+(or your alternate URL) in your preferred browser.
+For Chrome:
+Open Chrome's Developer Tools (
+--- CODE BLOCK 44 ---
+"scripts": {
+"dev": "NODE_OPTIONS='--inspect' next dev"
+--- END CODE BLOCK ---
+on Windows/Linux,
+--- CODE BLOCK 46 ---
+Debugger listening on ws://127.0.0.1:9229/0cf90313-350d-4466-a748-cd60f4e47c95
+For help, see: https://nodejs.org/en/docs/inspector
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+--- END CODE BLOCK ---
+on macOS)
+Go to the
+Sources
+For Firefox:
+Open Firefox's Developer Tools (
+--- CODE BLOCK 47 ---
+Debugger listening on ws://127.0.0.1:9229/0cf90313-350d-4466-a748-cd60f4e47c95
+For help, see: https://nodejs.org/en/docs/inspector
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+--- END CODE BLOCK ---
+on Windows/Linux,
+--- CODE BLOCK 48 ---
+chrome://inspect
+--- END CODE BLOCK ---
+on macOS)
+Go to the
+Debugger
+In either browser, any time your client-side code reaches a
+--- CODE BLOCK 49 ---
+localhost:9229
+--- END CODE BLOCK ---
+statement, code execution will pause and that file will appear in the debug area. You can also search for files to set breakpoints manually:
+In Chrome: Press
+--- CODE BLOCK 50 ---
+localhost:9230
+--- END CODE BLOCK ---
+on Windows/Linux or
+--- CODE BLOCK 51 ---
+about:debugging
+--- END CODE BLOCK ---
+on macOS
+In Firefox: Press
+--- CODE BLOCK 54 ---
+webpack://{application-name}/./
+--- END CODE BLOCK ---
+on Windows/Linux or
+--- CODE BLOCK 55 ---
+{application-name}
+--- END CODE BLOCK ---
+on macOS, or use the file tree in the left panel
+Note that when searching, your source files will have paths starting with
+--- CODE BLOCK 56 ---
+package.json
+--- END CODE BLOCK ---
+Server-side code
+To debug server-side Next.js code with browser DevTools, you need to pass the
+--- CODE BLOCK 57 ---
+NODE_OPTIONS='--inspect'
+--- END CODE BLOCK ---
+flag to the underlying Node.js process:
+Terminal
+--- CODE BLOCK 63 ---
+"scripts": {
+"dev": "cross-env NODE_OPTIONS='--inspect' next dev"
+--- END CODE BLOCK ---
+Good to know
+: Use
+--- CODE BLOCK 66 ---
+NODE_OPTIONS
+--- END CODE BLOCK ---
+to allow remote debugging access outside localhost, such as when running the app in a Docker container.
+If you're using
+[CODE_BLOCK_39]
+[CODE_BLOCK_40]
+then you should update the
+[CODE_BLOCK_41]
+script on your
+[CODE_BLOCK_42]
+package.json
+[CODE_BLOCK_43]
+Launching the Next.js dev server with the
+[CODE_BLOCK_45]
+flag will look something like this:
+Terminal
+[CODE_BLOCK_46]
+For Chrome:
+Open a new tab and visit
+[CODE_BLOCK_48]
+Click
+Configure...
+to ensure both debugging ports are listed
+Add both
+[CODE_BLOCK_49]
+[CODE_BLOCK_50]
+if they're not already present
+Look for your Next.js application in the
+Remote Target
+section
+Click
+inspect
+to open a separate DevTools window
+Go to the
+Sources
+For Firefox:
+Open a new tab and visit
+[CODE_BLOCK_51]
+Click
+This Firefox
+in the left sidebar
+Under
+Remote Targets
+, find your Next.js application
+Click
+Inspect
+to open the debugger
+Go to the
+Debugger
+Debugging server-side code works similarly to client-side debugging. When searching for files (
+[CODE_BLOCK_52]
+[CODE_BLOCK_53]
+), your source files will have paths starting with
+[CODE_BLOCK_54]
+(where
+[CODE_BLOCK_55]
+will be replaced with the name of your application according to your
+[CODE_BLOCK_56]
+file).
+Inspect Server Errors with Browser DevTools
+When you encounter an error, inspecting the source code can help trace the root cause of errors.
+Next.js will display a Node.js icon underneath the Next.js version indicator on the error overlay. By clicking that icon, the DevTools URL is copied to your clipboard. You can open a new browser tab with that URL to inspect the Next.js server process.
+Debugging on Windows
+Windows users may run into an issue when using
+[CODE_BLOCK_57]
+as that syntax is not supported on Windows platforms. To get around this, install the
+[CODE_BLOCK_58]
+package as a development dependency (
+[CODE_BLOCK_59]
+with
+[CODE_BLOCK_60]
+[CODE_BLOCK_61]
+) and replace the
+[CODE_BLOCK_62]
+script with the following.
+package.json
+[CODE_BLOCK_63]
+[CODE_BLOCK_65]
+will set the
+[CODE_BLOCK_66]
+environment variable regardless of which platform you are on (including Mac, Linux, and Windows) and allow you to debug consistently across devices and operating systems.
+Good to know
+: Ensure Windows Defender is disabled on your machine. This external service will check
+every file read
+, which has been reported to greatly increase Fast Refresh time with
+[CODE_BLOCK_67]
+. This is a known issue, not related to Next.js, but it does affect Next.js development.
+More information
+To learn more about how to use a JavaScript debugger, take a look at the following documentation:
+Node.js debugging in VS Code: Breakpoints
+Chrome DevTools: Debug JavaScript
+Firefox DevTools: Debugger
+Was this helpful?
+supported.
+Send

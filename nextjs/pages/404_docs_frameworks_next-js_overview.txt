@@ -1,0 +1,163 @@
+SOURCE URL: https://docs.netlify.com/frameworks/next-js/overview/#next-js-support-on-netlify
+SCRAPED: 2025-06-19 17:56:50
+================================================================================
+
+Contact
+Forums
+Contact support
+Netlify supports all major Next.js features with zero configuration.
+Under the hood, this is powered by our OpenNext adapter, which we maintain in the open and test alongside every stable release of Next.js.
+For earlier Next.js versions
+The information on this page is applies to Next.js version 13.5 and above. For earlier Next.js versions, visit the
+legacy runtime
+page.
+Get started
+If you have an existing Next.js app you’d like to deploy, push your code to a Git provider and connect it through the Netlify Dashboard.
+When starting from scratch, the fastest way is to deploy our
+Next.js platform starter template
+to your Netlify account.
+Key features
+App Router:
+Netlify fully supports the Next.js App Router, which supports more powerful nested layouts and React’s latest features, such as Server Components and Streaming.
+Automatic fine-grained caching:
+the adapter uses our
+fine-grained caching primitives
+to support the Next.js Full Route Cache and Data Cache. This means that static page responses are automatically cached at the edge and can be revalidated by path or by tag.
+On-demand and time-based revalidation:
+both the App Router and Pages Router support on-demand and time-based revalidation, allowing you to revalidate and regenerate content at any time after a deploy.
+Image optimization:
+--- CODE BLOCK 4 ---
+•	Our official end-to-end test suite
+•	Additional integration tests with Netlify’s platform
+•	Real-world deploys using a public starter template
+Copy to Clipboard
+--- END CODE BLOCK ---
+component uses
+Netlify Image CDN
+by default, to ensure your images are optimized and served in the most efficient format.
+Next.js support on Netlify
+The following tables show you a comprehensive mapping of critical Next.js features and how Netlify supports them. Netlify supports new Next.js features as early as possible, but experimental features may not be fully stable yet.
+Next.js Feature
+Support
+Notes
+App Router
+Full Support
+Server-Side Rendering (SSR)
+Full Support
+Incremental Static Regeneration (ISR)
+Full Support
+Static Site Generation (SSG)
+Full Support.
+Pre-rendered pages are stored in Next.js route cache, and fetched from the route cache by a function invocation when first accessed after a deploy.
+React Server Components
+Full Support
+Server Actions
+Full Support
+Response Streaming
+Full Support
+asynchronous work with
+--- CODE BLOCK 5 ---
+•	Our official end-to-end test suite
+•	Additional integration tests with Netlify’s platform
+•	Real-world deploys using a public starter template
+--- END CODE BLOCK ---
+Full Support.
+Learn more in the
+API reference.
+Middleware
+Full support.
+Implemented automatically via
+Edge Functions
+. Learn about
+limitations.
+Route Handlers
+Full Support
+Image Optimization
+Full Support
+Redirects and rewrites
+Full Support
+Internationalization
+Full Support
+Draft Mode
+Full Support
+Experimental framework features
+Partial Support
+Partial Prerendering (PPR): supported.
+Use cache: supported.
+Node.js in Middleware: not supported yet.
+How Netlify runs your Next.js app
+Netlify automatically configures your site to support modern Next.js features out of the box. This is powered by our OpenNext adapter, an open source project that provisions the correct infrastructure for each part of your Next.js application without custom configuration.
+We recommend that you don’t pin the adapter version. We actively maintain the adapter to support all Next.js versions starting from version 13.5 and, if you don’t pin the version, we will automatically update the adapter to the latest version on each site build for you.
+What the adapter does
+When you deploy a Next.js project on Netlify, the adapter automatically:
+Provisions Netlify Functions for:
+Server-Side Rendering (SSR)
+Incremental Static Regeneration (ISR)
+Partial Prerendering (PPR)
+API routes
+Server Actions
+Provisions Netlify Edge Functions for:
+Next.js Middleware
+Geolocation- and routing-based personalization
+Fast execution at the network edge
+Configures caching and revalidation with:
+Next.js Full Route Cache and Data Cache
+Tag-based or path-based revalidation
+Enables image optimization with the Netlify Image CDN and
+--- CODE BLOCK 6 ---
+package.json
+--- END CODE BLOCK ---
+Compatibility and testing
+We verify compatibility with every new stable version of Next.js. Each release of the adapter is tested using:
+--- CODE BLOCK 7 ---
+npm install @netlify/plugin-nextjs@<version>
+Copy to Clipboard
+--- END CODE BLOCK ---
+Reverting to an older adapter version
+Not recommended
+We recommend that you don’t pin the adapter version. We actively maintain the adapter to support all Next.js versions starting from version 13.5 and, if you don’t pin the version, we will automatically use the latest version on each site build for you.
+To pin a specific version of the adapter:
+Install the version you want in
+--- CODE BLOCK 9 ---
+netlify.toml
+--- END CODE BLOCK ---
+--- CODE BLOCK 10 ---
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+Copy to Clipboard
+--- END CODE BLOCK ---
+Add the plugin to your
+--- CODE BLOCK 12 ---
+@netlify/plugin-nextjs
+--- END CODE BLOCK ---
+--- CODE BLOCK 13 ---
+package.json
+--- END CODE BLOCK ---
+You'll be opting out of automatic updates and newer architecture improvements maintained through OpenNext. To opt back in, remove
+[CODE_BLOCK_12]
+from your
+[CODE_BLOCK_13]
+Limitations
+Open issues are documented in the
+end-to-end test report page
+Edge Runtime Location:
+SSR pages using the edge runtime run in your functions region rather than true edge locations
+Rewrite Limitations:
+Rewrites in Next.js configuration can’t point to static files in the public directory.
+Middleware Execution Order:
+Headers and redirects are evaluated after middleware, differing from stand-alone Next.js behavior.
+Forms Integration:
+Netlify Forms requires a specific workaround when used with Next.js applications.
+Learn more.
+More resources
+OpenNext adapter docs
+Next.js framework documentation
+Netlify Connect JavaScript client
+Posts about Next.js in our blog
+Last updated: June 10, 2025
+Frameworks overview
+Did you find this doc useful?
+Your feedback helps us improve our docs.
+Do not fill in this field
+What else would you like to tell us about this doc?
+Send

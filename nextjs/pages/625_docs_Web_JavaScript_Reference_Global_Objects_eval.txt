@@ -1,0 +1,644 @@
+SOURCE URL: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/eval
+SCRAPED: 2025-06-19 18:20:49
+================================================================================
+
+Warning:
+Executing JavaScript from a string is an enormous security risk. It is far too easy for a bad actor to run arbitrary code when you use
+--- CODE BLOCK 3 ---
+console.log(eval("2 + 2"));
+// Expected output: 4
+console.log(eval(new String("2 + 2")));
+// Expected output: 2 + 2
+console.log(eval("2 + 2") === eval("4"));
+// Expected output: true
+console.log(eval("2 + 2") === eval(new String("2 + 2")));
+// Expected output: false
+--- END CODE BLOCK ---
+. See
+Never use direct eval()!
+, below.
+--- CODE BLOCK 4 ---
+console.log(eval("2 + 2"));
+// Expected output: 4
+console.log(eval(new String("2 + 2")));
+// Expected output: 2 + 2
+console.log(eval("2 + 2") === eval("4"));
+// Expected output: true
+console.log(eval("2 + 2") === eval(new String("2 + 2")));
+// Expected output: false
+--- END CODE BLOCK ---
+function evaluates JavaScript code represented as a string and returns its completion value. The source is parsed as a script.
+Try it
+--- CODE BLOCK 5 ---
+eval(script)
+--- END CODE BLOCK ---
+Syntax
+Copy to Clipboard
+--- CODE BLOCK 12 ---
+SyntaxError
+--- END CODE BLOCK ---
+Parameters
+--- CODE BLOCK 20 ---
+"use strict";
+const eval = 1; // SyntaxError: Unexpected eval or arguments in strict mode
+--- END CODE BLOCK ---
+A string representing a JavaScript expression, statement, or sequence of statements. The expression can include variables and properties of existing objects. It will be parsed as a script, so
+--- CODE BLOCK 21 ---
+"use strict";
+const eval = 1; // SyntaxError: Unexpected eval or arguments in strict mode
+--- END CODE BLOCK ---
+declarations (which can only exist in modules) are not allowed.
+Return value
+The completion value of evaluating the given code. If the completion value is empty,
+--- CODE BLOCK 27 ---
+eval(new String("2 + 2")); // returns a String object containing "2 + 2"
+eval("2 + 2"); // returns 4
+--- END CODE BLOCK ---
+is returned. If
+--- CODE BLOCK 28 ---
+eval(new String("2 + 2")); // returns a String object containing "2 + 2"
+eval("2 + 2"); // returns 4
+--- END CODE BLOCK ---
+is not a string primitive,
+--- CODE BLOCK 30 ---
+const expression = new String("2 + 2");
+eval(String(expression)); // returns 4
+--- END CODE BLOCK ---
+returns the argument unchanged.
+Exceptions
+Throws any exception that occurs during evaluation of the code, including
+--- CODE BLOCK 31 ---
+const expression = new String("2 + 2");
+eval(String(expression)); // returns 4
+--- END CODE BLOCK ---
+--- CODE BLOCK 36 ---
+// Direct call
+eval("x + y");
+// Indirect call using the comma operator to return eval
+(0, eval)("x + y");
+// Indirect call through optional chaining
+eval?.("x + y");
+// Indirect call using a variable to store and return eval
+const myEval = eval;
+myEval("x + y");
+// Indirect call through member access
+const obj = { eval };
+obj.eval("x + y");
+--- END CODE BLOCK ---
+fails to be parsed as a script.
+Description
+--- CODE BLOCK 37 ---
+// Direct call
+eval("x + y");
+// Indirect call using the comma operator to return eval
+(0, eval)("x + y");
+// Indirect call through optional chaining
+eval?.("x + y");
+// Indirect call using a variable to store and return eval
+const myEval = eval;
+myEval("x + y");
+// Indirect call through member access
+const obj = { eval };
+obj.eval("x + y");
+--- END CODE BLOCK ---
+is a function property of the global object.
+The argument of the
+--- CODE BLOCK 39 ---
+function test() {
+const x = 2;
+const y = 4;
+// Direct call, uses local scope
+console.log(eval("x + y")); // Result is 6
+// Indirect call, uses global scope
+console.log(eval?.("x + y")); // Throws because x is not defined in global scope
+--- END CODE BLOCK ---
+function is a string. It will evaluate the source string as a script body, which means both statements and expressions are allowed. It returns the completion value of the code. For expressions, it's the value the expression evaluates to. Many statements and declarations have completion values as well, but the result may be surprising (for example, the completion value of an assignment is the assigned value, but the completion value of
+--- CODE BLOCK 40 ---
+function test() {
+const x = 2;
+const y = 4;
+// Direct call, uses local scope
+console.log(eval("x + y")); // Result is 6
+// Indirect call, uses global scope
+console.log(eval?.("x + y")); // Throws because x is not defined in global scope
+--- END CODE BLOCK ---
+is undefined), so it's recommended to not rely on statements' completion values.
+In strict mode, declaring a variable named
+--- CODE BLOCK 42 ---
+"use strict"
+--- END CODE BLOCK ---
+or re-assigning
+--- CODE BLOCK 43 ---
+function nonStrictContext() {
+eval?.(`with (Math) console.log(PI);`);
+function strictContext() {
+"use strict";
+eval?.(`with (Math) console.log(PI);`);
+function strictContextStrictEval() {
+"use strict";
+eval?.(`"use strict"; with (Math) console.log(PI);`);
+nonStrictContext(); // Logs 3.141592653589793
+strictContext(); // Logs 3.141592653589793
+strictContextStrictEval(); // Uncaught SyntaxError: Strict mode code may not include a with statement
+--- END CODE BLOCK ---
+is a
+--- CODE BLOCK 44 ---
+function nonStrictContext() {
+eval?.(`with (Math) console.log(PI);`);
+function strictContext() {
+"use strict";
+eval?.(`with (Math) console.log(PI);`);
+function strictContextStrictEval() {
+"use strict";
+eval?.(`"use strict"; with (Math) console.log(PI);`);
+nonStrictContext(); // Logs 3.141592653589793
+strictContext(); // Logs 3.141592653589793
+strictContextStrictEval(); // Uncaught SyntaxError: Strict mode code may not include a with statement
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 45 ---
+function nonStrictContext() {
+eval(`with (Math) console.log(PI);`);
+function strictContext() {
+"use strict";
+eval(`with (Math) console.log(PI);`);
+function strictContextStrictEval() {
+"use strict";
+eval(`"use strict"; with (Math) console.log(PI);`);
+nonStrictContext(); // Logs 3.141592653589793
+strictContext(); // Uncaught SyntaxError: Strict mode code may not include a with statement
+strictContextStrictEval(); // Uncaught SyntaxError: Strict mode code may not include a with statement
+--- END CODE BLOCK ---
+If the argument of
+--- CODE BLOCK 50 ---
+// Neither context nor source string is strict,
+// so var creates a variable in the surrounding scope
+eval("var a = 1;");
+console.log(a); // 1
+// Context is not strict, but eval source is strict,
+// so b is scoped to the evaluated script
+eval("'use strict'; var b = 1;");
+console.log(b); // ReferenceError: b is not defined
+function strictContext() {
+"use strict";
+// Context is strict, but this is indirect and the source
+// string is not strict, so c is still global
+eval?.("var c = 1;");
+// Direct eval in a strict context, so d is scoped
+eval("var d = 1;");
+strictContext();
+console.log(c); // 1
+console.log(d); // ReferenceError: d is not defined
+--- END CODE BLOCK ---
+is not a string,
+--- CODE BLOCK 51 ---
+// Neither context nor source string is strict,
+// so var creates a variable in the surrounding scope
+eval("var a = 1;");
+console.log(a); // 1
+// Context is not strict, but eval source is strict,
+// so b is scoped to the evaluated script
+eval("'use strict'; var b = 1;");
+console.log(b); // ReferenceError: b is not defined
+function strictContext() {
+"use strict";
+// Context is strict, but this is indirect and the source
+// string is not strict, so c is still global
+eval?.("var c = 1;");
+// Direct eval in a strict context, so d is scoped
+eval("var d = 1;");
+strictContext();
+console.log(c); // 1
+console.log(d); // ReferenceError: d is not defined
+--- END CODE BLOCK ---
+returns the argument unchanged. In the following example, passing a
+--- CODE BLOCK 55 ---
+function Ctor() {
+eval("console.log(new.target)");
+new Ctor(); // [Function: Ctor]
+--- END CODE BLOCK ---
+object instead of a primitive causes
+--- CODE BLOCK 56 ---
+function Ctor() {
+eval("console.log(new.target)");
+new Ctor(); // [Function: Ctor]
+--- END CODE BLOCK ---
+to return the
+--- CODE BLOCK 67 ---
+function looseJsonParse(obj) {
+return eval(`(${obj})`);
+console.log(looseJsonParse("{ a: 4 - 1, b: function () {}, c: new Map() }"));
+--- END CODE BLOCK ---
+object rather than evaluating the string.
+Copy to Clipboard
+--- CODE BLOCK 68 ---
+function looseJsonParse(obj) {
+return eval(`(${obj})`);
+console.log(looseJsonParse("{ a: 4 - 1, b: function () {}, c: new Map() }"));
+--- END CODE BLOCK ---
+To work around the issue in a generic fashion, you can
+coerce the argument to a string
+yourself before passing it to
+--- CODE BLOCK 70 ---
+function looseJsonParse(obj) {
+return eval?.(`"use strict";(${obj})`);
+console.log(looseJsonParse("{ a: 4 - 1, b: function () {}, c: new Map() }"));
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 71 ---
+c: new Map()
+--- END CODE BLOCK ---
+Direct and indirect eval
+There are two modes of
+--- CODE BLOCK 77 ---
+function looseJsonParse(obj) {
+class Map {}
+return eval(`(${obj})`);
+console.log(looseJsonParse(`{ a: 4 - 1, b: function () {}, c: new Map() }`));
+--- END CODE BLOCK ---
+calls:
+direct
+eval and
+indirect
+eval. Direct eval, as the name implies, refers to
+directly
+calling the global
+--- CODE BLOCK 78 ---
+function looseJsonParse(obj) {
+class Map {}
+return eval(`(${obj})`);
+console.log(looseJsonParse(`{ a: 4 - 1, b: function () {}, c: new Map() }`));
+--- END CODE BLOCK ---
+function with
+--- CODE BLOCK 94 ---
+function add(a, b) {
+return a + b;
+function runCodeWithAddFunction(obj) {
+return Function("add", `"use strict";return (${obj});`)(add);
+console.log(runCodeWithAddFunction("add(5, 7)")); // 12
+--- END CODE BLOCK ---
+. Everything else, including invoking it via an aliased variable, via a member access or other expression, or through the optional chaining
+--- CODE BLOCK 95 ---
+function add(a, b) {
+return a + b;
+function runCodeWithAddFunction(obj) {
+return Function("add", `"use strict";return (${obj});`)(add);
+console.log(runCodeWithAddFunction("add(5, 7)")); // 12
+--- END CODE BLOCK ---
+operator, is indirect.
+Copy to Clipboard
+--- CODE BLOCK 102 ---
+const obj = { a: 20, b: 30 };
+const propName = getPropName(); // returns "a" or "b"
+const result = eval(`obj.${propName}`);
+--- END CODE BLOCK ---
+Indirect eval can be seen as if the code is evaluated within a separate
+--- CODE BLOCK 106 ---
+getPropName
+--- END CODE BLOCK ---
+tag. This means:
+Indirect eval works in the global scope rather than the local scope, and the code being evaluated doesn't have access to local variables within the scope where it's being called.
+Copy to Clipboard
+--- CODE BLOCK 107 ---
+const obj = { a: 20, b: 30 };
+const propName = getPropName(); // returns "a" or "b"
+const result = obj[propName]; // obj["a"] is the same as obj.a
+--- END CODE BLOCK ---
+Indirect
+--- CODE BLOCK 110 ---
+const obj = { a: { b: { c: 0 } } };
+const propPath = getPropPath(); // suppose it returns "a.b.c"
+const result = eval(`obj.${propPath}`); // 0
+--- END CODE BLOCK ---
+does not inherit the strictness of the surrounding context, and is only in
+strict mode
+if the source string itself has a
+--- CODE BLOCK 111 ---
+const obj = { a: { b: { c: 0 } } };
+const propPath = getPropPath(); // suppose it returns "a.b.c"
+const result = eval(`obj.${propPath}`); // 0
+--- END CODE BLOCK ---
+directive.
+Copy to Clipboard
+--- CODE BLOCK 113 ---
+function getDescendantProp(obj, desc) {
+const arr = desc.split(".");
+while (arr.length) {
+obj = obj[arr.shift()];
+return obj;
+const obj = { a: { b: { c: 0 } } };
+const propPath = getPropPath(); // suppose it returns "a.b.c"
+const result = getDescendantProp(obj, propPath); // 0
+--- END CODE BLOCK ---
+On the other hand, direct eval inherits the strictness of the invoking context.
+Copy to Clipboard
+--- CODE BLOCK 115 ---
+function setDescendantProp(obj, desc, value) {
+const arr = desc.split(".");
+while (arr.length > 1) {
+obj = obj[arr.shift()];
+return (obj[arr[0]] = value);
+const obj = { a: { b: { c: 0 } } };
+const propPath = getPropPath(); // suppose it returns "a.b.c"
+const result = setDescendantProp(obj, propPath, 1); // obj.a.b.c is now 1
+--- END CODE BLOCK ---
+--- CODE BLOCK 117 ---
+// Instead of setTimeout("…", 1000) use:
+setTimeout(() => {
+// …
+}, 1000);
+// Instead of elt.setAttribute("onclick", "…") use:
+elt.addEventListener("click", () => {
+// …
+--- END CODE BLOCK ---
+-declared variables and
+function declarations
+would go into the surrounding scope if the source string is not interpreted in strict mode — for indirect eval, they become global variables. If it's a direct eval in a strict mode context, or if the
+--- CODE BLOCK 118 ---
+// Instead of setTimeout("…", 1000) use:
+setTimeout(() => {
+// …
+}, 1000);
+// Instead of elt.setAttribute("onclick", "…") use:
+elt.addEventListener("click", () => {
+// …
+--- END CODE BLOCK ---
+source string itself is in strict mode, then
+--- CODE BLOCK 120 ---
+"[1, 2, 3]"
+--- END CODE BLOCK ---
+and function declarations do not "leak" into the surrounding scope.
+Copy to Clipboard
+--- CODE BLOCK 122 ---
+"x + y + 1"
+--- END CODE BLOCK ---
+--- CODE BLOCK 125 ---
+const x = 2;
+const y = 39;
+const z = "42";
+eval("x + y + 1"); // 42
+eval(z); // 42
+--- END CODE BLOCK ---
+--- CODE BLOCK 128 ---
+const str = "if (a) { 1 + 1 } else { 1 + 2 }";
+let a = true;
+let b = eval(str);
+console.log(`b is: ${b}`); // b is: 2
+a = false;
+b = eval(str);
+console.log(`b is: ${b}`); // b is: 3
+--- END CODE BLOCK ---
+declarations within the evaluated string are always scoped to that script.
+Direct eval may have access to additional contextual expressions. For example, in a function's body, one can use
+--- CODE BLOCK 129 ---
+const str = "if (a) { 1 + 1 } else { 1 + 2 }";
+let a = true;
+let b = eval(str);
+console.log(`b is: ${b}`); // b is: 2
+a = false;
+b = eval(str);
+console.log(`b is: ${b}`); // b is: 3
+--- END CODE BLOCK ---
+Copy to Clipboard
+--- CODE BLOCK 137 ---
+const x = 5;
+const str = `if (x === 5) {
+console.log("z is 42");
+z = 42;
+} else {
+z = 0;
+console.log("z is ", eval(str)); // z is 42  z is 42
+--- END CODE BLOCK ---
+Never use direct eval()!
+Using direct
+--- CODE BLOCK 139 ---
+let x = 5;
+const str = `if (x === 5) {
+console.log("z is 42");
+z = 42;
+x = 420;
+} else {
+z = 0;
+console.log("x is", eval(str)); // z is 42  x is 420
+--- END CODE BLOCK ---
+suffers from multiple problems:
+--- CODE BLOCK 140 ---
+let x = 5;
+const str = `if (x === 5) {
+console.log("z is 42");
+z = 42;
+x = 420;
+} else {
+z = 0;
+console.log("x is", eval(str)); // z is 42  x is 420
+--- END CODE BLOCK ---
+executes the code it's passed with the privileges of the caller. If you run
+--- CODE BLOCK 141 ---
+// This is a function declaration
+const fctStr1 = "function a() {}";
+// This is a function expression
+const fctStr2 = "(function b() {})";
+const fct1 = eval(fctStr1); // return undefined, but `a` is available as a global function now
+const fct2 = eval(fctStr2); // return the function `b`
+--- END CODE BLOCK ---
+with a string that could be affected by a malicious party, you may end up running malicious code on the user's machine with the permissions of your webpage / extension. More importantly, allowing third-party code to access the scope in which
+--- CODE BLOCK 142 ---
+// This is a function declaration
+const fctStr1 = "function a() {}";
+// This is a function expression
+const fctStr2 = "(function b() {})";
+const fct1 = eval(fctStr1); // return undefined, but `a` is available as a global function now
+const fct2 = eval(fctStr2); // return the function `b`
+--- END CODE BLOCK ---
+was invoked (if it's a direct eval) can lead to possible attacks that reads or changes local variables.
+[CODE_BLOCK_61]
+is slower than the alternatives, since it has to invoke the JavaScript interpreter, while many other constructs are optimized by modern JS engines.
+Modern JavaScript interpreters convert JavaScript to machine code. This means that any concept of variable naming gets obliterated. Thus, any use of
+[CODE_BLOCK_62]
+will force the browser to do long expensive variable name lookups to figure out where the variable exists in the machine code and set its value. Additionally, new things can be introduced to that variable through
+[CODE_BLOCK_63]
+, such as changing the type of that variable, forcing the browser to re-evaluate all of the generated machine code to compensate.
+Minifiers give up on any minification if the scope is transitively depended on by
+[CODE_BLOCK_64]
+, because otherwise
+[CODE_BLOCK_65]
+cannot read the correct variable at runtime.
+There are many cases where the use of
+[CODE_BLOCK_66]
+or related methods can be optimized or avoided altogether.
+Using indirect eval()
+Consider this code:
+Copy to Clipboard
+[CODE_BLOCK_67]
+Simply using indirect eval and forcing strict mode can make the code much better:
+Copy to Clipboard
+[CODE_BLOCK_69]
+The two code snippets above may seem to work the same way, but they do not; the first one using direct eval suffers from multiple problems.
+It is a great deal slower, due to more scope inspections. Notice
+[CODE_BLOCK_71]
+in the evaluated string. In the indirect eval version, the object is being evaluated in the global scope, so it is safe for the interpreter to assume that
+[CODE_BLOCK_72]
+refers to the global
+[CODE_BLOCK_73]
+constructor instead of a local variable called
+[CODE_BLOCK_74]
+. However, in the code using direct eval, the interpreter cannot assume this. For example, in the following code,
+[CODE_BLOCK_75]
+in the evaluated string doesn't refer to
+[CODE_BLOCK_76]
+Copy to Clipboard
+[CODE_BLOCK_77]
+Thus, in the
+[CODE_BLOCK_79]
+version of the code, the browser is forced to make the expensive lookup call to check to see if there are any local variables called
+[CODE_BLOCK_80]
+If not using strict mode,
+[CODE_BLOCK_81]
+declarations within the
+[CODE_BLOCK_82]
+source becomes variables in the surrounding scope. This leads to hard-to-debug issues if the string is acquired from external input, especially if there's an existing variable with the same name.
+Direct eval can read and mutate bindings in the surrounding scope, which may lead to external input corrupting local data.
+When using direct
+[CODE_BLOCK_83]
+, especially when the eval source cannot be proven to be in strict mode, the engine — and build tools — have to disable all optimizations related to inlining, because the
+[CODE_BLOCK_84]
+source can depend on any variable name in its surrounding scope.
+However, using indirect
+[CODE_BLOCK_85]
+does not allow passing extra bindings other than existing global variables for the evaluated source to read. If you need to specify additional variables that the evaluated source should have access to, consider using the
+[CODE_BLOCK_86]
+constructor.
+Using the Function() constructor
+[CODE_BLOCK_87]
+constructor is very similar to the indirect eval example above: it also evaluates the JavaScript source passed to it in the global scope without reading or mutating any local bindings, and therefore allows engines to do more optimizations than direct
+[CODE_BLOCK_88]
+The difference between
+[CODE_BLOCK_89]
+[CODE_BLOCK_90]
+is that the source string passed to
+[CODE_BLOCK_91]
+is parsed as a function body, not as a script. There are a few nuances — for example, you can use
+[CODE_BLOCK_92]
+statements at the top level of a function body, but not in a script.
+[CODE_BLOCK_93]
+constructor is useful if you wish to create local bindings within your eval source, by passing the variables as parameter bindings.
+Copy to Clipboard
+[CODE_BLOCK_94]
+Both
+[CODE_BLOCK_96]
+[CODE_BLOCK_97]
+implicitly evaluate arbitrary code, and are forbidden in strict
+settings. There are also additional safer (and faster!) alternatives to
+[CODE_BLOCK_98]
+[CODE_BLOCK_99]
+for common use-cases.
+Using bracket accessors
+You should not use
+[CODE_BLOCK_100]
+to access properties dynamically. Consider the following example where the property of the object to be accessed is not known until the code is executed. This can be done with
+[CODE_BLOCK_101]
+Copy to Clipboard
+[CODE_BLOCK_102]
+However,
+[CODE_BLOCK_104]
+is not necessary here — in fact, it's more error-prone, because if
+[CODE_BLOCK_105]
+is not a valid identifier, it leads to a syntax error. Moreover, if
+[CODE_BLOCK_106]
+is not a function you control, this may lead to execution of arbitrary code. Instead, use the
+property accessors
+, which are much faster and safer:
+Copy to Clipboard
+[CODE_BLOCK_107]
+You can even use this method to access descendant properties. Using
+[CODE_BLOCK_109]
+, this would look like:
+Copy to Clipboard
+[CODE_BLOCK_110]
+Avoiding
+[CODE_BLOCK_112]
+here could be done by splitting the property path and looping through the different properties:
+Copy to Clipboard
+[CODE_BLOCK_113]
+Setting a property that way works similarly:
+Copy to Clipboard
+[CODE_BLOCK_115]
+However, beware that using bracket accessors with unconstrained input is not safe either — it may lead to
+object injection attacks
+Using callbacks
+JavaScript has
+first-class functions
+, which means you can pass functions as arguments to other APIs, store them in variables and objects' properties, and so on. Many DOM APIs are designed with this in mind, so you can (and should) write:
+Copy to Clipboard
+[CODE_BLOCK_117]
+Closures
+are also helpful as a way to create parameterized functions without concatenating strings.
+Using JSON
+If the string you're calling
+[CODE_BLOCK_119]
+on contains data (for example, an array:
+[CODE_BLOCK_120]
+), as opposed to code, you should consider switching to
+JSON
+, which allows the string to use a subset of JavaScript syntax to represent data.
+Note that since JSON syntax is limited compared to JavaScript syntax, many valid JavaScript literals will not parse as JSON. For example, trailing commas are not allowed in JSON, and property names (keys) in object literals must be enclosed in quotes. Be sure to use a JSON serializer to generate strings that will be later parsed as JSON.
+Passing carefully constrained data instead of arbitrary code is a good idea in general. For example, an extension designed to scrape contents of web-pages could have the scraping rules defined in
+XPath
+instead of JavaScript code.
+Examples
+Using eval()
+In the following code, both of the statements containing
+[CODE_BLOCK_121]
+return 42.
+The first evaluates the string
+[CODE_BLOCK_122]
+; the second evaluates the string
+[CODE_BLOCK_123]
+Copy to Clipboard
+[CODE_BLOCK_124]
+eval() returns the completion value of statements
+[CODE_BLOCK_126]
+returns the completion value of statements. For
+[CODE_BLOCK_127]
+, it would be the last expression or statement evaluated.
+Copy to Clipboard
+[CODE_BLOCK_128]
+The following example uses
+[CODE_BLOCK_130]
+to evaluate the string
+[CODE_BLOCK_131]
+. This string consists of JavaScript statements that assign
+[CODE_BLOCK_132]
+a value of 42 if
+[CODE_BLOCK_133]
+is five, and assign 0 to
+[CODE_BLOCK_134]
+otherwise. When the second statement is executed,
+[CODE_BLOCK_135]
+will cause these statements to be performed, and it will also evaluate the set of statements and return the value that is assigned to
+[CODE_BLOCK_136]
+, because the completion value of an assignment is the assigned value.
+Copy to Clipboard
+[CODE_BLOCK_137]
+If you assign multiple values then the last value is returned.
+Copy to Clipboard
+[CODE_BLOCK_139]
+eval() as a string defining function requires "(" and ")" as prefix and suffix
+Copy to Clipboard
+[CODE_BLOCK_141]
+Specifications
+Specification
+ECMAScript® 2026 Language Specification
+sec-eval-x
+Browser compatibility
+See also
+Property accessors
+WebExtensions: Using eval in content scripts
+Help improve MDN
+Was this page helpful to you?
+Learn how to contribute
+This page was last modified on
+Mar 13, 2025
+MDN contributors
+View this page on GitHub
+Report a problem with this content

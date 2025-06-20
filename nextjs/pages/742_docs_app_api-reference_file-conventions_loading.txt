@@ -1,0 +1,159 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/file-conventions/loading#examples
+SCRAPED: 2025-06-19 18:33:59
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+API Reference
+File-system conventions
+loading.js
+loading.js
+The special file
+--- CODE BLOCK 2 ---
+export default function Loading() {
+// Or a custom loading skeleton component
+return <p>Loading...</p>
+--- END CODE BLOCK ---
+helps you create meaningful Loading UI with
+React Suspense
+. With this convention, you can show an
+instant loading state
+from the server while the content of a route segment streams in. The new content is automatically swapped in once complete.
+app/feed/loading.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 3 ---
+export default function Loading() {
+// Or a custom loading skeleton component
+return <p>Loading...</p>
+--- END CODE BLOCK ---
+Inside the
+--- CODE BLOCK 7 ---
+export default function Loading() {
+// You can add any UI inside Loading, including a Skeleton.
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+file, you can add any light-weight loading UI. You may find it helpful to use the
+React Developer Tools
+to manually toggle Suspense boundaries.
+By default, this file is a
+Server Component
+- but can also be used as a Client Component through the
+--- CODE BLOCK 8 ---
+export default function Loading() {
+// You can add any UI inside Loading, including a Skeleton.
+return <LoadingSkeleton />
+--- END CODE BLOCK ---
+directive.
+Reference
+Parameters
+Loading UI components do not accept any parameters.
+Behavior
+Navigation
+The Fallback UI is
+prefetched
+, making navigation is immediate unless prefetching hasn't completed.
+Navigation is interruptible, meaning changing routes does not need to wait for the content of the route to fully load before navigating to another route.
+Shared layouts remain interactive while new route segments load.
+Instant Loading States
+An instant loading state is fallback UI that is shown immediately upon navigation. You can pre-render loading indicators such as skeletons and spinners, or a small but meaningful part of future screens such as a cover photo, title, etc. This helps users understand the app is responding and provides a better user experience.
+Create a loading state by adding a
+--- CODE BLOCK 13 ---
+generateMetadata
+--- END CODE BLOCK ---
+file inside a folder.
+app/dashboard/loading.tsx
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 20 ---
+import { Suspense } from 'react'
+import { PostFeed, Weather } from './Components'
+export default function Posts() {
+return (
+<section>
+<Suspense fallback={<p>Loading feed...</p>}>
+<PostFeed />
+</Suspense>
+<Suspense fallback={<p>Loading weather...</p>}>
+<Weather />
+</Suspense>
+</section>
+--- END CODE BLOCK ---
+In the same folder,
+[CODE_BLOCK_9]
+will be nested inside
+[CODE_BLOCK_10]
+. It will automatically wrap the
+[CODE_BLOCK_11]
+file and any children below in a
+[CODE_BLOCK_12]
+boundary.
+Next.js will wait for data fetching inside
+[CODE_BLOCK_13]
+to complete before streaming UI to the client. This guarantees the first part of a streamed response includes
+[CODE_BLOCK_14]
+tags.
+Since streaming is server-rendered, it does not impact SEO. You can use the
+Rich Results Test
+tool from Google to see how your page appears to Google's web crawlers and view the serialized HTML (
+source
+Status Codes
+When streaming, a
+[CODE_BLOCK_15]
+status code will be returned to signal that the request was successful.
+The server can still communicate errors or issues to the client within the streamed content itself, for example, when using
+[CODE_BLOCK_16]
+[CODE_BLOCK_17]
+. Since the response headers have already been sent to the client, the status code of the response cannot be updated. This does not affect SEO.
+Browser limits
+Some browsers
+buffer a streaming response. You may not see the streamed response until the response exceeds 1024 bytes. This typically only affects “hello world” applications, but not real applications.
+Platform Support
+Deployment Option
+Supported
+Node.js server
+Docker container
+Static export
+Adapters
+Platform-specific
+Learn how to
+configure streaming
+when self-hosting Next.js.
+Examples
+Streaming with Suspense
+In addition to
+[CODE_BLOCK_18]
+, you can also manually create Suspense Boundaries for your own UI components. The App Router supports streaming with
+Suspense
+[CODE_BLOCK_19]
+works by wrapping a component that performs an asynchronous action (e.g. fetch data), showing fallback UI (e.g. skeleton, spinner) while it's happening, and then swapping in your component once the action completes.
+app/dashboard/page.tsx
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_20]
+By using Suspense, you get the benefits of:
+Streaming Server Rendering
+- Progressively rendering HTML from the server to the client.
+Selective Hydration
+- React prioritizes what components to make interactive first based on user interaction.
+For more Suspense examples and use cases, please see the
+React Documentation
+Version History
+Version
+Changes
+[CODE_BLOCK_22]
+[CODE_BLOCK_23]
+introduced.
+Was this helpful?
+supported.
+Send

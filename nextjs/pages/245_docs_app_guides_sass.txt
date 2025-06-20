@@ -1,0 +1,123 @@
+SOURCE URL: https://nextjs.org/docs/app/guides/sass
+SCRAPED: 2025-06-19 17:38:08
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+App Router
+Guides
+Sass
+How to use Sass
+Next.js has built-in support for integrating with Sass after the package is installed using both the
+--- CODE BLOCK 3 ---
+.module.scss
+--- END CODE BLOCK ---
+--- CODE BLOCK 4 ---
+.module.sass
+--- END CODE BLOCK ---
+extensions. You can use component-level Sass via CSS Modules and the
+--- CODE BLOCK 6 ---
+npm install --save-dev sass
+--- END CODE BLOCK ---
+--- CODE BLOCK 7 ---
+npm install --save-dev sass
+--- END CODE BLOCK ---
+extension.
+First, install
+--- CODE BLOCK 11 ---
+sassOptions
+--- END CODE BLOCK ---
+Terminal
+--- CODE BLOCK 12 ---
+next.config
+--- END CODE BLOCK ---
+Good to know
+Sass supports
+two different syntaxes
+, each with their own extension.
+--- CODE BLOCK 14 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+sassOptions: {
+additionalData: `$var: red;`,
+export default nextConfig
+--- END CODE BLOCK ---
+extension requires you use the
+SCSS syntax
+while the
+--- CODE BLOCK 15 ---
+implementation
+--- END CODE BLOCK ---
+extension requires you use the
+Indented Syntax ("Sass")
+If you're not sure which to choose, start with the
+--- CODE BLOCK 17 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+sassOptions: {
+implementation: 'sass-embedded',
+export default nextConfig
+--- END CODE BLOCK ---
+extension which is a superset of CSS, and doesn't require you learn the
+Indented Syntax ("Sass").
+Customizing Sass Options
+If you want to configure your Sass options, use
+--- CODE BLOCK 18 ---
+import type { NextConfig } from 'next'
+const nextConfig: NextConfig = {
+sassOptions: {
+implementation: 'sass-embedded',
+export default nextConfig
+--- END CODE BLOCK ---
+--- CODE BLOCK 19 ---
+primaryColor
+--- END CODE BLOCK ---
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+--- CODE BLOCK 20 ---
+$primary-color: #64ff00;
+:export {
+primaryColor: $primary-color;
+--- END CODE BLOCK ---
+Implementation
+You can use the
+--- CODE BLOCK 22 ---
+// maps to root `/` URL
+import variables from './variables.module.scss'
+export default function Page() {
+return <h1 style={{ color: variables.primaryColor }}>Hello, Next.js!</h1>
+--- END CODE BLOCK ---
+property to specify the Sass implementation to use. By default, Next.js uses the
+--- CODE BLOCK 23 ---
+// maps to root `/` URL
+import variables from './variables.module.scss'
+export default function Page() {
+return <h1 style={{ color: variables.primaryColor }}>Hello, Next.js!</h1>
+--- END CODE BLOCK ---
+package.
+next.config.ts
+TypeScript
+JavaScript
+TypeScript
+[CODE_BLOCK_17]
+Sass Variables
+Next.js supports Sass variables exported from CSS Module files.
+For example, using the exported
+[CODE_BLOCK_19]
+Sass variable:
+app/variables.module.scss
+[CODE_BLOCK_20]
+app/page.js
+[CODE_BLOCK_22]
+Was this helpful?
+supported.
+Send

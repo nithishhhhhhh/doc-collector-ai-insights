@@ -1,0 +1,41 @@
+SOURCE URL: https://nextjs.org/docs/app/api-reference/config/next-config-js/mdxRs
+SCRAPED: 2025-06-19 17:21:33
+================================================================================
+
+Menu
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Using App Router
+Features available in /app
+Using Latest Version
+15.3.4
+Configuration
+next.config.js
+mdxRs
+mdxRs
+For experimental use with
+--- CODE BLOCK 2 ---
+const withMDX = require('@next/mdx')()
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+pageExtensions: ['ts', 'tsx', 'mdx'],
+experimental: {
+mdxRs: true,
+module.exports = withMDX(nextConfig)
+--- END CODE BLOCK ---
+. Compiles MDX files using the new Rust compiler.
+next.config.js
+--- CODE BLOCK 3 ---
+const withMDX = require('@next/mdx')()
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+pageExtensions: ['ts', 'tsx', 'mdx'],
+experimental: {
+mdxRs: true,
+module.exports = withMDX(nextConfig)
+--- END CODE BLOCK ---
+Was this helpful?
+supported.
+Send
