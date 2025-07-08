@@ -1,0 +1,582 @@
+URL: https://getbootstrap.com/docs/5.3/forms/form-control
+==================================================
+
+Example
+Form controls are styled with a mix of Sass and CSS variables, allowing them to adapt to color modes and support any customization method.
+Email address
+Example textarea
+html
+class
+mb-3
+label
+exampleFormControlInput1
+class
+form-label
+Email address
+label
+input
+type
+email
+class
+form-control
+exampleFormControlInput1
+placeholder
+name@example.com
+class
+mb-3
+label
+exampleFormControlTextarea1
+class
+form-label
+Example textarea
+label
+textarea
+class
+form-control
+exampleFormControlTextarea1
+rows
+textarea
+Sizing
+Set heights using classes like
+.form-control-lg
+.form-control-sm
+html
+input
+class
+form-control form-control-lg
+type
+text
+placeholder
+.form-control-lg
+aria-label
+.form-control-lg example
+input
+class
+form-control
+type
+text
+placeholder
+Default input
+aria-label
+default input example
+input
+class
+form-control form-control-sm
+type
+text
+placeholder
+.form-control-sm
+aria-label
+.form-control-sm example
+Form text
+Block-level or inline-level form text can be created using
+.form-text
+Form text should be explicitly associated with the form control it relates to using the
+aria-describedby
+attribute. This will ensure that assistive technologies—such as screen readers—will announce this form text when the user focuses or enters the control.
+Form text below inputs can be styled with
+.form-text
+. If a block-level element will be used, a top margin is added for easy spacing from the inputs above.
+Password
+Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+html
+label
+inputPassword5
+class
+form-label
+Password
+label
+input
+type
+password
+inputPassword5
+class
+form-control
+aria-describedby
+passwordHelpBlock
+passwordHelpBlock
+class
+form-text
+Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+Inline text can use any typical inline HTML element (be it a
+<span>
+<small>
+, or something else) with nothing more than the
+.form-text
+class.
+Password
+Must be 8-20 characters long.
+html
+class
+row g-3 align-items-center
+class
+col-auto
+label
+inputPassword6
+class
+col-form-label
+Password
+label
+class
+col-auto
+input
+type
+password
+inputPassword6
+class
+form-control
+aria-describedby
+passwordHelpInline
+class
+col-auto
+span
+passwordHelpInline
+class
+form-text
+Must be 8-20 characters long.
+span
+Disabled
+Add the
+disabled
+boolean attribute on an input to give it a grayed out appearance, remove pointer events, and prevent focusing.
+html
+input
+class
+form-control
+type
+text
+placeholder
+Disabled input
+aria-label
+Disabled input example
+disabled
+input
+class
+form-control
+type
+text
+value
+Disabled readonly input
+aria-label
+Disabled input example
+disabled
+readonly
+Readonly
+Add the
+readonly
+boolean attribute on an input to prevent modification of the input’s value.
+readonly
+inputs can still be focused and selected, while
+disabled
+inputs cannot.
+html
+input
+class
+form-control
+type
+text
+value
+Readonly input here...
+aria-label
+readonly input example
+readonly
+Readonly plain text
+If you want to have
+<input readonly>
+elements in your form styled as plain text, replace
+.form-control
+with
+.form-control-plaintext
+to remove the default form field styling and preserve the correct
+margin
+padding
+Email
+Password
+html
+class
+mb-3 row
+label
+staticEmail
+class
+col-sm-2 col-form-label
+Email
+label
+class
+col-sm-10
+input
+type
+text
+readonly
+class
+form-control-plaintext
+staticEmail
+value
+email@example.com
+class
+mb-3 row
+label
+inputPassword
+class
+col-sm-2 col-form-label
+Password
+label
+class
+col-sm-10
+input
+type
+password
+class
+form-control
+inputPassword
+Email
+Password
+Confirm identity
+html
+form
+class
+row g-3
+class
+col-auto
+label
+staticEmail2
+class
+visually-hidden
+Email
+label
+input
+type
+text
+readonly
+class
+form-control-plaintext
+staticEmail2
+value
+email@example.com
+class
+col-auto
+label
+inputPassword2
+class
+visually-hidden
+Password
+label
+input
+type
+password
+class
+form-control
+inputPassword2
+placeholder
+Password
+class
+col-auto
+button
+type
+submit
+class
+btn btn-primary mb-3
+Confirm identity
+button
+form
+File input
+Default file input example
+Multiple files input example
+Disabled file input example
+Small file input example
+Large file input example
+html
+class
+mb-3
+label
+formFile
+class
+form-label
+Default file input example
+label
+input
+class
+form-control
+type
+file
+formFile
+class
+mb-3
+label
+formFileMultiple
+class
+form-label
+Multiple files input example
+label
+input
+class
+form-control
+type
+file
+formFileMultiple
+multiple
+class
+mb-3
+label
+formFileDisabled
+class
+form-label
+Disabled file input example
+label
+input
+class
+form-control
+type
+file
+formFileDisabled
+disabled
+class
+mb-3
+label
+formFileSm
+class
+form-label
+Small file input example
+label
+input
+class
+form-control form-control-sm
+formFileSm
+type
+file
+label
+formFileLg
+class
+form-label
+Large file input example
+label
+input
+class
+form-control form-control-lg
+formFileLg
+type
+file
+Color
+Set the
+type="color"
+and add
+.form-control-color
+to the
+<input>
+. We use the modifier class to set fixed
+height
+s and override some inconsistencies between browsers.
+Color picker
+html
+label
+exampleColorInput
+class
+form-label
+Color picker
+label
+input
+type
+color
+class
+form-control form-control-color
+exampleColorInput
+value
+#563d7c
+title
+Choose your color
+Datalists
+Datalists allow you to create a group of
+<option>
+s that can be accessed (and autocompleted) from within an
+<input>
+. These are similar to
+<select>
+elements, but come with more menu styling limitations and differences. While most browsers and operating systems include some support for
+<datalist>
+elements, their styling is inconsistent at best.
+Learn more about
+support for datalist elements
+Datalist example
+html
+label
+exampleDataList
+class
+form-label
+Datalist example
+label
+input
+class
+form-control
+list
+datalistOptions
+exampleDataList
+placeholder
+Type to search...
+datalist
+datalistOptions
+option
+value
+San Francisco
+option
+value
+New York
+option
+value
+Seattle
+option
+value
+Los Angeles
+option
+value
+Chicago
+datalist
+Sass variables
+$input-*
+are shared across most of our form controls (and not buttons).
+scss/_variables.scss
+$input-padding-y
+$input-btn-padding-y
+$input-padding-x
+$input-btn-padding-x
+$input-font-family
+$input-btn-font-family
+$input-font-size
+$input-btn-font-size
+$input-font-weight
+$font-weight-base
+$input-line-height
+$input-btn-line-height
+$input-padding-y-sm
+$input-btn-padding-y-sm
+$input-padding-x-sm
+$input-btn-padding-x-sm
+$input-font-size-sm
+$input-btn-font-size-sm
+$input-padding-y-lg
+$input-btn-padding-y-lg
+$input-padding-x-lg
+$input-btn-padding-x-lg
+$input-font-size-lg
+$input-btn-font-size-lg
+$input-bg
+#{$prefix}
+body-bg
+$input-disabled-color
+null
+$input-disabled-bg
+#{$prefix}
+secondary-bg
+$input-disabled-border-color
+null
+$input-color
+#{$prefix}
+body-color
+$input-border-color
+#{$prefix}
+border-color
+$input-border-width
+$input-btn-border-width
+$input-box-shadow
+#{$prefix}
+box-shadow-inset
+$input-border-radius
+#{$prefix}
+border-radius
+$input-border-radius-sm
+#{$prefix}
+border-radius-sm
+$input-border-radius-lg
+#{$prefix}
+border-radius-lg
+$input-focus-bg
+$input-bg
+$input-focus-border-color
+tint-color
+$component-active-bg
+$input-focus-color
+$input-color
+$input-focus-width
+$input-btn-focus-width
+$input-focus-box-shadow
+$input-btn-focus-box-shadow
+$input-placeholder-color
+#{$prefix}
+secondary-color
+$input-plaintext-color
+#{$prefix}
+body-color
+$input-height-border
+calc
+#{$input-border-width}
+// stylelint-disable-line function-disallowed-list
+$input-height-inner
+$input-line-height
+$input-padding-y
+$input-height-inner-half
+$input-line-height
+.5em
+$input-padding-y
+$input-height-inner-quarter
+$input-line-height
+.25em
+$input-padding-y
+$input-height
+$input-line-height
+$input-padding-y
+$input-height-border
+false
+$input-height-sm
+$input-line-height
+$input-padding-y-sm
+$input-height-border
+false
+$input-height-lg
+$input-line-height
+$input-padding-y-lg
+$input-height-border
+false
+$input-transition
+border-color .15s ease-in-out
+box-shadow .15s ease-in-out
+$form-color-width
+3rem
+$form-label-*
+$form-text-*
+are for our
+<label>
+s and
+.form-text
+component.
+scss/_variables.scss
+$form-label-margin-bottom
+.5rem
+$form-label-font-size
+null
+$form-label-font-style
+null
+$form-label-font-weight
+null
+$form-label-color
+null
+scss/_variables.scss
+$form-text-margin-top
+.25rem
+$form-text-font-size
+$small-font-size
+$form-text-font-style
+null
+$form-text-font-weight
+null
+$form-text-color
+#{$prefix}
+secondary-color
+$form-file-*
+are for file input.
+scss/_variables.scss
+$form-file-button-color
+$input-color
+$form-file-button-bg
+#{$prefix}
+tertiary-bg
+$form-file-button-hover-bg
+#{$prefix}
+secondary-bg

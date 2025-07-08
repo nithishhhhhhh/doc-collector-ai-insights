@@ -1,0 +1,425 @@
+URL: https://getbootstrap.com/docs/4.6/components/spinners
+==================================================
+
+View on GitHub
+Spinners
+Indicate the loading state of a component or page with Bootstrap spinners, built entirely with HTML, CSS, and no JavaScript.
+About
+For accessibility purposes, each loader here includes
+role="status"
+and a nested
+<span class="sr-only">Loading...</span>
+The animation effect of this component is dependent on the
+prefers-reduced-motion
+media query. See the
+reduced motion section of our accessibility documentation
+Border spinner
+Use the border spinners for a lightweight loading indicator.
+Loading...
+class
+"spinner-border"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Colors
+The border spinner uses
+currentColor
+for its
+border-color
+, meaning you can customize the color with
+text color utilities
+. You can use any of our text color utilities on the standard spinner.
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+class
+"spinner-border text-primary"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-secondary"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-success"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-danger"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-warning"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-info"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-light"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-border text-dark"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Why not use
+border-color
+utilities?
+Each border spinner specifies a
+transparent
+border for at least one side, so
+.border-{color}
+utilities would override that.
+Growing spinner
+If you don’t fancy a border spinner, switch to the grow spinner. While it doesn’t technically spin, it does repeatedly grow!
+Loading...
+class
+"spinner-grow"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Once again, this spinner is built with
+currentColor
+, so you can easily change its appearance with
+text color utilities
+. Here it is in blue, along with the supported variants.
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+Loading...
+class
+"spinner-grow text-primary"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-secondary"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-success"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-danger"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-warning"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-info"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-light"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow text-dark"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Alignment
+Spinners in Bootstrap are built with
+currentColor
+, and
+display: inline-flex
+. This means they can easily be resized, recolored, and quickly aligned.
+Margin
+margin utilities
+like
+.m-5
+for easy spacing.
+Loading...
+class
+"spinner-border m-5"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Placement
+flexbox utilities
+float utilities
+, or
+text alignment
+utilities to place spinners exactly where you need them in any situation.
+Flex
+Loading...
+class
+"d-flex justify-content-center"
+class
+"spinner-border"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Loading...
+class
+"d-flex align-items-center"
+strong
+Loading...
+strong
+class
+"spinner-border ml-auto"
+role
+"status"
+aria-hidden
+"true"
+Floats
+Loading...
+class
+"clearfix"
+class
+"spinner-border float-right"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Text align
+Loading...
+class
+"text-center"
+class
+"spinner-border"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Size
+.spinner-border-sm
+.spinner-grow-sm
+to make a smaller spinner that can quickly be used within other components.
+Loading...
+Loading...
+class
+"spinner-border spinner-border-sm"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow spinner-grow-sm"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Or, use custom CSS or inline styles to change the dimensions as needed.
+Loading...
+Loading...
+class
+"spinner-border"
+style
+"width: 3rem; height: 3rem;"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+class
+"spinner-grow"
+style
+"width: 3rem; height: 3rem;"
+role
+"status"
+span
+class
+"sr-only"
+Loading...
+span
+Buttons
+Use spinners within buttons to indicate an action is currently processing or taking place. You may also swap the text out of the spinner element and utilize button text as needed.
+Loading...
+Loading...
+button
+class
+"btn btn-primary"
+type
+"button"
+disabled
+span
+class
+"spinner-border spinner-border-sm"
+role
+"status"
+aria-hidden
+"true"
+span
+span
+class
+"sr-only"
+Loading...
+span
+button
+button
+class
+"btn btn-primary"
+type
+"button"
+disabled
+span
+class
+"spinner-border spinner-border-sm"
+role
+"status"
+aria-hidden
+"true"
+span
+Loading...
+button
+Loading...
+Loading...
+button
+class
+"btn btn-primary"
+type
+"button"
+disabled
+span
+class
+"spinner-grow spinner-grow-sm"
+role
+"status"
+aria-hidden
+"true"
+span
+span
+class
+"sr-only"
+Loading...
+span
+button
+button
+class
+"btn btn-primary"
+type
+"button"
+disabled
+span
+class
+"spinner-grow spinner-grow-sm"
+role
+"status"
+aria-hidden
+"true"
+span
+Loading...
+button

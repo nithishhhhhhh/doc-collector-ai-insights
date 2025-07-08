@@ -1,0 +1,67 @@
+URL: https://getbootstrap.com/docs/4.1/examples/grid
+==================================================
+
+Basic grid layouts to get you familiar with building within the Bootstrap grid system.
+Five grid tiers
+There are five tiers to the Bootstrap grid system, one for each range of devices we support. Each tier starts at a minimum viewport size and automatically applies to the larger devices unless overridden.
+.col-4
+.col-4
+.col-4
+.col-sm-4
+.col-sm-4
+.col-sm-4
+.col-md-4
+.col-md-4
+.col-md-4
+.col-lg-4
+.col-lg-4
+.col-lg-4
+.col-xl-4
+.col-xl-4
+.col-xl-4
+Three equal columns
+Get three equal-width columns
+starting at desktops and scaling to large desktops
+. On mobile devices, tablets and below, the columns will automatically stack.
+.col-md-4
+.col-md-4
+.col-md-4
+Three unequal columns
+Get three columns
+starting at desktops and scaling to large desktops
+of various widths. Remember, grid columns should add up to twelve for a single horizontal block. More than that, and columns start stacking no matter the viewport.
+.col-md-3
+.col-md-6
+.col-md-3
+Two columns
+Get two columns
+starting at desktops and scaling to large desktops
+.col-md-8
+.col-md-4
+Full width, single column
+No grid classes are necessary for full-width elements.
+Two columns with two nested columns
+Per the documentation, nesting is easy—just put a row of columns within an existing column. This gives you two columns
+starting at desktops and scaling to large desktops
+, with another two (equal widths) within the larger column.
+At mobile device sizes, tablets and down, these columns and their nested columns will stack.
+.col-md-8
+.col-md-6
+.col-md-6
+.col-md-4
+Mixed: mobile and desktop
+The Bootstrap v4 grid system has five tiers of classes: xs (extra small), sm (small), md (medium), lg (large), and xl (extra large). You can use nearly any combination of these classes to create more dynamic and flexible layouts.
+Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
+.col-12 .col-md-8
+.col-6 .col-md-4
+.col-6 .col-md-4
+.col-6 .col-md-4
+.col-6 .col-md-4
+.col-6
+.col-6
+Mixed: mobile, tablet, and desktop
+.col-12 .col-sm-6 .col-lg-8
+.col-6 .col-lg-4
+.col-6 .col-sm-4
+.col-6 .col-sm-4
+.col-6 .col-sm-4

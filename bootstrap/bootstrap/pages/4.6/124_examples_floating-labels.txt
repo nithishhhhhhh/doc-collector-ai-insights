@@ -1,0 +1,12 @@
+URL: https://getbootstrap.com/docs/4.6/examples/floating-labels
+==================================================
+
+Floating labels
+Build form controls with floating labels via the
+:placeholder-shown
+pseudo-element.
+Works in latest Chrome, Safari, Firefox, and IE 10/11 (prefixed).
+Email address
+Password
+Remember me
+Sign in

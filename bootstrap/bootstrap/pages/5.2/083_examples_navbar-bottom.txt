@@ -1,0 +1,6 @@
+URL: https://getbootstrap.com/docs/5.2/examples/navbar-bottom
+==================================================
+
+Bottom Navbar example
+This example is a quick exercise to illustrate how the bottom navbar works.
+View navbar docs »

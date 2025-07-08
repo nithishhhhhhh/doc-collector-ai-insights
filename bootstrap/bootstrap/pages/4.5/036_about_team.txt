@@ -1,0 +1,33 @@
+URL: https://getbootstrap.com/docs/4.5/about/team
+==================================================
+
+View on GitHub
+Team
+An overview of the founding team and core contributors to Bootstrap.
+Mark Otto
+@mdo
+Jacob Thornton
+@fat
+Chris Rebert
+@cvrebert
+XhmikosR
+@xhmikosr
+Patrick H. Lauke
+@patrickhlauke
+Gleb Mazovetskiy
+@glebm
+Johann-S
+@johann-s
+Andres Galante
+@andresgalante
+Martijn Cuppens
+@martijncuppens
+Shohei Yoshida
+@ysds
+Gaël Poupard
+@ffoodd
+Get involved with Bootstrap development by
+opening an issue
+or submitting a pull request. Read our
+contributing guidelines
+for information on how we develop.

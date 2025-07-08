@@ -1,0 +1,41 @@
+URL: https://getbootstrap.com/docs/5.2/examples/cheatsheet
+==================================================
+
+Typography
+Documentation
+Display 1
+Display 2
+Display 3
+Display 4
+Display 5
+Display 6
+Heading 1
+Heading 2
+Heading 3
+Heading 4
+Heading 5
+Heading 6
+This is a lead paragraph. It stands out from regular paragraphs.
+You can use the mark tag to
+highlight
+text.
+This line of text is meant to be treated as deleted text.
+This line of text is meant to be treated as no longer accurate.
+This line of text is meant to be treated as an addition to the document.
+This line of text will render as underlined.
+This line of text is meant to be treated as fine print.
+This line rendered as bold text.
+This line rendered as italicized text.
+A well-known quote, contained in a blockquote element.
+This is a list.
+It appears completely unstyled.
+Structurally, it's still a list.
+However, this style only applies to immediate child elements.
+Nested lists:
+are unaffected by this style
+will still show a bullet
+and have appropriate left margin
+This may still come in handy in some situations.
+This is a list item.
+And another one.
+But they're displayed inline.

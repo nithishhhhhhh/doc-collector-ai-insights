@@ -1,0 +1,69 @@
+URL: https://getbootstrap.com/docs/5.3/utilities/z-index
+==================================================
+
+Example
+z-index
+utilities to stack elements on top of one another. Requires a
+position
+value other than
+static
+, which can be set with custom styles or using our
+position utilities
+We call these “low-level”
+z-index
+utilities because of their default values of
+through
+, which we use for the layout of overlapping components. High-level
+z-index
+values are used for overlay components like modals and tooltips.
+z-n1
+html
+class
+z-3 position-absolute p-5 rounded-3
+span
+span
+class
+z-2 position-absolute p-5 rounded-3
+span
+span
+class
+z-1 position-absolute p-5 rounded-3
+span
+span
+class
+z-0 position-absolute p-5 rounded-3
+span
+span
+class
+z-n1 position-absolute p-5 rounded-3
+span
+z-n1
+span
+Overlays
+z-index
+values to ensure a usable experience with competing “layers” of an interface.
+Read about them in the
+z-index
+layout page
+Component approach
+On some components, we use our low-level
+z-index
+values to manage repeating elements that overlap one another (like buttons in a button group or items in a list group).
+Learn about our
+z-index
+approach
+Sass maps
+Customize this Sass map to change the available values and generated utilities.
+scss/_variables.scss
+$zindex-levels
+Sass utilities API
+Position utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+scss/_utilities.scss
+"z-index"
+property
+z-index
+class
+values
+$zindex-levels

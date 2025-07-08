@@ -1,0 +1,257 @@
+URL: https://getbootstrap.com/docs/5.1/forms/floating-labels
+==================================================
+
+Example
+Wrap a pair of
+<input class="form-control">
+<label>
+elements in
+.form-floating
+to enable floating labels with Bootstrap’s textual form fields. A
+placeholder
+is required on each
+<input>
+as our method of CSS-only floating labels uses the
+:placeholder-shown
+pseudo-element. Also note that the
+<input>
+must come first so we can utilize a sibling selector (e.g.,
+Email address
+Password
+class
+"form-floating mb-3"
+input
+type
+"email"
+class
+"form-control"
+"floatingInput"
+placeholder
+"name@example.com"
+label
+"floatingInput"
+Email address
+label
+class
+"form-floating"
+input
+type
+"password"
+class
+"form-control"
+"floatingPassword"
+placeholder
+"Password"
+label
+"floatingPassword"
+Password
+label
+When there’s a
+value
+already defined,
+<label>
+s will automatically adjust to their floated position.
+Input with value
+form
+class
+"form-floating"
+input
+type
+"email"
+class
+"form-control"
+"floatingInputValue"
+placeholder
+"name@example.com"
+value
+"test@example.com"
+label
+"floatingInputValue"
+Input with value
+label
+form
+Form validation styles also work as expected.
+Invalid input
+form
+class
+"form-floating"
+input
+type
+"email"
+class
+"form-control is-invalid"
+"floatingInputInvalid"
+placeholder
+"name@example.com"
+value
+"test@example.com"
+label
+"floatingInputInvalid"
+Invalid input
+label
+form
+Textareas
+By default,
+<textarea>
+s with
+.form-control
+will be the same height as
+<input>
+Comments
+class
+"form-floating"
+textarea
+class
+"form-control"
+placeholder
+"Leave a comment here"
+"floatingTextarea"
+textarea
+label
+"floatingTextarea"
+Comments
+label
+To set a custom height on your
+<textarea>
+, do not use the
+rows
+attribute. Instead, set an explicit
+height
+(either inline or via custom CSS).
+Comments
+class
+"form-floating"
+textarea
+class
+"form-control"
+placeholder
+"Leave a comment here"
+"floatingTextarea2"
+style
+"height: 100px"
+textarea
+label
+"floatingTextarea2"
+Comments
+label
+Selects
+Other than
+.form-control
+, floating labels are only available on
+.form-select
+s. They work in the same way, but unlike
+<input>
+s, they’ll always show the
+<label>
+in its floated state.
+Selects with
+size
+multiple
+are not supported.
+Open this select menu
+Three
+Works with selects
+class
+"form-floating"
+select
+class
+"form-select"
+"floatingSelect"
+aria-label
+"Floating label select example"
+option
+selected
+Open this select menu
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+label
+"floatingSelect"
+Works with selects
+label
+Layout
+When working with the Bootstrap grid system, be sure to place form elements within column classes.
+Email address
+Open this select menu
+Three
+Works with selects
+class
+"row g-2"
+class
+"col-md"
+class
+"form-floating"
+input
+type
+"email"
+class
+"form-control"
+"floatingInputGrid"
+placeholder
+"name@example.com"
+value
+"mdo@example.com"
+label
+"floatingInputGrid"
+Email address
+label
+class
+"col-md"
+class
+"form-floating"
+select
+class
+"form-select"
+"floatingSelectGrid"
+aria-label
+"Floating label select example"
+option
+selected
+Open this select menu
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+label
+"floatingSelectGrid"
+Works with selects
+label
+Sass
+Variables
+$form-floating-height
+$input-height-border
+$form-floating-line-height
+$form-floating-padding-x
+$input-padding-x
+$form-floating-padding-y
+$form-floating-input-padding-t
+.625
+$form-floating-input-padding-b
+.625
+$form-floating-label-opacity
+$form-floating-label-transform
+scale
+translateY
+translateX
+$form-floating-transition
+opacity
+ease-in-out
+transform
+ease-in-out

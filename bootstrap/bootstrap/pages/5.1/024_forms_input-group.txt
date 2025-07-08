@@ -1,0 +1,917 @@
+URL: https://getbootstrap.com/docs/5.1/forms/input-group
+==================================================
+
+Basic example
+Place one add-on or button on either side of an input. You may also place one on both sides of an input. Remember to place
+<label>
+s outside the input group.
+@example.com
+Your vanity URL
+https://example.com/users/
+With textarea
+class
+"input-group mb-3"
+span
+class
+"input-group-text"
+"basic-addon1"
+span
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Username"
+aria-label
+"Username"
+aria-describedby
+"basic-addon1"
+class
+"input-group mb-3"
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Recipient's username"
+aria-label
+"Recipient's username"
+aria-describedby
+"basic-addon2"
+span
+class
+"input-group-text"
+"basic-addon2"
+@example.com
+span
+label
+"basic-url"
+class
+"form-label"
+Your vanity URL
+label
+class
+"input-group mb-3"
+span
+class
+"input-group-text"
+"basic-addon3"
+https://example.com/users/
+span
+input
+type
+"text"
+class
+"form-control"
+"basic-url"
+aria-describedby
+"basic-addon3"
+class
+"input-group mb-3"
+span
+class
+"input-group-text"
+span
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Amount (to the nearest dollar)"
+span
+class
+"input-group-text"
+span
+class
+"input-group mb-3"
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Username"
+aria-label
+"Username"
+span
+class
+"input-group-text"
+span
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Server"
+aria-label
+"Server"
+class
+"input-group"
+span
+class
+"input-group-text"
+With textarea
+span
+textarea
+class
+"form-control"
+aria-label
+"With textarea"
+textarea
+Wrapping
+Input groups wrap by default via
+flex-wrap: wrap
+in order to accommodate custom form field validation within an input group. You may disable this with
+.flex-nowrap
+class
+"input-group flex-nowrap"
+span
+class
+"input-group-text"
+"addon-wrapping"
+span
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Username"
+aria-label
+"Username"
+aria-describedby
+"addon-wrapping"
+Sizing
+Add the relative form sizing classes to the
+.input-group
+itself and contents within will automatically resize—no need for repeating the form control size classes on each element.
+Sizing on the individual input group elements isn’t supported.
+Small
+Default
+Large
+class
+"input-group input-group-sm mb-3"
+span
+class
+"input-group-text"
+"inputGroup-sizing-sm"
+Small
+span
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Sizing example input"
+aria-describedby
+"inputGroup-sizing-sm"
+class
+"input-group mb-3"
+span
+class
+"input-group-text"
+"inputGroup-sizing-default"
+Default
+span
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Sizing example input"
+aria-describedby
+"inputGroup-sizing-default"
+class
+"input-group input-group-lg"
+span
+class
+"input-group-text"
+"inputGroup-sizing-lg"
+Large
+span
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Sizing example input"
+aria-describedby
+"inputGroup-sizing-lg"
+Checkboxes and radios
+Place any checkbox or radio option within an input group’s addon instead of text. We recommend adding
+.mt-0
+to the
+.form-check-input
+when there’s no visible text next to the input.
+class
+"input-group mb-3"
+class
+"input-group-text"
+input
+class
+"form-check-input mt-0"
+type
+"checkbox"
+value
+aria-label
+"Checkbox for following text input"
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with checkbox"
+class
+"input-group"
+class
+"input-group-text"
+input
+class
+"form-check-input mt-0"
+type
+"radio"
+value
+aria-label
+"Radio button for following text input"
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with radio button"
+Multiple inputs
+While multiple
+<input>
+s are supported visually, validation styles are only available for input groups with a single
+<input>
+First and last name
+class
+"input-group"
+span
+class
+"input-group-text"
+First and last name
+span
+input
+type
+"text"
+aria-label
+"First name"
+class
+"form-control"
+input
+type
+"text"
+aria-label
+"Last name"
+class
+"form-control"
+Multiple addons
+Multiple add-ons are supported and can be mixed with checkbox and radio input versions.
+0.00
+0.00
+class
+"input-group mb-3"
+span
+class
+"input-group-text"
+span
+span
+class
+"input-group-text"
+0.00
+span
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Dollar amount (with dot and two decimal places)"
+class
+"input-group"
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Dollar amount (with dot and two decimal places)"
+span
+class
+"input-group-text"
+span
+span
+class
+"input-group-text"
+0.00
+span
+Button addons
+Button
+Button
+Button
+Button
+Button
+Button
+class
+"input-group mb-3"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+"button-addon1"
+Button
+button
+input
+type
+"text"
+class
+"form-control"
+placeholder
+aria-label
+"Example text with button addon"
+aria-describedby
+"button-addon1"
+class
+"input-group mb-3"
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Recipient's username"
+aria-label
+"Recipient's username"
+aria-describedby
+"button-addon2"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+"button-addon2"
+Button
+button
+class
+"input-group mb-3"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+input
+type
+"text"
+class
+"form-control"
+placeholder
+aria-label
+"Example text with two button addons"
+class
+"input-group"
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Recipient's username"
+aria-label
+"Recipient's username with two button addons"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+Buttons with dropdowns
+Dropdown
+Action
+Another action
+Something else here
+Separated link
+Dropdown
+Action
+Another action
+Something else here
+Separated link
+Dropdown
+Action before
+Another action before
+Something else here
+Separated link
+Dropdown
+Action
+Another action
+Something else here
+Separated link
+class
+"input-group mb-3"
+button
+class
+"btn btn-outline-secondary dropdown-toggle"
+type
+"button"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with dropdown button"
+class
+"input-group mb-3"
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with dropdown button"
+button
+class
+"btn btn-outline-secondary dropdown-toggle"
+type
+"button"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+button
+class
+"dropdown-menu dropdown-menu-end"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+class
+"input-group"
+button
+class
+"btn btn-outline-secondary dropdown-toggle"
+type
+"button"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action before
+class
+"dropdown-item"
+href
+Another action before
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with 2 dropdown buttons"
+button
+class
+"btn btn-outline-secondary dropdown-toggle"
+type
+"button"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+button
+class
+"dropdown-menu dropdown-menu-end"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Segmented buttons
+Action
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Action
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+class
+"input-group mb-3"
+button
+type
+"button"
+class
+"btn btn-outline-secondary"
+Action
+button
+button
+type
+"button"
+class
+"btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"visually-hidden"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with segmented dropdown button"
+class
+"input-group"
+input
+type
+"text"
+class
+"form-control"
+aria-label
+"Text input with segmented dropdown button"
+button
+type
+"button"
+class
+"btn btn-outline-secondary"
+Action
+button
+button
+type
+"button"
+class
+"btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+data-bs-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"visually-hidden"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu dropdown-menu-end"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Custom forms
+Input groups include support for custom selects and custom file inputs. Browser default versions of these are not supported.
+Custom select
+Options
+Choose...
+Three
+Choose...
+Three
+Options
+Button
+Choose...
+Three
+Choose...
+Three
+Button
+class
+"input-group mb-3"
+label
+class
+"input-group-text"
+"inputGroupSelect01"
+Options
+label
+select
+class
+"form-select"
+"inputGroupSelect01"
+option
+selected
+Choose...
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+class
+"input-group mb-3"
+select
+class
+"form-select"
+"inputGroupSelect02"
+option
+selected
+Choose...
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+label
+class
+"input-group-text"
+"inputGroupSelect02"
+Options
+label
+class
+"input-group mb-3"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+select
+class
+"form-select"
+"inputGroupSelect03"
+aria-label
+"Example select with button addon"
+option
+selected
+Choose...
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+class
+"input-group"
+select
+class
+"form-select"
+"inputGroupSelect04"
+aria-label
+"Example select with button addon"
+option
+selected
+Choose...
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+Button
+button
+Custom file input
+Upload
+Upload
+Button
+Button
+class
+"input-group mb-3"
+label
+class
+"input-group-text"
+"inputGroupFile01"
+Upload
+label
+input
+type
+"file"
+class
+"form-control"
+"inputGroupFile01"
+class
+"input-group mb-3"
+input
+type
+"file"
+class
+"form-control"
+"inputGroupFile02"
+label
+class
+"input-group-text"
+"inputGroupFile02"
+Upload
+label
+class
+"input-group mb-3"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+"inputGroupFileAddon03"
+Button
+button
+input
+type
+"file"
+class
+"form-control"
+"inputGroupFile03"
+aria-describedby
+"inputGroupFileAddon03"
+aria-label
+"Upload"
+class
+"input-group"
+input
+type
+"file"
+class
+"form-control"
+"inputGroupFile04"
+aria-describedby
+"inputGroupFileAddon04"
+aria-label
+"Upload"
+button
+class
+"btn btn-outline-secondary"
+type
+"button"
+"inputGroupFileAddon04"
+Button
+button
+Sass
+Variables
+$input-group-addon-padding-y
+$input-padding-y
+$input-group-addon-padding-x
+$input-padding-x
+$input-group-addon-font-weight
+$input-font-weight
+$input-group-addon-color
+$input-color
+$input-group-addon-bg
+$gray-200
+$input-group-addon-border-color
+$input-border-color

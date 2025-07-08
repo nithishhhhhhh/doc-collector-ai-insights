@@ -1,0 +1,101 @@
+URL: https://getbootstrap.com/docs/5.2/utilities/vertical-align
+==================================================
+
+Change the alignment of elements with the
+vertical-alignment
+utilities. Please note that vertical-align only affects inline, inline-block, inline-table, and table cell elements.
+Choose from
+.align-baseline
+.align-top
+.align-middle
+.align-bottom
+.align-text-bottom
+, and
+.align-text-top
+as needed.
+To vertically center non-inline content (like
+<div>
+s and more), use our
+flex box utilities
+With inline elements:
+baseline
+middle
+bottom
+text-top
+text-bottom
+html
+span
+class
+"align-baseline"
+baseline
+span
+span
+class
+"align-top"
+span
+span
+class
+"align-middle"
+middle
+span
+span
+class
+"align-bottom"
+bottom
+span
+span
+class
+"align-text-top"
+text-top
+span
+span
+class
+"align-text-bottom"
+text-bottom
+span
+With table cells:
+baseline
+middle
+bottom
+text-top
+text-bottom
+html
+table
+style
+"height: 100px;"
+tbody
+class
+"align-baseline"
+baseline
+class
+"align-top"
+class
+"align-middle"
+middle
+class
+"align-bottom"
+bottom
+class
+"align-text-top"
+text-top
+class
+"align-text-bottom"
+text-bottom
+tbody
+table
+Sass
+Utilities API
+Vertical align utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+"align"
+property
+vertical-align
+class
+align
+values
+baseline
+middle
+bottom
+text-bottom
+text-top

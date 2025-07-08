@@ -1,0 +1,116 @@
+URL: https://getbootstrap.com/docs/5.1/forms/range
+==================================================
+
+Overview
+Create custom
+<input type="range">
+controls with
+.form-range
+. The track (the background) and thumb (the value) are both styled to appear the same across browsers. As only Firefox supports “filling” their track from the left or right of the thumb as a means to visually indicate progress, we do not currently support it.
+Example range
+label
+"customRange1"
+class
+"form-label"
+Example range
+label
+input
+type
+"range"
+class
+"form-range"
+"customRange1"
+Disabled
+Add the
+disabled
+boolean attribute on an input to give it a grayed out appearance and remove pointer events.
+Disabled range
+label
+"disabledRange"
+class
+"form-label"
+Disabled range
+label
+input
+type
+"range"
+class
+"form-range"
+"disabledRange"
+disabled
+Min and max
+Range inputs have implicit values for
+, respectively. You may specify new values for those using the
+attributes.
+Example range
+label
+"customRange2"
+class
+"form-label"
+Example range
+label
+input
+type
+"range"
+class
+"form-range"
+"customRange2"
+Steps
+By default, range inputs “snap” to integer values. To change this, you can specify a
+step
+value. In the example below, we double the number of steps by using
+step="0.5"
+Example range
+label
+"customRange3"
+class
+"form-label"
+Example range
+label
+input
+type
+"range"
+class
+"form-range"
+step
+"0.5"
+"customRange3"
+Sass
+Variables
+$form-range-track-width
+$form-range-track-height
+$form-range-track-cursor
+pointer
+$form-range-track-bg
+$gray-300
+$form-range-track-border-radius
+$form-range-track-box-shadow
+$box-shadow-inset
+$form-range-thumb-width
+$form-range-thumb-height
+$form-range-thumb-width
+$form-range-thumb-bg
+$component-active-bg
+$form-range-thumb-border
+$form-range-thumb-border-radius
+$form-range-thumb-box-shadow
+rgba
+$black
+$form-range-thumb-focus-box-shadow
+$body-bg
+$input-focus-box-shadow
+$form-range-thumb-focus-box-shadow-width
+$input-focus-width
+// For focus box shadow issue in Edge
+$form-range-thumb-active-bg
+tint-color
+$component-active-bg
+$form-range-thumb-disabled-bg
+$gray-500
+$form-range-thumb-transition
+background-color
+ease-in-out
+border-color
+ease-in-out
+box-shadow
+ease-in-out

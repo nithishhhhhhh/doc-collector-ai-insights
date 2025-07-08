@@ -1,0 +1,96 @@
+URL: https://getbootstrap.com/docs/4.6/content/images
+==================================================
+
+View on GitHub
+Images
+Documentation and examples for opting images into responsive behavior (so they never become larger than their parent elements) and add lightweight styles to them—all via classes.
+Responsive images
+Images in Bootstrap are made responsive with
+.img-fluid
+max-width: 100%;
+height: auto;
+are applied to the image so that it scales with the parent element.
+Placeholder
+Responsive image
+"..."
+class
+"img-fluid"
+"..."
+SVG images and Internet Explorer
+In Internet Explorer 10 and 11, SVG images with
+.img-fluid
+are disproportionately sized. To fix this, add
+width: 100%;
+.w-100
+where necessary. This fix improperly sizes other image formats, so Bootstrap doesn’t apply it automatically.
+Image thumbnails
+In addition to our
+border-radius utilities
+, you can use
+.img-thumbnail
+to give an image a rounded 1px border appearance.
+A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera
+200x200
+"..."
+class
+"img-thumbnail"
+"..."
+Aligning images
+Align images with the
+helper float classes
+text alignment classes
+block
+-level images can be centered using
+.mx-auto
+margin utility class
+Placeholder
+200x200
+Placeholder
+200x200
+"..."
+class
+"rounded float-left"
+"..."
+"..."
+class
+"rounded float-right"
+"..."
+Placeholder
+200x200
+"..."
+class
+"rounded mx-auto d-block"
+"..."
+Placeholder
+200x200
+class
+"text-center"
+"..."
+class
+"rounded"
+"..."
+Picture
+If you are using the
+<picture>
+element to specify multiple
+<source>
+elements for a specific
+<img>
+, make sure to add the
+.img-*
+classes to the
+<img>
+and not to the
+<picture>
+tag.
+picture
+source
+srcset
+"..."
+type
+"image/svg+xml"
+"..."
+class
+"img-fluid img-thumbnail"
+"..."
+picture

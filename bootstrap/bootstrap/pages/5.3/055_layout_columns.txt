@@ -1,0 +1,438 @@
+URL: https://getbootstrap.com/docs/5.3/layout/columns
+==================================================
+
+Heads up!
+Be sure to
+read the Grid page
+first before diving into how to modify and customize your grid columns.
+How they work
+Columns build on the grid’s flexbox architecture.
+Flexbox means we have options for changing individual columns and
+modifying groups of columns at the row level
+. You choose how columns grow, shrink, or otherwise change.
+When building grid layouts, all content goes in columns.
+The hierarchy of Bootstrap’s grid goes from
+container
+to row to column to your content. On rare occasions, you may combine content and column, but be aware there can be unintended consequences.
+With
+six breakpoints
+and a dozen columns at each grid tier, we have dozens of classes already built for you to create your desired layouts. This can be disabled via Sass if you wish.
+Alignment
+Use flexbox alignment utilities to vertically and horizontally align columns.
+Vertical alignment
+Change the vertical alignment with any of the responsive
+align-items-*
+classes.
+One of three columns
+One of three columns
+One of three columns
+html
+class
+container text-center
+class
+row align-items-start
+class
+One of three columns
+class
+One of three columns
+class
+One of three columns
+One of three columns
+One of three columns
+One of three columns
+html
+class
+container text-center
+class
+row align-items-center
+class
+One of three columns
+class
+One of three columns
+class
+One of three columns
+One of three columns
+One of three columns
+One of three columns
+html
+class
+container text-center
+class
+row align-items-end
+class
+One of three columns
+class
+One of three columns
+class
+One of three columns
+Or, change the alignment of each column individually with any of the responsive
+.align-self-*
+classes.
+One of three columns
+One of three columns
+One of three columns
+html
+class
+container text-center
+class
+class
+col align-self-start
+One of three columns
+class
+col align-self-center
+One of three columns
+class
+col align-self-end
+One of three columns
+Horizontal alignment
+Change the horizontal alignment with any of the responsive
+justify-content-*
+classes.
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+One of two columns
+html
+class
+container text-center
+class
+row justify-content-start
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+class
+row justify-content-center
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+class
+row justify-content-end
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+class
+row justify-content-around
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+class
+row justify-content-between
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+class
+row justify-content-evenly
+class
+col-4
+One of two columns
+class
+col-4
+One of two columns
+Column wrapping
+If more than 12 columns are placed within a single row, each group of extra columns will, as one unit, wrap onto a new line.
+.col-9
+.col-4
+Since 9 + 4 = 13 > 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
+.col-6
+Subsequent columns continue along the new line.
+html
+class
+container
+class
+class
+col-9
+.col-9
+class
+col-4
+.col-4
+Since 9 + 4 = 13
+&gt;
+12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.
+class
+col-6
+.col-6
+Subsequent columns continue along the new line.
+Column breaks
+Breaking columns to a new line in flexbox requires a small hack: add an element with
+width: 100%
+wherever you want to wrap your columns to a new line. Normally this is accomplished with multiple
+.row
+s, but not every implementation method can account for this.
+.col-6 .col-sm-3
+.col-6 .col-sm-3
+.col-6 .col-sm-3
+.col-6 .col-sm-3
+html
+class
+container text-center
+class
+class
+col-6 col-sm-3
+.col-6 .col-sm-3
+class
+col-6 col-sm-3
+.col-6 .col-sm-3
+<!-- Force next columns to break to new line -->
+class
+w-100
+class
+col-6 col-sm-3
+.col-6 .col-sm-3
+class
+col-6 col-sm-3
+.col-6 .col-sm-3
+You may also apply this break at specific breakpoints with our
+responsive display utilities
+.col-6 .col-sm-4
+.col-6 .col-sm-4
+.col-6 .col-sm-4
+.col-6 .col-sm-4
+html
+class
+container text-center
+class
+class
+col-6 col-sm-4
+.col-6 .col-sm-4
+class
+col-6 col-sm-4
+.col-6 .col-sm-4
+<!-- Force next columns to break to new line at md breakpoint and up -->
+class
+w-100 d-none d-md-block
+class
+col-6 col-sm-4
+.col-6 .col-sm-4
+class
+col-6 col-sm-4
+.col-6 .col-sm-4
+Reordering
+Order classes
+.order-
+classes for controlling the
+visual order
+of your content. These classes are responsive, so you can set the
+order
+by breakpoint (e.g.,
+.order-1.order-md-2
+). Includes support for
+through
+across all six grid tiers.
+First in DOM, no order applied
+Second in DOM, with a larger order
+Third in DOM, with an order of 1
+html
+class
+container text-center
+class
+class
+First in DOM, no order applied
+class
+col order-5
+Second in DOM, with a larger order
+class
+col order-1
+Third in DOM, with an order of 1
+There are also responsive
+.order-first
+.order-last
+classes that change the
+order
+of an element by applying
+order: -1
+order: 6
+, respectively. These classes can also be intermixed with the numbered
+.order-*
+classes as needed.
+First in DOM, ordered last
+Second in DOM, unordered
+Third in DOM, ordered first
+html
+class
+container text-center
+class
+class
+col order-last
+First in DOM, ordered last
+class
+Second in DOM, unordered
+class
+col order-first
+Third in DOM, ordered first
+If you need more
+.order-*
+classes, you can add new ones by modifying our
+$utilities
+Sass map.
+Read our Sass maps and loops docs
+our Modify utilities docs
+for details.
+$utilities
+map-merge
+$utilities
+"order"
+map-merge
+map-get
+$utilities
+"order"
+values
+map-merge
+map-get
+map-get
+$utilities
+"order"
+"values"
+// Add a new `.order-{breakpoint}-6` utility
+last
+// Change the `.order-{breakpoint}-last` utility to use the next number
+Offsetting columns
+You can offset grid columns in two ways: our responsive
+.offset-
+grid classes and our
+margin utilities
+. Grid classes are sized to match columns while margins are more useful for quick layouts where the width of the offset is variable.
+Offset classes
+Move columns to the right using
+.offset-md-*
+classes. These classes increase the left margin of a column by
+columns. For example,
+.offset-md-4
+moves
+.col-md-4
+over four columns.
+.col-md-4
+.col-md-4 .offset-md-4
+.col-md-3 .offset-md-3
+.col-md-3 .offset-md-3
+.col-md-6 .offset-md-3
+html
+class
+container text-center
+class
+class
+col-md-4
+.col-md-4
+class
+col-md-4 offset-md-4
+.col-md-4 .offset-md-4
+class
+class
+col-md-3 offset-md-3
+.col-md-3 .offset-md-3
+class
+col-md-3 offset-md-3
+.col-md-3 .offset-md-3
+class
+class
+col-md-6 offset-md-3
+.col-md-6 .offset-md-3
+In addition to column clearing at responsive breakpoints, you may need to reset offsets. See this in action in
+the grid example
+.col-sm-5 .col-md-6
+.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0
+.col-sm-6 .col-md-5 .col-lg-6
+.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+html
+class
+container text-center
+class
+class
+col-sm-5 col-md-6
+.col-sm-5 .col-md-6
+class
+col-sm-5 offset-sm-2 col-md-6 offset-md-0
+.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0
+class
+class
+col-sm-6 col-md-5 col-lg-6
+.col-sm-6 .col-md-5 .col-lg-6
+class
+col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0
+.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0
+Margin utilities
+With the move to flexbox in v4, you can use margin utilities like
+.me-auto
+to force sibling columns away from one another.
+.col-md-4
+.col-md-4 .ms-auto
+.col-md-3 .ms-md-auto
+.col-md-3 .ms-md-auto
+.col-auto .me-auto
+.col-auto
+html
+class
+container text-center
+class
+class
+col-md-4
+.col-md-4
+class
+col-md-4 ms-auto
+.col-md-4 .ms-auto
+class
+class
+col-md-3 ms-md-auto
+.col-md-3 .ms-md-auto
+class
+col-md-3 ms-md-auto
+.col-md-3 .ms-md-auto
+class
+class
+col-auto me-auto
+.col-auto .me-auto
+class
+col-auto
+.col-auto
+Standalone column classes
+.col-*
+classes can also be used outside a
+.row
+to give an element a specific width. Whenever column classes are used as non-direct children of a row, the paddings are omitted.
+.col-3: width of 25%
+.col-sm-9: width of 75% above sm breakpoint
+html
+class
+col-3 p-3 mb-2
+.col-3: width of 25%
+class
+col-sm-9 p-3
+.col-sm-9: width of 75% above sm breakpoint
+The classes can be used together with utilities to create responsive floated images. Make sure to wrap the content in a
+.clearfix
+wrapper to clear the float if the text is shorter.
+Placeholder
+Responsive floated image
+A paragraph of placeholder text. We’re using it here to show the use of the clearfix class. We’re adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with some actual content in here, rather than just this boring placeholder text that goes on and on, but actually conveys no tangible information at. It simply takes up space and should not really be read.
+And yet, here you are, still persevering in reading this placeholder text, hoping for some more insights, or some hidden easter egg of content. A joke, perhaps. Unfortunately, there’s none of that here.
+html
+class
+clearfix
+class
+col-md-6 float-md-end mb-3 ms-md-3
+A paragraph of placeholder text. We’re using it here to show the use of the clearfix class. We’re adding quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with some actual content in here, rather than just this boring placeholder text that goes on and on, but actually conveys no tangible information at. It simply takes up space and should not really be read.
+And yet, here you are, still persevering in reading this placeholder text, hoping for some more insights, or some hidden easter egg of content. A joke, perhaps. Unfortunately, there’s none of that here.

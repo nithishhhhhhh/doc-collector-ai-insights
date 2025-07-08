@@ -71,16 +71,16 @@ def generate_bootstrap_llms():
     
     all_content = []
     
-    # Enhanced header with metadata
-    all_content.append("=== BOOTSTRAP 5.3 COMPLETE DOCUMENTATION COLLECTION ===")
+    # Enhanced header with metadata for all versions
+    all_content.append("=== BOOTSTRAP COMPLETE DOCUMENTATION COLLECTION (ALL VERSIONS) ===")
     all_content.append("Ultra-comprehensive Bootstrap documentation scraped with 80%+ coverage")
-    all_content.append("Source: https://getbootstrap.com/docs/5.3/")
+    all_content.append("Sources: https://getbootstrap.com/docs/[4.0-4.6,5.0-5.3]/")
     all_content.append("Scraped with: Ultra-aggressive parallel scraper")
     all_content.append("Content: Getting Started, Layout, Content, Forms, Components, Helpers, Utilities, Customization, and More")
     all_content.append("=" * 80 + "\n")
     
-    # Process files and organize by category
-    txt_files = sorted(glob.glob(os.path.join(pages_dir, "*.txt")))
+    # Recursively find all .txt files in all version subfolders
+    txt_files = sorted(glob.glob(os.path.join(pages_dir, "*", "*.txt")))
     
     # Group files by category with enhanced logic
     categories = defaultdict(list)
@@ -88,7 +88,8 @@ def generate_bootstrap_llms():
     
     for file_path in txt_files:
         filename = os.path.basename(file_path)
-        
+        # Extract version from path: pages/<version>/<file>
+        version = os.path.basename(os.path.dirname(file_path))
         # Read file to extract URL for better categorization
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -97,7 +98,8 @@ def generate_bootstrap_llms():
                 file_metadata[file_path] = {
                     'url': url,
                     'content': content,
-                    'filename': filename
+                    'filename': filename,
+                    'version': version
                 }
         except Exception as e:
             print(f"⚠️  Error reading {file_path}: {e}")
@@ -127,6 +129,7 @@ def generate_bootstrap_llms():
                 content = metadata.get('content', '')
                 url = metadata.get('url', '')
                 filename = metadata.get('filename', os.path.basename(file_path))
+                version = metadata.get('version', 'unknown')
                 
                 if content.startswith('URL:'):
                     content_lines = content.split('\n')[2:]  # Skip URL and separator
@@ -134,10 +137,11 @@ def generate_bootstrap_llms():
                 
                 minified = minify_content(content)
                 if len(minified.strip()) > 50:
-                    # Enhanced section header with URL
-                    all_content.append(f"\n--- {filename} ---")
+                    # Enhanced section header with URL and version
+                    all_content.append(f"\n--- {filename} (v{version}) ---")
                     if url:
                         all_content.append(f"URL: {url}")
+                    all_content.append(f"Version: {version}")
                     all_content.append("-" * 50)
                     all_content.append(minified + "\n")
                     section_count += 1
@@ -167,9 +171,9 @@ def generate_bootstrap_llms():
             print(f"   - {category}: {count} pages")
         
         # Calculate coverage estimate
-        expected_bootstrap_pages = 150  # Rough estimate of total Bootstrap docs
+        expected_bootstrap_pages = 150 * 11  # Rough estimate for all versions
         coverage_percent = (total_sections / expected_bootstrap_pages) * 100
-        print(f"\n🎯 Estimated coverage: {coverage_percent:.1f}% of Bootstrap documentation")
+        print(f"\n🎯 Estimated coverage: {coverage_percent:.1f}% of Bootstrap documentation (all versions)")
         
         if coverage_percent >= 80:
             print("🏆 EXCELLENT: Achieved 80%+ documentation coverage!")

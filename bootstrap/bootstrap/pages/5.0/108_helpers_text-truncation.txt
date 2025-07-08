@@ -1,0 +1,25 @@
+URL: https://getbootstrap.com/docs/5.0/helpers/text-truncation
+==================================================
+
+For longer content, you can add a
+.text-truncate
+class to truncate the text with an ellipsis.
+Requires
+display: inline-block
+display: block
+Praeterea iter est quasdam res quas ex communi.
+Praeterea iter est quasdam res quas ex communi.
+<!-- Block level -->
+class
+"row"
+class
+"col-2 text-truncate"
+Praeterea iter est quasdam res quas ex communi.
+<!-- Inline level -->
+span
+class
+"d-inline-block text-truncate"
+style
+"max-width: 150px;"
+Praeterea iter est quasdam res quas ex communi.
+span

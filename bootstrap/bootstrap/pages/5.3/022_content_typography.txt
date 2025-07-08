@@ -1,0 +1,516 @@
+URL: https://getbootstrap.com/docs/5.3/content/typography
+==================================================
+
+Global settings
+textual utility classes
+Use a
+native font stack
+that selects the best
+font-family
+for each OS and device.
+For a more inclusive and accessible type scale, we use the browser’s default root
+font-size
+(typically 16px) so visitors can customize their browser defaults as needed.
+Use the
+$font-family-base
+$font-size-base
+, and
+$line-height-base
+attributes as our typographic base applied to the
+<body>
+Set the global link color via
+$link-color
+$body-bg
+to set a
+background-color
+on the
+<body>
+#fff
+by default).
+These styles can be found within
+_reboot.scss
+, and the global variables are defined in
+_variables.scss
+. Make sure to set
+$font-size-base
+Headings
+All HTML headings,
+<h1>
+through
+<h6>
+, are available.
+Heading
+Example
+<h1></h1>
+h1. Bootstrap heading
+<h2></h2>
+h2. Bootstrap heading
+<h3></h3>
+h3. Bootstrap heading
+<h4></h4>
+h4. Bootstrap heading
+<h5></h5>
+h5. Bootstrap heading
+<h6></h6>
+h6. Bootstrap heading
+h1. Bootstrap heading
+h2. Bootstrap heading
+h3. Bootstrap heading
+h4. Bootstrap heading
+h5. Bootstrap heading
+h6. Bootstrap heading
+through
+classes are also available, for when you want to match the font styling of a heading but cannot use the associated HTML element.
+h1. Bootstrap heading
+h2. Bootstrap heading
+h3. Bootstrap heading
+h4. Bootstrap heading
+h5. Bootstrap heading
+h6. Bootstrap heading
+html
+class
+h1. Bootstrap heading
+class
+h2. Bootstrap heading
+class
+h3. Bootstrap heading
+class
+h4. Bootstrap heading
+class
+h5. Bootstrap heading
+class
+h6. Bootstrap heading
+Customizing headings
+Use the included utility classes to recreate the small secondary heading text from Bootstrap 3.
+Fancy display heading
+With faded secondary text
+html
+Fancy display heading
+small
+class
+text-body-secondary
+With faded secondary text
+small
+Display headings
+Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a
+display heading
+—a larger, slightly more opinionated heading style.
+Display 1
+Display 2
+Display 3
+Display 4
+Display 5
+Display 6
+class
+display-1
+Display 1
+class
+display-2
+Display 2
+class
+display-3
+Display 3
+class
+display-4
+Display 4
+class
+display-5
+Display 5
+class
+display-6
+Display 6
+Display headings are configured via the
+$display-font-sizes
+Sass map and two variables,
+$display-font-weight
+$display-line-height
+Display headings are customizable via two variables,
+$display-font-family
+$display-font-style
+scss/_variables.scss
+$display-font-sizes
+5rem
+4.5rem
+4rem
+3.5rem
+3rem
+2.5rem
+$display-font-family
+null
+$display-font-style
+null
+$display-font-weight
+$display-line-height
+$headings-line-height
+Lead
+Make a paragraph stand out by adding
+.lead
+This is a lead paragraph. It stands out from regular paragraphs.
+html
+class
+lead
+This is a lead paragraph. It stands out from regular paragraphs.
+Inline text elements
+Styling for common inline HTML5 elements.
+You can use the mark tag to
+highlight
+text.
+This line of text is meant to be treated as deleted text.
+This line of text is meant to be treated as no longer accurate.
+This line of text is meant to be treated as an addition to the document.
+This line of text will render as underlined.
+This line of text is meant to be treated as fine print.
+This line rendered as bold text.
+This line rendered as italicized text.
+html
+You can use the mark tag to
+mark
+highlight
+mark
+text.
+This line of text is meant to be treated as deleted text.
+This line of text is meant to be treated as no longer accurate.
+This line of text is meant to be treated as an addition to the document.
+This line of text will render as underlined.
+small
+This line of text is meant to be treated as fine print.
+small
+strong
+This line rendered as bold text.
+strong
+This line rendered as italicized text.
+Beware that those tags should be used for semantic purpose:
+<mark>
+represents text which is marked or highlighted for reference or notation purposes.
+<small>
+represents side-comments and small print, like copyright and legal text.
+represents element that are no longer relevant or no longer accurate.
+represents a span of inline text which should be rendered in a way that indicates that it has a non-textual annotation.
+If you want to style your text, you should use the following classes instead:
+.mark
+will apply the same styles as
+<mark>
+.small
+will apply the same styles as
+<small>
+.text-decoration-underline
+will apply the same styles as
+.text-decoration-line-through
+will apply the same styles as
+While not shown above, feel free to use
+in HTML5.
+is meant to highlight words or phrases without conveying additional importance, while
+is mostly for voice, technical terms, etc.
+Text utilities
+Change text alignment, transform, style, weight, line-height, decoration and color with our
+text utilities
+color utilities
+Abbreviations
+Stylized implementation of HTML’s
+<abbr>
+element for abbreviations and acronyms to show the expanded version on hover. Abbreviations have a default underline and gain a help cursor to provide additional context on hover and to users of assistive technologies.
+.initialism
+to an abbreviation for a slightly smaller font-size.
+attr
+HTML
+html
+abbr
+title
+attribute
+attr
+abbr
+abbr
+title
+HyperText Markup Language
+class
+initialism
+HTML
+abbr
+Blockquotes
+For quoting blocks of content from another source within your document. Wrap
+<blockquote class="blockquote">
+around any HTML as the quote.
+A well-known quote, contained in a blockquote element.
+html
+blockquote
+class
+blockquote
+A well-known quote, contained in a blockquote element.
+blockquote
+Naming a source
+The HTML spec requires that blockquote attribution be placed outside the
+<blockquote>
+. When providing attribution, wrap your
+<blockquote>
+in a
+<figure>
+and use a
+<figcaption>
+or a block level element (e.g.,
+) with the
+.blockquote-footer
+class. Be sure to wrap the name of the source work in
+<cite>
+as well.
+A well-known quote, contained in a blockquote element.
+Someone famous in
+Source Title
+html
+figure
+blockquote
+class
+blockquote
+A well-known quote, contained in a blockquote element.
+blockquote
+figcaption
+class
+blockquote-footer
+Someone famous in
+cite
+title
+Source Title
+Source Title
+cite
+figcaption
+figure
+Alignment
+Use text utilities as needed to change the alignment of your blockquote.
+A well-known quote, contained in a blockquote element.
+Someone famous in
+Source Title
+html
+figure
+class
+text-center
+blockquote
+class
+blockquote
+A well-known quote, contained in a blockquote element.
+blockquote
+figcaption
+class
+blockquote-footer
+Someone famous in
+cite
+title
+Source Title
+Source Title
+cite
+figcaption
+figure
+A well-known quote, contained in a blockquote element.
+Someone famous in
+Source Title
+html
+figure
+class
+text-end
+blockquote
+class
+blockquote
+A well-known quote, contained in a blockquote element.
+blockquote
+figcaption
+class
+blockquote-footer
+Someone famous in
+cite
+title
+Source Title
+Source Title
+cite
+figcaption
+figure
+Lists
+Unstyled
+Remove the default
+list-style
+and left margin on list items (immediate children only).
+This only applies to immediate children list items
+, meaning you will need to add the class for any nested lists as well.
+This is a list.
+It appears completely unstyled.
+Structurally, it’s still a list.
+However, this style only applies to immediate child elements.
+Nested lists:
+are unaffected by this style
+will still show a bullet
+and have appropriate left margin
+This may still come in handy in some situations.
+html
+class
+list-unstyled
+This is a list.
+It appears completely unstyled.
+Structurally, it’s still a list.
+However, this style only applies to immediate child elements.
+Nested lists:
+are unaffected by this style
+will still show a bullet
+and have appropriate left margin
+This may still come in handy in some situations.
+Inline
+Remove a list’s bullets and apply some light
+margin
+with a combination of two classes,
+.list-inline
+.list-inline-item
+This is a list item.
+And another one.
+But they’re displayed inline.
+html
+class
+list-inline
+class
+list-inline-item
+This is a list item.
+class
+list-inline-item
+And another one.
+class
+list-inline-item
+But they’re displayed inline.
+Description list alignment
+Align terms and descriptions horizontally by using our grid system’s predefined classes (or semantic mixins). For longer terms, you can optionally add a
+.text-truncate
+class to truncate the text with an ellipsis.
+Description lists
+A description list is perfect for defining terms.
+Term
+Definition for the term.
+And some more placeholder definition text.
+Another term
+This definition is short, so no extra paragraphs or anything.
+Truncated term is truncated
+This can be useful when space is tight. Adds an ellipsis at the end.
+Nesting
+Nested definition list
+I heard you like definition lists. Let me put a definition list inside your definition list.
+html
+class
+class
+col-sm-3
+Description lists
+class
+col-sm-9
+A description list is perfect for defining terms.
+class
+col-sm-3
+Term
+class
+col-sm-9
+Definition for the term.
+And some more placeholder definition text.
+class
+col-sm-3
+Another term
+class
+col-sm-9
+This definition is short, so no extra paragraphs or anything.
+class
+col-sm-3 text-truncate
+Truncated term is truncated
+class
+col-sm-9
+This can be useful when space is tight. Adds an ellipsis at the end.
+class
+col-sm-3
+Nesting
+class
+col-sm-9
+class
+class
+col-sm-4
+Nested definition list
+class
+col-sm-8
+I heard you like definition lists. Let me put a definition list inside your definition list.
+Responsive font sizes
+In Bootstrap 5, we’ve enabled responsive font sizes by default, allowing text to scale more naturally across device and viewport sizes. Have a look at the
+RFS page
+to find out how this works.
+Sass variables
+Headings have some dedicated variables for sizing and spacing.
+scss/_variables.scss
+$headings-margin-bottom
+$spacer
+$headings-font-family
+null
+$headings-font-style
+null
+$headings-font-weight
+$headings-line-height
+$headings-color
+inherit
+Miscellaneous typography elements covered here and in
+Reboot
+also have dedicated variables.
+scss/_variables.scss
+$lead-font-size
+$font-size-base
+1.25
+$lead-font-weight
+$small-font-size
+.875em
+$sub-sup-font-size
+.75em
+// fusv-disable
+$text-muted
+#{$prefix}
+secondary-color
+// Deprecated in 5.3.0
+// fusv-enable
+$initialism-font-size
+$small-font-size
+$blockquote-margin-y
+$spacer
+$blockquote-font-size
+$font-size-base
+1.25
+$blockquote-footer-color
+$gray-600
+$blockquote-footer-font-size
+$small-font-size
+$hr-margin-y
+$spacer
+$hr-color
+inherit
+// fusv-disable
+$hr-bg-color
+null
+// Deprecated in v5.2.0
+$hr-height
+null
+// Deprecated in v5.2.0
+// fusv-enable
+$hr-border-color
+null
+// Allows for inherited colors
+$hr-border-width
+#{$prefix}
+border-width
+$hr-opacity
+// scss-docs-start vr-variables
+$vr-border-width
+#{$prefix}
+border-width
+// scss-docs-end vr-variables
+$legend-margin-bottom
+.5rem
+$legend-font-size
+1.5rem
+$legend-font-weight
+null
+$dt-font-weight
+$font-weight-bold
+$list-inline-padding
+.5rem
+$mark-padding
+.1875em
+$mark-color
+$body-color
+$mark-bg
+$yellow-100
+Sass mixins
+There are no dedicated mixins for typography, but Bootstrap does use
+Responsive Font Sizing (RFS)

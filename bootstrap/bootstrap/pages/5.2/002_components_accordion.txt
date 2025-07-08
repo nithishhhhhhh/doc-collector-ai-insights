@@ -1,0 +1,518 @@
+URL: https://getbootstrap.com/docs/5.2/components/accordion
+==================================================
+
+How it works
+The accordion uses
+collapse
+internally to make it collapsible. To render an accordion that’s expanded, add the
+.open
+class on the
+.accordion
+The animation effect of this component is dependent on the
+prefers-reduced-motion
+media query. See the
+reduced motion section of our accessibility documentation
+Example
+Click the accordions below to expand/collapse the accordion content.
+Accordion Item #1
+This is the first item's accordion body.
+It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+Accordion Item #2
+This is the second item's accordion body.
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+Accordion Item #3
+This is the third item's accordion body.
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+html
+class
+"accordion"
+"accordionExample"
+class
+"accordion-item"
+class
+"accordion-header"
+"headingOne"
+button
+class
+"accordion-button"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#collapseOne"
+aria-expanded
+"true"
+aria-controls
+"collapseOne"
+Accordion Item #1
+button
+"collapseOne"
+class
+"accordion-collapse collapse show"
+aria-labelledby
+"headingOne"
+data-bs-parent
+"#accordionExample"
+class
+"accordion-body"
+strong
+This is the first item's accordion body.
+strong
+It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+class
+"accordion-item"
+class
+"accordion-header"
+"headingTwo"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#collapseTwo"
+aria-expanded
+"false"
+aria-controls
+"collapseTwo"
+Accordion Item #2
+button
+"collapseTwo"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"headingTwo"
+data-bs-parent
+"#accordionExample"
+class
+"accordion-body"
+strong
+This is the second item's accordion body.
+strong
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+class
+"accordion-item"
+class
+"accordion-header"
+"headingThree"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#collapseThree"
+aria-expanded
+"false"
+aria-controls
+"collapseThree"
+Accordion Item #3
+button
+"collapseThree"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"headingThree"
+data-bs-parent
+"#accordionExample"
+class
+"accordion-body"
+strong
+This is the third item's accordion body.
+strong
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+Flush
+.accordion-flush
+to remove the default
+background-color
+, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.
+Accordion Item #1
+Placeholder content for this accordion, which is intended to demonstrate the
+.accordion-flush
+class. This is the first item's accordion body.
+Accordion Item #2
+Placeholder content for this accordion, which is intended to demonstrate the
+.accordion-flush
+class. This is the second item's accordion body. Let's imagine this being filled with some actual content.
+Accordion Item #3
+Placeholder content for this accordion, which is intended to demonstrate the
+.accordion-flush
+class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+html
+class
+"accordion accordion-flush"
+"accordionFlushExample"
+class
+"accordion-item"
+class
+"accordion-header"
+"flush-headingOne"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#flush-collapseOne"
+aria-expanded
+"false"
+aria-controls
+"flush-collapseOne"
+Accordion Item #1
+button
+"flush-collapseOne"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"flush-headingOne"
+data-bs-parent
+"#accordionFlushExample"
+class
+"accordion-body"
+Placeholder content for this accordion, which is intended to demonstrate the
+code
+.accordion-flush
+code
+class. This is the first item's accordion body.
+class
+"accordion-item"
+class
+"accordion-header"
+"flush-headingTwo"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#flush-collapseTwo"
+aria-expanded
+"false"
+aria-controls
+"flush-collapseTwo"
+Accordion Item #2
+button
+"flush-collapseTwo"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"flush-headingTwo"
+data-bs-parent
+"#accordionFlushExample"
+class
+"accordion-body"
+Placeholder content for this accordion, which is intended to demonstrate the
+code
+.accordion-flush
+code
+class. This is the second item's accordion body. Let's imagine this being filled with some actual content.
+class
+"accordion-item"
+class
+"accordion-header"
+"flush-headingThree"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#flush-collapseThree"
+aria-expanded
+"false"
+aria-controls
+"flush-collapseThree"
+Accordion Item #3
+button
+"flush-collapseThree"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"flush-headingThree"
+data-bs-parent
+"#accordionFlushExample"
+class
+"accordion-body"
+Placeholder content for this accordion, which is intended to demonstrate the
+code
+.accordion-flush
+code
+class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.
+Always open
+Omit the
+data-bs-parent
+attribute on each
+.accordion-collapse
+to make accordion items stay open when another item is opened.
+Accordion Item #1
+This is the first item's accordion body.
+It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+Accordion Item #2
+This is the second item's accordion body.
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+Accordion Item #3
+This is the third item's accordion body.
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+.accordion-body
+, though the transition does limit overflow.
+html
+class
+"accordion"
+"accordionPanelsStayOpenExample"
+class
+"accordion-item"
+class
+"accordion-header"
+"panelsStayOpen-headingOne"
+button
+class
+"accordion-button"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#panelsStayOpen-collapseOne"
+aria-expanded
+"true"
+aria-controls
+"panelsStayOpen-collapseOne"
+Accordion Item #1
+button
+"panelsStayOpen-collapseOne"
+class
+"accordion-collapse collapse show"
+aria-labelledby
+"panelsStayOpen-headingOne"
+class
+"accordion-body"
+strong
+This is the first item's accordion body.
+strong
+It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+class
+"accordion-item"
+class
+"accordion-header"
+"panelsStayOpen-headingTwo"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#panelsStayOpen-collapseTwo"
+aria-expanded
+"false"
+aria-controls
+"panelsStayOpen-collapseTwo"
+Accordion Item #2
+button
+"panelsStayOpen-collapseTwo"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"panelsStayOpen-headingTwo"
+class
+"accordion-body"
+strong
+This is the second item's accordion body.
+strong
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+class
+"accordion-item"
+class
+"accordion-header"
+"panelsStayOpen-headingThree"
+button
+class
+"accordion-button collapsed"
+type
+"button"
+data-bs-toggle
+"collapse"
+data-bs-target
+"#panelsStayOpen-collapseThree"
+aria-expanded
+"false"
+aria-controls
+"panelsStayOpen-collapseThree"
+Accordion Item #3
+button
+"panelsStayOpen-collapseThree"
+class
+"accordion-collapse collapse"
+aria-labelledby
+"panelsStayOpen-headingThree"
+class
+"accordion-body"
+strong
+This is the third item's accordion body.
+strong
+It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the
+code
+.accordion-body
+code
+, though the transition does limit overflow.
+Accessibility
+Please read the
+collapse accessibility section
+for more information.
+Variables
+Added in v5.2.0
+As part of Bootstrap’s evolving CSS variables approach, accordions now use local CSS variables on
+.accordion
+for enhanced real-time customization. Values for the CSS variables are set via Sass, so Sass customization is still supported, too.
+--#{$prefix}accordion-color
+$accordion-color
+--#{$prefix}accordion-bg
+$accordion-bg
+--#{$prefix}accordion-transition
+$accordion-transition
+--#{$prefix}accordion-border-color
+$accordion-border-color
+--#{$prefix}accordion-border-width
+$accordion-border-width
+--#{$prefix}accordion-border-radius
+$accordion-border-radius
+--#{$prefix}accordion-inner-border-radius
+$accordion-inner-border-radius
+--#{$prefix}accordion-btn-padding-x
+$accordion-button-padding-x
+--#{$prefix}accordion-btn-padding-y
+$accordion-button-padding-y
+--#{$prefix}accordion-btn-color
+$accordion-button-color
+--#{$prefix}accordion-btn-bg
+$accordion-button-bg
+--#{$prefix}accordion-btn-icon
+escape-svg
+$accordion-button-icon
+--#{$prefix}accordion-btn-icon-width
+$accordion-icon-width
+--#{$prefix}accordion-btn-icon-transform
+$accordion-icon-transform
+--#{$prefix}accordion-btn-icon-transition
+$accordion-icon-transition
+--#{$prefix}accordion-btn-active-icon
+escape-svg
+$accordion-button-active-icon
+--#{$prefix}accordion-btn-focus-border-color
+$accordion-button-focus-border-color
+--#{$prefix}accordion-btn-focus-box-shadow
+$accordion-button-focus-box-shadow
+--#{$prefix}accordion-body-padding-x
+$accordion-body-padding-x
+--#{$prefix}accordion-body-padding-y
+$accordion-body-padding-y
+--#{$prefix}accordion-active-color
+$accordion-button-active-color
+--#{$prefix}accordion-active-bg
+$accordion-button-active-bg
+Sass variables
+$accordion-padding-y
+$accordion-padding-x
+$accordion-color
+$body-color
+// Sass variable because of $accordion-button-icon
+$accordion-bg
+$body-bg
+$accordion-border-width
+$border-width
+$accordion-border-color
+$prefix
+border-color
+$accordion-border-radius
+$border-radius
+$accordion-inner-border-radius
+subtract
+$accordion-border-radius
+$accordion-border-width
+$accordion-body-padding-y
+$accordion-padding-y
+$accordion-body-padding-x
+$accordion-padding-x
+$accordion-button-padding-y
+$accordion-padding-y
+$accordion-button-padding-x
+$accordion-padding-x
+$accordion-button-color
+$accordion-color
+$accordion-button-bg
+$prefix
+accordion-bg
+$accordion-transition
+$btn-transition
+border-radius
+ease
+$accordion-button-active-bg
+tint-color
+$component-active-bg
+$accordion-button-active-color
+shade-color
+$primary
+$accordion-button-focus-border-color
+$input-focus-border-color
+$accordion-button-focus-box-shadow
+$btn-focus-box-shadow
+$accordion-icon-width
+$accordion-icon-color
+$accordion-button-color
+$accordion-icon-active-color
+$accordion-button-active-color
+$accordion-icon-transition
+transform
+ease-in-out
+$accordion-icon-transform
+rotate
+$accordion-button-icon
+url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='
+$accordion-icon-color
+'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>")
+$accordion-button-active-icon
+url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='
+$accordion-icon-active-color
+'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>")

@@ -1,0 +1,50 @@
+URL: https://getbootstrap.com/docs/5.3/examples/badges
+==================================================
+
+Toggle theme
+Light
+Dark
+Auto
+Primary
+Secondary
+Success
+Danger
+Warning
+Info
+Light
+Dark
+Primary
+Secondary
+Success
+Danger
+Warning
+Info
+Light
+Dark
+Primary
+Secondary
+Success
+Danger
+Warning
+Info
+Light
+Dark
+Primary
+Secondary
+Success
+Danger
+Warning
+Info
+Light
+Dark
+Primary 1
+Primary 2
+Primary 3
+Primary
+Secondary
+Success
+Danger
+Warning
+Info
+Light
+Dark

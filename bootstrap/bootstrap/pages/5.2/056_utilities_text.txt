@@ -1,0 +1,423 @@
+URL: https://getbootstrap.com/docs/5.2/utilities/text
+==================================================
+
+Text alignment
+Easily realign text to components with text alignment classes. For start, end, and center alignment, responsive classes are available that use the same viewport width breakpoints as the grid system.
+Start aligned text on all viewport sizes.
+Center aligned text on all viewport sizes.
+End aligned text on all viewport sizes.
+Start aligned text on viewports sized SM (small) or wider.
+Start aligned text on viewports sized MD (medium) or wider.
+Start aligned text on viewports sized LG (large) or wider.
+Start aligned text on viewports sized XL (extra-large) or wider.
+html
+class
+"text-start"
+Start aligned text on all viewport sizes.
+class
+"text-center"
+Center aligned text on all viewport sizes.
+class
+"text-end"
+End aligned text on all viewport sizes.
+class
+"text-sm-start"
+Start aligned text on viewports sized SM (small) or wider.
+class
+"text-md-start"
+Start aligned text on viewports sized MD (medium) or wider.
+class
+"text-lg-start"
+Start aligned text on viewports sized LG (large) or wider.
+class
+"text-xl-start"
+Start aligned text on viewports sized XL (extra-large) or wider.
+Note that we don’t provide utility classes for justified text. While, aesthetically, justified text might look more appealing, it does make word-spacing more random and therefore harder to read.
+Text wrapping and overflow
+Wrap text with a
+.text-wrap
+class.
+This text should wrap.
+html
+class
+"badge bg-primary text-wrap"
+style
+"width: 6rem;"
+This text should wrap.
+Prevent text from wrapping with a
+.text-nowrap
+class.
+This text should overflow the parent.
+html
+class
+"text-nowrap bg-light border"
+style
+"width: 8rem;"
+This text should overflow the parent.
+Word break
+Prevent long strings of text from breaking your components’ layout by using
+.text-break
+to set
+word-wrap: break-word
+word-break: break-word
+. We use
+word-wrap
+instead of the more common
+overflow-wrap
+for wider browser support, and add the deprecated
+word-break: break-word
+to avoid issues with flex containers.
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+html
+class
+"text-break"
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+Note that
+breaking words isn’t possible in Arabic
+, which is the most used RTL language. Therefore
+.text-break
+is removed from our RTL compiled CSS.
+Text transform
+Transform text in components with text capitalization classes.
+Lowercased text.
+Uppercased text.
+CapiTaliZed text.
+html
+class
+"text-lowercase"
+Lowercased text.
+class
+"text-uppercase"
+Uppercased text.
+class
+"text-capitalize"
+CapiTaliZed text.
+Note how
+.text-capitalize
+only changes the first letter of each word, leaving the case of any other letters unaffected.
+Font size
+Quickly change the
+font-size
+of text. While our heading classes (e.g.,
+) apply
+font-size
+font-weight
+, and
+line-height
+, these utilities
+only
+apply
+font-size
+. Sizing for these utilities matches HTML’s heading elements, so as the number increases, their size decreases.
+.fs-1 text
+.fs-2 text
+.fs-3 text
+.fs-4 text
+.fs-5 text
+.fs-6 text
+html
+class
+"fs-1"
+.fs-1 text
+class
+"fs-2"
+.fs-2 text
+class
+"fs-3"
+.fs-3 text
+class
+"fs-4"
+.fs-4 text
+class
+"fs-5"
+.fs-5 text
+class
+"fs-6"
+.fs-6 text
+Customize your available
+font-size
+s by modifying the
+$font-sizes
+Sass map.
+Font weight and italics
+Quickly change the
+font-weight
+font-style
+of text with these utilities.
+font-style
+utilities are abbreviated as
+.fst-*
+font-weight
+utilities are abbreviated as
+.fw-*
+Bold text.
+Bolder weight text (relative to the parent element).
+Semibold weight text.
+Normal weight text.
+Light weight text.
+Lighter weight text (relative to the parent element).
+Italic text.
+Text with normal font style
+html
+class
+"fw-bold"
+Bold text.
+class
+"fw-bolder"
+Bolder weight text (relative to the parent element).
+class
+"fw-semibold"
+Semibold weight text.
+class
+"fw-normal"
+Normal weight text.
+class
+"fw-light"
+Light weight text.
+class
+"fw-lighter"
+Lighter weight text (relative to the parent element).
+class
+"fst-italic"
+Italic text.
+class
+"fst-normal"
+Text with normal font style
+Line height
+Change the line height with
+.lh-*
+utilities.
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+html
+class
+"lh-1"
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+class
+"lh-sm"
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+class
+"lh-base"
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+class
+"lh-lg"
+This is a long paragraph written to show how the line-height of an element is affected by our utilities. Classes are applied to the element itself or sometimes the parent element. These classes can be customized as needed with our utility API.
+Monospace
+Change a selection to our monospace font stack with
+.font-monospace
+This is in monospace
+html
+class
+"font-monospace"
+This is in monospace
+Reset color
+Reset a text or link’s color with
+.text-reset
+, so that it inherits the color from its parent.
+Muted text with a
+reset link
+html
+class
+"text-muted"
+Muted text with a
+href
+class
+"text-reset"
+reset link
+Text decoration
+Decorate text in components with text decoration classes.
+This text has a line underneath it.
+This text has a line going through it.
+This link has its text decoration removed
+html
+class
+"text-decoration-underline"
+This text has a line underneath it.
+class
+"text-decoration-line-through"
+This text has a line going through it.
+href
+class
+"text-decoration-none"
+This link has its text decoration removed
+Sass
+Variables
+// stylelint-disable value-keyword-case
+$font-family-sans-serif
+system-ui
+apple-system
+"Segoe UI"
+Roboto
+"Helvetica Neue"
+"Noto Sans"
+"Liberation Sans"
+Arial
+sans-serif
+"Apple Color Emoji"
+"Segoe UI Emoji"
+"Segoe UI Symbol"
+"Noto Color Emoji"
+$font-family-monospace
+SFMono-Regular
+Menlo
+Monaco
+Consolas
+"Liberation Mono"
+"Courier New"
+monospace
+// stylelint-enable value-keyword-case
+$font-family-base
+$prefix
+font-sans-serif
+$font-family-code
+$prefix
+font-monospace
+// $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// $font-size-base affects the font size of the body text
+$font-size-root
+null
+$font-size-base
+// Assumes the browser default, typically `16px`
+$font-size-sm
+$font-size-base
+.875
+$font-size-lg
+$font-size-base
+$font-weight-lighter
+lighter
+$font-weight-light
+$font-weight-normal
+$font-weight-semibold
+$font-weight-bold
+$font-weight-bolder
+bolder
+$font-weight-base
+$font-weight-normal
+$line-height-base
+$line-height-sm
+$line-height-lg
+$h1-font-size
+$font-size-base
+$h2-font-size
+$font-size-base
+$h3-font-size
+$font-size-base
+$h4-font-size
+$font-size-base
+$h5-font-size
+$font-size-base
+$h6-font-size
+$font-size-base
+Maps
+Font-size utilities are generated from this map, in combination with our utilities API.
+$font-sizes
+$h1-font-size
+$h2-font-size
+$h3-font-size
+$h4-font-size
+$h5-font-size
+$h6-font-size
+Utilities API
+Font and text utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+"font-family"
+property
+font-family
+class
+font
+values
+monospace
+$prefix
+font-monospace
+"font-size"
+true
+property
+font-size
+class
+values
+font-sizes
+"font-style"
+property
+font-style
+class
+values
+italic
+normal
+"font-weight"
+property
+font-weight
+class
+values
+light
+font-weight-light
+lighter
+font-weight-lighter
+normal
+font-weight-normal
+bold
+font-weight-bold
+semibold
+font-weight-semibold
+bolder
+font-weight-bolder
+"line-height"
+property
+line-height
+class
+values
+line-height-sm
+base
+line-height-base
+line-height-lg
+"text-align"
+responsive
+true
+property
+text-align
+class
+text
+values
+start
+left
+right
+center
+center
+"text-decoration"
+property
+text-decoration
+values
+none
+underline
+line-through
+"text-transform"
+property
+text-transform
+class
+text
+values
+lowercase
+uppercase
+capitalize
+"white-space"
+property
+white-space
+class
+text
+values
+wrap
+normal
+nowrap
+nowrap
+"word-wrap"
+property
+word-wrap
+word-break
+class
+text
+values
+break
+break-word
+false

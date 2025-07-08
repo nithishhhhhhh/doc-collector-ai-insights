@@ -1,0 +1,33 @@
+URL: https://getbootstrap.com/docs/5.3/utilities/opacity
+==================================================
+
+opacity
+property sets the opacity level for an element. The opacity level describes the transparency level, where
+is not transparent at all,
+is 50% visible, and
+is completely transparent.
+Set the
+opacity
+of an element using
+.opacity-{value}
+utilities.
+100%
+class
+opacity-100
+class
+opacity-75
+class
+opacity-50
+class
+opacity-25
+class
+opacity-0
+Sass utilities API
+Opacity utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+scss/_utilities.scss
+"opacity"
+property
+opacity
+values

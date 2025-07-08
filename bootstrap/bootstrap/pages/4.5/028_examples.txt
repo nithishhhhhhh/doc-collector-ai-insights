@@ -1,0 +1,56 @@
+URL: https://getbootstrap.com/docs/4.5/examples/
+==================================================
+
+Custom components
+Brand new components and templates to help folks quickly get started with Bootstrap and demonstrate best practices for adding onto the framework.
+Album
+Simple one-page template for photo galleries, portfolios, and more.
+Pricing
+Example pricing page built with Cards and featuring a custom header and footer.
+Checkout
+Custom checkout form showing our form components and their validation features.
+Product
+Lean product-focused marketing page with extensive grid and image work.
+Cover
+A one-page template for building simple and beautiful home pages.
+Carousel
+Customize the navbar and carousel, then add some new components.
+Blog
+Magazine like blog template with header, navigation, featured content.
+Dashboard
+Basic admin dashboard shell with fixed sidebar and navbar.
+Sign-in
+Custom form layout and design for a simple sign in form.
+Sticky footer
+Attach a footer to the bottom of the viewport when page content is short.
+Sticky footer navbar
+Attach a footer to the bottom of the viewport with a fixed top navbar.
+Framework
+Examples that focus on implementing uses of built-in components provided by Bootstrap.
+Starter template
+Nothing but the basics: compiled CSS and JavaScript.
+Grid
+Multiple examples of grid layouts with all four tiers, nesting, and more.
+Jumbotron
+Build around the jumbotron with a navbar and some basic grid columns.
+Navbars
+Taking the default navbar component and showing how it can be moved, placed, and extended.
+Navbars
+Demonstration of all responsive and container options for the navbar.
+Navbar static
+Single navbar example of a static top navbar along with some additional content.
+Navbar fixed
+Single navbar example with a fixed top navbar along with some additional content.
+Navbar bottom
+Single navbar example with a bottom navbar along with some additional content.
+Experiments
+Examples that focus on future-friendly features or techniques.
+Floating labels
+Beautifully simple forms with floating labels over your inputs.
+Offcanvas
+Turn your expandable navbar into a sliding offcanvas menu.
+Go further with Bootstrap Themes
+Need something more than these examples? Take Bootstrap to the next level with premium themes from the
+official Bootstrap Themes marketplace
+. They’re built as their own extended frameworks, rich with new components and plugins, documentation, and powerful build tools.
+Browse themes

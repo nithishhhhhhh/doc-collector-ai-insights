@@ -1,0 +1,368 @@
+URL: https://getbootstrap.com/docs/4.6/browser-bugs
+==================================================
+
+View on GitHub
+Wall of browser bugs
+Outdated content
+This page is outdated and is no longer applicable to the latest versions of Bootstrap. It’s here purely for historical purposes now and will be removed in our next major release.
+We publicly list browser bugs that are impacting us here, in the hopes of expediting the process of fixing them. For information on Bootstrap’s browser compatibility,
+see our browser compatibility docs
+See also:
+Chromium issue 536263: [meta] Issues affecting Bootstrap
+Mozilla bug 1230801: Fix the issues that affect Bootstrap
+WebKit bug 159753: [meta] Issues affecting Bootstrap
+jQuery’s browser bug workarounds
+Browser(s)
+Summary of bug
+Upstream issue(s)
+Edge
+Visual artifacts in scrollable modal dialogs
+Edge issue #9011176
+#20755
+Edge
+Native browser tooltip for
+title
+shows on first keyboard focus (in addition to custom tooltip component)
+Edge issue #6793560
+#18692
+Edge
+Hovered element still remains in
+:hover
+state after scrolling away.
+Edge issue #5381673
+#14211
+Edge
+border-radius
+sometimes causes lines of bleed-through of the
+background-color
+of the parent element.
+Edge issue #3342037
+#16671
+Edge
+background
+<tr>
+is only applied to first child cell instead of all cells in the row
+Edge issue #5865620
+#18504
+Edge
+Background color from lower layer bleeds through transparent border in some cases
+Edge issue #6274505
+#18228
+Edge
+Hovering over descendant SVG element fires
+mouseleave
+event at ancestor
+Edge issue #7787318
+#19670
+Edge
+Active
+position: fixed;
+<button>
+flickers when scrolling
+Edge issue #8770398
+#20507
+Firefox
+.table-bordered
+with an empty
+<tbody>
+is missing borders.
+Mozilla bug #1023761
+#13453
+Firefox
+If the disabled state of a form control is changed via JavaScript, the normal state doesn’t return after refreshing the page.
+Mozilla bug #654072
+#793
+Firefox
+focus
+events should not be fired at the
+document
+object
+Mozilla bug #1228802
+#18365
+Firefox
+Wide floated table doesn’t wrap onto new line
+Mozilla bug #1277782
+#19839
+Firefox
+Mouse sometimes not within element for purposes of
+mouseenter
+mouseleave
+when it’s within SVG elements
+Mozilla bug #577785
+#19670
+Firefox
+Layout with floated columns breaks when printing
+Mozilla bug #1315994
+#21092
+Firefox (Windows)
+Right border of
+<select>
+menu is sometimes missing when screen is set to uncommon resolution
+Mozilla bug #545685
+#15990
+Firefox (macOS & Linux)
+Badge widget causes bottom border of Tabs widget to unexpectedly not overlap
+Mozilla bug #1259972
+#19626
+Chrome (macOS)
+Clicking above
+<input type="number">
+increment button flashes the decrement button.
+Chromium issue #419108
+#8350
+Chromium issue #337668
+Chrome
+CSS infinite linear animation with alpha transparency leaks memory.
+Chromium issue #429375
+#14409
+Chrome
+table-cell
+borders not overlapping despite
+margin-right: -1px
+Chromium issue #749848
+#17438
+#14237
+Chrome
+Don’t make
+:hover
+sticky on touch-friendly webpages
+Chromium issue #370155
+#12832
+Chrome
+position: absolute
+element that’s wider than its column is incorrectly clipped to column boundary
+Chromium issue #269061
+#20161
+Chrome
+Significant performance hit for dynamic SVGs with text depending on the number of fonts in
+font-family
+Chromium issue #781344
+#24673
+Safari
+units in media queries should be calculated using
+font-size: initial
+, not the root element’s
+font-size
+WebKit bug #156684
+#17403
+Safari
+Link to container with id and tabindex results in container being ignored by VoiceOver (affects skip links)
+WebKit bug #163658
+#20732
+Safari
+min-width
+max-width
+media features should not round fractional pixel
+WebKit bug #178261
+#25166
+Safari (macOS)
+, and
+should all behave the same in media queries when page zoom is applied
+WebKit bug #156687
+#17403
+Safari (macOS)
+Weird button behavior with some
+<input type="number">
+elements.
+WebKit bug #137269
+Apple Safari Radar #18834768
+#8350
+Normalize #283
+Chromium issue #337668
+Safari (macOS)
+Small font size when printing webpage with fixed-width
+.container
+WebKit bug #138192
+Apple Safari Radar #19435018
+#14868
+Safari (iOS)
+transform: translate3d(0,0,0);
+rendering bug.
+WebKit bug #138162
+Apple Safari Radar #18804973
+#14603
+Safari (iOS)
+Text input’s cursor doesn’t move while scrolling the page.
+WebKit bug #138201
+Apple Safari Radar #18819624
+#14708
+Safari (iOS)
+Can’t move cursor to start of text after entering long string of text into
+<input type="text">
+WebKit bug #148061
+Apple Safari Radar #22299624
+#16988
+Safari (iOS)
+display: block
+causes text of temporal
+<input>
+s to become vertically misaligned
+WebKit bug #139848
+Apple Safari Radar #19434878
+#11266
+#13098
+Safari (iOS)
+Tapping on
+<body>
+doesn’t fire
+click
+events
+WebKit bug #151933
+#16028
+Safari (iOS)
+position:fixed
+is incorrectly positioned when tab bar is visible on iPhone 6S+ Safari
+WebKit bug #153056
+#18859
+Safari (iOS)
+Tapping into an
+<input>
+within a
+position:fixed
+element scrolls to the top of the page
+WebKit bug #153224
+Apple Safari Radar #24235301
+#17497
+Safari (iOS)
+<body>
+with
+overflow:hidden
+CSS is scrollable on iOS
+WebKit bug #153852
+#14839
+Safari (iOS)
+Scroll gesture in text field in
+position:fixed
+element sometimes scrolls
+<body>
+instead of scrollable ancestor
+WebKit bug #153856
+#14839
+Safari (iOS)
+Modal with
+-webkit-overflow-scrolling: touch
+doesn’t become scrollable after added text makes it taller
+WebKit bug #158342
+#17695
+Safari (iOS)
+Don’t make
+:hover
+sticky on touch-friendly webpages
+WebKit bug #158517
+#12832
+Safari (iOS)
+Element which is
+position:fixed
+disappears after opening a
+<select>
+menu
+WebKit bug #162362
+#20759
+Safari (iPad Pro)
+Rendering of descendants of
+position: fixed
+element gets clipped on iPad Pro in Landscape orientation
+WebKit bug #152637
+Apple Safari Radar #24030853
+#18738
+Most wanted features
+There are several features specified in Web standards which would allow us to make Bootstrap more robust, elegant, or performant, but aren’t yet implemented in certain browsers, thus preventing us from taking advantage of them.
+We publicly list these “most wanted” feature requests here, in the hopes of expediting the process of getting them implemented.
+Browser(s)
+Summary of feature
+Upstream issue(s)
+Edge
+Focusable elements should fire focus event / receive :focus styling when they receive Narrator/accessibility focus
+Microsoft A11y UserVoice idea #16717318
+#20732
+Edge
+Implement the
+:dir()
+pseudo-class
+from Selectors Level 4
+Edge UserVoice idea #12299532
+#19984
+Edge
+Implement the HTML5
+<dialog>
+element
+Edge UserVoice idea #6508895
+#20175
+Edge
+Fire a
+transitioncancel
+event
+when a CSS transition is canceled
+Edge UserVoice idea #15939898
+#20618
+Edge
+Implement the
+of <selector-list>
+clause
+of the
+:nth-child()
+pseudo-class
+Edge UserVoice idea #15944476
+#20143
+Firefox
+Implement the
+of <selector-list>
+clause
+of the
+:nth-child()
+pseudo-class
+Mozilla bug #854148
+#20143
+Firefox
+Implement the HTML5
+<dialog>
+element
+Mozilla bug #840640
+#20175
+Firefox
+When virtual focus is on a button or link, fire actual focus on the element, too
+Mozilla bug #1000082
+#20732
+Chrome
+Fire a
+transitioncancel
+event
+when a CSS transition is canceled
+Chromium issue #642487
+Chromium issue #437860
+Chrome
+Implement the
+of <selector-list>
+clause
+of the
+:nth-child()
+pseudo-class
+Chromium issue #304163
+#20143
+Chrome
+Implement the
+:dir()
+pseudo-class
+from Selectors Level 4
+Chromium issue #576815
+#19984
+Safari
+Fire a
+transitioncancel
+event
+when a CSS transition is canceled
+WebKit bug #161535
+#20618
+Safari
+Implement the
+:dir()
+pseudo-class
+from Selectors Level 4
+WebKit bug #64861
+#19984
+Safari
+Implement the HTML5
+<dialog>
+element
+WebKit bug #84635
+#20175

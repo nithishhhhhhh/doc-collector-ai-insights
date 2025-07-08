@@ -1,0 +1,53 @@
+URL: https://getbootstrap.com/docs/5.1/helpers/colored-links
+==================================================
+
+You can use the
+.link-*
+classes to colorize links. Unlike the
+.text-*
+classes
+, these classes have a
+:hover
+:focus
+state.
+Primary link
+Secondary link
+Success link
+Danger link
+Warning link
+Info link
+Light link
+Dark link
+href
+class
+"link-primary"
+Primary link
+href
+class
+"link-secondary"
+Secondary link
+href
+class
+"link-success"
+Success link
+href
+class
+"link-danger"
+Danger link
+href
+class
+"link-warning"
+Warning link
+href
+class
+"link-info"
+Info link
+href
+class
+"link-light"
+Light link
+href
+class
+"link-dark"
+Dark link
+Some of the link styles use a relatively light foreground color, and should only be used on a dark background in order to have sufficient contrast.

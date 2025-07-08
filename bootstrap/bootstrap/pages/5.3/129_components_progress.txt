@@ -1,0 +1,519 @@
+URL: https://getbootstrap.com/docs/5.3/components/progress
+==================================================
+
+New markup in v5.3.0 —
+We’ve deprecated the previous HTML structure for progress bars and replaced it with a more accessible one. The previous structure will continue to work until v6.
+See what’s changed in our migration guide.
+How it works
+Progress components are built with two HTML elements, some CSS to set the width, and a few attributes. We don’t use
+the HTML5
+<progress>
+element
+, ensuring you can stack progress bars, animate them, and place text labels over them.
+We use the
+.progress
+as a wrapper to indicate the max value of the progress bar.
+.progress
+wrapper also requires a
+role="progressbar"
+aria
+attributes to make it accessible, including an accessible name (using
+aria-label
+aria-labelledby
+, or similar).
+We use the inner
+.progress-bar
+purely for the visual bar and label.
+.progress-bar
+requires an inline style, utility class, or custom CSS to set its width.
+We provide a special
+.progress-stacked
+class to create multiple/stacked progress bars.
+Put that all together, and you have the following examples.
+html
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+100%
+Bar sizing
+Width
+utilities for setting width
+. Depending on your needs, these may help with quickly configuring the width of the
+.progress-bar
+html
+class
+progress
+role
+progressbar
+aria-label
+Basic example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar w-75
+Height
+You only set a
+height
+value on the
+.progress
+container, so if you change that value, the inner
+.progress-bar
+will automatically resize accordingly.
+html
+class
+progress
+role
+progressbar
+aria-label
+Example 1px high
+aria-valuenow
+aria-valuemin
+aria-valuemax
+style
+height
+class
+progress-bar
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Example 20px high
+aria-valuenow
+aria-valuemin
+aria-valuemax
+style
+height
+20px
+class
+progress-bar
+style
+width
+Labels
+Add labels to your progress bars by placing text within the
+.progress-bar
+html
+class
+progress
+role
+progressbar
+aria-label
+Example with label
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar
+style
+width
+Long labels
+Note that by default, the content inside the
+.progress-bar
+is controlled with
+overflow: hidden
+, so it doesn’t bleed out of the bar. If your progress bar is shorter than its label, the content will be capped and may become unreadable. To change this behavior, you can use
+.overflow-visible
+from the
+overflow utilities
+Labels longer than the progress bar within may not be fully accessible using this method because it relies on the text color having the correct contrast ratio with both the
+.progress
+.progress-bar
+background colors. Use caution when implementing this example.
+If the text can overlap the progress bar, we often recommend displaying the label outside of the progress bar for better accessibility.
+Backgrounds
+Use background utility classes to change the appearance of individual progress bars.
+html
+class
+progress
+role
+progressbar
+aria-label
+Success example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar bg-success
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Info example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar bg-info
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Warning example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar bg-warning
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Danger example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar bg-danger
+style
+width
+100%
+Accessibility tip:
+Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a
+sufficient
+color contrast
+) or is included through alternative means, such as additional text hidden with the
+.visually-hidden
+class.
+If you’re adding labels to progress bars with a custom background color, make sure to also set an appropriate
+text color
+, so the labels remain readable and have sufficient contrast. We recommend using the
+color and background
+helper classes.
+100%
+html
+class
+progress
+role
+progressbar
+aria-label
+Success example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar text-bg-success
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Info example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar text-bg-info
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Warning example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar text-bg-warning
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Danger example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar text-bg-danger
+style
+width
+100%
+100%
+Multiple bars
+You can include multiple progress components inside a container with
+.progress-stacked
+to create a single stacked progress bar. Note that in this case, the styling to set the visual width of the progress bar
+must
+be applied to the
+.progress
+elements, rather than the
+.progress-bar
+html
+class
+progress-stacked
+class
+progress
+role
+progressbar
+aria-label
+Segment one
+aria-valuenow
+aria-valuemin
+aria-valuemax
+style
+width
+class
+progress-bar
+class
+progress
+role
+progressbar
+aria-label
+Segment two
+aria-valuenow
+aria-valuemin
+aria-valuemax
+style
+width
+class
+progress-bar bg-success
+class
+progress
+role
+progressbar
+aria-label
+Segment three
+aria-valuenow
+aria-valuemin
+aria-valuemax
+style
+width
+class
+progress-bar bg-info
+Striped
+.progress-bar-striped
+to any
+.progress-bar
+to apply a stripe via CSS gradient over the progress bar’s background color.
+html
+class
+progress
+role
+progressbar
+aria-label
+Default striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Success striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped bg-success
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Info striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped bg-info
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Warning striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped bg-warning
+style
+width
+class
+progress
+role
+progressbar
+aria-label
+Danger striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped bg-danger
+style
+width
+100%
+Animated stripes
+The striped gradient can also be animated. Add
+.progress-bar-animated
+.progress-bar
+to animate the stripes right to left via CSS3 animations.
+html
+class
+progress
+role
+progressbar
+aria-label
+Animated striped example
+aria-valuenow
+aria-valuemin
+aria-valuemax
+class
+progress-bar progress-bar-striped progress-bar-animated
+style
+width
+Variables
+Added in v5.2.0
+As part of Bootstrap’s evolving CSS variables approach, progress bars now use local CSS variables on
+.progress
+for enhanced real-time customization. Values for the CSS variables are set via Sass, so Sass customization is still supported, too.
+scss/_progress.scss
+#{$prefix}
+progress-height
+#{$progress-height}
+@include
+$progress-font-size
+#{$prefix}
+progress-font-size
+#{$prefix}
+progress-bg
+#{$progress-bg}
+#{$prefix}
+progress-border-radius
+#{$progress-border-radius}
+#{$prefix}
+progress-box-shadow
+#{$progress-box-shadow}
+#{$prefix}
+progress-bar-color
+#{$progress-bar-color}
+#{$prefix}
+progress-bar-bg
+#{$progress-bar-bg}
+#{$prefix}
+progress-bar-transition
+#{$progress-bar-transition}
+Sass variables
+scss/_variables.scss
+$progress-height
+1rem
+$progress-font-size
+$font-size-base
+$progress-bg
+#{$prefix}
+secondary-bg
+$progress-border-radius
+#{$prefix}
+border-radius
+$progress-box-shadow
+#{$prefix}
+box-shadow-inset
+$progress-bar-color
+$white
+$progress-bar-bg
+$primary
+$progress-bar-animation-timing
+1s linear infinite
+$progress-bar-transition
+width .6s ease
+Keyframes
+Used for creating the CSS animations for
+.progress-bar-animated
+. Included in
+scss/_progress-bar.scss
+scss/_progress.scss
+$enable-transitions
+@keyframes
+progress-bar-stripes
+background-position-x
+#{$prefix}
+progress-height

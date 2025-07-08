@@ -1,0 +1,6 @@
+URL: https://getbootstrap.com/docs/5.3/examples/navbar-static
+==================================================
+
+Navbar example
+This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.
+View navbar docs »

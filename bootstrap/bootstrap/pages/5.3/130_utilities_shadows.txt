@@ -1,0 +1,69 @@
+URL: https://getbootstrap.com/docs/5.3/utilities/shadows
+==================================================
+
+Examples
+While shadows on components are disabled by default in Bootstrap and can be enabled via
+$enable-shadows
+, you can also quickly add or remove a shadow with our
+box-shadow
+utility classes. Includes support for
+.shadow-none
+and three default sizes (which have associated variables to match).
+No shadow
+Small shadow
+Regular shadow
+Larger shadow
+html
+class
+shadow-none p-3 mb-5 bg-body-tertiary rounded
+No shadow
+class
+shadow-sm p-3 mb-5 bg-body-tertiary rounded
+Small shadow
+class
+shadow p-3 mb-5 bg-body-tertiary rounded
+Regular shadow
+class
+shadow-lg p-3 mb-5 bg-body-tertiary rounded
+Larger shadow
+Sass variables
+scss/_variables.scss
+$box-shadow
+0 .5rem 1rem
+rgba
+$black
+$box-shadow-sm
+0 .125rem .25rem
+rgba
+$black
+.075
+$box-shadow-lg
+0 1rem 3rem
+rgba
+$black
+.175
+$box-shadow-inset
+inset 0 1px 2px
+rgba
+$black
+.075
+Sass utilities API
+Shadow utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+scss/_utilities.scss
+"shadow"
+property
+box-shadow
+class
+shadow
+values
+null
+#{$prefix}
+box-shadow
+#{$prefix}
+box-shadow-sm
+#{$prefix}
+box-shadow-lg
+none
+none

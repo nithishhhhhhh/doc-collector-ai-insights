@@ -1,0 +1,22 @@
+URL: https://getbootstrap.com/docs/5.2/examples/product
+==================================================
+
+Punny headline
+And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.
+Coming soon
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.
+Another headline
+And an even wittier subheading.

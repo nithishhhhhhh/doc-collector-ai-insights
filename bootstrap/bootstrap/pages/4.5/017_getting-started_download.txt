@@ -1,0 +1,127 @@
+URL: https://getbootstrap.com/docs/4.5/getting-started/download
+==================================================
+
+View on GitHub
+Download
+Download Bootstrap to get the compiled CSS and JavaScript, source code, or include it with your favorite package managers like npm, RubyGems, and more.
+Compiled CSS and JS
+Download ready-to-use compiled code for
+to easily drop into your project, which includes:
+Compiled and minified CSS bundles (see
+CSS files comparison
+Compiled and minified JavaScript plugins
+This doesn’t include documentation, source files, or any optional JavaScript dependencies (jQuery and Popper.js).
+Download
+Source files
+Compile Bootstrap with your own asset pipeline by downloading our source Sass, JavaScript, and documentation files. This option requires some additional tooling:
+Sass compiler (Libsass or Ruby Sass is supported) for compiling your CSS.
+Autoprefixer
+for CSS vendor prefixing
+Should you require
+build tools
+, they are included for developing Bootstrap and its docs, but they’re likely unsuitable for your own purposes.
+Download source
+Examples
+If you want to download and examine our
+examples
+, you can grab the already built examples:
+Download Examples
+jsDelivr
+Skip the download with
+jsDelivr
+to deliver cached version of Bootstrap’s compiled CSS and JS to your project.
+<link
+rel=
+"stylesheet"
+href=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+integrity=
+"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+crossorigin=
+"anonymous"
+<script
+src=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+integrity=
+"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+crossorigin=
+"anonymous"
+></script>
+If you’re using our compiled JavaScript and prefer to include Popper.js separately, add Popper.js before our JS, via a CDN preferably.
+<script
+src=
+"https://code.jquery.com/jquery-3.5.1.slim.min.js"
+integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin=
+"anonymous"
+></script>
+<script
+src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+integrity=
+"sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+crossorigin=
+"anonymous"
+></script>
+<script
+src=
+"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+integrity=
+"sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+crossorigin=
+"anonymous"
+></script>
+Package managers
+Pull in Bootstrap’s
+source files
+into nearly any project with some of the most popular package managers. No matter the package manager, Bootstrap will
+require a Sass compiler and
+Autoprefixer
+for a setup that matches our official compiled versions.
+Install Bootstrap in your Node.js powered apps with
+the npm package
+install
+require('bootstrap')
+will load all of Bootstrap’s jQuery plugins onto the jQuery object. The
+module itself does not export anything. You can manually load Bootstrap’s jQuery plugins individually by loading the
+/js/*.js
+files under the package’s top-level directory.
+package.json
+contains some additional metadata under the following keys:
+sass
+- path to Bootstrap’s main
+Sass
+source file
+style
+- path to Bootstrap’s non-minified CSS that’s been precompiled using the default settings (no customization)
+yarn
+Install Bootstrap in your Node.js powered apps with
+the yarn package
+yarn add bootstrap
+RubyGems
+Install Bootstrap in your Ruby apps using
+Bundler
+recommended
+) and
+RubyGems
+by adding the following line to your
+Gemfile
+'bootstrap'
+'~> 4.5.3'
+Alternatively, if you’re not using Bundler, you can install the gem by running this command:
+install
+4.5.3
+See the gem’s README
+for further details.
+Composer
+You can also install and manage Bootstrap’s Sass and JavaScript using
+Composer
+composer require twbs/bootstrap:4.5.3
+NuGet
+If you develop in .NET, you can also install and manage Bootstrap’s
+Sass
+and JavaScript using
+NuGet
+Install-Package
+Install-Package

@@ -1,0 +1,77 @@
+URL: https://getbootstrap.com/docs/5.3/examples/sidebars
+==================================================
+
+Sidebars examples
+Sidebar
+Home
+Dashboard
+Orders
+Products
+Customers
+New project...
+Settings
+Profile
+Sign out
+Sidebar
+Home
+Dashboard
+Orders
+Products
+Customers
+New project...
+Settings
+Profile
+Sign out
+Icon-only
+New project...
+Settings
+Profile
+Sign out
+Collapsible
+Home
+Overview
+Updates
+Reports
+Dashboard
+Overview
+Weekly
+Monthly
+Annually
+Orders
+Processed
+Shipped
+Returned
+Account
+New...
+Profile
+Settings
+Sign out
+List group
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Tues
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Tues
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Tues
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Tues
+Some placeholder content in a paragraph below the heading and date.
+List group item heading
+Some placeholder content in a paragraph below the heading and date.

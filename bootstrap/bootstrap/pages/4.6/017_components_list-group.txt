@@ -1,0 +1,856 @@
+URL: https://getbootstrap.com/docs/4.6/components/list-group
+==================================================
+
+View on GitHub
+List group
+List groups are a flexible and powerful component for displaying a series of content. Modify and extend them to support just about any content within.
+Basic example
+The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed.
+An item
+A second item
+A third item
+A fourth item
+And a fifth one
+class
+"list-group"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group-item"
+A fourth item
+class
+"list-group-item"
+And a fifth one
+Active items
+.active
+to a
+.list-group-item
+to indicate the current active selection.
+An active item
+A second item
+A third item
+A fourth item
+And a fifth one
+class
+"list-group"
+class
+"list-group-item active"
+aria-current
+"true"
+An active item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group-item"
+A fourth item
+class
+"list-group-item"
+And a fifth one
+Disabled items
+.disabled
+to a
+.list-group-item
+to make it
+appear
+disabled. Note that some elements with
+.disabled
+will also require custom JavaScript to fully disable their click events (e.g., links).
+A disabled item
+A second item
+A third item
+A fourth item
+And a fifth one
+class
+"list-group"
+class
+"list-group-item disabled"
+aria-disabled
+"true"
+A disabled item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group-item"
+A fourth item
+class
+"list-group-item"
+And a fifth one
+Links and buttons
+s or
+<button>
+s to create
+actionable
+list group items with hover, disabled, and active states by adding
+.list-group-item-action
+. We separate these pseudo-classes to ensure list groups made of non-interactive elements (like
+<li>
+s or
+<div>
+s) don’t provide a click or tap affordance.
+Be sure to
+not use the standard
+.btn
+classes here
+The current link item
+A second link item
+A third link item
+A fourth link item
+A disabled link item
+class
+"list-group"
+href
+class
+"list-group-item list-group-item-action active"
+aria-current
+"true"
+The current link item
+href
+class
+"list-group-item list-group-item-action"
+A second link item
+href
+class
+"list-group-item list-group-item-action"
+A third link item
+href
+class
+"list-group-item list-group-item-action"
+A fourth link item
+class
+"list-group-item list-group-item-action disabled"
+A disabled link item
+With
+<button>
+s, you can also make use of the
+disabled
+attribute instead of the
+.disabled
+class. Sadly,
+s don’t support the disabled attribute.
+The current button
+A second item
+A third button item
+A fourth button item
+A disabled button item
+class
+"list-group"
+button
+type
+"button"
+class
+"list-group-item list-group-item-action active"
+aria-current
+"true"
+The current button
+button
+button
+type
+"button"
+class
+"list-group-item list-group-item-action"
+A second item
+button
+button
+type
+"button"
+class
+"list-group-item list-group-item-action"
+A third button item
+button
+button
+type
+"button"
+class
+"list-group-item list-group-item-action"
+A fourth button item
+button
+button
+type
+"button"
+class
+"list-group-item list-group-item-action"
+disabled
+A disabled button item
+button
+Flush
+.list-group-flush
+to remove some borders and rounded corners to render list group items edge-to-edge in a parent container (e.g., cards).
+An item
+A second item
+A third item
+A fourth item
+And a fifth one
+class
+"list-group list-group-flush"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group-item"
+A fourth item
+class
+"list-group-item"
+And a fifth one
+Horizontal
+.list-group-horizontal
+to change the layout of list group items from vertical to horizontal across all breakpoints. Alternatively, choose a responsive variant
+.list-group-horizontal-{sm|md|lg|xl}
+to make a list group horizontal starting at that breakpoint’s
+min-width
+. Currently
+horizontal list groups cannot be combined with flush list groups.
+ProTip:
+Want equal-width list group items when horizontal? Add
+.flex-fill
+to each list group item.
+An item
+A second item
+A third item
+An item
+A second item
+A third item
+An item
+A second item
+A third item
+An item
+A second item
+A third item
+An item
+A second item
+A third item
+class
+"list-group list-group-horizontal"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group list-group-horizontal-sm"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group list-group-horizontal-md"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group list-group-horizontal-lg"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+class
+"list-group list-group-horizontal-xl"
+class
+"list-group-item"
+An item
+class
+"list-group-item"
+A second item
+class
+"list-group-item"
+A third item
+Contextual classes
+Use contextual classes to style list items with a stateful background and color.
+A simple default list group item
+A simple primary list group item
+A simple secondary list group item
+A simple success list group item
+A simple danger list group item
+A simple warning list group item
+A simple info list group item
+A simple light list group item
+A simple dark list group item
+class
+"list-group"
+class
+"list-group-item"
+A simple default list group item
+class
+"list-group-item list-group-item-primary"
+A simple primary list group item
+class
+"list-group-item list-group-item-secondary"
+A simple secondary list group item
+class
+"list-group-item list-group-item-success"
+A simple success list group item
+class
+"list-group-item list-group-item-danger"
+A simple danger list group item
+class
+"list-group-item list-group-item-warning"
+A simple warning list group item
+class
+"list-group-item list-group-item-info"
+A simple info list group item
+class
+"list-group-item list-group-item-light"
+A simple light list group item
+class
+"list-group-item list-group-item-dark"
+A simple dark list group item
+Contextual classes also work with
+.list-group-item-action
+. Note the addition of the hover styles here not present in the previous example. Also supported is the
+.active
+state; apply it to indicate an active selection on a contextual list group item.
+A simple default list group item
+A simple primary list group item
+A simple secondary list group item
+A simple success list group item
+A simple danger list group item
+A simple warning list group item
+A simple info list group item
+A simple light list group item
+A simple dark list group item
+class
+"list-group"
+href
+class
+"list-group-item list-group-item-action"
+A simple default list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-primary"
+A simple primary list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-secondary"
+A simple secondary list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-success"
+A simple success list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-danger"
+A simple danger list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-warning"
+A simple warning list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-info"
+A simple info list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-light"
+A simple light list group item
+href
+class
+"list-group-item list-group-item-action list-group-item-dark"
+A simple dark list group item
+Conveying meaning to assistive technologies
+Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the
+.sr-only
+class.
+With badges
+Add badges to any list group item to show unread counts, activity, and more with the help of some
+utilities
+A list item
+A second list item
+A third list item
+class
+"list-group"
+class
+"list-group-item d-flex justify-content-between align-items-center"
+A list item
+span
+class
+"badge badge-primary badge-pill"
+span
+class
+"list-group-item d-flex justify-content-between align-items-center"
+A second list item
+span
+class
+"badge badge-primary badge-pill"
+span
+class
+"list-group-item d-flex justify-content-between align-items-center"
+A third list item
+span
+class
+"badge badge-primary badge-pill"
+span
+Custom content
+Add nearly any HTML within, even for linked list groups like the one below, with the help of
+flexbox utilities
+List group item heading
+3 days ago
+Some placeholder content in a paragraph.
+And some small print.
+List group item heading
+3 days ago
+Some placeholder content in a paragraph.
+And some muted small print.
+List group item heading
+3 days ago
+Some placeholder content in a paragraph.
+And some muted small print.
+class
+"list-group"
+href
+class
+"list-group-item list-group-item-action active"
+class
+"d-flex w-100 justify-content-between"
+class
+"mb-1"
+List group item heading
+small
+3 days ago
+small
+class
+"mb-1"
+Some placeholder content in a paragraph.
+small
+And some small print.
+small
+href
+class
+"list-group-item list-group-item-action"
+class
+"d-flex w-100 justify-content-between"
+class
+"mb-1"
+List group item heading
+small
+class
+"text-muted"
+3 days ago
+small
+class
+"mb-1"
+Some placeholder content in a paragraph.
+small
+class
+"text-muted"
+And some muted small print.
+small
+href
+class
+"list-group-item list-group-item-action"
+class
+"d-flex w-100 justify-content-between"
+class
+"mb-1"
+List group item heading
+small
+class
+"text-muted"
+3 days ago
+small
+class
+"mb-1"
+Some placeholder content in a paragraph.
+small
+class
+"text-muted"
+And some muted small print.
+small
+JavaScript behavior
+Use the tab JavaScript plugin—include it individually or through the compiled
+file—to extend our list group to create tabbable panes of local content.
+Home
+Profile
+Messages
+Settings
+Some placeholder content in a paragraph relating to "Home". And some more content, used here just to pad out and fill this tab panel. In production, you would obviously have more real content here. And not just text. It could be anything, really. Text, images, forms.
+Some placeholder content in a paragraph relating to "Profile". And some more content, used here just to pad out and fill this tab panel. In production, you would obviously have more real content here. And not just text. It could be anything, really. Text, images, forms.
+Some placeholder content in a paragraph relating to "Messages". And some more content, used here just to pad out and fill this tab panel. In production, you would obviously have more real content here. And not just text. It could be anything, really. Text, images, forms.
+Some placeholder content in a paragraph relating to "Settings". And some more content, used here just to pad out and fill this tab panel. In production, you would obviously have more real content here. And not just text. It could be anything, really. Text, images, forms.
+class
+"row"
+class
+"col-4"
+class
+"list-group"
+"list-tab"
+role
+"tablist"
+class
+"list-group-item list-group-item-action active"
+"list-home-list"
+data-toggle
+"list"
+href
+"#list-home"
+role
+"tab"
+aria-controls
+"home"
+Home
+class
+"list-group-item list-group-item-action"
+"list-profile-list"
+data-toggle
+"list"
+href
+"#list-profile"
+role
+"tab"
+aria-controls
+"profile"
+Profile
+class
+"list-group-item list-group-item-action"
+"list-messages-list"
+data-toggle
+"list"
+href
+"#list-messages"
+role
+"tab"
+aria-controls
+"messages"
+Messages
+class
+"list-group-item list-group-item-action"
+"list-settings-list"
+data-toggle
+"list"
+href
+"#list-settings"
+role
+"tab"
+aria-controls
+"settings"
+Settings
+class
+"col-8"
+class
+"tab-content"
+"nav-tabContent"
+class
+"tab-pane fade show active"
+"list-home"
+role
+"tabpanel"
+aria-labelledby
+"list-home-list"
+class
+"tab-pane fade"
+"list-profile"
+role
+"tabpanel"
+aria-labelledby
+"list-profile-list"
+class
+"tab-pane fade"
+"list-messages"
+role
+"tabpanel"
+aria-labelledby
+"list-messages-list"
+class
+"tab-pane fade"
+"list-settings"
+role
+"tabpanel"
+aria-labelledby
+"list-settings-list"
+Using data attributes
+You can activate a list group navigation without writing any JavaScript by simply specifying
+data-toggle="list"
+or on an element. Use these data attributes on
+.list-group-item
+role
+"tabpanel"
+<!-- List group -->
+class
+"list-group"
+"myList"
+role
+"tablist"
+class
+"list-group-item list-group-item-action active"
+data-toggle
+"list"
+href
+"#home"
+role
+"tab"
+Home
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#profile"
+role
+"tab"
+Profile
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#messages"
+role
+"tab"
+Messages
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#settings"
+role
+"tab"
+Settings
+<!-- Tab panes -->
+class
+"tab-content"
+class
+"tab-pane active"
+"home"
+role
+"tabpanel"
+class
+"tab-pane"
+"profile"
+role
+"tabpanel"
+class
+"tab-pane"
+"messages"
+role
+"tabpanel"
+class
+"tab-pane"
+"settings"
+role
+"tabpanel"
+Via JavaScript
+Enable tabbable list item via JavaScript (each list item needs to be activated individually):
+'#myList a'
+'click'
+function
+event
+event
+preventDefault
+this
+'show'
+You can activate individual list item in several ways:
+'#myList a[href="#profile"]'
+'show'
+// Select tab by name
+'#myList a:first-child'
+'show'
+// Select first tab
+'#myList a:last-child'
+'show'
+// Select last tab
+'#myList a:nth-child(3)'
+'show'
+// Select third tab
+Fade effect
+To make tabs panel fade in, add
+.fade
+to each
+.tab-pane
+. The first tab pane must also have
+.show
+to make the initial content visible.
+class
+"tab-content"
+class
+"tab-pane fade show active"
+"home"
+role
+"tabpanel"
+class
+"tab-pane fade"
+"profile"
+role
+"tabpanel"
+class
+"tab-pane fade"
+"messages"
+role
+"tabpanel"
+class
+"tab-pane fade"
+"settings"
+role
+"tabpanel"
+Methods
+$().tab
+Activates a list item element and content container. Tab should have either a
+data-target
+or an
+href
+targeting a container node in the DOM.
+class
+"list-group"
+"myList"
+role
+"tablist"
+class
+"list-group-item list-group-item-action active"
+data-toggle
+"list"
+href
+"#home"
+role
+"tab"
+Home
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#profile"
+role
+"tab"
+Profile
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#messages"
+role
+"tab"
+Messages
+class
+"list-group-item list-group-item-action"
+data-toggle
+"list"
+href
+"#settings"
+role
+"tab"
+Settings
+class
+"tab-content"
+class
+"tab-pane active"
+"home"
+role
+"tabpanel"
+class
+"tab-pane"
+"profile"
+role
+"tabpanel"
+class
+"tab-pane"
+"messages"
+role
+"tabpanel"
+class
+"tab-pane"
+"settings"
+role
+"tabpanel"
+script
+function
+'#myList a:last-child'
+'show'
+script
+.tab(‘show’)
+Selects the given list item and shows its associated pane. Any other list item that was previously selected becomes unselected and its associated pane is hidden.
+Returns to the caller before the tab pane has actually been shown
+(for example, before the
+shown.bs.tab
+event occurs).
+'#someListItem'
+'show'
+Events
+When showing a new tab, the events fire in the following order:
+hide.bs.tab
+(on the current active tab)
+show.bs.tab
+(on the to-be-shown tab)
+hidden.bs.tab
+(on the previous active tab, the same one as for the
+hide.bs.tab
+event)
+shown.bs.tab
+(on the newly-active just-shown tab, the same one as for the
+show.bs.tab
+event)
+If no tab was already active, the
+hide.bs.tab
+hidden.bs.tab
+events will not be fired.
+Event type
+Description
+show.bs.tab
+This event fires on tab show, but before the new tab has been shown. Use
+event.target
+event.relatedTarget
+to target the active tab and the previous active tab (if available) respectively.
+shown.bs.tab
+This event fires on tab show after a tab has been shown. Use
+event.target
+event.relatedTarget
+to target the active tab and the previous active tab (if available) respectively.
+hide.bs.tab
+This event fires when a new tab is to be shown (and thus the previous active tab is to be hidden). Use
+event.target
+event.relatedTarget
+to target the current active tab and the new soon-to-be-active tab, respectively.
+hidden.bs.tab
+This event fires after a new tab is shown (and thus the previous active tab is hidden). Use
+event.target
+event.relatedTarget
+to target the previous active tab and the new active tab, respectively.
+'a[data-toggle="list"]'
+'shown.bs.tab'
+function
+event
+event
+target
+// newly activated tab
+event
+relatedTarget
+// previous active tab

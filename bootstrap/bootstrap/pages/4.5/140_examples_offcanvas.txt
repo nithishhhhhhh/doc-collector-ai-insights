@@ -1,0 +1,35 @@
+URL: https://getbootstrap.com/docs/4.5/examples/offcanvas
+==================================================
+
+Since 2011
+Recent updates
+Placeholder
+32x32
+@username
+Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+Placeholder
+32x32
+@username
+Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+Placeholder
+32x32
+@username
+Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+All updates
+Suggestions
+Placeholder
+32x32
+Full Name
+Follow
+@username
+Placeholder
+32x32
+Full Name
+Follow
+@username
+Placeholder
+32x32
+Full Name
+Follow
+@username
+All suggestions

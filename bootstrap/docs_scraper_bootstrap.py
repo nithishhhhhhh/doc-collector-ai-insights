@@ -8,9 +8,10 @@ import hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
-BASE_URL = "https://getbootstrap.com/docs/5.3/"
-OUT_DIR = "bootstrap/pages"
-os.makedirs(OUT_DIR, exist_ok=True)
+# List of Bootstrap versions to scrape (5.3-5.0, 4.6-4.0)
+BOOTSTRAP_VERSIONS = (
+    [f"5.{i}" for i in range(3, -1, -1)] + [f"4.{i}" for i in range(6, -1, -1)]
+)
 
 visited_urls = set()
 seen_content_hash = set()
@@ -38,18 +39,16 @@ def setup_session():
     })
     return session
 
-def normalize_url(url):
-    """Normalize URLs to avoid duplicates"""
+def normalize_url(url, version):
+    """Normalize URLs to avoid duplicates and ensure correct version"""
     if not url:
         return None
-        
-    # Parse URL
+
     parsed = urlparse(url)
-    
-    # Skip non-Bootstrap docs URLs
-    if '/docs/5.3/' not in parsed.path:
+    # Only keep URLs for the current version
+    if f'/docs/{version}/' not in parsed.path:
         return None
-        
+
     # Clean path
     path = parsed.path
     if path.endswith('/') and path != '/':
@@ -68,8 +67,9 @@ def normalize_url(url):
         
     return normalized
 
-def discover_bootstrap_links():
-    """Discover ALL Bootstrap documentation links using multiple strategies"""
+def discover_bootstrap_links(version):
+    """Discover ALL Bootstrap documentation links for a given version"""
+    BASE_URL = f"https://getbootstrap.com/docs/{version}/"
     session = setup_session()
     all_links = set()
     
@@ -89,31 +89,28 @@ def discover_bootstrap_links():
         f"{BASE_URL}migration/",
         f"{BASE_URL}examples/"
     ]
-    
-    print("🔍 Phase 1: Discovering links from main pages...")
+    print(f"🔍 Phase 1: Discovering links from main pages for v{version}...")
     for page in main_pages:
         try:
             resp = session.get(page, timeout=30)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'lxml')
-                
                 # Extract all Bootstrap docs links
                 for a in soup.find_all('a', href=True):
                     href = a['href']
-                    if '/docs/5.3/' in href:
+                    if f'/docs/{version}/' in href:
                         if href.startswith('/'):
                             full_url = urljoin('https://getbootstrap.com', href)
                         elif href.startswith('http'):
                             full_url = href
                         else:
                             full_url = urljoin(page, href)
-                            
-                        normalized = normalize_url(full_url)
+                        normalized = normalize_url(full_url, version)
                         if normalized:
                             all_links.add(normalized)
         except Exception as e:
             print(f"Error fetching {page}: {e}")
-    
+
     # Strategy 2: Generate URLs based on Bootstrap's known structure
     print("🔍 Phase 2: Generating URLs from known Bootstrap structure...")
     sections = {
@@ -158,20 +155,20 @@ def discover_bootstrap_links():
         ],
         'about': ['overview', 'team', 'brand', 'license', 'translations']
     }
-    
     for section, pages in sections.items():
         for page in pages:
             # Try both with and without trailing slash
-            for url_pattern in [f"{BASE_URL}{section}/{page}/", f"{BASE_URL}{section}/{page}"]:
-                normalized = normalize_url(url_pattern)
+            for url_pattern in [
+                f"{BASE_URL}{section}/{page}/",
+                f"{BASE_URL}{section}/{page}"
+            ]:
+                normalized = normalize_url(url_pattern, version)
                 if normalized:
                     all_links.add(normalized)
-    
     # Add migration and examples
     all_links.add(f"{BASE_URL}migration/")
     all_links.add(f"{BASE_URL}examples/")
-    
-    print(f"📋 Discovered {len(all_links)} unique URLs to scrape")
+    print(f"📋 Discovered {len(all_links)} unique URLs to scrape for v{version}")
     return list(all_links)
 
 def get_page_content(session, url):
@@ -250,109 +247,112 @@ def get_page_content(session, url):
         print(f"Error extracting content from {url}: {e}")
         return ""
 
-def save_content(idx, content, url):
-    """Save content with enhanced naming"""
+def save_content(idx, content, url, version):
+    """Save content with enhanced naming in versioned folder"""
     parsed = urlparse(url)
-    path_parts = [p for p in parsed.path.split('/') if p and p not in ['docs', '5.3']]
-    
+    path_parts = [p for p in parsed.path.split('/') if p and p not in ['docs', version]]
+
     if path_parts:
         filename = '_'.join(path_parts)
     else:
         filename = 'index'
-    
+
     # Enhanced filename cleaning
     filename = re.sub(r'[^\w\-_]', '_', filename)
     filename = re.sub(r'_+', '_', filename).strip('_')
     filename = filename[:100]  # Limit length
-    
     if not filename:
         filename = f'page_{idx}'
-    
-    filepath = f'{OUT_DIR}/{idx:03d}_{filename}.txt'
-    
+
+    out_dir = f'bootstrap/pages/{version}'
+    os.makedirs(out_dir, exist_ok=True)
+    filepath = f'{out_dir}/{idx:03d}_{filename}.txt'
+
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(f"URL: {url}\n")
         f.write('=' * 50 + "\n\n")
         f.write(content)
-    
     return filepath
 
-def scrape_single_url(url, idx):
+def scrape_single_url(url, idx, version):
     """Scrape a single URL - used for threading"""
     session = setup_session()
-    
     with url_lock:
         if url in visited_urls:
             return None
         visited_urls.add(url)
-    
-    print(f"[{idx:03d}] 🌐 {url}")
-    
+    print(f"[{version}][{idx:03d}] 🌐 {url}")
     try:
         content = get_page_content(session, url)
-        
         if not content or len(content.strip()) < 100:
             print(f"    ⚠️  No meaningful content found")
             return None
-        
         # Check for duplicate content
         content_hash = hashlib.sha256(content.encode()).hexdigest()
-        
         with content_lock:
             if content_hash in seen_content_hash:
                 print(f"    ⚠️  Duplicate content - skipped")
                 return None
             seen_content_hash.add(content_hash)
-        
-        filepath = save_content(idx, content, url)
+        filepath = save_content(idx, content, url, version)
         print(f"    ✅ Saved: {filepath}")
         return filepath
-        
     except Exception as e:
         print(f"    ❌ Error scraping {url}: {e}")
         return None
 
 def scrape_bootstrap_docs():
-    """Main scraping function with threading for speed"""
-    print("🚀 Starting ULTRA-AGGRESSIVE Bootstrap documentation scrape...")
-    
-    # Discover all URLs
-    all_links = discover_bootstrap_links()
-    
-    print(f"📋 Found {len(all_links)} URLs to scrape")
-    print("🔥 Starting parallel scraping with 5 threads...")
-    
-    successful_scrapes = 0
-    failed_scrapes = 0
-    
-    # Use ThreadPoolExecutor for parallel scraping
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        # Submit all URLs for scraping
-        future_to_url = {
-            executor.submit(scrape_single_url, url, idx): (url, idx) 
-            for idx, url in enumerate(all_links, 1)
-        }
-        
-        # Process completed futures
-        for future in as_completed(future_to_url):
-            url, idx = future_to_url[future]
-            try:
-                result = future.result()
-                if result:
-                    successful_scrapes += 1
-                else:
+    """Main scraping function for all versions"""
+    print("🚀 Starting ULTRA-AGGRESSIVE Bootstrap documentation scrape for all versions...")
+    total_successful = 0
+    total_failed = 0
+    total_links = 0
+    for version in BOOTSTRAP_VERSIONS:
+        print(f"\n=== Scraping Bootstrap v{version} ===")
+        all_links = discover_bootstrap_links(version)
+        print(f"📋 Found {len(all_links)} URLs to scrape for v{version}")
+        print("🔥 Starting parallel scraping with 5 threads...")
+        successful_scrapes = 0
+        failed_scrapes = 0
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            future_to_url = {
+                executor.submit(scrape_single_url, url, idx, version): (url, idx)
+                for idx, url in enumerate(all_links, 1)
+            }
+            for future in as_completed(future_to_url):
+                url, idx = future_to_url[future]
+                try:
+                    result = future.result()
+                    if result:
+                        successful_scrapes += 1
+                    else:
+                        failed_scrapes += 1
+                except Exception as e:
+                    print(f"    ❌ Exception for {url}: {e}")
                     failed_scrapes += 1
-            except Exception as e:
-                print(f"    ❌ Exception for {url}: {e}")
-                failed_scrapes += 1
-    
-    total_attempted = successful_scrapes + failed_scrapes
-    success_rate = (successful_scrapes / len(all_links)) * 100 if all_links else 0
-    
-    print(f"\n🎉 Ultra-aggressive Bootstrap scraping complete!")
-    print(f"📊 Successfully scraped: {successful_scrapes} pages")
-    print(f"📊 Failed/Duplicate: {failed_scrapes} pages") 
-    print(f"📊 Total discovered: {len(all_links)} pages")
+        total_successful += successful_scrapes
+        total_failed += failed_scrapes
+        total_links += len(all_links)
+        success_rate = (successful_scrapes / len(all_links)) * 100 if all_links else 0
+        print(f"\n🎉 v{version} scraping complete!")
+        print(f"📊 Successfully scraped: {successful_scrapes} pages")
+        print(f"📊 Failed/Duplicate: {failed_scrapes} pages")
+        print(f"📊 Total discovered: {len(all_links)} pages")
+        print(f"📊 Success rate: {success_rate:.1f}%")
+        if success_rate >= 80:
+            print("🎯 TARGET ACHIEVED: >80% success rate!")
+        else:
+            print(f"⚠️  Target not reached. Need {80 - success_rate:.1f}% more coverage.")
+    print(f"\n=== ALL VERSIONS COMPLETE ===")
+    print(f"📊 Total successfully scraped: {total_successful} pages")
+    print(f"📊 Total failed/duplicate: {total_failed} pages")
+    print(f"📊 Total discovered: {total_links} pages")
+
+if __name__ == "__main__":
+    start_time = time.time()
+    scrape_bootstrap_docs()
+    print(f"⏱️  Total time: {time.time() - start_time:.1f}s")
+    print("🎯 Ready to generate llms.txt!")
     print(f"📊 Success rate: {success_rate:.1f}%")
     
     if success_rate >= 80:

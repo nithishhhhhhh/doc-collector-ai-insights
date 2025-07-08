@@ -1,0 +1,579 @@
+URL: https://getbootstrap.com/docs/5.2/utilities/borders
+==================================================
+
+Border
+Use border utilities to add or remove an element’s borders. Choose from all borders or one at a time.
+Additive
+Add borders to custom elements:
+html
+span
+class
+"border"
+span
+span
+class
+"border-top"
+span
+span
+class
+"border-end"
+span
+span
+class
+"border-bottom"
+span
+span
+class
+"border-start"
+span
+Subtractive
+Or remove borders:
+html
+span
+class
+"border border-0"
+span
+span
+class
+"border border-top-0"
+span
+span
+class
+"border border-end-0"
+span
+span
+class
+"border border-bottom-0"
+span
+span
+class
+"border border-start-0"
+span
+Color
+Change the border color using utilities built on our theme colors.
+html
+span
+class
+"border border-primary"
+span
+span
+class
+"border border-secondary"
+span
+span
+class
+"border border-success"
+span
+span
+class
+"border border-danger"
+span
+span
+class
+"border border-warning"
+span
+span
+class
+"border border-info"
+span
+span
+class
+"border border-light"
+span
+span
+class
+"border border-dark"
+span
+span
+class
+"border border-white"
+span
+Or modify the default
+border-color
+of a component:
+Email address
+Dangerous heading
+Changing border color and width
+html
+class
+"mb-4"
+label
+"exampleFormControlInput1"
+class
+"form-label"
+Email address
+label
+input
+type
+"email"
+class
+"form-control border-success"
+"exampleFormControlInput1"
+placeholder
+"name@example.com"
+class
+"h4 pb-2 mb-4 text-danger border-bottom border-danger"
+Dangerous heading
+class
+"p-3 bg-info bg-opacity-10 border border-info border-start-0 rounded-end"
+Changing border color and width
+Opacity
+Added in v5.2.0
+border-{color}
+utilities are generated with Sass using CSS variables. This allows for real-time color changes without compilation and dynamic alpha transparency changes.
+How it works
+Consider our default
+.border-success
+utility.
+border-success
+--bs-border-opacity
+border-color
+rgba
+success
+border
+opacity
+!important
+We use an RGB version of our
+--bs-success
+(with the value of
+25, 135, 84
+) CSS variable and attached a second CSS variable,
+--bs-border-opacity
+, for the alpha transparency (with a default value
+thanks to a local CSS variable). That means anytime you use
+.border-success
+now, your computed
+color
+value is
+rgba(25, 135, 84, 1)
+. The local CSS variable inside each
+.border-*
+class avoids inheritance issues so nested instances of the utilities don’t automatically have a modified alpha transparency.
+Example
+To change that opacity, override
+--bs-border-opacity
+via custom styles or inline styles.
+This is default success border
+This is 50% opacity success border
+html
+class
+"border border-success p-2 mb-2"
+This is default success border
+class
+"border border-success p-2"
+style
+"--bs-border-opacity: .5;"
+This is 50% opacity success border
+Or, choose from any of the
+.border-opacity
+utilities:
+This is default success border
+This is 75% opacity success border
+This is 50% opacity success border
+This is 25% opacity success border
+This is 10% opacity success border
+html
+class
+"border border-success p-2 mb-2"
+This is default success border
+class
+"border border-success p-2 mb-2 border-opacity-75"
+This is 75% opacity success border
+class
+"border border-success p-2 mb-2 border-opacity-50"
+This is 50% opacity success border
+class
+"border border-success p-2 mb-2 border-opacity-25"
+This is 25% opacity success border
+class
+"border border-success p-2 border-opacity-10"
+This is 10% opacity success border
+Width
+html
+span
+class
+"border border-1"
+span
+span
+class
+"border border-2"
+span
+span
+class
+"border border-3"
+span
+span
+class
+"border border-4"
+span
+span
+class
+"border border-5"
+span
+Radius
+Add classes to an element to easily round its corners.
+Example rounded image
+75x75
+Example top rounded image
+75x75
+Example right rounded image
+75x75
+Example bottom rounded image
+75x75
+Example left rounded image
+75x75
+Completely round image
+75x75
+Rounded pill image
+150x75
+html
+"..."
+class
+"rounded"
+"..."
+"..."
+class
+"rounded-top"
+"..."
+"..."
+class
+"rounded-end"
+"..."
+"..."
+class
+"rounded-bottom"
+"..."
+"..."
+class
+"rounded-start"
+"..."
+"..."
+class
+"rounded-circle"
+"..."
+"..."
+class
+"rounded-pill"
+"..."
+Sizes
+Use the scaling classes for larger or smaller rounded corners. Sizes range from
+, and can be configured by modifying the utilities API.
+Example non-rounded image
+75x75
+Example small rounded image
+75x75
+Example default rounded image
+75x75
+Example large rounded image
+75x75
+Example larger rounded image
+75x75
+Example extra large rounded image
+75x75
+html
+"..."
+class
+"rounded-0"
+"..."
+"..."
+class
+"rounded-1"
+"..."
+"..."
+class
+"rounded-2"
+"..."
+"..."
+class
+"rounded-3"
+"..."
+"..."
+class
+"rounded-4"
+"..."
+"..."
+class
+"rounded-5"
+"..."
+Variables
+Added in v5.2.0
+--#{$prefix}border-width
+$border-width
+--#{$prefix}border-style
+$border-style
+--#{$prefix}border-color
+$border-color
+--#{$prefix}border-color-translucent
+$border-color-translucent
+--#{$prefix}border-radius
+$border-radius
+--#{$prefix}border-radius-sm
+$border-radius-sm
+--#{$prefix}border-radius-lg
+$border-radius-lg
+--#{$prefix}border-radius-xl
+$border-radius-xl
+--#{$prefix}border-radius-2xl
+$border-radius-2xl
+--#{$prefix}border-radius-pill
+$border-radius-pill
+Sass variables
+$border-width
+$border-widths
+$border-style
+solid
+$border-color
+$gray-300
+$border-color-translucent
+rgba
+$black
+.175
+$border-radius
+.375
+$border-radius-sm
+$border-radius-lg
+$border-radius-xl
+$border-radius-2xl
+$border-radius-pill
+Sass mixins
+@mixin
+border-radius
+$radius
+$border-radius
+$fallback-border-radius
+false
+$enable-rounded
+border-radius
+valid-radius
+$radius
+@else if
+$fallback-border-radius
+false
+border-radius
+$fallback-border-radius
+@mixin
+border-top-radius
+$radius
+$border-radius
+$enable-rounded
+border-top-left-radius
+valid-radius
+$radius
+border-top-right-radius
+valid-radius
+$radius
+@mixin
+border-end-radius
+$radius
+$border-radius
+$enable-rounded
+border-top-right-radius
+valid-radius
+$radius
+border-bottom-right-radius
+valid-radius
+$radius
+@mixin
+border-bottom-radius
+$radius
+$border-radius
+$enable-rounded
+border-bottom-right-radius
+valid-radius
+$radius
+border-bottom-left-radius
+valid-radius
+$radius
+@mixin
+border-start-radius
+$radius
+$border-radius
+$enable-rounded
+border-top-left-radius
+valid-radius
+$radius
+border-bottom-left-radius
+valid-radius
+$radius
+@mixin
+border-top-start-radius
+$radius
+$border-radius
+$enable-rounded
+border-top-left-radius
+valid-radius
+$radius
+@mixin
+border-top-end-radius
+$radius
+$border-radius
+$enable-rounded
+border-top-right-radius
+valid-radius
+$radius
+@mixin
+border-bottom-end-radius
+$radius
+$border-radius
+$enable-rounded
+border-bottom-right-radius
+valid-radius
+$radius
+@mixin
+border-bottom-start-radius
+$radius
+$border-radius
+$enable-rounded
+border-bottom-left-radius
+valid-radius
+$radius
+Utilities API
+Border utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+"border"
+property
+border
+values
+null
+$prefix
+border-width
+$prefix
+border-style
+$prefix
+border-color
+"border-top"
+property
+border-top
+values
+null
+$prefix
+border-width
+$prefix
+border-style
+$prefix
+border-color
+"border-end"
+property
+border-right
+class
+border-end
+values
+null
+$prefix
+border-width
+$prefix
+border-style
+$prefix
+border-color
+"border-bottom"
+property
+border-bottom
+values
+null
+$prefix
+border-width
+$prefix
+border-style
+$prefix
+border-color
+"border-start"
+property
+border-left
+class
+border-start
+values
+null
+$prefix
+border-width
+$prefix
+border-style
+$prefix
+border-color
+"border-color"
+property
+border-color
+class
+border
+local-vars
+"border-opacity"
+values
+utilities-border-colors
+"border-width"
+css-var
+true
+css-variable-name
+border-width
+class
+border
+values
+border-widths
+"border-opacity"
+css-var
+true
+class
+border-opacity
+values
+"rounded"
+property
+border-radius
+class
+rounded
+values
+null
+$prefix
+border-radius
+$prefix
+border-radius-sm
+$prefix
+border-radius
+$prefix
+border-radius-lg
+$prefix
+border-radius-xl
+$prefix
+border-radius-2xl
+circle
+pill
+$prefix
+border-radius-pill
+"rounded-top"
+property
+border-top-left-radius
+border-top-right-radius
+class
+rounded-top
+values
+null
+$prefix
+border-radius
+"rounded-end"
+property
+border-top-right-radius
+border-bottom-right-radius
+class
+rounded-end
+values
+null
+$prefix
+border-radius
+"rounded-bottom"
+property
+border-bottom-right-radius
+border-bottom-left-radius
+class
+rounded-bottom
+values
+null
+$prefix
+border-radius
+"rounded-start"
+property
+border-bottom-left-radius
+border-top-left-radius
+class
+rounded-start
+values
+null
+$prefix
+border-radius

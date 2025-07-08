@@ -1,0 +1,386 @@
+URL: https://getbootstrap.com/docs/4.6/content/typography
+==================================================
+
+View on GitHub
+Typography
+Documentation and examples for Bootstrap typography, including global settings, headings, body text, lists, and more.
+Global settings
+textual utility classes
+Use a
+native font stack
+that selects the best
+font-family
+for each OS and device.
+For a more inclusive and accessible type scale, we use the browser’s default root
+font-size
+(typically 16px) so visitors can customize their browser defaults as needed.
+Use the
+$font-family-base
+$font-size-base
+, and
+$line-height-base
+attributes as our typographic base applied to the
+<body>
+Set the global link color via
+$link-color
+and apply link underlines only on
+:hover
+$body-bg
+to set a
+background-color
+on the
+<body>
+#fff
+by default).
+These styles can be found within
+_reboot.scss
+, and the global variables are defined in
+_variables.scss
+. Make sure to set
+$font-size-base
+Headings
+All HTML headings,
+<h1>
+through
+<h6>
+, are available.
+Heading
+Example
+<h1></h1>
+h1. Bootstrap heading
+<h2></h2>
+h2. Bootstrap heading
+<h3></h3>
+h3. Bootstrap heading
+<h4></h4>
+h4. Bootstrap heading
+<h5></h5>
+h5. Bootstrap heading
+<h6></h6>
+h6. Bootstrap heading
+h1. Bootstrap heading
+h2. Bootstrap heading
+h3. Bootstrap heading
+h4. Bootstrap heading
+h5. Bootstrap heading
+h6. Bootstrap heading
+through
+classes are also available, for when you want to match the font styling of a heading but cannot use the associated HTML element.
+h1. Bootstrap heading
+h2. Bootstrap heading
+h3. Bootstrap heading
+h4. Bootstrap heading
+h5. Bootstrap heading
+h6. Bootstrap heading
+class
+"h1"
+h1. Bootstrap heading
+class
+"h2"
+h2. Bootstrap heading
+class
+"h3"
+h3. Bootstrap heading
+class
+"h4"
+h4. Bootstrap heading
+class
+"h5"
+h5. Bootstrap heading
+class
+"h6"
+h6. Bootstrap heading
+Customizing headings
+Use the included utility classes to recreate the small secondary heading text from Bootstrap 3.
+Fancy display heading
+With faded secondary text
+Fancy display heading
+small
+class
+"text-muted"
+With faded secondary text
+small
+Display headings
+Traditional heading elements are designed to work best in the meat of your page content. When you need a heading to stand out, consider using a
+display heading
+—a larger, slightly more opinionated heading style. Keep in mind these headings are not responsive by default, but it’s possible to enable
+responsive font sizes
+Display 1
+Display 2
+Display 3
+Display 4
+class
+"display-1"
+Display 1
+class
+"display-2"
+Display 2
+class
+"display-3"
+Display 3
+class
+"display-4"
+Display 4
+Lead
+Make a paragraph stand out by adding
+.lead
+This is a lead paragraph. It stands out from regular paragraphs.
+class
+"lead"
+This is a lead paragraph. It stands out from regular paragraphs.
+Inline text elements
+Styling for common inline HTML5 elements.
+You can use the mark tag to
+highlight
+text.
+This line of text is meant to be treated as deleted text.
+This line of text is meant to be treated as no longer accurate.
+This line of text is meant to be treated as an addition to the document.
+This line of text will render as underlined
+This line of text is meant to be treated as fine print.
+This line rendered as bold text.
+This line rendered as italicized text.
+You can use the mark tag to
+mark
+highlight
+mark
+text.
+This line of text is meant to be treated as deleted text.
+This line of text is meant to be treated as no longer accurate.
+This line of text is meant to be treated as an addition to the document.
+This line of text will render as underlined
+small
+This line of text is meant to be treated as fine print.
+small
+strong
+This line rendered as bold text.
+strong
+This line rendered as italicized text.
+.mark
+.small
+classes are also available to apply the same styles as
+<mark>
+<small>
+while avoiding any unwanted semantic implications that the tags would bring.
+While not shown above, feel free to use
+in HTML5.
+is meant to highlight words or phrases without conveying additional importance while
+is mostly for voice, technical terms, etc.
+Text utilities
+Change text alignment, transform, style, weight, and color with our
+text utilities
+color utilities
+Abbreviations
+Stylized implementation of HTML’s
+<abbr>
+element for abbreviations and acronyms to show the expanded version on hover. Abbreviations have a default underline and gain a help cursor to provide additional context on hover and to users of assistive technologies.
+.initialism
+to an abbreviation for a slightly smaller font-size.
+attr
+HTML
+abbr
+title
+"attribute"
+attr
+abbr
+abbr
+title
+"HyperText Markup Language"
+class
+"initialism"
+HTML
+abbr
+Blockquotes
+For quoting blocks of content from another source within your document. Wrap
+<blockquote class="blockquote">
+around any
+HTML
+as the quote.
+A well-known quote, contained in a blockquote element.
+blockquote
+class
+"blockquote"
+class
+"mb-0"
+A well-known quote, contained in a blockquote element.
+blockquote
+Naming a source
+Add a
+<footer class="blockquote-footer">
+for identifying the source. Wrap the name of the source work in
+<cite>
+A well-known quote, contained in a blockquote element.
+blockquote
+class
+"blockquote"
+class
+"mb-0"
+A well-known quote, contained in a blockquote element.
+footer
+class
+"blockquote-footer"
+Someone famous in
+cite
+title
+"Source Title"
+Source Title
+cite
+footer
+blockquote
+Alignment
+Use text utilities as needed to change the alignment of your blockquote.
+A well-known quote, contained in a blockquote element.
+blockquote
+class
+"blockquote text-center"
+class
+"mb-0"
+A well-known quote, contained in a blockquote element.
+footer
+class
+"blockquote-footer"
+Someone famous in
+cite
+title
+"Source Title"
+Source Title
+cite
+footer
+blockquote
+A well-known quote, contained in a blockquote element.
+blockquote
+class
+"blockquote text-right"
+class
+"mb-0"
+A well-known quote, contained in a blockquote element.
+footer
+class
+"blockquote-footer"
+Someone famous in
+cite
+title
+"Source Title"
+Source Title
+cite
+footer
+blockquote
+Lists
+Unstyled
+Remove the default
+list-style
+and left margin on list items (immediate children only).
+This only applies to immediate children list items
+, meaning you will need to add the class for any nested lists as well.
+This is a list.
+It appears completely unstyled.
+Structurally, it's still a list.
+However, this style only applies to immediate child elements.
+Nested lists:
+are unaffected by this style
+will still show a bullet
+and have appropriate left margin
+This may still come in handy in some situations.
+class
+"list-unstyled"
+This is a list.
+It appears completely unstyled.
+Structurally, it's still a list.
+However, this style only applies to immediate child elements.
+Nested lists:
+are unaffected by this style
+will still show a bullet
+and have appropriate left margin
+This may still come in handy in some situations.
+Inline
+Remove a list’s bullets and apply some light
+margin
+with a combination of two classes,
+.list-inline
+.list-inline-item
+This is a list item.
+And another one.
+But they're displayed inline.
+class
+"list-inline"
+class
+"list-inline-item"
+This is a list item.
+class
+"list-inline-item"
+And another one.
+class
+"list-inline-item"
+But they're displayed inline.
+Description list alignment
+Align terms and descriptions horizontally by using our grid system’s predefined classes (or semantic mixins). For longer terms, you can optionally add a
+.text-truncate
+class to truncate the text with an ellipsis.
+Description lists
+A description list is perfect for defining terms.
+Term
+Definition for the term.
+And some more placeholder definition text.
+Another term
+This definition is short, so no extra paragraphs or anything.
+Truncated term is truncated
+This can be useful when space is tight. Adds an ellipsis at the end.
+Nesting
+Nested definition list
+I heard you like definition lists. Let me put a definition list inside your definition list.
+class
+"row"
+class
+"col-sm-3"
+Description lists
+class
+"col-sm-9"
+A description list is perfect for defining terms.
+class
+"col-sm-3"
+Term
+class
+"col-sm-9"
+Definition for the term.
+And some more placeholder definition text.
+class
+"col-sm-3"
+Another term
+class
+"col-sm-9"
+This definition is short, so no extra paragraphs or anything.
+class
+"col-sm-3 text-truncate"
+Truncated term is truncated
+class
+"col-sm-9"
+This can be useful when space is tight. Adds an ellipsis at the end.
+class
+"col-sm-3"
+Nesting
+class
+"col-sm-9"
+class
+"row"
+class
+"col-sm-4"
+Nested definition list
+class
+"col-sm-8"
+I heard you like definition lists. Let me put a definition list inside your definition list.
+Responsive font sizes
+As of v4.3.0, Bootstrap ships with the option to enable responsive font sizes, allowing text to scale more naturally across device and viewport sizes.
+can be enabled by changing the
+$enable-responsive-font-sizes
+Sass variable to
+true
+and recompiling Bootstrap.
+To support
+, we use a Sass mixin to replace our normal
+font-size
+properties. Responsive font sizes will be compiled into
+calc()
+functions with a mix of
+and viewport units to enable the responsive scaling behavior. More about
+and its configuration can be found on its
+GitHub repository

@@ -1,0 +1,103 @@
+URL: https://getbootstrap.com/docs/5.2/helpers/color-background
+==================================================
+
+Overview
+Added in v5.2.0
+Color and background helpers combine the power of our
+.text-*
+utilities
+.bg-*
+utilities
+in one class. Using our Sass
+color-contrast()
+function, we automatically determine a contrasting
+color
+for a particular
+background-color
+Heads up!
+There’s currently no support for a CSS-native
+color-contrast
+function, so we use our own via Sass. This means that customizing our theme colors via CSS variables may cause color contrast issues with these utilities.
+Primary with contrasting color
+Secondary with contrasting color
+Success with contrasting color
+Danger with contrasting color
+Warning with contrasting color
+Info with contrasting color
+Light with contrasting color
+Dark with contrasting color
+html
+class
+"text-bg-primary p-3"
+Primary with contrasting color
+class
+"text-bg-secondary p-3"
+Secondary with contrasting color
+class
+"text-bg-success p-3"
+Success with contrasting color
+class
+"text-bg-danger p-3"
+Danger with contrasting color
+class
+"text-bg-warning p-3"
+Warning with contrasting color
+class
+"text-bg-info p-3"
+Info with contrasting color
+class
+"text-bg-light p-3"
+Light with contrasting color
+class
+"text-bg-dark p-3"
+Dark with contrasting color
+With components
+Use them in place of combined
+.text-*
+.bg-*
+classes, like on
+badges
+Primary
+Info
+html
+span
+class
+"badge text-bg-primary"
+Primary
+span
+span
+class
+"badge text-bg-info"
+Info
+span
+Or on
+cards
+Header
+Some quick example text to build on the card title and make up the bulk of the card's content.
+Header
+Some quick example text to build on the card title and make up the bulk of the card's content.
+html
+class
+"card text-bg-primary mb-3"
+style
+"max-width: 18rem;"
+class
+"card-header"
+Header
+class
+"card-body"
+class
+"card-text"
+Some quick example text to build on the card title and make up the bulk of the card's content.
+class
+"card text-bg-info mb-3"
+style
+"max-width: 18rem;"
+class
+"card-header"
+Header
+class
+"card-body"
+class
+"card-text"
+Some quick example text to build on the card title and make up the bulk of the card's content.

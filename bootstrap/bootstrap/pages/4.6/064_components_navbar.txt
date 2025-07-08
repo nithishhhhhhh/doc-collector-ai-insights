@@ -1,0 +1,1099 @@
+URL: https://getbootstrap.com/docs/4.6/components/navbar
+==================================================
+
+View on GitHub
+Navbar
+Documentation and examples for Bootstrap’s powerful, responsive navigation header, the navbar. Includes support for branding, navigation, collapse plugin, and more.
+How it works
+Here’s what you need to know before getting started with the navbar:
+Navbars require a wrapping
+.navbar
+with
+.navbar-expand{-sm|-md|-lg|-xl}
+for responsive collapsing and
+color scheme
+classes.
+Navbars and their contents are fluid by default. Use
+optional containers
+to limit their horizontal width.
+Use our
+spacing
+flex
+utility classes for controlling spacing and alignment within navbars.
+Navbars are responsive by default, but you can easily modify them to change that. Responsive behavior depends on our Collapse JavaScript plugin.
+Navbars are hidden by default when printing. Force them to be printed by adding
+.d-print
+to the
+.navbar
+. See the
+display
+utility class.
+Ensure accessibility by using a
+<nav>
+element or, if using a more generic element such as a
+<div>
+, add a
+role="navigation"
+to every navbar to explicitly identify it as a landmark region for users of assistive technologies.
+The animation effect of this component is dependent on the
+prefers-reduced-motion
+media query. See the
+reduced motion section of our accessibility documentation
+Supported content
+Navbars come with built-in support for a handful of sub-components. Choose from the following as needed:
+.navbar-brand
+for your company, product, or project name.
+.navbar-nav
+for a full-height and lightweight navigation (including support for dropdowns).
+.navbar-toggler
+for use with our collapse plugin and other
+navigation toggling
+behaviors.
+.form-inline
+for any form controls and actions.
+.navbar-text
+for adding vertically centered strings of text.
+.collapse.navbar-collapse
+for grouping and hiding navbar contents by a parent breakpoint.
+Here’s an example of all the sub-components included in a responsive light-themed navbar that automatically collapses at the
+(large) breakpoint.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarSupportedContent"
+aria-controls
+"navbarSupportedContent"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarSupportedContent"
+class
+"navbar-nav mr-auto"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Link
+class
+"nav-item dropdown"
+class
+"nav-link dropdown-toggle"
+href
+role
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Something else here
+class
+"nav-item"
+class
+"nav-link disabled"
+Disabled
+form
+class
+"form-inline my-2 my-lg-0"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+This example uses
+color
+bg-light
+) and
+spacing
+my-2
+my-lg-0
+mr-sm-0
+my-sm-0
+) utility classes.
+Brand
+.navbar-brand
+can be applied to most elements, but an anchor works best, as some elements might require utility classes or custom styles.
+<!-- As a link -->
+class
+"navbar navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+<!-- As a heading -->
+class
+"navbar navbar-light bg-light"
+span
+class
+"navbar-brand mb-0 h1"
+Navbar
+span
+Adding images to the
+.navbar-brand
+will likely always require custom styles or utilities to properly size. Here are some examples to demonstrate.
+<!-- Just an image -->
+class
+"navbar navbar-light bg-light"
+class
+"navbar-brand"
+href
+"/docs/4.6/assets/brand/bootstrap-solid.svg"
+width
+"30"
+height
+"30"
+<!-- Image and text -->
+class
+"navbar navbar-light bg-light"
+class
+"navbar-brand"
+href
+"/docs/4.6/assets/brand/bootstrap-solid.svg"
+width
+"30"
+height
+"30"
+class
+"d-inline-block align-top"
+Navbar navigation links build on our
+.nav
+options with their own modifier class and require the use of
+toggler classes
+for proper responsive styling.
+Navigation in navbars will also grow to occupy as much horizontal space as possible
+to keep your navbar contents securely aligned.
+Active states—with
+.active
+—to indicate the current page can be applied directly to
+.nav-link
+s or their immediate parent
+.nav-item
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarNav"
+aria-controls
+"navbarNav"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarNav"
+class
+"navbar-nav"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Features
+class
+"nav-item"
+class
+"nav-link"
+href
+Pricing
+class
+"nav-item"
+class
+"nav-link disabled"
+Disabled
+And because we use classes for our navs, you can avoid the list-based approach entirely if you like.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarNavAltMarkup"
+aria-controls
+"navbarNavAltMarkup"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarNavAltMarkup"
+class
+"navbar-nav"
+class
+"nav-link active"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-link"
+href
+Features
+class
+"nav-link"
+href
+Pricing
+class
+"nav-link disabled"
+Disabled
+You can also use dropdowns in your navbar. Dropdown menus require a wrapping element for positioning, so be sure to use separate and nested elements for
+.nav-item
+.nav-link
+as shown below.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarNavDropdown"
+aria-controls
+"navbarNavDropdown"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarNavDropdown"
+class
+"navbar-nav"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Features
+class
+"nav-item"
+class
+"nav-link"
+href
+Pricing
+class
+"nav-item dropdown"
+class
+"nav-link dropdown-toggle"
+href
+role
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+Forms
+Place various form controls and components within a navbar with
+.form-inline
+class
+"navbar navbar-light bg-light"
+form
+class
+"form-inline"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+Immediate child elements of
+.navbar
+use flex layout and will default to
+justify-content: space-between
+. Use additional
+flex utilities
+as needed to adjust this behavior.
+class
+"navbar navbar-light bg-light"
+class
+"navbar-brand"
+Navbar
+form
+class
+"form-inline"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+Input groups work, too:
+class
+"navbar navbar-light bg-light"
+form
+class
+"form-inline"
+class
+"input-group"
+class
+"input-group-prepend"
+span
+class
+"input-group-text"
+"basic-addon1"
+span
+input
+type
+"text"
+class
+"form-control"
+placeholder
+"Username"
+aria-label
+"Username"
+aria-describedby
+"basic-addon1"
+form
+Various buttons are supported as part of these navbar forms, too. This is also a great reminder that vertical alignment utilities can be used to align different sized elements.
+class
+"navbar navbar-light bg-light"
+form
+class
+"form-inline"
+button
+class
+"btn btn-outline-success"
+type
+"button"
+Main button
+button
+button
+class
+"btn btn-sm btn-outline-secondary"
+type
+"button"
+Smaller button
+button
+form
+Text
+Navbars may contain bits of text with the help of
+.navbar-text
+. This class adjusts vertical alignment and horizontal spacing for strings of text.
+class
+"navbar navbar-light bg-light"
+span
+class
+"navbar-text"
+Navbar text with an inline element
+span
+Mix and match with other components and utilities as needed.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar w/ text
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarText"
+aria-controls
+"navbarText"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarText"
+class
+"navbar-nav mr-auto"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Features
+class
+"nav-item"
+class
+"nav-link"
+href
+Pricing
+span
+class
+"navbar-text"
+Navbar text with an inline element
+span
+Color schemes
+Theming the navbar has never been easier thanks to the combination of theming classes and
+background-color
+utilities. Choose from
+.navbar-light
+for use with light background colors, or
+.navbar-dark
+for dark background colors. Then, customize with
+.bg-*
+utilities.
+class
+"navbar navbar-dark bg-dark"
+<!-- Navbar content -->
+class
+"navbar navbar-dark bg-primary"
+<!-- Navbar content -->
+class
+"navbar navbar-light"
+style
+"background-color: #e3f2fd;"
+<!-- Navbar content -->
+Containers
+Although it’s not required, you can wrap a navbar in a
+.container
+to center it on a page. Or you can add a container inside the
+.navbar
+to only center the contents of a
+fixed or static top navbar
+class
+"container"
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+When the container is within your navbar, its horizontal padding is removed at breakpoints lower than your specified
+.navbar-expand{-sm|-md|-lg|-xl}
+class. This ensures we’re not doubling up on padding unnecessarily on lower viewports when your navbar is collapsed.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"container"
+class
+"navbar-brand"
+href
+Navbar
+Placement
+Use our
+position utilities
+to place navbars in non-static positions. Choose from fixed to the top, fixed to the bottom, or stickied to the top (scrolls with the page until it reaches the top, then stays there). Fixed navbars use
+position: fixed
+, meaning they’re pulled from the normal flow of the DOM and may require custom CSS (e.g.,
+padding-top
+on the
+<body>
+) to prevent overlap with other elements.
+Also note that
+.sticky-top
+uses
+position: sticky
+, which
+isn’t fully supported in every browser
+class
+"navbar navbar-light bg-light"
+class
+"navbar-brand"
+href
+Default
+class
+"navbar fixed-top navbar-light bg-light"
+class
+"navbar-brand"
+href
+Fixed top
+class
+"navbar fixed-bottom navbar-light bg-light"
+class
+"navbar-brand"
+href
+Fixed bottom
+class
+"navbar sticky-top navbar-light bg-light"
+class
+"navbar-brand"
+href
+Sticky top
+Scrolling
+.navbar-nav-scroll
+to a
+.navbar-collapse
+(or other navbar sub-component) to enable vertical scrolling within the toggleable contents of a collapsed navbar. By default, scrolling kicks in at
+75vh
+(or 75% of the viewport height), but you can override that with inline or custom styles. At larger viewports when the navbar is expanded, content will appear as it does in a default navbar.
+Please note that this behavior comes with a potential drawback of
+overflow
+—when setting
+overflow-y: auto
+(required to scroll the content here),
+overflow-x
+is the equivalent of
+auto
+, which will crop some horizontal content.
+Here’s an example navbar using
+.navbar-nav-scroll
+with
+style="max-height: 100px;"
+, with some extra margin utilities for optimum spacing.
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar scroll
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarScroll"
+aria-controls
+"navbarScroll"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarScroll"
+class
+"navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll"
+style
+"max-height: 100px;"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Link
+class
+"nav-item dropdown"
+class
+"nav-link dropdown-toggle"
+href
+role
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Something else here
+class
+"nav-item"
+class
+"nav-link disabled"
+Link
+form
+class
+"d-flex"
+input
+class
+"form-control mr-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success"
+type
+"submit"
+Search
+button
+form
+Responsive behaviors
+Navbars can use
+.navbar-toggler
+.navbar-collapse
+, and
+.navbar-expand{-sm|-md|-lg|-xl}
+classes to determine when their content collapses behind a button. In combination with other utilities, you can easily choose when to show or hide particular elements.
+For navbars that never collapse, add the
+.navbar-expand
+class on the navbar. For navbars that always collapse, don’t add any
+.navbar-expand
+class.
+Toggler
+Navbar togglers are left-aligned by default, but should they follow a sibling element like a
+.navbar-brand
+, they’ll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler. Below are examples of different toggle styles.
+With no
+.navbar-brand
+shown at the smallest breakpoint:
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarTogglerDemo01"
+aria-controls
+"navbarTogglerDemo01"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarTogglerDemo01"
+class
+"navbar-brand"
+href
+Hidden brand
+class
+"navbar-nav mr-auto mt-2 mt-lg-0"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Link
+class
+"nav-item"
+class
+"nav-link disabled"
+Disabled
+form
+class
+"form-inline my-2 my-lg-0"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+With a brand name shown on the left and toggler on the right:
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+class
+"navbar-brand"
+href
+Navbar
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarTogglerDemo02"
+aria-controls
+"navbarTogglerDemo02"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"collapse navbar-collapse"
+"navbarTogglerDemo02"
+class
+"navbar-nav mr-auto mt-2 mt-lg-0"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Link
+class
+"nav-item"
+class
+"nav-link disabled"
+Disabled
+form
+class
+"form-inline my-2 my-lg-0"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+With a toggler on the left and brand name on the right:
+class
+"navbar navbar-expand-lg navbar-light bg-light"
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarTogglerDemo03"
+aria-controls
+"navbarTogglerDemo03"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+class
+"navbar-brand"
+href
+Navbar
+class
+"collapse navbar-collapse"
+"navbarTogglerDemo03"
+class
+"navbar-nav mr-auto mt-2 mt-lg-0"
+class
+"nav-item active"
+class
+"nav-link"
+href
+Home
+span
+class
+"sr-only"
+(current)
+span
+class
+"nav-item"
+class
+"nav-link"
+href
+Link
+class
+"nav-item"
+class
+"nav-link disabled"
+Disabled
+form
+class
+"form-inline my-2 my-lg-0"
+input
+class
+"form-control mr-sm-2"
+type
+"search"
+placeholder
+"Search"
+aria-label
+"Search"
+button
+class
+"btn btn-outline-success my-2 my-sm-0"
+type
+"submit"
+Search
+button
+form
+External content
+Sometimes you want to use the collapse plugin to trigger a container element for content that structurally sits outside of the
+.navbar
+. Because our plugin works on the
+data-target
+matching, that’s easily done!
+Collapsed content
+Toggleable via the navbar brand.
+class
+"fixed-top"
+class
+"collapse"
+"navbarToggleExternalContent"
+class
+"bg-dark p-4"
+class
+"text-white h4"
+Collapsed content
+span
+class
+"text-muted"
+Toggleable via the navbar brand.
+span
+class
+"navbar navbar-dark bg-dark"
+button
+class
+"navbar-toggler"
+type
+"button"
+data-toggle
+"collapse"
+data-target
+"#navbarToggleExternalContent"
+aria-controls
+"navbarToggleExternalContent"
+aria-expanded
+"false"
+aria-label
+"Toggle navigation"
+span
+class
+"navbar-toggler-icon"
+span
+button
+When you do this, we recommend including additional JavaScript to move the focus programmatically to the container when it is opened. Otherwise, keyboard users and users of assistive technologies will likely have a hard time finding the newly revealed content - particularly if the container that was opened comes
+before
+the toggler in the document’s structure. We also recommend making sure that the toggler has the
+aria-controls
+attribute, pointing to the
+of the content container. In theory, this allows assistive technology users to jump directly from the toggler to the container it controls–but support for this is currently quite patchy.

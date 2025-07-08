@@ -1,0 +1,101 @@
+URL: https://getbootstrap.com/docs/5.1/content/images
+==================================================
+
+Responsive images
+Images in Bootstrap are made responsive with
+.img-fluid
+. This applies
+max-width: 100%;
+height: auto;
+to the image so that it scales with the parent width.
+Placeholder
+Responsive image
+"..."
+class
+"img-fluid"
+"..."
+Image thumbnails
+In addition to our
+border-radius utilities
+, you can use
+.img-thumbnail
+to give an image a rounded 1px border appearance.
+A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera
+200x200
+"..."
+class
+"img-thumbnail"
+"..."
+Aligning images
+Align images with the
+helper float classes
+text alignment classes
+block
+-level images can be centered using
+.mx-auto
+margin utility class
+Placeholder
+200x200
+Placeholder
+200x200
+"..."
+class
+"rounded float-start"
+"..."
+"..."
+class
+"rounded float-end"
+"..."
+Placeholder
+200x200
+"..."
+class
+"rounded mx-auto d-block"
+"..."
+Placeholder
+200x200
+class
+"text-center"
+"..."
+class
+"rounded"
+"..."
+Picture
+If you are using the
+<picture>
+element to specify multiple
+<source>
+elements for a specific
+<img>
+, make sure to add the
+.img-*
+classes to the
+<img>
+and not to the
+<picture>
+tag.
+picture
+source
+srcset
+"..."
+type
+"image/svg+xml"
+"..."
+class
+"img-fluid img-thumbnail"
+"..."
+picture
+Sass
+Variables
+Variables are available for image thumbnails.
+$thumbnail-padding
+$thumbnail-bg
+$body-bg
+$thumbnail-border-width
+$border-width
+$thumbnail-border-color
+$gray-300
+$thumbnail-border-radius
+$border-radius
+$thumbnail-box-shadow
+$box-shadow-sm

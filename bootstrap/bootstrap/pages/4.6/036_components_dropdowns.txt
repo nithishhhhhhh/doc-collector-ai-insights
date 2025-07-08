@@ -1,0 +1,1243 @@
+URL: https://getbootstrap.com/docs/4.6/components/dropdowns
+==================================================
+
+View on GitHub
+Dropdowns
+Toggle contextual overlays for displaying lists of links and more with the Bootstrap dropdown plugin.
+Overview
+Dropdowns are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with the included Bootstrap dropdown JavaScript plugin. They’re toggled by clicking, not by hovering; this is
+an intentional design decision
+Dropdowns are built on a third party library,
+Popper
+, which provides dynamic positioning and viewport detection. Be sure to include
+popper.min.js
+before Bootstrap’s JavaScript or use
+which contains Popper. Popper isn’t used to position dropdowns in navbars though as dynamic positioning isn’t required.
+If you’re building our JavaScript from source, it
+requires
+util.js
+Accessibility
+ARIA
+standard defines an actual
+role="menu"
+widget
+, but this is specific to application-like menus which trigger actions or functions.
+ARIA
+menus can only contain menu items, checkbox menu items, radio button menu items, radio button groups, and sub-menus.
+role
+aria-
+attributes required for true
+ARIA
+menus. Authors will have to include these more specific attributes themselves.
+However, Bootstrap does add built-in support for most standard keyboard menu interactions, such as the ability to move through individual
+.dropdown-item
+elements using the cursor keys and close the menu with the
+key.
+Examples
+Wrap the dropdown’s toggle (your button or link) and the dropdown menu within
+.dropdown
+, or another element that declares
+position: relative;
+. Dropdowns can be triggered from
+<button>
+elements to better fit your potential needs.
+Single button
+Any single
+.btn
+can be turned into a dropdown toggle with some markup changes. Here’s how you can put them to work with either
+<button>
+elements:
+Dropdown button
+Action
+Another action
+Something else here
+class
+"dropdown"
+button
+class
+"btn btn-secondary dropdown-toggle"
+type
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown button
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+And with
+elements:
+Dropdown link
+Action
+Another action
+Something else here
+class
+"dropdown"
+class
+"btn btn-secondary dropdown-toggle"
+href
+role
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+The best part is you can do this with any button variant, too:
+Primary
+Action
+Another action
+Something else here
+Separated link
+Secondary
+Action
+Another action
+Something else here
+Separated link
+Success
+Action
+Another action
+Something else here
+Separated link
+Info
+Action
+Another action
+Something else here
+Separated link
+Warning
+Action
+Another action
+Something else here
+Separated link
+Danger
+Action
+Another action
+Something else here
+Separated link
+<!-- Example single danger button -->
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-danger dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Action
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Split button
+Similarly, create split button dropdowns with virtually the same markup as single button dropdowns, but with the addition of
+.dropdown-toggle-split
+for proper spacing around the dropdown caret.
+We use this extra class to reduce the horizontal
+padding
+on either side of the caret by 25% and remove the
+margin-left
+that’s added for regular button dropdowns. Those extra changes keep the caret centered in the split button and provide a more appropriately sized hit area next to the main button.
+Primary
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Secondary
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Success
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Info
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Warning
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+Danger
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+<!-- Example split danger button -->
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-danger"
+Action
+button
+button
+type
+"button"
+class
+"btn btn-danger dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Sizing
+Button dropdowns work with buttons of all sizes, including default and split dropdown buttons.
+Large button
+Action
+Another action
+Something else here
+Separated link
+Large split button
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+<!-- Large button groups (default and split) -->
+class
+"btn-group"
+button
+class
+"btn btn-secondary btn-lg dropdown-toggle"
+type
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Large button
+button
+class
+"dropdown-menu"
+class
+"btn-group"
+button
+class
+"btn btn-secondary btn-lg"
+type
+"button"
+Large split button
+button
+button
+type
+"button"
+class
+"btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+Small button
+Action
+Another action
+Something else here
+Separated link
+Small split button
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+<!-- Small button groups (default and split) -->
+class
+"btn-group"
+button
+class
+"btn btn-secondary btn-sm dropdown-toggle"
+type
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Small button
+button
+class
+"dropdown-menu"
+class
+"btn-group"
+button
+class
+"btn btn-secondary btn-sm"
+type
+"button"
+Small split button
+button
+button
+type
+"button"
+class
+"btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+Directions
+Dropup
+Trigger dropdown menus above elements by adding
+.dropup
+to the parent element.
+Dropup
+Action
+Another action
+Something else here
+Separated link
+Split dropup
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+<!-- Default dropup button -->
+class
+"btn-group dropup"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropup
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+<!-- Split dropup button -->
+class
+"btn-group dropup"
+button
+type
+"button"
+class
+"btn btn-secondary"
+Split dropup
+button
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+Dropright
+Trigger dropdown menus at the right of the elements by adding
+.dropright
+to the parent element.
+Dropright
+Action
+Another action
+Something else here
+Separated link
+Split dropright
+Toggle Dropright
+Action
+Another action
+Something else here
+Separated link
+<!-- Default dropright button -->
+class
+"btn-group dropright"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropright
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+<!-- Split dropright button -->
+class
+"btn-group dropright"
+button
+type
+"button"
+class
+"btn btn-secondary"
+Split dropright
+button
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropright
+span
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+Dropleft
+Trigger dropdown menus at the left of the elements by adding
+.dropleft
+to the parent element.
+Dropleft
+Action
+Another action
+Something else here
+Separated link
+Toggle Dropleft
+Action
+Another action
+Something else here
+Separated link
+Split dropleft
+<!-- Default dropleft button -->
+class
+"btn-group dropleft"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropleft
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+<!-- Split dropleft button -->
+class
+"btn-group"
+class
+"btn-group dropleft"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+span
+class
+"sr-only"
+Toggle Dropleft
+span
+button
+class
+"dropdown-menu"
+<!-- Dropdown menu links -->
+button
+type
+"button"
+class
+"btn btn-secondary"
+Split dropleft
+button
+Menu items
+Historically dropdown menu contents
+to be links, but that’s no longer the case with v4. Now you can optionally use
+<button>
+elements in your dropdowns instead of just
+Dropdown
+Action
+Another action
+Something else here
+class
+"dropdown"
+button
+class
+"btn btn-secondary dropdown-toggle"
+type
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown
+button
+class
+"dropdown-menu"
+button
+class
+"dropdown-item"
+type
+"button"
+Action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Another action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Something else here
+button
+You can also create non-interactive dropdown items with
+.dropdown-item-text
+. Feel free to style further with custom CSS or text utilities.
+Dropdown item text
+Action
+Another action
+Something else here
+class
+"dropdown-menu"
+span
+class
+"dropdown-item-text"
+Dropdown item text
+span
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+Active
+.active
+to items in the dropdown to
+style them as active
+Regular link
+Active link
+Another link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Regular link
+class
+"dropdown-item active"
+href
+Active link
+class
+"dropdown-item"
+href
+Another link
+Disabled
+.disabled
+to items in the dropdown to
+style them as disabled
+Regular link
+Disabled link
+Another link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Regular link
+class
+"dropdown-item disabled"
+Disabled link
+class
+"dropdown-item"
+href
+Another link
+Menu alignment
+By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. Add
+.dropdown-menu-right
+to a
+.dropdown-menu
+to right align the dropdown menu.
+Heads up!
+Dropdowns are positioned thanks to Popper (except when they are contained in a navbar).
+Right-aligned menu
+Action
+Another action
+Something else here
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Right-aligned menu
+button
+class
+"dropdown-menu dropdown-menu-right"
+button
+class
+"dropdown-item"
+type
+"button"
+Action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Another action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Something else here
+button
+Responsive alignment
+If you want to use responsive alignment, disable dynamic positioning by adding the
+data-display="static"
+attribute and use the responsive variation classes.
+To align
+right
+the dropdown menu with the given breakpoint or larger, add
+.dropdown-menu{-sm|-md|-lg|-xl}-right
+Left-aligned but right aligned when large screen
+Action
+Another action
+Something else here
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+data-display
+"static"
+aria-expanded
+"false"
+Left-aligned but right aligned when large screen
+button
+class
+"dropdown-menu dropdown-menu-lg-right"
+button
+class
+"dropdown-item"
+type
+"button"
+Action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Another action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Something else here
+button
+To align
+left
+the dropdown menu with the given breakpoint or larger, add
+.dropdown-menu-right
+.dropdown-menu{-sm|-md|-lg|-xl}-left
+Right-aligned but left aligned when large screen
+Action
+Another action
+Something else here
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+data-display
+"static"
+aria-expanded
+"false"
+Right-aligned but left aligned when large screen
+button
+class
+"dropdown-menu dropdown-menu-right dropdown-menu-lg-left"
+button
+class
+"dropdown-item"
+type
+"button"
+Action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Another action
+button
+button
+class
+"dropdown-item"
+type
+"button"
+Something else here
+button
+Note that you don’t need to add a
+data-display="static"
+attribute to dropdown buttons in navbars, since Popper isn’t used in navbars.
+Menu content
+Headers
+Add a header to label sections of actions in any dropdown menu.
+Dropdown header
+Action
+Another action
+class
+"dropdown-menu"
+class
+"dropdown-header"
+Dropdown header
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+Dividers
+Separate groups of related menu items with a divider.
+Action
+Another action
+Something else here
+Separated link
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Text
+Place any freeform text within a dropdown menu with text and use
+spacing utilities
+. Note that you’ll likely need additional sizing styles to constrain the menu width.
+Some example text that's free-flowing within the dropdown menu.
+And this is more example text.
+class
+"dropdown-menu p-4 text-muted"
+style
+"max-width: 200px;"
+Some example text that's free-flowing within the dropdown menu.
+class
+"mb-0"
+And this is more example text.
+Forms
+Put a form within a dropdown menu, or make it into a dropdown menu, and use
+margin or padding utilities
+to give it the negative space you require.
+Email address
+Password
+Remember me
+Sign in
+New around here? Sign up
+Forgot password?
+class
+"dropdown-menu"
+form
+class
+"px-4 py-3"
+class
+"form-group"
+label
+"exampleDropdownFormEmail1"
+Email address
+label
+input
+type
+"email"
+class
+"form-control"
+"exampleDropdownFormEmail1"
+placeholder
+"email@example.com"
+class
+"form-group"
+label
+"exampleDropdownFormPassword1"
+Password
+label
+input
+type
+"password"
+class
+"form-control"
+"exampleDropdownFormPassword1"
+placeholder
+"Password"
+class
+"form-group"
+class
+"form-check"
+input
+type
+"checkbox"
+class
+"form-check-input"
+"dropdownCheck"
+label
+class
+"form-check-label"
+"dropdownCheck"
+Remember me
+label
+button
+type
+"submit"
+class
+"btn btn-primary"
+Sign in
+button
+form
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+New around here? Sign up
+class
+"dropdown-item"
+href
+Forgot password?
+Email address
+Password
+Remember me
+Sign in
+form
+class
+"dropdown-menu p-4"
+class
+"form-group"
+label
+"exampleDropdownFormEmail2"
+Email address
+label
+input
+type
+"email"
+class
+"form-control"
+"exampleDropdownFormEmail2"
+placeholder
+"email@example.com"
+class
+"form-group"
+label
+"exampleDropdownFormPassword2"
+Password
+label
+input
+type
+"password"
+class
+"form-control"
+"exampleDropdownFormPassword2"
+placeholder
+"Password"
+class
+"form-group"
+class
+"form-check"
+input
+type
+"checkbox"
+class
+"form-check-input"
+"dropdownCheck2"
+label
+class
+"form-check-label"
+"dropdownCheck2"
+Remember me
+label
+button
+type
+"submit"
+class
+"btn btn-primary"
+Sign in
+button
+form
+Dropdown options
+data-offset
+data-reference
+to change the location of the dropdown.
+Offset
+Action
+Another action
+Something else here
+Reference
+Toggle Dropdown
+Action
+Another action
+Something else here
+Separated link
+class
+"d-flex"
+class
+"dropdown mr-1"
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+data-offset
+"10,20"
+Offset
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"btn-group"
+button
+type
+"button"
+class
+"btn btn-secondary"
+Reference
+button
+button
+type
+"button"
+class
+"btn btn-secondary dropdown-toggle dropdown-toggle-split"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+data-reference
+"parent"
+span
+class
+"sr-only"
+Toggle Dropdown
+span
+button
+class
+"dropdown-menu"
+class
+"dropdown-item"
+href
+Action
+class
+"dropdown-item"
+href
+Another action
+class
+"dropdown-item"
+href
+Something else here
+class
+"dropdown-divider"
+class
+"dropdown-item"
+href
+Separated link
+Usage
+Via data attributes or JavaScript, the dropdown plugin toggles hidden content (dropdown menus) by toggling the
+.show
+class on the parent
+.dropdown-menu
+. The
+data-toggle="dropdown"
+attribute is relied on for closing dropdown menus at an application level, so it’s a good idea to always use it.
+On touch-enabled devices, opening a dropdown adds empty (
+$.noop
+mouseover
+handlers to the immediate children of the
+<body>
+element. This admittedly ugly hack is necessary to work around a
+quirk in iOS’ event delegation
+, which would otherwise prevent a tap anywhere outside of the dropdown from triggering the code that closes the dropdown. Once the dropdown is closed, these additional empty
+mouseover
+handlers are removed.
+Via data attributes
+data-toggle="dropdown"
+to a link or button to toggle a dropdown.
+class
+"dropdown"
+button
+type
+"button"
+data-toggle
+"dropdown"
+aria-expanded
+"false"
+Dropdown trigger
+button
+class
+"dropdown-menu"
+Via JavaScript
+Call the dropdowns via JavaScript:
+'.dropdown-toggle'
+dropdown
+data-toggle="dropdown"
+still required
+Regardless of whether you call your dropdown via JavaScript or instead use the data-api,
+data-toggle="dropdown"
+is always required to be present on the dropdown’s trigger element.
+Options
+Options can be passed via data attributes or JavaScript. For data attributes, append the option name to
+data-
+, as in
+data-offset=""
+Name
+Type
+Default
+Description
+offset
+number | string | function
+Offset of the dropdown relative to its target.
+When a function is used to determine the offset, it is called with an object containing the offset data as its first argument. The function must return an object with the same structure. The triggering element DOM node is passed as the second argument.
+For more information refer to Popper's
+offset docs
+flip
+boolean
+true
+Allow Dropdown to flip in case of an overlapping on the reference element. For more information refer to Popper's
+flip docs
+boundary
+string | element
+'scrollParent'
+Overflow constraint boundary of the dropdown menu. Accepts the values of
+'viewport'
+'window'
+'scrollParent'
+, or an HTMLElement reference (JavaScript only). For more information refer to Popper's
+preventOverflow docs
+reference
+string | element
+'toggle'
+Reference element of the dropdown menu. Accepts the values of
+'toggle'
+'parent'
+, or an HTMLElement reference. For more information refer to Popper's
+referenceObject docs
+display
+string
+'dynamic'
+By default, we use Popper for dynamic positioning. Disable this with
+static
+popperConfig
+null | object
+null
+To change Bootstrap's default Popper config, see
+Popper's configuration
+Note when
+boundary
+is set to any value other than
+'scrollParent'
+, the style
+position: static
+is applied to the
+.dropdown
+container.
+Methods
+Method
+Description
+$().dropdown('toggle')
+Toggles the dropdown menu of a given navbar or tabbed navigation.
+$().dropdown('show')
+Shows the dropdown menu of a given navbar or tabbed navigation.
+$().dropdown('hide')
+Hides the dropdown menu of a given navbar or tabbed navigation.
+$().dropdown('update')
+Updates the position of an element’s dropdown.
+$().dropdown('dispose')
+Destroys an element’s dropdown.
+Events
+All dropdown events are fired at the
+.dropdown-menu
+’s parent element and have a
+relatedTarget
+property, whose value is the toggling anchor element.
+hide.bs.dropdown
+hidden.bs.dropdown
+events have a
+clickEvent
+property (only when the original event type is
+click
+) that contains an Event Object for the click event.
+Event
+Description
+show.bs.dropdown
+This event fires immediately when the show instance method is called.
+shown.bs.dropdown
+This event is fired when the dropdown has been made visible to the user (will wait for CSS transitions, to complete).
+hide.bs.dropdown
+This event is fired immediately when the hide instance method has been called.
+hidden.bs.dropdown
+This event is fired when the dropdown has finished being hidden from the user (will wait for CSS transitions, to complete).
+'#myDropdown'
+'show.bs.dropdown'
+function
+// do something...

@@ -1,0 +1,93 @@
+URL: https://getbootstrap.com/docs/5.2/getting-started/rfs
+==================================================
+
+What is RFS?
+is a unit resizing engine which was initially developed to resize font sizes (hence its abbreviation for Responsive Font Sizes). Nowadays RFS is capable of rescaling most CSS properties with unit values like
+margin
+padding
+border-radius
+, or even
+box-shadow
+The mechanism automatically calculates the appropriate values based on the dimensions of the browser viewport. It will be compiled into
+calc()
+functions with a mix of
+and viewport units to enable the responsive scaling behavior.
+Using RFS
+The mixins are included in Bootstrap and are available once you include Bootstrap’s
+scss
+. RFS can also be
+installed standalone
+if needed.
+Using the mixins
+rfs()
+mixin has shorthands for
+font-size
+margin
+margin-top
+margin-right
+margin-bottom
+margin-left
+padding
+padding-top
+padding-right
+padding-bottom
+, and
+padding-left
+. See the example below for source Sass and compiled CSS.
+.title
+@include
+font-size
+title
+font-size
+calc
+1.525
+media
+min-width
+1200px
+title
+font-size
+Any other property can be passed to the
+rfs()
+mixin like this:
+.selector
+@include
+border-radius
+!important
+can also just be added to whatever value you want:
+.selector
+@include
+padding
+!important
+Using the functions
+When you don’t want to use the includes, there are also two functions:
+rfs-value()
+converts a value into a
+value if a
+value is passed, in other cases it returns the same result.
+rfs-fluid-value()
+returns the fluid version of a value if the property needs rescaling.
+In this example, we use one of Bootstrap’s built-in
+responsive breakpoint mixins
+to only apply styling below the
+breakpoint.
+.selector
+@include
+media-breakpoint-down
+padding
+rfs-fluid-value
+font-size
+rfs-fluid-value
+.125
+media
+max-width
+98px
+selector
+padding
+calc
+1.325
+font-size
+1.125
+/* 1.125rem is small enough, so RFS won't rescale this */
+Extended documentation
+RFS is a separate project under the Bootstrap organization. More about RFS and its configuration can be found on its
+GitHub repository

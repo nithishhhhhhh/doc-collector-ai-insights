@@ -1,0 +1,54 @@
+URL: https://getbootstrap.com/docs/4.0/examples/checkout
+==================================================
+
+Checkout form
+Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+Your cart
+Product name
+Brief description
+Second product
+Brief description
+Third item
+Brief description
+Promo code
+EXAMPLECODE
+Total (USD)
+Redeem
+Billing address
+First name
+Valid first name is required.
+Last name
+Valid last name is required.
+Username
+Your username is required.
+Email
+(Optional)
+Please enter a valid email address for shipping updates.
+Address
+Please enter your shipping address.
+Address 2
+(Optional)
+Country
+Choose...
+United States
+Please select a valid country.
+State
+Choose...
+California
+Please provide a valid state.
+Zip code required.
+Shipping address is the same as my billing address
+Save this information for next time
+Payment
+Credit card
+Debit card
+Paypal
+Name on card
+Full name as displayed on card
+Name on card is required
+Credit card number
+Credit card number is required
+Expiration
+Expiration date required
+Security code required
+Continue to checkout

@@ -1,0 +1,43 @@
+URL: https://getbootstrap.com/docs/5.2/utilities/overflow
+==================================================
+
+Adjust the
+overflow
+property on the fly with four default values and classes. These classes are not responsive by default.
+This is an example of using
+.overflow-auto
+on an element with set width and height dimensions. By design, this content will vertically scroll.
+This is an example of using
+.overflow-hidden
+on an element with set width and height dimensions.
+This is an example of using
+.overflow-visible
+on an element with set width and height dimensions.
+This is an example of using
+.overflow-scroll
+on an element with set width and height dimensions.
+class
+"overflow-auto"
+class
+"overflow-hidden"
+class
+"overflow-visible"
+class
+"overflow-scroll"
+Using Sass variables, you may customize the overflow utilities by changing the
+$overflows
+variable in
+_variables.scss
+Sass
+Utilities API
+Overflow utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+"overflow"
+property
+overflow
+values
+auto
+hidden
+visible
+scroll

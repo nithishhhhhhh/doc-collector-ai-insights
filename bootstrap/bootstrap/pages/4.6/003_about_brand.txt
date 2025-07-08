@@ -1,0 +1,27 @@
+URL: https://getbootstrap.com/docs/4.6/about/brand
+==================================================
+
+View on GitHub
+Brand guidelines
+Documentation and examples for Bootstrap’s logo and brand usage guidelines.
+Have a need for Bootstrap’s brand resources? Great! We have only a few guidelines we follow, and in turn ask you to follow as well. These guidelines were inspired by MailChimp’s
+Brand Assets
+Mark and logo
+Use either the Bootstrap mark (a capital
+) or the standard logo (just
+). It should always appear in San Francisco Display Semibold.
+Do not use the Twitter bird
+in association with Bootstrap.
+Download mark
+Download the Bootstrap mark in one of three styles, each available as an SVG file. Right click, Save as.
+Name
+The project and framework should always be referred to as
+. No Twitter before it, no capital
+, and no abbreviations except for one, a capital
+Right
+Wrong
+Twitter Bootstrap
+Wrong
+Colors
+Our docs and branding use a handful of primary colors to differentiate what
+is in

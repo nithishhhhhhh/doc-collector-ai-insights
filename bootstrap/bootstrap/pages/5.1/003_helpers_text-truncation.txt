@@ -1,0 +1,25 @@
+URL: https://getbootstrap.com/docs/5.1/helpers/text-truncation
+==================================================
+
+For longer content, you can add a
+.text-truncate
+class to truncate the text with an ellipsis.
+Requires
+display: inline-block
+display: block
+This text is quite long, and will be truncated once displayed.
+This text is quite long, and will be truncated once displayed.
+<!-- Block level -->
+class
+"row"
+class
+"col-2 text-truncate"
+This text is quite long, and will be truncated once displayed.
+<!-- Inline level -->
+span
+class
+"d-inline-block text-truncate"
+style
+"max-width: 150px;"
+This text is quite long, and will be truncated once displayed.
+span

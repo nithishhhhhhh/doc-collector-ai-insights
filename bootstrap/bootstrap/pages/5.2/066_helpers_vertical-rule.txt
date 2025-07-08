@@ -1,0 +1,49 @@
+URL: https://getbootstrap.com/docs/5.2/helpers/vertical-rule
+==================================================
+
+How it works
+Vertical rules are inspired by the
+<hr>
+element, allowing you to create vertical dividers in common layouts. They’re styled just like
+<hr>
+elements:
+They’re
+wide
+They have
+min-height
+Their color is set via
+currentColor
+opacity
+Customize them with additional styles as needed.
+Example
+html
+class
+"vr"
+Vertical rules scale their height in flex layouts:
+html
+class
+"d-flex"
+style
+"height: 200px;"
+class
+"vr"
+With stacks
+They can also be used in
+stacks
+First item
+Second item
+Third item
+html
+class
+"hstack gap-3"
+class
+"bg-light border"
+First item
+class
+"bg-light border ms-auto"
+Second item
+class
+"vr"
+class
+"bg-light border"
+Third item

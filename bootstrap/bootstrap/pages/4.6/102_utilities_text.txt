@@ -1,0 +1,171 @@
+URL: https://getbootstrap.com/docs/4.6/utilities/text
+==================================================
+
+View on GitHub
+Text
+Documentation and examples for common text utilities to control alignment, wrapping, weight, and more.
+Text alignment
+Easily realign text to components with text alignment classes.
+Some placeholder text to demonstrate justified text alignment. Will you do the same for me? It's time to face the music I'm no longer your muse. Heard it's beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.
+class
+"text-justify"
+Some placeholder text to demonstrate justified text alignment. Will you do the same for me? It's time to face the music I'm no longer your muse. Heard it's beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.
+For left, right, and center alignment, responsive classes are available that use the same viewport width breakpoints as the grid system.
+Left aligned text on all viewport sizes.
+Center aligned text on all viewport sizes.
+Right aligned text on all viewport sizes.
+Left aligned text on viewports sized SM (small) or wider.
+Left aligned text on viewports sized MD (medium) or wider.
+Left aligned text on viewports sized LG (large) or wider.
+Left aligned text on viewports sized XL (extra-large) or wider.
+class
+"text-left"
+Left aligned text on all viewport sizes.
+class
+"text-center"
+Center aligned text on all viewport sizes.
+class
+"text-right"
+Right aligned text on all viewport sizes.
+class
+"text-sm-left"
+Left aligned text on viewports sized SM (small) or wider.
+class
+"text-md-left"
+Left aligned text on viewports sized MD (medium) or wider.
+class
+"text-lg-left"
+Left aligned text on viewports sized LG (large) or wider.
+class
+"text-xl-left"
+Left aligned text on viewports sized XL (extra-large) or wider.
+Text wrapping and overflow
+Wrap text with a
+.text-wrap
+class.
+This text should wrap.
+class
+"badge badge-primary text-wrap"
+style
+"width: 6rem;"
+This text should wrap.
+Prevent text from wrapping with a
+.text-nowrap
+class.
+This text should overflow the parent.
+class
+"text-nowrap bd-highlight"
+style
+"width: 8rem;"
+This text should overflow the parent.
+For longer content, you can add a
+.text-truncate
+class to truncate the text with an ellipsis.
+Requires
+display: inline-block
+display: block
+Praeterea iter est quasdam res quas ex communi.
+Praeterea iter est quasdam res quas ex communi.
+<!-- Block level -->
+class
+"row"
+class
+"col-2 text-truncate"
+Praeterea iter est quasdam res quas ex communi.
+<!-- Inline level -->
+span
+class
+"d-inline-block text-truncate"
+style
+"max-width: 150px;"
+Praeterea iter est quasdam res quas ex communi.
+span
+Word break
+Prevent long strings of text from breaking your components’ layout by using
+.text-break
+to set
+word-wrap: break-word
+word-break: break-word
+. We use
+word-wrap
+instead of the more common
+overflow-wrap
+for wider browser support, and add the deprecated
+word-break: break-word
+to avoid issues with flex containers.
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+class
+"text-break"
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+Text transform
+Transform text in components with text capitalization classes.
+Lowercased text.
+Uppercased text.
+CapiTaliZed text.
+class
+"text-lowercase"
+Lowercased text.
+class
+"text-uppercase"
+Uppercased text.
+class
+"text-capitalize"
+CapiTaliZed text.
+Note how
+.text-capitalize
+only changes the first letter of each word, leaving the case of any other letters unaffected.
+Font weight and italics
+Quickly change the weight (boldness) of text or italicize text.
+Bold text.
+Bolder weight text (relative to the parent element).
+Normal weight text.
+Light weight text.
+Lighter weight text (relative to the parent element).
+Italic text.
+class
+"font-weight-bold"
+Bold text.
+class
+"font-weight-bolder"
+Bolder weight text (relative to the parent element).
+class
+"font-weight-normal"
+Normal weight text.
+class
+"font-weight-light"
+Light weight text.
+class
+"font-weight-lighter"
+Lighter weight text (relative to the parent element).
+class
+"font-italic"
+Italic text.
+Monospace
+Change a selection to our monospace font stack with
+.text-monospace
+This is in monospace
+class
+"text-monospace"
+This is in monospace
+Reset color
+Reset a text or link’s color with
+.text-reset
+, so that it inherits the color from its parent.
+Muted text with a
+reset link
+class
+"text-muted"
+Muted text with a
+href
+class
+"text-reset"
+reset link
+Text decoration
+Remove a text decoration with a
+.text-decoration-none
+class.
+Non-underlined link
+href
+class
+"text-decoration-none"
+Non-underlined link

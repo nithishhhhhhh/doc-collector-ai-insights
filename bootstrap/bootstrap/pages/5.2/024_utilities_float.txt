@@ -1,0 +1,78 @@
+URL: https://getbootstrap.com/docs/5.2/utilities/float
+==================================================
+
+Overview
+These utility classes float an element to the left or right, or disable floating, based on the current viewport size using the
+float
+property
+!important
+is included to avoid specificity issues. These use the same viewport breakpoints as our grid system. Please be aware float utilities have no effect on flex items.
+Float start on all viewport sizes
+Float end on all viewport sizes
+Don't float on all viewport sizes
+html
+class
+"float-start"
+Float start on all viewport sizes
+class
+"float-end"
+Float end on all viewport sizes
+class
+"float-none"
+Don't float on all viewport sizes
+Responsive
+Responsive variations also exist for each
+float
+value.
+Float start on viewports sized SM (small) or wider
+Float start on viewports sized MD (medium) or wider
+Float start on viewports sized LG (large) or wider
+Float start on viewports sized XL (extra-large) or wider
+html
+class
+"float-sm-start"
+Float start on viewports sized SM (small) or wider
+class
+"float-md-start"
+Float start on viewports sized MD (medium) or wider
+class
+"float-lg-start"
+Float start on viewports sized LG (large) or wider
+class
+"float-xl-start"
+Float start on viewports sized XL (extra-large) or wider
+Here are all the support classes:
+.float-start
+.float-end
+.float-none
+.float-sm-start
+.float-sm-end
+.float-sm-none
+.float-md-start
+.float-md-end
+.float-md-none
+.float-lg-start
+.float-lg-end
+.float-lg-none
+.float-xl-start
+.float-xl-end
+.float-xl-none
+.float-xxl-start
+.float-xxl-end
+.float-xxl-none
+Sass
+Utilities API
+Float utilities are declared in our utilities API in
+scss/_utilities.scss
+Learn how to use the utilities API.
+"float"
+responsive
+true
+property
+float
+values
+start
+left
+right
+none
+none

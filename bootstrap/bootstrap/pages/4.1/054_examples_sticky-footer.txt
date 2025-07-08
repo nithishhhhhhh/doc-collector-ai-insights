@@ -1,0 +1,7 @@
+URL: https://getbootstrap.com/docs/4.1/examples/sticky-footer
+==================================================
+
+Sticky footer
+Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.
+the sticky footer with a fixed navbar
+if need be, too.

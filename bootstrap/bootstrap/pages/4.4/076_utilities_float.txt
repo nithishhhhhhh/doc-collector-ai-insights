@@ -1,0 +1,86 @@
+URL: https://getbootstrap.com/docs/4.4/utilities/float
+==================================================
+
+Float
+Toggle floats on any element, across any breakpoint, using our responsive float utilities.
+Overview
+These utility classes float an element to the left or right, or disable floating, based on the current viewport size using the
+float
+property
+!important
+is included to avoid specificity issues. These use the same viewport breakpoints as our grid system. Please be aware float utilities have no effect on flex items.
+Classes
+Toggle a float with a class:
+Float left on all viewport sizes
+Float right on all viewport sizes
+Don't float on all viewport sizes
+<div
+class=
+"float-left"
+Float left on all viewport sizes
+</div><br>
+<div
+class=
+"float-right"
+Float right on all viewport sizes
+</div><br>
+<div
+class=
+"float-none"
+Don't float on all viewport sizes
+</div>
+Mixins
+Or by Sass mixin:
+.element
+@include
+float-left
+.another-element
+@include
+float-right
+.one-more
+@include
+float-none
+Responsive
+Responsive variations also exist for each
+float
+value.
+Float left on viewports sized SM (small) or wider
+Float left on viewports sized MD (medium) or wider
+Float left on viewports sized LG (large) or wider
+Float left on viewports sized XL (extra-large) or wider
+<div
+class=
+"float-sm-left"
+Float left on viewports sized SM (small) or wider
+</div><br>
+<div
+class=
+"float-md-left"
+Float left on viewports sized MD (medium) or wider
+</div><br>
+<div
+class=
+"float-lg-left"
+Float left on viewports sized LG (large) or wider
+</div><br>
+<div
+class=
+"float-xl-left"
+Float left on viewports sized XL (extra-large) or wider
+</div><br>
+Here are all the support classes;
+.float-left
+.float-right
+.float-none
+.float-sm-left
+.float-sm-right
+.float-sm-none
+.float-md-left
+.float-md-right
+.float-md-none
+.float-lg-left
+.float-lg-right
+.float-lg-none
+.float-xl-left
+.float-xl-right
+.float-xl-none

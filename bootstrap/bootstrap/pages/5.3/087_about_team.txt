@@ -1,0 +1,32 @@
+URL: https://getbootstrap.com/docs/5.3/about/team
+==================================================
+
+Mark Otto
+@mdo
+Jacob Thornton
+@fat
+XhmikosR
+@xhmikosr
+GeoSot
+@geosot
+Patrick H. Lauke
+@patrickhlauke
+Julien Déramond
+@julien-deramond
+Gaël Poupard
+@ffoodd
+Rohit Sharma
+@rohit2sharma95
+alpadev
+@alpadev
+Martijn Cuppens
+@martijncuppens
+Johann-S
+@johann-s
+Gleb Mazovetskiy
+@glebm
+Get involved with Bootstrap development by
+opening an issue
+or submitting a pull request. Read our
+contributing guidelines
+for information on how we develop.

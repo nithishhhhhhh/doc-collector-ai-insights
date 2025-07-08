@@ -1,0 +1,1211 @@
+URL: https://getbootstrap.com/docs/5.2/forms/validation
+==================================================
+
+We are aware that currently the client-side custom validation styles and tooltips are not accessible, since they are not exposed to assistive technologies. While we work on a solution, we’d recommend either using the server-side option or the default browser validation method.
+How it works
+Here’s how form validation works with Bootstrap:
+HTML form validation is applied via CSS’s two pseudo-classes,
+:invalid
+:valid
+. It applies to
+<input>
+<select>
+, and
+<textarea>
+elements.
+:invalid
+:valid
+styles to parent
+.was-validated
+class, usually applied to the
+<form>
+. Otherwise, any required field without a value shows up as invalid on page load. This way, you may choose when to activate them (typically after form submission is attempted).
+To reset the appearance of the form (for instance, in the case of dynamic form submissions using AJAX), remove the
+.was-validated
+class from the
+<form>
+again after submission.
+As a fallback,
+.is-invalid
+.is-valid
+classes may be used instead of the pseudo-classes for
+server-side validation
+. They do not require a
+.was-validated
+parent class.
+Due to constraints in how CSS works, we cannot (at present) apply styles to a
+<label>
+that comes before a form control in the DOM without the help of custom JavaScript.
+All modern browsers support the
+constraint validation API
+, a series of JavaScript methods for validating form controls.
+Feedback messages may utilize the
+browser defaults
+(different for each browser, and unstylable via CSS) or our custom feedback styles with additional HTML and CSS.
+You may provide custom validity messages with
+setCustomValidity
+in JavaScript.
+With that in mind, consider the following demos for our custom form validation styles, optional server-side classes, and browser defaults.
+Custom styles
+For custom Bootstrap form validation messages, you’ll need to add the
+novalidate
+boolean attribute to your
+<form>
+. This disables the browser default feedback tooltips, but still provides access to the form validation APIs in JavaScript. Try to submit the form below; our JavaScript will intercept the submit button and relay feedback to you. When attempting to submit, you’ll see the
+:invalid
+:valid
+styles applied to your form controls.
+Custom feedback styles apply custom colors, borders, focus styles, and background icons to better communicate feedback. Background icons for
+<select>
+s are only available with
+.form-select
+, and not
+.form-control
+First name
+Looks good!
+Last name
+Looks good!
+Username
+Please choose a username.
+City
+Please provide a valid city.
+State
+Choose...
+Please select a valid state.
+Please provide a valid zip.
+Agree to terms and conditions
+You must agree before submitting.
+Submit form
+html
+form
+class
+"row g-3 needs-validation"
+novalidate
+class
+"col-md-4"
+label
+"validationCustom01"
+class
+"form-label"
+First name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationCustom01"
+value
+"Mark"
+required
+class
+"valid-feedback"
+Looks good!
+class
+"col-md-4"
+label
+"validationCustom02"
+class
+"form-label"
+Last name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationCustom02"
+value
+"Otto"
+required
+class
+"valid-feedback"
+Looks good!
+class
+"col-md-4"
+label
+"validationCustomUsername"
+class
+"form-label"
+Username
+label
+class
+"input-group has-validation"
+span
+class
+"input-group-text"
+"inputGroupPrepend"
+span
+input
+type
+"text"
+class
+"form-control"
+"validationCustomUsername"
+aria-describedby
+"inputGroupPrepend"
+required
+class
+"invalid-feedback"
+Please choose a username.
+class
+"col-md-6"
+label
+"validationCustom03"
+class
+"form-label"
+City
+label
+input
+type
+"text"
+class
+"form-control"
+"validationCustom03"
+required
+class
+"invalid-feedback"
+Please provide a valid city.
+class
+"col-md-3"
+label
+"validationCustom04"
+class
+"form-label"
+State
+label
+select
+class
+"form-select"
+"validationCustom04"
+required
+option
+selected
+disabled
+value
+Choose...
+option
+option
+option
+select
+class
+"invalid-feedback"
+Please select a valid state.
+class
+"col-md-3"
+label
+"validationCustom05"
+class
+"form-label"
+label
+input
+type
+"text"
+class
+"form-control"
+"validationCustom05"
+required
+class
+"invalid-feedback"
+Please provide a valid zip.
+class
+"col-12"
+class
+"form-check"
+input
+class
+"form-check-input"
+type
+"checkbox"
+value
+"invalidCheck"
+required
+label
+class
+"form-check-label"
+"invalidCheck"
+Agree to terms and conditions
+label
+class
+"invalid-feedback"
+You must agree before submitting.
+class
+"col-12"
+button
+class
+"btn btn-primary"
+type
+"submit"
+Submit form
+button
+form
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+'use strict'
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+const
+forms
+document
+querySelectorAll
+'.needs-validation'
+// Loop over them and prevent submission
+Array
+from
+forms
+forEach
+form
+form
+addEventListener
+'submit'
+event
+form
+checkValidity
+event
+preventDefault
+event
+stopPropagation
+form
+classList
+'was-validated'
+false
+})()
+Browser defaults
+Not interested in custom validation feedback messages or writing JavaScript to change form behaviors? All good, you can use the browser defaults. Try submitting the form below. Depending on your browser and OS, you’ll see a slightly different style of feedback.
+While these feedback styles cannot be styled with CSS, you can still customize the feedback text through JavaScript.
+First name
+Last name
+Username
+City
+State
+Choose...
+Agree to terms and conditions
+Submit form
+html
+form
+class
+"row g-3"
+class
+"col-md-4"
+label
+"validationDefault01"
+class
+"form-label"
+First name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationDefault01"
+value
+"Mark"
+required
+class
+"col-md-4"
+label
+"validationDefault02"
+class
+"form-label"
+Last name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationDefault02"
+value
+"Otto"
+required
+class
+"col-md-4"
+label
+"validationDefaultUsername"
+class
+"form-label"
+Username
+label
+class
+"input-group"
+span
+class
+"input-group-text"
+"inputGroupPrepend2"
+span
+input
+type
+"text"
+class
+"form-control"
+"validationDefaultUsername"
+aria-describedby
+"inputGroupPrepend2"
+required
+class
+"col-md-6"
+label
+"validationDefault03"
+class
+"form-label"
+City
+label
+input
+type
+"text"
+class
+"form-control"
+"validationDefault03"
+required
+class
+"col-md-3"
+label
+"validationDefault04"
+class
+"form-label"
+State
+label
+select
+class
+"form-select"
+"validationDefault04"
+required
+option
+selected
+disabled
+value
+Choose...
+option
+option
+option
+select
+class
+"col-md-3"
+label
+"validationDefault05"
+class
+"form-label"
+label
+input
+type
+"text"
+class
+"form-control"
+"validationDefault05"
+required
+class
+"col-12"
+class
+"form-check"
+input
+class
+"form-check-input"
+type
+"checkbox"
+value
+"invalidCheck2"
+required
+label
+class
+"form-check-label"
+"invalidCheck2"
+Agree to terms and conditions
+label
+class
+"col-12"
+button
+class
+"btn btn-primary"
+type
+"submit"
+Submit form
+button
+form
+Server side
+We recommend using client-side validation, but in case you require server-side validation, you can indicate invalid and valid form fields with
+.is-invalid
+.is-valid
+. Note that
+.invalid-feedback
+is also supported with these classes.
+For invalid fields, ensure that the invalid feedback/error message is associated with the relevant form field using
+aria-describedby
+(noting that this attribute allows more than one
+to be referenced, in case the field already points to additional form text).
+To fix
+issues with border radius
+, input groups require an additional
+.has-validation
+class.
+First name
+Looks good!
+Last name
+Looks good!
+Username
+Please choose a username.
+City
+Please provide a valid city.
+State
+Choose...
+Please select a valid state.
+Please provide a valid zip.
+Agree to terms and conditions
+You must agree before submitting.
+Submit form
+html
+form
+class
+"row g-3"
+class
+"col-md-4"
+label
+"validationServer01"
+class
+"form-label"
+First name
+label
+input
+type
+"text"
+class
+"form-control is-valid"
+"validationServer01"
+value
+"Mark"
+required
+class
+"valid-feedback"
+Looks good!
+class
+"col-md-4"
+label
+"validationServer02"
+class
+"form-label"
+Last name
+label
+input
+type
+"text"
+class
+"form-control is-valid"
+"validationServer02"
+value
+"Otto"
+required
+class
+"valid-feedback"
+Looks good!
+class
+"col-md-4"
+label
+"validationServerUsername"
+class
+"form-label"
+Username
+label
+class
+"input-group has-validation"
+span
+class
+"input-group-text"
+"inputGroupPrepend3"
+span
+input
+type
+"text"
+class
+"form-control is-invalid"
+"validationServerUsername"
+aria-describedby
+"inputGroupPrepend3 validationServerUsernameFeedback"
+required
+"validationServerUsernameFeedback"
+class
+"invalid-feedback"
+Please choose a username.
+class
+"col-md-6"
+label
+"validationServer03"
+class
+"form-label"
+City
+label
+input
+type
+"text"
+class
+"form-control is-invalid"
+"validationServer03"
+aria-describedby
+"validationServer03Feedback"
+required
+"validationServer03Feedback"
+class
+"invalid-feedback"
+Please provide a valid city.
+class
+"col-md-3"
+label
+"validationServer04"
+class
+"form-label"
+State
+label
+select
+class
+"form-select is-invalid"
+"validationServer04"
+aria-describedby
+"validationServer04Feedback"
+required
+option
+selected
+disabled
+value
+Choose...
+option
+option
+option
+select
+"validationServer04Feedback"
+class
+"invalid-feedback"
+Please select a valid state.
+class
+"col-md-3"
+label
+"validationServer05"
+class
+"form-label"
+label
+input
+type
+"text"
+class
+"form-control is-invalid"
+"validationServer05"
+aria-describedby
+"validationServer05Feedback"
+required
+"validationServer05Feedback"
+class
+"invalid-feedback"
+Please provide a valid zip.
+class
+"col-12"
+class
+"form-check"
+input
+class
+"form-check-input is-invalid"
+type
+"checkbox"
+value
+"invalidCheck3"
+aria-describedby
+"invalidCheck3Feedback"
+required
+label
+class
+"form-check-label"
+"invalidCheck3"
+Agree to terms and conditions
+label
+"invalidCheck3Feedback"
+class
+"invalid-feedback"
+You must agree before submitting.
+class
+"col-12"
+button
+class
+"btn btn-primary"
+type
+"submit"
+Submit form
+button
+form
+Supported elements
+Validation styles are available for the following form controls and components:
+<input>
+s and
+<textarea>
+s with
+.form-control
+(including up to one
+.form-control
+in input groups)
+<select>
+s with
+.form-select
+.form-check
+Textarea
+Please enter a message in the textarea.
+Check this checkbox
+Example invalid feedback text
+Toggle this radio
+Or toggle this other radio
+More example invalid feedback text
+Open this select menu
+Three
+Example invalid select feedback
+Example invalid form file feedback
+Submit form
+html
+form
+class
+"was-validated"
+class
+"mb-3"
+label
+"validationTextarea"
+class
+"form-label"
+Textarea
+label
+textarea
+class
+"form-control"
+"validationTextarea"
+placeholder
+"Required example textarea"
+required
+textarea
+class
+"invalid-feedback"
+Please enter a message in the textarea.
+class
+"form-check mb-3"
+input
+type
+"checkbox"
+class
+"form-check-input"
+"validationFormCheck1"
+required
+label
+class
+"form-check-label"
+"validationFormCheck1"
+Check this checkbox
+label
+class
+"invalid-feedback"
+Example invalid feedback text
+class
+"form-check"
+input
+type
+"radio"
+class
+"form-check-input"
+"validationFormCheck2"
+name
+"radio-stacked"
+required
+label
+class
+"form-check-label"
+"validationFormCheck2"
+Toggle this radio
+label
+class
+"form-check mb-3"
+input
+type
+"radio"
+class
+"form-check-input"
+"validationFormCheck3"
+name
+"radio-stacked"
+required
+label
+class
+"form-check-label"
+"validationFormCheck3"
+Or toggle this other radio
+label
+class
+"invalid-feedback"
+More example invalid feedback text
+class
+"mb-3"
+select
+class
+"form-select"
+required
+aria-label
+"select example"
+option
+value
+Open this select menu
+option
+option
+value
+option
+option
+value
+option
+option
+value
+Three
+option
+select
+class
+"invalid-feedback"
+Example invalid select feedback
+class
+"mb-3"
+input
+type
+"file"
+class
+"form-control"
+aria-label
+"file example"
+required
+class
+"invalid-feedback"
+Example invalid form file feedback
+class
+"mb-3"
+button
+class
+"btn btn-primary"
+type
+"submit"
+disabled
+Submit form
+button
+form
+Tooltips
+If your form layout allows it, you can swap the
+.{valid|invalid}-feedback
+classes for
+.{valid|invalid}-tooltip
+classes to display validation feedback in a styled tooltip. Be sure to have a parent with
+position: relative
+on it for tooltip positioning. In the example below, our column classes have this already, but your project may require an alternative setup.
+First name
+Looks good!
+Last name
+Looks good!
+Username
+Please choose a unique and valid username.
+City
+Please provide a valid city.
+State
+Choose...
+Please select a valid state.
+Please provide a valid zip.
+Submit form
+html
+form
+class
+"row g-3 needs-validation"
+novalidate
+class
+"col-md-4 position-relative"
+label
+"validationTooltip01"
+class
+"form-label"
+First name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationTooltip01"
+value
+"Mark"
+required
+class
+"valid-tooltip"
+Looks good!
+class
+"col-md-4 position-relative"
+label
+"validationTooltip02"
+class
+"form-label"
+Last name
+label
+input
+type
+"text"
+class
+"form-control"
+"validationTooltip02"
+value
+"Otto"
+required
+class
+"valid-tooltip"
+Looks good!
+class
+"col-md-4 position-relative"
+label
+"validationTooltipUsername"
+class
+"form-label"
+Username
+label
+class
+"input-group has-validation"
+span
+class
+"input-group-text"
+"validationTooltipUsernamePrepend"
+span
+input
+type
+"text"
+class
+"form-control"
+"validationTooltipUsername"
+aria-describedby
+"validationTooltipUsernamePrepend"
+required
+class
+"invalid-tooltip"
+Please choose a unique and valid username.
+class
+"col-md-6 position-relative"
+label
+"validationTooltip03"
+class
+"form-label"
+City
+label
+input
+type
+"text"
+class
+"form-control"
+"validationTooltip03"
+required
+class
+"invalid-tooltip"
+Please provide a valid city.
+class
+"col-md-3 position-relative"
+label
+"validationTooltip04"
+class
+"form-label"
+State
+label
+select
+class
+"form-select"
+"validationTooltip04"
+required
+option
+selected
+disabled
+value
+Choose...
+option
+option
+option
+select
+class
+"invalid-tooltip"
+Please select a valid state.
+class
+"col-md-3 position-relative"
+label
+"validationTooltip05"
+class
+"form-label"
+label
+input
+type
+"text"
+class
+"form-control"
+"validationTooltip05"
+required
+class
+"invalid-tooltip"
+Please provide a valid zip.
+class
+"col-12"
+button
+class
+"btn btn-primary"
+type
+"submit"
+Submit form
+button
+form
+Sass
+Variables
+$form-feedback-margin-top
+$form-text-margin-top
+$form-feedback-font-size
+$form-text-font-size
+$form-feedback-font-style
+$form-text-font-style
+$form-feedback-valid-color
+$success
+$form-feedback-invalid-color
+$danger
+$form-feedback-icon-valid-color
+$form-feedback-valid-color
+$form-feedback-icon-valid
+url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='
+$form-feedback-icon-valid-color
+' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>")
+$form-feedback-icon-invalid-color
+$form-feedback-invalid-color
+$form-feedback-icon-invalid
+url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='
+$form-feedback-icon-invalid-color
+'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='
+$form-feedback-icon-invalid-color
+' stroke='none'/></svg>")
+Mixins
+Two mixins are combined together, through our
+loop
+, to generate our form validation feedback styles.
+@mixin
+form-validation-state-selector
+$state
+$state
+"valid"
+$state
+"invalid"
+.was-validated
+$state
+.is-
+$state
+@content
+@else
+.is-
+$state
+@content
+@mixin
+form-validation-state
+$state
+$color
+$icon
+$tooltip-color
+color-contrast
+$color
+$tooltip-bg-color
+rgba
+$color
+$form-feedback-tooltip-opacity
+$focus-box-shadow
+$input-btn-focus-blur
+$input-focus-width
+rgba
+$color
+$input-btn-focus-color-opacity
+$state
+-feedback
+display
+none
+width
+margin-top
+$form-feedback-margin-top
+@include
+font-size
+$form-feedback-font-size
+font-style
+$form-feedback-font-style
+color
+$color
+$state
+-tooltip
+position
+absolute
+z-index
+display
+none
+max-width
+// Contain to parent when possible
+padding
+$form-feedback-tooltip-padding-y
+$form-feedback-tooltip-padding-x
+margin-top
+@include
+font-size
+$form-feedback-tooltip-font-size
+line-height
+$form-feedback-tooltip-line-height
+color
+$tooltip-color
+background-color
+$tooltip-bg-color
+@include
+border-radius
+$form-feedback-tooltip-border-radius
+@include
+form-validation-state-selector
+$state
+$state
+-feedback
+$state
+-tooltip
+display
+block
+.form-control
+@include
+form-validation-state-selector
+$state
+border-color
+$color
+$enable-validation-icons
+padding-right
+$input-height-inner
+background-image
+escape-svg
+$icon
+background-repeat
+no-repeat
+background-position
+right
+$input-height-inner-quarter
+center
+background-size
+$input-height-inner-half
+$input-height-inner-half
+:focus
+border-color
+$color
+box-shadow
+$focus-box-shadow
+// stylelint-disable-next-line selector-no-qualifying-type
+textarea
+.form-control
+@include
+form-validation-state-selector
+$state
+$enable-validation-icons
+padding-right
+$input-height-inner
+background-position
+$input-height-inner-quarter
+right
+$input-height-inner-quarter
+.form-select
+@include
+form-validation-state-selector
+$state
+border-color
+$color
+$enable-validation-icons
+multiple
+size
+multiple
+size
+padding-right
+$form-select-feedback-icon-padding-end
+background-image
+escape-svg
+$form-select-indicator
+escape-svg
+$icon
+background-position
+$form-select-bg-position
+$form-select-feedback-icon-position
+background-size
+$form-select-bg-size
+$form-select-feedback-icon-size
+:focus
+border-color
+$color
+box-shadow
+$focus-box-shadow
+.form-control-color
+@include
+form-validation-state-selector
+$state
+$enable-validation-icons
+width
+$form-color-width
+$input-height-inner
+.form-check-input
+@include
+form-validation-state-selector
+$state
+border-color
+$color
+:checked
+background-color
+$color
+:focus
+box-shadow
+$focus-box-shadow
+.form-check-label
+color
+$color
+.form-check-inline
+.form-check-input
+$state
+-feedback
+margin-left
+.input-group
+.form-control
+:not
+:focus
+.form-select
+:not
+:focus
+.form-floating
+:not
+:focus-within
+@include
+form-validation-state-selector
+$state
+$state
+"valid"
+z-index
+@else if
+$state
+"invalid"
+z-index
+This is the validation Sass map from
+_variables.scss
+. Override or extend this to generate different or additional states.
+$form-validation-states
+"valid"
+"color"
+$form-feedback-valid-color
+"icon"
+$form-feedback-icon-valid
+"invalid"
+"color"
+$form-feedback-invalid-color
+"icon"
+$form-feedback-icon-invalid
+Maps of
+$form-validation-states
+can contain three optional parameters to override tooltips and focus styles.
+Loop
+Used to iterate over
+$form-validation-states
+map values to generate our validation styles. Any modifications to the above Sass map will be reflected in your compiled CSS via this loop.
+@each
+$state
+$data
+$form-validation-states
+@include
+form-validation-state
+$state
+$data
+Customizing
+Validation states can be customized via Sass with the
+$form-validation-states
+map. Located in our
+_variables.scss
+file, this Sass map is how we generate the default
+valid
+invalid
+validation states. Included is a nested map for customizing each state’s color, icon, tooltip color, and focus shadow. While no other states are supported by browsers, those using custom styles can easily add more complex form feedback.

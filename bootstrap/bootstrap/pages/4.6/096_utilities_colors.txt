@@ -1,0 +1,189 @@
+URL: https://getbootstrap.com/docs/4.6/utilities/colors
+==================================================
+
+View on GitHub
+Colors
+Convey meaning through color with a handful of color utility classes. Includes support for styling links with hover states, too.
+Dealing with specificity
+Sometimes contextual classes cannot be applied due to the specificity of another selector. In some cases, a sufficient workaround is to wrap your element’s content in a
+<div>
+with the class.
+Conveying meaning to assistive technologies
+Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the
+.sr-only
+class.
+Color
+.text-primary
+.text-secondary
+.text-success
+.text-danger
+.text-warning
+.text-info
+.text-light
+.text-dark
+.text-body
+.text-muted
+.text-white
+.text-black-50
+.text-white-50
+class
+"text-primary"
+.text-primary
+class
+"text-secondary"
+.text-secondary
+class
+"text-success"
+.text-success
+class
+"text-danger"
+.text-danger
+class
+"text-warning"
+.text-warning
+class
+"text-info"
+.text-info
+class
+"text-light bg-dark"
+.text-light
+class
+"text-dark"
+.text-dark
+class
+"text-body"
+.text-body
+class
+"text-muted"
+.text-muted
+class
+"text-white bg-dark"
+.text-white
+class
+"text-black-50"
+.text-black-50
+class
+"text-white-50 bg-dark"
+.text-white-50
+Contextual text classes also work well on anchors with the provided hover and focus states.
+Note that the
+.text-white
+.text-muted
+class has no additional link styling beyond underline.
+Primary link
+Secondary link
+Success link
+Danger link
+Warning link
+Info link
+Light link
+Dark link
+Muted link
+White link
+href
+class
+"text-primary"
+Primary link
+href
+class
+"text-secondary"
+Secondary link
+href
+class
+"text-success"
+Success link
+href
+class
+"text-danger"
+Danger link
+href
+class
+"text-warning"
+Warning link
+href
+class
+"text-info"
+Info link
+href
+class
+"text-light bg-dark"
+Light link
+href
+class
+"text-dark"
+Dark link
+href
+class
+"text-muted"
+Muted link
+href
+class
+"text-white bg-dark"
+White link
+Background color
+Similar to the contextual text color classes, easily set the background of an element to any contextual class. Anchor components will darken on hover, just like the text classes. Background utilities
+do not set
+color
+, so in some cases you’ll want to use
+.text-*
+utilities.
+.bg-primary
+.bg-secondary
+.bg-success
+.bg-danger
+.bg-warning
+.bg-info
+.bg-light
+.bg-dark
+.bg-white
+.bg-transparent
+class
+"p-3 mb-2 bg-primary text-white"
+.bg-primary
+class
+"p-3 mb-2 bg-secondary text-white"
+.bg-secondary
+class
+"p-3 mb-2 bg-success text-white"
+.bg-success
+class
+"p-3 mb-2 bg-danger text-white"
+.bg-danger
+class
+"p-3 mb-2 bg-warning text-dark"
+.bg-warning
+class
+"p-3 mb-2 bg-info text-white"
+.bg-info
+class
+"p-3 mb-2 bg-light text-dark"
+.bg-light
+class
+"p-3 mb-2 bg-dark text-white"
+.bg-dark
+class
+"p-3 mb-2 bg-white text-dark"
+.bg-white
+class
+"p-3 mb-2 bg-transparent text-dark"
+.bg-transparent
+Background gradient
+When
+$enable-gradients
+is set to
+true
+(default is
+false
+), you can use
+.bg-gradient-
+utility classes.
+Learn about our Sass options
+to enable these classes and more.
+.bg-gradient-primary
+.bg-gradient-secondary
+.bg-gradient-success
+.bg-gradient-danger
+.bg-gradient-warning
+.bg-gradient-info
+.bg-gradient-light
+.bg-gradient-dark

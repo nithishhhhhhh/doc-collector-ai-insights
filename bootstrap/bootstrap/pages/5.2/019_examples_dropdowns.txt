@@ -1,0 +1,43 @@
+URL: https://getbootstrap.com/docs/5.2/examples/dropdowns
+==================================================
+
+Action
+Another action
+Something else here
+Separated link
+Action
+Another action
+Something else here
+Separated link
+Action
+Another action
+Something else here
+Separated link
+Action
+Another action
+Something else here
+Separated link
+Documents
+Photos
+Movies
+Music
+Games
+Trash
+Documents
+Photos
+Movies
+Music
+Games
+Trash
+June
+January
+February
+March
+April
+June
+July
+August
+September
+October
+November
+December
