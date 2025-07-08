@@ -1,0 +1,466 @@
+Animation
+The global
+anime
+object has been replaced by the
+animate
+import.
+-
+import anime from 'animejs';
++
+import { animate } from 'animejs';
+Targets
+The
+targets
+parameter has been replaced by the mandatory Targets argument of the
+animate
+function.
+-
+anime({
+-
+targets: 'div',
++
+animate('div', {
+});
+Property parameters
+endDelay
+The
+endDelay
+parameter has been replaced by
+loopDelay
+.
+Note that this is not a 1/1 replacement, the
+endDelay
+used to add an extra delay between loops and also at the end of the last iteration.
+The
+loopDelay
+only adds a delay between loops, and won't add any delay at the end of the last iteration.
+-
+endDelay: 1000,
++
+loopDelay: 1000,
+easing
+The
+easing
+parameter has been renamed
+ease
+.
+The function names have been shortened by removing the
+'ease'
+prefix.
+The new default easing function name is 'out(2)'.
+-
+easing: 'easeOutQuad',
++
+ease: 'outQuad',
+Specific property parameters
+The Object syntax
+value
+parameter name has been renamed
+to
+.
+-
+opacity: { value: .5, duration: 250 },
++
+opacity: { to: 1, duration: 250 },
+Animation parameters
+direction
+The
+direction
+parameter has been replaced by two new parameters:
+reversed
+and
+alternate
+.
+-
+direction: 'reverse',
++
+reversed: true,
+-
+direction: 'alternate',
++
+alternate: true,
+loop
+The
+loop
+parameter behavior has changed, it now defines the number of times the animation repeats, instead of defining the actual number of iterations.
+-
+loop: 1, // Used to mean "just run once", iterations: 1
++
+loop: 1, // Now means "repeat the animation once", iterations: 2
+round
+The
+round
+parameter has been replaced by a more versatile
+modifier
+parameter, allowing different modifier functions.
+You can use the new
+utils.round()
+utility function to achieve similar behavior to the old
+round
+parameter.
+Note that
+utils.round(decimalLength)
+takes a decimal length parameter instead of a multiplier:
+-
+round: 100,
++
+modifier: utils.round(2),
+Keyframes
+Property keyframes
+Property keyframes now use the new Object syntax property
+to
+.
+-
+opacity: [{ value: .5 }, { value: 1 }, { value: .5 }],
++
+opacity: [{ to: .5 }, { to: 1 }, { to: .5 }],
+Stagger
+direction
+The stagger
+direction
+parameter has been replaced by
+reversed
+and accepts a
+Boolean
+-
+delay: stagger(100, { direction: 'reverse' }),
++
+delay: stagger(100, { reversed: true }),
+easing
+The stagger
+easing
+parameter has been replaced by
+ease
+-
+delay: stagger(100, { easing: 'easeInOutQuad' }),
++
+delay: stagger(100, { ease: 'inOutQuad' }),
+Timeline
+Timelines are now created using the
+createTimeline
+import.
+-
+const tl = anime.timeline(),
++
+const tl = createTimeline(),
+Parameters inheritance
+Timeline's children default parameters are now defined inside a
+defaults
+Object parameter.
+-
+const tl = anime.timeline({ easing: 'easeOutQuad', duration: 250 }),
++
+const tl = createTimeline({ defaults: { ease: 'outQuad', duration: 250 } }),
+Timeline's children
+loop
+parameter
+Timeline's children
+loop
+parameter is now properly taken into account, and can even be mixed with the Timeline loop parameter itself.
+Controls
+play()
+The
+play()
+method now always plays the animation or timeline forwards, even if it's reversed.
+To resume a paused animation in the direction it was previously running, use
+.resume()
+instead.
+To play an animation backwards, use
+.reverse()
+.
+reverse()
+The
+reverse()
+method now always plays the animation or timeline backwards instead of reversing the current direction.
+To play an animation in the opposite direction, use the new
+.alternate()
+method instead.
+To play an animation forwards, use
+.play()
+.
+Callbacks
+All callbacks parameters are now written with the
+on
+prefix:
+-
+update: () => {},
++
+onUpdate: () => {},
+-
+begin: () => {},
++
+onBegin: () => {},
+-
+complete: () => {},
++
+onComplete: () => {},
+begin
+begin
+used to be called immediately without taking into account the delay parameter.
+onBegin
+is now called after the animation's delay has completed.
+loopBegin
+and
+loopComplete
+loopBegin
+and
+loopComplete
+callbacks have been replaced with a single
+onLoop
+callback
+-
+loopBegin: () => {},
+-
+loopComplete: () => {},
++
+onLoop: () => {},
+change
+The
+change
+callback has been replaced with
+onRender
+.
+The
+onRender
+callback is called every time a value of the animation changes.
+-
+change: () => {},
++
+onRender: () => {},
+changeBegin
+and
+changeComplete
+The
+changeBegin
+and
+changeComplete
+have been removed from the API.
+finished
+Promise
+The
+animation.finished.then
+Promise has been replaced by
+.then()
+callback;
+-
+anime({ targets: target, ...options }).finished.then = () => {},
++
+animate(target, options).then(() => {}),
+You can also recreate v3's
+animation.finished
+behavior by using the Promise returned by
+animation.then();
+, like this:
+-
+const finishedPromise = animation.finished;
++
+const finishedPromise = animation.then();
+finishedPromise.then = () => console.log('A');
+finishedPromise.then = () => console.log('B');
+SVG
+All SVG helpers are now available on the
+svg
+module
+-
+anime.path(),
++
+svg.createMotionPath(),
+-
+anime.setDashoffset(),
++
+svg.createDrawable(),
+anime.path
+(Motion path)
+anime.path(pathSelector)
+has been replaced with
+svg.createMotionPath(pathSelector)
+.
+-
+const { x, y, angle } = anime.path(el),
++
+const { translateX, translateY, rotate } = createMotionPath(el);
+anime.setDashoffset
+(Line drawing)
+anime.setDashoffset
+has been replaced with a more powerful
+svg.createDrawable()
+method.
+-
+anime({
+-
+targets: 'path',
+-
+strokeDashoffset: [anime.setDashoffset, 0],
+-
+});
++
+animate(createDrawable('path'), {
++
+draw: '0 1',
++
+});
+Easings
+All easing function names lost their prefix
+ease
+.
+The
+easing
+parameter has been renamed
+ease
+.
+The function names have been shortened by removing the
+'ease'
+prefix.
+The new default easing function name is 'out(2)'.
+-
+easing: 'easeOutQuad',
++
+ease: 'outQuad',
+Spring
+Spring easings are not part of the core animation function anymore, and must be created using the
+createSpring()
+module.
+The spring parameters are now defined using an Object.
+-
+easing: 'spring(1, 80, 10, 0)',
++
+ease: createSpring({ mass: 1, stiffness: 80, damping: 10, velocity: 0 }),
+Custom easing function
+Function based values are not allowed for easings anymore.
+This allows passing an easing function directly to the
+ease
+parameter, no need to wrap it into another function.
+-
+easing: () => t => 1 - Math.sqrt(1 - t * t),
++
+ease: t => 1 - Math.sqrt(1 - t * t),
+Helpers
+The utility functions are now available on the
+utils
+import.
+animation.remove()
+-
+animation.remove(targets),
++
+utils.remove(targets),
+anime.get()
+-
+animation.get(target, 'property'),
++
+utils.get(target, 'property'),
+anime.set()
+-
+animation.set(target, { prop1: value, prop2: value }),
++
+utils.set(target, { prop1: value, prop2: value }),
+anime.random()
+-
+animation.random(50, 100),
++
+utils.random(50, 100),
+animation.tick()
+The
+tick()
+animation method has been replaced by a global manual tick system.
+import
+{
+engine
+}
+from
+'animejs'
+;
+// Prevents Anime.js from using its own loop
+engine
+.
+useDefaultMainLoop
+=
+false
+;
+function
+render
+(
+)
+{
+engine
+.
+update
+(
+)
+;
+// Manually update Anime.js engine
+}
+// Calls the builtin Three.js animation loop
+renderer
+.
+setAnimationLoop
+(
+render
+)
+;
+anime.running
+anime.running
+has been removed.
+anime.suspendWhenDocumentHidden
+anime.suspendWhenDocumentHidden
+has been replaced with the
+pauseOnDocumentHidden
+parameter of the
+engine
+import.
+-
+anime.suspendWhenDocumentHidden = true;
++
+engine.pauseOnDocumentHidden = true;
+Toggle table of contents
+Pages
+2
+Loading
+Home
+Uh oh!
+There was an error while loading.
+Please reload this page
+.
+Loading
+Migrating from v3 to v4
+Animation
+Targets
+Property parameters
+endDelay
+easing
+Specific property parameters
+Animation parameters
+direction
+loop
+round
+Keyframes
+Property keyframes
+Stagger
+direction
+easing
+Timeline
+Parameters inheritance
+Timeline's children loop parameter
+Controls
+play()
+reverse()
+Callbacks
+begin
+loopBegin and loopComplete
+change
+changeBegin and changeComplete
+finished Promise
+SVG
+anime.path (Motion path)
+anime.setDashoffset (Line drawing)
+Easings
+Spring
+Custom easing function
+Helpers
+animation.remove()
+anime.get()
+anime.set()
+anime.random()
+animation.tick()
+anime.running
+anime.suspendWhenDocumentHidden
+Clone this wiki locally
